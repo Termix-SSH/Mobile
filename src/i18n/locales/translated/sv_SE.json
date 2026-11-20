@@ -1,1 +1,3827 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Logga in",
+      "addServer": "Lägg till server",
+      "switchAccount": "Byt konto",
+      "noServerConnected": "Ingen server ansluten",
+      "connectToATermixServer": "Anslut till en Termix-server för att hantera dina värdar, terminaler, filer och mer."
+    },
+    "lockScreen": {
+      "cancel": "Avbryt",
+      "tooManyTriesWaitSeconds": "För många försök. Vänta {{value}} sekunder",
+      "termixLocked": "Termix är låst",
+      "enterYourPinToContinue": "Ange ditt PIN-kod för att fortsätta"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Orange",
+      "blue": "Blå",
+      "green": "Grön",
+      "purple": "Lila",
+      "pink": "Rosa",
+      "cyan": "Cyan",
+      "red": "Röd",
+      "yellow": "Gul",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Ros",
+      "lime": "Lime",
+      "system": "System",
+      "light": "Ljus",
+      "dark": "Mörk"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Använd PIN-kod",
+      "unlockTermix": "Lås upp Termix",
+      "unlockTermixFirst": "Lås upp Termix först."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Denna funktion är inaktiverad på servern.",
+      "aTabWasNotReopened": "En flik öppnades inte igen eftersom dess värd har försvunnit"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Länka en Termix-server för att använda detta",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Ange din servers adress",
+        "theAddressCanTHave": "Adressen får inte innehålla mellanslag",
+        "useAnHttpOrHttps": "Använd en http://- eller https://-adress",
+        "thatDoesnTLookLike": "Det ser inte ut som en serveradress",
+        "thePortMustBeFrom": "Porten måste vara mellan 1 och 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "En inloggningsproxy svarade istället för Termix. Logga in på proxy:n först.",
+        "theServerDidNotSend": "Servern skickade inte en token.",
+        "theServerDidNotSend2": "Servern skickade inte en session.",
+        "theServerSentNoSign": "Servern skickade ingen inloggningsadress.",
+        "theSignInRanOut": "Inloggningen har löpt ut eller har redan använts. Logga in igen.",
+        "wrongUsernameOrPassword": "Fel användarnamn eller lösenord",
+        "signInFailedHttp": "Inloggningen misslyckades (HTTP {{status}})",
+        "thePageSignedYouIn": "Sidan loggade in dig men skickade ingen session tillbaka. Uppdatera servern till Termix 26.11.3 eller nyare.",
+        "thisAccountIsnTAllowed": "Detta konto har inte behörighet att logga in här.",
+        "noTermixAccountMatchesThat": "Inget Termix-konto matchar denna inloggning."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Denna session har ingen server"
+    },
+    "store": {
+      "noSuchAccount": "Inget sådant konto",
+      "thisDeviceCanTBe": "Den här enheten kan inte tas bort",
+      "switchToAnotherAccountFirst": "Byt till ett annat konto först"
+    },
+    "types": {
+      "thisDevice": "Den här enheten"
+    },
+    "accountSwitcher": {
+      "error": "Fel",
+      "worksWithoutAServer": "Fungerar utan en server",
+      "couldNotSwitchAccount": "Kunde inte byta konto",
+      "accounts": "Konton",
+      "openTabsKeepRunningWhen": "Öppna flikar fortsätter att köras när du byter.",
+      "unlink": "Koppla bort {{account}}",
+      "linkAServer": "Länka en server",
+      "eachServerKeepsItsOwn": "Varje server behåller sina egna värdar, inloggningsuppgifter och inställningar på den här {{deviceWord}}.",
+      "signedIn": "Inloggad",
+      "signedOut": "Utloggad",
+      "syncedCopy": "Synkroniserad kopia"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Kunde inte spara pinnen",
+      "theServerSKeyMatches": "Serverns nyckel matchar pinnen",
+      "theServerShowsAnotherKey": "Servern visar en annan nyckel",
+      "pinThisKey": "Vill du fästa denna nyckel?",
+      "pinThisKey2": "Fäst denna nyckel",
+      "keyPinned": "Nyckel fäst",
+      "couldNotReadTheServer": "Kunde inte läsa serverns nyckel",
+      "thatIsNotAPin": "Det är inte en pin",
+      "keysPinned": "Nycklar fästa",
+      "certificatePin": "Certifikatpin",
+      "trustThisServerOnlyBy": "Lita på denna server endast baserat på dess nyckel. Använd detta för ett självsignerat certifikat eller för att avvisa alla andra nycklar. Lägg till nästa nyckel innan du byter serverns certifikat.",
+      "removePin": "Ta bort pin {{pin}}",
+      "remove": "Ta bort",
+      "readTheKeyFromThe": "Läs nyckeln från servern",
+      "orPasteAPin": "Eller klistra in en pin",
+      "pin": "Pin",
+      "add": "Lägg till",
+      "issuedTo": "Utfärdad till: {{subject}}",
+      "issuedBy": "Utfärdad av: {{issuer}}",
+      "validUntil": "Giltig till: {{value}}",
+      "checkThatThisKeyMatches": "Kontrollera att denna nyckel matchar den på din server innan du fäster den.",
+      "pasteTheBase64Sha256Of": "Klistra in base64-sha256 för serverns offentliga nyckel, som openssl skriver ut den."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxyinställningar sparade",
+      "couldNotSaveTheProxy": "Kunde inte spara proxyinställningarna",
+      "couldNotReadThatFile": "Kunde inte läsa den filen",
+      "certificateSaved": "Certifikatet sparades",
+      "theFileOrItsPassphrase": "Filen eller dess lösenfras är felaktig",
+      "couldNotSaveTheCertificate": "Kunde inte spara certifikatet",
+      "headers": "Rubriker",
+      "sentWithEveryRequestTo": "Skickas med varje begäran till denna server, till exempel en Cloudflare-service-token.",
+      "name": "Namn",
+      "value": "Värde",
+      "removeHeader": "Ta bort rubrik",
+      "addHeader": "Lägg till rubrik",
+      "cloudflareServiceToken": "Cloudflare-service-token",
+      "basicAuth": "Grundläggande autentisering",
+      "forAProxyThatAsks": "För en proxy som ber om användarnamn och lösenord.",
+      "userName": "Användarnamn",
+      "password": "Lösenord",
+      "saveHeadersAndBasicAuth": "Spara rubriker och grundläggande autentisering",
+      "clientCertificate": "Klientcertifikat",
+      "forServersThatAskFor": "För servrar som begär ett (mTLS). Nyckeln förvaras i {{deviceWord}}s säkra lagring och kan inte läsas ut igen.",
+      "certificate": "Certifikat",
+      "remove": "Ta bort",
+      "replaceCertificate": "Ersätt certifikat",
+      "pickAP12OrPfx": "Välj en .p12- eller .pfx-fil",
+      "proxySignIn": "Proxyinloggning",
+      "forCloudflareAccessAutheliaAuthentik": "För Cloudflare Access, Authelia, Authentik och andra proxys med egen inloggningssida.{{value}}",
+      "signInToTheProxy": "Logga in i proxyn",
+      "forget": "Glöm",
+      "certificatePassphrase": "Certifikatlösenfras",
+      "thePassphraseTheFileWas": "Lösenfrasen som filen sparades med. Lämna tomt om den inte har någon.",
+      "passphrase": "Lösenfras",
+      "save": "Spara"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Inloggad i proxyn",
+      "couldNotSaveTheProxy": "Kunde inte spara proxyinloggningen",
+      "signInToTheProxy": "Logga in i proxyn",
+      "thisBuildOfTheApp": "Den här versionen av appen kan inte behålla en proxy-inloggning. Använd en servertoken i proxyheadrarna istället."
+    },
+    "savedLoginRow": {
+      "signIn": "Logga in",
+      "signInWith": "Logga in med {{name}}",
+      "whenThisServerSignsYou": "När den här servern loggar ut dig, logga in igen utan att skriva in ditt lösenord."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Kopplad bort. {{copied}} objekt behölls på Den här enheten.",
+      "unlinked": "Kopplad bort",
+      "couldNotUnlinkTheServer": "Kunde inte koppla bort servern",
+      "unlink": "Vill du koppla bort {{value}}?",
+      "thisSignsOutOfThe": "Den här {{deviceWord}}en loggar ut från servern. Inget raderas på servern.",
+      "keepACopyOnThis": "Behåll en kopia på Den här enheten",
+      "yourOwnHostsCredentialsAnd": "Dina egna värdar, inloggningsuppgifter och kommandon flyttas till Den här enheten. Värdar som delas med dig behålls inte.",
+      "deleteFromThis": "Ta bort från den här {{deviceWord}}en",
+      "everythingThisHasForThe": "Allt som den här {{deviceWord}}en har för servern tas bort."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Ändra det under Proxy nedan",
+      "updateTermixMobileFromYour": "Uppdatera Termix Mobile från din appbutik"
+    },
+    "savedLogin": {
+      "signInToTermix": "Logga in på Termix",
+      "faceUnlock": "ansiktslås"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Den här versionen kan inte kontrollera serverns fästa nyckel eller skicka dess certifikat."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Den här servern stöder inte den här funktionen",
+      "theProxyWantsYouTo": "Proxyn vill att du ska logga in",
+      "endpointNotAvailableOnThis": "Slutpunkt inte tillgänglig på den här servern",
+      "unknownError": "Okänt fel"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxyn framför den här servern vill att du ska logga in igen.",
+      "authenticationRequiredPleaseLogIn": "Autentisering krävs. Vänligen logga in igen.",
+      "accessDeniedYouDoNot": "Åtkomst nekad. Du har inte behörighet att utföra den här åtgärden.",
+      "thisFeatureIsTurnedOff": "Den här funktionen är inaktiverad på servern.",
+      "thisServerDoesNotSupport": "Den här servern stöder inte den här funktionen.",
+      "resourceNotFoundTheRequested": "Resursen hittades inte. Det begärda objektet kan ha raderats.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Resursen finns redan eller är i användning.",
+      "validationErrorPleaseCheckYour": "Valideringsfel. Kontrollera din inmatning och försök igen.",
+      "serverErrorOccurredPleaseTry": "Serverfel inträffade. Försök igen senare.",
+      "sslCertificateVerificationFailed": "Verifiering av SSL-certifikat misslyckades.",
+      "networkErrorPleaseCheckYour": "Nätverksfel. Kontrollera din anslutning och försök igen.",
+      "failedTo": "Misslyckades med {{operation}}",
+      "unknownError": "Okänt fel",
+      "unexpectedErrorDuring": "Oväntat fel under {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Appen kunde inte lita på HTTPS för den här lokala IP-adressen. Fäst serverns nyckel under Proxy och klientcertifikat, använd ett certifikat som {{deviceWord}}en litar på, eller använd HTTP på ett betroet lokalt eller VPN-nätverk.",
+        "thisServerIsBehindA": "Den här servern ligger bakom en inloggningsproxy. Använd alternativet för extern inloggning istället.",
+        "loginFailed": "Inloggningen misslyckades"
+      },
+      "files": {
+        "fileNotFound": "Filen hittades inte",
+        "fileWriteOperationDidNot": "Filskrivningen returnerade inte status för framgång",
+        "couldNot": "Kunde inte {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Värd sparad, men vissa inställningar misslyckades: {{value}}",
+        "unexpectedHostResponseFrom": "Oväntat svar från värd från {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Liveprov misslyckades"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Inget svar"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Den här servern visade inte den nyckel den är fäst vid, så sidan öppnades inte."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Den {{what}} finns inte längre.",
+      "aHostCannotBeIts": "En värd kan inte vara sin egen överordnad",
+      "parentHostNotFound": "Överordnad värd hittades inte",
+      "aHostCanTGo": "En värd kan inte placeras under en av sina egna undervärdar",
+      "thisIsSharedWithYou": "Den {{what}} delas med dig. Endast ägaren kan ändra den.",
+      "nameIsRequired": "Namn krävs",
+      "nameAndCommandAreRequired": "Namn och kommando krävs",
+      "aFolderWithThatName": "En mapp med det namnet finns redan"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Den här enheten kan inte spara {{what}} här."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Detta kommando delas med dig och kan inte ändras."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Använd en lösenfras med minst 8 tecken.",
+      "thisIsNotATermix": "Detta är inte en Termix-säkerhetskopia.",
+      "thisBackupIsFromA": "Den här säkerhetskopian är från en nyare version av Termix. Uppdatera appen först.",
+      "wrongPassphraseOrTheFile": "Fel lösenfras, eller så är filen skadad."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Den här versionen kan inte kryptera lokal data."
+    },
+    "keys": {
+      "unlockTermixFirst": "Lås upp Termix först.",
+      "thatIsNotADatabase": "Det är inte en databasnyckel.",
+      "couldNotSaveTheDatabase": "Kunde inte spara databasnyckeln."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Dessa data sparades av en nyare version av Termix. Uppdatera appen för att öppna dem."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Den här enheten synkroniserar inte.",
+      "localDataIsNotAvailable": "Lokal data är inte tillgänglig här.",
+      "unlockTermixFirst": "Lås upp Termix först."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Kan inte ansluta.",
+      "thisWayCanTRun": "Detta sätt kan inte köra kommandon"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-lösenord",
+      "password": "Lösenord",
+      "run": "Kör",
+      "thatPasswordWasWrong": "Det lösenordet var fel.",
+      "onNeedsRoot": "{{reason}} på {{hostName}} kräver root.",
+      "needsRootForThis": "{{hostName}} kräver root för detta.",
+      "itIsKeptUntilYou": "Det sparas tills du stänger appen."
+    },
+    "run": {
+      "theHostTookTooLong": "Värdmaskinen svarade för sent",
+      "connectionLost": "Anslutningen tappades"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Detta kräver root. Logga in som root, konfigurera sudo utan lösenord eller spara ett sudo-lösenord för värdmaskinen.",
+      "theSudoPasswordWasWrong": "Sudo-lösenordet var fel",
+      "commandFailed": "Kommandot misslyckades"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet i terminalen kräver en anslutning från {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funktionen {{id}} är redan registrerad"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adress",
+      "theIpOrHostName": "IP-adress eller värdnamn under namnet",
+      "username": "Användarnamn",
+      "theUserBeforeTheAddress": "Användaren före adressen",
+      "port": "Port",
+      "thePortAfterTheAddress": "Porten efter adressen",
+      "hostIcon": "Värdikon",
+      "theIconSetOnThe": "Ikonen som är inställd på värdmaskinen",
+      "pinIcon": "Fäst ikon",
+      "marksPinnedHosts": "Markerar fästa värdar",
+      "sharedBadge": "Delad märke",
+      "marksHostsSharedWithYou": "Markerar värdar som delats med dig",
+      "protocolBadges": "Protokollmärken",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker och andra etiketter",
+      "tags": "Taggar",
+      "theHostSTags": "Värdens taggar",
+      "cpuAndRam": "CPU och RAM",
+      "liveUsageBarsOnOnline": "Liveanvändningsfält för online-värdar",
+      "statusColors": "Statusfärger",
+      "greenBarWhenOnlineRed": "Grön fält när online, röd när offline"
+    },
+    "uiPrefs": {
+      "small": "Liten",
+      "default": "Standard",
+      "large": "Stor",
+      "comfortable": "Bekväm",
+      "compact": "Kompakt"
+    },
+    "errors": {
+      "somethingWentWrong": "Något gick fel"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Att låsa en nyckel med en lösenfras kräver Termix-appen, inte en webbförhandsgranskning."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Omedelbart",
+      "after15Seconds": "Efter 15 sekunder",
+      "after1Minute": "Efter 1 minut",
+      "after5Minutes": "Efter 5 minuter"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Enhets hemligheten är borta",
+      "noSealedKey": "Ingen förseglad nyckel",
+      "theSealedKeyIsDamaged": "Den förseglade nyckeln är skadad",
+      "wrongPin": "Fel PIN-kod",
+      "theSealedKeyDidNot": "Den förseglade nyckeln kunde inte öppnas",
+      "biometricsCanTOpenThe": "Biometri kan inte öppna nyckeln"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Uppdatera appen",
+      "onYourServerNeedsA": "{{name}} på din server kräver en nyare version av Termix på denna {{deviceWord}}.",
+      "updateThePlugin": "Uppdatera tillägget",
+      "onYourServerIsToo": "{{name}} på din server är för gammal för denna app. Be en administratör att uppdatera den i Tillägg."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blockerad av appen",
+      "theAppDoesNotLet": "Appen tillåter inte att tillägg använder denna ruta.",
+      "thisBuildCanTReach": "Den här versionen kan inte nå denna server på ett säkert sätt."
+    },
+    "support": {
+      "needsANewerVersionOf": "Kräver en nyare version av appen",
+      "updateThePluginOnThe": "Uppdatera tillägget på servern",
+      "theAppHasItsOwn": "Appen har sitt eget utseende",
+      "notInTheAppYet": "Finns inte i appen än",
+      "linkAServerToUse": "Koppla en server för att använda den",
+      "opensInTheAppFrom": "Öppnas i appen från servern",
+      "runsOnTheServer": "Körs på servern",
+      "throughTheServer": "Genom servern",
+      "inTheApp": "I appen",
+      "webView": "Webbvy",
+      "onTheServer": "På servern",
+      "appLook": "Apputseende",
+      "notInTheApp": "Finns inte i appen",
+      "safeMode": "Säkert läge",
+      "notRunning": "Kör inte",
+      "notInstalled": "Inte installerad",
+      "notOnThisServer": "Inte på denna server",
+      "thePluginIsNotInstalled": "Tillägget är inte installerat på denna server.",
+      "turnedOffOnTheServer": "Avstängd på servern",
+      "itOpensHereAgainWhen": "Den öppnas här igen när en administratör stänger av den.",
+      "notRunningOnTheServer": "Kör inte på servern",
+      "theServerIsInSafe": "Servern är i säkert läge, så endast tillägg med apputseende körs.",
+      "thePluginDidNotStart": "Tillägget startade inte. En administratör kan kontrollera det i Tillägg.",
+      "thisPluginIsNotAvailable": "Detta tillägg är inte tillgängligt",
+      "itIsNotMadeFor": "Det är inte gjort för appen.",
+      "offOnThisServer": "avstängd på denna server",
+      "notRunningOnThisServer": "kör inte på denna server",
+      "notOnThisServer2": "inte på denna server",
+      "notInTheAppYet2": "Finns inte i appen än | på denna server",
+      "worksOnThis": "Fungerar på denna {{deviceWord}}",
+      "andServer": "{{DeviceWord}} och server",
+      "deviceOnly": "Endast {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Ladda om"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Koppla från alla",
+      "showOpenSessions": "Visa öppna sessioner",
+      "termixShowsANotificationWhile": "Termix visar ett meddelande medan sessioner är öppna, så att Android håller dem igång i bakgrunden.",
+      "sessionsOpen_one": "{{count}} session öppen",
+      "sessionsOpen_other": "{{count}} sessioner öppna",
+      "tunnelsActive_one": "{{count}} tunnel aktiv",
+      "tunnelsActive_other": "{{count}} tunnlar aktiva",
+      "notConnected": "Inte ansluten",
+      "waitingForNetwork": "Väntar på nätverk",
+      "connecting": "Ansluter",
+      "connected": "Ansluten",
+      "reconnecting": "Återansluter",
+      "failed": "Misslyckades",
+      "closed": "Stängd"
+    },
+    "companionPane": {
+      "resizeThePanel": "Ändra storlek på {{title}}-panelen"
+    },
+    "connectionsPanel": {
+      "close": "Stäng",
+      "closeAllTabs": "Stäng alla {{count}} flikar?",
+      "everySessionEnds": "Alla sessioner avslutas.",
+      "closeAll": "Stäng alla",
+      "noActiveConnections": "Inga aktiva anslutningar",
+      "pickAHostFromThe": "Välj en värd från listan för att starta en session. Flikar du öppnar på andra enheter visas också här.",
+      "connectToAHostTo": "Anslut till en värd för att starta en session. Flikar du öppnar på andra enheter visas också här.",
+      "open": "Öppna",
+      "background": "Bakgrund",
+      "sessionsFromOtherDevicesOr": "Sessioner från andra enheter eller flikar i bakgrunden. Tryck för att återuppliva.",
+      "liveTapToReconnect": "Live, tryck för att ansluta igen",
+      "tapToReopen": "Tryck för att öppna igen"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Detta är inaktiverat på servern",
+      "comesBackHereWhenAn": "{{title}} visas här igen när en administratör aktiverar tillägget igen.",
+      "closeTab": "Stäng flik"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Anslutningar",
+        "hideHostList": "Dölj värdlista",
+        "showHostList": "Visa värdlista",
+        "backToHosts": "Tillbaka till värdar",
+        "showKeyboard": "Visa tangentbord",
+        "hideKeyboard": "Dölj tangentbord",
+        "hideKeysPanel": "Dölj nyckelpanel",
+        "showKeysPanel": "Visa nyckelpanel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tryck för flikalternativ, håll intryckt för att flytta",
+        "holdToMove": "Håll intryckt för att flytta",
+        "close": "Stäng {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Väntar på nätverk",
+        "connectionFailed": "Anslutningen misslyckades",
+        "reconnecting": "Ansluter igen"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Byt namn",
+      "newTabOnThisHost": "Ny flik på denna värd",
+      "here": "{{title}} här",
+      "hidePanel": "Dölj {{title}}-panel",
+      "showPanel": "Visa {{title}}-panel",
+      "endSplitView": "Avsluta delad vy",
+      "splitViewWith": "Delad vy med...",
+      "moveLeft": "Flytta vänster",
+      "moveRight": "Flytta höger",
+      "closeTab": "Stäng flik",
+      "closeAllTabs": "Stäng alla flikar",
+      "closeAllTabs2": "Stäng alla {{count}} flikar?",
+      "everySessionEnds": "Alla sessioner avslutas.",
+      "closeAll": "Stäng alla",
+      "splitViewWith2": "Delad vy med",
+      "renameTab": "Byt namn på flik",
+      "leaveItEmptyToUse": "Lämna tomt för att använda värdens namn."
+    },
+    "resizeHostList": "Ändra storlek på värdlista",
+    "resizeSplitView": "Ändra storlek på delad vy",
+    "connections": "Anslutningar",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Tvåfaktorsautentisering",
+        "enterThe6DigitCode": "Ange den 6-siffriga koden från din autentiseringsapp.",
+        "cancel": "Avbryt",
+        "verify": "Verifiera",
+        "codeExpiresInSGet": "Koden löper ut om {{totpCountdown}} s, hämta en ny kod",
+        "warpgateAuthentication": "Warpgate-autentisering",
+        "confirmTheWarpgateAuthenticationUrl": "Bekräfta Warpgate-autentiserings-URL och säkerhetsnyckel.",
+        "authenticate": "Autentisera",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Säkerhetsnyckel (valfritt)",
+        "authenticationRequired": "Autentisering krävs",
+        "thisHostNeedsCredentialsTo": "Denna värd kräver inloggningsuppgifter för att ansluta.",
+        "connect": "Anslut",
+        "password": "Lösenord",
+        "sshKey": "SSH-nyckel",
+        "pastePrivateKey": "Klistra in privat nyckel",
+        "keyPassphraseOptional": "Nyckelns lösenfras (valfritt)"
+      },
+      "connectionError": {
+        "tryAgain": "Försök igen",
+        "close": "Stäng",
+        "connectThroughTheServer": "Anslut via servern",
+        "connectFromThis": "Anslut från denna {{deviceWord}}",
+        "triedFromThis": "Försökte från denna {{deviceWord}}",
+        "triedThroughTheServer": "Försökte via servern"
+      },
+      "execGate": {
+        "connecting": "Ansluter..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Något gick fel",
+        "retry": "Försök igen",
+        "refresh": "Uppdatera",
+        "nothingToShow": "Inget att visa"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Loggar kopierade",
+        "connectionLog": "Anslutningslogg ({{count}})",
+        "copyLog": "Kopiera logg",
+        "waitingForConnection": "Väntar på anslutning…",
+        "noLogEntries": "Inga loggposter"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Kunde inte spara hur denna värd ansluter"
+      },
+      "useSessionConnect": {
+        "connected": "Ansluten",
+        "connectingTo": "Ansluter till {{name}}…",
+        "connectionLost": "Anslutningen tappades",
+        "failedToConnect": "Misslyckades att ansluta",
+        "invalidCode": "Ogiltig kod",
+        "warpgateAuthenticationFailed": "Warpgate-autentiseringen misslyckades",
+        "authenticationCancelled": "Autentisering avbruten"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Sökning och kommandon",
+    "addHost": "Lägg till värd",
+    "keyboardShortcuts": "Tangentbordsgenvägar",
+    "home": "Hem",
+    "hosts": "Värdar",
+    "sessions": "Sessioner",
+    "tools": "Verktyg",
+    "settings": "Inställningar",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Tangentbordsgenvägar"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Värdar och mappar",
+      "yourHostsFoldersAndHosts": "Dina värdar, mappar och värdar som delats med dig",
+      "credentials": "Inloggningsuppgifter",
+      "savedPasswordsAndKeysAnd": "Sparade lösenord och nycklar, samt inloggningsuppgifter delade med dig",
+      "snippets": "Snippets",
+      "snippetsAndTheirFolders": "Snippets och deras mappar",
+      "hostDefaults": "Standardvärden för värdar",
+      "defaultSettingsForNewHosts": "Standardinställningar för nya värdar",
+      "preferences": "Preferenser",
+      "settingsThatFollowYouBetween": "Inställningar som följer dig mellan enheter"
+    },
+    "link": {
+      "noSuchServerAccount": "Inget sådant serverkonto",
+      "signInFirst": "Logga in först.",
+      "thisServerAccountBelongsTo": "Detta serverkonto tillhör {{value}}. Logga in som dem, eller lägg till servern igen för denna användare."
+    },
+    "reasons": {
+      "signedOut": "Utloggad",
+      "thisSSignInTo": "Denna {{deviceWord}}:s inloggning på servern har löpt ut.",
+      "theServerEndedThisS": "Servern avslutade denna {{deviceWord}}:s session. Den kan ha loggats ut från en annan enhet.",
+      "proxySignInNeeded": "Proxy-inloggning krävs",
+      "theProxyInFrontOf": "Proxyn framför denna server vill att du ska logga in igen.",
+      "proxyPasswordNeeded": "Proxy-lösenord krävs",
+      "theProxyInFrontOf2": "Proxyn framför denna server bad om sitt lösenord.",
+      "certificateRefused": "Certifikat avvisat",
+      "theServerDidNotAccept": "Servern accepterade inte detta {{deviceWord}}:s certifikat.",
+      "untrustedServer": "Olitad server",
+      "theServerSCertificateIs": "Serverns certifikat litar inte på denna {{deviceWord}}.",
+      "serverKeyChanged": "Servernyckel ändrad",
+      "theServerShowsAnotherKey": "Servern visar en annan nyckel än den som är fastställd för den. Om du ändrade dess certifikat, fastställ den nya nyckeln.",
+      "offline": "Offline",
+      "canTReachTheServer": "Kan inte nå servern. Synkronisering försöker igen snart.",
+      "serverProblem": "Serverproblem",
+      "theServerHadAProblem": "Servern hade ett problem. Synkronisering försöker igen snart.",
+      "updateNeeded": "Uppdatering krävs",
+      "thisServerUsesANewer": "Denna server använder en nyare synkroniseringsversion. Uppdatera appen.",
+      "notATermixServer": "Inte en Termix-server",
+      "theAddressDoesNotAnswer": "Adressen svarar inte som en Termix-server.",
+      "syncIsOff": "Synkronisering är avstängd",
+      "theSyncPluginIsOff": "Synkroniseringsinsticksprogrammet är avstängt på denna server. Be en administratör att aktivera det i Insticksprogram.",
+      "differentUser": "Annan användare",
+      "youSignedInAsA": "Du har loggat in som en annan användare än den som detta serverkonto tillhör.",
+      "syncStopped": "Synkronisering stoppad",
+      "somethingWentWrong": "Något gick fel.",
+      "signInAgain": "Logga in igen",
+      "signInToTheProxy": "Logga in på proxyservern",
+      "enterThePassword": "Ange lösenordet",
+      "tryAgain": "Försök igen",
+      "checkThePin": "Kontrollera PIN-koden",
+      "checkForUpdates": "Sök efter uppdateringar",
+      "pickACertificate": "Välj ett certifikat"
+    },
+    "settings": {
+      "noSuchSetting": "Ingen sådan inställning",
+      "snippetFolder": "Mapp för kommandon",
+      "hostDefault": "Standard för värd"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Servern accepterade inte certifikatet för denna {{deviceWord}}.",
+      "theServerSCertificateIs": "Serverns certifikat är inte betrodd.",
+      "canTReachTheServer": "Kan inte nå servern.",
+      "signedOut": "Utloggad",
+      "theProxyAskedForIts": "Proxyservern begärde sitt lösenord.",
+      "theProxyWantsYouTo": "Proxyservern vill att du ska logga in.",
+      "theSyncPluginIsOff": "Synkroniseringsinsticksprogrammet är avstängt på denna server.",
+      "serverError": "Serverfel {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Servern visar en annan nyckel än den fastställda."
+    },
+    "remote": {
+      "thisIsNotATermix": "Detta är inte en Termix-server.",
+      "theProxyWantsYouTo": "Proxyservern vill att du ska logga in.",
+      "thisServerUsesANewer": "Denna server använder en nyare synkroniseringsversion. Uppdatera appen."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} värd",
+      "hostCount_other": "{{count}} värdar",
+      "credentialCount_one": "{{count}} inloggningsuppgift",
+      "credentialCount_other": "{{count}} inloggningsuppgifter",
+      "snippetCount_one": "{{count}} kommando",
+      "snippetCount_other": "{{count}} kommandon",
+      "folderCount_one": "{{count}} mapp",
+      "folderCount_other": "{{count}} mappar",
+      "nothingYet": "inget ännu",
+      "listAnd": "{{list}} och {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Kan inte ansluta.",
+      "connectingToFromThis": "Ansluter till {{name}} från denna {{deviceWord}}",
+      "connectingToThroughTheServer": "Ansluter till {{name}} via servern",
+      "reconnectingTry": "Återansluter (försök {{retry}})",
+      "disconnected": "Frånkopplad",
+      "connected": "Ansluten",
+      "reconnectedToTheSameSession": "Återansluten till samma session",
+      "reconnectedWithANewShell": "Återansluten med ett nytt skal",
+      "couldNotReachTheHost": "Kunde inte nå värd från denna {{deviceWord}}, försöker via servern",
+      "couldNotConnectThroughThe": "Kunde inte ansluta via servern, försöker från denna {{deviceWord}}",
+      "connectionLost": "Anslutningen förlorad: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, väntar på nätverket",
+      "nextTryInS": "Nästa försök om {{value}}s",
+      "reconnectingTry2": "Återansluter (försök {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Värden slutade svara",
+      "networkLost": "Nätverket förlorat",
+      "network": "Nätverk: {{type}}{{value}}",
+      "lowPowerModeOn": "Lågströmsläge på",
+      "lowPowerModeOff": "Lågströmsläge av",
+      "droppedTypedCharacters": "Tappade {{count}} skrivna tecken",
+      "youDidNotTrustThe": "Du litar inte på värdnyckeln.",
+      "checkTheKeyWithWhoever": "Kontrollera nyckeln med den som driver värden och försök igen.",
+      "loginCancelled": "Inloggningen avbröts.",
+      "connectAgainWhenYouAre": "Anslut igen när du är redo.",
+      "typedInputIsOver64": "Skriven inmatning är över 64 KB, den äldsta delen tappades",
+      "appInTheBackground": "Appen i bakgrunden",
+      "appInTheForeground": "Appen i förgrunden",
+      "thisConnectionCanTRun": "Denna anslutning kan inte köra kommandon"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Kontrollera adressen och porten, samt att servern kan nå värden.",
+      "checkTheAddressAndPort2": "Kontrollera adressen och porten, samt att denna {{deviceWord}} kan nå värden.",
+      "checkTheProxySettingsOf": "Kontrollera proxyinställningarna för detta värd.",
+      "checkTheKeyWithWhoever": "Kontrollera nyckeln med den som driver värden innan du litar på den.",
+      "checkTheUsernameAndLogin": "Kontrollera användarnamnet och inloggningsuppgifterna i värdredigeraren.",
+      "checkThatTheServerIs": "Kontrollera att servern är igång och att du fortfarande är inloggad.",
+      "tryAgainIfItKeeps": "Försök igen. Om den fortsätter att tappas, kontrollera nätverket.",
+      "connectAgainWhenYouAre": "Anslut igen när du är redo.",
+      "pickAnotherWayToConnect": "Välj ett annat sätt att ansluta detta värd.",
+      "connectThisHostThroughA": "Anslut detta värd via en Termix-server.",
+      "pickTheJumpHostsAgain": "Välj hoppvärdena igen i värdredigeraren.",
+      "thisIsATailscaleAddress": "Detta är en Tailscale-adress. Kontrollera att Tailscale är ansluten på denna {{deviceWord}}.",
+      "theSavedKeyCanT": "Den sparade nyckeln kan inte läsas. Klistra in den igen i värdredigeraren.",
+      "signInToThisServer": "Logga in på denna server igen.",
+      "openThisHostInThe": "Öppna detta värd i Termix webbapp.",
+      "canTConnectThisWay": "Kan inte ansluta på detta sätt",
+      "couldNotReachTheHost": "Kunde inte nå värden",
+      "theProxyDidNotLet": "Proxyn släppte inte igenom anslutningen",
+      "theHostKeyWasNot": "Värdnyckeln var inte betrodd",
+      "theLoginWasRefused": "Inloggningen nekades",
+      "theTermixServerDidNot": "Termix-servern svarade inte",
+      "theConnectionDropped": "Anslutningen tappades",
+      "loginCancelled": "Inloggningen avbröts"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agent",
+        "thisHostSignsInWith": "Detta värd loggar in med \"{{authType}}\", vilket kräver en Termix-server. Länka en för att ansluta.",
+        "thisHostUsesA1password": "Detta värd använder en 1Password-referens, vilket kräver en Termix-server med Secret Sources. Länka en och anslut detta värd via den.",
+        "signInWithFirstOpen": "Logga in med {{title}} först. Öppna en terminal till detta värd en gång, och försök sedan igen.",
+        "theSignInAndThe": "inloggningen och certifikatet finns på servern",
+        "theHasNoSshAgent": "{{deviceWord}} har ingen SSH-agent",
+        "needsATermixServerBecause": "{{title}} kräver en Termix-server eftersom {{why}}. Länka en och anslut detta värd via den."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Ett hoppvärd för detta värd finns inte längre."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Anslutningen avbröts",
+        "theShellChannelClosed": "Skalkanalen stängdes",
+        "jumpHost": "Hoppvärd {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Ogiltig kod, försök igen:",
+        "authenticationFailed": "Autentiseringen misslyckades: {{message}}",
+        "theHostKeyWasNot": "Värdnyckeln var inte betrodd.",
+        "loginCancelled": "Inloggningen avbröts.",
+        "notConnected": "Inte ansluten"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Anslutningen avbröts"
+      },
+      "thisBuildHasNoSsh": "Den här versionen har ingen SSH-motor. Använd appen från butiken, eller länka en Termix-server för att ansluta.",
+      "theHostsOnThisAre": "Värdarna på denna {{deviceWord}} är inte öppna ännu.",
+      "thisServerSHostsAre": "Denna servers värdar finns inte på denna {{deviceWord}}. Aktivera Sync-tillägget på servern för att ansluta från {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Kan inte ansluta.",
+      "canTConnectFromThe": "Kan inte ansluta från denna {{deviceWord}}.",
+      "canTReachTheServer": "Kan inte nå servern.",
+      "theOnlyConnectsToSsh": "Den här {{deviceWord}}:en kan endast ansluta till SSH- och Telnet-värdar.",
+      "connectThisHostThroughThe": "Anslut till denna värd via servern",
+      "connectThisHostFromThe": "Anslut till denna värd från {{deviceWord}}:en",
+      "termixServer": "Termix-server",
+      "usesThisWhenItCan": "Använder denna {{deviceWord}} när den kan nå värden, annars servern.",
+      "thisConnectsToTheHost": "Den här {{deviceWord}}:en ansluter direkt till värden.",
+      "theTermixServerConnectsTo": "Termix-servern ansluter till värden åt dig.",
+      "anSshConnection": "en SSH-anslutning",
+      "aTermixServer": "en Termix-server",
+      "aConnectionFromThe": "en anslutning från {{deviceWord}}:en",
+      "isOffOnThisServer": "{{title}} är inaktiverat på denna server. {{how}} för att använda det.",
+      "isOffOnThisServer2": "{{title}} är inaktiverat på denna server.",
+      "anotherWayToConnect": "ett annat sätt att ansluta",
+      "needsToUseIt": "{{title}} kräver {{what}}. {{how}} för att använda det.",
+      "needsWhichThisHostCan": "{{title}} kräver {{what}}, vilket denna värd inte kan använda just nu.",
+      "thisDevice": "Den här {{deviceWord}}:en",
+      "automatic": "Automatiskt"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Du är inloggad från denna server. Logga in för att ansluta via den.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux är inte installerat på denna värd. Använder vanligt skal.",
+        "tapRetryToBringIt": "Tryck på Försök igen för att hämta tillbaka den hit.",
+        "thisSessionWasOpenedOn": "Denna session öppnades på en annan enhet",
+        "noServerUrlFoundLink": "Ingen server-URL hittades. Länka servern igen.",
+        "signedOutOfThisServer": "Utloggad från denna server. Logga in igen.",
+        "signInWithInYour": "Logga in med {{title}} i din webbläsare. Detta stängs när det är klart.",
+        "theSocketClosedWhileThe": "Socketten stängdes medan appen var i bakgrunden",
+        "noWebsocketUrlAvailableServer": "Ingen WebSocket-URL tillgänglig – servern är inte konfigurerad",
+        "connectionTimeoutServerNotResponding": "Anslutningstid överskriden – servern svarar inte",
+        "verificationCode": "Verifieringskod:",
+        "hostKeyVerificationRequiredBut": "Värdnyckelverifiering krävs men ingen hanterare är registrerad",
+        "hostKeyChangedButNo": "Värdnyckeln har ändrats men ingen hanterare är registrerad",
+        "thisHostNeedsASign": "Denna värd kräver en inloggning som endast webbappen stöder",
+        "invalidCodeTryAgain": "Ogiltig kod, försök igen:",
+        "unknownError": "Okänt fel",
+        "connectionClosed": "Anslutningen stängdes",
+        "connectionClosed2": "Anslutningen stängdes ({{code}})",
+        "theServerClosedTheConnection": "Servern stängde anslutningen",
+        "theSocketClosed": "Socketten stängdes ({{code}})",
+        "signIn": "{{title}} inloggning",
+        "signInFailed": "{{title}} inloggning misslyckades",
+        "isNotSetUpOn": "{{title}} är inte konfigurerat på servern",
+        "signInTimedOut": "{{title}} inloggning löpte ut",
+        "authenticationFailed": "Autentisering misslyckades: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Spara värden och anslut till den för att kontrollera.",
+      "loggedInAsOn": "Inloggad som {{username}} på {{host}}",
+      "theHostAskedForMore": "Värden begärde mer än ett lösenord, till exempel en kod. Spara värden och anslut för att slutföra inloggningen."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Väntar på nätverk",
+      "couldNotOpenTheTunnel": "Kunde inte öppna tunneln",
+      "theConnectionDropped": "Anslutningen tappades",
+      "iosStoppedThisTunnelWhile": "iOS stoppade denna tunnel medan appen var i bakgrunden. Starta den igen för att öppna den.",
+      "connecting": "Ansluter",
+      "connected": "Ansluten",
+      "retrying": "Försöker igen",
+      "waiting": "Väntar",
+      "failed": "Misslyckades"
+    },
+    "gateways": {
+      "error": "Fel",
+      "gateways": "Gateways",
+      "gatewaysCanOnlyBeChanged": "Gateways kan endast ändras i Termix på webben.",
+      "noHandshake": "Ingen handskakning",
+      "rulesMissing": "Regler saknas",
+      "up": "Upp",
+      "pending": "Väntar",
+      "applying": "Tillämpar",
+      "down": "Nedstängd",
+      "unreachable": "Oåtkomlig"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Inga tunnlar ännu. Lägg till en för att vidarebefordra en port från ändpunktsvärd till denna värd.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Ta bort tunnel {{value}}",
+      "mode": "Läge",
+      "local": "Lokal",
+      "remote": "Fjärr",
+      "dynamic": "Dynamisk",
+      "targetHost": "Målvärd",
+      "onThisHostForTunnels": "På denna värd, för tunnlar som {{deviceWord}} kör",
+      "bindHost": "Bindningsvärd",
+      "endpointHost": "Ändpunktsvärd",
+      "addAnotherHostFirstTunnels": "Lägg till en annan värd först. Tunnlar går genom en sparad värd.",
+      "sourcePort": "Källport",
+      "endpointPort": "Ändpunktport",
+      "maxRetries": "Max antal försök",
+      "retryEveryS": "Försök var (s)",
+      "startOnItsOwn": "Starta automatiskt",
+      "addTunnel": "Lägg till tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} kräver portar mellan 1 och 65535"
+    },
+    "register": {
+      "tunnels": "Tunnlar",
+      "startAndStopSavedTunnels": "Starta och stoppa sparade tunnlar",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokal ändpunkt kopierad",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Portmappning",
+      "connect": "Anslut",
+      "disconnect": "Koppla från",
+      "cancel": "Avbryt",
+      "connected": "Ansluten",
+      "connecting": "Ansluter",
+      "disconnecting": "Kopplar från",
+      "error": "Fel",
+      "retrying": "Försöker igen ({{value}}/{{value2}})",
+      "waitingS": "Väntar {{value}}s",
+      "waiting": "Väntar",
+      "disconnected": "Frånkopplad"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Startar tunnel på port {{sourcePort}}",
+      "connectingTunnelOnPort": "Ansluter tunnel på port {{sourcePort}}",
+      "disconnectingPort": "Kopplar från port {{sourcePort}}",
+      "cancellingPort": "Avbryter port {{sourcePort}}",
+      "failedToTunnel": "Misslyckades med att {{action}} tunnel",
+      "tunnels": "Tunnlar | {{count}} | {{value}}",
+      "loadingTunnels": "Laddar tunnlar…",
+      "noSshTunnelsConfiguredFor": "Inga SSH-tunnlar konfigurerade för denna värd. Lägg till tunnlar från värdformuläret.",
+      "runOn": "Kör på",
+      "server": "Server",
+      "this": "Denna {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunnlar på denna {{deviceWord}} stoppas när appen stängs. På iOS stoppas de också kort efter att appen går till bakgrunden.",
+      "failedToFetchTunnelStatuses": "Misslyckades med att hämta tunnelstatusar",
+      "thisBuildCanTOpen": "Den här versionen kan inte öppna tunnlar på {{deviceWord}}.",
+      "sourceHostNotFound": "Källvärd hittades inte",
+      "endpointHostNotFound": "Ändpunktsvärd hittades inte: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnlar",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunnlar",
+      "runningOnServer": "{{connected}} körs på servern"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Inloggningsverktyg"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker är inte installerat på denna värd.",
+        "dockerDidNotAnswer": "Docker svarade inte",
+        "thatIsNotAValid": "Det är inte ett giltigt stacknamn"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stoppa",
+      "start": "Starta",
+      "restart": "Starta om",
+      "remove": "Ta bort",
+      "logs": "Loggar",
+      "stats": "Statistik",
+      "console": "Konsol",
+      "logsCopied": "Loggar kopierade",
+      "copy": "Kopiera",
+      "containerIsNotRunningNo": "Behållaren körs inte, inga live-statistik.",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "networkIO": "Nätverks-I/O",
+      "blockIO": "Block-I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Kunde inte ladda loggar",
+      "failedToLoadStats": "Kunde inte ladda statistik",
+      "noOutput": "(ingen utdata)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Ansluter till Docker...",
+    "remove": "Ta bort {{name}}?",
+    "stop": "Stoppa {{name}}?",
+    "theContainerIsStoppedAnd": "Behållaren har stoppats och raderats. Dess volymer finns kvar.",
+    "anythingRunningInItStops": "Allt som körs i den stoppas.",
+    "remove2": "Ta bort",
+    "stop2": "Stoppa",
+    "dockerThis": "Docker | denna {{deviceWord}}",
+    "lookingForDocker": "Söker efter Docker...",
+    "dockerIsNotAvailableOn": "Docker är inte tillgängligt på denna värd.",
+    "noContainersFound": "Inga behållare hittades",
+    "noContainersMatchYourFilters": "Inga behållare matchar dina filter",
+    "useSudo": "Använd sudo",
+    "refresh": "Uppdatera",
+    "containers": "Behållare",
+    "stacks": "Stackar",
+    "searchContainers": "Sök behållare...",
+    "all": "Alla",
+    "running": "Körs",
+    "stopped": "Stoppad",
+    "start": "Starta",
+    "restart": "Starta om",
+    "pause": "Pausa",
+    "unpause": "Återuppta",
+    "moreActions": "Fler åtgärder",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker svarade inte",
+      "docker": "Docker",
+      "noContainers": "Inga behållare"
+    },
+    "dockerConsole": {
+      "attachingTo": "Ansluter till {{name}}...",
+      "consoleDisconnected": "Konsolen har kopplats från",
+      "reconnect": "Anslut igen",
+      "failedToLoadTheConsole": "Kunde inte ladda konsolen",
+      "thisSessionHasNoServer": "Denna session har ingen server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Behållare, loggar och statistik"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stackar är inaktiverade på denna server.",
+      "couldNotLoadStacks": "Kunde inte ladda stackar",
+      "noStacks": "Inga stackar",
+      "composeProjectsOnThisHost": "Compose-projekt på denna värd visas här.",
+      "ofRunning": "{{running}} av {{total}} körs",
+      "couldNotLoadTheStack": "Kunde inte läsa in stacken",
+      "services": "Tjänster",
+      "nothingIsRunning": "Inget körs.",
+      "composeFile": "Compose-fil",
+      "partlyUp": "delvis igång",
+      "notDeployed": "ej distribuerad",
+      "running": "kör",
+      "stopped": "stoppad",
+      "paused": "pausad"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Det är inte ett giltigt behållar-ID",
+      "consoleFailed": "Konsolen misslyckades",
+      "notAuthenticated": "Inte autentiserad",
+      "consoleError": "Konsolfel",
+      "connectionFailed": "Anslutningen misslyckades"
+    },
+    "dockerDidNotAnswer": "Docker svarade inte",
+    "failedToLoadContainers": "Misslyckades att läsa in behållare",
+    "failedTo": "Misslyckades att {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Servern skickade ingen fil",
+        "cancelled": "Avbruten",
+        "isGone": "{{path}} har försvunnit",
+        "canTGoToThe": "{{name}} kan inte flyttas till papperskorgen"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Ogiltigt ID för papperskorgsobjekt",
+        "invalidTrashMetadata": "Ogiltiga metadata för papperskorgen",
+        "thisPathCanTBe": "Den här sökvägen kan inte flyttas till papperskorgen",
+        "aFileAlreadyExistsAt": "En fil finns redan på den ursprungliga sökvägen"
+      },
+      "sftp": {
+        "commandFailed": "Kommandot misslyckades: {{command}}",
+        "alreadyExists": "{{name}} finns redan",
+        "alreadyExistsThere": "{{path}} finns redan där",
+        "canTGoToThe": "{{name}} kan inte flyttas till papperskorgen: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminalen är inte längre öppen",
+      "clearHistory": "Rensa historik",
+      "stopFollowingTheTerminal": "Sluta följa terminalen",
+      "followTheTerminal": "Följ terminalen",
+      "goToTheTerminalS": "Gå till terminalens mapp",
+      "cdTheTerminalHere": "cd terminalen hit",
+      "folderHistory": "Mapphistorik",
+      "mostUsedFirstThenRecent": "Mest använda först, sedan senaste",
+      "noFoldersYet": "Inga mappar ännu"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Kan inte ansluta.",
+        "couldNotSaveHowThis": "Kunde inte spara hur denna värd ansluter",
+        "thisWayCanTOpen": "Detta sätt kan inte öppna filer"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Kunde inte öppna denna mapp",
+      "cancel": "Avbryt",
+      "noFoldersHere": "Inga mappar här"
+    },
+    "couldNotOpenThisFolder": "Kunde inte öppna denna mapp",
+    "couldNotSaveToThe": "Kunde inte spara till mappen",
+    "failed": "{{label}} misslyckades",
+    "uploading": "Laddar upp {{name}}",
+    "uploadingFiles": "Laddar upp {{count}} filer",
+    "downloadingToFilesOnMy": "Laddar ner till Filer, På min iPhone, Termix",
+    "downloading": "Laddar ner {{name}}",
+    "downloadingFiles": "Laddar ner {{count}} filer",
+    "openALargeFile": "Öppna en stor fil?",
+    "isBigForAEditor": "{{name}} är stor för en {{deviceWord}}-redigerare. Den kan vara långsam.",
+    "open": "Öppna",
+    "thisLooksLikeABinary": "Detta ser ut som en binär fil",
+    "openItInAnotherApp": "Vill du öppna den i en annan app istället?",
+    "openWith": "Öppna med",
+    "tooBigForTheEditor": "För stor för redigeraren",
+    "isOver10MbDownload": "{{name}} är större än 10 MB. Vill du ladda ner den istället?",
+    "download": "Ladda ner",
+    "delete": "Ta bort {{what}}?",
+    "moveToTheTrash": "Flytta {{what}} till papperskorgen?",
+    "thisCanTBeUndone": "Detta kan inte ångras.",
+    "youCanRestoreItFrom": "Du kan återställa den från papperskorgen.",
+    "delete2": "Ta bort",
+    "moveToTrash": "Flytta till papperskorgen",
+    "deleteForGood": "Ta bort permanent?",
+    "deleteItForGoodInstead": "{{message}}. Vill du ta bort den permanent istället? Detta kan inte ångras.",
+    "deleteFailed": "Borttagning misslyckades",
+    "connectingThroughTheServer": "Ansluter via servern...",
+    "connectingFromThis": "Ansluter från denna {{deviceWord}}...",
+    "connecting": "Ansluter...",
+    "edit": "Redigera",
+    "downloadFolder": "Ladda ner mapp",
+    "share": "Dela",
+    "rename": "Byt namn",
+    "copyTo": "Kopiera till",
+    "moveTo": "Flytta till",
+    "cut": "Klipp ut",
+    "copy": "Kopiera",
+    "permissions": "Behörigheter",
+    "properties": "Egenskaper",
+    "makeALinkHere": "Skapa en länk här",
+    "copyPath": "Kopiera sökväg",
+    "pathCopied": "Sökväg kopierad",
+    "done": "Klar",
+    "selectAll": "Markera alla",
+    "filterByName": "Filtrera efter namn",
+    "closeSearch": "Stäng sök",
+    "search": "Sök",
+    "changeSort": "Ändra sortering",
+    "paste": "Klistra in {{count}}",
+    "upload": "Ladda upp",
+    "transfers2": "Överföringar",
+    "more": "Mer",
+    "nothingMatches": "Inget matchar",
+    "emptyFolder": "Tom mapp",
+    "uploadFilesOrMakeA": "Ladda upp filer eller skapa en ny.",
+    "newFolder": "Ny mapp",
+    "newFile": "Ny fil",
+    "select": "Välj",
+    "hideHiddenFiles": "Dölj dolda filer",
+    "showHiddenFiles": "Visa dolda filer",
+    "trash": "Papperskorg",
+    "folderProperties": "Mappens egenskaper",
+    "refresh": "Uppdatera",
+    "rename2": "Byt namn på {{name}}",
+    "newLink": "Ny länk",
+    "aLinkInThatPoints": "En länk i {{path}} som pekar på {{path2}}",
+    "name": "Namn",
+    "create": "Skapa",
+    "copyHere": "Kopiera hit",
+    "moveHere": "Flytta hit",
+    "fileViewer": {
+      "saved": "Sparade {{name}}",
+      "couldNotSaveTheFile": "Kunde inte spara filen",
+      "discardChanges": "Släng ändringar?",
+      "hasChangesThatAreNot": "{{name}} har ändringar som inte är sparade.",
+      "discard": "Släng",
+      "readOnly": "{{path}} | skrivskyddad",
+      "find": "Sök",
+      "smallerText": "Mindre text",
+      "biggerText": "Större text",
+      "turnOffLineWrap": "Stäng av radbrytning",
+      "wrapLines": "Bryt rader",
+      "save": "Spara"
+    },
+    "hostSection": {
+      "startIn": "Starta i",
+      "theFolderTheFileManager": "Den mapp som filhanteraren öppnar först",
+      "files": "Filer"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Gå till {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Fler åtgärder",
+        "moreFor": "Fler åtgärder för {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Behörigheter",
+      "cancel": "Avbryt",
+      "apply": "Verkställ ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Kunde inte öppna den",
+      "openWith": "Öppna med",
+      "share": "Dela"
+    },
+    "propertiesView": {
+      "properties": "Egenskaper",
+      "path": "Sökväg",
+      "type": "Typ",
+      "pointsTo": "Pekar på",
+      "size": "Storlek",
+      "countFolderSize": "Beräkna mappstorlek",
+      "permissions": "Behörigheter",
+      "change": "Ändra",
+      "owner": "Ägare",
+      "group": "Grupp",
+      "modified": "Ändrad",
+      "opened": "Öppnad",
+      "linkToA": "Länk till en {{value}}",
+      "notShownForFolders": "Visas inte för mappar",
+      "file": "Fil",
+      "folder": "Mapp",
+      "link": "Länk"
+    },
+    "register": {
+      "fileManager": "Filhanterare",
+      "files": "Filer",
+      "browseEditAndMoveFiles": "Bläddra, redigera och flytta filer",
+      "files2": "FILER",
+      "fileManagerAndTransfers": "Filhanterare och överföringar"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Överföringen misslyckades"
+      },
+      "transfersPanel": {
+        "pause": "Pausa",
+        "resume": "Återuppta",
+        "tryAgain": "Försök igen",
+        "open": "Öppna",
+        "cancel": "Avbryt",
+        "transfers": "Överföringar",
+        "goingOf": "{{active}} pågår | {{done}} av {{total}}",
+        "clearFinished": "Rensa slutförda",
+        "cancelAll": "Avbryt alla",
+        "noTransfersYet": "Inga överföringar ännu",
+        "waiting": "Väntar",
+        "paused": "Pausad",
+        "done": "Klar",
+        "failed": "Misslyckad",
+        "cancelled": "Avbruten"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Kunde inte ladda papperskorgen",
+      "restored": "Återställde {{name}}",
+      "failedToRestore": "Kunde inte återställa",
+      "failedToDelete": "Kunde inte ta bort",
+      "trashEmptied": "Papperskorgen tömd",
+      "failedToEmptyTrash": "Kunde inte tömma papperskorgen",
+      "trash": "Papperskorg",
+      "itemsAreRemovedAfterDays": "Objekt tas bort efter {{retentionDays}} dagar",
+      "close": "Stäng",
+      "emptyTrash": "Töm papperskorgen",
+      "trashIsEmpty": "Papperskorgen är tom",
+      "restore": "Återställ {{name}}",
+      "deleteForGood": "Ta bort {{name}} permanent"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Just nu"
+      }
+    },
+    "getting": "Hämtar {{name}}",
+    "itemCount_one": "{{count}} objekt",
+    "itemCount_other": "{{count}} objekt",
+    "copiedWhat": "Kopierade {{what}}",
+    "movedWhat": "Flyttade {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} har fler än {{limit}} filer. Ladda ner mindre mappar."
+    },
+    "downloadingToFilesOnMyIpad": "Laddar ner till Filer, På min iPad, Termix",
+    "size": "Storlek",
+    "date": "Datum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Tjänstelänkar",
+      "openInHomepage": "Öppna i startsidan",
+      "thisWidgetOnlyShowsOn": "Denna widget visas bara på hela sidan."
+    },
+    "register": {
+      "serviceLinks": "Tjänstelänkar",
+      "homepage": "Startsida"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Ingen flöde inställt.",
+        "couldNotLoadTheFeed": "Kunde inte ladda flödet.",
+        "theFeedIsEmpty": "Flödet är tomt.",
+        "noLocationSet": "Ingen plats inställd.",
+        "couldNotLoadTheWeather": "Kunde inte ladda vädret.",
+        "noUrlSet": "Ingen URL inställd.",
+        "couldNotLoadTheData": "Kunde inte ladda data.",
+        "noPictureSet": "Ingen bild inställd.",
+        "badResponse": "felaktigt svar"
+      },
+      "services": "Tjänster",
+      "service": "Tjänst",
+      "serviceLinks": "Tjänstelänkar",
+      "bookmarks": "Bokmärken",
+      "links2": "Länkar",
+      "search": "Sök",
+      "clock": "Klocka",
+      "countdown": "Räknare",
+      "calendar": "Kalender",
+      "notes": "Anteckningar",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Värd",
+      "hosts": "Värdar",
+      "quickConnect": "Snabbanslutning",
+      "feed": "Flöde",
+      "weather": "Väder",
+      "customApi": "Anpassad API",
+      "picture": "Bild",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Inga tjänster ännu.",
+        "noLinkSet": "Ingen länk inställd.",
+        "noLinksYet": "Inga länkar ännu.",
+        "noSearchEngineSet": "Ingen sökmotor inställd.",
+        "search": "Sök",
+        "noShortcutsYet": "Inga genvägar ännu.",
+        "search2": "Sök {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Kunde inte öppna länken"
+      },
+      "status": {
+        "noUrlsYet": "Inga URL:er ännu.",
+        "down": "Ner",
+        "noHostsPicked": "Inga värdar valda."
+      },
+      "text": {
+        "noNotesYet": "Inga anteckningar ännu.",
+        "noTextYet": "Ingen text ännu."
+      },
+      "time": {
+        "noDateSet": "Inget datum inställt.",
+        "timeIsUp": "Tiden är slut"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Kunde inte spara standardvärdet",
+    "couldNotResetTheDefault": "Kunde inte återställa standardvärdet",
+    "back": "Tillbaka",
+    "hostDefaults": "Värdstandarder",
+    "newHostsStartFromThese": "Nya värdar startar med dessa",
+    "managedOnTheServer": "Hanteras på servern",
+    "defaultsForThisServerAre": "Standardvärden för denna server ställs in i webbappen.",
+    "level": "Nivå",
+    "yourDefaultsOrOneFolder": "Dina standardvärden, eller en mapps",
+    "myDefaults": "Mina standardvärden",
+    "theServerSets": " Servern ställer in {{adminCount}}.",
+    "aFolderWinsOverYour": "En mapp har företräde framför dina standardvärden, och dina standardvärden har företräde framför serverns. En värd behåller alla värden du ställer in på den själv.{{value}}",
+    "save": "Spara",
+    "authentication": "Autentisering",
+    "none": "Ingen",
+    "reset": "Återställ",
+    "model": {
+      "username": "Användarnamn",
+      "sshPort": "SSH-port",
+      "authentication": "Autentisering",
+      "aSavedCredentialForNew": "En sparad inloggningsuppgift för nya värdar",
+      "forceKeyboardInteractive": "Tvinga tangentbordsinteraktivitet",
+      "keepaliveInterval": "Keepalive-intervall",
+      "seconds0TurnsItOff": "Sekunder, 0 stänger av",
+      "keepaliveTries": "Keepalive-försök",
+      "allowOldAlgorithms": "Tillåt gamla algoritmer",
+      "agentForwarding": "Agentforwarding",
+      "environmentVariables": "Miljövariabler",
+      "oneNameValuePerLine": "En NAMN=värde per rad",
+      "checkIfTheHostIs": "Kontrollera om värdens är uppe",
+      "checkInterval": "Kontrollintervall",
+      "secondsEmptyUsesTheServer": "Sekunder, tomt använder serverns",
+      "socks5Proxy": "SOCKS5-proxy",
+      "setInTheWebApp": "Ställs in i webbappen",
+      "jumpHosts": "Jump hosts",
+      "portKnocking": "Port knocking",
+      "notSet": "Ej inställt",
+      "fromTheServer": "Från servern",
+      "fromYourDefaults": "Från dina standardvärden",
+      "builtIn": "Inbyggd"
+    },
+    "register": {
+      "hostDefaults": "Värdstandarder",
+      "portUserAndOptionsFor": "Port, användare och alternativ för nya värdar"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Ingen data ännu",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "disk": "Disk",
+      "history": "Historik",
+      "loading": "Laddar..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Kunde inte läsa metrik",
+      "metrics": "Metrik",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Inget nyligen prov. Öppna värdens prestandamått för att starta ett."
+    },
+    "register": {
+      "enableMetrics": "Aktivera prestandamått",
+      "cpuMemoryDiskAndNetwork": "CPU, minne, disk och nätverk via SSH",
+      "hostMetrics": "Värdprestandamått",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Prestandamått",
+      "cpuMemoryDiskAndNetwork2": "CPU, minne, disk och nätverk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Värdprestandamått | denna {{deviceWord}}",
+      "hostMetrics": "Värdprestandamått",
+      "ran": "Körde {{name}}",
+      "loadingMetrics": "Laddar prestandamått...",
+      "couldNotReadMetricsFrom": "Kunde inte läsa prestandamått från denna värd",
+      "failedToLoadMetrics": "Misslyckades att ladda prestandamått",
+      "thisSessionHasNoServer": "Denna session har ingen server",
+      "twoFactorRequiredForThis": "Tvåfaktorsautentisering krävs för denna värdens statistik.",
+      "failedToStartMetrics": "Misslyckades att starta prestandamått",
+      "failedToRun": "Misslyckades att köra {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per kärna: {{value}}",
+        "cores": "Kärnor",
+        "load": "Belastning",
+        "user": "Användare",
+        "system": "System",
+        "ioWait": "IO-väntan",
+        "steal": "Stulen"
+      },
+      "diskWidget": {
+        "disk": "Disk  {{mount}}",
+        "disk2": "Disk",
+        "used": "Använt",
+        "total": "Totalt",
+        "free": "Ledigt"
+      },
+      "firewallWidget": {
+        "firewall": "Brandvägg",
+        "rules": "{{type}} | {{ruleCount}} regler",
+        "noFirewallDetected": "Ingen brandvägg upptäckt"
+      },
+      "gpuWidget": {
+        "gpus": "GPU:er ({{count}})",
+        "gpu": "GPU",
+        "memory": "Minne",
+        "temp": "Temp",
+        "power": "Effekt",
+        "fan": "Fläkt"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Inloggningsaktivitet",
+        "noLoginActivityRecorded": "Ingen inloggningsaktivitet registrerad",
+        "logins": "Inloggningar",
+        "uniqueIps": "Unika IP-adresser",
+        "failed": "Misslyckade",
+        "recent": "Senaste"
+      },
+      "memoryWidget": {
+        "memory": "Minne",
+        "used": "Använt",
+        "total": "Totalt",
+        "cached": "Buffrat",
+        "free": "Ledigt"
+      },
+      "networkWidget": {
+        "network": "Nätverk",
+        "noInterfaces": "Inga gränssnitt",
+        "up": "Upp",
+        "down": "Ner"
+      },
+      "portsWidget": {
+        "listeningPorts": "Lyssnande portar",
+        "noListeningPorts": "Inga lyssnande portar"
+      },
+      "processesWidget": {
+        "sortBy": "Sortera efter {{label}}",
+        "processes": "Processer",
+        "running": "{{value}} körs | {{total}}",
+        "noProcessData": "Ingen processdata",
+        "cpu": "CPU %",
+        "mem": "MEM %",
+        "command": "KOMMANDO"
+      },
+      "systemWidget": {
+        "system": "System",
+        "hostname": "Värdnamn",
+        "os": "OS",
+        "kernel": "Kärna",
+        "arch": "Arkitektur",
+        "noSystemInfo": "Ingen systeminformation"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatur"
+      },
+      "uptimeWidget": {
+        "uptime": "Upptid"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopierat med lösenord",
+      "copiedTheLink": "Länken har kopierats",
+      "shareHost": "Dela värd",
+      "thatHostNoLongerExists": "Den här värden finns inte längre",
+      "scanThisInTermixOn": "Skanna detta i Termix på en annan {{deviceWord}}, under Import och export. Koden innehåller adress, port och användare. Den innehåller inget lösenord eller nyckel.",
+      "copyLink": "Kopiera länk",
+      "copyLinkWithPassword": "Kopiera länk med lösenord"
+    },
+    "includePasswordsAndKeys": "Inkludera lösenord och nycklar?",
+    "anyoneWhoGetsThisFile": "Vem som helst som får tag i den här filen kan logga in på dessa värdar. Förvara den säkert.",
+    "includeThem": "Inkludera dem",
+    "pickAtLeastOneHost": "Välj minst en värd",
+    "couldNotMakeTheFile": "Kunde inte skapa filen",
+    "copiedToTheClipboard": "Kopierat till urklipp",
+    "importAndExport": "Import och export",
+    "moveHostsInAndOut": "Flytta värdar in och ut",
+    "import": "Importera",
+    "aTermixHostFileAn": "En Termix-värd fil, en SSH-konfigurationsfil eller en värdlänk eller QR-kod från en annan {{deviceWord}}.",
+    "export": "Exportera",
+    "allHosts": "Alla värdar",
+    "picked": "{{size}} valda",
+    "pickHosts": "Välj värdar",
+    "includePasswordsAndKeys2": "Inkludera lösenord och nycklar",
+    "offMakesAFileSafe": "Av gör filen säker att dela. Värdar som använder ett sparad inloggningsuppgift pekar på den med namn",
+    "shareAFile": "Dela en fil",
+    "copy": "Kopiera",
+    "importPanel": {
+      "couldNotReadThat": "Kunde inte läsa det",
+      "couldNotReadThatFile": "Kunde inte läsa den filen",
+      "importFailed": "Importen misslyckades",
+      "chooseAFile": "Välj en fil",
+      "paste": "Klistra in",
+      "scanACode": "Skanna en kod",
+      "couldNotBeRead": "{{count}} kunde inte läsas",
+      "updateHostsThatExist": "Uppdatera värdar som redan finns",
+      "sameAddressPortAndUser": "Samma adress, port och användare. Annars hoppas de över",
+      "cancel": "Avbryt",
+      "import": "Importera",
+      "andMore": "och {{value}} till"
+    },
+    "qrCode": {
+      "qrCode": "QR-kod"
+    },
+    "register": {
+      "importAndExport": "Import och export",
+      "moveHostsInOrOut": "Flytta värdar in eller ut med en fil eller QR-kod",
+      "shareHost": "Dela värd"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skanna en värdkod",
+      "pointTheCameraAtA": "Rikta kameran mot en Termix-värd QR-kod.",
+      "termixNeedsTheCameraTo": "Termix behöver kameran för att skanna en kod. Inget spelas in.",
+      "allowTheCamera": "Tillåt kameran"
+    },
+    "read": {
+      "termixFile": "Termix-fil",
+      "sshConfig": "SSH-konfiguration",
+      "thereIsNothingToImport": "Det finns inget att importera",
+      "thatIsNotATermix": "Det är inte en Termix-värdlänk",
+      "linkHost": "1 värd: {{name}}",
+      "sourceHosts_one": "{{what}} med {{count}} värd",
+      "sourceHosts_other": "{{what}} med {{count}} värdar"
+    },
+    "saveYourTermixHosts": "Spara dina Termix-värdar"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Klar",
+      "rejected": "Avvisad",
+      "approvals": "Godkännanden",
+      "nothingIsWaiting": "Inget väntar",
+      "actionsARuleHoldsFor": "Åtgärder som kräver godkännande enligt en regel visas här.",
+      "approveAndRun": "Godkänn och kör",
+      "reject": "Avvisa",
+      "couldNotLoadApprovals": "Kunde inte ladda godkännanden",
+      "couldNotDecide": "Kunde inte fatta beslut"
+    },
+    "approvalsCard": {
+      "approved": "Godkänd",
+      "rejected": "Avvisad",
+      "waitingForApproval": "Väntar på godkännande",
+      "approve": "Godkänn",
+      "reject": "Avvisa",
+      "couldNotDecide": "Kunde inte fatta beslut",
+      "seeAll": "Visa alla"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Detta kan inte ångras. Vill du köra det?",
+      "run": "Kör",
+      "sentForApproval": "Skickat för godkännande",
+      "target": "Mål",
+      "theItemOnTheHost": "Objektet på värden, till exempel en behållare",
+      "dryRun": "Testkörning",
+      "back": "Tillbaka",
+      "actions": "Åtgärder",
+      "noActionsForThisHost": "Inga åtgärder för denna värd",
+      "turnOnAPluginLike": "Aktivera ett tillägg som Docker eller Tjänster för denna värd på servern.",
+      "destructive": "Förstörande",
+      "changes": "Ändringar",
+      "theActionCouldNotRun": "Åtgärden kunde inte köras",
+      "couldNotLoadActions": "Kunde inte ladda åtgärder"
+    },
+    "register": {
+      "actions": "Åtgärder",
+      "waitingForApproval": "Väntar på godkännande",
+      "approvals": "Godkännanden",
+      "actionsWaitingForAPerson": "Åtgärder som väntar på att någon ska säga ja",
+      "runHistory": "Körhistorik",
+      "everyActionAnyoneRanFrom": "Alla åtgärder som någon har kört, från vilken enhet som helst"
+    },
+    "runHistory": {
+      "cancelThisRun": "Vill du avbryta denna körning?",
+      "cancelRun": "Avbryt körning",
+      "keep": "Behåll",
+      "undoThisRun": "Vill du ångra denna körning?",
+      "thisRunsTheActionS": "Detta kör åtgärdens ångra med samma indata.",
+      "undo": "Ångra",
+      "cancelled": "Avbruten",
+      "itAlreadyFinished": "Den är redan klar",
+      "done": "Klar",
+      "runHistory": "Körhistorik",
+      "nothingHasRunYet": "Inget har körts ännu",
+      "dryRun": "Testkörning",
+      "cancel": "Avbryt",
+      "couldNotLoadHistory": "Kunde inte ladda historik",
+      "couldNotCancel": "Kunde inte avbryta",
+      "couldNotUndo": "Kunde inte ångra"
+    },
+    "api": {
+      "needsApproval": "Kräver godkännande",
+      "needsSignIn": "Kräver inloggning",
+      "done": "Klar",
+      "failed": "Misslyckades",
+      "running": "Pågår",
+      "interrupted": "Avbruten",
+      "rejected": "Avvisad",
+      "cancelled": "Avbruten",
+      "expired": "Utgången"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Aktivera {{value}}",
+      "moreSettingsForThisAre": "Fler inställningar för detta finns i Termix webbapp.",
+      "pluginHostSettings": "Inställningar för plugin-värd"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} måste vara ett nummer",
+      "mustBeAtLeast": "{{field}} måste vara minst {{min}}",
+      "mustBeAtMost": "{{field}} får vara högst {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Länka en server för att använda den",
+      "runsOnYourTermixServer": "{{name}} körs på din Termix-server."
+    },
+    "pluginWebView": {
+      "canTLoad": "Kan inte ladda {{name}}",
+      "theServerDidNotSend": "Servern skickade inte pluginet. Kontrollera att den är påslagen och försök igen.",
+      "openThisLink": "Öppna denna länk?",
+      "open": "Öppna",
+      "needsANewerVersionOf": "Kräver en nyare version av appen",
+      "usesPartsOfTermixThis": "{{name}} använder delar av Termix som denna app ännu inte har.",
+      "didNotStart": "{{name}} startade inte",
+      "thisScreenIsNotIn": "Den här skärmen finns inte i plugin-versionen på servern.",
+      "thePluginHitAnError": "Pluginet stötte på ett fel vid start.",
+      "youReOffline": "Du är offline",
+      "runsOnYourServerSo": "{{name}} körs på din server, så den behöver en anslutning. Den öppnas igen när du är online.",
+      "tryAgain": "Försök igen"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Den värd finns inte på denna {{deviceWord}} ännu.",
+      "theAppCanTOpen": "Appen kan inte öppna det här från denna plats.",
+      "thatHostIsNotOn2": "Den värd finns inte på denna {{deviceWord}} ännu."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Lösenord",
+      "unchangedIfBlank": "Oförändrad om tomt",
+      "port": "Port",
+      "domain": "Domän",
+      "displaySoundAndClipboardSettings": "Inställningar för skärm, ljud och urklipp finns i Termix webbapp.",
+      "portMustBeFrom1": "{{label}}-porten måste vara mellan 1 och 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Fjärrskrivbordet kopplades bort",
+        "signIn": "Inloggning för {{label}}",
+        "itWillNotBeSaved": "{{error}} Det sparas inte.",
+        "enterTheLoginForIt": "Ange inloggningsuppgifter för {{title}}. De sparas inte.",
+        "reconnecting": "Återansluter {{label}}",
+        "connecting": "Ansluter {{label}}",
+        "connectionFailed": "Anslutningen misslyckades",
+        "disconnected": "Frånkopplad",
+        "reconnect": "Återanslut",
+        "connectThroughTheServer": "Anslut via servern",
+        "pasteToRemote": "Klistra in i fjärrsystemet",
+        "typeClipboard": "Skriv urklipp",
+        "copyRemoteClipboard": "Kopiera fjärrsystemets urklipp",
+        "theComputerSCertificateWas": "Datorns certifikat var inte betrodd.",
+        "thatLoginWasRefusedTry": "Inloggningen avvisades. Försök igen."
+      },
+      "target": {
+        "trustThisComputer": "Lita på denna dator?",
+        "theCanTCheckS": "{{deviceWord}} kan inte kontrollera {{hostName}}s certifikat. Se till att detta fingeravtryck matchar det på datorn innan du fortsätter.\n\n{{fingerprint}}",
+        "trustAndConnect": "Lita på och anslut",
+        "certificateChanged": "Certifikatet har ändrats",
+        "showsAnotherCertificateThanLast": "{{hostName}} visar ett annat certifikat än förra gången. Detta händer när datorn skapar ett nytt certifikat, eller om någon lyssnar emellan.\n\nNytt fingeravtryck:\n{{fingerprint}}",
+        "trustTheNewOne": "Lita på det nya"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Fjärrskrivbord",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Klar",
+      "keyboard": "Tangentbord",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Inställningar",
+      "remoteSettings": "Fjärrinställningar",
+      "mouseMode": "Musläge",
+      "touch": "Pekskärm",
+      "trackpad": "Spårplatta",
+      "tapWhereYouWantTo": "Tryck där du vill klicka. Håll in för högerklick, dra för att dra.",
+      "dragToMoveThePointer": "Dra för att flytta markören. Tryck för att klicka, tryck med två fingrar för högerklick, tryck och dra för att dra.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Nyp var som helst för att zooma",
+      "reset": "Återställ",
+      "cancel": "Avbryt",
+      "connect": "Anslut",
+      "username": "Användarnamn",
+      "domainOptional": "Domän (valfritt)",
+      "domain": "Domän",
+      "password": "Lösenord",
+      "leftArrow": "Vänsterpil",
+      "upArrow": "Upppiltangent",
+      "downArrow": "Nedpiltangent",
+      "rightArrow": "Högerpil",
+      "rdpSignIn": "RDP-inloggning"
+    },
+    "theRemoteDesktopDropped": "Fjärrskrivbordet har kopplats bort",
+    "theyWillNotBeSaved": "{{errorMessage}} De sparas inte.",
+    "enterCredentialsForTheyWill": "Ange inloggningsuppgifter för {{title}}. De sparas inte.",
+    "connecting": "Ansluter",
+    "connectionFailed": "Anslutningen misslyckades",
+    "disconnected": "Kopplad bort",
+    "reconnect": "Anslut igen",
+    "route": {
+      "thisHostCanTOpen": "Den här värdens kan inte öppna ett fjärrskrivbord härifrån."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blockerad av appen"
+    },
+    "failedToStartRemoteSession": "Kunde inte starta fjärrsessionen",
+    "thatLoginWasRefusedTry": "Inloggningen avvisades. Försök igen.",
+    "theRemoteRefusedTheSaved": "Fjärrsystemet avvisade de sparade inloggningsuppgifterna. Kontrollera RDP-inloggningen på den här värdens.",
+    "remoteSessionFailed": "Fjärrsessionen misslyckades",
+    "remoteSessionReturnedAnInvalid": "Fjärrsessionen returnerade ett ogiltigt meddelande",
+    "failedToLoadTheRemote": "Kunde inte ladda klienten för fjärrskrivbordet"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Ingen logg",
+      "thisHostDoesNotKeep": "Den här värdens sparar ingen systemd-logg.",
+      "all": "Alla",
+      "warnings": "Varningar",
+      "errors": "Fel",
+      "stop": "Stoppa",
+      "follow": "Följ",
+      "nothingLogged": "Inget loggat",
+      "tryAnotherLevel": "Prova en annan nivå.",
+      "couldNotReadTheJournal": "Kunde inte läsa loggen"
+    },
+    "register": {
+      "services": "Tjänster",
+      "startStopAndReadLogs": "Starta, stoppa och läs loggar"
+    },
+    "readingServices": "Läser tjänster...",
+    "thisHostHasNoSystemd": "Denna värd har varken systemd eller OpenRC.",
+    "noServicesMatch": "Inga tjänster matchar",
+    "noServicesFound": "Inga tjänster hittades",
+    "services": "Tjänster",
+    "journal": "Logg",
+    "searchServices": "Sök tjänster...",
+    "all": "Alla",
+    "running": "Aktiva",
+    "failed": "Misslyckade ({{failed}})",
+    "failed2": "Misslyckade",
+    "servicesCard": {
+      "services": "Tjänster",
+      "noSystemdOrOpenrc": "Inget systemd eller OpenRC",
+      "failed": "{{failed}} misslyckade",
+      "allRunning": "Alla aktiva",
+      "couldNotReadServices": "Kunde inte läsa tjänster"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Den förblir stoppad tills den startas igen eller värden startas om.",
+      "itStopsForAMoment": "Den stoppas tillfälligt och startas sedan om.",
+      "stop": "Stoppa",
+      "restart": "Starta om",
+      "is": "{{name}} är {{state}}",
+      "start": "Starta",
+      "journal": "Logg",
+      "couldNotReadTheService": "Kunde inte läsa tjänsten",
+      "couldNot": "Kunde inte {{action}} {{name}}",
+      "startsAtBoot": "Startar vid uppstart",
+      "mainPid": "Huvud-PID",
+      "activeSince": "Aktiv sedan",
+      "unitFile": "Enhetsfil",
+      "notSet": "[inte inställt]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Inte inloggad",
+        "followFailed": "Följning misslyckades",
+        "connectionFailed": "Anslutningen misslyckades"
+      }
+    },
+    "couldNotReadServices": "Kunde inte läsa tjänster",
+    "services2": "Tjänster{{where}}",
+    "title": "Tjänster",
+    "failedCount": "{{count}} misslyckade"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sessionsdelning",
+      "shareLink": "Dela länk"
+    },
+    "shareSessionView": {
+      "canWatch": "Kan titta",
+      "canType": "Kan skriva",
+      "n1Hour": "1 timme",
+      "n8Hours": "8 timmar",
+      "n1Day": "1 dag",
+      "n7Days": "7 dagar",
+      "never": "Aldrig",
+      "shareSession": "Dela session",
+      "anyoneWithTheLinkCan": "Vem som helst med länken kan öppna denna terminal medan den är aktiv. Du kan återkalla länkar i Termix.",
+      "peopleWithTheLink": "Personer med länken",
+      "expiresAfter": "Utlöper efter",
+      "link": "Länk",
+      "copy": "Kopiera",
+      "share": "Dela",
+      "makeLink": "Skapa länk",
+      "theServerGaveNoLink": "Servern gav ingen länk",
+      "couldNotMakeALink": "Kunde inte skapa en länk",
+      "linkCopied": "Länk kopierad"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Ingen mapp"
+    },
+    "hostPicker": {
+      "selectNone": "Avmarkera alla",
+      "selectAll": "Markera alla",
+      "done": "Klar"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "Sparade kommandon att köra på valfri host"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Ingen väg att nå denna host härifrån",
+      "exitedWith": "Avslutades med {{exitCode}}",
+      "thisCanTRunIt": "Den här {{deviceWord}}:en kan inte köra det",
+      "noServerIsLinked": "Ingen server är länkad"
+    },
+    "runOnHostsSheet": {
+      "run": "Kör",
+      "run2": "Kör \"{{name}}\"",
+      "runsOverSshOnEach": "Körs via SSH på varje host. Ingen terminal öppnas.",
+      "close": "Stäng",
+      "hosts": "Hosts",
+      "pickHosts": "Välj hosts",
+      "workedFailed": "{{value}} lyckades, {{failed}} misslyckades",
+      "runOn2": "Kör på",
+      "runOn_one": "Kör {{name}} på {{count}} host?",
+      "runOn_other": "Kör {{name}} på {{count}} hosts?",
+      "hostsPicked_one": "{{count}} host vald",
+      "hostsPicked_other": "{{count}} hosts valda"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Sök i snippets",
+      "pastesTheNote": "Klistrar in anteckningen",
+      "runsTheSnippet": "Kör snippetet",
+      "noSnippetsMatch": "Inga snippets matchar",
+      "noSnippetsYet": "Inga snippets ännu",
+      "addSnippetsInSettingsSnippets": "Lägg till snippets i Inställningar, Snippets",
+      "run": "Kör",
+      "insertWithoutRunning": "Infoga utan att köra",
+      "copy": "Kopiera"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "Kör {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Det finns inga snippets att exportera",
+      "couldNotMakeTheFile": "Kunde inte skapa filen",
+      "copiedToTheClipboard": "Kopierat till urklipp",
+      "couldNotImport": "Kunde inte importera",
+      "couldNotReadThatFile": "Kunde inte läsa den filen",
+      "importAndExport": "Importera och exportera",
+      "theSameFileTheWeb": "Samma fil som webbappen använder.",
+      "export": "Exportera",
+      "shareAFile": "Dela en fil",
+      "copy": "Kopiera",
+      "import": "Importera",
+      "updateSnippetsThatExist": "Uppdatera snippets som redan finns",
+      "sameNameInTheSame": "Samma namn i samma mapp. Annars hoppas de över",
+      "chooseAFile": "Välj en fil",
+      "paste": "Klistra in",
+      "saveYourSnippets": "Spara dina snippets"
+    },
+    "useSnippetRunner": {
+      "run": "Kör {{name}}?",
+      "run2": "Kör",
+      "fillInTheValuesFor": "Fyll i värdena för detta snippet.",
+      "cancel": "Avbryt",
+      "insert": "Infoga",
+      "noTerminalIsOpen": "Ingen terminal är öppen"
+    },
+    "variables": {
+      "input": "Inmatning {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Det är inte en giltig JSON-fil",
+      "theFileNeedsASnippets": "Filen behöver en lista på snippets eller mappar",
+      "snippetNameAndContentAre": "Snippet {{value}}: namn och innehåll krävs",
+      "folder": "Mapp {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Laddar Tailscale-enheter…",
+      "searchTailscaleDevices": "Sök i Tailscale-enheter…",
+      "searchTailscaleDevices2": "Sök Tailscale-enheter",
+      "clearDeviceSearch": "Rensa enhetssökning",
+      "refreshTailscaleDevices": "Uppdatera Tailscale-enheter",
+      "device": "Enhet",
+      "noTailnetAddress": "Ingen tailnet-adress",
+      "tailscaleDevice": "Tailscale-enhet",
+      "tailscaleDevices": "Tailscale-enheter",
+      "addAHostThatConnects": "Lägg till en värd som ansluter via Tailscale SSH.",
+      "username": "Användarnamn",
+      "sshUsernameFor": "SSH-användarnamn för {{value}}",
+      "addHost": "Lägg till värd",
+      "noTailscaleDevicesMatchYour": "Inga Tailscale-enheter matchar din sökning.",
+      "noTailscaleDevicesFound": "Inga Tailscale-enheter hittades.",
+      "noTailscaleApiKeyIs": "Ingen Tailscale API-nyckel är konfigurerad på denna server. Be en administratör att lägga till en.",
+      "youDoNotHavePermission": "Du har inte behörighet att lista Tailscale-enheter.",
+      "couldNotLoadTailscaleDevices": "Kunde inte ladda Tailscale-enheter. Uppdatera för att försöka igen.",
+      "tailscaleIsUnavailableOnThis": "Tailscale är inte tillgängligt på denna server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Återansluter | försök {{attempt}}",
+      "reconnectingInSTry": "Återansluter om {{secs}}s | försök {{attempt}}",
+      "offlineWaitingForNetwork": "Frånkopplad, väntar på nätverk",
+      "sendToTheNewShell": "Skicka {{what}} till det nya skalet?",
+      "reconnectNow": "Återanslut nu",
+      "send": "Skicka",
+      "discard": "Släng",
+      "typedChars_one": "{{count}} skriven tecken",
+      "typedChars_other": "{{count}} skrivna tecken",
+      "waiting": "{{what}} väntar"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Anslutningslogg kopierad",
+      "connectionLog": "Anslutningslogg",
+      "copyItIntoABug": "Kopiera den till en felrapport. Adresser och användarnamn utelämnas.",
+      "copy": "Kopiera"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Rensa historik för denna värd?",
+        "clear": "Rensa",
+        "searchHistory": "Sök i historik",
+        "typesTheCommandWithoutRunning": "Skriver kommandot utan att köra det",
+        "noCommandsMatch": "Inga kommandon matchar",
+        "noHistoryYet": "Ingen historik ännu",
+        "commandsYouRunOnThis": "Kommandon du kör på denna värd visas här",
+        "run": "Kör",
+        "typeWithoutRunning": "Skriv utan att köra",
+        "copy": "Kopiera",
+        "delete": "Ta bort",
+        "historyCleared": "Historik rensad"
+      },
+      "suggestionStrip": {
+        "use": "Använd {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Appinställning",
+      "delete": "Ta bort (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Fliktitel från skalet",
+      "programsCanSetTheTab": "Program kan ställa in fliktiteln",
+      "openTmux": "Öppna tmux",
+      "attachToATmuxSession": "Anslut till en tmux-session eller starta en",
+      "reconnectOnDrop": "Återanslut vid avbrott",
+      "keepTabOpenOnExit": "Behåll flik öppen vid avslut",
+      "pressEnterToConnectAgain": "Tryck på Enter för att ansluta igen",
+      "saveCommandHistory": "Spara kommandohistorik",
+      "offerToFillPasswordPrompts": "Erbjud att fylla i lösenordsfrågor",
+      "offerToFillSudoPrompts": "Erbjud att fylla i sudo-frågor",
+      "usesTheSudoPasswordFrom": "Använder sudo-lösenordet från SSH-fliken",
+      "none": "Ingen",
+      "look": "Utseende",
+      "theme": "Tema",
+      "font": "Typsnitt",
+      "cursor": "Markör",
+      "bell": "Ljudsignal",
+      "scrollbackLines": "Rader att scrolla tillbaka",
+      "app": "App",
+      "behavior": "Beteende",
+      "backspaceSends": "Backspace skickar",
+      "startupSnippet": "Startsnutt",
+      "runsOnceTheShellIs": "Kör när skalet är klart",
+      "fillWithoutAsking": "Fyll i utan att fråga",
+      "onThisOnlyOnceYou": "Endast på denna {{deviceWord}}, efter att du valt \"Fyll alltid i\"",
+      "connection": "Anslutning",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Sekunder mellan pings, 0 stänger av",
+      "default": "Standard",
+      "keepaliveSeconds": "Keepalive-sekunder",
+      "missedPings": "Missade pings",
+      "dropTheConnectionAfterThis": "Avbryt anslutningen efter så många obesvarade",
+      "missedPingsBeforeDrop": "Missade pings innan avbrott",
+      "environment": "Miljö",
+      "removeVariable": "Ta bort variabel",
+      "addVariable": "Lägg till variabel"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TANGENTBORD"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rad",
+        "keys": "Tangenter",
+        "sendsAKeyCode": "Skickar en tangentkod",
+        "stickyModifier": "Klistrig modifierare",
+        "appAction": "Appåtgärd",
+        "tmuxPrefixThen": "tmux-prefix, sedan {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Tangentrader",
+        "onlyFor": "Endast för {{name}}",
+        "usingTheAppSRows": "Använder appens rader. Ändringar här gäller endast {{name}}",
+        "useTheAppSRows": "Använd appens rader"
+      },
+      "keyButton": {
+        "locked": "Låst"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Avbryt",
+        "remove": "Ta bort {{what}}?",
+        "remove2": "Ta bort",
+        "dragToReorder": "Dra för att ändra ordning",
+        "rowName": "Radnamn",
+        "groupName": "Gruppnamn",
+        "add": "Lägg till",
+        "addKey": "Lägg till tangent",
+        "addRow": "Lägg till rad",
+        "addGroup": "Lägg till grupp",
+        "tmuxPrefix": "tmux-prefix",
+        "name": "Namn",
+        "rename": "Byt namn",
+        "keys": "{{value}} tangenter",
+        "noKeys": "Inga tangenter",
+        "remove3": "Ta bort {{label}}",
+        "keys2": "Tangenter",
+        "custom": "Anpassad",
+        "add2": "Lägg till {{label}}",
+        "typeText": "Skriv text",
+        "runCommand": "Kör kommando",
+        "ctrlKey": "Ctrl-tangent",
+        "label": "Etikett",
+        "optional": "Valfritt",
+        "letter": "Bokstav",
+        "command": "Kommando",
+        "text": "Text",
+        "resetToDefault": "Återställ till standard"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Ändra tangenter i Inställningar, Tangentbord"
+      },
+      "keyRowBar": {
+        "keyRow": "Tangentrad {{label}}",
+        "tapForTheNextRow": "Tryck för nästa rad, håll in för att välja en",
+        "keyRows": "Tangentrader"
+      },
+      "model": {
+        "clear": "Rensa",
+        "main": "Huvud",
+        "keys": "Tangenter",
+        "arrows": "Piltangenter",
+        "symbols": "Symboler",
+        "actions": "Åtgärder",
+        "nav": "Navigering",
+        "move": "Flytta",
+        "function": "Funktion",
+        "brackets": "Parenteser",
+        "punctuation": "Interpunktion",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Fönster",
+        "copy": "Kopiera",
+        "split": "Dela ─",
+        "split2": "Dela │",
+        "newWin": "Nytt fönster",
+        "prevWin": "Föregående fönster",
+        "nextWin": "Nästa fönster",
+        "pane": "Fönster ←",
+        "pane2": "Fönster ↓",
+        "pane3": "Fönster ↑",
+        "pane4": "Fönster →",
+        "copyMode": "Kopieringsläge",
+        "pasteBuf": "Klistra in buffert",
+        "killPane": "Stäng fönster"
+      }
+    },
+    "output": {
+      "openLink": "Öppna länk?",
+      "open": "Öppna",
+      "pasteLines": "Klistra in {{lines}} rader?",
+      "pasteThisText": "Klistra in denna text?",
+      "theShellMayRunIt": "Skalprogrammet kan köra det direkt.\n\n{{text}}",
+      "paste": "Klistra in",
+      "letTheProgramReadYour": "Låt programmet läsa ur urklipp?",
+      "itAskedForWhatYou": "Det frågade efter det du senast kopierade.",
+      "allow": "Tillåt",
+      "letTheProgramCopyTo": "Låt programmet kopiera till urklipp?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Fyll i det sparade lösenordet?",
+      "asksForTheSudoPassword": "{{hostName}} frågar efter sudo-lösenordet.",
+      "asksForAPassword": "{{hostName}} frågar efter ett lösenord.",
+      "fillPassword": "Fyll i lösenord",
+      "alwaysFillOnThisHost": "Fyll alltid in på denna värd",
+      "asksNoMoreOnThis": "Frågar inte längre på denna {{deviceWord}}. Stäng av det i värdens flik Terminal.",
+      "notNow": "Inte nu"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal och keepalive",
+      "history": "HISTORIK",
+      "find": "Sök",
+      "tmuxWindows": "tmux-fönster",
+      "connectionLog": "Anslutningslogg",
+      "keyRowsForThisHost": "Tangentrader för denna värd"
+    },
+    "searchBar": {
+      "noResults": "Inga resultat",
+      "matchCase": "Matcha skiftläge",
+      "wholeWord": "Helt ord",
+      "regularExpression": "Reguljärt uttryck",
+      "find": "Sök",
+      "closeFind": "Stäng sök"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "System",
+      "block": "Block",
+      "bar": "Streck",
+      "underline": "Understruken",
+      "off": "Av",
+      "sound": "Ljud",
+      "flash": "Blinka",
+      "both": "Båda"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Ny flik på denna värd",
+      "closeTab": "Stäng flik",
+      "nextTab": "Nästa flik",
+      "previousTab": "Föregående flik",
+      "goToTab": "Gå till flik",
+      "find": "Sök",
+      "fontSize": "Teckenstorlek",
+      "paste": "Klistra in",
+      "escape": "Escape",
+      "copyAndPaste": "Kopiera och klistra in"
+    },
+    "reconnecting": "Återansluter...",
+    "waitingForNetwork": "Väntar på nätverk...",
+    "waitingForYou": "Väntar på dig...",
+    "connecting": "Ansluter...",
+    "terminalView": {
+      "scrollToBottom": "Rulla till botten",
+      "onlyWebLinksCanOpen": "Endast webblänkar kan öppnas från terminalen",
+      "couldNotOpenLink": "Kunde inte öppna länken",
+      "copiedFromTheTerminal": "Kopierat från terminalen"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Öppna en tmux-session",
+        "newSession": "Ny session",
+        "plainShell": "Vanlig skal",
+        "tmuxWindows": "tmux-fönster",
+        "newWindow": "Nytt fönster",
+        "windowCount_one": "{{count}} fönster",
+        "windowCount_other": "{{count}} fönster",
+        "attached": "{{count}} ansluten",
+        "activeNow": "aktiv nu",
+        "activeMinAgo": "aktiv för {{count}} min sedan",
+        "activeHoursAgo": "aktiv för {{count}} h sedan",
+        "activeDaysAgo_one": "aktiv för {{count}} dag sedan",
+        "activeDaysAgo_other": "aktiv för {{count}} dagar sedan"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopiera",
+        "selectAll": "Markera allt",
+        "cancel": "Avbryt",
+        "scrollToBottom": "Rulla till botten",
+        "couldNotCopy": "Kunde inte kopiera",
+        "webviewError": "WebView-fel: {{description}}",
+        "webviewHttpError": "WebView HTTP-fel: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Inget sparade lösenord för denna värd",
+    "backInTmuxSession": "Tillbaka i tmux-sessionen {{tmuxName}}",
+    "backInScreenSession": "Tillbaka i screen-sessionen {{name}}",
+    "theServerSessionEndedThis": "Serverns session avslutades. Detta är ett nytt skal.",
+    "termixWasClosedSoThe": "Termix stängdes, så det gamla skalet avslutades. Detta är ett nytt skal.",
+    "theConnectionDroppedAndThe": "Anslutningen droppade och det gamla skalet avslutades. Detta är ett nytt skal.",
+    "disconnectedFrom": "Kopplad från {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Tvåfaktorsautentisering",
+      "codesFromAnAuthenticatorApp": "Koder från en autentiseringsapp för ditt serverkonto"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-adress",
+      "neededToWakeThisHost": "Krävs för att starta denna värd med Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Använd en MAC-adress som 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN skickat till {{name}}",
+      "failedToSendWakeOn": "Misslyckades med att skicka Wake-on-LAN-paket",
+      "noServer": "Ingen server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Starta {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Vill du dela anonyma användarstatistik?",
+      "termixWouldSendAShort": "Termix skickar en kort rapport en gång om dagen. Du kan ändra detta när som helst i Inställningar.",
+      "noThanks": "Nej tack",
+      "share": "Dela",
+      "theReportHasTheApp": "Rapporten innehåller appversion, {{deviceWord}}-typ, ungefärliga antal värdar och sessioner, vilka funktioner du använder och om anslutningen fungerade. Den innehåller aldrig värdnamn, användarnamn, adresser, sökvägar, kommandon eller servernamn.",
+      "seeExactlyWhatIsSent": "Se exakt vad som skickas"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Laddar versionsinformation…",
+      "updateAvailable": "Uppdatering tillgänglig",
+      "newVersionAvailable": "Ny version tillgänglig",
+      "aNewerVersionOfThe": "En nyare version av mobilappen är tillgänglig. Vissa funktioner kanske inte fungerar korrekt förrän du uppdaterar.",
+      "versionInformation": "Versionsinformation",
+      "installed": "Installerad",
+      "latest": "Senaste",
+      "unknown": "Okänd",
+      "tag": "Tagg",
+      "continueAnyway": "Fortsätt ändå"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopierad",
+      "copy": "Kopiera",
+      "hostKeyChanged": "Värdnyckel har ändrats",
+      "verifyHostKey": "Verifiera värdnyckel",
+      "cancel": "Avbryt",
+      "acceptNewKey": "Acceptera ny nyckel",
+      "connectAndTrust": "Anslut och lita på",
+      "theHostSSshKey": "Värdens SSH-nyckel har ändrats sedan din senaste anslutning. Detta kan betyda att någon avlyssnar anslutningen.",
+      "youAreConnectingToThis": "Du ansluter till denna värd för första gången. Kontrollera fingeravtrycket innan du litar på det.",
+      "previousKey": "Föregående nyckel",
+      "newFingerprint": "Nytt fingeravtryck",
+      "hostFingerprint": "Värdens fingeravtryck"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Lösenfras krävs",
+      "enterThePassphraseForYour": "Ange lösenfrasen för din SSH-nyckel.",
+      "cancel": "Avbryt",
+      "connect": "Anslut",
+      "keyPassphrase": "Nyckelns lösenfras"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-autentisering krävs",
+      "cancel": "Avbryt",
+      "connect": "Anslut",
+      "password": "Lösenord",
+      "sshKey": "SSH-nyckel",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nKlistra in din privata nyckel här...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Nyckelns lösenfras (valfritt)",
+      "keyboardInteractiveAuthIsNot": "Tangentbordsinteraktiv autentisering är inte tillgänglig. Ange inloggningsuppgifter direkt.",
+      "authenticationFailedPleaseReEnter": "Autentisering misslyckades. Ange dina inloggningsuppgifter igen.",
+      "connectionTimedOutPleaseTry": "Anslutningen timed out. Försök igen med dina inloggningsuppgifter."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-kontroll",
+      "completeTheTailscaleSshCheck": "Slutför Tailscale SSH-kontrollen i din webbläsare för att fortsätta.",
+      "cancel": "Avbryt",
+      "copyUrl": "Kopiera URL",
+      "openBrowser": "Öppna webbläsare",
+      "urlCopied": "URL kopierad",
+      "failedToCopy": "Kunde inte kopiera",
+      "couldNotOpenBrowser": "Kunde inte öppna webbläsare"
+    },
+    "tOTPDialog": {
+      "cancel": "Avbryt",
+      "submit": "Skicka",
+      "verify": "Verifiera",
+      "password": "Lösenord",
+      "pasteCode": "Klistra in kod",
+      "passwordRequired": "Lösenord krävs",
+      "twoFactorAuthentication": "Tvåfaktorsautentisering",
+      "enterYourPasswordToContinue": "Ange ditt lösenord för att fortsätta.",
+      "enterThe6DigitCode": "Ange den 6-siffriga koden från din autentiseringsapp."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate-autentisering",
+      "authenticateViaTheWarpgatePortal": "Autentisera via Warpgate-portalen och tryck sedan på Fortsätt.",
+      "cancel": "Avbryt",
+      "openBrowser": "Öppna webbläsare",
+      "continue": "Fortsätt",
+      "securityKey": "Säkerhetsnyckel",
+      "authUrl": "Autentiserings-URL",
+      "copied": "Kopierad",
+      "copy": "Kopiera",
+      "urlCopied": "URL kopierad",
+      "failedToCopy": "Kunde inte kopiera",
+      "couldNotOpenBrowser": "Kunde inte öppna webbläsare"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "denna {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Senaste aktiviteten",
+        "files": "Filer",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Aviseringar",
+        "seeAll": "Visa alla"
+      },
+      "server": "Server",
+      "openSessions": "Öppna sessioner",
+      "quickAccess": "Snabbåtkomst",
+      "notifications": "Aviseringar",
+      "pinnedHosts": "Fästade värdar",
+      "recentHosts": "Senaste värdarna",
+      "recentActivity": "Senaste aktiviteten",
+      "pinnedCard": {
+        "addYourFirstHost": "Lägg till din första värd",
+        "hostsYouOpenShowUp": "Värdar du öppnar visas här, och fästade värdar visar livekort.",
+        "addHost": "Lägg till värd",
+        "linkAServer": "Länka en server",
+        "pinAHostToSee": "Fäst en värd för att se den här",
+        "pinnedHostsShowTheirMetrics": "Fästade värdar visar sina mått, Docker och tjänster på ett ögonblick. Håll inne en värd för att fästa den.",
+        "goToHosts": "Gå till värdar",
+        "pinned": "Fästade",
+        "opensTheTerminalHoldFor": "Öppnar terminalen. Håll inne för mer.",
+        "turnOnDockerOrServices": "Aktivera Docker eller Tjänster för denna värd, eller tryck på den för att ansluta.",
+        "opens": "Öppnar {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Snabbåtkomst",
+        "quickConnect": "Snabbanslutning",
+        "userHostPortWithoutSaving": "användare@värd:port, utan att spara"
+      },
+      "recentCard": {
+        "recent": "Senaste"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Version",
+        "uptime": "Upptid",
+        "database": "Databas",
+        "hosts": "Värdar",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Inloggningar"
+      },
+      "sessionsCard": {
+        "openSessions": "Öppna sessioner",
+        "connected": "Ansluten"
+      }
+    },
+    "resetHome": "Återställ startsidan?",
+    "cardsGoBackToThe": "Kort återgår till standardordning och vilka kort som visas.",
+    "reset": "Återställ",
+    "doneEditingHome": "Klar med redigering av startsidan",
+    "editHome": "Redigera startsidan",
+    "dragToReorder": "Dra {{title}} för att ändra ordning",
+    "show": "Visa {{title}}",
+    "dragCardsToReorderThem": "Dra i korten för att ändra ordning. Stäng av ett kort för att dölja det. Kort utan innehåll döljs automatiskt.",
+    "resetToDefault": "Återställ till standard",
+    "done": "Klar",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Kan fortfarande inte nå servern",
+      "canTReach": "Kan inte nå {{account}}",
+      "youCanKeepWorkingWith": "Du kan fortsätta arbeta med kopian på denna {{deviceWord}}. Ändringar synkroniseras när den är tillbaka.",
+      "hostsSetToConnectFrom": "Värdar som är inställda att ansluta från denna {{deviceWord}} fungerar fortfarande.",
+      "tryAgain": "Försök igen",
+      "noAnswer": "inget svar"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profil",
+      "none": "Ingen",
+      "signsInWithInYour": "Loggar in med {{title}} i din webbläsare via din Termix-server. Anslut denna värd via servern.",
+      "needsATermixServerLink": "{{title}} kräver en Termix-server. Länka en för att använda denna inloggning.",
+      "isOffOnThisServer": "{{title}} är inaktiverat på denna server. Denna värd behåller sina inloggningsinställningar."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kunde inte ladda in anmälningsuppgifter",
+      "deleted": "Tog bort \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Kunde inte ta bort anmälningsuppgiften",
+      "credentials": "Anmälningsuppgifter",
+      "add": "Lägg till",
+      "searchCredentials": "Sök bland anmälningsuppgifter",
+      "clearSearch": "Rensa sökning",
+      "loadingCredentials": "Laddar anmälningsuppgifter...",
+      "noCredentialsMatchYourSearch": "Inga anmälningsuppgifter matchar din sökning",
+      "noCredentialsYet": "Inga anmälningsuppgifter ännu",
+      "addCredential": "Lägg till anmälningsuppgift",
+      "edit": "Redigera",
+      "delete": "Ta bort",
+      "deleteCredential": "Ta bort anmälningsuppgift",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" kommer att tas bort permanent. Värdar som använder den förlorar sina sparade anmälningsuppgifter.",
+      "cancel": "Avbryt",
+      "hostCount_one": "{{count}} värd",
+      "hostCount_other": "{{count}} värdar",
+      "sshKey": "SSH-nyckel"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Ersätt nyckeln?",
+        "theNewKeyTakesThe": "Den nya nyckeln ersätter den nuvarande. Värdar som endast litar på den gamla nyckeln slutar acceptera denna anmälningsuppgift.",
+        "replace": "Ersätt",
+        "newKeyMadeCopyThe": "Ny nyckel skapad. Kopiera den offentliga nyckeln till dina värdar.",
+        "couldNotMakeAKey": "Kunde inte skapa en nyckel",
+        "couldNotReadThatCertificate": "Kunde inte läsa certifikatfilen",
+        "leaveWithoutSaving": "Lämna utan att spara?",
+        "yourChangesToThisCredential": "Dina ändringar av denna anmälningsuppgift kommer att gå förlorade.",
+        "leave": "Lämna",
+        "credentialSaved": "Anmälningsuppgift sparad",
+        "credentialAdded": "Anmälningsuppgift tillagd",
+        "couldNotSaveTheCredential": "Kunde inte spara anmälningsuppgiften",
+        "enterAHostToTest": "Ange en värd att testa på, t.ex. 10.0.0.5 eller box:2222.",
+        "enterTheUsernameFirst": "Ange användarnamnet först.",
+        "editCredential": "Redigera anmälningsuppgift",
+        "newCredential": "Ny anmälningsuppgift",
+        "cancel": "Avbryt",
+        "save": "Spara",
+        "credential": "Inloggningsuppgift",
+        "name": "Namn",
+        "productionKey": "Produktionsnyckel",
+        "username": "Användarnamn",
+        "signInWith": "Logga in med",
+        "password": "Lösenord",
+        "sshKey": "SSH-nyckel",
+        "unchangedIfBlank": "Oförändrad om tom",
+        "key": "Nyckel",
+        "fileOrPaste": "Fil eller klistra in",
+        "makeANewKey": "Skapa en ny nyckel",
+        "aKeyIsSavedChoose": "En nyckel är sparad. Välj en fil eller klistra in för att byta ut den.",
+        "type": "Typ",
+        "ed25519AndEcdsaAreMade": "Ed25519 och ECDSA skapas på denna {{deviceWord}}, RSA på din server.",
+        "madeOnThisEd25519Works": "Skapad på denna {{deviceWord}}. Ed25519 fungerar nästan överallt.",
+        "passphrase": "Lösenfras",
+        "optionalLocksTheNewKey": "Valfritt. Låser den nya nyckeln på denna {{deviceWord}} och på disken.",
+        "makeKey": "Skapa nyckel",
+        "publicKey": "Offentlig nyckel",
+        "addThisLineToSsh": "Lägg till denna rad i ~/.ssh/authorized_keys på dina värdar",
+        "publicKeyCopied": "Offentlig nyckel kopierad",
+        "copyPublicKey": "Kopiera offentlig nyckel",
+        "certificate": "Certifikat",
+        "aCertificateYourCaSigned": "Ett certifikat som din CA har signerat för denna nyckel, för värdar som litar på CA:n.",
+        "chooseCertificateFile": "Välj certifikatfil",
+        "thisDoesNotLookLike": "Detta ser inte ut som ett OpenSSH-certifikat.",
+        "test": "Testa",
+        "hostToTestOn": "Värd att testa på",
+        "n10005Or": "10.0.0.5 eller box.lan:2222",
+        "pickASavedHost": "Välj en sparad värd",
+        "details": "Detaljer",
+        "description": "Beskrivning",
+        "whatThisCredentialIsFor": "Vad denna inloggningsuppgift är för",
+        "folder": "Mapp",
+        "serverKeys": "Servernycklar",
+        "testOnAHost": "Testa på en värd",
+        "rsaKeysNeedALinked": "RSA-nycklar kräver en länkad server."
+      },
+      "model": {
+        "giveThisCredentialAName": "Ge denna inloggningsuppgift ett namn",
+        "addAPrivateKeyOr": "Lägg till en privat nyckel eller skapa en ny"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Detta är ett värdcertifikat, inte ett användarcertifikat.",
+        "thisCertificateIsNotValid": "Detta certifikat är inte giltigt ännu.",
+        "thisCertificateHasExpired": "Detta certifikat har löpt ut.",
+        "itIsForAKey": "Det är för en {{keyType}}-nyckel, men denna nyckel är {{keyType2}}.",
+        "forAnyUser": "För vilken användare som helst",
+        "validFromNoEndDate": "Giltigt från {{validAfter}}, inget slutdatum",
+        "signedBy": "Signerat av {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Användarnamn",
+        "fromTheCredential": "Från inloggningsuppgiften: {{credentialUser}}",
+        "signInWith": "Logga in med",
+        "password": "Lösenord",
+        "key": "Nyckel",
+        "credential": "Inloggningsuppgift",
+        "none": "Ingen",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Ansluter med Tailscale SSH. Inget lösenord eller nyckel sparas.",
+        "tailscaleIsNotOnFor": "Tailscale är inte aktiverat för {{value}}. Denna värd behåller sin Tailscale-inloggning.",
+        "unchangedIfBlank": "Oförändrad om tom",
+        "noCredentialsYetTapThe": "Inga inloggningsuppgifter ännu. Tryck på nyckelikonen i Värdar för att lägga till en.",
+        "useCredential": "Använd uppgift {{name}}",
+        "sudoPassword": "Sudo-lösenord",
+        "typedIntoSudoPromptsWhen": "Skrivs in i sudo-prompter när Terminal-sektionen aktiverar det",
+        "notSet": "Ej inställt",
+        "thisServer": "den här servern"
+      },
+      "colorIconField": {
+        "color": "Färg",
+        "noColor": "Ingen färg",
+        "color2": "Färg {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Ingen ikon",
+        "none": "Ingen",
+        "icon2": "Ikon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Lämna utan att spara?",
+        "yourChangesToThisHost": "Dina ändringar av den här värdmaskinen kommer att gå förlorade.",
+        "leave": "Lämna",
+        "couldNotSaveHowThis": "Kunde inte spara hur den här värdmaskinen ansluter",
+        "hostSaved": "Värdmaskin sparad",
+        "hostAdded": "Värdmaskin tillagd",
+        "couldNotSaveTheHost": "Kunde inte spara värdmaskinen",
+        "enterTheHostSAddress": "Ange värdmaskinens adress först.",
+        "turnOnSshToTest": "Aktivera SSH för att testa inloggningen.",
+        "pickACredentialFirst": "Välj en uppgift först.",
+        "editHost": "Redigera värdmaskin",
+        "newHost": "Ny värdmaskin",
+        "cancel": "Avbryt",
+        "save": "Spara",
+        "host": "Värdmaskin",
+        "name": "Namn",
+        "myServer": "Min server",
+        "address": "Adress",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port och användarnamn hämtas från dina standardinställningar för värdmaskiner tills du ändrar dem.",
+        "folder": "Mapp",
+        "production": "Produktion",
+        "useAFolderInstead": "Använd en mapp istället",
+        "putItUnderAHost": "Placera den under en värdmaskin istället",
+        "pinToTop": "Fäst högst upp",
+        "colorAndIcon": "Färg och ikon",
+        "notes": "Anteckningar",
+        "anythingWorthRememberingAboutThis": "Något värt att komma ihåg om den här värdmaskinen",
+        "protocols": "Protokoll",
+        "terminalFilesAndMore": "Terminal, filer och mer",
+        "connectFrom": "Anslut från",
+        "features": "Funktioner",
+        "otherProtocols": "Andra protokoll",
+        "more": "Mer",
+        "theTestRunsFromThis": "Testet körs från den här {{deviceWord}}. Den här värdmaskinen ansluter via servern, så den kan fortfarande fungera när {{deviceWord}} inte kan nå den."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "Ansluter via dessa i ordning, sedan till den här värdmaskinen",
+        "reachThisHostThroughOther": "Nå den här värdmaskinen via andra värdmaskiner först",
+        "moveUp": "Flytta upp",
+        "moveDown": "Flytta ner",
+        "removeJumpHost": "Ta bort jump host",
+        "addJumpHost": "Lägg till jump host",
+        "pickASavedHostTo": "Välj en sparad värdmaskin att ansluta via",
+        "searchHosts": "Sök bland värdmaskiner",
+        "noOtherHostsToPick": "Inga andra värdmaskiner att välja. En värdmaskin kan inte hoppa via sig själv eller en värdmaskin som redan går via den.",
+        "missingHost": "Saknad värdmaskin #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Aktivera minst ett protokoll",
+        "pickACredential": "Välj en uppgift",
+        "enterTheHostSAddress": "Ange värdens adress",
+        "theAddressCanTHave": "Adressen får inte innehålla mellanslag",
+        "portMustBeFrom1": "Porten måste vara mellan 1 och 65535",
+        "enterTheSshUsername": "Ange SSH-användarnamnet"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Värdens visas inrymd under den du väljer",
+        "searchHosts": "Sök bland värdar",
+        "noHostsToPickA": "Inga värdar att välja. En värd kan inte placeras under sig själv, en av sina egna undervärdar eller en delad värd.",
+        "parentHost": "Överordnad värd",
+        "subHostsFollowTheFolder": "Undervärdar följer sin överordnade mapp",
+        "pickParentHost": "Välj överordnad värd",
+        "missingHost": "Saknad värd #{{value}}",
+        "pickAHost": "Välj en värd",
+        "clearParentHost": "Ta bort överordnad värd"
+      },
+      "tagsField": {
+        "tags": "Taggar",
+        "typeATagAndPress": "Skriv en tagg och tryck på Enter",
+        "removeTag": "Ta bort taggen {{tag}}",
+        "webProd": "webb, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Kunde inte spara hur denna värd ansluter",
+      "addressCopied": "Adressen har kopierats",
+      "cpu": "CPU {{value}} %",
+      "ram": "RAM {{value}} %",
+      "connectFrom": "Anslut från",
+      "dismiss": "Avvisa",
+      "unpin": "Lossa",
+      "pinToHome": "Fäst på startsidan",
+      "select": "Välj",
+      "editHost": "Redigera värd",
+      "copyAddress": "Kopiera adress",
+      "addSubHost": "Lägg till undervärd",
+      "cloneHost": "Klona värd",
+      "deleteHost": "Ta bort värd",
+      "connectThroughTheServer": "Anslut via servern",
+      "connectFromThis": "Anslut från denna {{deviceWord}}"
+    },
+    "defaultYourOrder": "Standard (din ordning)",
+    "nameAZ": "Namn (A-Ö)",
+    "nameZA": "Namn (Ö-A)",
+    "ipAscending": "IP (stigande)",
+    "ipDescending": "IP (fallande)",
+    "onlineFirst": "Online först",
+    "offlineFirst": "Offline först",
+    "pinnedFirst": "Fästa först",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Fästa",
+    "protocol": "Protokoll",
+    "features": "Funktioner",
+    "hostsCanOnlyMoveInside": "Värdar kan bara flyttas inom sin egen mapp",
+    "couldNotUpdateTheHosts": "Kunde inte uppdatera värdarna",
+    "sharedHostsCanTBe": "Delade värdar kan inte tas bort här",
+    "delete2": "Ta bort",
+    "noneOfTheseHostsOpen": "Ingen av dessa värdar öppnar en terminal",
+    "couldNotPinTheHost": "Kunde inte fästa värd",
+    "deleted": "Tog bort {{name}}",
+    "failedToDeleteHost": "Misslyckades med att ta bort värd",
+    "cloned": "Klonade {{name}}",
+    "failedToCloneHost": "Misslyckades med att klona värd",
+    "reorderWorksWithTheDefault": "Omordning fungerar med standard sorteringsordning och ingen sökning eller filter",
+    "couldNotSaveTheOrder": "Kunde inte spara ordningen",
+    "noHostsYet": "Inga värdar ännu",
+    "addAHostToConnect": "Lägg till en värd för att ansluta med ett enda tryck.",
+    "addHost": "Lägg till värd",
+    "quickConnect2": "Snabbanslutning",
+    "linkAServer": "Länka en server",
+    "noHostsMatch": "Inga värdar matchar",
+    "clearSearchAndFilters": "Rensa sökning och filter",
+    "more": "Mer",
+    "dragAHostByIts": "Dra en värd via dess grepp för att flytta den inom mappen.",
+    "done": "Klar",
+    "filterHosts": "Filtrera värdar",
+    "clearFilterText": "Rensa filtertext",
+    "sortHosts": "Sortera värdar",
+    "removeFilter": "Ta bort filtret {{value}}",
+    "loadingHosts": "Laddar värdar…",
+    "moveUnderAHost": "Flytta under en värd",
+    "moveToFolder": "Flytta till mapp",
+    "leaveItEmptyToTake": "Lämna tomt för att ta bort värdarna från mappar.",
+    "folderLikeProdWeb": "Mapp, t.ex. Prod / Web",
+    "move": "Flytta",
+    "hosts": "Värdar",
+    "selectHosts": "Välj värdar",
+    "reorderHosts": "Ändra ordning på värdar",
+    "customizeList": "Anpassa lista",
+    "chooseWhatEachHostRow": "Välj vad varje värdrad visar",
+    "credentials2": "Inloggningsuppgifter",
+    "savedPasswordsAndKeys": "Sparade lösenord och nycklar",
+    "tailscaleDevices": "Tailscale-enheter",
+    "refresh": "Uppdatera",
+    "rowDensityFollowsSettingsAppearance": "Radtätheten följer Inställningar, Utseende.",
+    "clearAllFilters": "Rensa alla filter",
+    "tags": "Taggar",
+    "stopSelecting": "Sluta välja",
+    "selected": "{{count}} valda",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Kunde inte läsa den nyckelfilen",
+        "theClipboardIsEmpty": "Urklipp är tomt",
+        "privateKey": "Privat nyckel",
+        "chooseFile": "Välj fil",
+        "paste": "Klistra in",
+        "unchangedIfBlank": "Oförändrad om tom",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Lösenfras",
+        "onlyIfTheKeyHas": "Endast om nyckeln har en",
+        "theKeyIsCheckedWhen": "Nyckeln kontrolleras när du ansluter.",
+        "thePastedKey": "den inklistrade nyckeln"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Öppna",
+        "moreActions": "Fler åtgärder",
+        "opensTheTerminalHoldFor": "Öppnar terminalen. Håll in för mer.",
+        "shared": "Delad",
+        "drag": "Dra {{name}}",
+        "showSubHosts_one": "Visa {{count}} underordnad värd för {{name}}",
+        "showSubHosts_other": "Visa {{count}} underordnade värdar för {{name}}",
+        "hideSubHosts_one": "Dölj {{count}} underordnad värd för {{name}}",
+        "hideSubHosts_other": "Dölj {{count}} underordnade värdar för {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Mapp {{name}}, {{total}} värdar"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Värd och användarnamn krävs",
+      "hostSaved": "Värd sparad",
+      "couldNotSaveTheHost": "Kunde inte spara värden",
+      "quickConnect": "Snabbanslutning",
+      "connectToAHostWithout": "Anslut till en värd utan att spara den.",
+      "hostIp": "Värd / IP",
+      "port": "Port",
+      "username": "Användarnamn",
+      "password": "Lösenord",
+      "key": "Nyckel",
+      "privateKey": "Privat nyckel",
+      "saveToMyHosts": "Spara till mina värdar",
+      "keepThisHostAfterConnecting": "Behåll denna värd efter anslutning",
+      "cancel": "Avbryt",
+      "connect": "Anslut"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Hämtar dina värdar från servern",
+      "yourHostsStayOnThis": "{{message}} Dina värdar finns kvar på denna {{deviceWord}} under tiden."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Värdens nyckel har ändrats",
+      "trustThisHost": "Lita på denna värd?",
+      "trust": "Lita på",
+      "stopTest": "Stoppa test",
+      "testConnection": "Testa anslutning",
+      "connecting": "Ansluter..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Kunde inte ladda värdar."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} delad värd lämnades oförändrad.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} delade värdar lämnades oförändrade.",
+    "deleteHosts_one": "Ta bort {{count}} värd?",
+    "deleteHosts_other": "Ta bort {{count}} värdar?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Ingen mapp med namnet {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Värd \"{{name}}\": ogiltig port",
+        "hostJumpIsNotIn": "Värd \"{{name}}\": hoppvärd {{value}} finns inte i filen och har därför utelämnats",
+        "credential": "Inloggningsuppgift {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Inga giltiga Host-poster hittades i SSH-konfigurationsfilen",
+        "credentialWasNotFound": "{{label}}: inloggningsuppgift {{value}} hittades inte"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Värd {{value}}: dubbel exporterad värd-ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Saknar obligatoriska fält (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Ogiltig authType. Måste vara ett av {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Användarnamn krävs för SSH-anslutningar",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias krävs för inloggningsuppgiftsautentisering",
+        "thatIsNotAValid": "Detta är inte en giltig JSON-fil",
+        "hostsArrayIsRequiredAnd": "Värdarray krävs och får inte vara tom",
+        "jumpHostCycle": "{{label}}: cykel i hoppvärd",
+        "jumpHostIsNotIn": "{{label}}: hoppvärd {{id}} finns inte i filen"
+      }
+    },
+    "movedTo": "Flyttad till {{value}}",
+    "movedOutOfFolders": "Flyttad ur mappar",
+    "movedUnder": "Flyttad under {{value}}",
+    "openTerminals": "Öppna terminaler",
+    "theHost": "värd"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Dölj lösenord",
+      "showPassword": "Visa lösenord",
+      "enterAUsernameAndPassword": "Ange ett användarnamn och lösenord",
+      "useAtLeast6Characters": "Använd minst 6 tecken för lösenordet",
+      "thePasswordsDonTMatch": "Lösenorden matchar inte",
+      "makeTheAdminAccount": "Skapa administratörskontot",
+      "makeAnAccount": "Skapa ett konto",
+      "thisIsTheFirstAccount": "Detta är det första kontot på servern, så det styr servern.",
+      "pickAUsernameAndPassword": "Välj ett användarnamn och lösenord för denna server.",
+      "username": "Användarnamn",
+      "password": "Lösenord",
+      "passwordAgain": "Lösenord igen",
+      "makeAccount": "Skapa konto",
+      "back": "Tillbaka",
+      "haveAnAccountSignIn": "Har du ett konto? Logga in",
+      "resetCodeMadeItIs": "Återställningskod skapad. Den finns i serverns loggar",
+      "enterYourUsername": "Ange ditt användarnamn",
+      "enterTheResetCode": "Ange återställningskoden",
+      "passwordChangedSignInWith": "Lösenordet har ändrats. Logga in med det nu",
+      "resetPassword": "Återställ lösenord",
+      "enterYourUsernameTheServer": "Ange ditt användarnamn. Servern skriver en återställningskod till sina loggar.",
+      "sendResetCode": "Skicka återställningskod",
+      "enterThe6DigitCode": "Ange 6-siffriga koden från serverloggen.",
+      "resetCode": "Återställ kod",
+      "checkCode": "Kontrollera kod",
+      "newPassword": "Nytt lösenord",
+      "saveNewPassword": "Spara nytt lösenord",
+      "backToSignIn": "Tillbaka till inloggning",
+      "couldNotMakeTheAccount": "Kunde inte skapa kontot",
+      "couldNotStartTheReset": "Kunde inte starta återställningen",
+      "thatCodeDidnTWork": "Den koden fungerade inte",
+      "couldNotChangeThePassword": "Kunde inte ändra lösenordet"
+    },
+    "browserStep": {
+      "signInFailed": "Inloggningen misslyckades",
+      "signInCanceled": "Inloggningen avbröts",
+      "couldNotOpenTheSign": "Kunde inte öppna inloggningswebbläsaren",
+      "couldNotOpenTheSign2": "Kunde inte öppna inloggningssidan",
+      "certificateProblem": "Certifikatproblem",
+      "back": "Tillbaka",
+      "signIn": "Logga in",
+      "reload": "Ladda om",
+      "finishSigningInInYour": "Slutför inloggningen i webbläsaren",
+      "useAnySignInYour": "Använd vilken inloggningsmetod som helst som din server har, till exempel en passkey eller säkerhetsnyckel. Appen tar över när du är inloggad.",
+      "theAppPicksUpOnce": "Appen tar över när inloggningsleverantören är klar.",
+      "signingIn": "Loggar in...",
+      "openBrowserAgain": "Öppna webbläsaren igen",
+      "theServerTurnedTheSession": "Servern avvisade sessionen. Försök igen.",
+      "signedInButTheApp": "Inloggad, men appen kan inte nå Termix. En proxy blockerar kanske det.",
+      "thatSignInLinkIs": "Den inloggningslänken är från ett tidigare försök. Logga in igen.",
+      "signInAgain": "Logga in igen.",
+      "openTheBrowserAgainWhen": "Öppna webbläsaren igen när du är redo.",
+      "theWebPageSignedIn": "Webbsidan loggade in men skickade ingen session. Uppdatera servern och försök igen.",
+      "theCanTCheckThis": "{{deviceWord}} kan inte verifiera serverns certifikat. Installera dess rot-CA på {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Vill du använda {{name}} för att logga in nästa gång?",
+      "ifThisServerSignsYou": "Om du loggas ut från denna server, logga in igen med {{name}} istället för att skriva in ditt lösenord. Lösenordet sparas på denna {{deviceWord}}.",
+      "use": "Använd {{name}}",
+      "notNow": "Inte nu",
+      "couldNotSaveTheLogin": "Kunde inte spara inloggningsuppgifterna",
+      "thatSADifferentUser": "Det är en annan användare",
+      "signedIn": "Inloggad",
+      "close": "Stäng",
+      "linkYourTermixServer": "Länka din Termix-server",
+      "yourHostsCredentialsSnippetsAnd": "Dina värdar, inloggningsuppgifter, kommandon och inställningar synkroniseras med den, och du får dess tillägg. Allt fortsätter att fungera på denna {{deviceWord}} när servern är bortkopplad.",
+      "checking": "Kontrollerar {{host}}...",
+      "proxyAndClientCertificate": "Proxy och klientcertifikat",
+      "couldNotReachThatServer": "Kunde inte nå servern. Kontrollera adressen eller konfigurera proxy eller klientcertifikat.",
+      "couldNotReachThatServer2": "Kunde inte nå servern",
+      "syncCouldNotStartYet": "Synkroniseringen kunde inte starta ännu. Den försöker igen automatiskt.",
+      "checkingTheServer": "Kontrollerar servern",
+      "signIn": "Logga in",
+      "makeAnAccount": "Skapa ett konto",
+      "resetPassword": "Återställ lösenord",
+      "oneMoreStep": "Ett steg till",
+      "almostDone": "Nästan klart",
+      "linkAServer": "Länka en server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "De sparade inloggningsuppgifterna fungerar inte längre",
+      "enterYourUsernameAndPassword": "Ange ditt användarnamn och lösenord",
+      "thisServerIsBehindA": "Denna server ligger bakom en inloggningsproxy",
+      "signInWith": "Logga in med {{saved}}",
+      "signInWith2": "Logga in med",
+      "password": "Lösenord",
+      "username": "Användarnamn",
+      "signIn": "Logga in",
+      "forgotPassword": "Glömt lösenord?",
+      "makeAnAccount": "Skapa ett konto",
+      "or": "ELLER",
+      "continueWith": "Fortsätt med {{label}}",
+      "signInWithAPasskey": "Logga in med en passkey eller säkerhetsnyckel",
+      "opensYourServerAposS": "Öppnar din servers inloggningssida i webbläsaren. Face ID, fingeravtryck, NFC och USB-nycklar fungerar där. Kräver Termix 26.11.3 eller senare.",
+      "signInInTheBrowser": "Logga in i webbläsaren",
+      "opensYourServerAposS2": "Öppnar din servers inloggningssida, för allt som appen inte kan göra här. Kräver Termix 26.10.6 eller senare.",
+      "thisServerHasNoSign": "Denna server har ingen inloggning aktiverad som appen kan använda. Kontakta den som driver servern, eller prova inloggning via webbläsaren ovan.",
+      "signInWithYourPassword": "Logga in med ditt lösenord.",
+      "signInFailed": "Inloggningen misslyckades",
+      "openingItsSignInPage": "Öppnar inloggningssidan."
+    },
+    "smallSteps": {
+      "serverAddress": "Serveradress",
+      "likeTermixExampleComOr": "T.ex. termix.example.com eller 192.168.1.20:30001",
+      "checking": "Kontrollerar...",
+      "continue": "Fortsätt",
+      "proxyAndClientCertificate": "Proxy och klientcertifikat",
+      "aServerWithASelf": "En server med ett självsignerat certifikat kräver att dess rot-CA installeras på denna {{deviceWord}} först. Vanlig http fungerar på ditt eget nätverk.",
+      "enterTheCode": "Ange koden",
+      "code": "Kod",
+      "the6DigitCodeFrom": "Den 6-siffriga koden från din autentiseringsapp, eller en reservkod",
+      "checkCode": "Kontrollera kod",
+      "thisAccountAsksForA": "Detta konto kräver en säkerhetsnyckel efter lösenordet. Logga in på serversidan i din webbläsare för att använda den.",
+      "useASecurityKeyIn": "Använd en säkerhetsnyckel i webbläsaren",
+      "backToSignIn": "Tillbaka till inloggning",
+      "bringThisAposSHosts": "Ta med denna {{deviceWord}}s värdar?",
+      "thisHasTheyStayOn": "Denna {{deviceWord}} har {{what}}. De stannar kvar på denna enhet i alla fall.",
+      "merge": "Sammanfoga",
+      "copyThemToTooSo": "Kopiera dem också till {{serverName}} så att de synkroniseras. De som ser ut som en servervärd hoppas över.",
+      "replace": "Ersätt",
+      "useOnlyWhatIsOn": "Använd endast det som finns på {{serverName}} för detta konto. Inget kopieras.",
+      "thatCodeDidnTWork": "Den koden fungerade inte",
+      "hostsCredentialsOrSnippets": "värdar, inloggningsuppgifter eller kommandon"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Länka denna server först",
+      "thatHostIsnTHere": "Den värd finns inte här",
+      "couldNotOpenThatHost": "Kunde inte öppna den värden",
+      "noHostWithIdOn": "Ingen värd med id {{hostId}} på {{account}}.",
+      "isnTLinkedInThe": "{{value}} är inte länkad i appen än."
+    }
+  },
+  "notifications": {
+    "notifications": "Aviseringar",
+    "markAllRead": "Markera alla som lästa",
+    "clearReadNotifications": "Rensa lästa aviseringar",
+    "unread2": "Olästa",
+    "all": "Alla",
+    "noUnreadNotifications": "Inga olästa aviseringar",
+    "nothingHere": "Inget här",
+    "markRead": "Markera som läst",
+    "delete": "Ta bort",
+    "couldNotLoadNotifications": "Kunde inte ladda aviseringar",
+    "couldNotMarkRead": "Kunde inte markera som läst",
+    "couldNotDelete": "Kunde inte ta bort",
+    "couldNotClear": "Kunde inte rensa"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importera",
+      "hosts": "Värdar",
+      "aTermixHostFileYour": "En Termix-värdfil, din ~/.ssh/config, eller en värdlänk eller QR-kod från en annan {{deviceWord}}. De sparas på denna {{deviceWord}}.",
+      "backup": "Säkerhetskopia",
+      "aBackupThisAppMade": "En säkerhetskopia som denna app skapade, låst med en lösenfras. Den återställer värdar, inloggningsuppgifter och kommandon.",
+      "restoreABackup": "Återställ en säkerhetskopia",
+      "done": "Klar",
+      "skipForNow": "Hoppa över för nu",
+      "sshFilesAndRemoteDesktops": "SSH, filer och fjärrskrivbord från din {{deviceWord}}. Hur vill du komma igång?",
+      "useWithoutAServer": "Använd utan en server",
+      "hostsCredentialsAndSnippetsAre": "Värdar, inloggningsuppgifter och kommandon sparas krypterade på denna {{deviceWord}}. Du kan koppla en server när som helst senare.",
+      "linkATermixServer": "Koppla en Termix-server",
+      "syncYourHostsCredentialsSnippets": "Synkronisera dina värdar, inloggningsuppgifter, kommandon och inställningar med din server och använd dess plugins.",
+      "bringHostsFromATermix": "Importera värdar från en Termix-fil, en SSH-konfiguration, en QR-kod eller en säkerhetskopia.",
+      "thisDevice": "Denna enhet"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Sök bland värdar, kommandon och åtgärder",
+      "clearSearch": "Rensa sökning",
+      "nothingMatches": "Inga träffar",
+      "typeToSearch": "Skriv för att söka",
+      "findAHostToConnect": "Hitta en värd att ansluta till, ett kommando, en inställning eller en åtgärd.",
+      "suggested": "Föreslagen | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Kör i {{title}}",
+      "copiedRunItFromThe": "Kopierat. Kör det från terminalens kommandon för att fylla i värdena.",
+      "copiedOpenATerminalTo": "Kopierat. Öppna en terminal för att köra kommandon.",
+      "addHost": "Lägg till värd",
+      "quickConnect": "Snabbanslutning",
+      "switchAccount": "Byt konto",
+      "linkAServer": "Koppla en server",
+      "fromYourServer": "Från din server",
+      "settings": "Inställningar",
+      "accountsAppearanceSecurity": "Konton, utseende, säkerhet"
+    },
+    "search": {
+      "hosts": "Värdar",
+      "snippets": "Kommandon",
+      "actions": "Åtgärder",
+      "settings": "Inställningar"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Kunde inte ladda sessioner",
+      "sessionRevoked": "Sessionen har återkallats",
+      "failedToRevokeSession": "Kunde inte återkalla sessionen",
+      "allSessionsRevoked": "Alla sessioner har återkallats",
+      "failedToRevokeAllSessions": "Kunde inte återkalla alla sessioner",
+      "activeSessions": "Aktiva sessioner",
+      "signOutAllOtherSessions": "Logga ut från alla andra sessioner",
+      "loading": "Laddar…",
+      "noActiveSessionsFound": "Inga aktiva sessioner hittades.",
+      "unknownDevice": "Okänd enhet",
+      "lastActive": "Senast aktiv {{lastActiveAt}}",
+      "created": "Skapad {{createdAt}}",
+      "revokeSession": "Återkalla session",
+      "revokeSession2": "Återkalla session?",
+      "thisWillSignOutThat": "Detta kommer att logga ut den enheten.",
+      "revoke": "Återkalla",
+      "revokeAllSessions": "Återkalla alla sessioner?",
+      "thisWillSignOutEvery": "Detta kommer att logga ut alla enheter. Du förblir inloggad på denna enhet.",
+      "cancel": "Avbryt",
+      "revokeAll": "Återkalla alla"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Kunde inte ladda API-nycklar",
+      "failedToCreateApiKey": "Kunde inte skapa API-nyckel",
+      "deleteApiKey": "Ta bort API-nyckel?",
+      "willStopWorkingRightAway": "\"{{name}}\" slutar fungera omedelbart.",
+      "apiKeyDeleted": "API-nyckel borttagen",
+      "failedToDeleteApiKey": "Kunde inte ta bort API-nyckel",
+      "apiKeys": "API-nycklar",
+      "newApiKey": "Ny API-nyckel",
+      "loading": "Laddar…",
+      "apiKeysAllowProgrammaticAccess": "API-nycklar möjliggör programmatisk åtkomst till Termix. Hemligheten visas bara en gång, så spara den säkert.",
+      "noApiKeysYet": "Inga API-nycklar ännu",
+      "created": "Skapad {{createdAt}}",
+      "lastUsed": "Senast använd {{lastUsedAt}}",
+      "expires": "Utgår {{expiresAt}}",
+      "delete": "Ta bort {{name}}",
+      "keyCreatedCopyItNow": "Nyckel skapad. Kopiera den nu",
+      "newApiKey2": "Ny API-nyckel",
+      "thisTokenWonTBe": "Denna token visas inte igen.",
+      "apiKeyCopied": "API-nyckel kopierad",
+      "copy": "Kopiera",
+      "done": "Klar",
+      "cancel": "Avbryt",
+      "create": "Skapa",
+      "name": "Namn *",
+      "eGCiPipeline": "t.ex. CI-pipeline",
+      "user": "Användare *",
+      "noUsersAvailable": "Inga användare tillgängliga.",
+      "expiresAtOptional": "Utgångsdatum (valfritt)",
+      "yyyyMmDd": "ÅÅÅÅ/MM/DD",
+      "yearMonthDay": "År / Månad / Dag"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Håll sessioner igång",
+      "showsANotificationWhileSessions": "Visar ett meddelande medan sessioner är öppna, så att Android håller dem igång när du lämnar appen",
+      "batteryOptimization": "Batterioptimering",
+      "termixIsNotRestrictedSo": "Termix är inte begränsad, så sessioner kan förbli öppna även när skärmen är avstängd.",
+      "androidMayStillStopSessions": "Android kan fortfarande stoppa sessioner för att spara batteri. Öppna batterinställningarna, hitta Termix och välj Optimeras inte eller Obegränsad.",
+      "openBatterySettings": "Öppna batterinställningar",
+      "notificationsAreOff": "Meddelanden är avstängda",
+      "sessionsStillRunButThe": "Sessionerna körs fortfarande, men listan över öppna sessioner och knappen Koppla bort alla förblir dolda.",
+      "openNotificationSettings": "Öppna meddelandeställningar",
+      "thisBuildCanTKeep": "Den här versionen kan inte hålla sessioner igång i bakgrunden. De ansluter igen när du kommer tillbaka.",
+      "lowPowerMode": "Lågströmsläge",
+      "batterySaver": "Batterisparläge",
+      "isOnTermixChecksConnections": "{{value}} är på. Termix kontrollerar anslutningar mindre ofta och väntar längre mellan återanslutningsförsök.",
+      "backgroundSessions": "Bakgrundssessioner",
+      "iosStopsAppsSoonAfter": "iOS stoppar appar strax efter att du lämnat dem, så sessioner kan inte köras i bakgrunden. De ansluter igen när du kommer tillbaka, och tmux eller screen tar upp där du slutade."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Stoppad",
+        "active": "Aktiv",
+        "linkAServer": "Länka en server",
+        "eachServerKeepsItsOwn": "Varje server behåller sin egen kopia av dina värdar, inloggningsuppgifter och inställningar på denna {{deviceWord}}.",
+        "signedInAs": "Inloggad som",
+        "role": "Roll",
+        "administrator": "Administratör",
+        "user": "Användare",
+        "serverVersion": "Serverversion",
+        "signOut": "Logga ut",
+        "youAreSignedOutOf": "Du är utloggad från denna server.",
+        "signIn": "Logga in",
+        "passwordChanged": "Lösenordet har ändrats",
+        "couldNotChangeThePassword": "Kunde inte ändra lösenordet",
+        "changePassword": "Ändra lösenord",
+        "enterYourCurrentPasswordThen": "Ange ditt nuvarande lösenord och välj sedan ett nytt.",
+        "cancel": "Avbryt",
+        "change": "Ändra",
+        "currentPassword": "Nuvarande lösenord",
+        "newPassword": "Nytt lösenord",
+        "accountDeleted": "Kontot har raderats",
+        "couldNotDeleteTheAccount": "Kunde inte radera kontot",
+        "deleteServerAccount": "Radera serverkonto",
+        "thisPermanentlyDeletesYourAccount": "Detta raderar permanent ditt konto på servern och all dess data. Det kan inte ångras.",
+        "delete": "Radera",
+        "confirmYourPassword": "Bekräfta ditt lösenord",
+        "worksWithoutAServer": "Fungerar utan en server",
+        "signedOut": "Utloggad",
+        "readsLive": "Läser live",
+        "toReview": "{{count}} att granska",
+        "synced": "Synkroniserad",
+        "syncing": "Synkroniserar",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Dela anonyma användarstatistik",
+        "aShortReportOnceA": "En kort rapport en gång om dagen. Inga värdar, namn eller adresser",
+        "nextReport": "Nästa rapport",
+        "seeExactlyWhatWouldBe": "Se exakt vad som skulle skickas",
+        "couldNotBuildTheReport": "Kunde inte skapa rapporten",
+        "preview": "Förhandsgranskning",
+        "thisIsExactlyWhatWould": "Detta är exakt vad som skulle skickas just nu.",
+        "resetInstallId": "Återställ installations-ID",
+        "futureReportsWillLookLike": "Framtida rapporter kommer att se ut som en ny installation",
+        "resetTheInstallId": "Återställ installations-ID?",
+        "futureReportsWillLookLike2": "Framtida rapporter kommer att se ut som en ny installation.",
+        "reset": "Återställ",
+        "installIdReset": "Installations-ID återställt"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Accentfärg",
+        "textSize": "Textstorlek",
+        "sizeOfTextAcrossThe": "Storlek på text i hela appen, inte i terminalen",
+        "density": "Täthet",
+        "howTallListRowsAnd": "Hur höga listrader och inställningar är"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Värdar, inloggningsuppgifter och kommandon sparas i en krypterad fil på denna{{deviceWord}}. Användarstatistik är avstängd om du inte aktiverar den nedan. En länkad server får bara det du låter den synkronisera.",
+        "recentHosts": "Senaste värdarna",
+        "forgetTheHostsYouOpened": "Glöm värdarna du öppnade nyligen på alla konton",
+        "recentHostsCleared": "Senaste värdarna rensade",
+        "clear": "Rensa",
+        "couldNotCheckForUpdates": "Kunde inte kontrollera efter uppdateringar",
+        "versionIsOutUpdateFrom": "Version {{version}} är tillgänglig. Uppdatera från din butik.",
+        "youHaveTheNewestVersion": "Du har den senaste versionen",
+        "termixMobile": "Termix Mobile",
+        "updates": "Uppdateringar",
+        "check": "Kontrollera"
+      },
+      "pinSheet": {
+        "waitSeconds": "Vänta {{value}} sekunder",
+        "digits": "{{PIN_LENGTH}} siffror"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-koderna matchar inte",
+        "appLockIsOn": "App-lås är på",
+        "turnOffAppLock": "Stäng av app-lås",
+        "enterYourPinToConfirm": "Ange din PIN-kod för att bekräfta.",
+        "appLockIsOff": "App-lås är av",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Be om Face ID, Touch ID eller en PIN-kod för att öppna appen",
+        "askForAPinTo": "Be om en PIN-kod för att öppna appen",
+        "pinChanged": "PIN-kod ändrad",
+        "couldNotChangeThePin": "Kunde inte ändra PIN-koden",
+        "changePin": "Ändra PIN-kod",
+        "lockAfter": "Lås efter",
+        "howLongTheAppCan": "Hur länge appen kan vara ur sikte innan den låser sig",
+        "hideInAppSwitcher": "Dölj i appväxlaren",
+        "showABlankScreenIn": "Visa en tom skärm i listan över senaste appar",
+        "chooseA4DigitPin": "Välj en 4-siffrig PIN-kod.",
+        "confirmPin": "Bekräfta PIN-kod",
+        "enterTheSamePinAgain": "Ange samma PIN-kod igen.",
+        "currentPin": "Nuvarande PIN-kod",
+        "enterYourCurrentPin": "Ange din nuvarande PIN-kod.",
+        "newPin": "Ny PIN-kod",
+        "chooseANew4Digit": "Välj en ny 4-siffrig PIN-kod.",
+        "confirmNewPin": "Bekräfta ny PIN-kod",
+        "enterTheNewPinAgain": "Ange den nya PIN-koden igen."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Startskärmswidgetar",
+        "showYourHostsSnippetsAnd": "Visa dina värdar, kommandon och strömbrytare på startsidan",
+        "showAddresses": "Visa adresser",
+        "showUserHostUnderEach": "Visa användare@värd under varje servernamn",
+        "includeOfflineHosts": "Inkludera offline-värdar",
+        "offShowsOnlyServersThat": "Av visar endast servrar som är online",
+        "pinnedHostsOnly": "Endast fästa värdar",
+        "showOnlyTheHostsYou": "Visa endast de värdar du har fäst",
+        "snippetsWidget": "Kommandowidget",
+        "showSavedCommandsOnThe": "Visa sparade kommandon på startsidan",
+        "showCommandPreview": "Visa förhandsgranskning av kommando",
+        "showTheFirstLineOf": "Visa den första raden i varje kommando"
+      }
+    },
+    "fileSettings": {
+      "files": "Filer",
+      "fileManagerOnThis": "Filhanterare på denna {{deviceWord}}",
+      "browsing": "Bläddring",
+      "transfersAtOnce": "Överföringar samtidigt",
+      "downloadsAndUploadsThatRun": "Nedladdningar och uppladdningar som körs parallellt",
+      "editor": "Redigerare",
+      "textSize": "Textstorlek",
+      "filesBesideTheTerminal": "Filer bredvid terminalen",
+      "side": "Sida",
+      "whereThePanelSitsOn": "Var panelen visas på en surfplatta",
+      "right": "Höger",
+      "left": "Vänster",
+      "howOftenToCheck": "Hur ofta som ska kontrolleras",
+      "folderHistory": "Mapphistorik",
+      "foldersKeptPerHost": "Mappar som sparas per värd",
+      "showHiddenFiles": "Visa dolda filer",
+      "filesAndFoldersThatStart": "Filer och mappar som börjar med en punkt",
+      "askBeforeMovingToThe": "Fråga innan flytt till papperskorgen",
+      "deletingForGoodAlwaysAsks": "Permanent radering frågar alltid",
+      "wrapLongLines": "Bryt långa rader",
+      "openWithNewTerminals": "Öppna med nya terminaler",
+      "onATabletShowThe": "Visa filpanelen när en terminal öppnas på en surfplatta",
+      "followTheTerminal": "Följ terminalen",
+      "openTheFolderTheTerminal": "Öppna mappen som terminalen befinner sig i när du använder cd"
+    },
+    "keyboardCustomization": {
+      "small": "Liten",
+      "medium": "Medium",
+      "large": "Stor",
+      "ms": "{{v}} ms",
+      "keyboard": "Tangentbord",
+      "keyRowsAboveTheKeyboard": "Tangentraderna ovanför tangentbordet",
+      "rows": "Rader",
+      "keys": "Tangenter",
+      "aHostCanHaveIts": "En värd kan ha sina egna rader: tryck på dess öppna flik i en session och välj Tangentrad för denna värd.",
+      "keySize": "Tangentstorlek",
+      "vibrateOnKeyPress": "Vibrera vid tangenttryckning",
+      "repeatAfter": "Upprepa efter",
+      "howLongToHoldAn": "Hur länge en piltangent eller Backspace ska hållas intryckt",
+      "repeatEvery": "Upprepa var",
+      "hardwareKeyboard": "Hårdvarutangentbord",
+      "allShortcuts": "Alla genvägar",
+      "show": "Visa"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Kunde inte skapa säkerhetskopian",
+      "deleteLocalData": "Radera lokal data?",
+      "hostsCredentialsSnippetsAndHistory": "Värdar, inloggningsuppgifter, kommandon och historik som är sparade på denna {{deviceWord}} för {{account}} raderas. Detta kan inte ångras. Skapa en säkerhetskopia först om du vill behålla dem.",
+      "delete": "Radera",
+      "localDataDeleted": "Lokal data raderad",
+      "couldNotDeleteLocalData": "Kunde inte radera lokal data",
+      "localData": "Lokal data",
+      "localDataIsOnlySaved": "Lokala data sparas endast i {{deviceWord}}-appen.",
+      "savedOnThisForThe": "Sparat på denna {{deviceWord}} för {{account}}. Filen är krypterad med en nyckel som aldrig lämnar denna {{deviceWord}}.",
+      "hosts": "Värdar",
+      "credentials": "Inloggningsuppgifter",
+      "snippets": "Kommandon",
+      "size": "Storlek",
+      "dataVersion": "Dataversion",
+      "backup": "Säkerhetskopia",
+      "aBackupFileHoldsYour": "En säkerhetskopieringsfil innehåller dina lösenord och nycklar, låsta med en lösenfras du väljer. Ingen kan öppna den utan den lösenfrasen.",
+      "exportBackup": "Exportera säkerhetskopia",
+      "importBackup": "Importera säkerhetskopia",
+      "removesEverythingThisAccountSaved": "Tar bort allt som detta konto har sparat på denna {{deviceWord}}. En länkad server behåller sin egen kopia.",
+      "deleteLocalData2": "Ta bort lokala data",
+      "backupPassphrase": "Lösenfras för säkerhetskopia",
+      "atLeast8CharactersYou": "Minst 8 tecken. Du behöver den för att återställa säkerhetskopian.",
+      "passphrase": "Lösenfras",
+      "next": "Nästa",
+      "typeItAgain": "Skriv den igen",
+      "export": "Exportera",
+      "saveYourTermixBackup": "Spara din Termix-säkerhetskopia"
+    },
+    "logs": {
+      "logs": "Loggar",
+      "latestLinesFromThisRun": "Senaste raderna från denna körning. Serveradresser, lösenord och token är dolda.",
+      "logsCopied": "Loggar kopierade",
+      "copy": "Kopiera",
+      "share": "Dela",
+      "clear": "Rensa",
+      "noLogsYet": "Inga loggar ännu",
+      "nothingHasBeenLogged": "Inget har loggats."
+    },
+    "plugins": {
+      "worksOnThis": "Fungerar på denna {{deviceWord}}",
+      "needsTheServer": "Kräver servern",
+      "notInTheApp": "Finns inte i appen",
+      "needsANewerVersionOf": "Kräver en nyare version av appen",
+      "updateThePluginOnThe": "Uppdatera pluginet på servern",
+      "inTheApp": "I appen",
+      "onThisServer": "På denna server",
+      "version": "Version",
+      "needsPluginApi": "Kräver plugin-API",
+      "thisAppHas": "Denna app har",
+      "note": "Obs",
+      "open": "Öppna",
+      "openFromAHostS": "Öppna {{name}} från en värdens meny.",
+      "plugins": "Plugin",
+      "everything": "Allt",
+      "thisDeviceWorksWithNo": "Denna enhet fungerar utan server. Länka en server för att lägga till funktioner som kräver det.",
+      "pluginsOnAndHowEach": "Plugin på {{account}} och hur de visas i appen. Dra neråt för att kontrollera igen.",
+      "whatRunsOnThisAnd": "Vad som körs på denna {{deviceWord}} och vad som går via {{account}}.",
+      "noPluginList": "Ingen pluginlista",
+      "theServerDidNotSend": "Servern skickade inte sina plugin. Dra neråt för att försöka igen.",
+      "serversOlderThan29": "Servrar äldre än 2.9 har alla funktioner inbyggda.",
+      "nothingToShow": "Inget att visa",
+      "notSentByThisServer": "Inte skickat av denna server"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Vill du ersätta de lokala datan?",
+      "everythingSavedOnThisFor": "Allt som är sparat på denna {{deviceWord}} för {{accountName}} ersätts med säkerhetskopian.",
+      "continue": "Fortsätt",
+      "couldNotReadThatFile": "Kunde inte läsa filen",
+      "backupRestored": "Säkerhetskopian har återställts",
+      "couldNotRestoreTheBackup": "Kunde inte återställa säkerhetskopian",
+      "backupPassphrase": "Lösenfras för säkerhetskopia",
+      "thePassphraseUsedWhenThe": "Den lösenfras som användes när säkerhetskopian skapades.",
+      "passphrase": "Lösenfras",
+      "restore": "Återställ"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Konton",
+        "thisDeviceAndLinkedServers": "Den här enheten och länkade servrar, med deras synkroniseringsstatus",
+        "syncAndProxy": "Synkronisering och proxy",
+        "whatSyncsConflictsProxyAnd": "Vad som synkroniseras, konflikter, proxy och koppla bort",
+        "serverAccount": "Serverkonto",
+        "whoIsSignedInOn": "Vem som är inloggad på den aktiva servern",
+        "activeSessions": "Aktiva sessioner",
+        "devicesSignedInToThe": "Enheter inloggade på servern",
+        "apiKeys": "API-nycklar",
+        "keysForScriptsAndTools": "Nycklar för skript och verktyg",
+        "changePassword": "Ändra lösenord",
+        "passwordOfYourServerAccount": "Lösenord för ditt serverkonto",
+        "deleteServerAccount": "Ta bort serverkonto",
+        "removeYourAccountFromThe": "Ta bort ditt konto från servern",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Mörkt, ljust, Dracula, Nord och mer",
+        "accentColor": "Accentfärg",
+        "textSize": "Textstorlek",
+        "sizeOfTextAcrossThe": "Storlek på text i hela appen",
+        "density": "Täthet",
+        "howTallListRowsAnd": "Hur höga listrader och inställningar är",
+        "homeScreenWidgets": "Widgetar på startsidan",
+        "hostsAndSnippetsOnThe": "Värdar och kommandon på startsidan",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Typsnitt, tema, markör, rullningsbuffert",
+        "keyboard": "Tangentbord",
+        "layoutKeysPresets": "Layout, tangenter, förinställningar",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Be om Face ID, Touch ID eller PIN-kod för att öppna appen",
+        "lockAfter": "Lås efter",
+        "howLongTheAppCan": "Hur länge appen kan vara ur sikte innan den låser sig",
+        "hideInAppSwitcher": "Dölj i appväxlaren",
+        "showABlankScreenIn": "Visa en tom skärm i listan över senaste appar",
+        "changePin": "Ändra PIN-kod",
+        "backgroundSessions": "Bakgrundssessioner",
+        "whatHappensToOpenSessions": "Vad som händer med öppna sessioner när du lämnar appen",
+        "serverAlerts": "Serveraviseringar",
+        "alertsFromTheAlertsPlugin": "Aviseringar från Alerts-pluginet på din server",
+        "whatStaysOnThis": "Vad som stannar kvar på den här {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Värdar, inloggningsuppgifter och kommandon lagras krypterat här",
+        "recentHosts": "Senaste värdarna",
+        "forgetTheHostsYouOpened": "Glöm värdarna du öppnade nyligen",
+        "shareAnonymousUsageStatistics": "Dela anonyma användarstatistik",
+        "aShortReportOnceA": "En kort rapport en gång om dagen. Inga värdar, namn eller adresser",
+        "nextReport": "Nästa rapport",
+        "seeExactlyWhatWouldBe": "Se exakt vad som skulle skickas",
+        "resetInstallId": "Återställ installations-ID",
+        "futureReportsWillLookLike": "Framtida rapporter kommer att se ut som en ny installation",
+        "serverUsageStatistics": "Serveranvändarstatistik",
+        "telemetrySettingsOnYourServer": "Telemetriinställningar på din server",
+        "plugins": "Plugin",
+        "whatTheServerAddsAnd": "Vad servern lägger till och var det körs",
+        "localData": "Lokal data",
+        "backupRestoreAndDeleteWhat": "Säkerhetskopiera, återställ och ta bort vad som sparas på den här {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Version och uppdateringar",
+        "logs": "Loggar",
+        "latestLinesFromThisRun": "Senaste raderna från denna körning, för felrapporter"
+      },
+      "sections": {
+        "accountsAndSync": "Konton och synkronisering",
+        "thisDeviceLinkedServersAnd": "Den här enheten, länkade servrar och vad som synkroniseras",
+        "appearance": "Utseende",
+        "themeAccentTextSizeAnd": "Språk, tema, accentfärg, textstorlek och täthet",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Typsnitt, färger och bakgrundssessioner",
+        "keyboard": "Tangentbord",
+        "keyRowsAndShortcuts": "Tangentraderna och genvägar",
+        "security": "Säkerhet",
+        "appLockFaceIdAnd": "App-lås, Face ID och PIN-kod",
+        "notifications": "Aviseringar",
+        "alertsFromYourServer": "Aviseringar från din server",
+        "privacyAndUsageStatistics": "Integritet och användarstatistik",
+        "whatStaysOnThis": "Vad som förblir på den här {{deviceWord}}n",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "Vad servern lägger till i appen",
+        "backupAndData": "Säkerhetskopiering och data",
+        "backUpRestoreImportAnd": "Säkerhetskopiera, återställ, importera och exportera",
+        "aboutAndLogs": "Om och loggar",
+        "versionAndLogsForBug": "Version och loggar för felrapporter"
+      }
+    },
+    "settings": "Inställningar",
+    "searchSettings": "Sök i inställningar",
+    "noSettingsMatch": "Inga inställningar matchar.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Kunde inte ladda snippets",
+      "copied": "Kopierad: {{name}}",
+      "nameIsRequired": "Namn krävs",
+      "contentIsRequired": "Innehåll krävs",
+      "snippetUpdated": "Snippet uppdaterat",
+      "snippetCreated": "Snippet skapat",
+      "failedToSaveSnippet": "Kunde inte spara snippet",
+      "snippetDeleted": "Snippet raderat",
+      "failedToDeleteSnippet": "Kunde inte radera snippet",
+      "folderNameIsRequired": "Mappnamn krävs",
+      "folderCreated": "Mapp skapad",
+      "failedToCreateFolder": "Kunde inte skapa mapp",
+      "folderDeleted": "Mapp raderad",
+      "failedToDeleteFolder": "Kunde inte radera mapp",
+      "folderRenamed": "Mapp bytt namn",
+      "failedToRenameFolder": "Kunde inte byta namn på mapp",
+      "failedToSaveOrder": "Kunde inte spara ordning",
+      "moveUp": "Flytta upp",
+      "moveDown": "Flytta ner",
+      "runOnHosts": "Kör {{name}} på servrar",
+      "copy": "Kopiera {{name}}",
+      "delete": "Ta bort {{name}}",
+      "renameFolder": "Byt namn på mapp",
+      "deleteFolder": "Ta bort mapp",
+      "noSnippetsInThisFolder": "Inga snippets i den här mappen",
+      "snippets": "Snippets",
+      "importAndExport": "Importera och exportera",
+      "folder": "Mapp",
+      "new": "Ny",
+      "loading": "Laddar…",
+      "couldNotLoadSnippets": "Kunde inte ladda snippets",
+      "checkTheConnectionToYour": "Kontrollera anslutningen till din server och försök igen.",
+      "tryAgain": "Försök igen",
+      "noSnippetsYet": "Inga snippets ännu",
+      "createYourFirstSnippetOr": "Skapa ditt första snippet eller lägg till snippets från Termix webb- eller skrivbordsapp.",
+      "createSnippet": "Skapa snippet",
+      "askBeforeRunning": "Fråga innan körning",
+      "confirmBeforeASnippetRuns": "Bekräfta innan en kodsnutt körs i terminalen",
+      "editSnippet": "Redigera kodsnutt",
+      "newSnippet": "Ny kodsnutt",
+      "cancel": "Avbryt",
+      "save": "Spara",
+      "create": "Skapa",
+      "name": "Namn",
+      "eGUpdatePackages": "t.ex. Uppdatera paket",
+      "content": "Innehåll",
+      "descriptionOptional": "Beskrivning (valfritt)",
+      "shortDescription": "Kort beskrivning",
+      "folderOptional": "Mapp (valfritt)",
+      "selectFolder": "Välj mapp",
+      "noFolder": "Ingen mapp",
+      "targetHostsOptional": "Målserver (valfritt)",
+      "none": "Ingen",
+      "note": "Obs",
+      "pastedIntoTheTerminalWithout": "Klistras in i terminalen utan att köras",
+      "targetHosts": "Målserver",
+      "copy2": "Kopiera",
+      "edit": "Redigera",
+      "runOnHosts2": "Kör på servrar",
+      "delete2": "Ta bort",
+      "deleteSnippet": "Ta bort kodsnutt",
+      "deleteThisCannotBeUndone": "Ta bort \"{{name}}\"? Detta kan inte ångras.",
+      "renameFolder2": "Byt namn på mapp",
+      "rename": "Byt namn",
+      "folderName": "Mappnamn",
+      "eGSystem": "t.ex. System",
+      "newFolder": "Ny mapp",
+      "deleteFolder2": "Ta bort mapp",
+      "deleteSnippetsInThisFolder": "Ta bort \"{{name}}\"? Kodsnuttar i denna mapp blir okategoriserade."
+    },
+    "sync": {
+      "notYet": "Inte ännu",
+      "justNow": "Just nu",
+      "stopped": "Stoppad",
+      "signInToThisServer": "Logga in på denna server igen för att synkronisera",
+      "couldNotChangeThat": "Kunde inte ändra detta",
+      "sync": "Synkronisera",
+      "thisDeviceDoesNotSync": "Den här enheten synkroniserar inte. Länka en Termix-server för att behålla dina servrar på fler än en enhet.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} håller servrar, inloggningsuppgifter, kodsnuttar och inställningar synkroniserade med den här {{deviceWord}}. En kopia finns kvar på den här {{deviceWord}}, så den fungerar även offline.",
+      "lastSynced": "Senast synkroniserad {{value}}",
+      "live": "Live",
+      "syncNow": "Synkronisera nu",
+      "fix": "Åtgärda",
+      "thisServerReadsLiveAnd": "Denna server läser live och sparar ingen kopia på {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Aktivera Synkroniserings-tillägget på serverns Tilläggssida, och logga sedan in igen här för att behålla en kopia på den här {{deviceWord}}.",
+      "whatSyncs": "Vad som synkroniseras",
+      "turnedOffThatDataStays": "Avstängd, den här datan finns endast på den här {{deviceWord}}.",
+      "conflicts": "Konflikter",
+      "changedHereAndOnThe": "Ändrad här och på servern samtidigt. Serverns version behölls.",
+      "useServer": "Använd server",
+      "keepMine": "Behåll min",
+      "notSavedOnTheServer": "Inte sparad på servern",
+      "theServerRefusedTheseChanges": "Servern avvisade dessa ändringar. De finns kvar på den här {{deviceWord}}.",
+      "tryAgain": "Försök igen",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Endast nödvändigt när en omvänd proxy sitter framför servern.",
+      "unlink": "Koppla bort",
+      "unlinkThisServer": "Koppla bort denna server",
+      "minAgo": "för {{value}} min sedan",
+      "signedOut": "Utloggad",
+      "waitingToSync": "Väntar på synkronisering",
+      "synced": "Synkroniserad",
+      "syncing": "Synkroniserar",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Bakgrund",
+        "text": "Text",
+        "cursor": "Markör",
+        "textUnderCursor": "Text under markören",
+        "selection": "Markering",
+        "black": "Svart",
+        "red": "Röd",
+        "green": "Grön",
+        "yellow": "Gul",
+        "blue": "Blå",
+        "magenta": "Magenta",
+        "cyan": "Cyan",
+        "white": "Vit",
+        "brightBlack": "Ljus svart",
+        "brightRed": "Ljus röd",
+        "brightGreen": "Ljus grön",
+        "brightYellow": "Ljus gul",
+        "brightBlue": "Ljus blå",
+        "brightMagenta": "Ljus magenta",
+        "brightCyan": "Ljus cyan",
+        "brightWhite": "Ljus vit",
+        "customTheme": "Anpassat tema",
+        "colorsAsHexLike1e1e2e": "Färger som hex, t.ex. #1e1e2e.",
+        "cancel": "Avbryt",
+        "save": "Spara",
+        "isNotAHexColor": "{{label}} är inte en hex-färg"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakt",
+      "default": "Standard",
+      "relaxed": "Avslappnad",
+      "spacious": "Rymdig",
+      "none": "Ingen",
+      "couldNotSave": "Kunde inte spara",
+      "pickASizeFromTo": "Välj en storlek mellan {{MIN_FONT_SIZE}} och {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminalinställningar återställda",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "En värd kan ställa in sitt eget tema och sin egen markör i Termix, vilket har företräde framför dessa.",
+      "theme": "Tema",
+      "custom": "Anpassad",
+      "font": "Typsnitt",
+      "active": "Aktiv",
+      "sizeAndSpacing": "Storlek och avstånd",
+      "pinchTheTerminalToChange": "Använd pinch-gesten på terminalen för att ändra storleken också. Stor text i dina {{deviceWord}}inställningar gör den större.",
+      "custom2": "Anpassad {{fontSize}}",
+      "lineHeight": "Radavstånd",
+      "letterSpacing": "Teckenavstånd",
+      "ligatures": "Ligaturer",
+      "cursor": "Markör",
+      "blink": "Blinka",
+      "bell": "Klocka",
+      "vibrate": "Vibrera",
+      "onTheBellAndWhen": "Vid klockljud och när du trycker länge för att markera",
+      "scrollback": "Rullningsbuffert",
+      "linesKeptAboveTheScreen": "Rader som behålls ovanför skärmen. Gäller nya terminaler.",
+      "linksAndKeys": "Länkar och nycklar",
+      "askBeforeOpeningLinks": "Fråga innan länkar öppnas",
+      "doubleTapSendsTab": "Dubbeltryck skickar Tab",
+      "longPressStillSelectsText": "Långtryck markerar fortfarande text",
+      "optionSendsAlt": "Option skickar Alt",
+      "onAHardwareKeyboardOff": "På en hårdvarutangentbord. Avstängt skriver symboler som på en Mac.",
+      "history": "Historik",
+      "suggestCommands": "Föreslå kommandon",
+      "showsPastCommandsThatStart": "Visar tidigare kommandon som börjar med det du skriver",
+      "resetToDefault": "Återställ till standard",
+      "fontSize": "Teckenstorlek",
+      "aSizeFromTo": "En storlek från {{MIN_FONT_SIZE}} till {{MAX_FONT_SIZE}}.",
+      "cancel": "Avbryt",
+      "apply": "Verkställ",
+      "resetTerminalSettings": "Återställ terminalinställningar?",
+      "themeFontSizeCursorBell": "Tema, typsnitt, storlek, markör, klocka och resten återgår till standardvärdena.",
+      "reset": "Återställ",
+      "followsAppTheme": "Följer appens tema"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kunde inte starta 2FA-inställning",
+      "twoFactorAuthenticationEnabled": "Tvåfaktorsautentisering aktiverad",
+      "invalidCodeTryAgain": "Ogiltig kod, försök igen",
+      "twoFactorAuthenticationDisabled": "Tvåfaktorsautentisering inaktiverad",
+      "failedToDisable2fa": "Kunde inte inaktivera 2FA",
+      "failedToFetchBackupCodes": "Kunde inte hämta reservkoder",
+      "secretCopied": "Hemlighet kopierad",
+      "backupCodesCopied": "Reservkoder kopierade",
+      "twoFactorAuthentication": "Tvåfaktorsautentisering",
+      "loading": "Laddar…",
+      "scanThisQrCodeWith": "Skanna denna QR-kod med din autentiseringsapp (Google Authenticator, Authy, etc.) och ange sedan 6-siffriga koden för att bekräfta.",
+      "verifyAmpEnable": "Verifiera &amp; Aktivera",
+      "cancel": "Avbryt",
+      "saveYourBackupCodes": "Spara dina reservkoder",
+      "storeTheseSomewhereSafeEach": "Förvara dessa på en säker plats. Varje kod kan bara användas en gång om du förlorar åtkomst till din autentiseringsapp.",
+      "copyAllCodes": "Kopiera alla koder",
+      "done": "Klar",
+      "yourAccountIsProtectedWith": "Ditt konto skyddas av en autentiseringsapp.",
+      "addAnExtraLayerOf": "Lägg till ett extra säkerhetslager till ditt konto.",
+      "viewBackupCodes": "Visa reservkoder",
+      "disable2fa": "Inaktivera 2FA",
+      "enable2fa": "Aktivera 2FA",
+      "disableTwoFactorAuthentication": "Inaktivera tvåfaktorsautentisering",
+      "enterACodeFromYour": "Ange en kod från din autentiseringsapp för att bekräfta. Du kan aktivera 2FA när som helst.",
+      "enterYourPasswordToConfirm": "Ange ditt lösenord för att bekräfta. Du kan aktivera 2FA när som helst.",
+      "disable": "Inaktivera",
+      "yourPassword": "Ditt lösenord",
+      "n2faIsEnabled": "2FA är aktiverat",
+      "n2faIsNotEnabled": "2FA är inte aktiverat"
+    },
+    "language": {
+      "label": "Språk",
+      "description": "Appen laddas om för att byta",
+      "system": "Samma som enheten"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Inga SSH-värdar här",
+      "couldNotReadWhatWas": "Kunde inte läsa vad som delades",
+      "stopTheUploads": "Vill du avbryta uppladdningarna?",
+      "stopAndLeave": "Avbryt och lämna",
+      "sendTo": "Skicka till {{name}}",
+      "sendToAHost": "Skicka till en värd",
+      "nothingToSend": "Inget att skicka",
+      "close": "Stäng",
+      "done": "Klar",
+      "cancel": "Avbryt",
+      "uploadHere": "Ladda upp hit",
+      "uploadsStillGoing_one": "{{count}} uppladdning pågår fortfarande. Om du lämnar stoppas den.",
+      "uploadsStillGoing_other": "{{count}} uppladdningar pågår fortfarande. Om du lämnar stoppas de.",
+      "filesSize_one": "{{count}} fil | {{size}}",
+      "filesSize_other": "{{count}} filer | {{size}}",
+      "readingWhatWasShared": "Läser vad som delats"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Fel",
+      "worksWithoutAServer": "Fungerar utan en server",
+      "accountSwitch": "Konto {{account}}, byt",
+      "search": "Sök",
+      "notificationsUnread": "Aviseringar, {{unread}} olästa",
+      "notifications": "Aviseringar",
+      "signedIn": "Inloggad",
+      "signedOut": "Utloggad",
+      "copyOnThis": "Kopiera till denna {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Hem",
+      "hosts": "Värdar",
+      "sessions": "Sessioner",
+      "tools": "Verktyg",
+      "settings": "Inställningar",
+      "open": "{{label}}, {{count}} öppna"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} öppna"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Välj en värd",
+      "searchHosts": "Sök bland värdar",
+      "clearSearch": "Rensa sökning",
+      "noHostsMatch": "Inga värdar matchar",
+      "noHostsCanUseThis": "Inga värdar kan använda detta",
+      "turnItOnForA": "Aktivera det för en värd i värdredigeraren."
+    },
+    "noToolsHereYet": "Inga verktyg här ännu",
+    "onAHost": "På en värd",
+    "saved": "Sparade",
+    "fromYourServer": "Från din server"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Avbryt",
+      "delete": "Ta bort",
+      "confirm": "Bekräfta"
+    },
+    "contextMenu": {
+      "closeMenu": "Stäng meny"
+    },
+    "inlineView": {
+      "back": "Tillbaka"
+    },
+    "listRow": {
+      "moreActions": "Fler åtgärder"
+    },
+    "pinPad": {
+      "useBiometrics": "Använd biometri",
+      "delete": "Ta bort"
+    },
+    "popover": {
+      "close": "Stäng"
+    },
+    "promptSheet": {
+      "cancel": "Avbryt"
+    },
+    "sheet": {
+      "close": "Stäng"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Den här nyckeln är låst. Ange lösenfrasen.",
+      "thatPassphraseDoesnTOpen": "Den lösenfrasen öppnar inte den här nyckeln.",
+      "thisDoesnTLookLike": "Detta ser inte ut som en privat nyckel.",
+      "loadedAndChangedItTo": "Laddade {{name}} och konverterade den till OpenSSH-format",
+      "loadedItNeedsItsPassphrase": "Laddade {{name}}. Den behöver sin lösenfras för att ansluta"
+    },
+    "ago": {
+      "justNow": "just nu"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Kunde inte ladda dina värdar.",
+      "failedOn": "{{name}} misslyckades på {{name2}}",
+      "on": "{{name}} på {{name2}}: {{value}}",
+      "ranOn": "Körde {{name}} på {{name2}}",
+      "runOn": "Kör \"{{name}}\" på",
+      "runSnippet": "Kör kodsnutt",
+      "loadingHosts": "Laddar värdar…",
+      "noHostsAvailable": "Inga värdar tillgängliga",
+      "addAHostInTermix": "Lägg till en värd i Termix för att köra kodsnuttar från startsidan.",
+      "lastUsed": "Senast använd",
+      "failedToRunSnippet": "Misslyckades med att köra kodsnutt"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Den kodsnutten finns inte längre.",
+      "couldNotOpenThatSnippet": "Kunde inte öppna den kodsnutten.",
+      "thatHostNoLongerExists": "Den värd finns inte längre.",
+      "couldNotOpenThatHost": "Kunde inte öppna den värd."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Hem"
+      },
+      "hosts": {
+        "hosts": "Värdar"
+      },
+      "sessions": {
+        "sessions": "Sessioner",
+        "connectToATermixServer": "Anslut till en Termix-server för att öppna terminaler, tunnlar och filsessioner."
+      }
+    },
+    "layout": {
+      "initializing": "Initierar…",
+      "cancel": "Avbryt"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Den här värden har ingen giltig MAC-adress.",
+    "thisBuildCanTSend": "Den här versionen kan inte skicka Wake-on-LAN-paket.",
+    "couldNotSendThePacket": "Kunde inte skicka paketet. Kontrollera att Wi-Fi är påslaget."
+  },
+  "common": {
+    "hostCount_one": "{{count}} värd",
+    "hostCount_other": "{{count}} värdar",
+    "device": {
+      "phone": "mobil",
+      "tablet": "surfplatta"
+    },
+    "thisDeviceLower": "den här {{deviceWord}}n"
+  },
+  "hostAccess": {
+    "title": "Delning",
+    "action": "Dela med andra",
+    "levels": {
+      "connect": "Anslut",
+      "view": "Visa",
+      "edit": "Redigera",
+      "manage": "Hantera"
+    },
+    "levelHints": {
+      "connect": "Endast öppna sessioner. Värden inställningar förblir dolda.",
+      "view": "Anslut, plus se värdens inställningar. Hemligheter visas aldrig.",
+      "edit": "Visa, plus ändra inställningar utöver inloggningen.",
+      "manage": "Redigera, plus dela värd och ändra eller ta bort åtkomst."
+    },
+    "until": "tills {{date}}",
+    "sharedBy": "av {{name}}",
+    "couldNotLoad": "Kunde inte ladda vem som har åtkomst",
+    "shared": "Värd delad",
+    "couldNotShare": "Kunde inte dela värd",
+    "updated": "Åtkomst ändrad",
+    "couldNotUpdate": "Kunde inte ändra åtkomsten",
+    "removeTitle": "Ta bort {{name}}?",
+    "removeHint": "De kan inte längre använda den här värden.",
+    "remove": "Ta bort",
+    "removed": "Åtkomst borttagen",
+    "couldNotRemove": "Kunde inte ta bort åtkomsten",
+    "whoHasAccess": "Vem har åtkomst",
+    "loading": "Laddar...",
+    "nobodyYet": "Endast du kan använda den här värden.",
+    "changeAccessFor": "Ändra åtkomst för {{name}}",
+    "shareWith": "Dela med",
+    "users": "Användare",
+    "roles": "Roller",
+    "searchUsers": "Sök användare",
+    "searchRoles": "Sök roller",
+    "noUsers": "Inga andra användare att dela med.",
+    "noRoles": "Inga roller att dela med.",
+    "options": "Åtkomst",
+    "level": "Nivå",
+    "expires": "Slutar",
+    "expiry": {
+      "never": "Aldrig",
+      "1h": "Om 1 timme",
+      "1d": "Om 1 dag",
+      "7d": "Om 7 dagar",
+      "30d": "Om 30 dagar"
+    },
+    "pickSomeone": "Välj vem du vill dela med",
+    "shareCount_one": "Dela med {{count}}",
+    "shareCount_other": "Dela med {{count}}",
+    "removeAccess": "Ta bort åtkomst"
+  }
+}

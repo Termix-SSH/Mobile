@@ -1,1 +1,3874 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Prijava",
+      "addServer": "Dodaj strežnik",
+      "switchAccount": "Zamenjaj račun",
+      "noServerConnected": "Strežnik ni povezan",
+      "connectToATermixServer": "Povežite se s strežnikom Termix za upravljanje gostiteljev, terminalov, datotek in več."
+    },
+    "lockScreen": {
+      "cancel": "Prekliči",
+      "tooManyTriesWaitSeconds": "Preveč poskusov. Počakajte {{value}} sekund",
+      "termixLocked": "Termix je zaklenjen",
+      "enterYourPinToContinue": "Vnesite PIN za nadaljevanje"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranžna",
+      "blue": "Modra",
+      "green": "Zelena",
+      "purple": "Vijolična",
+      "pink": "Roza",
+      "cyan": "Cian",
+      "red": "Rdeča",
+      "yellow": "Rumena",
+      "teal": "Tirkizna",
+      "indigo": "Indigo",
+      "rose": "Roza rdeča",
+      "lime": "Limona",
+      "system": "Sistem",
+      "light": "Svetla",
+      "dark": "Temna"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Uporabi PIN",
+      "unlockTermix": "Odkleni Termix",
+      "unlockTermixFirst": "Najprej odklenite Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ta funkcija je na strežniku onemogočena.",
+      "aTabWasNotReopened": "Zavihek ni bil ponovno odprt, ker gostitelj ne obstaja več",
+      "tabsWereNotReopenedBecause": "Zaradi izginotih gostiteljev ni bilo mogoče ponovno odpreti {{count}} zavihkov"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Povežite strežnik Termix za uporabo te funkcije",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Vnesite naslov strežnika",
+        "theAddressCanTHave": "Naslov ne sme vsebovati presledkov",
+        "useAnHttpOrHttps": "Uporabite naslov http:// ali https://",
+        "thatDoesnTLookLike": "To ne izgleda kot naslov strežnika",
+        "thePortMustBeFrom": "Vrata morajo biti med 1 in 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Namesto Termix je odgovoril prijavni proxy. Najprej se prijavite v proxy.",
+        "theServerDidNotSend": "Strežnik ni poslal žetona.",
+        "theServerDidNotSend2": "Strežnik ni poslal seje.",
+        "theServerSentNoSign": "Strežnik ni poslal naslova za prijavo.",
+        "theSignInRanOut": "Prijavna povezava je potekla ali je bila že uporabljena. Ponovno se prijavite.",
+        "wrongUsernameOrPassword": "Napačno uporabniško ime ali geslo",
+        "signInFailedHttp": "Prijava ni uspela (HTTP {{status}})",
+        "thePageSignedYouIn": "Stran vas je prijavila, vendar ni poslala seje nazaj. Posodobite strežnik na Termix 26.11.3 ali novejšo različico.",
+        "thisAccountIsnTAllowed": "Ta račun ni dovoljen za prijavo tukaj.",
+        "noTermixAccountMatchesThat": "Noben račun Termix se ne ujema s to prijavo."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Ta seja nima strežnika"
+    },
+    "store": {
+      "noSuchAccount": "Tak račun ne obstaja",
+      "thisDeviceCanTBe": "Te naprave ni mogoče odstraniti",
+      "switchToAnotherAccountFirst": "Najprej preklopite na drug račun"
+    },
+    "types": {
+      "thisDevice": "Ta naprava"
+    },
+    "accountSwitcher": {
+      "error": "Napaka",
+      "worksWithoutAServer": "Deluje brez strežnika",
+      "couldNotSwitchAccount": "Računa ni bilo mogoče zamenjati",
+      "accounts": "Računi",
+      "openTabsKeepRunningWhen": "Odprti zavihki se nadaljujejo med preklopom.",
+      "unlink": "Prekini povezavo z {{account}}",
+      "linkAServer": "Poveži strežnik",
+      "eachServerKeepsItsOwn": "Vsak strežnik hrani svoje gostitelje, poverilnice in nastavitve na tej {{deviceWord}}.",
+      "signedIn": "Prijavljen",
+      "signedOut": "Odjava",
+      "syncedCopy": "Usklajen kopija"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Koda ni bila shranjena",
+      "theServerSKeyMatches": "Ključ strežnika se ujema s kodo",
+      "theServerShowsAnotherKey": "Strežnik prikazuje drug ključ",
+      "pinThisKey": "Zakleniti ta ključ?",
+      "pinThisKey2": "Zakleni ta ključ",
+      "keyPinned": "Ključ je zaklenjen",
+      "couldNotReadTheServer": "Ključa strežnika ni bilo mogoče prebrati",
+      "thatIsNotAPin": "To ni koda",
+      "keysPinned": "Ključ so zaklenjeni",
+      "certificatePin": "Koda za certifikat",
+      "trustThisServerOnlyBy": "Zaupajte temu strežniku le na podlagi njegovega ključa. Uporabite ga za samopodpisan certifikat ali za zavrnitev katerega koli drugega ključa. Dodajte naslednji ključ, preden spremenite certifikat strežnika.",
+      "removePin": "Odstrani kodo {{pin}}",
+      "remove": "Odstrani",
+      "readTheKeyFromThe": "Preberi ključ s strežnika",
+      "orPasteAPin": "Ali prilepi kodo",
+      "pin": "Koda",
+      "add": "Dodaj",
+      "issuedTo": "Izdan za: {{subject}}",
+      "issuedBy": "Izdal: {{issuer}}",
+      "validUntil": "Veljavno do: {{value}}",
+      "checkThatThisKeyMatches": "Preverite, ali se ta ključ ujema s ključem na vašem strežniku, preden ga zaklenete.",
+      "pasteTheBase64Sha256Of": "Prilepite base64 sha256 javnega ključa strežnika, kot ga npr. izpiše openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Nastavitve proxyja so shranjene",
+      "couldNotSaveTheProxy": "Nastavitev proxyja ni bilo mogoče shraniti",
+      "couldNotReadThatFile": "Te datoteke ni bilo mogoče prebrati",
+      "certificateSaved": "Certifikat je shranjen",
+      "theFileOrItsPassphrase": "Datoteka ali njena geselska fraza je napačna",
+      "couldNotSaveTheCertificate": "Certifikata ni bilo mogoče shraniti",
+      "headers": "Glave",
+      "sentWithEveryRequestTo": "Pošlje se z vsako zahtevo k temu strežniku, npr. kot Cloudflare storitveni žeton.",
+      "name": "Ime",
+      "value": "Vrednost",
+      "removeHeader": "Odstrani glavo",
+      "addHeader": "Dodaj glavo",
+      "cloudflareServiceToken": "Cloudflare storitveni žeton",
+      "basicAuth": "Osnovna avtentikacija",
+      "forAProxyThatAsks": "Za proxy, ki zahteva uporabniško ime in geslo.",
+      "userName": "Uporabniško ime",
+      "password": "Geslo",
+      "saveHeadersAndBasicAuth": "Shrani glave in osnovno avtentikacijo",
+      "clientCertificate": "Odjemalski certifikat",
+      "forServersThatAskFor": "Za strežnike, ki zahtevajo enega (mTLS). Ključ je shranjen v varen shrambi {{deviceWord}} in ga ni mogoče prebrati nazaj.",
+      "certificate": "Certifikat",
+      "remove": "Odstrani",
+      "replaceCertificate": "Zamenjaj certifikat",
+      "pickAP12OrPfx": "Izberite datoteko .p12 ali .pfx",
+      "proxySignIn": "Prijava v proxy",
+      "thisIsSignedInTo": " Ta {{deviceWord}} je prijavljen v proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Za Cloudflare Access, Authelia, Authentik in druge proxyje z lastno stranjo za prijavo.{{value}}",
+      "signInToTheProxy": "Prijavi se v proxy",
+      "forget": "Pozabi",
+      "certificatePassphrase": "Geselska fraza certifikata",
+      "thePassphraseTheFileWas": "Geselska fraza, s katero je bila datoteka shranjena. Pustite prazno, če je nima.",
+      "passphrase": "Geselska fraza",
+      "save": "Shrani"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Prijavljen v proxy",
+      "couldNotSaveTheProxy": "Prijave v proxy ni bilo mogoče shraniti",
+      "signInToTheProxy": "Prijavi se v proxy",
+      "thisBuildOfTheApp": "Ta različica aplikacije ne more ohraniti prijave prek proxyja. Namesto tega uporabite žeton storitve v glavicah proxyja."
+    },
+    "savedLoginRow": {
+      "signIn": "Prijava",
+      "signInWith": "Prijava z {{name}}",
+      "whenThisServerSignsYou": "Ko vas ta strežnik odjavi, se ponovno prijavite brez vnašanja gesla."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Prekinjena povezava. {{copied}} elementov je bilo ohranjenih na napravi Ta naprava.",
+      "unlinked": "Prekinjena povezava",
+      "couldNotUnlinkTheServer": "Povezave s strežnikom ni bilo mogoče prekiniti",
+      "unlink": "Prekiniti povezavo z {{value}}?",
+      "thisSignsOutOfThe": "Ta {{deviceWord}} se odjavi s strežnika. Na strežniku se nič ne izbriše.",
+      "keepACopyOnThis": "Ohrani kopijo na napravi Ta naprava",
+      "yourOwnHostsCredentialsAnd": "Vaši lastni strežniki, poverilnice in odlomki se preselijo na napravo Ta naprava. Strežniki, ki so vam bili deljeni, se ne ohranijo.",
+      "deleteFromThis": "Izbriši s te naprave {{deviceWord}}",
+      "everythingThisHasForThe": "Vse, kar ima ta {{deviceWord}} za strežnik, se odstrani."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Spremenite ga spodaj pod Proxy",
+      "updateTermixMobileFromYour": "Posodobite Termix Mobile iz trgovine aplikacij"
+    },
+    "savedLogin": {
+      "signInToTermix": "Prijava v Termix",
+      "faceUnlock": "odključitev z obrazom"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Ta različica ne more preveriti pripete ključne vrednosti tega strežnika ali poslati njegovega certifikata."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Ta strežnik ne podpira te funkcije",
+      "theProxyWantsYouTo": "Proxy zahteva vašo prijavo",
+      "endpointNotAvailableOnThis": "Končna točka ni na voljo na tem strežniku",
+      "unknownError": "Neznana napaka"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxy pred tem strežnikom zahteva vašo ponovno prijavo.",
+      "authenticationRequiredPleaseLogIn": "Potrebna je avtentikacija. Prosimo, ponovno se prijavite.",
+      "accessDeniedYouDoNot": "Dostop zavrnjen. Nimate dovoljenja za izvedbo tega dejanja.",
+      "thisFeatureIsTurnedOff": "Ta funkcija je na strežniku onemogočena.",
+      "thisServerDoesNotSupport": "Ta strežnik ne podpira te funkcije.",
+      "resourceNotFoundTheRequested": "Vire ni bilo mogoče najti. Zahtevani element je morda bil izbrisan.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Vir že obstaja ali je v uporabi.",
+      "validationErrorPleaseCheckYour": "Napaka pri preverjanju. Preverite svoj vnos in poskusite znova.",
+      "serverErrorOccurredPleaseTry": "Prišlo je do napake na strežniku. Poskusite znova kasneje.",
+      "sslCertificateVerificationFailed": "Preverjanje SSL certifikata ni uspelo.",
+      "networkErrorPleaseCheckYour": "Omrežna napaka. Preverite svojo povezavo in poskusite znova.",
+      "failedTo": "Ni uspelo {{operation}}",
+      "unknownError": "Neznana napaka",
+      "unexpectedErrorDuring": "Nepričakovana napaka med {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Aplikacija ni mogla zaupati HTTPS za to lokalno IP naslov. Pripnite ključ strežnika pod Proxy in odjempljev certifikat, uporabite certifikat, ki mu zaupa {{deviceWord}}, ali HTTP na zaupanem lokalnem ali VPN omrežju.",
+        "thisServerIsBehindA": "Ta strežnik je za proxyjem za prijavo. Namesto tega uporabite možnost zunanje prijave.",
+        "loginFailed": "Prijava ni uspela"
+      },
+      "files": {
+        "fileNotFound": "Datoteke ni bilo mogoče najti",
+        "fileWriteOperationDidNot": "Operacija pisanja datoteke ni vrnila statusa uspeha",
+        "couldNot": "Ni bilo mogoče {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Strežnik je shranjen, vendar so nekatere nastavitve spodletеле: {{value}}",
+        "unexpectedHostResponseFrom": "Nepričakovan odziv strežnika od {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Vzorec v živo ni uspel"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Brez odgovora"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Ta strežnik ni prikazal ključa, na katerega je pripet, zato stran ni bila odprta."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Ta {{what}} ne obstaja več.",
+      "aHostCannotBeIts": "Strežnik ne more biti svoj lastni nadrejeni",
+      "parentHostNotFound": "Nadrejeni strežnik ni bil najden",
+      "aHostCanTGo": "Strežnik ne more iti pod enega od svojih podstrežnikov",
+      "thisIsSharedWithYou": "Ta {{what}} je deljen z vami. Spremeniti ga lahko le njegov lastnik.",
+      "nameIsRequired": "Ime je obvezno",
+      "nameAndCommandAreRequired": "Ime in ukaz sta obvezna",
+      "aFolderWithThatName": "Mapa s tem imenom že obstaja"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Ta naprava ne more shraniti {{what}} tukaj."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Ta odlomek je deljen z vami in ga ni mogoče spremeniti."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Uporabite geslo z vsaj 8 znaki.",
+      "thisIsNotATermix": "To ni datoteka za varnostno kopijo Termix.",
+      "thisBackupIsFromA": "Ta varnostna kopija je iz novejša različice Termix. Najprej posodobite aplikacijo.",
+      "wrongPassphraseOrTheFile": "Napačna geselna fraza ali je datoteka poškodovana."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Ta različica ne more šifrirati lokalnih podatkov."
+    },
+    "keys": {
+      "unlockTermixFirst": "Najprej odklenite Termix.",
+      "thatIsNotADatabase": "To ni ključ za bazo podatkov.",
+      "couldNotSaveTheDatabase": "Ključa za bazo podatkov ni bilo mogoče shraniti."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Ti podatki so bili shranjeni z novejšo različico Termixa. Posodobite aplikacijo, da jih odprete."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Ta naprava se ne sinhronizira.",
+      "localDataIsNotAvailable": "Lokalni podatki tukaj niso na voljo.",
+      "unlockTermixFirst": "Najprej odklenite Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Povezava ni mogoča.",
+      "thisWayCanTRun": "Ta način ne more izvajati ukazov"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo geslo",
+      "password": "Geslo",
+      "run": "Izvedi",
+      "thatPasswordWasWrong": "To geslo je bilo napačno.",
+      "onNeedsRoot": "{{reason}} na {{hostName}} zahteva dostop root.",
+      "needsRootForThis": "{{hostName}} za to zahteva dostop root.",
+      "itIsKeptUntilYou": "Geslo je shranjeno, dokler ne zaprete aplikacije."
+    },
+    "run": {
+      "theHostTookTooLong": "Strežnik je potreboval predolgo za odgovor",
+      "connectionLost": "Povezava prekinjena"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "To zahteva dostop root. Prijavite se kot root, nastavite sudo brez gesla ali shranite sudo geslo za strežnik.",
+      "theSudoPasswordWasWrong": "Sudo geslo je bilo napačno",
+      "commandFailed": "Ukaz ni uspel"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet v terminalu zahteva povezavo iz {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funkcija {{id}} je že registrirana"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Naslov",
+      "theIpOrHostName": "IP ali ime strežnika pod imenom",
+      "username": "Uporabniško ime",
+      "theUserBeforeTheAddress": "Uporabnik pred naslovom",
+      "port": "Vrata",
+      "thePortAfterTheAddress": "Vrata za naslovom",
+      "hostIcon": "Ikona strežnika",
+      "theIconSetOnThe": "Ikona, nastavljena na strežniku",
+      "pinIcon": "Zakleni ikono",
+      "marksPinnedHosts": "Označi zaklenjene strežnike",
+      "sharedBadge": "Znamka za deljenje",
+      "marksHostsSharedWithYou": "Označi strežnike, deljene z vami",
+      "protocolBadges": "Znamke protokola",
+      "sshRdpDockerAndOther": "Oznake SSH, RDP, Docker in druge",
+      "tags": "Oznake",
+      "theHostSTags": "Oznake strežnika",
+      "cpuAndRam": "CPU in RAM",
+      "liveUsageBarsOnOnline": "Vrstice porabe v živo za povezane strežnike",
+      "statusColors": "Barve stanja",
+      "greenBarWhenOnlineRed": "Zelena vrstica, ko je povezan, rdeča, ko je izklopljen"
+    },
+    "uiPrefs": {
+      "small": "Majhno",
+      "default": "Privzeto",
+      "large": "Veliko",
+      "comfortable": "Udobno",
+      "compact": "Kompaktno"
+    },
+    "errors": {
+      "somethingWentWrong": "Nekaj je šlo narobe"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Zaklepanje ključa z geselno frazo zahteva aplikacijo Termix, ne spletnega predogleda."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Takoj",
+      "after15Seconds": "Po 15 sekundah",
+      "after1Minute": "Po 1 minuti",
+      "after5Minutes": "Po 5 minutah"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Skrivnost naprave je izgubljena",
+      "noSealedKey": "Ni zaprtega ključa",
+      "theSealedKeyIsDamaged": "Zaprte ključ je poškodovan",
+      "wrongPin": "Napačna PIN koda",
+      "theSealedKeyDidNot": "Zapečatena ključa ni bilo mogoče odpreti",
+      "biometricsCanTOpenThe": "Biometrija ne more odpreti ključa"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Posodobi aplikacijo",
+      "onYourServerNeedsA": "{{name}} na vašem strežniku potrebuje novejšo različico Termix na tem {{deviceWord}}.",
+      "updateThePlugin": "Posodobi vtičnik",
+      "onYourServerIsToo": "{{name}} na vašem strežniku je prestar za to aplikacijo. Prosite skrbnika, da ga posodobi v vtičnikih."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blokirano s strani aplikacije",
+      "theAppDoesNotLet": "Aplikacija vtičnikom ne dovoljuje uporabe te poti.",
+      "thisBuildCanTReach": "Ta zgradba ne more varno doseči tega strežnika."
+    },
+    "support": {
+      "needsANewerVersionOf": "Potrebuje novejšo različico aplikacije",
+      "updateThePluginOnThe": "Posodobi vtičnik na strežniku",
+      "theAppHasItsOwn": "Aplikacija ima svoj videz",
+      "notInTheAppYet": "Še ni v aplikaciji",
+      "linkAServerToUse": "Povežite strežnik za uporabo",
+      "opensInTheAppFrom": "Odpre se v aplikaciji s strežnika",
+      "runsOnTheServer": "Zažene se na strežniku",
+      "throughTheServer": "Preko strežnika",
+      "inTheApp": "V aplikaciji",
+      "webView": "Spletni pogled",
+      "onTheServer": "Na strežniku",
+      "appLook": "Videz aplikacije",
+      "notInTheApp": "Ni v aplikaciji",
+      "safeMode": "Varen način",
+      "notRunning": "Ne deluje",
+      "notInstalled": "Ni nameščen",
+      "notOnThisServer": "Ni na tem strežniku",
+      "thePluginIsNotInstalled": "Vtičnik ni nameščen na tem strežniku.",
+      "turnedOffOnTheServer": "Izklopljen na strežniku",
+      "itOpensHereAgainWhen": "Spet se bo odprl tukaj, ko ga skrbnik vklopi.",
+      "notRunningOnTheServer": "Ne deluje na strežniku",
+      "theServerIsInSafe": "Strežnik je v varnem načinu, zato delujejo le vtičniki za videz.",
+      "thePluginDidNotStart": "Vtičnik se ni zagnal. Skrbnik ga lahko preveri v vtičnikih.",
+      "thisPluginIsNotAvailable": "Ta vtičnik ni na voljo",
+      "itIsNotMadeFor": "Ni narejen za aplikacijo.",
+      "offOnThisServer": "izklopljen na tem strežniku",
+      "notRunningOnThisServer": "ne deluje na tem strežniku",
+      "notOnThisServer2": "ni na tem strežniku",
+      "notInTheAppYet2": "Še ni v aplikaciji | na tem strežniku",
+      "worksOnThis": "Deluje na tem {{deviceWord}}",
+      "andServer": "{{DeviceWord}} in strežnik",
+      "deviceOnly": "Samo {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Osveži"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Prekini vse povezave",
+      "showOpenSessions": "Prikaži odprte seje",
+      "termixShowsANotificationWhile": "Termix prikaže obvestilo, medtem ko so seje odprte, da Android ohranja njihovo delovanje v ozadju.",
+      "sessionsOpen_one": "{{count}} seja odprta",
+      "sessionsOpen_two": "{{count}} seji odprti",
+      "sessionsOpen_few": "{{count}} seje odprte",
+      "sessionsOpen_other": "{{count}} sej odprtih",
+      "tunnelsActive_one": "{{count}} tunel aktiven",
+      "tunnelsActive_two": "{{count}} tunela aktivna",
+      "tunnelsActive_few": "{{count}} tuneli aktivni",
+      "tunnelsActive_other": "{{count}} tunelov aktivnih",
+      "notConnected": "Ni povezano",
+      "waitingForNetwork": "Čakanje na omrežje",
+      "connecting": "Povezovanje",
+      "connected": "Povezano",
+      "reconnecting": "Ponovno povezovanje",
+      "failed": "Napaka",
+      "closed": "Zaprto"
+    },
+    "companionPane": {
+      "resizeThePanel": "Spremeni velikost plošče {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Zapri",
+      "closeAllTabs": "Zapreti vse {{count}} zavihke?",
+      "everySessionEnds": "Vse seje se končajo.",
+      "closeAll": "Zapri vse",
+      "noActiveConnections": "Ni aktivnih povezav",
+      "pickAHostFromThe": "Izberite gostitelja s seznama za začetek seje. Zavihki, ki jih odprete na drugih napravah, se prikažejo tudi tukaj.",
+      "connectToAHostTo": "Povežite se z gostiteljem za začetek seje. Zavihki, ki jih odprete na drugih napravah, se prikažejo tudi tukaj.",
+      "open": "Odpri",
+      "background": "Ozadje",
+      "sessionsFromOtherDevicesOr": "Seje z drugih naprav ali zavihki v ozadju. Tapnite za ponovno aktiviranje.",
+      "liveTapToReconnect": "Aktivno, tapnite za ponovno povezavo",
+      "tapToReopen": "Tapnite za ponovno odpiranje"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "To je na strežniku onemogočeno",
+      "comesBackHereWhenAn": "{{title}} se vrne sem, ko skrbnik ponovno omogoči vtičnik.",
+      "closeTab": "Zapri zavihek"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Povezave",
+        "hideHostList": "Skrij seznam gostiteljev",
+        "showHostList": "Prikaži seznam gostiteljev",
+        "backToHosts": "Nazaj na gostitelje",
+        "showKeyboard": "Prikaži tipkovnico",
+        "hideKeyboard": "Skrij tipkovnico",
+        "hideKeysPanel": "Skrij ploščo ključev",
+        "showKeysPanel": "Prikaži ploščo ključev"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tapnite za možnosti zavihka, pridržite za premikanje",
+        "holdToMove": "Pridržite za premikanje",
+        "close": "Zapri {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Čakanje na omrežje",
+        "connectionFailed": "Povezava ni uspela",
+        "reconnecting": "Ponovna povezava"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Preimenuj",
+      "newTabOnThisHost": "Nov zavihek na tem gostitelju",
+      "here": "{{title}} tukaj",
+      "hidePanel": "Skrij ploščo {{title}}",
+      "showPanel": "Prikaži ploščo {{title}}",
+      "endSplitView": "Končaj razdeljen pogled",
+      "splitViewWith": "Razdeljen pogled z...",
+      "moveLeft": "Premakni levo",
+      "moveRight": "Premakni desno",
+      "closeTab": "Zapri zavihek",
+      "closeAllTabs": "Zapri vse zavihke",
+      "closeAllTabs2": "Zapreti vse {{count}} zavihke?",
+      "everySessionEnds": "Vse seje se končajo.",
+      "closeAll": "Zapri vse",
+      "splitViewWith2": "Razdeljen pogled z",
+      "renameTab": "Preimenuj zavihek",
+      "leaveItEmptyToUse": "Pustite prazno za uporabo imena gostitelja."
+    },
+    "resizeHostList": "Spremeni velikost seznama gostiteljev",
+    "resizeSplitView": "Spremeni velikost razdeljenega pogleda",
+    "connections": "Povezave",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Dvofaktorska preverjanje identitete",
+        "enterThe6DigitCode": "Vnesite 6-mestno kodo iz aplikacije za preverjanje identitete.",
+        "cancel": "Prekliči",
+        "verify": "Preveri",
+        "codeExpiresInSGet": "Koda poteče čez {{totpCountdown}} s, pridobite svežo kodo",
+        "warpgateAuthentication": "Preverjanje identitete Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Potrdite URL za preverjanje identitete Warpgate in varnostni ključ.",
+        "authenticate": "Preveri identiteto",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Varnostni ključ (izbirno)",
+        "authenticationRequired": "Zahtevano preverjanje identitete",
+        "thisHostNeedsCredentialsTo": "Ta gostitelj zahteva poverilnice za povezavo.",
+        "connect": "Poveži",
+        "password": "Geslo",
+        "sshKey": "SSH ključ",
+        "pastePrivateKey": "Prilepi zasebni ključ",
+        "keyPassphraseOptional": "Geslo za ključ (izbirno)"
+      },
+      "connectionError": {
+        "tryAgain": "Poskusi znova",
+        "close": "Zapri",
+        "connectThroughTheServer": "Poveži se prek strežnika",
+        "connectFromThis": "Poveži se s tega {{deviceWord}}",
+        "triedFromThis": "Poskuseno s tega {{deviceWord}}",
+        "triedThroughTheServer": "Poskuseno prek strežnika"
+      },
+      "execGate": {
+        "connecting": "Povezovanje …"
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Prišlo je do napake",
+        "retry": "Poskusi znova",
+        "refresh": "Osveži",
+        "nothingToShow": "Nič za prikaz"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Dnevniki kopirani",
+        "connectionLog": "Dnevnik povezave ({{count}})",
+        "copyLog": "Kopiraj dnevnik",
+        "waitingForConnection": "Čakanje na povezavo …",
+        "noLogEntries": "Ni zapisov v dnevniku"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Ni bilo mogoče shraniti, kako se ta gostitelj povezuje"
+      },
+      "useSessionConnect": {
+        "connected": "Povezano",
+        "connectingTo": "Povezovanje z {{name}} …",
+        "connectionLost": "Povezava prekinjena",
+        "failedToConnect": "Povezava ni uspela",
+        "invalidCode": "Neveljavna koda",
+        "warpgateAuthenticationFailed": "Preverjanje pristnosti Warpgate ni uspelo",
+        "authenticationCancelled": "Preverjanje pristnosti preklicano"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Iskanje in ukazi",
+    "addHost": "Dodaj gostitelja",
+    "keyboardShortcuts": "Bližnjice na tipkovnici",
+    "home": "Domov",
+    "hosts": "Gostitelji",
+    "sessions": "Seje",
+    "tools": "Orodja",
+    "settings": "Nastavitve",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Bližnjice na tipkovnici"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Gostitelji in mape",
+      "yourHostsFoldersAndHosts": "Vaši gostitelji, mape in gostitelji, ki so jih z vami delili",
+      "credentials": "Poverilnice",
+      "savedPasswordsAndKeysAnd": "Shranjena gesla in ključi ter poverilnice, ki so jih z vami delili",
+      "snippets": "Izseki",
+      "snippetsAndTheirFolders": "Izseki in njihove mape",
+      "hostDefaults": "Privzete nastavitve gostitelja",
+      "defaultSettingsForNewHosts": "Privzete nastavitve za nove gostitelje",
+      "preferences": "Prednostne nastavitve",
+      "settingsThatFollowYouBetween": "Nastavitve, ki vas spremljajo med napravami"
+    },
+    "link": {
+      "noSuchServerAccount": "Takšen račun na strežniku ne obstaja",
+      "signInFirst": "Najprej se prijavite.",
+      "thisServerAccountBelongsTo": "Ta račun na strežniku pripada uporabniku {{value}}. Prijavite se kot ta uporabnik ali dodajte strežnik znova za tega uporabnika."
+    },
+    "reasons": {
+      "signedOut": "Odjava",
+      "thisSSignInTo": "Prijava tega {{deviceWord}} na strežnik je potekla.",
+      "theServerEndedThisS": "Strežnik je prekinil sejo tega {{deviceWord}}. Morda ste se odjavili z druge naprave.",
+      "proxySignInNeeded": "Potrebna je prijava prek proxyja",
+      "theProxyInFrontOf": "Proxy pred tem strežnikom zahteva ponovno prijavo.",
+      "proxyPasswordNeeded": "Potrebno je geslo za proxy",
+      "theProxyInFrontOf2": "Proxy pred tem strežnikom je zahteval svoje geslo.",
+      "certificateRefused": "Certifikat zavrnjen",
+      "theServerDidNotAccept": "Strežnik ni sprejel certifikata tega {{deviceWord}}.",
+      "untrustedServer": "Nedoverljiv strežnik",
+      "theServerSCertificateIs": "Certifikat strežnika ni zaupanja vreden za ta {{deviceWord}}.",
+      "serverKeyChanged": "Ključ strežnika se je spremenil",
+      "theServerShowsAnotherKey": "Strežnik prikazuje drug ključ kot tisti, ki je bil za njega zagozden. Če ste spremenili njegov certifikat, zagozdite novi ključ.",
+      "offline": "Brez povezave",
+      "canTReachTheServer": "Strežnika ni mogoče doseči. Sinhronizacija bo kmalu poskusila znova.",
+      "serverProblem": "Težava s strežnikom",
+      "theServerHadAProblem": "Na strežniku je prišlo do težave. Sinhronizacija bo kmalu poskusila znova.",
+      "updateNeeded": "Potrebna posodobitev",
+      "thisServerUsesANewer": "Ta strežnik uporablja novejšo različico sinhronizacije. Posodobite aplikacijo.",
+      "notATermixServer": "Ni Termix strežnik",
+      "theAddressDoesNotAnswer": "Naslov ne odgovarja kot Termix strežnik.",
+      "syncIsOff": "Sinhronizacija je izklopljena",
+      "theSyncPluginIsOff": "Vtičnik Sinhronizacija je na tem strežniku izklopljen. Prosite administratorja, da ga vklopi v razdelku Vtičniki.",
+      "differentUser": "Drugi uporabnik",
+      "youSignedInAsA": "Prijavili ste se kot drug uporabnik, kot je tisti, ki mu pripada ta račun strežnika.",
+      "syncStopped": "Sinhronizacija je ustavljena",
+      "somethingWentWrong": "Nekaj je šlo narobe.",
+      "signInAgain": "Ponovna prijava",
+      "signInToTheProxy": "Prijava v proxy",
+      "enterThePassword": "Vnesite geslo",
+      "tryAgain": "Poskusi znova",
+      "checkThePin": "Preveri zagozdeni ključ",
+      "checkForUpdates": "Preveri posodobitve",
+      "pickACertificate": "Izberi certifikat"
+    },
+    "settings": {
+      "noSuchSetting": "Takšne nastavitve ni",
+      "snippetFolder": "Mapa s fragmenti",
+      "hostDefault": "Privzeto za gostitelja"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Strežnik ni sprejel certifikata tega {{deviceWord}}.",
+      "theServerSCertificateIs": "Certifikat strežnika ni zaupanja vreden.",
+      "canTReachTheServer": "Strežnika ni mogoče doseči.",
+      "signedOut": "Odjava",
+      "theProxyAskedForIts": "Proxy zahteva svoje geslo.",
+      "theProxyWantsYouTo": "Proxy zahteva vašo prijavo.",
+      "theSyncPluginIsOff": "Vtičnik Sinhronizacija je na tem strežniku izklopljen.",
+      "serverError": "Napaka strežnika {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Strežnik prikazuje drug ključ kot zagozdeni."
+    },
+    "remote": {
+      "thisIsNotATermix": "To ni Termix strežnik.",
+      "theProxyWantsYouTo": "Proxy zahteva vašo prijavo.",
+      "thisServerUsesANewer": "Ta strežnik uporablja novejšo različico sinhronizacije. Posodobite aplikacijo."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} gostitelj",
+      "hostCount_two": "{{count}} gostitelja",
+      "hostCount_few": "{{count}} gostitelji",
+      "hostCount_other": "{{count}} gostiteljev",
+      "credentialCount_one": "{{count}} poverilnica",
+      "credentialCount_two": "{{count}} poverilnici",
+      "credentialCount_few": "{{count}} poverilnice",
+      "credentialCount_other": "{{count}} poverilnic",
+      "snippetCount_one": "{{count}} fragment",
+      "snippetCount_two": "{{count}} fragmenta",
+      "snippetCount_few": "{{count}} fragmenti",
+      "snippetCount_other": "{{count}} fragmentov",
+      "folderCount_one": "{{count}} mapa",
+      "folderCount_two": "{{count}} mapi",
+      "folderCount_few": "{{count}} mape",
+      "folderCount_other": "{{count}} map",
+      "nothingYet": "še ničesar",
+      "listAnd": "{{list}} in {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Povezave ni mogoče vzpostaviti.",
+      "connectingToFromThis": "Povezovanje z {{name}} s tega {{deviceWord}}",
+      "connectingToThroughTheServer": "Povezovanje z {{name}} prek strežnika",
+      "reconnectingTry": "Ponovno povezovanje (poskus {{retry}})",
+      "disconnected": "Prekinjeno",
+      "connected": "Povezano",
+      "reconnectedToTheSameSession": "Ponovno povezano v isto sejo",
+      "reconnectedWithANewShell": "Ponovno povezano z novo lupino",
+      "couldNotReachTheHost": "Gostitelja ni mogoče doseči s tega {{deviceWord}}, poskus prek strežnika",
+      "couldNotConnectThroughThe": "Povezave prek strežnika ni mogoče vzpostaviti, poskus s tega {{deviceWord}}",
+      "connectionLost": "Povezava prekinjena: {{reason}}",
+      "offlineWaitingForTheNetwork": "Brez povezave, čakanje na omrežje",
+      "nextTryInS": "Naslednji poskus čez {{value}} s",
+      "reconnectingTry2": "Ponovno povezovanje (poskus {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Gostitelj je prenehal odgovarjati",
+      "networkLost": "Omrežje izgubljeno",
+      "network": "Omrežje: {{type}}{{value}}",
+      "lowPowerModeOn": "Način nizke porabe energije je vklopljen",
+      "lowPowerModeOff": "Način nizke porabe energije je izklopljen",
+      "droppedTypedCharacters": "Spuščenih {{count}} vtipkanih znakov",
+      "youDidNotTrustThe": "Ključ gostitelja ni bil zaupanja vreden.",
+      "checkTheKeyWithWhoever": "Preverite ključ pri upravljavcu gostitelja in poskusite znova.",
+      "loginCancelled": "Prijava je bila preklicana.",
+      "connectAgainWhenYouAre": "Ponovno se povežite, ko ste pripravljeni.",
+      "typedInputIsOver64": "Vnešeni vhod presega 64 KB, najstarejši del je bil izpuščen",
+      "appInTheBackground": "Aplikacija v ozadju",
+      "appInTheForeground": "Aplikacija v ospredju",
+      "thisConnectionCanTRun": "Ta povezava ne more izvajati ukazov"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Preverite naslov in vrata ter ali strežnik lahko doseže gostitelja.",
+      "checkTheAddressAndPort2": "Preverite naslov in vrata ter ali ta {{deviceWord}} lahko doseže gostitelja.",
+      "checkTheProxySettingsOf": "Preverite nastavitve proxyja tega gostitelja.",
+      "checkTheKeyWithWhoever": "Preden zaupate ključu, ga preverite pri upravljavcu gostitelja.",
+      "checkTheUsernameAndLogin": "Preverite uporabniško ime in prijavo v urejevalniku gostitelja.",
+      "checkThatTheServerIs": "Preverite, ali je strežnik vklopljen in ali ste še vedno prijavljeni.",
+      "tryAgainIfItKeeps": "Poskusite znova. Če se povezava še naprej prekinja, preverite omrežje.",
+      "connectAgainWhenYouAre": "Ponovno se povežite, ko ste pripravljeni.",
+      "pickAnotherWayToConnect": "Izberite drug način povezave s tem gostiteljem.",
+      "connectThisHostThroughA": "Povežite se s tem gostiteljem prek strežnika Termix.",
+      "pickTheJumpHostsAgain": "Ponovno izberite poskočne gostitelje v urejevalniku gostitelja.",
+      "thisIsATailscaleAddress": "To je naslov Tailscale. Preverite, ali je Tailscale povezan na tem {{deviceWord}}.",
+      "theSavedKeyCanT": "Shranjenega ključa ni mogoče prebrati. Prilepite ga znova v urejevalniku gostitelja.",
+      "signInToThisServer": "Ponovno se prijavite na ta strežnik.",
+      "openThisHostInThe": "Odprite tega gostitelja v spletni aplikaciji Termix.",
+      "canTConnectThisWay": "Povezava na ta način ni mogoča",
+      "couldNotReachTheHost": "Gostitelja ni bilo mogoče doseči",
+      "theProxyDidNotLet": "Proxy ni dovolil povezave",
+      "theHostKeyWasNot": "Ključ gostitelja ni bil zaupanja vreden",
+      "theLoginWasRefused": "Prijava je bila zavrnjena",
+      "theTermixServerDidNot": "Strežnik Termix ni odgovoril",
+      "theConnectionDropped": "Povezava je bila prekinjena",
+      "loginCancelled": "Prijava je bila preklicana"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "Ta gostitelj se prijavlja z \"{{authType}}\", kar zahteva strežnik Termix. Povežite ga za vzpostavitev povezave.",
+        "thisHostUsesA1password": "Ta gostitelj uporablja referenco 1Password, kar zahteva strežnik Termix s Secret Sources. Povežite ga in se s tem gostiteljem povežite prek njega.",
+        "signInWithFirstOpen": "Najprej se prijavite z {{title}}. Enkrat odprite terminal za tega gostitelja, nato poskusite znova.",
+        "theSignInAndThe": "prijava in certifikat sta na strežniku",
+        "theHasNoSshAgent": "{{deviceWord}} nima SSH agenta",
+        "needsATermixServerBecause": "{{title}} potrebuje strežnik Termix, ker {{why}}. Povežite ga in se s tem gostiteljem povežite prek njega."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Poskočni gostitelj tega gostitelja ne obstaja več."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Povezava je bila prekinjena",
+        "theShellChannelClosed": "Kanali lupine so bili zaprti",
+        "jumpHost": "Poskočni gostitelj {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Neveljavna koda, poskusite znova:",
+        "authenticationFailed": "Preverjanje pristnosti ni uspelo: {{message}}",
+        "theHostKeyWasNot": "Ključ gostitelja ni bil zaupanja vreden.",
+        "loginCancelled": "Prijava je bila preklicana.",
+        "notConnected": "Ni povezave"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Povezava je bila prekinjena"
+      },
+      "thisBuildHasNoSsh": "Ta različica nima SSH motorja. Uporabite aplikacijo iz trgovine ali povežite strežnik Termix za vzpostavitev povezave.",
+      "theHostsOnThisAre": "Gostitelji na tem {{deviceWord}} še niso odprti.",
+      "thisServerSHostsAre": "Gostitelji tega strežnika niso na tem {{deviceWord}}. Vklopite vtičnik Sinhronizacija na strežniku za povezavo iz {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Povezava ni mogoča.",
+      "canTConnectFromThe": "Povezava s tega {{deviceWord}} ni mogoča.",
+      "canTReachTheServer": "Strežnika ni mogoče doseči.",
+      "theOnlyConnectsToSsh": "Naprava {{deviceWord}} se povezuje le na gostitelje SSH in Telnet.",
+      "connectThisHostThroughThe": "Poveži tega gostitelja prek strežnika",
+      "connectThisHostFromThe": "Poveži tega gostitelja z napravo {{deviceWord}}",
+      "termixServer": "Strežnik Termix",
+      "usesThisWhenItCan": "Uporabi to napravo {{deviceWord}}, ko lahko doseže gostitelja, sicer pa strežnik.",
+      "thisConnectsToTheHost": "Ta naprava {{deviceWord}} se povezuje neposredno na gostitelja.",
+      "theTermixServerConnectsTo": "Strežnik Termix se namesto vas poveže na gostitelja.",
+      "anSshConnection": "povezava SSH",
+      "aTermixServer": "strežnik Termix",
+      "aConnectionFromThe": "povezava z naprave {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} je na tem strežniku izklopljen. {{how}} za uporabo.",
+      "isOffOnThisServer2": "{{title}} je na tem strežniku izklopljen.",
+      "anotherWayToConnect": "druga možnost povezave",
+      "needsToUseIt": "{{title}} potrebuje {{what}}. {{how}} za uporabo.",
+      "needsWhichThisHostCan": "{{title}} potrebuje {{what}}, česar ta gostitelj trenutno ne more uporabiti.",
+      "thisDevice": "Ta naprava {{deviceWord}}",
+      "automatic": "Samodejno"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Odjavljeni ste s tega strežnika. Prijavite se za povezavo prek njega.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux ni nameščen na tem gostitelju. Uporaba navadne lupine.",
+        "tapRetryToBringIt": "Za ponovni prikaz tukaj pritisnite Ponovi.",
+        "thisSessionWasOpenedOn": "Ta seja je bila odprta na drugi napravi",
+        "noServerUrlFoundLink": "URL strežnika ni bil najden. Ponovno povežite strežnik.",
+        "signedOutOfThisServer": "Odjava s tega strežnika. Ponovno se prijavite.",
+        "signInWithInYour": "Prijavite se z {{title}} v brskalniku. To se zapre po končani prijavi.",
+        "theSocketClosedWhileThe": "Vtičnica se je zaprla, medtem ko je bila aplikacija v ozadju",
+        "noWebsocketUrlAvailableServer": "URL za WebSocket ni na voljo – strežnik ni konfiguriran",
+        "connectionTimeoutServerNotResponding": "Časovna omejitev povezave – strežnik ne odgovarja",
+        "verificationCode": "Koda za preverjanje:",
+        "hostKeyVerificationRequiredBut": "Zahtevano preverjanje ključa gostitelja, vendar noben obravnavalec ni registriran",
+        "hostKeyChangedButNo": "Ključ gostitelja se je spremenil, vendar noben obravnavalec ni registriran",
+        "thisHostNeedsASign": "Ta gostitelj zahteva prijavo, ki jo podpira le spletna aplikacija",
+        "invalidCodeTryAgain": "Neveljavna koda, poskusite znova:",
+        "unknownError": "Neznana napaka",
+        "connectionClosed": "Povezava je bila zaprta",
+        "connectionClosed2": "Povezava je bila zaprta ({{code}})",
+        "theServerClosedTheConnection": "Strežnik je zaprl povezavo",
+        "theSocketClosed": "Vtičnica se je zaprla ({{code}})",
+        "signIn": "Prijava {{title}}",
+        "signInFailed": "Prijava {{title}} ni uspela",
+        "isNotSetUpOn": "{{title}} ni nastavljen na strežniku",
+        "signInTimedOut": "Prijava {{title}} je potekla",
+        "authenticationFailed": "Preverjanje pristnosti ni uspelo: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Shranite gostitelja in se povežite nanj za preverjanje.",
+      "loggedInAsOn": "Prijavljeni kot {{username}} na {{host}}",
+      "theHostAskedForMore": "Gostitelj je zahteval več kot le geslo, na primer kodo. Shranite gostitelja in se povežite za dokončanje prijave."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Čakanje na omrežje",
+      "couldNotOpenTheTunnel": "Tunela ni bilo mogoče odpreti",
+      "theConnectionDropped": "Povezava je bila prekinjena",
+      "iosStoppedThisTunnelWhile": "iOS je ustavil ta tunel, medtem ko je bila aplikacija v ozadju. Za odpiranje ga znova zaženite.",
+      "connecting": "Povezovanje",
+      "connected": "Povezano",
+      "retrying": "Ponovni poskus",
+      "waiting": "Čakanje",
+      "failed": "Napaka"
+    },
+    "gateways": {
+      "error": "Napaka",
+      "gateways": "Prehodniki",
+      "gatewaysCanOnlyBeChanged": "Prehodnike lahko spremenite le v Termixu na spletu.",
+      "noHandshake": "Brez rokojenja",
+      "rulesMissing": "Manjkajoča pravila",
+      "up": "Aktivno",
+      "pending": "Čakajoče",
+      "applying": "Upoštevajoče",
+      "down": "Izklopljeno",
+      "unreachable": "Nedosegljivo"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Še ni tunelov. Dodajte enega za posredovanje vrat od končnega gostitelja k temu gostitelju.",
+      "tunnel": "Tunel {{value}}",
+      "removeTunnel": "Odstrani tunel {{value}}",
+      "mode": "Način",
+      "local": "Lokalni",
+      "remote": "Oddaljeni",
+      "dynamic": "Dinamični",
+      "targetHost": "Ciljni gostitelj",
+      "onThisHostForTunnels": "Na tem gostitelju, za tunele, ki jih izvaja {{deviceWord}}",
+      "bindHost": "Gostitelj vezave",
+      "endpointHost": "Končni gostitelj",
+      "addAnotherHostFirstTunnels": "Najprej dodajte drugega gostitelja. Tunieli potekajo skozi shranjenega gostitelja.",
+      "sourcePort": "Virovna vrata",
+      "endpointPort": "Končna vrata",
+      "maxRetries": "Največ ponovitev",
+      "retryEveryS": "Ponovi vsakih (s)",
+      "startOnItsOwn": "Zaženi samostojno",
+      "addTunnel": "Dodaj tunel",
+      "tunnelNeedsPortsFrom1": "Tunel {{value}} potrebuje vrata od 1 do 65535"
+    },
+    "register": {
+      "tunnels": "Tunieli",
+      "startAndStopSavedTunnels": "Zaženi in ustavi shranjene tunele",
+      "tunnel": "TUNEL",
+      "tunnel2": "Tunel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokalna končna točka kopirana",
+      "tunnel": "Tunel | {{sourcePort}}",
+      "portMapping": "Preslikava vrat",
+      "connect": "Poveži",
+      "disconnect": "Prekini povezavo",
+      "cancel": "Prekliči",
+      "connected": "Povezano",
+      "connecting": "Povezovanje",
+      "disconnecting": "Prekinjanje povezave",
+      "error": "Napaka",
+      "retrying": "Ponovni poskus ({{value}}/{{value2}})",
+      "waitingS": "Čakanje {{value}}s",
+      "waiting": "Čakanje",
+      "disconnected": "Prekinjeno"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Zagon tunela na vratih {{sourcePort}}",
+      "connectingTunnelOnPort": "Povezovanje tunela na vratih {{sourcePort}}",
+      "disconnectingPort": "Prekinjanje povezave vrat {{sourcePort}}",
+      "cancellingPort": "Preklic vrat {{sourcePort}}",
+      "failedToTunnel": "Ni bilo mogoče {{action}} tunela",
+      "tunnels": "Tunieli | {{count}} | {{value}}",
+      "loadingTunnels": "Nalaganje tunelov…",
+      "noSshTunnelsConfiguredFor": "Za tega gostitelja niso konfigurirani SSH tuneli. Dodajte tunele iz obrazca gostitelja.",
+      "runOn": "Izvedi na",
+      "server": "Strežnik",
+      "this": "Ta {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunieli na tem {{deviceWord}} se ustavijo, ko je aplikacija zaprta. Na iOS se ustavijo tudi kmalu po prehodu aplikacije v ozadje.",
+      "failedToFetchTunnelStatuses": "Ni bilo mogoče pridobiti stanj tunelov",
+      "thisBuildCanTOpen": "Ta zgradba ne more odpreti tunelov na {{deviceWord}}.",
+      "sourceHostNotFound": "Virovni gostitelj ni najden",
+      "endpointHostNotFound": "Končni gostitelj ni najden: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunieli",
+      "tunnelCount_one": "{{count}} tunel",
+      "tunnelCount_two": "{{count}} tunela",
+      "tunnelCount_few": "{{count}} tuneli",
+      "tunnelCount_other": "{{count}} tunelov",
+      "runningOnServer": "{{connected}} teče na strežniku"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Orodja za poverilnice"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker ni nameščen na tem gostitelju.",
+        "dockerDidNotAnswer": "Docker ni odgovoril",
+        "thatIsNotAValid": "To ni veljavno ime sklada"
+      }
+    },
+    "containerDetail": {
+      "stop": "Ustavi",
+      "start": "Zaženi",
+      "restart": "Ponovno zaženi",
+      "remove": "Odstrani",
+      "logs": "Dnevniki",
+      "stats": "Statistika",
+      "console": "Konzola",
+      "logsCopied": "Dnevniki so kopirani",
+      "copy": "Kopiraj",
+      "containerIsNotRunningNo": "Posoda ne teče, zato ni podatkov v živo.",
+      "cpu": "CPU",
+      "memory": "Pomnilnik",
+      "networkIO": "Omrežni I/O",
+      "blockIO": "Blokni I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Nalaganje dnevnikov ni uspelo",
+      "failedToLoadStats": "Nalaganje statistike ni uspelo",
+      "noOutput": "(brez izpisa)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Povezovanje z Dockerjem...",
+    "remove": "Odstraniti {{name}}?",
+    "stop": "Ustaviti {{name}}?",
+    "theContainerIsStoppedAnd": "Posoda je ustavljena in izbrisana. Njeni prostori ostanejo.",
+    "anythingRunningInItStops": "Vse, kar teče znotraj nje, se ustavi.",
+    "remove2": "Odstrani",
+    "stop2": "Ustavi",
+    "dockerThis": "Docker | ta {{deviceWord}}",
+    "lookingForDocker": "Iskanje Dockerja...",
+    "dockerIsNotAvailableOn": "Docker ni na voljo na tem gostitelju.",
+    "noContainersFound": "Posod ni bilo mogoče najti",
+    "noContainersMatchYourFilters": "Posoda ne ustreza vašim filtrom",
+    "useSudo": "Uporabi sudo",
+    "refresh": "Osveži",
+    "containers": "Posode",
+    "stacks": "Skledi",
+    "searchContainers": "Išči posode...",
+    "all": "Vse",
+    "running": "V teku",
+    "stopped": "Ustavljeno",
+    "start": "Zaženi",
+    "restart": "Ponovno zaženi",
+    "pause": "Premor",
+    "unpause": "Nadaljuj",
+    "moreActions": "Več dejanj",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker ni odgovoril",
+      "docker": "Docker",
+      "noContainers": "Ni posod"
+    },
+    "dockerConsole": {
+      "attachingTo": "Povezovanje z {{name}}...",
+      "consoleDisconnected": "Konzola je odklopljena",
+      "reconnect": "Ponovno poveži",
+      "failedToLoadTheConsole": "Nalaganje konzole ni uspelo",
+      "thisSessionHasNoServer": "Ta seja nima strežnika"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Posode, dnevniki in statistika"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Skledi so na tem strežniku onemogočene.",
+      "couldNotLoadStacks": "Skled ni bilo mogoče naložiti",
+      "noStacks": "Ni skladov",
+      "composeProjectsOnThisHost": "Tukaj se prikažejo Compose projekti na tem gostitelju.",
+      "ofRunning": "{{running}} od {{total}} deluje",
+      "couldNotLoadTheStack": "Sklada ni bilo mogoče naložiti",
+      "services": "Storitve",
+      "nothingIsRunning": "Nič ne deluje.",
+      "composeFile": "Compose datoteka",
+      "partlyUp": "delno zagnano",
+      "notDeployed": "ni razporejeno",
+      "running": "deluje",
+      "stopped": "ustavljeno",
+      "paused": "začasno ustavljeno"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "To ni veljavna ID kontejnerja",
+      "consoleFailed": "Konzola ni uspela",
+      "notAuthenticated": "Ni preverjeno",
+      "consoleError": "Napaka konzole",
+      "connectionFailed": "Povezava ni uspela"
+    },
+    "dockerDidNotAnswer": "Docker ni odgovoril",
+    "failedToLoadContainers": "Nalaganje kontejnerjev ni uspelo",
+    "failedTo": "Ni uspelo {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Strežnik ni poslal datoteke",
+        "cancelled": "Preklicano",
+        "isGone": "{{path}} je izginil",
+        "canTGoToThe": "{{name}} ne more v smeti"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Neveljaven ID predmeta v smeteh",
+        "invalidTrashMetadata": "Neveljavni metapodatki smeti",
+        "thisPathCanTBe": "Te poti ni mogoče premakniti v smeti",
+        "aFileAlreadyExistsAt": "Na prvotni poti že obstaja datoteka"
+      },
+      "sftp": {
+        "commandFailed": "Ukaz ni uspel: {{command}}",
+        "alreadyExists": "{{name}} že obstaja",
+        "alreadyExistsThere": "{{path}} tam že obstaja",
+        "canTGoToThe": "{{name}} ne more v smeti: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Konzola ni več odprta",
+      "clearHistory": "Izprazni zgodovino",
+      "stopFollowingTheTerminal": "Prenehaj slediti konzoli",
+      "followTheTerminal": "Sledi konzoli",
+      "goToTheTerminalS": "Pojdi v mapo konzole",
+      "cdTheTerminalHere": "cd konzole sem",
+      "folderHistory": "Zgodovina map",
+      "mostUsedFirstThenRecent": "Najprej najbolj uporabljane, nato nedavne",
+      "noFoldersYet": "Še ni map"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Povezava ni mogoča.",
+        "couldNotSaveHowThis": "Ni bilo mogoče shraniti, kako se ta gostitelj povezuje",
+        "thisWayCanTOpen": "Ta način ne more odpreti datotek"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Te mape ni bilo mogoče odpreti",
+      "cancel": "Prekliči",
+      "noFoldersHere": "Tukaj ni map"
+    },
+    "couldNotOpenThisFolder": "Te mape ni bilo mogoče odpreti",
+    "couldNotSaveToThe": "Ni bilo mogoče shraniti v mapo",
+    "failed": "{{label}} ni uspelo",
+    "uploading": "Nalaganje {{name}}",
+    "uploadingFiles": "Nalaganje {{count}} datotek",
+    "downloadingToFilesOnMy": "Prenašanje v Datoteke, Na mojem iPhoneu, Termix",
+    "downloading": "Prenašanje {{name}}",
+    "downloadingFiles": "Prenašanje {{count}} datotek",
+    "openALargeFile": "Odpreti veliko datoteko?",
+    "isBigForAEditor": "{{name}} je velik za urejevalnik na {{deviceWord}}. Lahko bo počasen.",
+    "open": "Odpri",
+    "thisLooksLikeABinary": "To izgleda kot binarna datoteka",
+    "openItInAnotherApp": "Namesto tega jo odpreti v drugi aplikaciji?",
+    "openWith": "Odpri z",
+    "tooBigForTheEditor": "Preveliko za urejevalnik",
+    "isOver10MbDownload": "{{name}} je večji od 10 MB. Ga želite namesto tega prenesti?",
+    "download": "Prenesi",
+    "delete": "Izbriši {{what}}?",
+    "moveToTheTrash": "Premakni {{what}} v smeti?",
+    "thisCanTBeUndone": "Tega ni mogoče razveljaviti.",
+    "youCanRestoreItFrom": "Lahko ga obnovite iz smeti.",
+    "delete2": "Izbriši",
+    "moveToTrash": "Premakni v smeti",
+    "deleteForGood": "Trajno izbrisati?",
+    "deleteItForGoodInstead": "{{message}}. Namesto tega ga trajno izbrisati? Tega ni mogoče razveljaviti.",
+    "deleteFailed": "Brisanje ni uspelo",
+    "connectingThroughTheServer": "Povezovanje prek strežnika...",
+    "connectingFromThis": "Povezovanje iz tega {{deviceWord}}...",
+    "connecting": "Povezovanje...",
+    "edit": "Uredi",
+    "downloadFolder": "Prenesi mapo",
+    "share": "Deli",
+    "rename": "Preimenuj",
+    "copyTo": "Kopiraj v",
+    "moveTo": "Premakni v",
+    "cut": "Izreži",
+    "copy": "Kopiraj",
+    "permissions": "Dovoljenja",
+    "properties": "Lastnosti",
+    "makeALinkHere": "Ustvari povezavo tukaj",
+    "copyPath": "Kopiraj pot",
+    "pathCopied": "Pot je kopirana",
+    "done": "Končano",
+    "selectAll": "Izberi vse",
+    "filterByName": "Filtriraj po imenu",
+    "closeSearch": "Zapri iskanje",
+    "search": "Iskanje",
+    "changeSort": "Spremeni razvrščanje",
+    "paste": "Prilepi {{count}}",
+    "upload": "Naloži",
+    "transfers2": "Prenosi",
+    "more": "Več",
+    "nothingMatches": "Ni ujemajočih se rezultatov",
+    "emptyFolder": "Prazna mapa",
+    "uploadFilesOrMakeA": "Naložite datoteke ali ustvarite novo.",
+    "newFolder": "Nova mapa",
+    "newFile": "Nova datoteka",
+    "select": "Izberi",
+    "hideHiddenFiles": "Skrij skrite datoteke",
+    "showHiddenFiles": "Prikaži skrite datoteke",
+    "trash": "Smeti",
+    "folderProperties": "Lastnosti mape",
+    "refresh": "Osveži",
+    "rename2": "Preimenuj {{name}}",
+    "newLink": "Nova povezava",
+    "aLinkInThatPoints": "Povezava v {{path}}, ki kaže na {{path2}}",
+    "name": "Ime",
+    "create": "Ustvari",
+    "copyHere": "Kopiraj sem",
+    "moveHere": "Premakni sem",
+    "fileViewer": {
+      "saved": "Shranjeno {{name}}",
+      "couldNotSaveTheFile": "Datoteke ni bilo mogoče shraniti",
+      "discardChanges": "Zavrni spremembe?",
+      "hasChangesThatAreNot": "{{name}} ima neshranjene spremembe.",
+      "discard": "Zavrzi",
+      "readOnly": "{{path}} | samo za branje",
+      "find": "Poišči",
+      "smallerText": "Manjša pisava",
+      "biggerText": "Večja pisava",
+      "turnOffLineWrap": "Izklopi prelom vrstic",
+      "wrapLines": "Prelomi vrstice",
+      "save": "Shrani"
+    },
+    "hostSection": {
+      "startIn": "Začni v",
+      "theFolderTheFileManager": "Mapa, ki se odpre ob zagonu upravitelja datotek",
+      "files": "Datoteke"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Pojdi na {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Več dejanj",
+        "moreFor": "Več za {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Dovoljenja",
+      "cancel": "Prekliči",
+      "apply": "Uporabi ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Ni mogoče odpreti",
+      "openWith": "Odpri z",
+      "share": "Deli"
+    },
+    "propertiesView": {
+      "properties": "Lastnosti",
+      "path": "Pot",
+      "type": "Vrsta",
+      "pointsTo": "Povezava na",
+      "size": "Velikost",
+      "countFolderSize": "Izračunaj velikost mape",
+      "permissions": "Dovoljenja",
+      "change": "Spremeni",
+      "owner": "Lastnik",
+      "group": "Skupina",
+      "modified": "Spremenjeno",
+      "opened": "Odprto",
+      "linkToA": "Povezava na {{value}}",
+      "notShownForFolders": "Ni prikazano za mape",
+      "file": "Datoteka",
+      "folder": "Mapa",
+      "link": "Povezava"
+    },
+    "register": {
+      "fileManager": "Upravitelj datotek",
+      "files": "Datoteke",
+      "browseEditAndMoveFiles": "Brskanje, urejanje in premikanje datotek",
+      "files2": "DATOTEKE",
+      "fileManagerAndTransfers": "Upravitelj datotek in prenosi"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Prenos ni uspel"
+      },
+      "transfersPanel": {
+        "pause": "Premor",
+        "resume": "Nadaljuj",
+        "tryAgain": "Poskusi znova",
+        "open": "Odpri",
+        "cancel": "Prekliči",
+        "transfers": "Prenosi",
+        "goingOf": "{{active}} v teku | {{done}} od {{total}}",
+        "clearFinished": "Počisti končane",
+        "cancelAll": "Prekliči vse",
+        "noTransfersYet": "Še ni prenosov",
+        "waiting": "Čakanje",
+        "paused": "V premoru",
+        "done": "Končano",
+        "failed": "Napaka",
+        "cancelled": "Preklicano"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Nalaganje smetnjaka ni uspelo",
+      "restored": "Obnovljeno {{name}}",
+      "failedToRestore": "Obnovitev ni uspela",
+      "failedToDelete": "Izbris ni uspel",
+      "trashEmptied": "Smetnjak je prazen",
+      "failedToEmptyTrash": "Praznjenje smetnjaka ni uspelo",
+      "trash": "Smetnjak",
+      "itemsAreRemovedAfterDays": "Predmeti se odstranijo po {{retentionDays}} dneh",
+      "close": "Zapri",
+      "emptyTrash": "Izprazni smetnjak",
+      "trashIsEmpty": "Smetnjak je prazen",
+      "restore": "Obnovi {{name}}",
+      "deleteForGood": "Trajno izbriši {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Trenutno"
+      }
+    },
+    "getting": "Pridobivanje {{name}}",
+    "itemCount_one": "{{count}} predmet",
+    "itemCount_two": "{{count}} predmeta",
+    "itemCount_few": "{{count}} predmeti",
+    "itemCount_other": "{{count}} predmetov",
+    "copiedWhat": "Kopirano {{what}}",
+    "movedWhat": "Premaknjeno {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} vsebuje več kot {{limit}} datotek. Prenesite manjše mape."
+    },
+    "downloadingToFilesOnMyIpad": "Prenašanje v Datoteke, Na mojem iPadu, Termix",
+    "size": "Velikost",
+    "date": "Datum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Povezave do storitev",
+      "openInHomepage": "Odpri na domači strani",
+      "thisWidgetOnlyShowsOn": "Ta vtičnik se prikaže le na polni strani."
+    },
+    "register": {
+      "serviceLinks": "Povezave do storitev",
+      "homepage": "Domača stran"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Vir ni nastavljen.",
+        "couldNotLoadTheFeed": "Vira ni bilo mogoče naložiti.",
+        "theFeedIsEmpty": "Vir je prazen.",
+        "noLocationSet": "Lokacija ni nastavljena.",
+        "couldNotLoadTheWeather": "Vremenskih podatkov ni bilo mogoče naložiti.",
+        "noUrlSet": "URL ni nastavljen.",
+        "couldNotLoadTheData": "Podatkov ni bilo mogoče naložiti.",
+        "noPictureSet": "Slika ni nastavljena.",
+        "badResponse": "napačen odziv"
+      },
+      "services": "Storitve",
+      "service": "Storitev",
+      "serviceLinks": "Povezave do storitev",
+      "bookmarks": "Zaznamki",
+      "links2": "Povezave",
+      "search": "Iskanje",
+      "clock": "Ura",
+      "countdown": "Obratno štetje",
+      "calendar": "Koledar",
+      "notes": "Zapiski",
+      "banner": "Baner",
+      "ping": "Ping",
+      "host": "Gostitelj",
+      "hosts": "Gostitelji",
+      "quickConnect": "Hitra povezava",
+      "feed": "Vir",
+      "weather": "Vreme",
+      "customApi": "Lastni API",
+      "picture": "Slika",
+      "widget": "Vtičnik",
+      "links": {
+        "noServicesYet": "Še ni storitev.",
+        "noLinkSet": "Povezava ni nastavljena.",
+        "noLinksYet": "Še ni povezav.",
+        "noSearchEngineSet": "Iskalnik ni nastavljen.",
+        "search": "Iskanje",
+        "noShortcutsYet": "Še ni bližnjic.",
+        "search2": "Išči {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Povezave ni bilo mogoče odpreti"
+      },
+      "status": {
+        "noUrlsYet": "Še ni URL-jev.",
+        "down": "Nezaposleno",
+        "noHostsPicked": "Ni izbranih gostiteljev."
+      },
+      "text": {
+        "noNotesYet": "Še ni opomb.",
+        "noTextYet": "Še ni besedila."
+      },
+      "time": {
+        "noDateSet": "Ni nastavljenega datuma.",
+        "timeIsUp": "Čas je potekel"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Privzetega ni bilo mogoče shraniti",
+    "couldNotResetTheDefault": "Privzetega ni bilo mogoče ponastaviti",
+    "back": "Nazaj",
+    "hostDefaults": "Privzete nastavitve gostitelja",
+    "newHostsStartFromThese": "Novi gostitelji začnejo z temi",
+    "managedOnTheServer": "Upravljano na strežniku",
+    "defaultsForThisServerAre": "Privzete nastavitve za ta strežnik so nastavljene v spletni aplikaciji.",
+    "level": "Raven",
+    "yourDefaultsOrOneFolder": "Vaše privzete nastavitve ali nastavitve ene mape",
+    "myDefaults": "Moje privzete nastavitve",
+    "theServerSets": " Strežnik nastavi {{adminCount}}.",
+    "aFolderWinsOverYour": "Mapa ima prednost pred vašimi privzetimi nastavitvami, vaše privzete nastavitve pa pred nastavitvami strežnika. Gostitelj ohrani vsako vrednost, ki ste jo nastavili sami.{{value}}",
+    "save": "Shrani",
+    "authentication": "Overitev",
+    "none": "Brez",
+    "reset": "Ponastavi",
+    "model": {
+      "username": "Uporabniško ime",
+      "sshPort": "SSH vrat",
+      "authentication": "Overitev",
+      "aSavedCredentialForNew": "Shranjena poverilnica za nove gostitelje",
+      "forceKeyboardInteractive": "Vsili interaktivno tipkovnico",
+      "keepaliveInterval": "Interval ohranjanja povezave",
+      "seconds0TurnsItOff": "Sekunde, 0 ga izklopi",
+      "keepaliveTries": "Poskusi ohranjanja povezave",
+      "allowOldAlgorithms": "Dovoli stare algoritme",
+      "agentForwarding": "Posredovanje agenta",
+      "environmentVariables": "Okoljske spremenljivke",
+      "oneNameValuePerLine": "Ena IME=vrednost na vrstico",
+      "checkIfTheHostIs": "Preveri, ali je gostitelj na voljo",
+      "checkInterval": "Interval preverjanja",
+      "secondsEmptyUsesTheServer": "Sekunde, prazno uporabi nastavitve strežnika",
+      "socks5Proxy": "Proxy SOCKS5",
+      "setInTheWebApp": "Nastavljeno v spletni aplikaciji",
+      "jumpHosts": "Vmesni gostitelji",
+      "portKnocking": "Port knocking",
+      "notSet": "Ni nastavljeno",
+      "fromTheServer": "Iz strežnika",
+      "fromYourDefaults": "Iz vaših privzetih nastavitev",
+      "builtIn": "Vgrajeno"
+    },
+    "register": {
+      "hostDefaults": "Privzete nastavitve gostitelja",
+      "portUserAndOptionsFor": "Vrata, uporabnik in možnosti za nove gostitelje"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Še ni podatkov",
+      "cpu": "CPU",
+      "memory": "Pomnilnik",
+      "disk": "Disk",
+      "history": "Zgodovina",
+      "loading": "Nalaganje..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Metrik ni bilo mogoče prebrati",
+      "metrics": "Metrike",
+      "cpu": "CPU",
+      "memory": "Pomnilnik",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Ni nedavnih vzorcev. Odprite metrike gostitelja, da začnete zbiranje."
+    },
+    "register": {
+      "enableMetrics": "Omogoči metrike",
+      "cpuMemoryDiskAndNetwork": "CPU, pomnilnik, disk in omrežje prek SSH",
+      "hostMetrics": "Metrike gostitelja",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrike",
+      "cpuMemoryDiskAndNetwork2": "CPU, pomnilnik, disk in omrežje"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Metrike gostitelja | ta {{deviceWord}}",
+      "hostMetrics": "Metrike gostitelja",
+      "ran": "Zažeto {{name}}",
+      "loadingMetrics": "Nalaganje metrik...",
+      "couldNotReadMetricsFrom": "Metrik s tega gostitelja ni bilo mogoče prebrati",
+      "failedToLoadMetrics": "Nalaganje metrik ni uspelo",
+      "thisSessionHasNoServer": "Ta seja nima strežnika",
+      "twoFactorRequiredForThis": "Za statistiko tega gostitelja je zahtevana dvofaktorska avtentikacija.",
+      "failedToStartMetrics": "Zagon metrik ni uspel",
+      "failedToRun": "Zagon {{name}} ni uspel"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Na jedro: {{value}}",
+        "cores": "Jedra",
+        "load": "Obremenitev",
+        "user": "Uporabnik",
+        "system": "Sistem",
+        "ioWait": "Čakanje na IO",
+        "steal": "Izločeno"
+      },
+      "diskWidget": {
+        "disk": "Disk {{mount}}",
+        "disk2": "Disk",
+        "used": "Uporabljeno",
+        "total": "Skupaj",
+        "free": "Prosto"
+      },
+      "firewallWidget": {
+        "firewall": "Varnostno pregrado",
+        "rules": "{{type}} | {{ruleCount}} pravil",
+        "noFirewallDetected": "Varnostne pregrade ni bilo mogoče zaznati"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-ji ({{count}})",
+        "gpu": "GPU",
+        "memory": "Pomnilnik",
+        "temp": "Temp.",
+        "power": "Moč",
+        "fan": "Ventilator"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Aktivnost prijave",
+        "noLoginActivityRecorded": "Aktivnost prijave ni bila zabeležena",
+        "logins": "Prijave",
+        "uniqueIps": "Edinstveni IP-ji",
+        "failed": "Neuspešne",
+        "recent": "Nedavne"
+      },
+      "memoryWidget": {
+        "memory": "Pomnilnik",
+        "used": "Uporabljeno",
+        "total": "Skupaj",
+        "cached": "Predpomnjeno",
+        "free": "Prosto"
+      },
+      "networkWidget": {
+        "network": "Omrežje",
+        "noInterfaces": "Ni vmesnikov",
+        "up": "Nalaganje",
+        "down": "Spuščanje"
+      },
+      "portsWidget": {
+        "listeningPorts": "Poslušajoči porti",
+        "noListeningPorts": "Ni poslušajočih portov"
+      },
+      "processesWidget": {
+        "sortBy": "Razvrsti po {{label}}",
+        "processes": "Procesi",
+        "running": "{{value}} deluje | {{total}}",
+        "noProcessData": "Ni podatkov o procesih",
+        "cpu": "CPU %",
+        "mem": "MEM %",
+        "command": "UKAZ"
+      },
+      "systemWidget": {
+        "system": "Sistem",
+        "hostname": "Ime gostitelja",
+        "os": "OS",
+        "kernel": "Jedro",
+        "arch": "Arhitektura",
+        "noSystemInfo": "Ni sistemskih informacij"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatura"
+      },
+      "uptimeWidget": {
+        "uptime": "Čas delovanja"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopirano z geslom",
+      "copiedTheLink": "Povezava je kopirana",
+      "shareHost": "Deli gostitelja",
+      "thatHostNoLongerExists": "Ta gostitelj ne obstaja več",
+      "scanThisInTermixOn": "Skenirajte to v Termixu na drugem {{deviceWord}} pod Uvoz in izvoz. Koda vsebuje naslov, vrat in uporabnika. Ne vsebuje gesla ali ključa.",
+      "copyLink": "Kopiraj povezavo",
+      "copyLinkWithPassword": "Kopiraj povezavo z geslom"
+    },
+    "includePasswordsAndKeys": "Vključi gesla in ključe?",
+    "anyoneWhoGetsThisFile": "Vsakdo, ki dobi to datoteko, se lahko prijavi na te gostitelje. Shranite jo varno.",
+    "includeThem": "Vključi jih",
+    "pickAtLeastOneHost": "Izberite vsaj enega gostitelja",
+    "couldNotMakeTheFile": "Datoteke ni bilo mogoče ustvariti",
+    "copiedToTheClipboard": "Kopirano v odložišče",
+    "importAndExport": "Uvoz in izvoz",
+    "moveHostsInAndOut": "Premikajte gostitelje noter in ven",
+    "import": "Uvozi",
+    "aTermixHostFileAn": "Termixova datoteka gostitelja, datoteka SSH konfiguracije ali povezava do gostitelja ali QR koda z drugega {{deviceWord}}.",
+    "export": "Izvozi",
+    "allHosts": "Vsi gostitelji",
+    "picked": "{{size}} izbranih",
+    "pickHosts": "Izberi gostitelje",
+    "includePasswordsAndKeys2": "Vključi gesla in ključe",
+    "offMakesAFileSafe": "Izklop naredi datoteko varno za deljenje. Gostitelji, ki uporabljajo shranjeno poverilnico, nanjo kažejo po imenu",
+    "shareAFile": "Deli datoteko",
+    "copy": "Kopiraj",
+    "importPanel": {
+      "couldNotReadThat": "Tega ni bilo mogoče prebrati",
+      "couldNotReadThatFile": "Te datoteke ni bilo mogoče prebrati",
+      "importFailed": "Uvoz ni uspel",
+      "chooseAFile": "Izberite datoteko",
+      "paste": "Prilepi",
+      "scanACode": "Skeniraj kodo",
+      "couldNotBeRead": "{{count}} ni bilo mogoče prebrati",
+      "updateHostsThatExist": "Posodobi obstoječe gostitelje",
+      "sameAddressPortAndUser": "Enak naslov, vrat in uporabnik. Sicer so preskočeni",
+      "cancel": "Prekliči",
+      "import": "Uvozi",
+      "andMore": "in še {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR koda"
+    },
+    "register": {
+      "importAndExport": "Uvoz in izvoz",
+      "moveHostsInOrOut": "Premikajte gostitelje noter ali ven z datoteko ali QR kodo",
+      "shareHost": "Deli gostitelja"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skeniraj kodo gostitelja",
+      "pointTheCameraAtA": "Usmerite kamero na QR kodo Termix gostitelja.",
+      "termixNeedsTheCameraTo": "Termix potrebuje kamero za skeniranje kode. Ničesar ne snema.",
+      "allowTheCamera": "Dovoli kamero"
+    },
+    "read": {
+      "termixFile": "Termix datoteka",
+      "sshConfig": "SSH konfiguracija",
+      "thereIsNothingToImport": "Ničesar ni za uvoz",
+      "thatIsNotATermix": "To ni povezava do gostitelja Termix",
+      "linkHost": "1 gostitelj: {{name}}",
+      "sourceHosts_one": "{{what}} z {{count}} gostiteljem",
+      "sourceHosts_two": "{{what}} z {{count}} gostiteljema",
+      "sourceHosts_few": "{{what}} z {{count}} gostitelji",
+      "sourceHosts_other": "{{what}} z {{count}} gostitelji"
+    },
+    "saveYourTermixHosts": "Shrani svoje gostitelje Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Končano",
+      "rejected": "Zavrnjeno",
+      "approvals": "Odobritve",
+      "nothingIsWaiting": "Nič ne čaka",
+      "actionsARuleHoldsFor": "Tukaj se prikažejo dejanja, za katera pravilo zahteva odobritev.",
+      "approveAndRun": "Odobri in zaženi",
+      "reject": "Zavrni",
+      "couldNotLoadApprovals": "Odobritev ni bilo mogoče naložiti",
+      "couldNotDecide": "Odločitve ni bilo mogoče sprejeti"
+    },
+    "approvalsCard": {
+      "approved": "Odobreno",
+      "rejected": "Zavrnjeno",
+      "waitingForApproval": "Čakanje na odobritev",
+      "approve": "Odobri",
+      "reject": "Zavrni",
+      "couldNotDecide": "Odločitve ni bilo mogoče sprejeti",
+      "seeAll": "Prikaži vse"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Tega ni mogoče razveljaviti. Ga želite izvesti?",
+      "run": "Zaženi",
+      "sentForApproval": "Poslano na odobritev",
+      "target": "Cilj",
+      "theItemOnTheHost": "Predmet na gostitelju, na primer posoda",
+      "dryRun": "Suho testiranje",
+      "back": "Nazaj",
+      "actions": "Dejanja",
+      "noActionsForThisHost": "Za tega gostitelja ni dejanj",
+      "turnOnAPluginLike": "Na strežniku za tega gostitelja vklopite vtičnik, kot sta Docker ali Storitve.",
+      "destructive": "Uničujoče",
+      "changes": "Spremembe",
+      "theActionCouldNotRun": "Dejanja ni bilo mogoče izvesti",
+      "couldNotLoadActions": "Dejanj ni bilo mogoče naložiti"
+    },
+    "register": {
+      "actions": "Dejanja",
+      "waitingForApproval": "Čakanje na odobritev",
+      "approvals": "Odobritve",
+      "actionsWaitingForAPerson": "Dejanja, ki čakajo na potrditev osebe",
+      "runHistory": "Zgodovina izvajanja",
+      "everyActionAnyoneRanFrom": "Vsa dejanja, ki jih je kdorkoli izvedel iz katerega koli naprave"
+    },
+    "runHistory": {
+      "cancelThisRun": "Želite preklicati to izvajanje?",
+      "cancelRun": "Prekliči izvajanje",
+      "keep": "Obdrži",
+      "undoThisRun": "Želite razveljaviti to izvajanje?",
+      "thisRunsTheActionS": "To izvede razveljavitev dejanja z istim vhodom.",
+      "undo": "Razveljavi",
+      "cancelled": "Preklicano",
+      "itAlreadyFinished": "Je že končano",
+      "done": "Končano",
+      "runHistory": "Zgodovina izvajanja",
+      "nothingHasRunYet": "Še ni bilo izvedenih dejanj",
+      "dryRun": "Suho testiranje",
+      "cancel": "Prekliči",
+      "couldNotLoadHistory": "Zgodovine ni bilo mogoče naložiti",
+      "couldNotCancel": "Preklica ni bilo mogoče izvesti",
+      "couldNotUndo": "Razveljavitve ni bilo mogoče izvesti"
+    },
+    "api": {
+      "needsApproval": "Zahteva odobritev",
+      "needsSignIn": "Zahteva prijavo",
+      "done": "Končano",
+      "failed": "Neuspešno",
+      "running": "V teku",
+      "interrupted": "Prekinjeno",
+      "rejected": "Zavrnjeno",
+      "cancelled": "Preklicano",
+      "expired": "Poteklo"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Vklopi {{value}}",
+      "moreSettingsForThisAre": "Več nastavitev za to je v spletni aplikaciji Termix.",
+      "pluginHostSettings": "Nastavitve gostitelja vtičnika"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} mora biti število",
+      "mustBeAtLeast": "{{field}} mora biti vsaj {{min}}",
+      "mustBeAtMost": "{{field}} mora biti največ {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Povežite strežnik, da ga uporabite",
+      "runsOnYourTermixServer": "{{name}} teče na vašem strežniku Termix."
+    },
+    "pluginWebView": {
+      "canTLoad": "Ni mogoče naložiti {{name}}",
+      "theServerDidNotSend": "Strežnik ni poslal vtičnika. Preverite, ali je vklopljen, in poskusite znova.",
+      "openThisLink": "Odpreti to povezavo?",
+      "open": "Odpri",
+      "needsANewerVersionOf": "Potrebna je novejša različica aplikacije",
+      "usesPartsOfTermixThis": "{{name}} uporablja dele Termixa, ki jih ta aplikacija še nima.",
+      "didNotStart": "{{name}} se ni zagnal",
+      "thisScreenIsNotIn": "Ta zaslon ni v različici vtičnika na strežniku.",
+      "thePluginHitAnError": "Pri zagonu je prišlo do napake v vtičniku.",
+      "youReOffline": "Niste povezani z internetom",
+      "runsOnYourServerSo": "{{name}} teče na vašem strežniku, zato potrebuje povezavo. Ponovno se odpre, ko ste znova povezani.",
+      "tryAgain": "Poskusi znova"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Ta gostitelj še ni na tem {{deviceWord}}.",
+      "theAppCanTOpen": "Aplikacija tega od tu ne more odpreti.",
+      "thatHostIsNotOn2": "Ta gostitelj še ni na tem {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Geslo",
+      "unchangedIfBlank": "Neopazno, če je prazno",
+      "port": "Vrata",
+      "domain": "Domena",
+      "displaySoundAndClipboardSettings": "Nastavitve zaslona, zvoka in odložišča so v spletni aplikaciji Termix.",
+      "portMustBeFrom1": "Vrata {{label}} morajo biti med 1 in 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Oddaljena namizna povezava je prekinjena",
+        "signIn": "Prijava v {{label}}",
+        "itWillNotBeSaved": "{{error}} Ne bo shranjeno.",
+        "enterTheLoginForIt": "Vnesite prijavo za {{title}}. Ne bo shranjena.",
+        "reconnecting": "Ponovno vzpostavljanje povezave z {{label}}",
+        "connecting": "Vzpostavljanje povezave z {{label}}",
+        "connectionFailed": "Povezava ni uspela",
+        "disconnected": "Povezava prekinjena",
+        "reconnect": "Ponovno poveži",
+        "connectThroughTheServer": "Poveži prek strežnika",
+        "pasteToRemote": "Prilepi na oddaljeni računalnik",
+        "typeClipboard": "Vnesi iz odložišča",
+        "copyRemoteClipboard": "Kopiraj oddaljeno odložišče",
+        "theComputerSCertificateWas": "Certifikat računalnika ni bil zaupanja vreden.",
+        "thatLoginWasRefusedTry": "Ta prijava je bila zavrnjena. Poskusite znova."
+      },
+      "target": {
+        "trustThisComputer": "Zaupati temu računalniku?",
+        "theCanTCheckS": "{{deviceWord}} ne more preveriti certifikata za {{hostName}}. Pred nadaljevanjem se prepričajte, da se ta odtis ujemata z odtisom na računalniku.\n\n{{fingerprint}}",
+        "trustAndConnect": "Zaupaj in poveži",
+        "certificateChanged": "Certifikat se je spremenil",
+        "showsAnotherCertificateThanLast": "{{hostName}} prikazuje drug certifikat kot prejšnjič. To se zgodi, ko računalnik ustvari nov certifikat ali ko nekdo posluša vmes.\n\nNov odtis:\n{{fingerprint}}",
+        "trustTheNewOne": "Zaupaj novemu"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Oddaljeno namizje",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Končano",
+      "keyboard": "Tipkovnica",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Nastavitve",
+      "remoteSettings": "Oddaljene nastavitve",
+      "mouseMode": "Način miške",
+      "touch": "Dotik",
+      "trackpad": "Sledilna ploščica",
+      "tapWhereYouWantTo": "Tapnite, kjer želite klikniti. Držite za desni klik, povlecite za vlečenje.",
+      "dragToMoveThePointer": "Povlecite za premikanje kazalca. Tapnite za klik, dvakrat tapnite z dvema prstoma za desni klik, tapnite in povlecite za vlečenje.",
+      "zoomXPinchAnywhereTo": "Povečava: {{value}}x. Stisnite kjerkoli za povečavo",
+      "reset": "Ponastavi",
+      "cancel": "Prekliči",
+      "connect": "Poveži",
+      "username": "Uporabniško ime",
+      "domainOptional": "Domena (izbirno)",
+      "domain": "Domena",
+      "password": "Geslo",
+      "leftArrow": "Puščica levo",
+      "upArrow": "Puščica gor",
+      "downArrow": "Puščica dol",
+      "rightArrow": "Puščica desno",
+      "rdpSignIn": "RDP prijava"
+    },
+    "theRemoteDesktopDropped": "Oddaljena namizna povezava je prekinjena",
+    "theyWillNotBeSaved": "{{errorMessage}} Ne bodo shranjeni.",
+    "enterCredentialsForTheyWill": "Vnesite poverilnice za {{title}}. Ne bodo shranjene.",
+    "connecting": "Povezovanje",
+    "connectionFailed": "Povezava ni uspela",
+    "disconnected": "Prekinjeno",
+    "reconnect": "Ponovno poveži",
+    "route": {
+      "thisHostCanTOpen": "Ta gostitelj ne more odpreti oddaljenega namizja od tukaj."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blokirano s strani aplikacije"
+    },
+    "failedToStartRemoteSession": "Zagon oddaljene seje ni uspel",
+    "thatLoginWasRefusedTry": "Prijava je bila zavrnjena. Poskusite znova.",
+    "theRemoteRefusedTheSaved": "Oddaljeni strežnik je zavrl shranjeno prijavo. Preverite RDP prijavo na tem gostitelju.",
+    "remoteSessionFailed": "Oddaljena seja ni uspela",
+    "remoteSessionReturnedAnInvalid": "Oddaljena seja je vrnila neveljavno sporočilo",
+    "failedToLoadTheRemote": "Nalaganje odjemalca oddaljenega namizja ni uspelo"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Ni dnevnika",
+      "thisHostDoesNotKeep": "Ta gostitelj ne hrani systemd dnevnika.",
+      "all": "Vsi",
+      "warnings": "Opozorila",
+      "errors": "Napake",
+      "stop": "Ustavi",
+      "follow": "Sledi",
+      "nothingLogged": "Ni zapisov",
+      "tryAnotherLevel": "Poskusite drugo raven.",
+      "couldNotReadTheJournal": "Dnevnika ni bilo mogoče prebrati"
+    },
+    "register": {
+      "services": "Storitve",
+      "startStopAndReadLogs": "Zaženi, ustavi in preberi dnevnike"
+    },
+    "readingServices": "Branje storitev...",
+    "thisHostHasNoSystemd": "Ta gostitelj nima systemd ali OpenRC.",
+    "noServicesMatch": "Ni ujemajočih se storitev",
+    "noServicesFound": "Ni najdenih storitev",
+    "services": "Storitve",
+    "journal": "Dnevnik",
+    "searchServices": "Išči storitve...",
+    "all": "Vse",
+    "running": "Zažene",
+    "failed": "Neuspešno ({{failed}})",
+    "failed2": "Neuspešno",
+    "servicesCard": {
+      "services": "Storitve",
+      "noSystemdOrOpenrc": "Ni systemd ali OpenRC",
+      "failed": "{{failed}} neuspešno",
+      "allRunning": "Vse zažene",
+      "couldNotReadServices": "Storitev ni bilo mogoče prebrati"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Ostane ustavljen, dokler ga ne zaženete znova ali dokler se gostitelj ne ponovno zažene.",
+      "itStopsForAMoment": "Za trenutek se ustavi in se znova zažene.",
+      "stop": "Ustavi",
+      "restart": "Ponovno zaženi",
+      "is": "{{name}} je {{state}}",
+      "start": "Zaženi",
+      "journal": "Dnevnik",
+      "couldNotReadTheService": "Storitve ni bilo mogoče prebrati",
+      "couldNot": "Ni bilo mogoče {{action}} {{name}}",
+      "startsAtBoot": "Zažene se ob zagonu",
+      "mainPid": "Glavni PID",
+      "activeSince": "Aktiven od",
+      "unitFile": "Datoteka enote",
+      "notSet": "[ni nastavljeno]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Niste prijavljeni",
+        "followFailed": "Sledenje ni uspelo",
+        "connectionFailed": "Povezava ni uspela"
+      }
+    },
+    "couldNotReadServices": "Storitev ni bilo mogoče prebrati",
+    "services2": "Storitve{{where}}",
+    "title": "Storitve",
+    "failedCount": "{{count}} neuspešno"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Souporaba seje",
+      "shareLink": "Povezava za souporabo"
+    },
+    "shareSessionView": {
+      "canWatch": "Lahko gleda",
+      "canType": "Lahko tipka",
+      "n1Hour": "1 ura",
+      "n8Hours": "8 ur",
+      "n1Day": "1 dan",
+      "n7Days": "7 dni",
+      "never": "Nikoli",
+      "shareSession": "Souporaba seje",
+      "anyoneWithTheLinkCan": "Kdor koli s povezavo lahko odpre ta terminal, medtem ko je ta v uporabi. Povezave lahko prekličete v Termixu.",
+      "peopleWithTheLink": "Osebe s povezavo",
+      "expiresAfter": "Poteče po",
+      "link": "Povezava",
+      "copy": "Kopiraj",
+      "share": "Souporaba",
+      "makeLink": "Ustvari povezavo",
+      "theServerGaveNoLink": "Strežnik ni vrnil povezave",
+      "couldNotMakeALink": "Povezave ni bilo mogoče ustvariti",
+      "linkCopied": "Povezava je kopirana"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Brez mape"
+    },
+    "hostPicker": {
+      "selectNone": "Prekliči izbor",
+      "selectAll": "Izberi vse",
+      "done": "Končano"
+    },
+    "register": {
+      "snippets": "Utripki",
+      "snippets2": "UTRIPKI",
+      "savedCommandsToRunOn": "Shranjeni ukazi za izvajanje na katerem koli gostitelju"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Ni načina za dostop do tega gostitelja od tukaj",
+      "exitedWith": "Končano z izhodno kodo {{exitCode}}",
+      "thisCanTRunIt": "Ta {{deviceWord}} tega ne more izvajati",
+      "noServerIsLinked": "Noben strežnik ni povezan"
+    },
+    "runOnHostsSheet": {
+      "run": "Izvedi",
+      "run2": "Izvedi \"{{name}}\"",
+      "runsOverSshOnEach": "Izvede se prek SSH na vsakem gostitelju. Terminal se ne odpre.",
+      "close": "Zapri",
+      "hosts": "Gostitelji",
+      "pickHosts": "Izberi gostitelje",
+      "workedFailed": "{{value}} uspešno, {{failed}} neuspešno",
+      "runOn2": "Izvedi na",
+      "runOn_one": "Izvesti {{name}} na {{count}} gostitelju?",
+      "runOn_two": "Izvesti {{name}} na {{count}} gostiteljih?",
+      "runOn_few": "Izvesti {{name}} na {{count}} gostiteljih?",
+      "runOn_other": "Izvesti {{name}} na {{count}} gostiteljih?",
+      "hostsPicked_one": "{{count}} gostitelj izbran",
+      "hostsPicked_two": "{{count}} gostitelja izbrana",
+      "hostsPicked_few": "{{count}} gostitelji izbrani",
+      "hostsPicked_other": "{{count}} gostiteljev izbranih"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Poišči utripke",
+      "pastesTheNote": "Prilepi opombo",
+      "runsTheSnippet": "Izvedi utripek",
+      "noSnippetsMatch": "Ni ujemajočih se utripkov",
+      "noSnippetsYet": "Še ni utripkov",
+      "addSnippetsInSettingsSnippets": "Dodaj utripke v Nastavitve, Utripki",
+      "run": "Izvedi",
+      "insertWithoutRunning": "Vstavi brez izvajanja",
+      "copy": "Kopiraj"
+    },
+    "snippetsCard": {
+      "snippets": "Utripki",
+      "run": "Izvedi {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Ni utripkov za izvoz",
+      "couldNotMakeTheFile": "Datoteke ni bilo mogoče ustvariti",
+      "copiedToTheClipboard": "Kopirano v odložišče",
+      "couldNotImport": "Uvoza ni bilo mogoče izvesti",
+      "couldNotReadThatFile": "Te datoteke ni bilo mogoče prebrati",
+      "importAndExport": "Uvoz in izvoz",
+      "theSameFileTheWeb": "Enaka datoteka, ki jo uporablja spletna aplikacija.",
+      "export": "Izvozi",
+      "shareAFile": "Deli datoteko",
+      "copy": "Kopiraj",
+      "import": "Uvozi",
+      "updateSnippetsThatExist": "Posodobi obstoječe utripke",
+      "sameNameInTheSame": "Enako ime v isti mapi. Sicer so preskočeni",
+      "chooseAFile": "Izberi datoteko",
+      "paste": "Prilepi",
+      "saveYourSnippets": "Shrani svoje utripke"
+    },
+    "useSnippetRunner": {
+      "run": "Izvesti {{name}}?",
+      "run2": "Izvedi",
+      "fillInTheValuesFor": "Izpolni vrednosti za ta utripek.",
+      "cancel": "Prekliči",
+      "insert": "Vstavi",
+      "noTerminalIsOpen": "Terminal ni odprt"
+    },
+    "variables": {
+      "input": "Vnos {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "To ni veljavna JSON datoteka",
+      "theFileNeedsASnippets": "Datoteka mora vsebovati seznam utripkov ali map",
+      "snippetNameAndContentAre": "Utripek {{value}}: ime in vsebina sta obvezna",
+      "folder": "Mapa {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Nalaganje naprav Tailscale…",
+      "searchTailscaleDevices": "Iskanje naprav Tailscale…",
+      "searchTailscaleDevices2": "Išči naprave Tailscale",
+      "clearDeviceSearch": "Počisti iskanje naprav",
+      "refreshTailscaleDevices": "Osveži naprave Tailscale",
+      "device": "Naprava",
+      "noTailnetAddress": "Ni naslova tailnet",
+      "tailscaleDevice": "Naprava Tailscale",
+      "tailscaleDevices": "Naprave Tailscale",
+      "addAHostThatConnects": "Dodajte gostitelja, ki se povezuje prek Tailscale SSH.",
+      "username": "Uporabniško ime",
+      "sshUsernameFor": "SSH uporabniško ime za {{value}}",
+      "addHost": "Dodaj gostitelja",
+      "noTailscaleDevicesMatchYour": "Nobena naprava Tailscale ne ustreza vašemu iskanju.",
+      "noTailscaleDevicesFound": "Nobenih naprav Tailscale ni bilo najdenih.",
+      "noTailscaleApiKeyIs": "Na tem strežniku ni konfiguriran API ključ za Tailscale. Prosite administratorja, da ga doda.",
+      "youDoNotHavePermission": "Nimate dovoljenja za ogled seznama naprav Tailscale.",
+      "couldNotLoadTailscaleDevices": "Naprav Tailscale ni bilo mogoče naložiti. Poskusite znova z osvežitvijo.",
+      "tailscaleIsUnavailableOnThis": "Tailscale ni na voljo na tem strežniku."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Ponovno povezovanje | poskus {{attempt}}",
+      "reconnectingInSTry": "Ponovno povezovanje čez {{secs}} s | poskus {{attempt}}",
+      "offlineWaitingForNetwork": "Brez povezave, čakam na omrežje",
+      "sendToTheNewShell": "Pošlješ {{what}} v novo lupino?",
+      "reconnectNow": "Ponovno poveži zdaj",
+      "send": "Pošlji",
+      "discard": "Zavrzi",
+      "typedChars_one": "{{count}} vtipkana črka",
+      "typedChars_two": "{{count}} vtipkani črki",
+      "typedChars_few": "{{count}} vtipkane črke",
+      "typedChars_other": "{{count}} vtipkanih črk",
+      "waiting": "{{what}} čakanje"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Dnevnik povezave kopiran",
+      "connectionLog": "Dnevnik povezave",
+      "copyItIntoABug": "Kopirajte ga v poročilo o napaki. Naslovi in uporabniška imena so izpuščeni.",
+      "copy": "Kopiraj"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Počistiti zgodovino za tega gostitelja?",
+        "clear": "Počisti",
+        "searchHistory": "Išči v zgodovini",
+        "typesTheCommandWithoutRunning": "Vpiše ukaz, ga ne izvede pa",
+        "noCommandsMatch": "Noben ukaz ne ustreza",
+        "noHistoryYet": "Še ni zgodovine",
+        "commandsYouRunOnThis": "Ukazi, ki jih izvedete na tem gostitelju, se prikažejo tukaj",
+        "run": "Izvedi",
+        "typeWithoutRunning": "Vpiši brez izvedbe",
+        "copy": "Kopiraj",
+        "delete": "Izbriši",
+        "historyCleared": "Zgodovina je očiščena"
+      },
+      "suggestionStrip": {
+        "use": "Uporabi {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Nastavitev aplikacije",
+      "delete": "Izbriši (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Naslov zavihka iz lupine",
+      "programsCanSetTheTab": "Programi lahko nastavijo naslov zavihka",
+      "openTmux": "Odpri tmux",
+      "attachToATmuxSession": "Poveži se na sejo tmux ali zaženi novo",
+      "reconnectOnDrop": "Ponovno poveži ob prekinitvi",
+      "keepTabOpenOnExit": "Ob izhodu obdrži zavihek odprt",
+      "pressEnterToConnectAgain": "Pritisni Enter za ponovno povezavo",
+      "saveCommandHistory": "Shrani zgodovino ukazov",
+      "offerToFillPasswordPrompts": "Predlagaj izpolnjevanje vprašanj za geslo",
+      "offerToFillSudoPrompts": "Predlagaj izpolnjevanje vprašanj za sudo",
+      "usesTheSudoPasswordFrom": "Uporabi geslo za sudo iz zavihka SSH",
+      "none": "Brez",
+      "look": "Videz",
+      "theme": "Tema",
+      "font": "Pisava",
+      "cursor": "Kazalec",
+      "bell": "Zvok",
+      "scrollbackLines": "Število vrstic za pomikanje",
+      "app": "Aplikacija",
+      "behavior": "Obnašanje",
+      "backspaceSends": "Tipka Backspace pošlje",
+      "startupSnippet": "Začetni fragment",
+      "runsOnceTheShellIs": "Izvede se, ko je lupina pripravljena",
+      "fillWithoutAsking": "Izpolni brez vprašanja",
+      "onThisOnlyOnceYou": "Samo na tej napravi {{deviceWord}}, ko izberete Vedno izpolni",
+      "connection": "Povezava",
+      "keepalive": "Ohranjanje povezave",
+      "secondsBetweenPings0Turns": "Sekunde med pingi, 0 ga izklopi",
+      "default": "Privzeto",
+      "keepaliveSeconds": "Sekunde za ohranjanje povezave",
+      "missedPings": "Zgrešeni pingi",
+      "dropTheConnectionAfterThis": "Prekini povezavo, če toliko pingov ostane neodzivnih",
+      "missedPingsBeforeDrop": "Zgrešeni pingi pred prekinitvijo",
+      "environment": "Okolje",
+      "removeVariable": "Odstrani spremenljivko",
+      "addVariable": "Dodaj spremenljivko"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KLAVIATURA"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Vrstica",
+        "keys": "Tipke",
+        "sendsAKeyCode": "Pošlje kodo tipke",
+        "stickyModifier": "Lepljivi modifikator",
+        "appAction": "Akcija aplikacije",
+        "tmuxPrefixThen": "tmux prefiks, nato {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Vrstice tipk",
+        "onlyFor": "Samo za {{name}}",
+        "usingTheAppSRows": "Uporaba vrstic aplikacije. Spremembe tukaj veljajo samo za {{name}}",
+        "useTheAppSRows": "Uporabi vrstice aplikacije"
+      },
+      "keyButton": {
+        "locked": "Zaklenjeno"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Prekliči",
+        "remove": "Odstraniti {{what}}?",
+        "remove2": "Odstrani",
+        "dragToReorder": "Povlecite za spremembo vrstnega reda",
+        "rowName": "Ime vrstice",
+        "groupName": "Ime skupine",
+        "add": "Dodaj",
+        "addKey": "Dodaj tipko",
+        "addRow": "Dodaj vrstico",
+        "addGroup": "Dodaj skupino",
+        "tmuxPrefix": "tmux prefiks",
+        "name": "Ime",
+        "rename": "Preimenuj",
+        "keys": "{{value}} tipk",
+        "noKeys": "Ni tipk",
+        "remove3": "Odstrani {{label}}",
+        "keys2": "Tipke",
+        "custom": "Po meri",
+        "add2": "Dodaj {{label}}",
+        "typeText": "Vnesi besedilo",
+        "runCommand": "Izvedi ukaz",
+        "ctrlKey": "Tipka Ctrl",
+        "label": "Oznaka",
+        "optional": "Izbirno",
+        "letter": "Črka",
+        "command": "Ukaz",
+        "text": "Besedilo",
+        "resetToDefault": "Ponastavi na privzeto"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Spremenite tipke v Nastavitvah, Tipkovnica"
+      },
+      "keyRowBar": {
+        "keyRow": "Vrstica tipk {{label}}",
+        "tapForTheNextRow": "Tapnite za naslednjo vrstico, pridržite za izbiro",
+        "keyRows": "Vrstice tipk"
+      },
+      "model": {
+        "clear": "Izprazni",
+        "main": "Glavna",
+        "keys": "Tipke",
+        "arrows": "Puščice",
+        "symbols": "Simboli",
+        "actions": "Dejanja",
+        "nav": "Navigacija",
+        "move": "Premik",
+        "function": "Funkcija",
+        "brackets": "Oklepaji",
+        "punctuation": "Ločila",
+        "ctrl": "Ctrl",
+        "control": "Nadzor",
+        "windows": "Windows",
+        "panes": "Okna",
+        "copy": "Kopiraj",
+        "split": "Razdeli ─",
+        "split2": "Razdeli │",
+        "newWin": "Novo okno",
+        "prevWin": "Predh. okno",
+        "nextWin": "Nasled. okno",
+        "pane": "Okno ←",
+        "pane2": "Okno ↓",
+        "pane3": "Okno ↑",
+        "pane4": "Okno →",
+        "copyMode": "Način kopiranja",
+        "pasteBuf": "Prilepi pufer",
+        "killPane": "Zapri okno"
+      }
+    },
+    "output": {
+      "openLink": "Odprem povezavo?",
+      "open": "Odpri",
+      "pasteLines": "Prilepite {{lines}} vrstic?",
+      "pasteThisText": "Prilepite to besedilo?",
+      "theShellMayRunIt": "Lupina ga lahko takoj izvede.\n\n{{text}}",
+      "paste": "Prilepi",
+      "letTheProgramReadYour": "Dovolite programu, da prebere vaš odložišče?",
+      "itAskedForWhatYou": "Prosil je za zadnje kopirano vsebino.",
+      "allow": "Dovoli",
+      "letTheProgramCopyTo": "Dovolite programu, da kopira v vaše odložišče?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Izpolnite shranjeno geslo?",
+      "asksForTheSudoPassword": "{{hostName}} zahteva sudo geslo.",
+      "asksForAPassword": "{{hostName}} zahteva geslo.",
+      "fillPassword": "Izpolni geslo",
+      "alwaysFillOnThisHost": "Vedno izpolni na tem gostitelju",
+      "notNow": "Ne zdaj"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal in ohranjanje povezave",
+      "history": "ZGODOVINA",
+      "find": "Poišči",
+      "tmuxWindows": "tmux okna",
+      "connectionLog": "Dnevnik povezav",
+      "keyRowsForThisHost": "Vrstice tipk za tega gostitelja"
+    },
+    "searchBar": {
+      "noResults": "Ni rezultatov",
+      "matchCase": "Upoštevaj velike in male črke",
+      "wholeWord": "Celotna beseda",
+      "regularExpression": "Redni izraz",
+      "find": "Poišči",
+      "closeFind": "Zapri iskanje"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistem",
+      "block": "Blok",
+      "bar": "Črta",
+      "underline": "Podčrtano",
+      "off": "Izklopljeno",
+      "sound": "Zvok",
+      "flash": "Utripanje",
+      "both": "Obe"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nova zavihek na tem gostitelju",
+      "closeTab": "Zapri zavihek",
+      "nextTab": "Naslednji zavihek",
+      "previousTab": "Prejšnji zavihek",
+      "goToTab": "Pojdi na zavihek",
+      "find": "Poišči",
+      "fontSize": "Velikost pisave",
+      "paste": "Prilepi",
+      "escape": "Escape",
+      "copyAndPaste": "Kopiraj in prilepi"
+    },
+    "reconnecting": "Ponovno povezovanje...",
+    "waitingForNetwork": "Čakanje na omrežje...",
+    "waitingForYou": "Čakanje na vas...",
+    "connecting": "Povezovanje...",
+    "terminalView": {
+      "scrollToBottom": "Pomakni se na dno",
+      "onlyWebLinksCanOpen": "Iz terminala lahko odprete le spletne povezave",
+      "couldNotOpenLink": "Povezave ni bilo mogoče odpreti",
+      "copiedFromTheTerminal": "Kopirano iz terminala"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Odpri tmux sejo",
+        "newSession": "Nova seja",
+        "plainShell": "Navadna lupina",
+        "tmuxWindows": "tmux okna",
+        "newWindow": "Novo okno",
+        "windowCount_one": "{{count}} okno",
+        "windowCount_two": "{{count}} okni",
+        "windowCount_few": "{{count}} okna",
+        "windowCount_other": "{{count}} oken",
+        "attached": "{{count}} priključenih",
+        "activeNow": "trenutno aktivno",
+        "activeMinAgo": "aktivno pred {{count}} min",
+        "activeHoursAgo": "aktivno pred {{count}} ur",
+        "activeDaysAgo_one": "aktivno pred {{count}} dnem",
+        "activeDaysAgo_two": "aktivno pred {{count}} dnevoma",
+        "activeDaysAgo_few": "aktivno pred {{count}} dnevi",
+        "activeDaysAgo_other": "aktivno pred {{count}} dnevi"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopiraj",
+        "selectAll": "Izberi vse",
+        "cancel": "Prekliči",
+        "scrollToBottom": "Pomakni se na dno",
+        "couldNotCopy": "Kopiranje ni uspelo",
+        "webviewError": "Napaka WebView: {{description}}",
+        "webviewHttpError": "HTTP napaka WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Za tega gostitelja ni shranjenega gesla",
+    "backInTmuxSession": "Nazaj v tmux sejo {{tmuxName}}",
+    "backInScreenSession": "Nazaj v screen sejo {{name}}",
+    "theServerSessionEndedThis": "Seja na strežniku se je končala. To je nova lupina.",
+    "termixWasClosedSoThe": "Termix je bil zaprt, zato se je stara lupina končala. To je nova lupina.",
+    "theConnectionDroppedAndThe": "Povezava je bila prekinjena in stara lupina se je končala. To je nova lupina.",
+    "disconnectedFrom": "Prekinjena povezava z {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Dvofaktorska preverjanje",
+      "codesFromAnAuthenticatorApp": "Kode iz aplikacije za preverjanje pristnosti za vaš račun na strežniku"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC naslov",
+      "neededToWakeThisHost": "Potreben za zagon tega gostitelja z Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Uporabite MAC naslov, kot je 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Zagon prek LAN-a"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN poslan na {{name}}",
+      "failedToSendWakeOn": "Pošiljanje paketa Wake-on-LAN ni uspelo",
+      "noServer": "Brez strežnika"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Zagon prek LAN-a",
+      "wake": "Zaženi {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Želite deliti anonimne statistike uporabe?",
+      "termixWouldSendAShort": "Termix bi enkrat na dan poslal kratek poročilo. To lahko kadarkoli spremenite v Nastavitvah.",
+      "noThanks": "Ne, hvala",
+      "share": "Deljenje",
+      "theReportHasTheApp": "Poročilo vsebuje različico aplikacije, vrsto {{deviceWord}}, približno število gostiteljev in sej, katere funkcije uporabljate ter ali je povezava uspela. Nikoli ne vsebuje imen gostiteljev, uporabniških imen, naslovov, poti, ukazov ali imen strežnikov.",
+      "seeExactlyWhatIsSent": "Poglejte točno, kaj se pošlje"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Nalaganje informacij o različici …",
+      "updateAvailable": "Na voljo je posodobitev",
+      "newVersionAvailable": "Na voljo je nova različica",
+      "aNewerVersionOfThe": "Na voljo je novejša različica mobilne aplikacije. Nekatere funkcije morda ne bodo delovale pravilno, dokler ne posodobite.",
+      "versionInformation": "Informacije o različici",
+      "installed": "Nameščeno",
+      "latest": "Najnovejše",
+      "unknown": "Neznano",
+      "tag": "Oznaka",
+      "continueAnyway": "Vendar nadaljuj"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopirano",
+      "copy": "Kopiraj",
+      "hostKeyChanged": "Ključ gostitelja se je spremenil",
+      "verifyHostKey": "Preveri ključ gostitelja",
+      "cancel": "Prekliči",
+      "acceptNewKey": "Sprejmi nov ključ",
+      "connectAndTrust": "Poveži in zaupaj",
+      "theHostSSshKey": "SSH ključ gostitelja se je od vaše zadnje povezave spremenil. To lahko pomeni, da nekdo posredno sprejema povezavo.",
+      "youAreConnectingToThis": "Povezujete se s tem gostiteljem prvič. Preden mu zaupate, preverite odtis prsta.",
+      "previousKey": "Prejšnji ključ",
+      "newFingerprint": "Nov odtis prsta",
+      "hostFingerprint": "Odtis prsta gostitelja"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Potrebna geselska fraza",
+      "enterThePassphraseForYour": "Vnesite geselsko frazo za vaš SSH ključ.",
+      "cancel": "Prekliči",
+      "connect": "Poveži",
+      "keyPassphrase": "Geselska fraza ključa"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Potrebna je SSH overitev",
+      "cancel": "Prekliči",
+      "connect": "Poveži",
+      "password": "Geslo",
+      "sshKey": "SSH ključ",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nSem prilepite svoj zasebni ključ …\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Geselska fraza ključa (izbirno)",
+      "keyboardInteractiveAuthIsNot": "Interaktivna overitev s tipkovnico ni na voljo. Vnesite poverilnice neposredno.",
+      "authenticationFailedPleaseReEnter": "Overitev ni uspela. Ponovno vnesite svoje poverilnice.",
+      "connectionTimedOutPleaseTry": "Povezava je potekla. Poskusite znova s svojimi poverilnicami."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Preverjanje Tailscale SSH",
+      "completeTheTailscaleSshCheck": "Za nadaljevanje dokončajte preverjanje Tailscale SSH v brskalniku.",
+      "cancel": "Prekliči",
+      "copyUrl": "Kopiraj URL",
+      "openBrowser": "Odpri brskalnik",
+      "urlCopied": "URL kopiran",
+      "failedToCopy": "Kopiranje ni uspelo",
+      "couldNotOpenBrowser": "Brskalnika ni bilo mogoče odpreti"
+    },
+    "tOTPDialog": {
+      "cancel": "Prekliči",
+      "submit": "Pošlji",
+      "verify": "Preveri",
+      "password": "Geslo",
+      "pasteCode": "Prilepi kodo",
+      "passwordRequired": "Geslo je obvezno",
+      "twoFactorAuthentication": "Dvofaktorska preverjanje",
+      "enterYourPasswordToContinue": "Vnesite geslo za nadaljevanje.",
+      "enterThe6DigitCode": "Vnesite 6-mestno kodo iz aplikacije za preverjanje pristnosti."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Preverjanje pristnosti Warpgate",
+      "authenticateViaTheWarpgatePortal": "Preverite pristnost prek portala Warpgate, nato pa pritisnite Nadaljuj.",
+      "cancel": "Prekliči",
+      "openBrowser": "Odpri brskalnik",
+      "continue": "Nadaljuj",
+      "securityKey": "Varnostni ključ",
+      "authUrl": "URL za preverjanje",
+      "copied": "Kopirano",
+      "copy": "Kopiraj",
+      "urlCopied": "URL je kopiran",
+      "failedToCopy": "Kopiranje ni uspelo",
+      "couldNotOpenBrowser": "Brskalnika ni bilo mogoče odpreti"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "ta {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Nedavna aktivnost",
+        "files": "Datoteke",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Obvestila",
+        "seeAll": "Prikaži vse"
+      },
+      "server": "Strežnik",
+      "openSessions": "Odprte seje",
+      "quickAccess": "Hiter dostop",
+      "notifications": "Obvestila",
+      "pinnedHosts": "Pripeti gostitelji",
+      "recentHosts": "Nedavni gostitelji",
+      "recentActivity": "Nedavna aktivnost",
+      "pinnedCard": {
+        "addYourFirstHost": "Dodajte svojega prvega gostitelja",
+        "hostsYouOpenShowUp": "Gostitelji, ki jih odprete, se prikažejo tukaj, pripeti gostitelji pa prikazujejo žive kartice.",
+        "addHost": "Dodaj gostitelja",
+        "linkAServer": "Poveži strežnik",
+        "pinAHostToSee": "Pripnite gostitelja, da ga vidite tukaj",
+        "pinnedHostsShowTheirMetrics": "Pripeti gostitelji prikazujejo njihove metrike, Docker in storitve na hitro. Zadržite prst na gostitelju, da ga pripnete.",
+        "goToHosts": "Pojdi na gostitelje",
+        "pinned": "Pripeto",
+        "opensTheTerminalHoldFor": "Odpre terminal. Zadržite za več.",
+        "turnOnDockerOrServices": "Vklopite Docker ali storitve za tega gostitelja ali pa ga pritisnite za povezavo.",
+        "opens": "Odpre {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Hiter dostop",
+        "quickConnect": "Hitra povezava",
+        "userHostPortWithoutSaving": "uporabnik@gostitelj:vrata, brez shranjevanja"
+      },
+      "recentCard": {
+        "recent": "Nedavno"
+      },
+      "serverCard": {
+        "server": "Strežnik",
+        "version": "Različica",
+        "uptime": "Čas delovanja",
+        "database": "Baza podatkov",
+        "hosts": "Gostitelji",
+        "online": "Na spletu",
+        "offline": "Izven spleta",
+        "logins": "Vloge"
+      },
+      "sessionsCard": {
+        "openSessions": "Odprte seje",
+        "connected": "Povezani"
+      }
+    },
+    "resetHome": "Ponastavi domačo stran?",
+    "cardsGoBackToThe": "Kartice se vrnejo na privzeti vrstni red in prikazane kartice.",
+    "reset": "Ponastavi",
+    "doneEditingHome": "Urejanje domače strani zaključeno",
+    "editHome": "Uredi domačo stran",
+    "dragToReorder": "Povlecite {{title}} za spremembo vrstnega reda",
+    "show": "Prikaži {{title}}",
+    "dragCardsToReorderThem": "Povlecite kartice za spremembo vrstnega reda. Kartico izklopite, da jo skrijete. Kartice brez vsebine ostanejo skrite.",
+    "resetToDefault": "Ponastavi na privzeto",
+    "done": "Končano",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Strežnika še vedno ni mogoče doseči",
+      "canTReach": "{{account}} ni mogoče doseči",
+      "youCanKeepWorkingWith": "Lahko nadaljujete z delom na kopiji na tej napravi {{deviceWord}}. Spremembe se sinhronizirajo, ko bo strežnik spet na voljo.",
+      "hostsSetToConnectFrom": "Gostitelji, nastavljeni za povezavo s te naprave {{deviceWord}}, še vedno delujejo.",
+      "tryAgain": "Poskusi znova",
+      "noAnswer": "brez odgovora"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Profil Vault",
+      "none": "Brez",
+      "signsInWithInYour": "Prijava poteka prek {{title}} v brskalniku preko vašega Termix strežnika. Povežite tega gostitelja preko strežnika.",
+      "needsATermixServerLink": "{{title}} potrebuje Termix strežnik. Povežite ga, da uporabite to prijavo.",
+      "isOffOnThisServer": "{{title}} je izklopljen na tem strežniku. Ta gostitelj ohrani svojo nastavitev prijave."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Poverilnic ni bilo mogoče naložiti",
+      "deleted": "Izbrisano \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Poverilnice ni bilo mogoče izbrisati",
+      "credentials": "Poverilnice",
+      "add": "Dodaj",
+      "searchCredentials": "Išči poverilnice",
+      "clearSearch": "Počisti iskanje",
+      "loadingCredentials": "Nalaganje poverilnic...",
+      "noCredentialsMatchYourSearch": "Ni poverilnic, ki bi ustrezale vašemu iskanju",
+      "noCredentialsYet": "Še ni poverilnic",
+      "addCredential": "Dodaj poverilnico",
+      "edit": "Uredi",
+      "delete": "Izbriši",
+      "deleteCredential": "Izbriši poverilnico",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" bo trajno izbrisano. Gostitelji, ki ga uporabljajo, bodo izgubili shranjene poverilnice.",
+      "cancel": "Prekliči",
+      "hostCount_one": "{{count}} gostitelj",
+      "hostCount_two": "{{count}} gostitelja",
+      "hostCount_few": "{{count}} gostitelji",
+      "hostCount_other": "{{count}} gostiteljev",
+      "sshKey": "SSH ključ"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Zamenjati ključ?",
+        "theNewKeyTakesThe": "Nov ključ nadomesti trenutnega. Gostitelji, ki zaupajo le staremu ključu, ne bodo več sprejeli te poverilnice.",
+        "replace": "Zamenjaj",
+        "newKeyMadeCopyThe": "Nov ključ je ustvarjen. Kopirajte javni ključ na svoje gostitelje.",
+        "couldNotMakeAKey": "Ključa ni bilo mogoče ustvariti",
+        "couldNotReadThatCertificate": "Datoteke certifikata ni bilo mogoče prebrati",
+        "leaveWithoutSaving": "Zapustiti brez shranjevanja?",
+        "yourChangesToThisCredential": "Vaše spremembe te poverilnice bodo izgubljene.",
+        "leave": "Zapusti",
+        "credentialSaved": "Poverilnica shranjena",
+        "credentialAdded": "Poverilnica dodana",
+        "couldNotSaveTheCredential": "Poverilnice ni bilo mogoče shraniti",
+        "enterAHostToTest": "Vnesite gostitelja za testiranje, npr. 10.0.0.5 ali box:2222.",
+        "enterTheUsernameFirst": "Najprej vnesite uporabniško ime.",
+        "editCredential": "Uredi poverilnico",
+        "newCredential": "Nova poverilnica",
+        "cancel": "Prekliči",
+        "save": "Shrani",
+        "credential": "Poverilnica",
+        "name": "Ime",
+        "productionKey": "Proizvodni ključ",
+        "username": "Uporabniško ime",
+        "signInWith": "Prijava z",
+        "password": "Geslo",
+        "sshKey": "SSH ključ",
+        "unchangedIfBlank": "Ne spremeni, če je prazno",
+        "key": "Ključ",
+        "fileOrPaste": "Datoteka ali prilepi",
+        "makeANewKey": "Ustvari nov ključ",
+        "aKeyIsSavedChoose": "Ključ je shranjen. Izberite datoteko ali prilepite vsebino za zamenjavo.",
+        "type": "Vrsta",
+        "ed25519AndEcdsaAreMade": "Ed25519 in ECDSA sta ustvarjena na tem {{deviceWord}}, RSA pa na vašem strežniku.",
+        "madeOnThisEd25519Works": "Ustvarjeno na tem {{deviceWord}}. Ed25519 deluje skoraj povsod.",
+        "passphrase": "Geslena fraza",
+        "optionalLocksTheNewKey": "Neobvezno. Zaklene nov ključ na tem {{deviceWord}} in na disku.",
+        "makeKey": "Ustvari ključ",
+        "publicKey": "Javni ključ",
+        "addThisLineToSsh": "Dodajte to vrstico v ~/.ssh/authorized_keys na svojih gostiteljih",
+        "publicKeyCopied": "Javni ključ kopiran",
+        "copyPublicKey": "Kopiraj javni ključ",
+        "certificate": "Potrdilo",
+        "aCertificateYourCaSigned": "Potrdilo, ki ga je za ta ključ podpisala vaša CA, za gostitelje, ki zaupajo CA.",
+        "chooseCertificateFile": "Izberite datoteko s potrdilom",
+        "thisDoesNotLookLike": "To ne izgleda kot OpenSSH potrdilo.",
+        "test": "Preizkus",
+        "hostToTestOn": "Gostitelj za preizkus",
+        "n10005Or": "10.0.0.5 ali box.lan:2222",
+        "pickASavedHost": "Izberite shranjenega gostitelja",
+        "details": "Podrobnosti",
+        "description": "Opis",
+        "whatThisCredentialIsFor": "Kaj je namen te poverilnice",
+        "folder": "Mapa",
+        "serverKeys": "Strežniški ključi",
+        "testOnAHost": "Preizkus na gostitelju",
+        "rsaKeysNeedALinked": "RSA ključi potrebujejo povezan strežnik."
+      },
+      "model": {
+        "giveThisCredentialAName": "Določite ime za to poverilnico",
+        "addAPrivateKeyOr": "Dodajte zasebni ključ ali ustvarite novega"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "To je potrdilo gostitelja, ne uporabniško.",
+        "thisCertificateIsNotValid": "To potrdilo še ni veljavno.",
+        "thisCertificateHasExpired": "To potrdilo je poteklo.",
+        "itIsForAKey": "Je za ključ {{keyType}}, ta ključ pa je {{keyType2}}.",
+        "forAnyUser": "Za kateregakoli uporabnika",
+        "validFromNoEndDate": "Veljavno od {{validAfter}}, brez končnega datuma",
+        "signedBy": "Podpisano s strani {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Uporabniško ime",
+        "fromTheCredential": "Iz poverilnice: {{credentialUser}}",
+        "signInWith": "Prijava z",
+        "password": "Geslo",
+        "key": "Ključ",
+        "credential": "Poverilnica",
+        "none": "Brez",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Povezava prek Tailscale SSH. Geslo ali ključ se ne shranita.",
+        "tailscaleIsNotOnFor": "Tailscale ni vklopljen za {{value}}. Ta gostitelj hrani svojo prijavo Tailscale.",
+        "unchangedIfBlank": "Ne spremeni, če je prazno",
+        "noCredentialsYetTapThe": "Še ni poverilnic. Kliknite ikono ključa v Gostiteljih za dodajanje.",
+        "useCredential": "Uporabi poverilnico {{name}}",
+        "sudoPassword": "Geslo za sudo",
+        "typedIntoSudoPromptsWhen": "Vnešeno v pozive sudo, ko je to omogočeno v razdelku Terminal",
+        "notSet": "Ni nastavljeno",
+        "thisServer": "ta strežnik"
+      },
+      "colorIconField": {
+        "color": "Barva",
+        "noColor": "Brez barve",
+        "color2": "Barva {{c}}",
+        "icon": "Ikona",
+        "noIcon": "Brez ikone",
+        "none": "Brez",
+        "icon2": "Ikona {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Zapustiti brez shranjevanja?",
+        "yourChangesToThisHost": "Vaše spremembe tega gostitelja bodo izgubljene.",
+        "leave": "Zapusti",
+        "couldNotSaveHowThis": "Načina povezave tega gostitelja ni bilo mogoče shraniti",
+        "hostSaved": "Gostitelj shranjen",
+        "hostAdded": "Gostitelj dodan",
+        "couldNotSaveTheHost": "Gostitelja ni bilo mogoče shraniti",
+        "enterTheHostSAddress": "Najprej vnesite naslov gostitelja.",
+        "turnOnSshToTest": "Omogočite SSH za preizkus prijave.",
+        "pickACredentialFirst": "Najprej izberite poverilnico.",
+        "editHost": "Uredi gostitelja",
+        "newHost": "Nov gostitelj",
+        "cancel": "Prekliči",
+        "save": "Shrani",
+        "host": "Gostitelj",
+        "name": "Ime",
+        "myServer": "Moj strežnik",
+        "address": "Naslov",
+        "port": "Vrata",
+        "portAndUsernameComeFrom": "Vrata in uporabniško ime se uporabljajo iz privzetih nastavitev gostitelja, dokler jih ne spremenite.",
+        "folder": "Mapa",
+        "production": "Produkcija",
+        "useAFolderInstead": "Namesto tega uporabite mapo",
+        "putItUnderAHost": "Namesto tega ga uredite pod gostiteljem",
+        "pinToTop": "Pripni na vrh",
+        "colorAndIcon": "Barva in ikona",
+        "notes": "Opombe",
+        "anythingWorthRememberingAboutThis": "Karkoli vrednega zapomnjenja o tem gostitelju",
+        "protocols": "Protokoli",
+        "terminalFilesAndMore": "Terminal, datoteke in več",
+        "connectFrom": "Poveži se iz",
+        "features": "Funkcije",
+        "otherProtocols": "Drugi protokoli",
+        "more": "Več",
+        "theTestRunsFromThis": "Preizkus se izvaja iz tega {{deviceWord}}. Ta gostitelj se poveže prek strežnika, zato lahko deluje tudi, ko {{deviceWord}} ne more doseči strežnika."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Vmesni gostitelji",
+        "connectsThroughTheseInOrder": "Poveže se skozi te v vrstnem redu, nato pa na ta gostitelj",
+        "reachThisHostThroughOther": "Dosežite ta gostitelj najprej prek drugih gostiteljev",
+        "moveUp": "Premakni gor",
+        "moveDown": "Premakni dol",
+        "removeJumpHost": "Odstrani vmesni gostitelj",
+        "addJumpHost": "Dodaj vmesni gostitelj",
+        "pickASavedHostTo": "Izberite shranjenega gostitelja za povezavo prek njega",
+        "searchHosts": "Išči gostitelje",
+        "noOtherHostsToPick": "Ni drugih gostiteljev na izbiro. Gostitelj se ne more povezati prek samega sebe ali gostitelja, ki že poteka prek njega.",
+        "missingHost": "Manjkajoč gostitelj #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Omogočite vsaj en protokol",
+        "pickACredential": "Izberite poverilnico",
+        "enterTheHostSAddress": "Vnesite naslov gostitelja",
+        "theAddressCanTHave": "Naslov ne sme vsebovati presledkov",
+        "portMustBeFrom1": "Vrata morajo biti med 1 in 65535",
+        "enterTheSshUsername": "Vnesite uporabniško ime za SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Gostitelj se prikaže vgnezdjen pod tistim, ki ga izberete",
+        "searchHosts": "Išči gostitelje",
+        "noHostsToPickA": "Ni gostiteljev na izbiro. Gostitelj ne more biti pod seboj, enim od svojih podgostiteljev ali skupnim gostiteljem.",
+        "parentHost": "Nadrejeni gostitelj",
+        "subHostsFollowTheFolder": "Podgostitelji sledijo mapi svojega nadrejenega",
+        "pickParentHost": "Izberite nadrejenega gostitelja",
+        "missingHost": "Manjkajoč gostitelj #{{value}}",
+        "pickAHost": "Izberite gostitelja",
+        "clearParentHost": "Počisti nadrejenega gostitelja"
+      },
+      "tagsField": {
+        "tags": "Oznake",
+        "typeATagAndPress": "Vnesite oznako in pritisnite Enter",
+        "removeTag": "Odstrani oznako {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Ni bilo mogoče shraniti povezave tega gostitelja",
+      "addressCopied": "Naslov kopiran",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Poveži se iz",
+      "dismiss": "Zavrni",
+      "unpin": "Odkleni",
+      "pinToHome": "Pripni na domačo stran",
+      "select": "Izberi",
+      "editHost": "Uredi gostitelja",
+      "copyAddress": "Kopiraj naslov",
+      "addSubHost": "Dodaj podgostitelja",
+      "cloneHost": "Kloniraj gostitelja",
+      "deleteHost": "Izbriši gostitelja",
+      "connectThroughTheServer": "Poveži se prek strežnika",
+      "connectFromThis": "Poveži se iz tega {{deviceWord}}"
+    },
+    "defaultYourOrder": "Privzeto (vaš vrstni red)",
+    "nameAZ": "Ime (A-Ž)",
+    "nameZA": "Ime (Ž-A)",
+    "ipAscending": "IP (naraščajoče)",
+    "ipDescending": "IP (padajoče)",
+    "onlineFirst": "Najprej spletno",
+    "offlineFirst": "Najprej izven spletne",
+    "pinnedFirst": "Najprej pripeti",
+    "status": "Stanje",
+    "online": "Spletno",
+    "offline": "Izven spletne",
+    "pinned": "Pripeto",
+    "protocol": "Protokol",
+    "features": "Funkcije",
+    "hostsCanOnlyMoveInside": "Gostitelji se lahko premikajo le znotraj svoje mape",
+    "couldNotUpdateTheHosts": "Ni bilo mogoče posodobiti gostiteljev",
+    "sharedHostsCanTBe": "Skupnih gostiteljev ni mogoče izbrisati tukaj",
+    "delete2": "Izbriši",
+    "noneOfTheseHostsOpen": "Noben od teh gostiteljev ne odpre terminala",
+    "couldNotPinTheHost": "Ni bilo mogoče pripeti gostitelja",
+    "deleted": "Izbrisano {{name}}",
+    "failedToDeleteHost": "Brisanje gostitelja ni uspelo",
+    "cloned": "Klonirano {{name}}",
+    "failedToCloneHost": "Kloniranje gostitelja ni uspelo",
+    "reorderWorksWithTheDefault": "Ponovno razvrščanje deluje s privzeto razvrstitvijo in brez iskanja ali filtra",
+    "couldNotSaveTheOrder": "Ni bilo mogoče shraniti vrstnega reda",
+    "noHostsYet": "Še ni gostiteljev",
+    "addAHostToConnect": "Dodajte gostitelja, da se vanj povežete z enim samim dotikom.",
+    "addHost": "Dodaj gostitelja",
+    "quickConnect2": "Hitra povezava",
+    "linkAServer": "Poveži strežnik",
+    "noHostsMatch": "Ni ujemajočih gostiteljev",
+    "clearSearchAndFilters": "Počisti iskanje in filtre",
+    "more": "Več",
+    "dragAHostByIts": "Povlecite gostitelja za ročico, da ga premaknete znotraj mape.",
+    "done": "Končano",
+    "filterHosts": "Filtriraj gostitelje",
+    "clearFilterText": "Počisti besedilo filtra",
+    "sortHosts": "Razvrsti gostitelje",
+    "removeFilter": "Odstrani filter {{value}}",
+    "loadingHosts": "Nalaganje gostiteljev …",
+    "moveUnderAHost": "Premakni pod gostitelja",
+    "moveToFolder": "Premakni v mapo",
+    "leaveItEmptyToTake": "Pustite prazno, da odstranite gostitelje iz map.",
+    "folderLikeProdWeb": "Mapa, npr. Prod / Web",
+    "move": "Premakni",
+    "hosts": "Gostitelji",
+    "selectHosts": "Izberi gostitelje",
+    "reorderHosts": "Ponovno razporedi gostitelje",
+    "customizeList": "Prilagodi seznam",
+    "chooseWhatEachHostRow": "Izberite, kaj prikazuje vsaka vrstica gostitelja",
+    "credentials2": "Poverilnice",
+    "savedPasswordsAndKeys": "Shranjene gesla in ključi",
+    "tailscaleDevices": "Naprave Tailscale",
+    "refresh": "Osveži",
+    "rowDensityFollowsSettingsAppearance": "Gostota vrstic sledi nastavitvam videza.",
+    "clearAllFilters": "Počisti vse filtre",
+    "tags": "Oznake",
+    "stopSelecting": "Ustavi izbiro",
+    "selected": "{{count}} izbranih",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Datoteke ključa ni bilo mogoče prebrati",
+        "theClipboardIsEmpty": "Odložišče je prazno",
+        "privateKey": "Zasebni ključ",
+        "chooseFile": "Izberi datoteko",
+        "paste": "Prilepi",
+        "unchangedIfBlank": "Ne spremeni, če je prazno",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Geslena fraza",
+        "onlyIfTheKeyHas": "Samo, če ključ ima eno",
+        "theKeyIsCheckedWhen": "Ključ se preveri ob povezavi.",
+        "thePastedKey": "prilepljeni ključ"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Odpri",
+        "moreActions": "Več dejanj",
+        "opensTheTerminalHoldFor": "Odpre terminal. Držite za več možnosti.",
+        "shared": "Skupno rabljeno",
+        "drag": "Povleci {{name}}",
+        "showSubHosts_one": "Prikaži {{count}} podgostitelja od {{name}}",
+        "showSubHosts_two": "Prikaži {{count}} podgostitelja od {{name}}",
+        "showSubHosts_few": "Prikaži {{count}} podgostitelje od {{name}}",
+        "showSubHosts_other": "Prikaži {{count}} podgostiteljev od {{name}}",
+        "hideSubHosts_one": "Skrij {{count}} podgostitelja od {{name}}",
+        "hideSubHosts_two": "Skrij {{count}} podgostitelja od {{name}}",
+        "hideSubHosts_few": "Skrij {{count}} podgostitelje od {{name}}",
+        "hideSubHosts_other": "Skrij {{count}} podgostiteljev od {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Mapa {{name}}, {{total}} gostiteljev"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Gostitelj in uporabniško ime sta obvezna",
+      "hostSaved": "Gostitelj shranjen",
+      "couldNotSaveTheHost": "Gostitelja ni bilo mogoče shraniti",
+      "quickConnect": "Hitra povezava",
+      "connectToAHostWithout": "Povežite se z gostiteljem, ne da bi ga shranili.",
+      "hostIp": "Gostitelj / IP",
+      "port": "Vrata",
+      "username": "Uporabniško ime",
+      "password": "Geslo",
+      "key": "Ključ",
+      "privateKey": "Zasebni ključ",
+      "saveToMyHosts": "Shrani v moje gostitelje",
+      "keepThisHostAfterConnecting": "Obdrži tega gostitelja po povezavi",
+      "cancel": "Prekliči",
+      "connect": "Poveži"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Pridobivanje gostiteljev s strežnika",
+      "yourHostsStayOnThis": "{{message}} Vaši gostitelji so medtem shranjeni na tem {{deviceWord}}."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Ključ tega gostitelja se je spremenil",
+      "trustThisHost": "Zaupate temu gostitelju?",
+      "trust": "Zaupaj",
+      "stopTest": "Ustavi preizkus",
+      "testConnection": "Preizkusi povezavo",
+      "connecting": "Povezovanje..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Nalaganje gostiteljev ni uspelo."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} skupni gostitelj je ostal nespremenjen.",
+    "sharedLeftAsTheyAre_two": "{{done}}. {{count}} skupna gostitelja sta ostala nespremenjena.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} skupni gostitelji so ostali nespremenjeni.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} skupnih gostiteljev je ostalo nespremenjenih.",
+    "deleteHosts_one": "Izbrišem {{count}} gostitelja?",
+    "deleteHosts_two": "Izbrišem {{count}} gostitelja?",
+    "deleteHosts_few": "Izbrišem {{count}} gostitelje?",
+    "deleteHosts_other": "Izbrišem {{count}} gostiteljev?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Mapa z imenom {{name}} ne obstaja"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Gostitelj \"{{name}}\": neveljavna vrata",
+        "hostJumpIsNotIn": "Gostitelj \"{{name}}\": preskakovalni gostitelj {{value}} ni v datoteki, zato je bil izpuščen",
+        "credential": "Poverilnica {{name}}: {{error}}",
+        "noValidHostEntriesFound": "V konfiguracijski datoteki SSH ni bilo najdenih veljavnih vnosa Host",
+        "credentialWasNotFound": "{{label}}: poverilnica {{value}} ni bila najdena"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Gostitelj {{value}}: podvojen izvoženi ID gostitelja {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Manjkajo obvezna polja (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Neveljaven authType. Mora biti eden od {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Za SSH povezave je zahtevano uporabniško ime",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: Za preverjanje pristnosti s poverilnicami je zahtevano credentialAlias",
+        "thatIsNotAValid": "To ni veljavna datoteka JSON",
+        "hostsArrayIsRequiredAnd": "Polje gostiteljev je obvezno in ne sme biti prazno",
+        "jumpHostCycle": "{{label}}: cikel preskakovalnega gostitelja",
+        "jumpHostIsNotIn": "{{label}}: preskakovalni gostitelj {{id}} ni v datoteki"
+      }
+    },
+    "movedTo": "Premaknjeno v {{value}}",
+    "movedOutOfFolders": "Premaknjeno iz map",
+    "movedUnder": "Premaknjeno pod {{value}}",
+    "openTerminals": "Odprti terminali",
+    "theHost": "gostitelj"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Skrij geslo",
+      "showPassword": "Prikaži geslo",
+      "enterAUsernameAndPassword": "Vnesite uporabniško ime in geslo",
+      "useAtLeast6Characters": "Za geslo uporabite vsaj 6 znakov",
+      "thePasswordsDonTMatch": "Gesli se ne ujemata",
+      "makeTheAdminAccount": "Ustvari administratorski račun",
+      "makeAnAccount": "Ustvari račun",
+      "thisIsTheFirstAccount": "To je prvi račun na strežniku, zato upravlja strežnik.",
+      "pickAUsernameAndPassword": "Izberite uporabniško ime in geslo za ta strežnik.",
+      "username": "Uporabniško ime",
+      "password": "Geslo",
+      "passwordAgain": "Geslo ponovno",
+      "makeAccount": "Ustvari račun",
+      "back": "Nazaj",
+      "haveAnAccountSignIn": "Imate račun? Prijavite se",
+      "resetCodeMadeItIs": "Koda za ponastavitev je ustvarjena. Nahaja se v dnevnikih strežnika.",
+      "enterYourUsername": "Vnesite svoje uporabniško ime",
+      "enterTheResetCode": "Vnesite kodo za ponastavitev",
+      "passwordChangedSignInWith": "Geslo je spremenjeno. Prijavite se z njim zdaj",
+      "resetPassword": "Ponastavi geslo",
+      "enterYourUsernameTheServer": "Vnesite svoje uporabniško ime. Strežnik bo v svoje dnevnike zapisal kodo za ponastavitev.",
+      "sendResetCode": "Pošlji kodo za ponastavitev",
+      "enterThe6DigitCode": "Vnesite 6-mestno kodo iz dnevnika strežnika.",
+      "resetCode": "Ponastavi kodo",
+      "checkCode": "Preveri kodo",
+      "newPassword": "Novo geslo",
+      "saveNewPassword": "Shrani novo geslo",
+      "backToSignIn": "Nazaj na prijavo",
+      "couldNotMakeTheAccount": "Računa ni bilo mogoče ustvariti",
+      "couldNotStartTheReset": "Ponastavitve ni bilo mogoče začeti",
+      "thatCodeDidnTWork": "Ta koda ni delovala",
+      "couldNotChangeThePassword": "Gesla ni bilo mogoče spremeniti"
+    },
+    "browserStep": {
+      "signInFailed": "Prijava ni uspela",
+      "signInCanceled": "Prijava je bila preklicana",
+      "couldNotOpenTheSign": "Brskalnika za prijavo ni bilo mogoče odpreti",
+      "couldNotOpenTheSign2": "Strani za prijavo ni bilo mogoče odpreti",
+      "certificateProblem": "Težava s certifikatom",
+      "back": "Nazaj",
+      "signIn": "Prijava",
+      "reload": "Osveži",
+      "finishSigningInInYour": "Dokončajte prijavo v brskalniku",
+      "useAnySignInYour": "Uporabite katero koli metodo prijave, ki jo ima vaš strežnik, na primer dostopno ključ ali varnostni ključ. Aplikacija prevzame nadzor, ko ste prijavljeni.",
+      "theAppPicksUpOnce": "Aplikacija prevzame nadzor, ko ponudnik prijave zaključi postopek.",
+      "signingIn": "Prijavljanje ...",
+      "openBrowserAgain": "Ponovno odprite brskalnik",
+      "theServerTurnedTheSession": "Strežnik je zavrnil sejo. Poskusite znova.",
+      "signedInButTheApp": "Prijavljeni ste, a aplikacija ne more doseči Termixa. Proxy ga morda blokira.",
+      "thatSignInLinkIs": "Ta povezava za prijavo je iz starejšega poskusa. Prijavite se znova.",
+      "signInAgain": "Prijavite se znova.",
+      "openTheBrowserAgainWhen": "Ko ste pripravljeni, ponovno odprite brskalnik.",
+      "theWebPageSignedIn": "Spletna stran je opravila prijavo, vendar ni poslala seje. Posodobite strežnik in poskusite znova.",
+      "theCanTCheckThis": "{{deviceWord}} ne more preveriti certifikata tega strežnika. Namestite njegov korenski CA na {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Želite naslednjič uporabiti {{name}} za prijavo?",
+      "ifThisServerSignsYou": "Če vas ta strežnik odjavi, se naslednjič prijavite z {{name}} namesto vnašanja gesla. Geslo ostane shranjeno na tem {{deviceWord}}.",
+      "use": "Uporabi {{name}}",
+      "notNow": "Ne zdaj",
+      "couldNotSaveTheLogin": "Prijava ni bila shranjena",
+      "thatSADifferentUser": "To je drug uporabnik",
+      "signedIn": "Prijavljeni",
+      "close": "Zapri",
+      "linkYourTermixServer": "Povežite svoj strežnik Termix",
+      "yourHostsCredentialsSnippetsAnd": "Vaši gostitelji, poverilnice, odlomki in nastavitve se sinhronizirajo z njim, prejeli pa boste tudi njegove vtičnike. Vse bo delovalo na tem {{deviceWord}}, ko je strežnik nedosegljiv.",
+      "checking": "Preverjanje {{host}} ...",
+      "proxyAndClientCertificate": "Proxy in odjemplski certifikat",
+      "couldNotReachThatServer": "Tega strežnika ni bilo mogoče doseči. Preverite naslov ali nastavite proxy ali odjemplski certifikat.",
+      "couldNotReachThatServer2": "Tega strežnika ni bilo mogoče doseči",
+      "syncCouldNotStartYet": "Sinhronizacija se še ni lahko začela. Poskusila bo znova samodejno.",
+      "checkingTheServer": "Preverjanje strežnika",
+      "signIn": "Prijava",
+      "makeAnAccount": "Ustvari račun",
+      "resetPassword": "Ponastavi geslo",
+      "oneMoreStep": "Še en korak",
+      "almostDone": "Skoraj končano",
+      "linkAServer": "Poveži strežnik"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Shranjena prijava ne deluje več",
+      "enterYourUsernameAndPassword": "Vnesite svoje uporabniško ime in geslo",
+      "thisServerIsBehindA": "Ta strežnik je za proxyjem za prijavo",
+      "signInWith": "Prijava z {{saved}}",
+      "signInWith2": "Prijava z",
+      "password": "Geslo",
+      "username": "Uporabniško ime",
+      "signIn": "Prijava",
+      "forgotPassword": "Pozabljeno geslo?",
+      "makeAnAccount": "Ustvari račun",
+      "or": "ALI",
+      "continueWith": "Nadaljuj z {{label}}",
+      "signInWithAPasskey": "Prijava s ključem za dostop ali varnostnim ključem",
+      "opensYourServerAposS": "Odpre stran za prijavo vašega strežnika v brskalniku. Tam delujejo Face ID, odtis prsta, NFC in USB ključi. Zahteva Termix 26.11.3 ali novejšo različico.",
+      "signInInTheBrowser": "Prijava v brskalniku",
+      "opensYourServerAposS2": "Odpre stran za prijavo vašega strežnika za vse, česar aplikacija ne more storiti tukaj. Zahteva Termix 26.10.6 ali novejšo različico.",
+      "thisServerHasNoSign": "Ta strežnik nima vklopljene prijave, ki bi jo aplikacija lahko uporabila. Vprašajte upravitelja strežnika ali poskusite prijavo v brskalniku zgoraj.",
+      "signInWithYourPassword": "Prijava z vašim geslom.",
+      "signInFailed": "Prijava ni uspela",
+      "openingItsSignInPage": "Odpiranje strani za prijavo."
+    },
+    "smallSteps": {
+      "serverAddress": "Naslov strežnika",
+      "likeTermixExampleComOr": "Na primer termix.example.com ali 192.168.1.20:30001",
+      "checking": "Preverjanje...",
+      "continue": "Nadaljuj",
+      "proxyAndClientCertificate": "Proxy in odjemalsko potrdilo",
+      "aServerWithASelf": "Strežnik s samopodpisanim potrdilom najprej zahteva namestitev korenske CA na to {{deviceWord}}. Navaden http deluje v vašem lastnem omrežju.",
+      "enterTheCode": "Vnesite kodo",
+      "code": "Koda",
+      "the6DigitCodeFrom": "Šestmestna koda iz vaše aplikacije za preverjanje pristnosti ali rezervna koda",
+      "checkCode": "Preveri kodo",
+      "thisAccountAsksForA": "Ta račun zahteva varnostni ključ po vnosu gesla. Za uporabo se prijavite na strani strežnika v brskalniku.",
+      "useASecurityKeyIn": "Uporaba varnostnega ključa v brskalniku",
+      "backToSignIn": "Nazaj na prijavo",
+      "bringThisAposSHosts": "Ali želite priložiti goste tega {{deviceWord}}?",
+      "thisHasTheyStayOn": "Ta {{deviceWord}} ima {{what}}. Ti ostanejo na tej napravi v vsakem primeru.",
+      "merge": "Združi",
+      "copyThemToTooSo": "Kopirajte jih tudi na {{serverName}}, da se sinhronizirajo. Tisti, ki so enaki gostu na strežniku, bodo preskočeni.",
+      "replace": "Zamenjaj",
+      "useOnlyWhatIsOn": "Za ta račun uporabljajte samo tisto, kar je na {{serverName}}. Ničesar ne kopirajte.",
+      "thatCodeDidnTWork": "Ta koda ni delovala",
+      "hostsCredentialsOrSnippets": "gosti, poverilnice ali odlomki"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Najprej povežite ta strežnik",
+      "thatHostIsnTHere": "Tega gosta ni tukaj",
+      "couldNotOpenThatHost": "Tega gosta ni bilo mogoče odpreti",
+      "noHostWithIdOn": "Na računu {{account}} ni gosta z id {{hostId}}.",
+      "isnTLinkedInThe": "{{value}} še ni povezan v aplikaciji."
+    }
+  },
+  "notifications": {
+    "notifications": "Obvestila",
+    "markAllRead": "Označi vse kot prebrana",
+    "clearReadNotifications": "Izbriši prebrana obvestila",
+    "unread2": "Neprebrana",
+    "all": "Vsa",
+    "noUnreadNotifications": "Ni neprebranih obvestil",
+    "nothingHere": "Tukaj ni ničesar",
+    "markRead": "Označi kot prebrano",
+    "delete": "Izbriši",
+    "couldNotLoadNotifications": "Obvestil ni bilo mogoče naložiti",
+    "couldNotMarkRead": "Ni bilo mogoče označiti kot prebrano",
+    "couldNotDelete": "Ni bilo mogoče izbrisati",
+    "couldNotClear": "Ni bilo mogoče počistiti"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Uvozi",
+      "hosts": "Gosti",
+      "aTermixHostFileYour": "Datoteka gostov Termix, vaša ~/.ssh/config ali povezava do gosta ali QR-koda z drugega {{deviceWord}}. Shranjeni so na tem {{deviceWord}}.",
+      "backup": "Varnostna kopija",
+      "aBackupThisAppMade": "Varnostna kopija, ki jo je ustvarila ta aplikacija, zaklenjena z geslom. Vrne goste, poverilnice in odlomke.",
+      "restoreABackup": "Obnovi varnostno kopijo",
+      "done": "Končano",
+      "skipForNow": "Preskoči za zdaj",
+      "sshFilesAndRemoteDesktops": "SSH, datoteke in oddaljene namizne površine z vašega {{deviceWord}}. Kako želite začeti?",
+      "useWithoutAServer": "Uporaba brez strežnika",
+      "hostsCredentialsAndSnippetsAre": "Gostitelji, poverilnice in odlomki so shranjeni šifrirano na tej napravi {{deviceWord}}. Strežnik lahko povežete kadarkoli kasneje.",
+      "linkATermixServer": "Poveži strežnik Termix",
+      "syncYourHostsCredentialsSnippets": "Usklajujte gostitelje, poverilnice, odlomke in nastavitve s svojim strežnikom ter uporabljajte njegove vtičnike.",
+      "bringHostsFromATermix": "Uvozite gostitelje iz datoteke Termix, SSH konfiguracije, QR kode ali varnostne kopije.",
+      "thisDevice": "Ta naprava"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Išči gostitelje, odlomke, ukaze",
+      "clearSearch": "Počisti iskanje",
+      "nothingMatches": "Ni ujem",
+      "typeToSearch": "Vnesite za iskanje",
+      "findAHostToConnect": "Poiščite gostitelja za povezavo, odlomek, nastavitev ali ukaz.",
+      "suggested": "Predlagano | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Zaženi v {{title}}",
+      "copiedRunItFromThe": "Kopirano. Za izpolnitev vrednosti ga zaženite iz odlomkov v terminalu.",
+      "copiedOpenATerminalTo": "Kopirano. Odprite terminal za zagon odlomkov.",
+      "addHost": "Dodaj gostitelja",
+      "quickConnect": "Hitra povezava",
+      "switchAccount": "Zamenjaj račun",
+      "linkAServer": "Poveži strežnik",
+      "fromYourServer": "S strežnika",
+      "settings": "Nastavitve",
+      "accountsAppearanceSecurity": "Računi, videz, varnost"
+    },
+    "search": {
+      "hosts": "Gostitelji",
+      "snippets": "Odlomki",
+      "actions": "Ukazi",
+      "settings": "Nastavitve"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Nalaganje sej ni uspelo",
+      "sessionRevoked": "Seja je prekinjena",
+      "failedToRevokeSession": "Preklic seje ni uspel",
+      "allSessionsRevoked": "Vse seje so preklicane",
+      "failedToRevokeAllSessions": "Preklic vseh sej ni uspel",
+      "activeSessions": "Aktivne seje",
+      "signOutAllOtherSessions": "Odjava vseh drugih sej",
+      "loading": "Nalaganje …",
+      "noActiveSessionsFound": "Aktivnih sej ni bilo najdenih.",
+      "unknownDevice": "Neznana naprava",
+      "lastActive": "Zadnja aktivnost {{lastActiveAt}}",
+      "created": "Ustvarjeno {{createdAt}}",
+      "revokeSession": "Prekliči sejo",
+      "revokeSession2": "Preklicati sejo?",
+      "thisWillSignOutThat": "To bo odjavilo to napravo.",
+      "revoke": "Prekliči",
+      "revokeAllSessions": "Preklicati vse seje?",
+      "thisWillSignOutEvery": "To bo odjavilo vse naprave. Na tej napravi boste ostali prijavljeni.",
+      "cancel": "Prekliči",
+      "revokeAll": "Prekliči vse"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Nalaganje API ključev ni uspelo",
+      "failedToCreateApiKey": "Ustvarjanje API ključa ni uspelo",
+      "deleteApiKey": "Izbrisati API ključ?",
+      "willStopWorkingRightAway": "\"{{name}}\" bo takoj prenehal delovati.",
+      "apiKeyDeleted": "API ključ je izbrisan",
+      "failedToDeleteApiKey": "Izbris API ključa ni uspel",
+      "apiKeys": "API ključi",
+      "newApiKey": "Nov API ključ",
+      "loading": "Nalaganje …",
+      "apiKeysAllowProgrammaticAccess": "API ključi omogočajo programski dostop do Termixa. Tajni ključ je prikazan le enkrat, zato ga shranite varno.",
+      "noApiKeysYet": "Še ni API ključev",
+      "created": "Ustvarjeno {{createdAt}}",
+      "lastUsed": "Zadnja uporaba {{lastUsedAt}}",
+      "expires": "Poteče {{expiresAt}}",
+      "delete": "Izbriši {{name}}",
+      "keyCreatedCopyItNow": "Ključ ustvarjen. Kopirajte ga zdaj",
+      "newApiKey2": "Nov API ključ",
+      "thisTokenWonTBe": "Ta žeton se ne bo več prikazal.",
+      "apiKeyCopied": "API ključ kopiran",
+      "copy": "Kopiraj",
+      "done": "Končano",
+      "cancel": "Prekliči",
+      "create": "Ustvari",
+      "name": "Ime *",
+      "eGCiPipeline": "npr. CI cevovod",
+      "user": "Uporabnik *",
+      "noUsersAvailable": "Ni na voljo uporabnikov.",
+      "expiresAtOptional": "Potek veljavnosti (izbirno)",
+      "yyyyMmDd": "LLLL/MM/DD",
+      "yearMonthDay": "Leto / Mesec / Dan"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Ohrani seje aktivne",
+      "showsANotificationWhileSessions": "Prikaže obvestilo, medtem ko so seje odprte, da Android ohranja njihovo delovanje, ko zapustite aplikacijo",
+      "batteryOptimization": "Optimizacija baterije",
+      "termixIsNotRestrictedSo": "Termix ni omejen, zato seje ostanejo odprte tudi z ugasnjenim zaslonom.",
+      "androidMayStillStopSessions": "Android lahko seje še vedno ustavi zaradi varčevanja z baterijo. Odprite nastavitve baterije, poiščite Termix in izberite Ne optimizirano ali Brez omejitev.",
+      "openBatterySettings": "Odpri nastavitve baterije",
+      "notificationsAreOff": "Obvestila so izklopljena",
+      "sessionsStillRunButThe": "Seje še vedno tečejo, vendar seznam odprtih sej in gumb Prekini vse povezave ostanejo skriti.",
+      "openNotificationSettings": "Odpri nastavitve obvestil",
+      "thisBuildCanTKeep": "Ta različica ne more ohranjati sej v ozadju. Povezava se ponovno vzpostavi, ko se vrnete.",
+      "lowPowerMode": "Način nizke porabe",
+      "batterySaver": "Varčevanje z baterijo",
+      "isOnTermixChecksConnections": "{{value}} je vklopljen. Termix redkeje preverja povezave in dlje čaka med poskusi ponovne povezave.",
+      "backgroundSessions": "Seje v ozadju",
+      "iosStopsAppsSoonAfter": "iOS aplikacije kmalu po zapustitvi ustavi, zato seje ne morejo teči v ozadju. Povezava se ponovno vzpostavi, ko se vrnete, tmux ali screen pa nadaljujeta tam, kjer ste ustavili."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Ustavljeno",
+        "active": "Aktivno",
+        "linkAServer": "Poveži strežnik",
+        "eachServerKeepsItsOwn": "Vsak strežnik hrani svojo kopijo vaših gostiteljev, poverilnic in nastavitev na tem {{deviceWord}}.",
+        "signedInAs": "Prijavljeni kot",
+        "role": "Vloga",
+        "administrator": "Upravitelj",
+        "user": "Uporabnik",
+        "serverVersion": "Različica strežnika",
+        "signOut": "Odjava",
+        "youAreSignedOutOf": "Odjavljeni ste s tega strežnika.",
+        "signIn": "Prijava",
+        "passwordChanged": "Geslo spremenjeno",
+        "couldNotChangeThePassword": "Gesla ni bilo mogoče spremeniti",
+        "changePassword": "Spremeni geslo",
+        "enterYourCurrentPasswordThen": "Vnesite trenutno geslo, nato izberite novo.",
+        "cancel": "Prekliči",
+        "change": "Spremeni",
+        "currentPassword": "Trenutno geslo",
+        "newPassword": "Novo geslo",
+        "accountDeleted": "Račun izbrisan",
+        "couldNotDeleteTheAccount": "Računa ni bilo mogoče izbrisati",
+        "deleteServerAccount": "Izbriši račun na strežniku",
+        "thisPermanentlyDeletesYourAccount": "To trajno izbriše vaš račun na strežniku in vse njegove podatke. Tega ni mogoče razveljaviti.",
+        "delete": "Izbriši",
+        "confirmYourPassword": "Potrdite svoje geslo",
+        "worksWithoutAServer": "Deluje brez strežnika",
+        "signedOut": "Odjavljen",
+        "readsLive": "Berje v živo",
+        "toReview": "{{count}} za pregled",
+        "synced": "Sinhronizirano",
+        "syncing": "Sinhroniziranje",
+        "offline": "Brez povezave"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Deli anonimne statistike uporabe",
+        "aShortReportOnceA": "Kratek poročilo enkrat na dan. Brez gostiteljev, imen ali naslovov",
+        "nextReport": "Naslednje poročilo",
+        "seeExactlyWhatWouldBe": "Poglej točno, kaj bi bilo poslano",
+        "couldNotBuildTheReport": "Poročila ni bilo mogoče ustvariti",
+        "preview": "Predogled",
+        "thisIsExactlyWhatWould": "To je točno tisto, kar bi bilo poslano zdaj.",
+        "resetInstallId": "Ponastavi ID namestitve",
+        "futureReportsWillLookLike": "Prihodnja poročila bodo izgledala kot nova namestitev",
+        "resetTheInstallId": "Ponastaviti ID namestitve?",
+        "futureReportsWillLookLike2": "Prihodnja poročila bodo izgledala kot nova namestitev.",
+        "reset": "Ponastavi",
+        "installIdReset": "ID namestitve ponastavljen"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Poudarjena barva",
+        "textSize": "Velikost besedila",
+        "sizeOfTextAcrossThe": "Velikost besedila po aplikaciji, ne v terminalu",
+        "density": "Gostota",
+        "howTallListRowsAnd": "Kako visoke so vrstice seznamov in nastavitve"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Gostitelji, poverilnice in odlomki so shranjeni v šifrirani datoteki na tem {{deviceWord}}. Statistika uporabe je izklopljena, razen če jo vklopite spodaj. Povezani strežnik prejme le tisto, kar mu dovolite sinhronizirati.",
+        "recentHosts": "Nedavni gostitelji",
+        "forgetTheHostsYouOpened": "Pozabi gostitelje, ki si jih nedavno odprl na vseh računih",
+        "recentHostsCleared": "Nedavni gostitelji izbrisani",
+        "clear": "Izbriši",
+        "couldNotCheckForUpdates": "Preverjanje posodobitev ni bilo mogoče",
+        "versionIsOutUpdateFrom": "Na voljo je različica {{version}}. Posodobi iz svoje trgovine.",
+        "youHaveTheNewestVersion": "Imate najnovejšo različico",
+        "termixMobile": "Termix Mobile",
+        "updates": "Posodobitve",
+        "check": "Preveri"
+      },
+      "pinSheet": {
+        "waitSeconds": "Počakaj {{value}} sekund",
+        "digits": "{{PIN_LENGTH}} števk"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-i se ne ujemata",
+        "appLockIsOn": "Zaklepanje aplikacije je vklopljeno",
+        "turnOffAppLock": "Izklopi zaklepanje aplikacije",
+        "enterYourPinToConfirm": "Vnesite svoj PIN za potrditev.",
+        "appLockIsOff": "Zaklepanje aplikacije je izklopljeno",
+        "appLock": "Zaklepanje aplikacije",
+        "askForFaceIdTouch": "Zahtevaj Face ID, Touch ID ali PIN za odpiranje aplikacije",
+        "askForAPinTo": "Zahtevaj PIN za odpiranje aplikacije",
+        "pinChanged": "PIN spremenjen",
+        "couldNotChangeThePin": "PIN ni bilo mogoče spremeniti",
+        "changePin": "Spremeni PIN",
+        "lockAfter": "Zakleni po",
+        "howLongTheAppCan": "Kako dolgo lahko aplikacija ostane izven vidnega polja, preden se zaklene",
+        "hideInAppSwitcher": "Skrij v izbirniku aplikacij",
+        "showABlankScreenIn": "Prikaži prazen zaslon v seznamu nedavnih aplikacij",
+        "chooseA4DigitPin": "Izberite 4-mestni PIN.",
+        "confirmPin": "Potrdi PIN",
+        "enterTheSamePinAgain": "Vnesite isti PIN znova.",
+        "currentPin": "Trenutni PIN",
+        "enterYourCurrentPin": "Vnesite svoj trenutni PIN.",
+        "newPin": "Nov PIN",
+        "chooseANew4Digit": "Izberite nov 4-mestni PIN.",
+        "confirmNewPin": "Potrdi nov PIN",
+        "enterTheNewPinAgain": "Vnesite nov PIN znova."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Vidžeti na domači zaslon",
+        "showYourHostsSnippetsAnd": "Prikaži gostitelje, odlomke in gumbe za vklop/izklop na domači zaslon",
+        "showAddresses": "Prikaži naslove",
+        "showUserHostUnderEach": "Prikaži uporabnik@gostitelj pod vsakim imenom strežnika",
+        "includeOfflineHosts": "Vključi izklopljene gostitelje",
+        "offShowsOnlyServersThat": "Pri izklopu se prikažejo le strežniki, ki so vklopljeni",
+        "pinnedHostsOnly": "Samo pripeti gostitelji",
+        "showOnlyTheHostsYou": "Prikaži le gostitelje, ki ste jih pripeli",
+        "snippetsWidget": "Vidžet za odlomke",
+        "showSavedCommandsOnThe": "Prikaži shranjene ukaze na domači zaslon",
+        "showCommandPreview": "Prikaži predogled ukaza",
+        "showTheFirstLineOf": "Prikaži prvo vrstico vsakega ukaza"
+      }
+    },
+    "fileSettings": {
+      "files": "Datoteke",
+      "fileManagerOnThis": "Upravitelj datotek na tem {{deviceWord}}",
+      "browsing": "Brskanje",
+      "transfersAtOnce": "Prenosi hkrati",
+      "downloadsAndUploadsThatRun": "Prenašanja in nalaganja, ki tečejo sočasno",
+      "editor": "Urejevalnik",
+      "textSize": "Velikost besedila",
+      "filesBesideTheTerminal": "Datoteke ob terminalu",
+      "side": "Stran",
+      "whereThePanelSitsOn": "Kje se nahaja plošča na tabličnem računalniku",
+      "right": "Desno",
+      "left": "Levo",
+      "howOftenToCheck": "Pogostost preverjanja",
+      "folderHistory": "Zgodovina map",
+      "foldersKeptPerHost": "Shranjene mape na gostitelja",
+      "showHiddenFiles": "Prikaži skrite datoteke",
+      "filesAndFoldersThatStart": "Datoteke in mape, ki se začnejo z piko",
+      "askBeforeMovingToThe": "Vprašaj pred premikom v smeti",
+      "deletingForGoodAlwaysAsks": "Trajno brisanje vedno zahteva potrditev",
+      "wrapLongLines": "Prelomi dolge vrstice",
+      "openWithNewTerminals": "Odpri z novimi terminali",
+      "onATabletShowThe": "Na tabličnem računalniku prikaži ploščo datotek ob odprtju terminala",
+      "followTheTerminal": "Sledi terminalu",
+      "openTheFolderTheTerminal": "Odpri mapo, v kateri je terminal, medtem ko uporabljate cd"
+    },
+    "keyboardCustomization": {
+      "small": "Majhno",
+      "medium": "Srednje",
+      "large": "Veliko",
+      "ms": "{{v}} ms",
+      "keyboard": "Tipkovnica",
+      "keyRowsAboveTheKeyboard": "Vrstice tipk nad tipkovnico",
+      "rows": "Vrstice",
+      "keys": "Tipke",
+      "aHostCanHaveIts": "Gostitelj lahko ima svoje vrstice: tapnite odprto zavihek v seansi in izberite Vrstice tipk za tega gostitelja.",
+      "keySize": "Velikost tipk",
+      "vibrateOnKeyPress": "Vibriraj ob pritisku tipke",
+      "repeatAfter": "Ponovi po",
+      "howLongToHoldAn": "Kako dolgo držati puščico ali Backspace",
+      "repeatEvery": "Ponovi vsakih",
+      "hardwareKeyboard": "Strojna tipkovnica",
+      "allShortcuts": "Vsi bližnjice",
+      "show": "Prikaži"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Varnostne kopije ni bilo mogoče ustvariti",
+      "deleteLocalData": "Izbrišem lokalne podatke?",
+      "hostsCredentialsSnippetsAndHistory": "Gostitelji, poverilnice, odlomki in zgodovina, shranjeni na tem {{deviceWord}} za {{account}}, bodo izbrisani. Tega ni mogoče razveljaviti. Najprej naredite varnostno kopijo, če jih želite obdržati.",
+      "delete": "Izbriši",
+      "localDataDeleted": "Lokalni podatki izbrisani",
+      "couldNotDeleteLocalData": "Lokalnih podatkov ni bilo mogoče izbrisati",
+      "localData": "Lokalni podatki",
+      "localDataIsOnlySaved": "Lokalni podatki so shranjeni le v aplikaciji {{deviceWord}}.",
+      "savedOnThisForThe": "Shranjeno na tem {{deviceWord}} za {{account}}. Datoteka je šifrirana s ključem, ki nikoli ne zapusti tega {{deviceWord}}.",
+      "hosts": "Gostitelji",
+      "credentials": "Poverilnice",
+      "snippets": "Utripki",
+      "size": "Velikost",
+      "dataVersion": "Različica podatkov",
+      "backup": "Varnostna kopija",
+      "aBackupFileHoldsYour": "Datoteka varnostne kopije vsebuje vaša gesla in ključe, zaklenjena z geslom po vaši izbiri. Brez tega gesla je ne more odpreti nihče.",
+      "exportBackup": "Izvozi varnostno kopijo",
+      "importBackup": "Uvozi varnostno kopijo",
+      "removesEverythingThisAccountSaved": "Izbriše vse, kar je ta račun shranil na tem {{deviceWord}}. Povezani strežnik hrani svojo kopijo.",
+      "deleteLocalData2": "Izbriši lokalne podatke",
+      "backupPassphrase": "Geslo za varnostno kopijo",
+      "atLeast8CharactersYou": "Vsaj 8 znakov. Potrebovali ga boste za obnovitev varnostne kopije.",
+      "passphrase": "Geslo",
+      "next": "Naprej",
+      "typeItAgain": "Vnesite znova",
+      "export": "Izvozi",
+      "saveYourTermixBackup": "Shrani varnostno kopijo Termixa"
+    },
+    "logs": {
+      "logs": "Dnevniki",
+      "latestLinesFromThisRun": "Najnovejše vrstice iz te seje. Naslovi strežnikov, gesla in žetoni so skriti.",
+      "logsCopied": "Dnevniki kopirani",
+      "copy": "Kopiraj",
+      "share": "Deli",
+      "clear": "Počisti",
+      "noLogsYet": "Še ni dnevnika",
+      "nothingHasBeenLogged": "Nič ni bilo zabeleženega."
+    },
+    "plugins": {
+      "worksOnThis": "Deluje na tem {{deviceWord}}",
+      "needsTheServer": "Potrebuje strežnik",
+      "notInTheApp": "Ni v aplikaciji",
+      "needsANewerVersionOf": "Potrebuje novejšo različico aplikacije",
+      "updateThePluginOnThe": "Posodobi vtičnik na strežniku",
+      "inTheApp": "V aplikaciji",
+      "onThisServer": "Na tem strežniku",
+      "version": "Različica",
+      "needsPluginApi": "Potrebuje API vtičnika",
+      "thisAppHas": "Ta aplikacija ima",
+      "note": "Opomba",
+      "open": "Odpri",
+      "openFromAHostS": "Odpri {{name}} iz menija gostitelja.",
+      "plugins": "Vtičniki",
+      "everything": "Vse",
+      "thisDeviceWorksWithNo": "Ta naprava deluje brez strežnika. Povežite strežnik, da dodate funkcije, ki ga potrebujejo.",
+      "pluginsOnAndHowEach": "Vtičniki na {{account}} in kako se vsak od njih prikaže v aplikaciji. Povlecite navzdol za ponovno preverjanje.",
+      "whatRunsOnThisAnd": "Kaj teče na tem {{deviceWord}} in kaj poteka prek {{account}}.",
+      "noPluginList": "Ni seznama vtičnikov",
+      "theServerDidNotSend": "Strežnik ni poslal svojih vtičnikov. Povlecite navzdol za ponoven poskus.",
+      "serversOlderThan29": "Strežniki starejši od 2.9 imajo vse funkcije vgrajene.",
+      "nothingToShow": "Nič za prikaz",
+      "notSentByThisServer": "Ni poslano s tega strežnika"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Zamenjati lokalne podatke?",
+      "everythingSavedOnThisFor": "Vse, kar je shranjeno na tem {{deviceWord}} za {{accountName}}, bo zamenjano z varnostno kopijo.",
+      "continue": "Nadaljuj",
+      "couldNotReadThatFile": "Datoteke ni bilo mogoče prebrati",
+      "backupRestored": "Varnostna kopija obnovljena",
+      "couldNotRestoreTheBackup": "Varnostne kopije ni bilo mogoče obnoviti",
+      "backupPassphrase": "Geslo za varnostno kopijo",
+      "thePassphraseUsedWhenThe": "Geslo, uporabljeno ob ustvarjanju varnostne kopije.",
+      "passphrase": "Geslo",
+      "restore": "Obnovi"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Računi",
+        "thisDeviceAndLinkedServers": "Ta naprava in povezani strežniki ter njihovo stanje sinhronizacije",
+        "syncAndProxy": "Sinhronizacija in proxy",
+        "whatSyncsConflictsProxyAnd": "Kaj se sinhronizira, konflikte, proxy in prekinitev povezave",
+        "serverAccount": "Strežniški račun",
+        "whoIsSignedInOn": "Kdo je prijavljen na aktivnem strežniku",
+        "activeSessions": "Aktivne seje",
+        "devicesSignedInToThe": "Naprave, prijavljene na strežnik",
+        "apiKeys": "API ključi",
+        "keysForScriptsAndTools": "Ključ za skripte in orodja",
+        "changePassword": "Spremeni geslo",
+        "passwordOfYourServerAccount": "Geslo vašega strežniškega računa",
+        "deleteServerAccount": "Izbriši strežniški račun",
+        "removeYourAccountFromThe": "Odstrani svoj račun s strežnika",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Temna, svetla, Dracula, Nord in več",
+        "accentColor": "Poudarjena barva",
+        "textSize": "Velikost besedila",
+        "sizeOfTextAcrossThe": "Velikost besedila po celotni aplikaciji",
+        "density": "Gostota",
+        "howTallListRowsAnd": "Višina vrstic v seznamih in nastavitev",
+        "homeScreenWidgets": "Vidžeti na domačem zaslonu",
+        "hostsAndSnippetsOnThe": "Gostitelji in odlomki na domačem zaslonu",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Pisava, tema, kazalec, pomikanje nazaj",
+        "keyboard": "Tipkovnica",
+        "layoutKeysPresets": "Razporeditev, tipke, prednastavitve",
+        "appLock": "Zaklep aplikacije",
+        "askForFaceIdTouch": "Zahtevaj Face ID, Touch ID ali PIN za odpiranje aplikacije",
+        "lockAfter": "Zakleni po",
+        "howLongTheAppCan": "Kako dolgo lahko aplikacija ostane izven vidnega polja, preden se zaklene",
+        "hideInAppSwitcher": "Skrij v izbirniku aplikacij",
+        "showABlankScreenIn": "Prikaži prazen zaslon v seznamu nedavnih aplikacij",
+        "changePin": "Spremeni PIN",
+        "backgroundSessions": "Seje v ozadju",
+        "whatHappensToOpenSessions": "Kaj se zgodi z odprtimi sejami, ko zapustite aplikacijo",
+        "serverAlerts": "Opozorila strežnika",
+        "alertsFromTheAlertsPlugin": "Opozorila iz vtičnika Opozorila na vašem strežniku",
+        "whatStaysOnThis": "Kaj ostane na tej {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Gostitelji, poverilnice in odlomki so shranjeni šifrirano tukaj",
+        "recentHosts": "Nedavni gostitelji",
+        "forgetTheHostsYouOpened": "Pozabi gostitelje, ki ste jih odprli nedavno",
+        "shareAnonymousUsageStatistics": "Deli anonimno statistiko uporabe",
+        "aShortReportOnceA": "Kratek poročilo enkrat na dan. Brez gostiteljev, imen ali naslovov",
+        "nextReport": "Naslednje poročilo",
+        "seeExactlyWhatWouldBe": "Poglejte točno, kaj bi bilo poslano",
+        "resetInstallId": "Ponastavi ID namestitve",
+        "futureReportsWillLookLike": "Prihodnja poročila bodo izgledala kot nova namestitev",
+        "serverUsageStatistics": "Statistika uporabe strežnika",
+        "telemetrySettingsOnYourServer": "Nastavitve telemetrije na vašem strežniku",
+        "plugins": "Vtičniki",
+        "whatTheServerAddsAnd": "Kaj strežnik doda in kje se izvaja",
+        "localData": "Lokalni podatki",
+        "backupRestoreAndDeleteWhat": "Varnostno kopiranje, obnovitev in brisanje tega, kar je shranjeno na tej {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Različica in posodobitve",
+        "logs": "Dnevniki",
+        "latestLinesFromThisRun": "Najnovejše vrstice iz tega zagona, za poročila o napakah"
+      },
+      "sections": {
+        "accountsAndSync": "Računi in sinhronizacija",
+        "thisDeviceLinkedServersAnd": "Ta naprava, povezani strežniki in sinhronizacija",
+        "appearance": "Videz",
+        "themeAccentTextSizeAnd": "Jezik, tema, poudarjena barva, velikost besedila in gostota",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Pisava, barve in seje v ozadju",
+        "keyboard": "Tipkovnica",
+        "keyRowsAndShortcuts": "Vrstice tipk in bližnjice",
+        "security": "Varnost",
+        "appLockFaceIdAnd": "Zaklepanje aplikacije, Face ID in PIN",
+        "notifications": "Obvestila",
+        "alertsFromYourServer": "Opozorila s strežnika",
+        "privacyAndUsageStatistics": "Zasebnost in statistika uporabe",
+        "whatStaysOnThis": "Kaj ostane na tej {{deviceWord}}",
+        "plugins": "Vtičniki",
+        "whatTheServerAddsTo": "Kaj strežnik doda aplikaciji",
+        "backupAndData": "Varnostne kopije in podatki",
+        "backUpRestoreImportAnd": "Varnostna kopija, obnovitev, uvoz in izvoz",
+        "aboutAndLogs": "O aplikaciji in dnevniki",
+        "versionAndLogsForBug": "Različica in dnevniki za poročila o napakah"
+      }
+    },
+    "settings": "Nastavitve",
+    "searchSettings": "Iskanje nastavitev",
+    "noSettingsMatch": "Ni ujemajočih nastavitev.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Nalaganje odlomkov ni uspelo",
+      "copied": "Kopirano: {{name}}",
+      "nameIsRequired": "Ime je obvezno",
+      "contentIsRequired": "Vsebina je obvezna",
+      "snippetUpdated": "Odlomek posodobljen",
+      "snippetCreated": "Odlomek ustvarjen",
+      "failedToSaveSnippet": "Shranjevanje odlomka ni uspelo",
+      "snippetDeleted": "Odlomek izbrisan",
+      "failedToDeleteSnippet": "Brisanje odlomka ni uspelo",
+      "folderNameIsRequired": "Ime mape je obvezno",
+      "folderCreated": "Mapa ustvarjena",
+      "failedToCreateFolder": "Ustvarjanje mape ni uspelo",
+      "folderDeleted": "Mapa izbrisana",
+      "failedToDeleteFolder": "Brisanje mape ni uspelo",
+      "folderRenamed": "Mapa preimenovana",
+      "failedToRenameFolder": "Preimenovanje mape ni uspelo",
+      "failedToSaveOrder": "Shranjevanje vrstnega reda ni uspelo",
+      "moveUp": "Premakni gor",
+      "moveDown": "Premakni dol",
+      "runOnHosts": "Izvedi {{name}} na strežnikih",
+      "copy": "Kopiraj {{name}}",
+      "delete": "Izbriši {{name}}",
+      "renameFolder": "Preimenuj mapo",
+      "deleteFolder": "Izbriši mapo",
+      "noSnippetsInThisFolder": "V tej mapi ni odlomkov",
+      "snippets": "Odlomki",
+      "importAndExport": "Uvoz in izvoz",
+      "folder": "Mapa",
+      "new": "Novo",
+      "loading": "Nalaganje …",
+      "couldNotLoadSnippets": "Nalaganje odlomkov ni uspelo",
+      "checkTheConnectionToYour": "Preverite povezavo s strežnikom in poskusite znova.",
+      "tryAgain": "Poskusi znova",
+      "noSnippetsYet": "Še ni odlomkov",
+      "createYourFirstSnippetOr": "Ustvarite svoj prvi odlomek ali dodajte odlomke iz spletne ali namizne aplikacije Termix.",
+      "createSnippet": "Ustvari odlomek",
+      "askBeforeRunning": "Vprašaj pred zagonom",
+      "confirmBeforeASnippetRuns": "Potrdi preden se odloček izvede v terminalu",
+      "editSnippet": "Uredi odloček",
+      "newSnippet": "Nov odloček",
+      "cancel": "Prekliči",
+      "save": "Shrani",
+      "create": "Ustvari",
+      "name": "Ime",
+      "eGUpdatePackages": "npr. Posodobi pakete",
+      "content": "Vsebina",
+      "descriptionOptional": "Opis (izbirno)",
+      "shortDescription": "Kratek opis",
+      "folderOptional": "Mapa (izbirno)",
+      "selectFolder": "Izberi mapo",
+      "noFolder": "Brez mape",
+      "targetHostsOptional": "Ciljni gostitelji (izbirno)",
+      "none": "Brez",
+      "note": "Opomba",
+      "pastedIntoTheTerminalWithout": "Prilepljeno v terminal brez izvajanja",
+      "targetHosts": "Ciljni gostitelji",
+      "copy2": "Kopiraj",
+      "edit": "Uredi",
+      "runOnHosts2": "Izvedi na gostiteljih",
+      "delete2": "Izbriši",
+      "deleteSnippet": "Izbriši odloček",
+      "deleteThisCannotBeUndone": "Izbriši \"{{name}}\"? Tega ni mogoče razveljaviti.",
+      "renameFolder2": "Preimenuj mapo",
+      "rename": "Preimenuj",
+      "folderName": "Ime mape",
+      "eGSystem": "npr. Sistem",
+      "newFolder": "Nova mapa",
+      "deleteFolder2": "Izbriši mapo",
+      "deleteSnippetsInThisFolder": "Izbriši \"{{name}}\"? Odločki v tej mapi bodo postali neurejeni."
+    },
+    "sync": {
+      "notYet": "Še ne",
+      "justNow": "Trenutno",
+      "stopped": "Ustavljeno",
+      "signInToThisServer": "Znova se prijavite na ta strežnik za sinhronizacijo",
+      "couldNotChangeThat": "Tega ni bilo mogoče spremeniti",
+      "sync": "Sinhronizacija",
+      "thisDeviceDoesNotSync": "Ta naprava se ne sinhronizira. Povežite strežnik Termix, da boste gostitelje imeli na več napravah.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} ohranja gostitelje, poverilnice, odločke in nastavitve usklajene s to {{deviceWord}}. Kopija ostane na tej {{deviceWord}}, zato deluje tudi brez povezave.",
+      "lastSynced": "Zadnja sinhronizacija {{value}}",
+      "live": "V živo",
+      "syncNow": "Sinhroniziraj zdaj",
+      "fix": "Popravi",
+      "thisServerReadsLiveAnd": "Ta strežnik bere v živo in na {{deviceWord}} ne hrani kopije.",
+      "turnOnTheSyncPlugin": "Vklopite vtičnik Sinhronizacija na strani Vtičniki strežnika, nato se znova prijavite tukaj, da boste na tej {{deviceWord}} ohranili kopijo.",
+      "whatSyncs": "Kaj se sinhronizira",
+      "turnedOffThatDataStays": "Izklopljeno, ti podatki ostanejo samo na tej {{deviceWord}}.",
+      "conflicts": "Konflikti",
+      "changedHereAndOnThe": "Spremenjeno tukaj in na strežniku hkrati. Ohranjena je bila različica strežnika.",
+      "useServer": "Uporabi strežnik",
+      "keepMine": "Ohrani mojo različico",
+      "notSavedOnTheServer": "Ni shranjeno na strežniku",
+      "theServerRefusedTheseChanges": "Strežnik je zavrnil te spremembe. Ostanejo na tej {{deviceWord}}.",
+      "tryAgain": "Poskusi znova",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Potreben le, ko je pred strežnikom obrnjen proxy.",
+      "unlink": "Prekini povezavo",
+      "unlinkThisServer": "Prekini povezavo s tem strežnikom",
+      "minAgo": "{{value}} min nazaj",
+      "signedOut": "Odjava",
+      "waitingToSync": "Čakanje na sinhronizacijo",
+      "synced": "Sinhronizirano",
+      "syncing": "Sinhroniziranje",
+      "offline": "Brez povezave"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Ozadje",
+        "text": "Besedilo",
+        "cursor": "Kazalec",
+        "textUnderCursor": "Besedilo pod kazalcem",
+        "selection": "Izbor",
+        "black": "Črna",
+        "red": "Rdeča",
+        "green": "Zelena",
+        "yellow": "Rumena",
+        "blue": "Modra",
+        "magenta": "Magenta",
+        "cyan": "Cian",
+        "white": "Bela",
+        "brightBlack": "Svetlo črna",
+        "brightRed": "Svetlo rdeča",
+        "brightGreen": "Svetlo zelena",
+        "brightYellow": "Svetlo rumena",
+        "brightBlue": "Svetlo modra",
+        "brightMagenta": "Svetlo magenta",
+        "brightCyan": "Svetlo cian",
+        "brightWhite": "Svetlo bela",
+        "customTheme": "Prilagojena tema",
+        "colorsAsHexLike1e1e2e": "Barve v heksadecimalni obliki, npr. #1e1e2e.",
+        "cancel": "Prekliči",
+        "save": "Shrani",
+        "isNotAHexColor": "{{label}} ni heksadecimalna barva"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompaktno",
+      "default": "Privzeto",
+      "relaxed": "Sproščeno",
+      "spacious": "Prostrano",
+      "none": "Brez",
+      "couldNotSave": "Shranjevanje ni uspelo",
+      "pickASizeFromTo": "Izberite velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Nastavitve terminala so bile ponastavljene",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Gostitelj lahko v Termixu nastavi svojo temo in kazalec, ki prevladujeta nad temi nastavitvami.",
+      "theme": "Tema",
+      "custom": "Prilagojeno",
+      "font": "Pisava",
+      "active": "Aktivno",
+      "sizeAndSpacing": "Velikost in razmik",
+      "pinchTheTerminalToChange": "Velikost lahko spremenite tudi s ščipanjem terminala. Veliko besedilo v nastavitvah vašega {{deviceWord}} poveča velikost.",
+      "custom2": "Prilagojeno {{fontSize}}",
+      "lineHeight": "Višina vrstice",
+      "letterSpacing": "Razmik med črkami",
+      "ligatures": "Ligature",
+      "cursor": "Kazalec",
+      "blink": "Utripanje",
+      "bell": "Zvok",
+      "vibrate": "Vibriranje",
+      "onTheBellAndWhen": "Ob zvoku in ob dolgem pritisku za izbor",
+      "scrollback": "Zgodovina pomikanja",
+      "linesKeptAboveTheScreen": "Vrstice, ohranjene nad zaslonom. Velja za nove termnale.",
+      "linksAndKeys": "Povezave in ključi",
+      "askBeforeOpeningLinks": "Vprašaj pred odpiranjem povezav",
+      "doubleTapSendsTab": "Dvojni dotik pošlje Tab",
+      "longPressStillSelectsText": "Dolgi pritisk še vedno izbere besedilo",
+      "optionSendsAlt": "Tipka Option pošlje Alt",
+      "onAHardwareKeyboardOff": "Na fizični tipkovnici. Ko je izklopljeno, tipke vtipkajo simbole, kot na Macu.",
+      "history": "Zgodovina",
+      "suggestCommands": "Predlagaj ukaze",
+      "showsPastCommandsThatStart": "Prikaže pretekle ukaze, ki se začnejo z vnešenim besedilom",
+      "resetToDefault": "Ponastavi na privzeto",
+      "fontSize": "Velikost pisave",
+      "aSizeFromTo": "Velikost od {{MIN_FONT_SIZE}} do {{MAX_FONT_SIZE}}.",
+      "cancel": "Prekliči",
+      "apply": "Uporabi",
+      "resetTerminalSettings": "Ponastaviti nastavitve terminala?",
+      "themeFontSizeCursorBell": "Tema, pisava, velikost, kazalec, zvočni signal in ostalo se ponastavijo na privzete vrednosti.",
+      "reset": "Ponastavi",
+      "followsAppTheme": "Sledi temi aplikacije"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Zagon nastavitve 2FA ni uspel",
+      "twoFactorAuthenticationEnabled": "Dvofaktorsko preverjanje je omogočeno",
+      "invalidCodeTryAgain": "Neveljavna koda, poskusite znova",
+      "twoFactorAuthenticationDisabled": "Dvofaktorsko preverjanje je onemogočeno",
+      "failedToDisable2fa": "Onemogočanje 2FA ni uspelo",
+      "failedToFetchBackupCodes": "Pridobivanje rezervnih kod ni uspelo",
+      "secretCopied": "Skrivnost je kopirana",
+      "backupCodesCopied": "Rezervne kode so kopirane",
+      "twoFactorAuthentication": "Dvofaktorsko preverjanje",
+      "loading": "Nalaganje …",
+      "scanThisQrCodeWith": "Skenirajte to QR kodo s svojo aplikacijo za preverjanje (Google Authenticator, Authy itd.) in vnesite 6-mestno kodo za potrditev.",
+      "verifyAmpEnable": "Preveri &amp; omogoči",
+      "cancel": "Prekliči",
+      "saveYourBackupCodes": "Shranite svoje rezervne kode",
+      "storeTheseSomewhereSafeEach": "Shranite jih na varno mesto. Vsako kodo lahko uporabite le enkrat, če izgubite dostop do svoje aplikacije za preverjanje.",
+      "copyAllCodes": "Kopiraj vse kode",
+      "done": "Končano",
+      "yourAccountIsProtectedWith": "Vaš račun je zaščiten z aplikacijo za preverjanje.",
+      "addAnExtraLayerOf": "Dodajte dodatno raven varnosti svojemu računu.",
+      "viewBackupCodes": "Prikaži rezervne kode",
+      "disable2fa": "Onemogoči 2FA",
+      "enable2fa": "Omogoči 2FA",
+      "disableTwoFactorAuthentication": "Onemogoči dvofaktorsko preverjanje",
+      "enterACodeFromYour": "Vnesite kodo iz svoje aplikacije za preverjanje za potrditev. 2FA lahko kadarkoli znova omogočite.",
+      "enterYourPasswordToConfirm": "Vnesite svoje geslo za potrditev. 2FA lahko kadarkoli znova omogočite.",
+      "disable": "Onemogoči",
+      "yourPassword": "Vaše geslo",
+      "n2faIsEnabled": "2FA je omogočen",
+      "n2faIsNotEnabled": "2FA ni omogočen"
+    },
+    "language": {
+      "label": "Jezik",
+      "description": "Aplikacija se ponovno naloži za preklop",
+      "system": "Enako kot naprava"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Tukaj ni gostiteljev SSH",
+      "couldNotReadWhatWas": "Ni bilo mogoče prebrati skupnega vsebine",
+      "stopTheUploads": "Ustaviti nalaganje?",
+      "stopAndLeave": "Ustavi in zapusti",
+      "sendTo": "Pošlji na {{name}}",
+      "sendToAHost": "Pošlji na gostitelja",
+      "nothingToSend": "Ničesar za pošiljanje",
+      "close": "Zapri",
+      "done": "Končano",
+      "cancel": "Prekliči",
+      "uploadHere": "Naloži sem",
+      "uploadsStillGoing_one": "Še vedno poteka {{count}} nalaganje. Z zapustitvijo ga boste ustavili.",
+      "uploadsStillGoing_two": "Še vedno potekata {{count}} nalaganji. Z zapustitvijo ju boste ustavili.",
+      "uploadsStillGoing_few": "Še vedno potekajo {{count}} naloganja. Z zapustitvijo jih boste ustavili.",
+      "uploadsStillGoing_other": "Še vedno poteka {{count}} naloganj. Z zapustitvijo jih boste ustavili.",
+      "filesSize_one": "{{count}} datoteka | {{size}}",
+      "filesSize_two": "{{count}} datoteki | {{size}}",
+      "filesSize_few": "{{count}} datoteke | {{size}}",
+      "filesSize_other": "{{count}} datotek | {{size}}",
+      "readingWhatWasShared": "Branje skupno uporabljenih vsebin"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Napaka",
+      "worksWithoutAServer": "Deluje brez strežnika",
+      "accountSwitch": "Račun {{account}}, preklopi",
+      "search": "Iskanje",
+      "notificationsUnread": "Obvestila, {{unread}} neprebranih",
+      "notifications": "Obvestila",
+      "signedIn": "Prijavljen",
+      "signedOut": "Odjavljen",
+      "copyOnThis": "Kopiraj na ta {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Domov",
+      "hosts": "Gostitelji",
+      "sessions": "Seje",
+      "tools": "Orodja",
+      "settings": "Nastavitve",
+      "open": "{{label}}, {{count}} odprtih"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} odprtih"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Izberite gostitelja",
+      "searchHosts": "Išči gostitelje",
+      "clearSearch": "Počisti iskanje",
+      "noHostsMatch": "Ni ujemajočih se gostiteljev",
+      "noHostsCanUseThis": "Noben gostitelj tega ne more uporabiti",
+      "turnItOnForA": "Omogočite ga za gostitelja v urejevalniku gostiteljev."
+    },
+    "noToolsHereYet": "Tukaj še ni orodij",
+    "onAHost": "Na gostitelju",
+    "saved": "Shranjeno",
+    "fromYourServer": "S vašega strežnika"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Prekliči",
+      "delete": "Izbriši",
+      "confirm": "Potrdi"
+    },
+    "contextMenu": {
+      "closeMenu": "Zapri meni"
+    },
+    "inlineView": {
+      "back": "Nazaj"
+    },
+    "listRow": {
+      "moreActions": "Več dejanj"
+    },
+    "pinPad": {
+      "useBiometrics": "Uporabi biometrijo",
+      "delete": "Izbriši"
+    },
+    "popover": {
+      "close": "Zapri"
+    },
+    "promptSheet": {
+      "cancel": "Prekliči"
+    },
+    "sheet": {
+      "close": "Zapri"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Ta ključ je zaklenjen. Vnesite geslo.",
+      "thatPassphraseDoesnTOpen": "To geslo ne odklene tega ključa.",
+      "thisDoesnTLookLike": "To ne izgleda kot zasebni ključ.",
+      "loadedAndChangedItTo": "Naloženo {{name}} in spremenjeno v format OpenSSH",
+      "loadedItNeedsItsPassphrase": "Naloženo {{name}}. Za povezavo potrebuje geslo"
+    },
+    "ago": {
+      "justNow": "pravkar"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Gostiteljev ni bilo mogoče naložiti.",
+      "failedOn": "{{name}} je spodletelo na {{name2}}",
+      "on": "{{name}} na {{name2}}: {{value}}",
+      "ranOn": "Izvedeno {{name}} na {{name2}}",
+      "runOn": "Izvedi \"{{name}}\" na",
+      "runSnippet": "Izvedi odlomek",
+      "loadingHosts": "Nalaganje gostiteljev…",
+      "noHostsAvailable": "Ni na voljo gostiteljev",
+      "addAHostInTermix": "Dodajte gostitelja v Termix, da boste lahko izvajali odlomke s domačega zaslona.",
+      "lastUsed": "Zadnja uporaba",
+      "failedToRunSnippet": "Izvajanje odlomka je spodletelo"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Tega odlomka ni več.",
+      "couldNotOpenThatSnippet": "Tega odlomka ni bilo mogoče odpreti.",
+      "thatHostNoLongerExists": "Tega gostitelja ni več.",
+      "couldNotOpenThatHost": "Tega gostitelja ni bilo mogoče odpreti."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Domov"
+      },
+      "hosts": {
+        "hosts": "Gostitelji"
+      },
+      "sessions": {
+        "sessions": "Seje",
+        "connectToATermixServer": "Povežite se s strežnikom Termix, da odprete terminalne, tunelske in datotečne seje."
+      }
+    },
+    "layout": {
+      "initializing": "Inicializiranje …",
+      "cancel": "Prekliči"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Ta gostitelj nima veljavnega MAC naslova.",
+    "thisBuildCanTSend": "Ta različica ne more pošiljati paketov Wake-on-LAN.",
+    "couldNotSendThePacket": "Paketa ni bilo mogoče poslati. Preverite, ali je Wi-Fi vklopljen."
+  },
+  "common": {
+    "hostCount_one": "{{count}} gostitelj",
+    "hostCount_two": "{{count}} gostitelja",
+    "hostCount_few": "{{count}} gostitelji",
+    "hostCount_other": "{{count}} gostiteljev",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablica"
+    },
+    "thisDeviceLower": "ta {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Skupna raba",
+    "action": "Deli z drugimi",
+    "levels": {
+      "connect": "Poveži",
+      "view": "Ogled",
+      "edit": "Uredi",
+      "manage": "Upravljaj"
+    },
+    "levelHints": {
+      "connect": "Samo odpiranje sej. Nastavitve gostitelja ostanejo skrite.",
+      "view": "Povezava in ogled nastavitev gostitelja. Tajnosti se nikoli ne prikažejo.",
+      "edit": "Ogled in spreminjanje nastavitev, razen prijavnih podatkov.",
+      "manage": "Urejanje, skupna raba gostitelja ter spreminjanje ali odstranjevanje dostopa."
+    },
+    "until": "do {{date}}",
+    "sharedBy": "od {{name}}",
+    "couldNotLoad": "Ni bilo mogoče naložiti seznama uporabnikov z dostopom.",
+    "shared": "Gostitelj je skupen",
+    "couldNotShare": "Gostitelja ni bilo mogoče dati v skupno rabo.",
+    "updated": "Dostop je bil spremenjen",
+    "couldNotUpdate": "Dostopa ni bilo mogoče spremeniti.",
+    "removeTitle": "Ali želite odstraniti uporabnika {{name}}?",
+    "removeHint": "Ta uporabnik ne bo več lahko uporabljal tega gostitelja.",
+    "remove": "Odstrani",
+    "removed": "Dostop je bil odstranjen",
+    "couldNotRemove": "Dostopa ni bilo mogoče odstraniti.",
+    "whoHasAccess": "Kdo ima dostop",
+    "loading": "Nalaganje …",
+    "nobodyYet": "Ta gostitelj lahko uporablja samo vi.",
+    "changeAccessFor": "Spremeni dostop za uporabnika {{name}}",
+    "shareWith": "Deli z",
+    "users": "Uporabniki",
+    "roles": "Vloge",
+    "searchUsers": "Išči uporabnike",
+    "searchRoles": "Išči vloge",
+    "noUsers": "Ni drugih uporabnikov za skupno rabo.",
+    "noRoles": "Ni vlog za skupno rabo.",
+    "options": "Dostop",
+    "level": "Stopnja",
+    "expires": "Konča se",
+    "expiry": {
+      "never": "Nikoli",
+      "1h": "Čez 1 uro",
+      "1d": "Čez 1 dan",
+      "7d": "Čez 7 dni",
+      "30d": "Čez 30 dni"
+    },
+    "pickSomeone": "Izberite, s kom boste delili",
+    "shareCount_one": "Deli z {{count}}",
+    "shareCount_two": "Deli z {{count}}",
+    "shareCount_few": "Deli z {{count}}",
+    "shareCount_other": "Deli z {{count}}",
+    "removeAccess": "Odstrani dostop"
+  }
+}

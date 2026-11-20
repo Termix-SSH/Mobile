@@ -1,1 +1,3829 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Inloggen",
+      "addServer": "Server toevoegen",
+      "switchAccount": "Account wisselen",
+      "noServerConnected": "Geen server verbonden",
+      "connectToATermixServer": "Verbind met een Termix-server om je hosts, terminals, bestanden en meer te beheren."
+    },
+    "lockScreen": {
+      "cancel": "Annuleren",
+      "tooManyTriesWaitSeconds": "Te veel pogingen. Wacht {{value}} seconden",
+      "termixLocked": "Termix vergrendeld",
+      "enterYourPinToContinue": "Voer je PIN in om door te gaan"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranje",
+      "blue": "Blauw",
+      "green": "Groen",
+      "purple": "Paars",
+      "pink": "Roze",
+      "cyan": "Cyaan",
+      "red": "Rood",
+      "yellow": "Geel",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Roos",
+      "lime": "Limoen",
+      "system": "Systeem",
+      "light": "Licht",
+      "dark": "Donker"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "PIN gebruiken",
+      "unlockTermix": "Termix ontgrendelen",
+      "unlockTermixFirst": "Ontgrendel eerst Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Deze functie is op de server uitgeschakeld.",
+      "aTabWasNotReopened": "Een tabblad is niet opnieuw geopend omdat de host niet meer beschikbaar is",
+      "tabsWereNotReopenedBecause": "Er zijn {{count}} tabbladen niet opnieuw geopend omdat de hosts niet meer bestaan"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Koppel een Termix-server om dit te gebruiken",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Voer het adres van uw server in",
+        "theAddressCanTHave": "Het adres mag geen spaties bevatten",
+        "useAnHttpOrHttps": "Gebruik een http://- of https://-adres",
+        "thatDoesnTLookLike": "Dit lijkt niet op een serveradres",
+        "thePortMustBeFrom": "De poort moet tussen 1 en 65535 liggen"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Er werd een loginproxy in plaats van Termix gevonden. Meld u eerst aan bij de proxy.",
+        "theServerDidNotSend": "De server heeft geen token verzonden.",
+        "theServerDidNotSend2": "De server heeft geen sessie verzonden.",
+        "theServerSentNoSign": "De server heeft geen aanmeldadres verzonden.",
+        "theSignInRanOut": "De aanmeldlink is verlopen of al gebruikt. Meld je opnieuw aan.",
+        "wrongUsernameOrPassword": "Onjuiste gebruikersnaam of wachtwoord",
+        "signInFailedHttp": "Aanmelden mislukt (HTTP {{status}})",
+        "thePageSignedYouIn": "De pagina heeft je aangemeld, maar stuurde geen sessie terug. Werk de server bij naar Termix 26.11.3 of nieuwer.",
+        "thisAccountIsnTAllowed": "Met dit account is aanmelden hier niet toegestaan.",
+        "noTermixAccountMatchesThat": "Er komt geen Termix-account overeen met deze aanmelding."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Deze sessie heeft geen server"
+    },
+    "store": {
+      "noSuchAccount": "Dit account bestaat niet",
+      "thisDeviceCanTBe": "Dit apparaat kan niet worden verwijderd",
+      "switchToAnotherAccountFirst": "Schakel eerst over naar een ander account"
+    },
+    "types": {
+      "thisDevice": "Dit apparaat"
+    },
+    "accountSwitcher": {
+      "error": "Fout",
+      "worksWithoutAServer": "Werkt zonder server",
+      "couldNotSwitchAccount": "Kon niet wisselen van account",
+      "accounts": "Accounts",
+      "openTabsKeepRunningWhen": "Open tabbladen blijven actief bij het wisselen.",
+      "unlink": "{{account}} ontkoppelen",
+      "linkAServer": "Een server koppelen",
+      "eachServerKeepsItsOwn": "Elke server bewaart zijn eigen hosts, referenties en instellingen op dit{{deviceWord}}.",
+      "signedIn": "Aangemeld",
+      "signedOut": "Uitgelogd",
+      "syncedCopy": "Gesynchroniseerde kopie"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Kon de pin niet opslaan",
+      "theServerSKeyMatches": "De sleutel van de server komt overeen met de pin",
+      "theServerShowsAnotherKey": "De server toont een andere sleutel",
+      "pinThisKey": "Deze sleutel pinnen?",
+      "pinThisKey2": "Deze sleutel pinnen",
+      "keyPinned": "Sleutel gepind",
+      "couldNotReadTheServer": "Kon de sleutel van de server niet lezen",
+      "thatIsNotAPin": "Dat is geen pin",
+      "keysPinned": "Sleutels gepind",
+      "certificatePin": "Certificaatpin",
+      "trustThisServerOnlyBy": "Vertrouw deze server alleen op basis van zijn sleutel. Gebruik dit voor een zelfondertekend certificaat, of om elke andere sleutel te weigeren. Voeg de volgende sleutel toe voordat je het certificaat van de server wijzigt.",
+      "removePin": "Pin {{pin}} verwijderen",
+      "remove": "Verwijderen",
+      "readTheKeyFromThe": "Sleutel van de server lezen",
+      "orPasteAPin": "Of plak een pin",
+      "pin": "Pin",
+      "add": "Toevoegen",
+      "issuedTo": "Uitgegeven aan: {{subject}}",
+      "issuedBy": "Uitgegeven door: {{issuer}}",
+      "validUntil": "Geldig tot: {{value}}",
+      "checkThatThisKeyMatches": "Controleer of deze sleutel overeenkomt met die op je server voordat je hem pind.",
+      "pasteTheBase64Sha256Of": "Plak de base64 sha256 van de openbare sleutel van de server, zoals openssl die afdrukt."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy-instellingen opgeslagen",
+      "couldNotSaveTheProxy": "Kon de proxy-instellingen niet opslaan",
+      "couldNotReadThatFile": "Kon dat bestand niet lezen",
+      "certificateSaved": "Certificaat opgeslagen",
+      "theFileOrItsPassphrase": "Het bestand of de wachtzin is onjuist",
+      "couldNotSaveTheCertificate": "Kon het certificaat niet opslaan",
+      "headers": "Headers",
+      "sentWithEveryRequestTo": "Verzonden met elk verzoek naar deze server, zoals een Cloudflare-service-token.",
+      "name": "Naam",
+      "value": "Waarde",
+      "removeHeader": "Header verwijderen",
+      "addHeader": "Header toevoegen",
+      "cloudflareServiceToken": "Cloudflare-service-token",
+      "basicAuth": "Basisauthenticatie",
+      "forAProxyThatAsks": "Voor een proxy die om een gebruikersnaam en wachtwoord vraagt.",
+      "userName": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "saveHeadersAndBasicAuth": "Headers en basisauthenticatie opslaan",
+      "clientCertificate": "Clientcertificaat",
+      "forServersThatAskFor": "Voor servers die erom vragen (mTLS). De sleutel wordt bewaard in de beveiligde opslag van de {{deviceWord}} en kan niet worden uitgelezen.",
+      "certificate": "Certificaat",
+      "remove": "Verwijderen",
+      "replaceCertificate": "Certificaat vervangen",
+      "pickAP12OrPfx": "Kies een .p12- of .pfx-bestand",
+      "proxySignIn": "Proxy-aanmelden",
+      "thisIsSignedInTo": " Deze {{deviceWord}} is aangemeld bij de proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Voor Cloudflare Access, Authelia, Authentik en andere proxies met hun eigen aanmeldpagina.{{value}}",
+      "signInToTheProxy": "Aanmelden bij de proxy",
+      "forget": "Vergeten",
+      "certificatePassphrase": "Certificaatwachtzin",
+      "thePassphraseTheFileWas": "De wachtzin waarmee het bestand is opgeslagen. Laat dit leeg als er geen is.",
+      "passphrase": "Wachtzin",
+      "save": "Opslaan"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Aangemeld bij de proxy",
+      "couldNotSaveTheProxy": "Kon het proxy-aanmelden niet opslaan",
+      "signInToTheProxy": "Aanmelden bij de proxy",
+      "thisBuildOfTheApp": "Deze build van de app kan geen proxy-aanmelding behouden. Gebruik in plaats daarvan een servicetoken in de proxy-headers."
+    },
+    "savedLoginRow": {
+      "signIn": "Aanmelden",
+      "signInWith": "Aanmelden met {{name}}",
+      "whenThisServerSignsYou": "Wanneer deze server je uitlogt, meld je opnieuw aan zonder je wachtwoord in te typen."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Ontkoppeld. {{copied}} items zijn op Dit apparaat bewaard.",
+      "unlinked": "Ontkoppeld",
+      "couldNotUnlinkTheServer": "Kon de server niet ontkoppelen",
+      "unlink": "{{value}} ontkoppelen?",
+      "thisSignsOutOfThe": "Dit {{deviceWord}} logt uit bij de server. Er wordt niets verwijderd op de server.",
+      "keepACopyOnThis": "Een kopie bewaren op Dit apparaat",
+      "yourOwnHostsCredentialsAnd": "Je eigen hosts, referenties en snippets worden verplaatst naar Dit apparaat. Hosts die met je zijn gedeeld, worden niet bewaard.",
+      "deleteFromThis": "Verwijderen van dit {{deviceWord}}",
+      "everythingThisHasForThe": "Alles wat dit {{deviceWord}} heeft voor de server, wordt verwijderd."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Wijzig dit onder Proxy hieronder",
+      "updateTermixMobileFromYour": "Termix Mobile bijwerken vanuit je app store"
+    },
+    "savedLogin": {
+      "signInToTermix": "Aanmelden bij Termix",
+      "faceUnlock": "ontgrendelen met gezichtsherkenning"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Deze build kan de vastgezette sleutel van deze server niet controleren of het certificaat niet verzenden."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Deze server ondersteunt deze functie niet",
+      "theProxyWantsYouTo": "De proxy wil dat je je aanmeldt",
+      "endpointNotAvailableOnThis": "Eindpunt niet beschikbaar op deze server",
+      "unknownError": "Onbekende fout"
+    },
+    "errors": {
+      "theProxyInFrontOf": "De proxy voor deze server wil dat je je opnieuw aanmeldt.",
+      "authenticationRequiredPleaseLogIn": "Authenticatie vereist. Meld je opnieuw aan.",
+      "accessDeniedYouDoNot": "Toegang geweigerd. Je hebt geen toestemming om deze actie uit te voeren.",
+      "thisFeatureIsTurnedOff": "Deze functie is uitgeschakeld op de server.",
+      "thisServerDoesNotSupport": "Deze server ondersteunt deze functie niet.",
+      "resourceNotFoundTheRequested": "Bron niet gevonden. Het gevraagde item is mogelijk verwijderd.",
+      "conflictTheResourceAlreadyExists": "Conflict. De bron bestaat al of is in gebruik.",
+      "validationErrorPleaseCheckYour": "Validatiefout. Controleer je invoer en probeer het opnieuw.",
+      "serverErrorOccurredPleaseTry": "Er is een serverfout opgetreden. Probeer het later opnieuw.",
+      "sslCertificateVerificationFailed": "SSL-certificaatverificatie mislukt.",
+      "networkErrorPleaseCheckYour": "Netwerkfout. Controleer je verbinding en probeer het opnieuw.",
+      "failedTo": "{{operation}} is mislukt",
+      "unknownError": "Onbekende fout",
+      "unexpectedErrorDuring": "Onverwachte fout tijdens {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "De app kon HTTPS voor dit lokale IP-adres niet vertrouwen. Zet de sleutel van de server vast onder Proxy en clientcertificaat, gebruik een certificaat dat door het {{deviceWord}} wordt vertrouwd, of gebruik HTTP op een vertrouwd lokaal of VPN-netwerk.",
+        "thisServerIsBehindA": "Deze server staat achter een aanmeldproxy. Gebruik in plaats daarvan de externe aanmeldoptie.",
+        "loginFailed": "Aanmelden mislukt"
+      },
+      "files": {
+        "fileNotFound": "Bestand niet gevonden",
+        "fileWriteOperationDidNot": "Bestandschrijfoperatie gaf geen successtatus terug",
+        "couldNot": "Kon {{operation}} niet uitvoeren ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Host opgeslagen, maar sommige instellingen zijn mislukt: {{value}}",
+        "unexpectedHostResponseFrom": "Onverwacht hostantwoord van {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Live monster mislukt"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Geen antwoord"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Deze server toonde niet de sleutel waaraan hij is vastgezet, dus de pagina is niet geopend."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Die {{what}} bestaat niet meer.",
+      "aHostCannotBeIts": "Een host kan niet zijn eigen bovenliggende host zijn",
+      "parentHostNotFound": "Bovenliggende host niet gevonden",
+      "aHostCanTGo": "Een host kan niet onder een van zijn eigen sub-hosts worden geplaatst",
+      "thisIsSharedWithYou": "Deze {{what}} is met je gedeeld. Alleen de eigenaar kan deze wijzigen.",
+      "nameIsRequired": "Naam is verplicht",
+      "nameAndCommandAreRequired": "Naam en opdracht zijn verplicht",
+      "aFolderWithThatName": "Er bestaat al een map met die naam"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Dit apparaat kan {{what}} hier niet opslaan."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Deze snippet is met je gedeeld en kan niet worden gewijzigd."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Gebruik een wachtwoordzin met minimaal 8 tekens.",
+      "thisIsNotATermix": "Dit is geen Termix-backupbestand.",
+      "thisBackupIsFromA": "Deze backup is van een nieuwere versie van Termix. Werk de app eerst bij.",
+      "wrongPassphraseOrTheFile": "Verkeerde wachtzin, of het bestand is beschadigd."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Deze build kan lokale gegevens niet versleutelen."
+    },
+    "keys": {
+      "unlockTermixFirst": "Ontgrendel eerst Termix.",
+      "thatIsNotADatabase": "Dit is geen database-sleutel.",
+      "couldNotSaveTheDatabase": "De database-sleutel kon niet worden opgeslagen."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Deze gegevens zijn opgeslagen door een nieuwere versie van Termix. Werk de app bij om ze te openen."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Dit apparaat synchroniseert niet.",
+      "localDataIsNotAvailable": "Lokale gegevens zijn hier niet beschikbaar.",
+      "unlockTermixFirst": "Ontgrendel eerst Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Kan geen verbinding maken.",
+      "thisWayCanTRun": "Op deze manier kunnen geen opdrachten worden uitgevoerd"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-wachtwoord",
+      "password": "Wachtwoord",
+      "run": "Uitvoeren",
+      "thatPasswordWasWrong": "Dat wachtwoord was onjuist.",
+      "onNeedsRoot": "{{reason}} op {{hostName}} vereist root-toegang.",
+      "needsRootForThis": "{{hostName}} vereist root-toegang hiervoor.",
+      "itIsKeptUntilYou": "Het wordt bewaard tot je de app sluit."
+    },
+    "run": {
+      "theHostTookTooLong": "De host deed te lang over het antwoord",
+      "connectionLost": "Verbinding verbroken"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Dit vereist root. Meld je aan als root, stel sudo zonder wachtwoord in, of sla een sudo-wachtwoord op voor de host.",
+      "theSudoPasswordWasWrong": "Het sudo-wachtwoord was onjuist",
+      "commandFailed": "Opdracht mislukt"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet in de terminal vereist een verbinding vanaf het {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Functie {{id}} is al geregistreerd"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adres",
+      "theIpOrHostName": "Het IP-adres of de hostnaam onder de naam",
+      "username": "Gebruikersnaam",
+      "theUserBeforeTheAddress": "De gebruiker voor het adres",
+      "port": "Poort",
+      "thePortAfterTheAddress": "De poort na het adres",
+      "hostIcon": "Hostpictogram",
+      "theIconSetOnThe": "Het pictogram dat op de host is ingesteld",
+      "pinIcon": "Pictogram vastmaken",
+      "marksPinnedHosts": "Markeert vastgemaakte hosts",
+      "sharedBadge": "Gedeeld-badge",
+      "marksHostsSharedWithYou": "Markeert hosts die met jou zijn gedeeld",
+      "protocolBadges": "Protocolbadges",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker en andere chips",
+      "tags": "Labels",
+      "theHostSTags": "De labels van de host",
+      "cpuAndRam": "CPU en RAM",
+      "liveUsageBarsOnOnline": "Live-gebruiksbalken bij online hosts",
+      "statusColors": "Statuskleuren",
+      "greenBarWhenOnlineRed": "Groene balk bij online, rood bij offline"
+    },
+    "uiPrefs": {
+      "small": "Klein",
+      "default": "Standaard",
+      "large": "Groot",
+      "comfortable": "Comfortabel",
+      "compact": "Compact"
+    },
+    "errors": {
+      "somethingWentWrong": "Er ging iets mis"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Een sleutel vergrendelen met een wachtzin vereist de Termix-app, niet een webvoorbeeld."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Direct",
+      "after15Seconds": "Na 15 seconden",
+      "after1Minute": "Na 1 minuut",
+      "after5Minutes": "Na 5 minuten"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Het apparaatgeheim is weg",
+      "noSealedKey": "Geen verzegelde sleutel",
+      "theSealedKeyIsDamaged": "De verzegelde sleutel is beschadigd",
+      "wrongPin": "Verkeerde PIN",
+      "theSealedKeyDidNot": "De verzegelde sleutel kon niet worden geopend",
+      "biometricsCanTOpenThe": "Biometrie kan de sleutel niet openen"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "App bijwerken",
+      "onYourServerNeedsA": "{{name}} op je server heeft een nieuwere versie van Termix nodig op dit {{deviceWord}}.",
+      "updateThePlugin": "Plugin bijwerken",
+      "onYourServerIsToo": "{{name}} op je server is te oud voor deze app. Vraag een beheerder om het bij te werken in Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Geblokkeerd door de app",
+      "theAppDoesNotLet": "De app laat plugins niet toe om deze route te gebruiken.",
+      "thisBuildCanTReach": "Deze build kan deze server niet veilig bereiken."
+    },
+    "support": {
+      "needsANewerVersionOf": "Heeft een nieuwere versie van de app nodig",
+      "updateThePluginOnThe": "Plugin op de server bijwerken",
+      "theAppHasItsOwn": "De app heeft zijn eigen uitstraling",
+      "notInTheAppYet": "Nog niet in de app",
+      "linkAServerToUse": "Koppel een server om het te gebruiken",
+      "opensInTheAppFrom": "Opent in de app vanaf de server",
+      "runsOnTheServer": "Draait op de server",
+      "throughTheServer": "Via de server",
+      "inTheApp": "In de app",
+      "webView": "Webweergave",
+      "onTheServer": "Op de server",
+      "appLook": "App-uitstraling",
+      "notInTheApp": "Niet in de app",
+      "safeMode": "Veilige modus",
+      "notRunning": "Niet actief",
+      "notInstalled": "Niet geïnstalleerd",
+      "notOnThisServer": "Niet op deze server",
+      "thePluginIsNotInstalled": "De plugin is niet geïnstalleerd op deze server.",
+      "turnedOffOnTheServer": "Uitgeschakeld op de server",
+      "itOpensHereAgainWhen": "Het opent hier opnieuw wanneer een beheerder het inschakelt.",
+      "notRunningOnTheServer": "Niet actief op de server",
+      "theServerIsInSafe": "De server staat in veilige modus, dus alleen look-plugins draaien.",
+      "thePluginDidNotStart": "De plugin is niet gestart. Een beheerder kan dit controleren in Plugins.",
+      "thisPluginIsNotAvailable": "Deze plugin is niet beschikbaar",
+      "itIsNotMadeFor": "Het is niet gemaakt voor de app.",
+      "offOnThisServer": "uitgeschakeld op deze server",
+      "notRunningOnThisServer": "niet actief op deze server",
+      "notOnThisServer2": "niet op deze server",
+      "notInTheAppYet2": "Nog niet in de app | op deze server",
+      "worksOnThis": "Werkt op dit {{deviceWord}}",
+      "andServer": "{{DeviceWord}} en server",
+      "deviceOnly": "Alleen {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Herladen"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Alles verbroken",
+      "showOpenSessions": "Open sessies tonen",
+      "termixShowsANotificationWhile": "Termix toont een melding terwijl sessies open zijn, zodat Android ze op de achtergrond laat draaien.",
+      "sessionsOpen_one": "{{count}} sessie open",
+      "sessionsOpen_other": "{{count}} sessies open",
+      "tunnelsActive_one": "{{count}} tunnel actief",
+      "tunnelsActive_other": "{{count}} tunnels actief",
+      "notConnected": "Niet verbonden",
+      "waitingForNetwork": "Wachten op netwerk",
+      "connecting": "Verbinden",
+      "connected": "Verbonden",
+      "reconnecting": "Opnieuw verbinden",
+      "failed": "Mislukt",
+      "closed": "Gesloten"
+    },
+    "companionPane": {
+      "resizeThePanel": "De {{title}}-paneel aanpassen"
+    },
+    "connectionsPanel": {
+      "close": "Sluiten",
+      "closeAllTabs": "Alle {{count}} tabbladen sluiten?",
+      "everySessionEnds": "Elke sessie wordt beëindigd.",
+      "closeAll": "Alles sluiten",
+      "noActiveConnections": "Geen actieve verbindingen",
+      "pickAHostFromThe": "Selecteer een host uit de lijst om een sessie te starten. Tabbladen die je op andere apparaten opent, worden hier ook weergegeven.",
+      "connectToAHostTo": "Maak verbinding met een host om een sessie te starten. Tabbladen die je op andere apparaten opent, worden hier ook weergegeven.",
+      "open": "Openen",
+      "background": "Achtergrond",
+      "sessionsFromOtherDevicesOr": "Sessies van andere apparaten of tabbladen op de achtergrond. Tik om te hervatten.",
+      "liveTapToReconnect": "Actief, tik om opnieuw te verbinden",
+      "tapToReopen": "Tik om opnieuw te openen"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Dit is op de server uitgeschakeld",
+      "comesBackHereWhenAn": "{{title}} verschijnt hier weer als een beheerder de plugin opnieuw inschakelt.",
+      "closeTab": "Tabblad sluiten"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Verbindingen",
+        "hideHostList": "Hostlijst verbergen",
+        "showHostList": "Hostlijst tonen",
+        "backToHosts": "Terug naar hosts",
+        "showKeyboard": "Toetsenbord tonen",
+        "hideKeyboard": "Toetsenbord verbergen",
+        "hideKeysPanel": "Sleutelpaneel verbergen",
+        "showKeysPanel": "Sleutelpaneel tonen"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Tik voor tabbladopties, houd ingedrukt om te verplaatsen",
+        "holdToMove": "Houd ingedrukt om te verplaatsen",
+        "close": "{{title}} sluiten"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Wachten op netwerk",
+        "connectionFailed": "Verbinding mislukt",
+        "reconnecting": "Opnieuw verbinden"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Hernoemen",
+      "newTabOnThisHost": "Nieuw tabblad op deze host",
+      "here": "{{title}} hier",
+      "hidePanel": "{{title}}-paneel verbergen",
+      "showPanel": "{{title}}-paneel tonen",
+      "endSplitView": "Gesplitst weergave beëindigen",
+      "splitViewWith": "Gesplitst weergave met...",
+      "moveLeft": "Naar links verplaatsen",
+      "moveRight": "Naar rechts verplaatsen",
+      "closeTab": "Tabblad sluiten",
+      "closeAllTabs": "Alle tabbladen sluiten",
+      "closeAllTabs2": "Alle {{count}} tabbladen sluiten?",
+      "everySessionEnds": "Elke sessie wordt beëindigd.",
+      "closeAll": "Alles sluiten",
+      "splitViewWith2": "Gesplitst weergave met",
+      "renameTab": "Tabblad hernoemen",
+      "leaveItEmptyToUse": "Laat het leeg om de naam van de host te gebruiken."
+    },
+    "resizeHostList": "Grootte hostlijst aanpassen",
+    "resizeSplitView": "Grootte gesplitst weergave aanpassen",
+    "connections": "Verbindingen",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Tweefactorauthenticatie",
+        "enterThe6DigitCode": "Voer de 6-cijferige code in van je authenticator-app.",
+        "cancel": "Annuleren",
+        "verify": "Verifiëren",
+        "codeExpiresInSGet": "Code verloopt over {{totpCountdown}}s, vraag een nieuwe code aan",
+        "warpgateAuthentication": "Warpgate-authenticatie",
+        "confirmTheWarpgateAuthenticationUrl": "Bevestig de Warpgate-authenticatie-URL en de beveiligingssleutel.",
+        "authenticate": "Authenticeren",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Beveiligingssleutel (optioneel)",
+        "authenticationRequired": "Authenticatie vereist",
+        "thisHostNeedsCredentialsTo": "Voor deze host zijn inloggegevens nodig om verbinding te maken.",
+        "connect": "Verbinden",
+        "password": "Wachtwoord",
+        "sshKey": "SSH-sleutel",
+        "pastePrivateKey": "Plak privésleutel",
+        "keyPassphraseOptional": "Wachtwoord van sleutel (optioneel)"
+      },
+      "connectionError": {
+        "tryAgain": "Opnieuw proberen",
+        "close": "Sluiten",
+        "connectThroughTheServer": "Verbinden via de server",
+        "connectFromThis": "Verbinden vanaf dit {{deviceWord}}",
+        "triedFromThis": "Probeerde vanaf dit {{deviceWord}}",
+        "triedThroughTheServer": "Probeerde via de server"
+      },
+      "execGate": {
+        "connecting": "Verbinden..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Er ging iets mis",
+        "retry": "Opnieuw proberen",
+        "refresh": "Vernieuwen",
+        "nothingToShow": "Niets om weer te geven"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logs gekopieerd",
+        "connectionLog": "Verbindingslogboek ({{count}})",
+        "copyLog": "Logboek kopiëren",
+        "waitingForConnection": "Wachten op verbinding…",
+        "noLogEntries": "Geen logboekitems"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Kon niet opslaan hoe deze host verbinding maakt"
+      },
+      "useSessionConnect": {
+        "connected": "Verbonden",
+        "connectingTo": "Verbinden met {{name}}…",
+        "connectionLost": "Verbinding verbroken",
+        "failedToConnect": "Verbinden mislukt",
+        "invalidCode": "Ongeldige code",
+        "warpgateAuthenticationFailed": "Warpgate-authenticatie mislukt",
+        "authenticationCancelled": "Authenticatie geannuleerd"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Zoeken en opdrachten",
+    "addHost": "Host toevoegen",
+    "keyboardShortcuts": "Sneltoetsen",
+    "home": "Startpagina",
+    "hosts": "Hosts",
+    "sessions": "Sessies",
+    "tools": "Tools",
+    "settings": "Instellingen",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Sneltoetsen"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosts en mappen",
+      "yourHostsFoldersAndHosts": "Jouw hosts, mappen en hosts die met jou zijn gedeeld",
+      "credentials": "Aanmeldgegevens",
+      "savedPasswordsAndKeysAnd": "Opgeslagen wachtwoorden en sleutels, en aanmeldgegevens die met jou zijn gedeeld",
+      "snippets": "Snippets",
+      "snippetsAndTheirFolders": "Snippets en hun mappen",
+      "hostDefaults": "Standaardwaarden voor hosts",
+      "defaultSettingsForNewHosts": "Standaardinstellingen voor nieuwe hosts",
+      "preferences": "Voorkeuren",
+      "settingsThatFollowYouBetween": "Instellingen die je tussen apparaten volgen"
+    },
+    "link": {
+      "noSuchServerAccount": "Deze serveraccount bestaat niet",
+      "signInFirst": "Meld je eerst aan.",
+      "thisServerAccountBelongsTo": "Deze serveraccount behoort toe aan {{value}}. Meld je aan als die gebruiker, of voeg de server opnieuw toe voor deze gebruiker."
+    },
+    "reasons": {
+      "signedOut": "Afmelding",
+      "thisSSignInTo": "De aanmelding van dit {{deviceWord}} bij de server is verlopen.",
+      "theServerEndedThisS": "De server heeft de sessie van dit {{deviceWord}} beëindigd. Mogelijk ben je vanaf een ander apparaat afgemeld.",
+      "proxySignInNeeded": "Proxy-aanmelding vereist",
+      "theProxyInFrontOf": "De proxy voor deze server vraagt je om je opnieuw aan te melden.",
+      "proxyPasswordNeeded": "Proxy-wachtwoord vereist",
+      "theProxyInFrontOf2": "De proxy voor deze server vroeg om het wachtwoord.",
+      "certificateRefused": "Certificaat geweigerd",
+      "theServerDidNotAccept": "De server accepteert het certificaat van dit {{deviceWord}} niet.",
+      "untrustedServer": "Niet-vertrouwde server",
+      "theServerSCertificateIs": "Het certificaat van de server wordt niet vertrouwd door dit {{deviceWord}}.",
+      "serverKeyChanged": "Serverkey is gewijzigd",
+      "theServerShowsAnotherKey": "De server toont een andere key dan de vastgezette key. Als je het certificaat hebt gewijzigd, zet dan de nieuwe key vast.",
+      "offline": "Offline",
+      "canTReachTheServer": "Kan de server niet bereiken. Synchronisatie probeert het binnenkort opnieuw.",
+      "serverProblem": "Serverprobleem",
+      "theServerHadAProblem": "De server had een probleem. Synchronisatie probeert het binnenkort opnieuw.",
+      "updateNeeded": "Update vereist",
+      "thisServerUsesANewer": "Deze server gebruikt een nieuwere synchronisatieversie. Werk de app bij.",
+      "notATermixServer": "Geen Termix-server",
+      "theAddressDoesNotAnswer": "Het adres reageert niet zoals een Termix-server.",
+      "syncIsOff": "Synchronisatie is uitgeschakeld",
+      "theSyncPluginIsOff": "De Sync-plugin is op deze server uitgeschakeld. Vraag een beheerder om deze in te schakelen onder Plugins.",
+      "differentUser": "Andere gebruiker",
+      "youSignedInAsA": "Je bent ingelogd als een andere gebruiker dan waartoe dit serveraccount behoort.",
+      "syncStopped": "Synchronisatie gestopt",
+      "somethingWentWrong": "Er is iets misgegaan.",
+      "signInAgain": "Log opnieuw in",
+      "signInToTheProxy": "Log in bij de proxy",
+      "enterThePassword": "Voer het wachtwoord in",
+      "tryAgain": "Probeer opnieuw",
+      "checkThePin": "Controleer de pin",
+      "checkForUpdates": "Controleer op updates",
+      "pickACertificate": "Kies een certificaat"
+    },
+    "settings": {
+      "noSuchSetting": "Deze instelling bestaat niet",
+      "snippetFolder": "Snippetmap",
+      "hostDefault": "Hoststandaard"
+    },
+    "errors": {
+      "theServerDidNotAccept": "De server accepteert het certificaat van dit {{deviceWord}} niet.",
+      "theServerSCertificateIs": "Het certificaat van de server is niet vertrouwd.",
+      "canTReachTheServer": "Kan de server niet bereiken.",
+      "signedOut": "Uitgelogd",
+      "theProxyAskedForIts": "De proxy vraagt om het wachtwoord.",
+      "theProxyWantsYouTo": "De proxy wil dat je inlogt.",
+      "theSyncPluginIsOff": "De Sync-plugin is op deze server uitgeschakeld.",
+      "serverError": "Serverfout {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "De server toont een andere key dan de vastgezette key."
+    },
+    "remote": {
+      "thisIsNotATermix": "Dit is geen Termix-server.",
+      "theProxyWantsYouTo": "De proxy wil dat je inlogt.",
+      "thisServerUsesANewer": "Deze server gebruikt een nieuwere synchronisatieversie. Werk de app bij."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosts",
+      "credentialCount_one": "{{count}} referentie",
+      "credentialCount_other": "{{count}} referenties",
+      "snippetCount_one": "{{count}} snippet",
+      "snippetCount_other": "{{count}} snippets",
+      "folderCount_one": "{{count}} map",
+      "folderCount_other": "{{count}} mappen",
+      "nothingYet": "nog niets",
+      "listAnd": "{{list}} en {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Kan geen verbinding maken.",
+      "connectingToFromThis": "Verbinding maken met {{name}} vanaf dit {{deviceWord}}",
+      "connectingToThroughTheServer": "Verbinding maken met {{name}} via de server",
+      "reconnectingTry": "Opnieuw verbinden (poging {{retry}})",
+      "disconnected": "Verbinding verbroken",
+      "connected": "Verbonden",
+      "reconnectedToTheSameSession": "Opnieuw verbonden met dezelfde sessie",
+      "reconnectedWithANewShell": "Opnieuw verbonden met een nieuwe shell",
+      "couldNotReachTheHost": "Kon de host niet bereiken vanaf dit {{deviceWord}}, probeer via de server",
+      "couldNotConnectThroughThe": "Kon geen verbinding maken via de server, probeer vanaf dit {{deviceWord}}",
+      "connectionLost": "Verbinding verloren: {{reason}}",
+      "offlineWaitingForTheNetwork": "Offline, wachten op netwerk",
+      "nextTryInS": "Volgende poging over {{value}}s",
+      "reconnectingTry2": "Opnieuw verbinden (poging {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "De host reageert niet meer",
+      "networkLost": "Netwerk verloren",
+      "network": "Netwerk: {{type}}{{value}}",
+      "lowPowerModeOn": "Energiebesparingsmodus aan",
+      "lowPowerModeOff": "Energiebesparingsmodus uit",
+      "droppedTypedCharacters": "Gegooid {{count}} getypte tekens",
+      "youDidNotTrustThe": "Je hebt de hostkey niet vertrouwd.",
+      "checkTheKeyWithWhoever": "Controleer de key met degene die de host beheert en probeer het opnieuw.",
+      "loginCancelled": "Inloggen geannuleerd.",
+      "connectAgainWhenYouAre": "Verbind opnieuw als je klaar bent.",
+      "typedInputIsOver64": "Getypte invoer is groter dan 64 KB, het oudste deel is verwijderd",
+      "appInTheBackground": "App op de achtergrond",
+      "appInTheForeground": "App op de voorgrond",
+      "thisConnectionCanTRun": "Deze verbinding kan geen opdrachten uitvoeren"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Controleer het adres en de poort, en of de server de host kan bereiken.",
+      "checkTheAddressAndPort2": "Controleer het adres en de poort, en of deze {{deviceWord}} de host kan bereiken.",
+      "checkTheProxySettingsOf": "Controleer de proxy-instellingen van deze host.",
+      "checkTheKeyWithWhoever": "Controleer de key met degene die de host beheert voordat je hem vertrouwt.",
+      "checkTheUsernameAndLogin": "Controleer de gebruikersnaam en het inloggen in de host-editor.",
+      "checkThatTheServerIs": "Controleer of de server actief is en of je nog bent ingelogd.",
+      "tryAgainIfItKeeps": "Probeer het opnieuw. Als het blijft afbreken, controleer dan het netwerk.",
+      "connectAgainWhenYouAre": "Verbind opnieuw als je klaar bent.",
+      "pickAnotherWayToConnect": "Kies een andere manier om deze host te verbinden.",
+      "connectThisHostThroughA": "Verbind deze host via een Termix-server.",
+      "pickTheJumpHostsAgain": "Kies opnieuw de jump hosts in de host-editor.",
+      "thisIsATailscaleAddress": "Dit is een Tailscale-adres. Controleer of Tailscale op deze {{deviceWord}} is verbonden.",
+      "theSavedKeyCanT": "De opgeslagen key kan niet worden gelezen. Plak hem opnieuw in de host-editor.",
+      "signInToThisServer": "Log opnieuw in op deze server.",
+      "openThisHostInThe": "Open deze host in de Termix-webapp.",
+      "canTConnectThisWay": "Kan op deze manier niet verbinden",
+      "couldNotReachTheHost": "Kon de host niet bereiken",
+      "theProxyDidNotLet": "De proxy liet de verbinding niet door",
+      "theHostKeyWasNot": "De hostkey was niet vertrouwd",
+      "theLoginWasRefused": "Het inloggen werd geweigerd",
+      "theTermixServerDidNot": "De Termix-server reageerde niet",
+      "theConnectionDropped": "De verbinding werd verbroken",
+      "loginCancelled": "Inloggen geannuleerd"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agent",
+        "thisHostSignsInWith": "Deze host logt in met \"{{authType}}\", wat een Termix-server vereist. Koppel er een om te verbinden.",
+        "thisHostUsesA1password": "Deze host gebruikt een 1Password-referentie, wat een Termix-server met Secret Sources vereist. Koppel er een en verbind deze host via die server.",
+        "signInWithFirstOpen": "Log eerst in met {{title}}. Open eenmaal een terminal naar deze host en probeer het opnieuw.",
+        "theSignInAndThe": "het inloggen en het certificaat staan op de server",
+        "theHasNoSshAgent": "de {{deviceWord}} heeft geen SSH-agent",
+        "needsATermixServerBecause": "{{title}} vereist een Termix-server omdat {{why}}. Koppel er een en verbind deze host via die server."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Een jump host van deze host bestaat niet meer."
+      },
+      "localShell": {
+        "theConnectionWasCut": "De verbinding werd verbroken",
+        "theShellChannelClosed": "De shell-kanaal is gesloten",
+        "jumpHost": "Jump host {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Ongeldige code, probeer opnieuw:",
+        "authenticationFailed": "Authenticatie mislukt: {{message}}",
+        "theHostKeyWasNot": "De hostkey was niet vertrouwd.",
+        "loginCancelled": "Inloggen geannuleerd.",
+        "notConnected": "Niet verbonden"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "De verbinding werd verbroken"
+      },
+      "thisBuildHasNoSsh": "Deze build heeft geen SSH-engine. Gebruik de app uit de store of koppel een Termix-server om te verbinden.",
+      "theHostsOnThisAre": "De hosts op deze {{deviceWord}} zijn nog niet geopend.",
+      "thisServerSHostsAre": "De hosts van deze server staan niet op deze {{deviceWord}}. Schakel de Sync-plugin op de server in om vanaf de {{deviceWord}} te verbinden."
+    },
+    "origin": {
+      "canTConnect": "Kan niet verbinden.",
+      "canTConnectFromThe": "Kan vanaf deze {{deviceWord}} niet verbinden.",
+      "canTReachTheServer": "Kan de server niet bereiken.",
+      "theOnlyConnectsToSsh": "Deze {{deviceWord}} maakt alleen verbinding met SSH- en Telnet-hosts.",
+      "connectThisHostThroughThe": "Maak verbinding met deze host via de server",
+      "connectThisHostFromThe": "Maak verbinding met deze host vanaf de {{deviceWord}}",
+      "termixServer": "Termix-server",
+      "usesThisWhenItCan": "Gebruikt deze {{deviceWord}} als de host bereikbaar is, anders de server.",
+      "thisConnectsToTheHost": "Deze {{deviceWord}} maakt verbinding met de host zelf.",
+      "theTermixServerConnectsTo": "De Termix-server maakt namens jou verbinding met de host.",
+      "anSshConnection": "een SSH-verbinding",
+      "aTermixServer": "een Termix-server",
+      "aConnectionFromThe": "een verbinding vanaf de {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} is uitgeschakeld op deze server. {{how}} om het te gebruiken.",
+      "isOffOnThisServer2": "{{title}} is uitgeschakeld op deze server.",
+      "anotherWayToConnect": "een andere manier om verbinding te maken",
+      "needsToUseIt": "{{title}} heeft {{what}} nodig. {{how}} om het te gebruiken.",
+      "needsWhichThisHostCan": "{{title}} heeft {{what}} nodig, wat deze host op dit moment niet kan gebruiken.",
+      "thisDevice": "Deze {{deviceWord}}",
+      "automatic": "Automatisch"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Je bent uitgelogd bij deze server. Log in om via deze server verbinding te maken.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux is niet geïnstalleerd op deze host. Er wordt de standaardshell gebruikt.",
+        "tapRetryToBringIt": "Tik op Opnieuw proberen om het hier weer te tonen.",
+        "thisSessionWasOpenedOn": "Deze sessie is geopend op een ander apparaat",
+        "noServerUrlFoundLink": "Geen server-URL gevonden. Koppel de server opnieuw.",
+        "signedOutOfThisServer": "Uitgelogd bij deze server. Log opnieuw in.",
+        "signInWithInYour": "Log in met {{title}} in je browser. Dit venster sluit automatisch als het klaar is.",
+        "theSocketClosedWhileThe": "De socket is gesloten terwijl de app op de achtergrond stond",
+        "noWebsocketUrlAvailableServer": "Geen WebSocket-URL beschikbaar - server niet geconfigureerd",
+        "connectionTimeoutServerNotResponding": "Verbindingstijd verstreken - server reageert niet",
+        "verificationCode": "Verificatiecode:",
+        "hostKeyVerificationRequiredBut": "Hostkey-verificatie vereist, maar er is geen handler geregistreerd",
+        "hostKeyChangedButNo": "Hostkey is gewijzigd, maar er is geen handler geregistreerd",
+        "thisHostNeedsASign": "Deze host vereist een aanmelding die alleen door de webapp wordt ondersteund",
+        "invalidCodeTryAgain": "Ongeldige code, probeer het opnieuw:",
+        "unknownError": "Onbekende fout",
+        "connectionClosed": "Verbinding gesloten",
+        "connectionClosed2": "Verbinding gesloten ({{code}})",
+        "theServerClosedTheConnection": "De server heeft de verbinding gesloten",
+        "theSocketClosed": "De socket is gesloten ({{code}})",
+        "signIn": "{{title}}-aanmelding",
+        "signInFailed": "{{title}}-aanmelding mislukt",
+        "isNotSetUpOn": "{{title}} is niet ingesteld op de server",
+        "signInTimedOut": "{{title}}-aanmelding is verlopen",
+        "authenticationFailed": "Authenticatie mislukt: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Sla de host op en maak er verbinding mee om deze te controleren.",
+      "loggedInAsOn": "Ingelogd als {{username}} op {{host}}",
+      "theHostAskedForMore": "De host vroeg om meer dan alleen een wachtwoord, zoals een code. Sla de host op en maak verbinding om de aanmelding af te ronden."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Wachten op netwerk",
+      "couldNotOpenTheTunnel": "Kan de tunnel niet openen",
+      "theConnectionDropped": "De verbinding is verbroken",
+      "iosStoppedThisTunnelWhile": "iOS heeft deze tunnel gestopt terwijl de app op de achtergrond stond. Start hem opnieuw om hem te openen.",
+      "connecting": "Verbinden",
+      "connected": "Verbonden",
+      "retrying": "Opnieuw proberen",
+      "waiting": "Wachten",
+      "failed": "Mislukt"
+    },
+    "gateways": {
+      "error": "Fout",
+      "gateways": "Gateways",
+      "gatewaysCanOnlyBeChanged": "Gateways kunnen alleen worden gewijzigd in Termix op het web.",
+      "noHandshake": "Geen handshake",
+      "rulesMissing": "Regels ontbreken",
+      "up": "Actief",
+      "pending": "In afwachting",
+      "applying": "Toepassen",
+      "down": "Offline",
+      "unreachable": "Onbereikbaar"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Nog geen tunnels. Voeg er een toe om een poort van de eindhost naar deze host te forwarden.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Tunnel {{value}} verwijderen",
+      "mode": "Modus",
+      "local": "Lokaal",
+      "remote": "Extern",
+      "dynamic": "Dynamisch",
+      "targetHost": "Doelhost",
+      "onThisHostForTunnels": "Op deze host, voor tunnels die de {{deviceWord}} uitvoert",
+      "bindHost": "Bindhost",
+      "endpointHost": "Eindhost",
+      "addAnotherHostFirstTunnels": "Voeg eerst een andere host toe. Tunnels lopen via een opgeslagen host.",
+      "sourcePort": "Bronpoort",
+      "endpointPort": "Eindpoort",
+      "maxRetries": "Max. pogingen",
+      "retryEveryS": "Opnieuw proberen elke (s)",
+      "startOnItsOwn": "Automatisch starten",
+      "addTunnel": "Tunnel toevoegen",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} vereist poorten van 1 tot 65535"
+    },
+    "register": {
+      "tunnels": "Tunnels",
+      "startAndStopSavedTunnels": "Opgeslagen tunnels starten en stoppen",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokaal eindpunt gekopieerd",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Poorttoewijzing",
+      "connect": "Verbinden",
+      "disconnect": "Verbinding verbreken",
+      "cancel": "Annuleren",
+      "connected": "Verbonden",
+      "connecting": "Verbinden",
+      "disconnecting": "Verbinding verbreken",
+      "error": "Fout",
+      "retrying": "Opnieuw proberen ({{value}}/{{value2}})",
+      "waitingS": "Wachten {{value}}s",
+      "waiting": "Wachten",
+      "disconnected": "Verbinding verbroken"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Tunnel starten op poort {{sourcePort}}",
+      "connectingTunnelOnPort": "Tunnel verbinden op poort {{sourcePort}}",
+      "disconnectingPort": "Verbinding verbreken met poort {{sourcePort}}",
+      "cancellingPort": "Poort {{sourcePort}} annuleren",
+      "failedToTunnel": "{{action}}en van tunnel mislukt",
+      "tunnels": "Tunnels | {{count}} | {{value}}",
+      "loadingTunnels": "Tunnels laden…",
+      "noSshTunnelsConfiguredFor": "Geen SSH-tunnels geconfigureerd voor deze host. Voeg tunnels toe via het hostformulier.",
+      "runOn": "Uitvoeren op",
+      "server": "Server",
+      "this": "Deze {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunnels op deze {{deviceWord}} stoppen wanneer de app wordt gesloten. Op iOS stoppen ze ook kort nadat de app op de achtergrond gaat.",
+      "failedToFetchTunnelStatuses": "Ophalen van tunnelstatussen mislukt",
+      "thisBuildCanTOpen": "Deze build kan geen tunnels openen op de {{deviceWord}}.",
+      "sourceHostNotFound": "Bronhost niet gevonden",
+      "endpointHostNotFound": "Eindhost niet gevonden: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnels",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunnels",
+      "runningOnServer": "{{connected}} actief op server"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Aanmeldingshulpmiddelen"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker is niet geïnstalleerd op deze host.",
+        "dockerDidNotAnswer": "Docker reageert niet",
+        "thatIsNotAValid": "Dit is geen geldige stacknaam"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stoppen",
+      "start": "Starten",
+      "restart": "Herstarten",
+      "remove": "Verwijderen",
+      "logs": "Logboeken",
+      "stats": "Statistieken",
+      "console": "Console",
+      "logsCopied": "Logboeken gekopieerd",
+      "copy": "Kopiëren",
+      "containerIsNotRunningNo": "De container draait niet, er zijn geen live statistieken beschikbaar.",
+      "cpu": "CPU",
+      "memory": "Geheugen",
+      "networkIO": "Netwerk I/O",
+      "blockIO": "Block I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Logboeken konden niet worden geladen",
+      "failedToLoadStats": "Statistieken konden niet worden geladen",
+      "noOutput": "(geen uitvoer)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Verbinding maken met Docker...",
+    "remove": "{{name}} verwijderen?",
+    "stop": "{{name}} stoppen?",
+    "theContainerIsStoppedAnd": "De container is gestopt en verwijderd. De volumes blijven behouden.",
+    "anythingRunningInItStops": "Alles wat erin draait, wordt gestopt.",
+    "remove2": "Verwijderen",
+    "stop2": "Stoppen",
+    "dockerThis": "Docker | deze {{deviceWord}}",
+    "lookingForDocker": "Op zoek naar Docker...",
+    "dockerIsNotAvailableOn": "Docker is niet beschikbaar op deze host.",
+    "noContainersFound": "Geen containers gevonden",
+    "noContainersMatchYourFilters": "Geen containers die overeenkomen met uw filters",
+    "useSudo": "Sudo gebruiken",
+    "refresh": "Vernieuwen",
+    "containers": "Containers",
+    "stacks": "Stacks",
+    "searchContainers": "Zoeken in containers...",
+    "all": "Alles",
+    "running": "Actief",
+    "stopped": "Gestopt",
+    "start": "Starten",
+    "restart": "Herstarten",
+    "pause": "Pauzeren",
+    "unpause": "Hervatten",
+    "moreActions": "Meer acties",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker reageert niet",
+      "docker": "Docker",
+      "noContainers": "Geen containers"
+    },
+    "dockerConsole": {
+      "attachingTo": "Verbinding maken met {{name}}...",
+      "consoleDisconnected": "Console verbinding verbroken",
+      "reconnect": "Opnieuw verbinden",
+      "failedToLoadTheConsole": "Console kon niet worden geladen",
+      "thisSessionHasNoServer": "Deze sessie heeft geen server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Containers, logboeken en statistieken"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stacks zijn uitgeschakeld op deze server.",
+      "couldNotLoadStacks": "Stacks konden niet worden geladen",
+      "noStacks": "Geen stacks",
+      "composeProjectsOnThisHost": "Compose-projecten op deze host worden hier weergegeven.",
+      "ofRunning": "{{running}} van {{total}} actief",
+      "couldNotLoadTheStack": "De stack kon niet worden geladen",
+      "services": "Diensten",
+      "nothingIsRunning": "Er draait niets.",
+      "composeFile": "Compose-bestand",
+      "partlyUp": "gedeeltelijk actief",
+      "notDeployed": "niet geïmplementeerd",
+      "running": "actief",
+      "stopped": "gestopt",
+      "paused": "gepauzeerd"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Dit is geen geldige container-id",
+      "consoleFailed": "Console mislukt",
+      "notAuthenticated": "Niet geverifieerd",
+      "consoleError": "Consolefout",
+      "connectionFailed": "Verbinding mislukt"
+    },
+    "dockerDidNotAnswer": "Docker reageerde niet",
+    "failedToLoadContainers": "Het laden van containers is mislukt",
+    "failedTo": "{{action}} is mislukt"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "De server stuurde geen bestand",
+        "cancelled": "Geannuleerd",
+        "isGone": "{{path}} bestaat niet meer",
+        "canTGoToThe": "{{name}} kan niet naar de prullenbak"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Ongeldige prullenbak-item-id",
+        "invalidTrashMetadata": "Ongeldige prullenbak-metadata",
+        "thisPathCanTBe": "Dit pad kan niet naar de prullenbak worden verplaatst",
+        "aFileAlreadyExistsAt": "Er bestaat al een bestand op het oorspronkelijke pad"
+      },
+      "sftp": {
+        "commandFailed": "Opdracht mislukt: {{command}}",
+        "alreadyExists": "{{name}} bestaat al",
+        "alreadyExistsThere": "{{path}} bestaat daar al",
+        "canTGoToThe": "{{name}} kan niet naar de prullenbak: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "De terminal is niet langer open",
+      "clearHistory": "Geschiedenis wissen",
+      "stopFollowingTheTerminal": "Terminal niet meer volgen",
+      "followTheTerminal": "Terminal volgen",
+      "goToTheTerminalS": "Ga naar de map van de terminal",
+      "cdTheTerminalHere": "cd de terminal hierheen",
+      "folderHistory": "Mapgeschiedenis",
+      "mostUsedFirstThenRecent": "Meest gebruikt eerst, dan recent",
+      "noFoldersYet": "Nog geen mappen"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Kan geen verbinding maken.",
+        "couldNotSaveHowThis": "De verbinding van deze host kon niet worden opgeslagen",
+        "thisWayCanTOpen": "Op deze manier kunnen geen bestanden worden geopend"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Deze map kon niet worden geopend",
+      "cancel": "Annuleren",
+      "noFoldersHere": "Geen mappen hier"
+    },
+    "couldNotOpenThisFolder": "Deze map kon niet worden geopend",
+    "couldNotSaveToThe": "Kon niet opslaan in de map",
+    "failed": "{{label}} is mislukt",
+    "uploading": "{{name}} uploaden",
+    "uploadingFiles": "{{count}} bestanden uploaden",
+    "downloadingToFilesOnMy": "Downloaden naar Bestanden, Op mijn iPhone, Termix",
+    "downloading": "{{name}} downloaden",
+    "downloadingFiles": "{{count}} bestanden downloaden",
+    "openALargeFile": "Een groot bestand openen?",
+    "isBigForAEditor": "{{name}} is groot voor een {{deviceWord}}-editor. Het kan traag zijn.",
+    "open": "Openen",
+    "thisLooksLikeABinary": "Dit lijkt op een binair bestand",
+    "openItInAnotherApp": "In een andere app openen?",
+    "openWith": "Openen met",
+    "tooBigForTheEditor": "Te groot voor de editor",
+    "isOver10MbDownload": "{{name}} is groter dan 10 MB. Wil je het in plaats daarvan downloaden?",
+    "download": "Downloaden",
+    "delete": "{{what}} verwijderen?",
+    "moveToTheTrash": "{{what}} naar de prullenbak verplaatsen?",
+    "thisCanTBeUndone": "Dit kan niet ongedaan worden gemaakt.",
+    "youCanRestoreItFrom": "Je kunt het herstellen uit de prullenbak.",
+    "delete2": "Verwijderen",
+    "moveToTrash": "Naar prullenbak verplaatsen",
+    "deleteForGood": "Definitief verwijderen?",
+    "deleteItForGoodInstead": "{{message}}. Wil je het in plaats daarvan definitief verwijderen? Dit kan niet ongedaan worden gemaakt.",
+    "deleteFailed": "Verwijderen mislukt",
+    "connectingThroughTheServer": "Verbinding maken via de server...",
+    "connectingFromThis": "Verbinding maken vanaf dit {{deviceWord}}...",
+    "connecting": "Verbinding maken...",
+    "edit": "Bewerken",
+    "downloadFolder": "Map downloaden",
+    "share": "Delen",
+    "rename": "Hernoemen",
+    "copyTo": "Kopiëren naar",
+    "moveTo": "Verplaatsen naar",
+    "cut": "Knippen",
+    "copy": "Kopiëren",
+    "permissions": "Machtigingen",
+    "properties": "Eigenschappen",
+    "makeALinkHere": "Link hier maken",
+    "copyPath": "Pad kopiëren",
+    "pathCopied": "Pad gekopieerd",
+    "done": "Klaar",
+    "selectAll": "Alles selecteren",
+    "filterByName": "Filteren op naam",
+    "closeSearch": "Zoeken sluiten",
+    "search": "Zoeken",
+    "changeSort": "Sortering wijzigen",
+    "paste": "Plakken {{count}}",
+    "upload": "Uploaden",
+    "transfers2": "Overdrachten",
+    "more": "Meer",
+    "nothingMatches": "Niets komt overeen",
+    "emptyFolder": "Lege map",
+    "uploadFilesOrMakeA": "Upload bestanden of maak er een nieuwe aan.",
+    "newFolder": "Nieuwe map",
+    "newFile": "Nieuw bestand",
+    "select": "Selecteren",
+    "hideHiddenFiles": "Verborgen bestanden verbergen",
+    "showHiddenFiles": "Verborgen bestanden tonen",
+    "trash": "Prullenbak",
+    "folderProperties": "Mapeigenschappen",
+    "refresh": "Vernieuwen",
+    "rename2": "{{name}} hernoemen",
+    "newLink": "Nieuwe link",
+    "aLinkInThatPoints": "Een link in {{path}} die verwijst naar {{path2}}",
+    "name": "Naam",
+    "create": "Aanmaken",
+    "copyHere": "Hierheen kopiëren",
+    "moveHere": "Hierheen verplaatsen",
+    "fileViewer": {
+      "saved": "{{name}} opgeslagen",
+      "couldNotSaveTheFile": "Kon het bestand niet opslaan",
+      "discardChanges": "Wijzigingen negeren?",
+      "hasChangesThatAreNot": "{{name}} heeft wijzigingen die niet zijn opgeslagen.",
+      "discard": "Verwijderen",
+      "readOnly": "{{path}} | alleen-lezen",
+      "find": "Zoeken",
+      "smallerText": "Kleinere tekst",
+      "biggerText": "Grotere tekst",
+      "turnOffLineWrap": "Regelomloop uitschakelen",
+      "wrapLines": "Regels omvouwen",
+      "save": "Opslaan"
+    },
+    "hostSection": {
+      "startIn": "Starten in",
+      "theFolderTheFileManager": "De map die de bestandsbeheerder eerst opent",
+      "files": "Bestanden"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Ga naar {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Meer acties",
+        "moreFor": "Meer voor {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Machtigingen",
+      "cancel": "Annuleren",
+      "apply": "Toepassen ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Kon het niet openen",
+      "openWith": "Openen met",
+      "share": "Delen"
+    },
+    "propertiesView": {
+      "properties": "Eigenschappen",
+      "path": "Pad",
+      "type": "Type",
+      "pointsTo": "Verwijst naar",
+      "size": "Grootte",
+      "countFolderSize": "Mapgrootte berekenen",
+      "permissions": "Machtigingen",
+      "change": "Wijzigen",
+      "owner": "Eigenaar",
+      "group": "Groep",
+      "modified": "Gewijzigd",
+      "opened": "Geopend",
+      "linkToA": "Koppeling naar een {{value}}",
+      "notShownForFolders": "Niet weergegeven voor mappen",
+      "file": "Bestand",
+      "folder": "Map",
+      "link": "Koppeling"
+    },
+    "register": {
+      "fileManager": "Bestandsbeheerder",
+      "files": "Bestanden",
+      "browseEditAndMoveFiles": "Bladeren, bewerken en verplaatsen van bestanden",
+      "files2": "BESTANDEN",
+      "fileManagerAndTransfers": "Bestandsbeheerder en overdrachten"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Overdracht mislukt"
+      },
+      "transfersPanel": {
+        "pause": "Pauzeren",
+        "resume": "Hervatten",
+        "tryAgain": "Opnieuw proberen",
+        "open": "Openen",
+        "cancel": "Annuleren",
+        "transfers": "Overdrachten",
+        "goingOf": "{{active}} bezig | {{done}} van {{total}}",
+        "clearFinished": "Voltooide wissen",
+        "cancelAll": "Alles annuleren",
+        "noTransfersYet": "Nog geen overdrachten",
+        "waiting": "Wachten",
+        "paused": "Gepauzeerd",
+        "done": "Klaar",
+        "failed": "Mislukt",
+        "cancelled": "Geannuleerd"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Prullenbak laden mislukt",
+      "restored": "Restored {{name}}",
+      "failedToRestore": "Herstel mislukt",
+      "failedToDelete": "Verwijderen mislukt",
+      "trashEmptied": "Prullenbak geleegd",
+      "failedToEmptyTrash": "Prullenbak leegmaken mislukt",
+      "trash": "Prullenbak",
+      "itemsAreRemovedAfterDays": "Items worden na {{retentionDays}} dagen verwijderd",
+      "close": "Sluiten",
+      "emptyTrash": "Prullenbak legen",
+      "trashIsEmpty": "Prullenbak is leeg",
+      "restore": "Herstel {{name}}",
+      "deleteForGood": "Verwijder {{name}} definitief"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Zojuist"
+      }
+    },
+    "getting": "Ophalen van {{name}}",
+    "itemCount_one": "{{count}} item",
+    "itemCount_other": "{{count}} items",
+    "copiedWhat": "Gekopieerd: {{what}}",
+    "movedWhat": "Verplaatst: {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} bevat meer dan {{limit}} bestanden. Download kleinere mappen."
+    },
+    "downloadingToFilesOnMyIpad": "Downloaden naar Bestanden, Op mijn iPad, Termix",
+    "size": "Grootte",
+    "date": "Datum"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Servicelinks",
+      "openInHomepage": "Openen in Homepage",
+      "thisWidgetOnlyShowsOn": "Deze widget wordt alleen op de volledige pagina weergegeven."
+    },
+    "register": {
+      "serviceLinks": "Servicelinks",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Geen feed ingesteld.",
+        "couldNotLoadTheFeed": "De feed kan niet worden geladen.",
+        "theFeedIsEmpty": "De feed is leeg.",
+        "noLocationSet": "Geen locatie ingesteld.",
+        "couldNotLoadTheWeather": "Het weer kan niet worden geladen.",
+        "noUrlSet": "Geen URL ingesteld.",
+        "couldNotLoadTheData": "De gegevens kunnen niet worden geladen.",
+        "noPictureSet": "Geen afbeelding ingesteld.",
+        "badResponse": "foutieve respons"
+      },
+      "services": "Services",
+      "service": "Service",
+      "serviceLinks": "Servicelinks",
+      "bookmarks": "Bladwijzers",
+      "links2": "Links",
+      "search": "Zoeken",
+      "clock": "Klok",
+      "countdown": "Aftellen",
+      "calendar": "Agenda",
+      "notes": "Notities",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hosts",
+      "quickConnect": "Snel verbinden",
+      "feed": "Feed",
+      "weather": "Weer",
+      "customApi": "Aangepaste API",
+      "picture": "Afbeelding",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Nog geen services.",
+        "noLinkSet": "Geen link ingesteld.",
+        "noLinksYet": "Nog geen links.",
+        "noSearchEngineSet": "Geen zoekmachine ingesteld.",
+        "search": "Zoeken",
+        "noShortcutsYet": "Nog geen snelkoppelingen.",
+        "search2": "Zoeken in {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "De link kon niet worden geopend"
+      },
+      "status": {
+        "noUrlsYet": "Nog geen URL's.",
+        "down": "Buiten bereik",
+        "noHostsPicked": "Geen hosts geselecteerd."
+      },
+      "text": {
+        "noNotesYet": "Nog geen notities.",
+        "noTextYet": "Nog geen tekst."
+      },
+      "time": {
+        "noDateSet": "Geen datum ingesteld.",
+        "timeIsUp": "De tijd is om"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "De standaardinstelling kon niet worden opgeslagen",
+    "couldNotResetTheDefault": "De standaardinstelling kon niet worden hersteld",
+    "back": "Terug",
+    "hostDefaults": "Standaardinstellingen voor hosts",
+    "newHostsStartFromThese": "Nieuwe hosts beginnen met deze instellingen",
+    "managedOnTheServer": "Beheerd op de server",
+    "defaultsForThisServerAre": "De standaardinstellingen voor deze server worden ingesteld in de webapp.",
+    "level": "Niveau",
+    "yourDefaultsOrOneFolder": "Jouw instellingen, of die van één map",
+    "myDefaults": "Mijn instellingen",
+    "theServerSets": " De server stelt {{adminCount}} in.",
+    "aFolderWinsOverYour": "Een map heeft voorrang op jouw instellingen, en jouw instellingen hebben voorrang op die van de server. Een host behoudt elke waarde die je er zelf aan hebt toegekend.{{value}}",
+    "save": "Opslaan",
+    "authentication": "Authenticatie",
+    "none": "Geen",
+    "reset": "Herstellen",
+    "model": {
+      "username": "Gebruikersnaam",
+      "sshPort": "SSH-poort",
+      "authentication": "Authenticatie",
+      "aSavedCredentialForNew": "Een opgeslagen referentie voor nieuwe hosts",
+      "forceKeyboardInteractive": "Keyboard-interactive forceren",
+      "keepaliveInterval": "Keepalive-interval",
+      "seconds0TurnsItOff": "Seconden, 0 schakelt het uit",
+      "keepaliveTries": "Keepalive-pogingen",
+      "allowOldAlgorithms": "Oude algoritmen toestaan",
+      "agentForwarding": "Agent-forwarding",
+      "environmentVariables": "Omgevingsvariabelen",
+      "oneNameValuePerLine": "Eén NAAM=waarde per regel",
+      "checkIfTheHostIs": "Controleren of de host bereikbaar is",
+      "checkInterval": "Controle-interval",
+      "secondsEmptyUsesTheServer": "Seconden, leeg laat de serverinstelling gebruiken",
+      "socks5Proxy": "SOCKS5-proxy",
+      "setInTheWebApp": "Ingesteld in de webapp",
+      "jumpHosts": "Jump hosts",
+      "portKnocking": "Port knocking",
+      "notSet": "Niet ingesteld",
+      "fromTheServer": "Van de server",
+      "fromYourDefaults": "Van jouw instellingen",
+      "builtIn": "Ingebouwd"
+    },
+    "register": {
+      "hostDefaults": "Standaardinstellingen voor hosts",
+      "portUserAndOptionsFor": "Poort, gebruiker en opties voor nieuwe hosts"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Nog geen gegevens",
+      "cpu": "CPU",
+      "memory": "Geheugen",
+      "disk": "Schijf",
+      "history": "Geschiedenis",
+      "loading": "Laden..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "De metingen konden niet worden gelezen",
+      "metrics": "Metingen",
+      "cpu": "CPU",
+      "memory": "Geheugen",
+      "disk": "Schijf",
+      "noRecentSampleOpenThe": "Geen recente meting. Open de metingen van de host om een meting te starten."
+    },
+    "register": {
+      "enableMetrics": "Metingen inschakelen",
+      "cpuMemoryDiskAndNetwork": "CPU, geheugen, schijf en netwerk via SSH",
+      "hostMetrics": "Hostmetingen",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metingen",
+      "cpuMemoryDiskAndNetwork2": "CPU, geheugen, schijf en netwerk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Hostmetingen | deze {{deviceWord}}",
+      "hostMetrics": "Hostmetingen",
+      "ran": "{{name}} uitgevoerd",
+      "loadingMetrics": "Metingen laden...",
+      "couldNotReadMetricsFrom": "Kon metingen van deze host niet lezen",
+      "failedToLoadMetrics": "Metingen laden mislukt",
+      "thisSessionHasNoServer": "Deze sessie heeft geen server",
+      "twoFactorRequiredForThis": "Tweefactorauthenticatie vereist voor de statistieken van deze host.",
+      "failedToStartMetrics": "Metingen starten mislukt",
+      "failedToRun": "Uitvoeren van {{name}} mislukt"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per core: {{value}}",
+        "cores": "Kernen",
+        "load": "Belasting",
+        "user": "Gebruiker",
+        "system": "Systeem",
+        "ioWait": "IO-wachttijd",
+        "steal": "Gestolen"
+      },
+      "diskWidget": {
+        "disk": "Schijf {{mount}}",
+        "disk2": "Schijf",
+        "used": "Gebruikt",
+        "total": "Totaal",
+        "free": "Vrij"
+      },
+      "firewallWidget": {
+        "firewall": "Firewall",
+        "rules": "{{type}} | {{ruleCount}} regels",
+        "noFirewallDetected": "Geen firewall gedetecteerd"
+      },
+      "gpuWidget": {
+        "gpus": "GPU's ({{count}})",
+        "gpu": "GPU",
+        "memory": "Geheugen",
+        "temp": "Temp",
+        "power": "Vermogen",
+        "fan": "Ventilator"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Inlogactiviteit",
+        "noLoginActivityRecorded": "Geen inlogactiviteit geregistreerd",
+        "logins": "Inlogpogingen",
+        "uniqueIps": "Unieke IP-adressen",
+        "failed": "Mislukt",
+        "recent": "Recent"
+      },
+      "memoryWidget": {
+        "memory": "Geheugen",
+        "used": "Gebruikt",
+        "total": "Totaal",
+        "cached": "Gecached",
+        "free": "Vrij"
+      },
+      "networkWidget": {
+        "network": "Netwerk",
+        "noInterfaces": "Geen interfaces",
+        "up": "Omhoog",
+        "down": "Omlaag"
+      },
+      "portsWidget": {
+        "listeningPorts": "Luisterende poorten",
+        "noListeningPorts": "Geen luisterende poorten"
+      },
+      "processesWidget": {
+        "sortBy": "Sorteren op {{label}}",
+        "processes": "Processen",
+        "running": "{{value}} actief | {{total}}",
+        "noProcessData": "Geen procesgegevens",
+        "cpu": "CPU%",
+        "mem": "GEHEUGEN%",
+        "command": "OPDRACHT"
+      },
+      "systemWidget": {
+        "system": "Systeem",
+        "hostname": "Hostnaam",
+        "os": "Besturingssysteem",
+        "kernel": "Kernel",
+        "arch": "Architectuur",
+        "noSystemInfo": "Geen systeeminfo"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatuur"
+      },
+      "uptimeWidget": {
+        "uptime": "Uptime"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Gekopieerd met wachtwoord",
+      "copiedTheLink": "Link gekopieerd",
+      "shareHost": "Host delen",
+      "thatHostNoLongerExists": "Deze host bestaat niet meer",
+      "scanThisInTermixOn": "Scan dit in Termix op een ander {{deviceWord}}, onder Importeren en exporteren. De code bevat het adres, de poort en de gebruiker. Hij bevat geen wachtwoord of sleutel.",
+      "copyLink": "Link kopiëren",
+      "copyLinkWithPassword": "Link met wachtwoord kopiëren"
+    },
+    "includePasswordsAndKeys": "Wachtwoorden en sleutels opnemen?",
+    "anyoneWhoGetsThisFile": "Iedereen die dit bestand krijgt, kan zich aanmelden bij deze hosts. Bewaar het veilig.",
+    "includeThem": "Opnemen",
+    "pickAtLeastOneHost": "Selecteer minimaal één host",
+    "couldNotMakeTheFile": "Kon het bestand niet maken",
+    "copiedToTheClipboard": "Gekopieerd naar het klembord",
+    "importAndExport": "Importeren en exporteren",
+    "moveHostsInAndOut": "Hosts importeren en exporteren",
+    "import": "Importeren",
+    "aTermixHostFileAn": "Een Termix-hostbestand, een SSH-configuratiebestand of een hostlink of QR-code van een ander {{deviceWord}}.",
+    "export": "Exporteren",
+    "allHosts": "Alle hosts",
+    "picked": "{{size}} geselecteerd",
+    "pickHosts": "Hosts selecteren",
+    "includePasswordsAndKeys2": "Wachtwoorden en sleutels opnemen",
+    "offMakesAFileSafe": "Uitgeschakeld maakt een bestand veilig om te delen. Hosts die een opgeslagen referentie gebruiken, verwijzen ernaar met de naam",
+    "shareAFile": "Bestand delen",
+    "copy": "Kopiëren",
+    "importPanel": {
+      "couldNotReadThat": "Kon dit niet lezen",
+      "couldNotReadThatFile": "Kon dat bestand niet lezen",
+      "importFailed": "Importeren mislukt",
+      "chooseAFile": "Kies een bestand",
+      "paste": "Plakken",
+      "scanACode": "Code scannen",
+      "couldNotBeRead": "{{count}} kon niet worden gelezen",
+      "updateHostsThatExist": "Bestaande hosts bijwerken",
+      "sameAddressPortAndUser": "Zelfde adres, poort en gebruiker. Anders worden ze overgeslagen",
+      "cancel": "Annuleren",
+      "import": "Importeren",
+      "andMore": "en {{value}} meer"
+    },
+    "qrCode": {
+      "qrCode": "QR-code"
+    },
+    "register": {
+      "importAndExport": "Importeren en exporteren",
+      "moveHostsInOrOut": "Hosts importeren of exporteren met een bestand of QR-code",
+      "shareHost": "Host delen"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Hostcode scannen",
+      "pointTheCameraAtA": "Richt de camera op een Termix-host QR-code.",
+      "termixNeedsTheCameraTo": "Termix heeft de camera nodig om een code te scannen. Er wordt niets opgenomen.",
+      "allowTheCamera": "Camera toestaan"
+    },
+    "read": {
+      "termixFile": "Termix-bestand",
+      "sshConfig": "SSH-configuratie",
+      "thereIsNothingToImport": "Er is niets om te importeren",
+      "thatIsNotATermix": "Dit is geen Termix-hostlink",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_one": "{{what}} met {{count}} host",
+      "sourceHosts_other": "{{what}} met {{count}} hosts"
+    },
+    "saveYourTermixHosts": "Sla je Termix-hosts op"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Klaar",
+      "rejected": "Geweigerd",
+      "approvals": "Goedkeuringen",
+      "nothingIsWaiting": "Er wacht niets",
+      "actionsARuleHoldsFor": "Acties die goedkeuring vereisen volgens een regel, worden hier getoond.",
+      "approveAndRun": "Goedkeuren en uitvoeren",
+      "reject": "Weigeren",
+      "couldNotLoadApprovals": "Kon goedkeuringen niet laden",
+      "couldNotDecide": "Kon geen beslissing nemen"
+    },
+    "approvalsCard": {
+      "approved": "Goedgekeurd",
+      "rejected": "Geweigerd",
+      "waitingForApproval": "In afwachting van goedkeuring",
+      "approve": "Goedkeuren",
+      "reject": "Weigeren",
+      "couldNotDecide": "Kon geen beslissing nemen",
+      "seeAll": "Alles bekijken"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Dit kan niet ongedaan worden gemaakt. Uitvoeren?",
+      "run": "Uitvoeren",
+      "sentForApproval": "Verzonden voor goedkeuring",
+      "target": "Doel",
+      "theItemOnTheHost": "Het item op de host, zoals een container",
+      "dryRun": "Proefrun",
+      "back": "Terug",
+      "actions": "Acties",
+      "noActionsForThisHost": "Geen acties voor deze host",
+      "turnOnAPluginLike": "Schakel een plug-in in zoals Docker of Services voor deze host op de server.",
+      "destructive": "Verwoestend",
+      "changes": "Wijzigingen",
+      "theActionCouldNotRun": "De actie kon niet worden uitgevoerd",
+      "couldNotLoadActions": "Kon acties niet laden"
+    },
+    "register": {
+      "actions": "Acties",
+      "waitingForApproval": "In afwachting van goedkeuring",
+      "approvals": "Goedkeuringen",
+      "actionsWaitingForAPerson": "Acties die wachten op een persoon die ja zegt",
+      "runHistory": "Uitvoeringsgeschiedenis",
+      "everyActionAnyoneRanFrom": "Elke actie die iemand heeft uitgevoerd, vanaf elk apparaat"
+    },
+    "runHistory": {
+      "cancelThisRun": "Deze uitvoering annuleren?",
+      "cancelRun": "Uitvoering annuleren",
+      "keep": "Behouden",
+      "undoThisRun": "Deze uitvoering ongedaan maken?",
+      "thisRunsTheActionS": "Dit voert de ongedaanmaking van de actie uit met dezelfde invoer.",
+      "undo": "Ongedaan maken",
+      "cancelled": "Geannuleerd",
+      "itAlreadyFinished": "Het is al afgerond",
+      "done": "Klaar",
+      "runHistory": "Uitvoeringsgeschiedenis",
+      "nothingHasRunYet": "Er is nog niets uitgevoerd",
+      "dryRun": "Proefrun",
+      "cancel": "Annuleren",
+      "couldNotLoadHistory": "Kon geschiedenis niet laden",
+      "couldNotCancel": "Kon niet annuleren",
+      "couldNotUndo": "Kon niet ongedaan maken"
+    },
+    "api": {
+      "needsApproval": "Vereist goedkeuring",
+      "needsSignIn": "Vereist inloggen",
+      "done": "Klaar",
+      "failed": "Mislukt",
+      "running": "Bezig",
+      "interrupted": "Onderbroken",
+      "rejected": "Geweigerd",
+      "cancelled": "Geannuleerd",
+      "expired": "Verlopen"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "{{value}} inschakelen",
+      "moreSettingsForThisAre": "Meer instellingen hiervoor staan in de Termix webapp.",
+      "pluginHostSettings": "Instellingen voor pluginhost"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} moet een getal zijn",
+      "mustBeAtLeast": "{{field}} moet minimaal {{min}} zijn",
+      "mustBeAtMost": "{{field}} moet maximaal {{max}} zijn"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Koppel een server om deze te gebruiken",
+      "runsOnYourTermixServer": "{{name}} draait op je Termix-server."
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}} kan niet worden geladen",
+      "theServerDidNotSend": "De server heeft de plugin niet verzonden. Controleer of deze is ingeschakeld en probeer het opnieuw.",
+      "openThisLink": "Deze link openen?",
+      "open": "Openen",
+      "needsANewerVersionOf": "Een nieuwere versie van de app vereist",
+      "usesPartsOfTermixThis": "{{name}} gebruikt onderdelen van Termix die deze app nog niet heeft.",
+      "didNotStart": "{{name}} is niet gestart",
+      "thisScreenIsNotIn": "Dit scherm zit niet in de versie van de plugin op de server.",
+      "thePluginHitAnError": "De plugin is bij het starten op een foutuitgang gestuit.",
+      "youReOffline": "Je bent offline",
+      "runsOnYourServerSo": "{{name}} draait op je server, dus heeft een verbinding nodig. Het opent opnieuw als je weer online bent.",
+      "tryAgain": "Opnieuw proberen"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Die host staat nog niet op dit {{deviceWord}}.",
+      "theAppCanTOpen": "De app kan dit hier niet openen.",
+      "thatHostIsNotOn2": "Die host staat nog niet op dit {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Wachtwoord",
+      "unchangedIfBlank": "Ongewijzigd als leeg",
+      "port": "Poort",
+      "domain": "Domein",
+      "displaySoundAndClipboardSettings": "Instellingen voor scherm, geluid en klembord staan in de Termix webapp.",
+      "portMustBeFrom1": "{{label}}-poort moet tussen 1 en 65535 liggen"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "De verbinding met de remote desktop is verbroken",
+        "signIn": "Inloggen op {{label}}",
+        "itWillNotBeSaved": "{{error}} Dit wordt niet opgeslagen.",
+        "enterTheLoginForIt": "Voer de inloggegevens in voor {{title}}. Deze worden niet opgeslagen.",
+        "reconnecting": "Opnieuw verbinden met {{label}}",
+        "connecting": "Verbinden met {{label}}",
+        "connectionFailed": "Verbinding mislukt",
+        "disconnected": "Verbinding verbroken",
+        "reconnect": "Opnieuw verbinden",
+        "connectThroughTheServer": "Verbinden via de server",
+        "pasteToRemote": "Plakken op remote",
+        "typeClipboard": "Klembord typen",
+        "copyRemoteClipboard": "Remote klembord kopiëren",
+        "theComputerSCertificateWas": "Het certificaat van de computer werd niet vertrouwd.",
+        "thatLoginWasRefusedTry": "Deze inloggegevens zijn geweigerd. Probeer het opnieuw."
+      },
+      "target": {
+        "trustThisComputer": "Deze computer vertrouwen?",
+        "theCanTCheckS": "Het {{deviceWord}} kan het certificaat van {{hostName}} niet controleren. Zorg ervoor dat deze vingerafdruk overeenkomt met die op de computer voordat je doorgaat.\n\n{{fingerprint}}",
+        "trustAndConnect": "Vertrouwen en verbinden",
+        "certificateChanged": "Certificaat gewijzigd",
+        "showsAnotherCertificateThanLast": "{{hostName}} toont een ander certificaat dan de vorige keer. Dit gebeurt als de computer een nieuw certificaat heeft aangemaakt, of als iemand tussendoor luistert.\n\nNieuwe vingerafdruk:\n{{fingerprint}}",
+        "trustTheNewOne": "De nieuwe vertrouwen"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Remote Desktop",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Klaar",
+      "keyboard": "Toetsenbord",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Instellingen",
+      "remoteSettings": "Externe instellingen",
+      "mouseMode": "Muismodus",
+      "touch": "Touch",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Tik waar je wilt klikken. Houd ingedrukt voor rechtermuisknop, sleep om te slepen.",
+      "dragToMoveThePointer": "Sleep om de aanwijzer te verplaatsen. Tik om te klikken, tik met twee vingers voor rechtermuisknop, tik en sleep om te slepen.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Knijp overal om te zoomen",
+      "reset": "Resetten",
+      "cancel": "Annuleren",
+      "connect": "Verbinden",
+      "username": "Gebruikersnaam",
+      "domainOptional": "Domein (optioneel)",
+      "domain": "Domein",
+      "password": "Wachtwoord",
+      "leftArrow": "Linker pijl",
+      "upArrow": "Bovenste pijl",
+      "downArrow": "Onderste pijl",
+      "rightArrow": "Rechter pijl",
+      "rdpSignIn": "RDP-aanmelden"
+    },
+    "theRemoteDesktopDropped": "De externe bureaubladverbinding is verbroken",
+    "theyWillNotBeSaved": "{{errorMessage}} Ze worden niet opgeslagen.",
+    "enterCredentialsForTheyWill": "Voer inloggegevens in voor {{title}}. Ze worden niet opgeslagen.",
+    "connecting": "Verbinden",
+    "connectionFailed": "Verbinding mislukt",
+    "disconnected": "Verbinding verbroken",
+    "reconnect": "Opnieuw verbinden",
+    "route": {
+      "thisHostCanTOpen": "Deze host kan hier geen extern bureaublad openen."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Geblokkeerd door de app"
+    },
+    "failedToStartRemoteSession": "Kan externe sessie niet starten",
+    "thatLoginWasRefusedTry": "Deze aanmelding is geweigerd. Probeer het opnieuw.",
+    "theRemoteRefusedTheSaved": "De externe server weigerde de opgeslagen aanmeldgegevens. Controleer de RDP-aanmelding op deze host.",
+    "remoteSessionFailed": "Externe sessie mislukt",
+    "remoteSessionReturnedAnInvalid": "Externe sessie gaf een ongeldig bericht terug",
+    "failedToLoadTheRemote": "Kan de externe bureaubladclient niet laden"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Geen logboek",
+      "thisHostDoesNotKeep": "Deze host bewaart geen systemd-logboek.",
+      "all": "Alles",
+      "warnings": "Waarschuwingen",
+      "errors": "Fouten",
+      "stop": "Stoppen",
+      "follow": "Volgen",
+      "nothingLogged": "Niets gelogd",
+      "tryAnotherLevel": "Probeer een ander niveau.",
+      "couldNotReadTheJournal": "Kan het logboek niet lezen"
+    },
+    "register": {
+      "services": "Diensten",
+      "startStopAndReadLogs": "Starten, stoppen en logs lezen"
+    },
+    "readingServices": "Diensten worden gelezen...",
+    "thisHostHasNoSystemd": "Deze host heeft geen systemd of OpenRC.",
+    "noServicesMatch": "Geen diensten gevonden die overeenkomen",
+    "noServicesFound": "Geen diensten gevonden",
+    "services": "Diensten",
+    "journal": "Logboek",
+    "searchServices": "Diensten zoeken...",
+    "all": "Alles",
+    "running": "Actief",
+    "failed": "Mislukt ({{failed}})",
+    "failed2": "Mislukt",
+    "servicesCard": {
+      "services": "Diensten",
+      "noSystemdOrOpenrc": "Geen systemd of OpenRC",
+      "failed": "{{failed}} mislukt",
+      "allRunning": "Alles actief",
+      "couldNotReadServices": "Kon diensten niet lezen"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Het blijft gestopt totdat het opnieuw wordt gestart of de host opstart.",
+      "itStopsForAMoment": "Het stopt kort en start opnieuw.",
+      "stop": "Stoppen",
+      "restart": "Herstarten",
+      "is": "{{name}} is {{state}}",
+      "start": "Starten",
+      "journal": "Logboek",
+      "couldNotReadTheService": "Kon de dienst niet lezen",
+      "couldNot": "Kon {{name}} niet {{action}}",
+      "startsAtBoot": "Start bij opstarten",
+      "mainPid": "Hoofd-PID",
+      "activeSince": "Actief sinds",
+      "unitFile": "Unit-bestand",
+      "notSet": "[niet ingesteld]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Niet aangemeld",
+        "followFailed": "Volgen mislukt",
+        "connectionFailed": "Verbinding mislukt"
+      }
+    },
+    "couldNotReadServices": "Kon diensten niet lezen",
+    "services2": "Diensten{{where}}",
+    "title": "Diensten",
+    "failedCount": "{{count}} mislukt"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sessiedeling",
+      "shareLink": "Link delen"
+    },
+    "shareSessionView": {
+      "canWatch": "Kan bekijken",
+      "canType": "Kan typen",
+      "n1Hour": "1 uur",
+      "n8Hours": "8 uur",
+      "n1Day": "1 dag",
+      "n7Days": "7 dagen",
+      "never": "Nooit",
+      "shareSession": "Sessie delen",
+      "anyoneWithTheLinkCan": "Iedereen met de link kan deze terminal openen terwijl deze actief is. Je kunt links in Termix intrekken.",
+      "peopleWithTheLink": "Mensen met de link",
+      "expiresAfter": "Verloopt na",
+      "link": "Link",
+      "copy": "Kopiëren",
+      "share": "Delen",
+      "makeLink": "Link maken",
+      "theServerGaveNoLink": "De server gaf geen link",
+      "couldNotMakeALink": "Kon geen link maken",
+      "linkCopied": "Link gekopieerd"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Geen map"
+    },
+    "hostPicker": {
+      "selectNone": "Niets selecteren",
+      "selectAll": "Alles selecteren",
+      "done": "Klaar"
+    },
+    "register": {
+      "snippets": "Codefragmenten",
+      "snippets2": "CODEFRAGMENTEN",
+      "savedCommandsToRunOn": "Opgeslagen opdrachten om op elke host uit te voeren"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Er is geen manier om vanaf hier deze host te bereiken",
+      "exitedWith": "Afgesloten met {{exitCode}}",
+      "thisCanTRunIt": "Deze {{deviceWord}} kan dit niet uitvoeren",
+      "noServerIsLinked": "Er is geen server gekoppeld"
+    },
+    "runOnHostsSheet": {
+      "run": "Uitvoeren",
+      "run2": "\"{{name}}\" uitvoeren",
+      "runsOverSshOnEach": "Wordt via SSH op elke host uitgevoerd. Er wordt geen terminal geopend.",
+      "close": "Sluiten",
+      "hosts": "Hosts",
+      "pickHosts": "Hosts kiezen",
+      "workedFailed": "{{value}} geslaagd, {{failed}} mislukt",
+      "runOn2": "Uitvoeren op",
+      "runOn_one": "{{name}} op {{count}} host uitvoeren?",
+      "runOn_other": "{{name}} op {{count}} hosts uitvoeren?",
+      "hostsPicked_one": "{{count}} host geselecteerd",
+      "hostsPicked_other": "{{count}} hosts geselecteerd"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Zoeken in codefragmenten",
+      "pastesTheNote": "Plakt de notitie",
+      "runsTheSnippet": "Voert het codefragment uit",
+      "noSnippetsMatch": "Geen overeenkomende codefragmenten",
+      "noSnippetsYet": "Nog geen codefragmenten",
+      "addSnippetsInSettingsSnippets": "Voeg codefragmenten toe in Instellingen, Codefragmenten",
+      "run": "Uitvoeren",
+      "insertWithoutRunning": "Invoegen zonder uit te voeren",
+      "copy": "Kopiëren"
+    },
+    "snippetsCard": {
+      "snippets": "Codefragmenten",
+      "run": "{{name}} uitvoeren"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Er zijn geen codefragmenten om te exporteren",
+      "couldNotMakeTheFile": "Het bestand kon niet worden aangemaakt",
+      "copiedToTheClipboard": "Gekopieerd naar het klembord",
+      "couldNotImport": "Importeren mislukt",
+      "couldNotReadThatFile": "Dat bestand kon niet worden gelezen",
+      "importAndExport": "Importeren en exporteren",
+      "theSameFileTheWeb": "Hetzelfde bestand dat de webapp gebruikt.",
+      "export": "Exporteren",
+      "shareAFile": "Een bestand delen",
+      "copy": "Kopiëren",
+      "import": "Importeren",
+      "updateSnippetsThatExist": "Bestaande codefragmenten bijwerken",
+      "sameNameInTheSame": "Zelfde naam in dezelfde map. Anders worden ze overgeslagen",
+      "chooseAFile": "Een bestand kiezen",
+      "paste": "Plakken",
+      "saveYourSnippets": "Je codefragmenten opslaan"
+    },
+    "useSnippetRunner": {
+      "run": "{{name}} uitvoeren?",
+      "run2": "Uitvoeren",
+      "fillInTheValuesFor": "Vul de waarden in voor dit codefragment.",
+      "cancel": "Annuleren",
+      "insert": "Invoegen",
+      "noTerminalIsOpen": "Er is geen terminal geopend"
+    },
+    "variables": {
+      "input": "Invoer {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Dit is geen geldig JSON-bestand",
+      "theFileNeedsASnippets": "Het bestand moet een lijst met codefragmenten of mappen bevatten",
+      "snippetNameAndContentAre": "Codefragment {{value}}: naam en inhoud zijn verplicht",
+      "folder": "Map {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale-apparaten laden…",
+      "searchTailscaleDevices": "Zoeken in Tailscale-apparaten…",
+      "searchTailscaleDevices2": "Tailscale-apparaten zoeken",
+      "clearDeviceSearch": "Zoekopdracht voor apparaten wissen",
+      "refreshTailscaleDevices": "Tailscale-apparaten vernieuwen",
+      "device": "Apparaat",
+      "noTailnetAddress": "Geen tailnet-adres",
+      "tailscaleDevice": "Tailscale-apparaat",
+      "tailscaleDevices": "Tailscale-apparaten",
+      "addAHostThatConnects": "Voeg een host toe die verbinding maakt via Tailscale SSH.",
+      "username": "Gebruikersnaam",
+      "sshUsernameFor": "SSH-gebruikersnaam voor {{value}}",
+      "addHost": "Host toevoegen",
+      "noTailscaleDevicesMatchYour": "Geen Tailscale-apparaten gevonden die overeenkomen met uw zoekopdracht.",
+      "noTailscaleDevicesFound": "Geen Tailscale-apparaten gevonden.",
+      "noTailscaleApiKeyIs": "Er is geen Tailscale API-sleutel geconfigureerd op deze server. Vraag een beheerder om er een toe te voegen.",
+      "youDoNotHavePermission": "U heeft geen toestemming om Tailscale-apparaten op te vragen.",
+      "couldNotLoadTailscaleDevices": "Kon Tailscale-apparaten niet laden. Vernieuw om het opnieuw te proberen.",
+      "tailscaleIsUnavailableOnThis": "Tailscale is niet beschikbaar op deze server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Opnieuw verbinden | poging {{attempt}}",
+      "reconnectingInSTry": "Opnieuw verbinden over {{secs}}s | poging {{attempt}}",
+      "offlineWaitingForNetwork": "Offline, wachten op netwerk",
+      "sendToTheNewShell": "{{what}} naar de nieuwe shell sturen?",
+      "reconnectNow": "Nu opnieuw verbinden",
+      "send": "Verzenden",
+      "discard": "Verwijderen",
+      "typedChars_one": "{{count}} getypt teken",
+      "typedChars_other": "{{count}} getypte tekens",
+      "waiting": "{{what}} wacht"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Verbindingslogboek gekopieerd",
+      "connectionLog": "Verbindingslogboek",
+      "copyItIntoABug": "Kopieer dit in een bugrapport. Adressen en gebruikersnamen zijn weggelaten.",
+      "copy": "Kopiëren"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Geschiedenis voor deze host wissen?",
+        "clear": "Wissen",
+        "searchHistory": "Geschiedenis doorzoeken",
+        "typesTheCommandWithoutRunning": "Typ het commando zonder het uit te voeren",
+        "noCommandsMatch": "Geen commando's gevonden",
+        "noHistoryYet": "Nog geen geschiedenis",
+        "commandsYouRunOnThis": "Commando's die u op deze host uitvoert, worden hier weergegeven",
+        "run": "Uitvoeren",
+        "typeWithoutRunning": "Typen zonder uit te voeren",
+        "copy": "Kopiëren",
+        "delete": "Verwijderen",
+        "historyCleared": "Geschiedenis gewist"
+      },
+      "suggestionStrip": {
+        "use": "{{command}} gebruiken"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "App-instelling",
+      "delete": "Verwijderen (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Tabbladtitel van de shell",
+      "programsCanSetTheTab": "Programma's kunnen de tabbladtitel instellen",
+      "openTmux": "tmux openen",
+      "attachToATmuxSession": "Verbinden met een tmux-sessie, of een nieuwe starten",
+      "reconnectOnDrop": "Opnieuw verbinden bij verlies van verbinding",
+      "keepTabOpenOnExit": "Tabblad open houden bij afsluiten",
+      "pressEnterToConnectAgain": "Druk op Enter om opnieuw te verbinden",
+      "saveCommandHistory": "Commandogeschiedenis opslaan",
+      "offerToFillPasswordPrompts": "Aanbieden om wachtwoordvragen in te vullen",
+      "offerToFillSudoPrompts": "Aanbieden om sudo-vragen in te vullen",
+      "usesTheSudoPasswordFrom": "Gebruikt het sudo-wachtwoord van het SSH-tabblad",
+      "none": "Geen",
+      "look": "Uiterlijk",
+      "theme": "Thema",
+      "font": "Lettertype",
+      "cursor": "Cursor",
+      "bell": "Bel",
+      "scrollbackLines": "Scrollback-regels",
+      "app": "App",
+      "behavior": "Gedrag",
+      "backspaceSends": "Backspace verzendt",
+      "startupSnippet": "Startopdracht",
+      "runsOnceTheShellIs": "Wordt uitgevoerd zodra de shell klaar is",
+      "fillWithoutAsking": "Invullen zonder te vragen",
+      "onThisOnlyOnceYou": "Alleen op dit {{deviceWord}}, nadat je Altijd invullen hebt gekozen",
+      "connection": "Verbinding",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Seconden tussen pings, 0 schakelt dit uit",
+      "default": "Standaard",
+      "keepaliveSeconds": "Keepalive-seconden",
+      "missedPings": "Gemiste pings",
+      "dropTheConnectionAfterThis": "Verbinding verbreken na deze hoeveelheid niet-beantwoorde pings",
+      "missedPingsBeforeDrop": "Gemiste pings voor verbreken",
+      "environment": "Omgeving",
+      "removeVariable": "Variabele verwijderen",
+      "addVariable": "Variabele toevoegen"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TOETSENBOORD"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rij",
+        "keys": "Toetsen",
+        "sendsAKeyCode": "Verzendt een toetscode",
+        "stickyModifier": "Sticky-modifier",
+        "appAction": "App-actie",
+        "tmuxPrefixThen": "tmux-voorvoegsel, dan {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Toetsenrijen",
+        "onlyFor": "Alleen voor {{name}}",
+        "usingTheAppSRows": "Gebruik de rijen van de app. Wijzigingen hier zijn alleen voor {{name}}",
+        "useTheAppSRows": "Gebruik de rijen van de app"
+      },
+      "keyButton": {
+        "locked": "Vergrendeld"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Annuleren",
+        "remove": "{{what}} verwijderen?",
+        "remove2": "Verwijderen",
+        "dragToReorder": "Slepen om te herschikken",
+        "rowName": "Rijnaam",
+        "groupName": "Groepsnaam",
+        "add": "Toevoegen",
+        "addKey": "Toets toevoegen",
+        "addRow": "Rij toevoegen",
+        "addGroup": "Groep toevoegen",
+        "tmuxPrefix": "tmux-voorvoegsel",
+        "name": "Naam",
+        "rename": "Hernoemen",
+        "keys": "{{value}} toetsen",
+        "noKeys": "Geen toetsen",
+        "remove3": "{{label}} verwijderen",
+        "keys2": "Toetsen",
+        "custom": "Aangepast",
+        "add2": "{{label}} toevoegen",
+        "typeText": "Tekst typen",
+        "runCommand": "Opdracht uitvoeren",
+        "ctrlKey": "Ctrl-toets",
+        "label": "Label",
+        "optional": "Optioneel",
+        "letter": "Letter",
+        "command": "Opdracht",
+        "text": "Tekst",
+        "resetToDefault": "Terugzetten naar standaard"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Wijzig toetsen in Instellingen, Toetsenbord"
+      },
+      "keyRowBar": {
+        "keyRow": "Toetsenrij {{label}}",
+        "tapForTheNextRow": "Tik voor de volgende rij, houd ingedrukt om er een te kiezen",
+        "keyRows": "Toetsenrijen"
+      },
+      "model": {
+        "clear": "Wissen",
+        "main": "Hoofd",
+        "keys": "Toetsen",
+        "arrows": "Pijltjes",
+        "symbols": "Symbolen",
+        "actions": "Acties",
+        "nav": "Navigatie",
+        "move": "Verplaatsen",
+        "function": "Functie",
+        "brackets": "Haken",
+        "punctuation": "Leestekens",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Vensters",
+        "copy": "Kopiëren",
+        "split": "Splitsen ─",
+        "split2": "Splitsen │",
+        "newWin": "Nieuw venster",
+        "prevWin": "Vorig venster",
+        "nextWin": "Volgend venster",
+        "pane": "Venster ←",
+        "pane2": "Venster ↓",
+        "pane3": "Venster ↑",
+        "pane4": "Venster →",
+        "copyMode": "Kopieermodus",
+        "pasteBuf": "Klembord plakken",
+        "killPane": "Venster sluiten"
+      }
+    },
+    "output": {
+      "openLink": "Link openen?",
+      "open": "Openen",
+      "pasteLines": "Plakken van {{lines}} regels?",
+      "pasteThisText": "Deze tekst plakken?",
+      "theShellMayRunIt": "De shell kan deze direct uitvoeren.\n\n{{text}}",
+      "paste": "Plakken",
+      "letTheProgramReadYour": "Het programma toegang geven tot je klembord?",
+      "itAskedForWhatYou": "Het vraagt om wat je het laatst hebt gekopieerd.",
+      "allow": "Toestaan",
+      "letTheProgramCopyTo": "Het programma toestaan om naar je klembord te kopiëren?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Het opgeslagen wachtwoord invullen?",
+      "asksForTheSudoPassword": "{{hostName}} vraagt om het sudo-wachtwoord.",
+      "asksForAPassword": "{{hostName}} vraagt om een wachtwoord.",
+      "fillPassword": "Wachtwoord invullen",
+      "alwaysFillOnThisHost": "Altijd invullen op deze host",
+      "asksNoMoreOnThis": "Vraagt niet meer op dit {{deviceWord}}. Schakel dit uit in het tabblad Terminal van de host.",
+      "notNow": "Niet nu"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal en keepalive",
+      "history": "GESCHIEDENIS",
+      "find": "Zoeken",
+      "tmuxWindows": "tmux-vensters",
+      "connectionLog": "Verbindingslogboek",
+      "keyRowsForThisHost": "Toetsenrijen voor deze host"
+    },
+    "searchBar": {
+      "noResults": "Geen resultaten",
+      "matchCase": "Hoofdlettergevoelig",
+      "wholeWord": "Heel woord",
+      "regularExpression": "Reguliere expressie",
+      "find": "Zoeken",
+      "closeFind": "Zoekbalk sluiten"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Systeem",
+      "block": "Blok",
+      "bar": "Staaf",
+      "underline": "Onderstreping",
+      "off": "Uit",
+      "sound": "Geluid",
+      "flash": "Flits",
+      "both": "Beide"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Nieuw tabblad op deze host",
+      "closeTab": "Tabblad sluiten",
+      "nextTab": "Volgend tabblad",
+      "previousTab": "Vorig tabblad",
+      "goToTab": "Ga naar tabblad",
+      "find": "Zoeken",
+      "fontSize": "Lettergrootte",
+      "paste": "Plakken",
+      "escape": "Escape",
+      "copyAndPaste": "Kopiëren en plakken"
+    },
+    "reconnecting": "Opnieuw verbinden...",
+    "waitingForNetwork": "Wachten op netwerk...",
+    "waitingForYou": "Wachten op jou...",
+    "connecting": "Verbinden...",
+    "terminalView": {
+      "scrollToBottom": "Naar beneden scrollen",
+      "onlyWebLinksCanOpen": "Alleen webkoppelingen kunnen vanuit de terminal worden geopend",
+      "couldNotOpenLink": "Kon koppeling niet openen",
+      "copiedFromTheTerminal": "Gekopieerd vanuit de terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Een tmux-sessie openen",
+        "newSession": "Nieuwe sessie",
+        "plainShell": "Standaard shell",
+        "tmuxWindows": "tmux-vensters",
+        "newWindow": "Nieuw venster",
+        "windowCount_one": "{{count}} venster",
+        "windowCount_other": "{{count}} vensters",
+        "attached": "{{count}} verbonden",
+        "activeNow": "nu actief",
+        "activeMinAgo": "laatst actief {{count}} min geleden",
+        "activeHoursAgo": "laatst actief {{count}} u geleden",
+        "activeDaysAgo_one": "laatst actief {{count}} dag geleden",
+        "activeDaysAgo_other": "laatst actief {{count}} dagen geleden"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopiëren",
+        "selectAll": "Alles selecteren",
+        "cancel": "Annuleren",
+        "scrollToBottom": "Naar beneden scrollen",
+        "couldNotCopy": "Kon niet kopiëren",
+        "webviewError": "WebView-fout: {{description}}",
+        "webviewHttpError": "WebView HTTP-fout: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Geen opgeslagen wachtwoord voor deze host",
+    "backInTmuxSession": "Terug in tmux-sessie {{tmuxName}}",
+    "backInScreenSession": "Terug in screen-sessie {{name}}",
+    "theServerSessionEndedThis": "De serversessie is beëindigd. Dit is een nieuwe shell.",
+    "termixWasClosedSoThe": "Termix was gesloten, dus de oude shell is beëindigd. Dit is een nieuwe shell.",
+    "theConnectionDroppedAndThe": "De verbinding viel weg en de oude shell is beëindigd. Dit is een nieuwe shell.",
+    "disconnectedFrom": "Verbinding verbroken met {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Tweefactorauthenticatie",
+      "codesFromAnAuthenticatorApp": "Codes uit een authenticator-app voor je serveraccount"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-adres",
+      "neededToWakeThisHost": "Vereist om deze host met Wake-on-LAN te starten",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Gebruik een MAC-adres zoals 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN verzonden naar {{name}}",
+      "failedToSendWakeOn": "Kan Wake-on-LAN-pakket niet verzenden",
+      "noServer": "Geen server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Start {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Anonieme gebruiksstatistieken delen?",
+      "termixWouldSendAShort": "Termix stuurt één keer per dag een kort rapport. Je kunt dit altijd wijzigen in Instellingen.",
+      "noThanks": "Nee, bedankt",
+      "share": "Delen",
+      "theReportHasTheApp": "Het rapport bevat de app-versie, het {{deviceWord}}-type, ruwe aantallen hosts en sessies, welke functies je gebruikt en of verbindingen lukten. Het bevat nooit hostnamen, gebruikersnamen, adressen, paden, commando's of servernamen.",
+      "seeExactlyWhatIsSent": "Bekijk precies wat er wordt verzonden"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Versie-informatie laden…",
+      "updateAvailable": "Update beschikbaar",
+      "newVersionAvailable": "Nieuwe versie beschikbaar",
+      "aNewerVersionOfThe": "Er is een nieuwere versie van de mobiele app beschikbaar. Sommige functies werken mogelijk niet correct totdat je update.",
+      "versionInformation": "Versie-informatie",
+      "installed": "Geïnstalleerd",
+      "latest": "Nieuwste",
+      "unknown": "Onbekend",
+      "tag": "Tag",
+      "continueAnyway": "Toch doorgaan"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Gekopieerd",
+      "copy": "Kopiëren",
+      "hostKeyChanged": "Hostsleutel gewijzigd",
+      "verifyHostKey": "Hostsleutel verifiëren",
+      "cancel": "Annuleren",
+      "acceptNewKey": "Nieuwe sleutel accepteren",
+      "connectAndTrust": "Verbinden en vertrouwen",
+      "theHostSSshKey": "De SSH-sleutel van de host is gewijzigd sinds je laatste verbinding. Dit kan betekenen dat iemand de verbinding onderschept.",
+      "youAreConnectingToThis": "Je maakt voor het eerst verbinding met deze host. Controleer de vingerafdruk voordat je hem vertrouwt.",
+      "previousKey": "Vorige sleutel",
+      "newFingerprint": "Nieuwe vingerafdruk",
+      "hostFingerprint": "Hostvingerafdruk"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Wachtwoordzin vereist",
+      "enterThePassphraseForYour": "Voer de wachtwoordzin in voor je SSH-sleutel.",
+      "cancel": "Annuleren",
+      "connect": "Verbinden",
+      "keyPassphrase": "Sleutelwachtwoordzin"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-authenticatie vereist",
+      "cancel": "Annuleren",
+      "connect": "Verbinden",
+      "password": "Wachtwoord",
+      "sshKey": "SSH-sleutel",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nPlak je privésleutel hier...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Sleutelwachtwoordzin (optioneel)",
+      "keyboardInteractiveAuthIsNot": "Keyboard-interactive-authenticatie is niet beschikbaar. Voer je inloggegevens direct in.",
+      "authenticationFailedPleaseReEnter": "Authenticatie mislukt. Voer je inloggegevens opnieuw in.",
+      "connectionTimedOutPleaseTry": "Verbinding verlopen. Probeer het opnieuw met je inloggegevens."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-controle",
+      "completeTheTailscaleSshCheck": "Voltooi de Tailscale SSH-controle in je browser om door te gaan.",
+      "cancel": "Annuleren",
+      "copyUrl": "URL kopiëren",
+      "openBrowser": "Browser openen",
+      "urlCopied": "URL gekopieerd",
+      "failedToCopy": "Kopiëren mislukt",
+      "couldNotOpenBrowser": "Kon browser niet openen"
+    },
+    "tOTPDialog": {
+      "cancel": "Annuleren",
+      "submit": "Verzenden",
+      "verify": "Verifiëren",
+      "password": "Wachtwoord",
+      "pasteCode": "Code plakken",
+      "passwordRequired": "Wachtwoord vereist",
+      "twoFactorAuthentication": "Tweefactorauthenticatie",
+      "enterYourPasswordToContinue": "Voer je wachtwoord in om door te gaan.",
+      "enterThe6DigitCode": "Voer de 6-cijferige code in van je authenticator-app."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate-authenticatie",
+      "authenticateViaTheWarpgatePortal": "Authenticeer via het Warpgate-portaal en tik vervolgens op Doorgaan.",
+      "cancel": "Annuleren",
+      "openBrowser": "Browser openen",
+      "continue": "Doorgaan",
+      "securityKey": "Beveiligingssleutel",
+      "authUrl": "Authenticatie-URL",
+      "copied": "Gekopieerd",
+      "copy": "Kopiëren",
+      "urlCopied": "URL gekopieerd",
+      "failedToCopy": "Kopiëren mislukt",
+      "couldNotOpenBrowser": "Kon browser niet openen"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "deze {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Recente activiteit",
+        "files": "Bestanden",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Meldingen",
+        "seeAll": "Alles bekijken"
+      },
+      "server": "Server",
+      "openSessions": "Open sessies",
+      "quickAccess": "Snelle toegang",
+      "notifications": "Meldingen",
+      "pinnedHosts": "Vastgemaakte hosts",
+      "recentHosts": "Recente hosts",
+      "recentActivity": "Recente activiteit",
+      "pinnedCard": {
+        "addYourFirstHost": "Voeg je eerste host toe",
+        "hostsYouOpenShowUp": "Hosts die je opent, verschijnen hier. Vastgemaakte hosts tonen live kaarten.",
+        "addHost": "Host toevoegen",
+        "linkAServer": "Een server koppelen",
+        "pinAHostToSee": "Maak een host vast om deze hier te zien",
+        "pinnedHostsShowTheirMetrics": "Vastgemaakte hosts tonen hun metingen, Docker en services in één oogopslag. Houd een host ingedrukt om deze vast te maken.",
+        "goToHosts": "Naar hosts gaan",
+        "pinned": "Vastgemaakt",
+        "opensTheTerminalHoldFor": "Opent de terminal. Houd ingedrukt voor meer.",
+        "turnOnDockerOrServices": "Schakel Docker of Services in voor deze host, of tik erop om te verbinden.",
+        "opens": "Opent {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Snelle toegang",
+        "quickConnect": "Snelle verbinding",
+        "userHostPortWithoutSaving": "gebruiker@host:poort, zonder op te slaan"
+      },
+      "recentCard": {
+        "recent": "Recent"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Versie",
+        "uptime": "Uptime",
+        "database": "Database",
+        "hosts": "Hosts",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Inloggen"
+      },
+      "sessionsCard": {
+        "openSessions": "Open sessies",
+        "connected": "Verbonden"
+      }
+    },
+    "resetHome": "Startpagina resetten?",
+    "cardsGoBackToThe": "Kaarten keren terug naar de standaardvolgorde en de standaardweergave.",
+    "reset": "Resetten",
+    "doneEditingHome": "Startpagina bewerken voltooid",
+    "editHome": "Startpagina bewerken",
+    "dragToReorder": "Sleep {{title}} om de volgorde te wijzigen",
+    "show": "{{title}} tonen",
+    "dragCardsToReorderThem": "Sleep kaarten om de volgorde te wijzigen. Zet een kaart uit om deze te verbergen. Kaarten zonder inhoud blijven automatisch verborgen.",
+    "resetToDefault": "Terug naar standaard",
+    "done": "Klaar",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Kan de server nog steeds niet bereiken",
+      "canTReach": "Kan {{account}} niet bereiken",
+      "youCanKeepWorkingWith": "Je kunt doorgaan met de kopie op dit {{deviceWord}}. Wijzigingen worden gesynchroniseerd zodra de verbinding weer actief is.",
+      "hostsSetToConnectFrom": "Hosts die zijn ingesteld om vanaf dit {{deviceWord}} te verbinden, werken nog steeds.",
+      "tryAgain": "Opnieuw proberen",
+      "noAnswer": "geen antwoord"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profiel",
+      "none": "Geen",
+      "signsInWithInYour": "Meldt aan met {{title}} in je browser via je Termix-server. Verbind deze host via de server.",
+      "needsATermixServerLink": "{{title}} vereist een Termix-server. Koppel er een om deze aanmelding te gebruiken.",
+      "isOffOnThisServer": "{{title}} is uitgeschakeld op deze server. Deze host behoudt zijn aanmeldinstelling."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kon referenties niet laden",
+      "deleted": "\"{{name}}\" verwijderd",
+      "couldNotDeleteTheCredential": "Kon de referentie niet verwijderen",
+      "credentials": "Referenties",
+      "add": "Toevoegen",
+      "searchCredentials": "Referenties zoeken",
+      "clearSearch": "Zoekopdracht wissen",
+      "loadingCredentials": "Referenties laden...",
+      "noCredentialsMatchYourSearch": "Geen referenties gevonden die overeenkomen met je zoekopdracht",
+      "noCredentialsYet": "Nog geen referenties",
+      "addCredential": "Referentie toevoegen",
+      "edit": "Bewerken",
+      "delete": "Verwijderen",
+      "deleteCredential": "Referentie verwijderen",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" wordt permanent verwijderd. Hosts die deze gebruiken, verliezen hun opgeslagen referenties.",
+      "cancel": "Annuleren",
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosts",
+      "sshKey": "SSH-sleutel"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Sleutel vervangen?",
+        "theNewKeyTakesThe": "De nieuwe sleutel vervangt de huidige. Hosts die alleen de oude sleutel vertrouwen, accepteren deze referentie niet meer.",
+        "replace": "Vervangen",
+        "newKeyMadeCopyThe": "Nieuwe sleutel gegenereerd. Kopieer de openbare sleutel naar je hosts.",
+        "couldNotMakeAKey": "Kon geen sleutel genereren",
+        "couldNotReadThatCertificate": "Kon dat certificaatbestand niet lezen",
+        "leaveWithoutSaving": "Verlaten zonder op te slaan?",
+        "yourChangesToThisCredential": "Je wijzigingen aan deze referentie gaan verloren.",
+        "leave": "Verlaten",
+        "credentialSaved": "Referentie opgeslagen",
+        "credentialAdded": "Referentie toegevoegd",
+        "couldNotSaveTheCredential": "Kon de referentie niet opslaan",
+        "enterAHostToTest": "Voer een host in om te testen, zoals 10.0.0.5 of box:2222.",
+        "enterTheUsernameFirst": "Voer eerst de gebruikersnaam in.",
+        "editCredential": "Referentie bewerken",
+        "newCredential": "Nieuwe referentie",
+        "cancel": "Annuleren",
+        "save": "Opslaan",
+        "credential": "Inloggegevens",
+        "name": "Naam",
+        "productionKey": "Productiesleutel",
+        "username": "Gebruikersnaam",
+        "signInWith": "Inloggen met",
+        "password": "Wachtwoord",
+        "sshKey": "SSH-sleutel",
+        "unchangedIfBlank": "Onveranderd als leeg",
+        "key": "Sleutel",
+        "fileOrPaste": "Bestand of plakken",
+        "makeANewKey": "Nieuwe sleutel maken",
+        "aKeyIsSavedChoose": "Er is een sleutel opgeslagen. Kies een bestand of plak om deze te vervangen.",
+        "type": "Type",
+        "ed25519AndEcdsaAreMade": "Ed25519 en ECDSA worden gegenereerd op dit {{deviceWord}}, RSA op uw server.",
+        "madeOnThisEd25519Works": "Gegenereerd op dit {{deviceWord}}. Ed25519 werkt bijna overal.",
+        "passphrase": "Wachtzin",
+        "optionalLocksTheNewKey": "Optioneel. Vergrendelt de nieuwe sleutel op dit {{deviceWord}} en op schijf.",
+        "makeKey": "Sleutel maken",
+        "publicKey": "Openbare sleutel",
+        "addThisLineToSsh": "Voeg deze regel toe aan ~/.ssh/authorized_keys op uw hosts",
+        "publicKeyCopied": "Openbare sleutel gekopieerd",
+        "copyPublicKey": "Openbare sleutel kopiëren",
+        "certificate": "Certificaat",
+        "aCertificateYourCaSigned": "Een certificaat dat door uw CA is ondertekend voor deze sleutel, voor hosts die de CA vertrouwen.",
+        "chooseCertificateFile": "Certificaatbestand kiezen",
+        "thisDoesNotLookLike": "Dit lijkt niet op een OpenSSH-certificaat.",
+        "test": "Testen",
+        "hostToTestOn": "Host om te testen",
+        "n10005Or": "10.0.0.5 of box.lan:2222",
+        "pickASavedHost": "Kies een opgeslagen host",
+        "details": "Details",
+        "description": "Beschrijving",
+        "whatThisCredentialIsFor": "Waarvoor deze inloggegevens zijn",
+        "folder": "Map",
+        "serverKeys": "Serversleutels",
+        "testOnAHost": "Testen op een host",
+        "rsaKeysNeedALinked": "RSA-sleutels hebben een gekoppelde server nodig."
+      },
+      "model": {
+        "giveThisCredentialAName": "Geef deze inloggegevens een naam",
+        "addAPrivateKeyOr": "Voeg een privésleutel toe, of maak er een nieuwe"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Dit is een hostcertificaat, geen gebruikerscertificaat.",
+        "thisCertificateIsNotValid": "Dit certificaat is nog niet geldig.",
+        "thisCertificateHasExpired": "Dit certificaat is verlopen.",
+        "itIsForAKey": "Het is voor een {{keyType}}-sleutel, maar deze sleutel is {{keyType2}}.",
+        "forAnyUser": "Voor elke gebruiker",
+        "validFromNoEndDate": "Geldig vanaf {{validAfter}}, geen einddatum",
+        "signedBy": "Ondertekend door {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Gebruikersnaam",
+        "fromTheCredential": "Van de inloggegevens: {{credentialUser}}",
+        "signInWith": "Inloggen met",
+        "password": "Wachtwoord",
+        "key": "Sleutel",
+        "credential": "Inloggegevens",
+        "none": "Geen",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Verbinding maken met Tailscale SSH. Er wordt geen wachtwoord of sleutel opgeslagen.",
+        "tailscaleIsNotOnFor": "Tailscale is niet ingeschakeld voor {{value}}. Deze host behoudt zijn Tailscale-inloggegevens.",
+        "unchangedIfBlank": "Onveranderd als leeg",
+        "noCredentialsYetTapThe": "Nog geen inloggegevens. Tik op het sleutelpictogram in Hosts om er een toe te voegen.",
+        "useCredential": "Gebruik referentie {{name}}",
+        "sudoPassword": "Sudo-wachtwoord",
+        "typedIntoSudoPromptsWhen": "Wordt ingevoerd bij sudo-prompten als de sectie Terminal dit inschakelt",
+        "notSet": "Niet ingesteld",
+        "thisServer": "deze server"
+      },
+      "colorIconField": {
+        "color": "Kleur",
+        "noColor": "Geen kleur",
+        "color2": "Kleur {{c}}",
+        "icon": "Pictogram",
+        "noIcon": "Geen pictogram",
+        "none": "Geen",
+        "icon2": "Pictogram {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Verlaten zonder op te slaan?",
+        "yourChangesToThisHost": "Uw wijzigingen aan deze host gaan verloren.",
+        "leave": "Verlaten",
+        "couldNotSaveHowThis": "Kon de verbinding van deze host niet opslaan",
+        "hostSaved": "Host opgeslagen",
+        "hostAdded": "Host toegevoegd",
+        "couldNotSaveTheHost": "Kon de host niet opslaan",
+        "enterTheHostSAddress": "Voer eerst het adres van de host in.",
+        "turnOnSshToTest": "Schakel SSH in om de inloggegevens te testen.",
+        "pickACredentialFirst": "Kies eerst een referentie.",
+        "editHost": "Host bewerken",
+        "newHost": "Nieuwe host",
+        "cancel": "Annuleren",
+        "save": "Opslaan",
+        "host": "Host",
+        "name": "Naam",
+        "myServer": "Mijn server",
+        "address": "Adres",
+        "port": "Poort",
+        "portAndUsernameComeFrom": "Poort en gebruikersnaam komen uit uw host-standaarden, totdat u deze wijzigt.",
+        "folder": "Map",
+        "production": "Productie",
+        "useAFolderInstead": "Gebruik in plaats daarvan een map",
+        "putItUnderAHost": "Plaats het in plaats daarvan onder een host",
+        "pinToTop": "Bovenaan vastmaken",
+        "colorAndIcon": "Kleur en pictogram",
+        "notes": "Notities",
+        "anythingWorthRememberingAboutThis": "Alles wat de moeite waard is om te onthouden over deze host",
+        "protocols": "Protocollen",
+        "terminalFilesAndMore": "Terminal, bestanden en meer",
+        "connectFrom": "Verbinden via",
+        "features": "Functies",
+        "otherProtocols": "Andere protocollen",
+        "more": "Meer",
+        "theTestRunsFromThis": "De test wordt uitgevoerd vanaf dit {{deviceWord}}. Deze host verbindt via de server, dus het kan nog steeds werken als het {{deviceWord}} er geen verbinding mee kan maken."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosts",
+        "connectsThroughTheseInOrder": "Verbindt in deze volgorde via deze hosts, en daarna met deze host",
+        "reachThisHostThroughOther": "Bereik deze host eerst via andere hosts",
+        "moveUp": "Omhoog verplaatsen",
+        "moveDown": "Omlaag verplaatsen",
+        "removeJumpHost": "Jump host verwijderen",
+        "addJumpHost": "Jump host toevoegen",
+        "pickASavedHostTo": "Kies een opgeslagen host om via te verbinden",
+        "searchHosts": "Hosts zoeken",
+        "noOtherHostsToPick": "Geen andere hosts om uit te kiezen. Een host kan niet via zichzelf of een host die al via deze host gaat, verbinden.",
+        "missingHost": "Ontbrekende host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Schakel ten minste één protocol in",
+        "pickACredential": "Kies een referentie",
+        "enterTheHostSAddress": "Voer het adres van de host in",
+        "theAddressCanTHave": "Het adres mag geen spaties bevatten",
+        "portMustBeFrom1": "Poort moet tussen 1 en 65535 liggen",
+        "enterTheSshUsername": "Voer de SSH-gebruikersnaam in"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "De host wordt genest weergegeven onder de door u gekozen host",
+        "searchHosts": "Hosts zoeken",
+        "noHostsToPickA": "Geen hosts beschikbaar. Een host kan niet onder zichzelf, een van zijn eigen sub-hosts of een gedeelde host worden geplaatst.",
+        "parentHost": "Ouderhost",
+        "subHostsFollowTheFolder": "Sub-hosts volgen de map van hun ouderhost",
+        "pickParentHost": "Ouderhost kiezen",
+        "missingHost": "Ontbrekende host #{{value}}",
+        "pickAHost": "Kies een host",
+        "clearParentHost": "Ouderhost wissen"
+      },
+      "tagsField": {
+        "tags": "Labels",
+        "typeATagAndPress": "Typ een label en druk op Enter",
+        "removeTag": "Label {{tag}} verwijderen",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Kon de verbinding van deze host niet opslaan",
+      "addressCopied": "Adres gekopieerd",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Verbinden vanaf",
+      "dismiss": "Sluiten",
+      "unpin": "Losmaken",
+      "pinToHome": "Vastmaken aan Home",
+      "select": "Selecteren",
+      "editHost": "Host bewerken",
+      "copyAddress": "Adres kopiëren",
+      "addSubHost": "Sub-host toevoegen",
+      "cloneHost": "Host klonen",
+      "deleteHost": "Host verwijderen",
+      "connectThroughTheServer": "Verbinden via de server",
+      "connectFromThis": "Verbinden vanaf deze {{deviceWord}}"
+    },
+    "defaultYourOrder": "Standaard (uw volgorde)",
+    "nameAZ": "Naam (A-Z)",
+    "nameZA": "Naam (Z-A)",
+    "ipAscending": "IP (oplopend)",
+    "ipDescending": "IP (aflopend)",
+    "onlineFirst": "Online eerst",
+    "offlineFirst": "Offline eerst",
+    "pinnedFirst": "Vastgemaakte eerst",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Vastgemaakt",
+    "protocol": "Protocol",
+    "features": "Functies",
+    "hostsCanOnlyMoveInside": "Hosts kunnen alleen binnen hun eigen map worden verplaatst",
+    "couldNotUpdateTheHosts": "Kon de hosts niet bijwerken",
+    "sharedHostsCanTBe": "Gedeelde hosts kunnen hier niet worden verwijderd",
+    "delete2": "Verwijderen",
+    "noneOfTheseHostsOpen": "Geen van deze hosts opent een terminal",
+    "couldNotPinTheHost": "Kon de host niet vastmaken",
+    "deleted": "{{name}} verwijderd",
+    "failedToDeleteHost": "Host verwijderen mislukt",
+    "cloned": "{{name}} gekloond",
+    "failedToCloneHost": "Host klonen mislukt",
+    "reorderWorksWithTheDefault": "Volgorde wijzigen werkt alleen met de standaard sortering en zonder zoekopdracht of filter",
+    "couldNotSaveTheOrder": "Kon de volgorde niet opslaan",
+    "noHostsYet": "Nog geen hosts",
+    "addAHostToConnect": "Voeg een host toe om met één tik verbinding te maken.",
+    "addHost": "Host toevoegen",
+    "quickConnect2": "Snelle verbinding",
+    "linkAServer": "Server koppelen",
+    "noHostsMatch": "Geen hosts gevonden",
+    "clearSearchAndFilters": "Zoekopdracht en filters wissen",
+    "more": "Meer",
+    "dragAHostByIts": "Sleep een host via de greep om deze binnen de map te verplaatsen.",
+    "done": "Klaar",
+    "filterHosts": "Hosts filteren",
+    "clearFilterText": "Filtertekst wissen",
+    "sortHosts": "Hosts sorteren",
+    "removeFilter": "Filter {{value}} verwijderen",
+    "loadingHosts": "Hosts laden…",
+    "moveUnderAHost": "Verplaatsen onder een host",
+    "moveToFolder": "Verplaatsen naar map",
+    "leaveItEmptyToTake": "Laat dit leeg om hosts uit mappen te halen.",
+    "folderLikeProdWeb": "Map, zoals Prod / Web",
+    "move": "Verplaatsen",
+    "hosts": "Hosts",
+    "selectHosts": "Hosts selecteren",
+    "reorderHosts": "Hosts herschikken",
+    "customizeList": "Lijst aanpassen",
+    "chooseWhatEachHostRow": "Kies wat elke hostregel weergeeft",
+    "credentials2": "Aanmeldgegevens",
+    "savedPasswordsAndKeys": "Opgeslagen wachtwoorden en sleutels",
+    "tailscaleDevices": "Tailscale-apparaten",
+    "refresh": "Vernieuwen",
+    "rowDensityFollowsSettingsAppearance": "Rijdichtheid volgt Instellingen, Uiterlijk.",
+    "clearAllFilters": "Alle filters wissen",
+    "tags": "Labels",
+    "stopSelecting": "Selectie stoppen",
+    "selected": "{{count}} geselecteerd",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Kon dat sleutelbestand niet lezen",
+        "theClipboardIsEmpty": "Het klembord is leeg",
+        "privateKey": "Privésleutel",
+        "chooseFile": "Bestand kiezen",
+        "paste": "Plakken",
+        "unchangedIfBlank": "Onveranderd als leeg",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Wachtwoordzin",
+        "onlyIfTheKeyHas": "Alleen als de sleutel er een heeft",
+        "theKeyIsCheckedWhen": "De sleutel wordt gecontroleerd bij het maken van verbinding.",
+        "thePastedKey": "de geplakte sleutel"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Openen",
+        "moreActions": "Meer acties",
+        "opensTheTerminalHoldFor": "Opent de terminal. Houd ingedrukt voor meer.",
+        "shared": "Gedeeld",
+        "drag": "Sleep {{name}}",
+        "showSubHosts_one": "{{count}} sub-host van {{name}} tonen",
+        "showSubHosts_other": "{{count}} sub-hosts van {{name}} tonen",
+        "hideSubHosts_one": "{{count}} sub-host van {{name}} verbergen",
+        "hideSubHosts_other": "{{count}} sub-hosts van {{name}} verbergen"
+      },
+      "hostList": {
+        "folderHosts": "Map {{name}}, {{total}} hosts"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host en gebruikersnaam zijn verplicht",
+      "hostSaved": "Host opgeslagen",
+      "couldNotSaveTheHost": "Kon de host niet opslaan",
+      "quickConnect": "Snelle verbinding",
+      "connectToAHostWithout": "Maak verbinding met een host zonder deze op te slaan.",
+      "hostIp": "Host / IP",
+      "port": "Poort",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "key": "Sleutel",
+      "privateKey": "Privésleutel",
+      "saveToMyHosts": "Opslaan in mijn hosts",
+      "keepThisHostAfterConnecting": "Deze host behouden na verbinden",
+      "cancel": "Annuleren",
+      "connect": "Verbinden"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Hosts ophalen van de server",
+      "yourHostsStayOnThis": "{{message}} Je hosts blijven ondertussen op dit {{deviceWord}} staan."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "De sleutel van deze host is gewijzigd",
+      "trustThisHost": "Deze host vertrouwen?",
+      "trust": "Vertrouwen",
+      "stopTest": "Test stoppen",
+      "testConnection": "Verbinding testen",
+      "connecting": "Verbinden..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Hosts konden niet worden geladen."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} gedeelde host is ongewijzigd gelaten.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} gedeelde hosts zijn ongewijzigd gelaten.",
+    "deleteHosts_one": "{{count}} host verwijderen?",
+    "deleteHosts_other": "{{count}} hosts verwijderen?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Geen map met de naam {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Host \"{{name}}\": ongeldig poortnummer",
+        "hostJumpIsNotIn": "Host \"{{name}}\": jump {{value}} staat niet in het bestand, dus is overgeslagen",
+        "credential": "Inloggegevens {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Geen geldige Host-entries gevonden in het SSH-configuratiebestand",
+        "credentialWasNotFound": "{{label}}: inloggegevens {{value}} niet gevonden"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Host {{value}}: dubbel geëxporteerd host-id {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Verplichte velden ontbreken (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Ongeldig authType. Moet een van de volgende zijn: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Gebruikersnaam vereist voor SSH-verbindingen",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias vereist voor authenticatie met inloggegevens",
+        "thatIsNotAValid": "Dit is geen geldig JSON-bestand",
+        "hostsArrayIsRequiredAnd": "Hosts-array is vereist en mag niet leeg zijn",
+        "jumpHostCycle": "{{label}}: jump host-cyclus",
+        "jumpHostIsNotIn": "{{label}}: jump host {{id}} staat niet in het bestand"
+      }
+    },
+    "movedTo": "Verplaatst naar {{value}}",
+    "movedOutOfFolders": "Verplaatst uit mappen",
+    "movedUnder": "Verplaatst onder {{value}}",
+    "openTerminals": "Open terminals",
+    "theHost": "de host"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Wachtwoord verbergen",
+      "showPassword": "Wachtwoord tonen",
+      "enterAUsernameAndPassword": "Voer een gebruikersnaam en wachtwoord in",
+      "useAtLeast6Characters": "Gebruik minimaal 6 tekens voor het wachtwoord",
+      "thePasswordsDonTMatch": "De wachtwoorden komen niet overeen",
+      "makeTheAdminAccount": "Admin-account aanmaken",
+      "makeAnAccount": "Account aanmaken",
+      "thisIsTheFirstAccount": "Dit is het eerste account op de server, dus dit beheert de server.",
+      "pickAUsernameAndPassword": "Kies een gebruikersnaam en wachtwoord voor deze server.",
+      "username": "Gebruikersnaam",
+      "password": "Wachtwoord",
+      "passwordAgain": "Wachtwoord herhalen",
+      "makeAccount": "Account aanmaken",
+      "back": "Terug",
+      "haveAnAccountSignIn": "Heb je al een account? Inloggen",
+      "resetCodeMadeItIs": "Resetcode gegenereerd. Deze staat in de logs van de server.",
+      "enterYourUsername": "Voer je gebruikersnaam in",
+      "enterTheResetCode": "Voer de resetcode in",
+      "passwordChangedSignInWith": "Wachtwoord gewijzigd. Log nu in met het nieuwe wachtwoord",
+      "resetPassword": "Wachtwoord resetten",
+      "enterYourUsernameTheServer": "Voer je gebruikersnaam in. De server schrijft een resetcode naar de logs.",
+      "sendResetCode": "Resetcode verzenden",
+      "enterThe6DigitCode": "Voer de 6-cijferige code in uit de serverlogs.",
+      "resetCode": "Code opnieuw instellen",
+      "checkCode": "Code controleren",
+      "newPassword": "Nieuw wachtwoord",
+      "saveNewPassword": "Nieuw wachtwoord opslaan",
+      "backToSignIn": "Terug naar inloggen",
+      "couldNotMakeTheAccount": "Kon het account niet aanmaken",
+      "couldNotStartTheReset": "Kon het opnieuw instellen niet starten",
+      "thatCodeDidnTWork": "Die code werkte niet",
+      "couldNotChangeThePassword": "Kon het wachtwoord niet wijzigen"
+    },
+    "browserStep": {
+      "signInFailed": "Inloggen mislukt",
+      "signInCanceled": "Inloggen geannuleerd",
+      "couldNotOpenTheSign": "Kon de inlogbrowser niet openen",
+      "couldNotOpenTheSign2": "Kon de inlogpagina niet openen",
+      "certificateProblem": "Certificaatprobleem",
+      "back": "Terug",
+      "signIn": "Inloggen",
+      "reload": "Herladen",
+      "finishSigningInInYour": "Voltooi het inloggen in je browser",
+      "useAnySignInYour": "Gebruik een inlogmethode die je server heeft, zoals een passkey of beveiligingssleutel. De app neemt het over zodra je bent ingelogd.",
+      "theAppPicksUpOnce": "De app neemt het over zodra je inlogprovider klaar is.",
+      "signingIn": "Inloggen...",
+      "openBrowserAgain": "Browser opnieuw openen",
+      "theServerTurnedTheSession": "De server heeft de sessie afgewezen. Probeer het opnieuw.",
+      "signedInButTheApp": "Ingelogd, maar de app kan Termix niet bereiken. Een proxy blokkeert dit mogelijk.",
+      "thatSignInLinkIs": "Die inloglink is van een eerdere poging. Log opnieuw in.",
+      "signInAgain": "Log opnieuw in.",
+      "openTheBrowserAgainWhen": "Open de browser opnieuw als je klaar bent.",
+      "theWebPageSignedIn": "De webpagina heeft ingelogd maar stuurde geen sessie. Werk de server bij en probeer het opnieuw.",
+      "theCanTCheckThis": "De {{deviceWord}} kan het certificaat van deze server niet verifiëren. Installeer de root-CA op de {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Volgende keer inloggen met {{name}}?",
+      "ifThisServerSignsYou": "Als je uitlogt op deze server, log dan opnieuw in met {{name}} in plaats van je wachtwoord in te typen. Het wachtwoord blijft op deze {{deviceWord}} bewaard.",
+      "use": "Gebruik {{name}}",
+      "notNow": "Niet nu",
+      "couldNotSaveTheLogin": "Kon de inloggegevens niet opslaan",
+      "thatSADifferentUser": "Dat is een andere gebruiker",
+      "signedIn": "Ingelogd",
+      "close": "Sluiten",
+      "linkYourTermixServer": "Termix-server koppelen",
+      "yourHostsCredentialsSnippetsAnd": "Je hosts, inloggegevens, snippets en instellingen worden hiermee gesynchroniseerd en je krijgt de plugins. Alles werkt op deze {{deviceWord}} ook als de server niet bereikbaar is.",
+      "checking": "{{host}} controleren...",
+      "proxyAndClientCertificate": "Proxy en cliëntcertificaat",
+      "couldNotReachThatServer": "Kon die server niet bereiken. Controleer het adres of stel de proxy of cliëntcertificaat in.",
+      "couldNotReachThatServer2": "Kon die server niet bereiken",
+      "syncCouldNotStartYet": "Synchronisatie kan nog niet starten. Het wordt automatisch opnieuw geprobeerd.",
+      "checkingTheServer": "Server controleren",
+      "signIn": "Inloggen",
+      "makeAnAccount": "Account aanmaken",
+      "resetPassword": "Wachtwoord opnieuw instellen",
+      "oneMoreStep": "Nog één stap",
+      "almostDone": "Bijna klaar",
+      "linkAServer": "Server koppelen"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "De opgeslagen inloggegevens werken niet meer",
+      "enterYourUsernameAndPassword": "Voer je gebruikersnaam en wachtwoord in",
+      "thisServerIsBehindA": "Deze server zit achter een inlogproxy",
+      "signInWith": "Inloggen met {{saved}}",
+      "signInWith2": "Inloggen met",
+      "password": "Wachtwoord",
+      "username": "Gebruikersnaam",
+      "signIn": "Inloggen",
+      "forgotPassword": "Wachtwoord vergeten?",
+      "makeAnAccount": "Account aanmaken",
+      "or": "OF",
+      "continueWith": "Doorgaan met {{label}}",
+      "signInWithAPasskey": "Inloggen met een passkey of beveiligingssleutel",
+      "opensYourServerAposS": "Opent de inlogpagina van je server in de browser. Face ID, vingerafdruk, NFC en USB-sleutels werken daar. Vereist Termix 26.11.3 of nieuwer.",
+      "signInInTheBrowser": "Inloggen in de browser",
+      "opensYourServerAposS2": "Opent de inlogpagina van je server, voor alles wat de app hier niet kan doen. Vereist Termix 26.10.6 of nieuwer.",
+      "thisServerHasNoSign": "Deze server heeft geen inlogmethode ingeschakeld die de app kan gebruiken. Vraag het aan de beheerder, of probeer de inlogoptie in de browser hierboven.",
+      "signInWithYourPassword": "Log in met je wachtwoord.",
+      "signInFailed": "Inloggen mislukt",
+      "openingItsSignInPage": "Inlogpagina wordt geopend."
+    },
+    "smallSteps": {
+      "serverAddress": "Serveradres",
+      "likeTermixExampleComOr": "Bijvoorbeeld termix.example.com of 192.168.1.20:30001",
+      "checking": "Controleren...",
+      "continue": "Doorgaan",
+      "proxyAndClientCertificate": "Proxy en clientcertificaat",
+      "aServerWithASelf": "Een server met een zelfondertekend certificaat vereist dat de root-CA eerst op dit {{deviceWord}} is geïnstalleerd. Gewoon http werkt op je eigen netwerk.",
+      "enterTheCode": "Voer de code in",
+      "code": "Code",
+      "the6DigitCodeFrom": "De 6-cijferige code uit je authenticator-app, of een back-upcode",
+      "checkCode": "Code controleren",
+      "thisAccountAsksForA": "Dit account vraagt om een beveiligingssleutel na het wachtwoord. Log in op de serverpagina in je browser om deze te gebruiken.",
+      "useASecurityKeyIn": "Beveiligingssleutel gebruiken in de browser",
+      "backToSignIn": "Terug naar inloggen",
+      "bringThisAposSHosts": "Hosts van dit {{deviceWord}} meenemen?",
+      "thisHasTheyStayOn": "Dit {{deviceWord}} heeft {{what}}. Deze blijven op dit apparaat, ongeacht je keuze.",
+      "merge": "Samenvoegen",
+      "copyThemToTooSo": "Kopieer ze ook naar {{serverName}}, zodat ze synchroniseren. Items die lijken op een serverhost worden overgeslagen.",
+      "replace": "Vervangen",
+      "useOnlyWhatIsOn": "Gebruik alleen wat er op {{serverName}} staat voor dit account. Er wordt niets gekopieerd.",
+      "thatCodeDidnTWork": "Die code werkte niet",
+      "hostsCredentialsOrSnippets": "hosts, referenties of snippets"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Koppel deze server eerst",
+      "thatHostIsnTHere": "Die host is hier niet beschikbaar",
+      "couldNotOpenThatHost": "Kon die host niet openen",
+      "noHostWithIdOn": "Geen host met id {{hostId}} op {{account}}.",
+      "isnTLinkedInThe": "{{value}} is nog niet gekoppeld in de app."
+    }
+  },
+  "notifications": {
+    "notifications": "Meldingen",
+    "markAllRead": "Alles als gelezen markeren",
+    "clearReadNotifications": "Gelezen meldingen wissen",
+    "unread2": "Ongelezen",
+    "all": "Alles",
+    "noUnreadNotifications": "Geen ongelezen meldingen",
+    "nothingHere": "Niets hier",
+    "markRead": "Als gelezen markeren",
+    "delete": "Verwijderen",
+    "couldNotLoadNotifications": "Kon meldingen niet laden",
+    "couldNotMarkRead": "Kon niet als gelezen markeren",
+    "couldNotDelete": "Kon niet verwijderen",
+    "couldNotClear": "Kon niet wissen"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importeren",
+      "hosts": "Hosts",
+      "aTermixHostFileYour": "Een Termix-hostbestand, je ~/.ssh/config, of een hostlink of QR-code van een ander {{deviceWord}}. Deze worden op dit {{deviceWord}} opgeslagen.",
+      "backup": "Back-up",
+      "aBackupThisAppMade": "Een back-up die deze app heeft gemaakt, beveiligd met een wachtwoordzin. Hiermee worden hosts, referenties en snippets hersteld.",
+      "restoreABackup": "Back-up herstellen",
+      "done": "Klaar",
+      "skipForNow": "Nu overslaan",
+      "sshFilesAndRemoteDesktops": "SSH, bestanden en bureaubladop afstand vanaf je {{deviceWord}}. Hoe wil je beginnen?",
+      "useWithoutAServer": "Gebruik zonder server",
+      "hostsCredentialsAndSnippetsAre": "Hosts, referenties en snippets worden versleuteld opgeslagen op dit {{deviceWord}}. Je kunt later op elk moment een server koppelen.",
+      "linkATermixServer": "Koppel een Termix-server",
+      "syncYourHostsCredentialsSnippets": "Synchroniseer je hosts, referenties, snippets en instellingen met je server en gebruik de plugins ervan.",
+      "bringHostsFromATermix": "Importeer hosts uit een Termix-bestand, een SSH-configuratie, een QR-code of een back-up.",
+      "thisDevice": "Dit apparaat"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Zoek hosts, snippets, acties",
+      "clearSearch": "Zoekopdracht wissen",
+      "nothingMatches": "Geen resultaten gevonden",
+      "typeToSearch": "Typ om te zoeken",
+      "findAHostToConnect": "Zoek een host om mee te verbinden, een snippet, een instelling of een actie.",
+      "suggested": "Voorgesteld | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Uitvoeren in {{title}}",
+      "copiedRunItFromThe": "Gekopieerd. Voer het uit via de snippets van de terminal om de waarden in te vullen.",
+      "copiedOpenATerminalTo": "Gekopieerd. Open een terminal om snippets uit te voeren.",
+      "addHost": "Host toevoegen",
+      "quickConnect": "Snel verbinden",
+      "switchAccount": "Account wisselen",
+      "linkAServer": "Koppel een server",
+      "fromYourServer": "Vanaf je server",
+      "settings": "Instellingen",
+      "accountsAppearanceSecurity": "Accounts, uiterlijk, beveiliging"
+    },
+    "search": {
+      "hosts": "Hosts",
+      "snippets": "Snippets",
+      "actions": "Acties",
+      "settings": "Instellingen"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Sessies laden mislukt",
+      "sessionRevoked": "Sessie ingetrokken",
+      "failedToRevokeSession": "Sessie intrekken mislukt",
+      "allSessionsRevoked": "Alle sessies ingetrokken",
+      "failedToRevokeAllSessions": "Intrekken van alle sessies mislukt",
+      "activeSessions": "Actieve sessies",
+      "signOutAllOtherSessions": "Afmelden van alle andere sessies",
+      "loading": "Laden…",
+      "noActiveSessionsFound": "Geen actieve sessies gevonden.",
+      "unknownDevice": "Onbekend apparaat",
+      "lastActive": "Laatst actief {{lastActiveAt}}",
+      "created": "Aangemaakt {{createdAt}}",
+      "revokeSession": "Sessie intrekken",
+      "revokeSession2": "Sessie intrekken?",
+      "thisWillSignOutThat": "Hiermee wordt dat apparaat afgemeld.",
+      "revoke": "Intrekken",
+      "revokeAllSessions": "Alle sessies intrekken?",
+      "thisWillSignOutEvery": "Hiermee worden alle apparaten afgemeld. Je blijft aangemeld op dit apparaat.",
+      "cancel": "Annuleren",
+      "revokeAll": "Alles intrekken"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API-sleutels laden mislukt",
+      "failedToCreateApiKey": "API-sleutel maken mislukt",
+      "deleteApiKey": "API-sleutel verwijderen?",
+      "willStopWorkingRightAway": "\"{{name}}\" stopt direct met werken.",
+      "apiKeyDeleted": "API-sleutel verwijderd",
+      "failedToDeleteApiKey": "API-sleutel verwijderen mislukt",
+      "apiKeys": "API-sleutels",
+      "newApiKey": "Nieuwe API-sleutel",
+      "loading": "Laden…",
+      "apiKeysAllowProgrammaticAccess": "API-sleutels stellen programmatische toegang tot Termix mogelijk. Het geheim wordt slechts één keer weergegeven, dus bewaar het veilig.",
+      "noApiKeysYet": "Nog geen API-sleutels",
+      "created": "Aangemaakt {{createdAt}}",
+      "lastUsed": "Laatst gebruikt {{lastUsedAt}}",
+      "expires": "Verloopt {{expiresAt}}",
+      "delete": "Verwijder {{name}}",
+      "keyCreatedCopyItNow": "Sleutel aangemaakt. Kopieer deze nu",
+      "newApiKey2": "Nieuwe API-sleutel",
+      "thisTokenWonTBe": "Deze token wordt niet nog eens getoond.",
+      "apiKeyCopied": "API-sleutel gekopieerd",
+      "copy": "Kopiëren",
+      "done": "Klaar",
+      "cancel": "Annuleren",
+      "create": "Aanmaken",
+      "name": "Naam *",
+      "eGCiPipeline": "bijv. CI-pipeline",
+      "user": "Gebruiker *",
+      "noUsersAvailable": "Geen gebruikers beschikbaar.",
+      "expiresAtOptional": "Vervalt op (optioneel)",
+      "yyyyMmDd": "JJJJ/MM/DD",
+      "yearMonthDay": "Jaar / Maand / Dag"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Sessies actief houden",
+      "showsANotificationWhileSessions": "Toont een melding terwijl sessies open zijn, zodat Android ze actief houdt als je de app verlaat",
+      "batteryOptimization": "Batterijoptimalisatie",
+      "termixIsNotRestrictedSo": "Termix is niet beperkt, dus sessies kunnen open blijven met het scherm uit.",
+      "androidMayStillStopSessions": "Android kan sessies nog steeds stoppen om batterij te besparen. Open de batterij-instellingen, zoek Termix en kies Niet geoptimaliseerd of Onbeperkt.",
+      "openBatterySettings": "Batterij-instellingen openen",
+      "notificationsAreOff": "Meldingen zijn uitgeschakeld",
+      "sessionsStillRunButThe": "Sessies blijven actief, maar de lijst met open sessies en de knop Alles verbreken blijven verborgen.",
+      "openNotificationSettings": "Meldingsinstellingen openen",
+      "thisBuildCanTKeep": "Deze build kan sessies niet in de achtergrond actief houden. Ze verbinden opnieuw als je terugkomt.",
+      "lowPowerMode": "Energiebesparingsmodus",
+      "batterySaver": "Batterijbesparing",
+      "isOnTermixChecksConnections": "{{value}} is ingeschakeld. Termix controleert verbindingen minder vaak en wacht langer tussen opnieuw verbindingpogingen.",
+      "backgroundSessions": "Achtergrondsessies",
+      "iosStopsAppsSoonAfter": "iOS stopt apps kort nadat je ze verlaat, dus sessies kunnen niet in de achtergrond actief blijven. Ze verbinden opnieuw als je terugkomt, en tmux of screen neemt weer op waar je gebleven was."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Gestopt",
+        "active": "Actief",
+        "linkAServer": "Server koppelen",
+        "eachServerKeepsItsOwn": "Elke server bewaart zijn eigen kopie van je hosts, referenties en instellingen op dit {{deviceWord}}.",
+        "signedInAs": "Ingelogd als",
+        "role": "Rol",
+        "administrator": "Beheerder",
+        "user": "Gebruiker",
+        "serverVersion": "Serverversie",
+        "signOut": "Uitloggen",
+        "youAreSignedOutOf": "Je bent uitgelogd bij deze server.",
+        "signIn": "Inloggen",
+        "passwordChanged": "Wachtwoord gewijzigd",
+        "couldNotChangeThePassword": "Kon het wachtwoord niet wijzigen",
+        "changePassword": "Wachtwoord wijzigen",
+        "enterYourCurrentPasswordThen": "Voer je huidige wachtwoord in en kies er vervolgens een nieuw.",
+        "cancel": "Annuleren",
+        "change": "Wijzigen",
+        "currentPassword": "Huidig wachtwoord",
+        "newPassword": "Nieuw wachtwoord",
+        "accountDeleted": "Account verwijderd",
+        "couldNotDeleteTheAccount": "Kon het account niet verwijderen",
+        "deleteServerAccount": "Serveraccount verwijderen",
+        "thisPermanentlyDeletesYourAccount": "Hiermee wordt je account op de server en al zijn gegevens permanent verwijderd. Dit kan niet ongedaan worden gemaakt.",
+        "delete": "Verwijderen",
+        "confirmYourPassword": "Bevestig je wachtwoord",
+        "worksWithoutAServer": "Werkt zonder server",
+        "signedOut": "Uitgelogd",
+        "readsLive": "Leest live",
+        "toReview": "{{count}} om te controleren",
+        "synced": "Gesynchroniseerd",
+        "syncing": "Synchroniseren",
+        "offline": "Offline"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Anonieme gebruiksstatistieken delen",
+        "aShortReportOnceA": "Een kort rapport per dag. Geen hosts, namen of adressen",
+        "nextReport": "Volgend rapport",
+        "seeExactlyWhatWouldBe": "Bekijk precies wat er zou worden verzonden",
+        "couldNotBuildTheReport": "Het rapport kon niet worden gegenereerd",
+        "preview": "Voorbeeld",
+        "thisIsExactlyWhatWould": "Dit is precies wat er nu zou worden verzonden.",
+        "resetInstallId": "Installatie-id resetten",
+        "futureReportsWillLookLike": "Toekomstige rapporten lijken op een nieuwe installatie",
+        "resetTheInstallId": "Installatie-id resetten?",
+        "futureReportsWillLookLike2": "Toekomstige rapporten lijken op een nieuwe installatie.",
+        "reset": "Resetten",
+        "installIdReset": "Installatie-id gereset"
+      },
+      "appearanceControls": {
+        "theme": "Thema",
+        "accentColor": "Accentkleur",
+        "textSize": "Tekstgrootte",
+        "sizeOfTextAcrossThe": "Grootte van tekst in de app, niet in de terminal",
+        "density": "Dichtheid",
+        "howTallListRowsAnd": "Hoe hoog lijstregels en instellingen zijn"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hosts, referenties en snippets worden opgeslagen in een versleuteld bestand op deze{{deviceWord}}. Gebruiksstatistieken zijn uit, tenzij je ze hieronder inschakelt. Een gekoppelde server ontvangt alleen wat je synchroniseert.",
+        "recentHosts": "Recente hosts",
+        "forgetTheHostsYouOpened": "Vergeet de hosts die je recentelijk hebt geopend op elk account",
+        "recentHostsCleared": "Recente hosts gewist",
+        "clear": "Wissen",
+        "couldNotCheckForUpdates": "Kon niet controleren op updates",
+        "versionIsOutUpdateFrom": "Versie {{version}} is beschikbaar. Update via je app store.",
+        "youHaveTheNewestVersion": "Je hebt de nieuwste versie",
+        "termixMobile": "Termix Mobile",
+        "updates": "Updates",
+        "check": "Controleren"
+      },
+      "pinSheet": {
+        "waitSeconds": "Wacht {{value}} seconden",
+        "digits": "{{PIN_LENGTH}} cijfers"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "De PIN-codes komen niet overeen",
+        "appLockIsOn": "App-lock is ingeschakeld",
+        "turnOffAppLock": "App-lock uitschakelen",
+        "enterYourPinToConfirm": "Voer je PIN in om te bevestigen.",
+        "appLockIsOff": "App-lock is uitgeschakeld",
+        "appLock": "App-lock",
+        "askForFaceIdTouch": "Vraag om Face ID, Touch ID of een PIN om de app te openen",
+        "askForAPinTo": "Vraag om een PIN om de app te openen",
+        "pinChanged": "PIN gewijzigd",
+        "couldNotChangeThePin": "Kon de PIN niet wijzigen",
+        "changePin": "PIN wijzigen",
+        "lockAfter": "Vergrendelen na",
+        "howLongTheAppCan": "Hoe lang de app uit het zicht kan zijn voordat deze wordt vergrendeld",
+        "hideInAppSwitcher": "Verbergen in app-schakelaar",
+        "showABlankScreenIn": "Toon een leeg scherm in de lijst met recente apps",
+        "chooseA4DigitPin": "Kies een 4-cijferige PIN.",
+        "confirmPin": "PIN bevestigen",
+        "enterTheSamePinAgain": "Voer dezelfde PIN opnieuw in.",
+        "currentPin": "Huidige PIN",
+        "enterYourCurrentPin": "Voer je huidige PIN in.",
+        "newPin": "Nieuwe PIN",
+        "chooseANew4Digit": "Kies een nieuwe 4-cijferige PIN.",
+        "confirmNewPin": "Nieuwe PIN bevestigen",
+        "enterTheNewPinAgain": "Voer de nieuwe PIN opnieuw in."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widgets op het startscherm",
+        "showYourHostsSnippetsAnd": "Toon je hosts, snippets en aan/uit-knoppen op het startscherm",
+        "showAddresses": "Adressen tonen",
+        "showUserHostUnderEach": "Toon gebruiker@host onder elke servernaam",
+        "includeOfflineHosts": "Offline hosts opnemen",
+        "offShowsOnlyServersThat": "Uit toont alleen servers die online zijn",
+        "pinnedHostsOnly": "Alleen vastgemaakte hosts",
+        "showOnlyTheHostsYou": "Toon alleen de hosts die je hebt vastgemaakt",
+        "snippetsWidget": "Snippets-widget",
+        "showSavedCommandsOnThe": "Toon opgeslagen opdrachten op het startscherm",
+        "showCommandPreview": "Opdrachtvoorbeeld tonen",
+        "showTheFirstLineOf": "Toon de eerste regel van elke opdracht"
+      }
+    },
+    "fileSettings": {
+      "files": "Bestanden",
+      "fileManagerOnThis": "Bestandsbeheer op dit {{deviceWord}}",
+      "browsing": "Bladeren",
+      "transfersAtOnce": "Gelijktijdige overdrachten",
+      "downloadsAndUploadsThatRun": "Downloads en uploads die tegelijkertijd lopen",
+      "editor": "Bewerker",
+      "textSize": "Tekstgrootte",
+      "filesBesideTheTerminal": "Bestanden naast de terminal",
+      "side": "Zijde",
+      "whereThePanelSitsOn": "Waar het paneel op een tablet staat",
+      "right": "Rechts",
+      "left": "Links",
+      "howOftenToCheck": "Controlefrequentie",
+      "folderHistory": "Mapgeschiedenis",
+      "foldersKeptPerHost": "Opgeslagen mappen per host",
+      "showHiddenFiles": "Verborgen bestanden tonen",
+      "filesAndFoldersThatStart": "Bestanden en mappen die beginnen met een punt",
+      "askBeforeMovingToThe": "Vragen voor verplaatsen naar prullenbak",
+      "deletingForGoodAlwaysAsks": "Definitief verwijderen vraagt altijd om bevestiging",
+      "wrapLongLines": "Lange regels ombreken",
+      "openWithNewTerminals": "Openen met nieuwe terminals",
+      "onATabletShowThe": "Toon het bestandenpaneel op een tablet wanneer een terminal opent",
+      "followTheTerminal": "Terminal volgen",
+      "openTheFolderTheTerminal": "Open de map waarin de terminal zich bevindt terwijl je cd gebruikt"
+    },
+    "keyboardCustomization": {
+      "small": "Klein",
+      "medium": "Middel",
+      "large": "Groot",
+      "ms": "{{v}} ms",
+      "keyboard": "Toetsenbord",
+      "keyRowsAboveTheKeyboard": "Toetsenrijen boven het toetsenbord",
+      "rows": "Rijen",
+      "keys": "Toetsen",
+      "aHostCanHaveIts": "Een host kan zijn eigen rijen hebben: tik op het geopende tabblad van de host in een sessie en kies Toetsenrijen voor deze host.",
+      "keySize": "Toetsengrootte",
+      "vibrateOnKeyPress": "Trillen bij toetsaanslag",
+      "repeatAfter": "Herhalen na",
+      "howLongToHoldAn": "Hoe lang een pijltoets of Backspace ingedrukt moet worden",
+      "repeatEvery": "Herhalen elke",
+      "hardwareKeyboard": "Hardwaretoetsenbord",
+      "allShortcuts": "Alle sneltoetsen",
+      "show": "Tonen"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Kon geen back-up maken",
+      "deleteLocalData": "Lokale gegevens verwijderen?",
+      "hostsCredentialsSnippetsAndHistory": "Hosts, referenties, snippets en geschiedenis die op dit {{deviceWord}} zijn opgeslagen voor {{account}} worden verwijderd. Dit kan niet ongedaan worden gemaakt. Maak eerst een back-up als je ze wilt behouden.",
+      "delete": "Verwijderen",
+      "localDataDeleted": "Lokale gegevens verwijderd",
+      "couldNotDeleteLocalData": "Kon lokale gegevens niet verwijderen",
+      "localData": "Lokale gegevens",
+      "localDataIsOnlySaved": "Lokale gegevens worden alleen opgeslagen in de {{deviceWord}}-app.",
+      "savedOnThisForThe": "Opgeslagen op deze {{deviceWord}} voor {{account}}. Het bestand is versleuteld met een sleutel die deze {{deviceWord}} nooit verlaat.",
+      "hosts": "Hosts",
+      "credentials": "Inloggegevens",
+      "snippets": "Codefragmenten",
+      "size": "Grootte",
+      "dataVersion": "Gegevensversie",
+      "backup": "Back-up",
+      "aBackupFileHoldsYour": "Een back-upbestand bevat je wachtwoorden en sleutels, beveiligd met een wachtzin die jij kiest. Niemand kan het openen zonder die wachtzin.",
+      "exportBackup": "Back-up exporteren",
+      "importBackup": "Back-up importeren",
+      "removesEverythingThisAccountSaved": "Verwijdert alles wat dit account op deze {{deviceWord}} heeft opgeslagen. Een gekoppelde server behoudt zijn eigen kopie.",
+      "deleteLocalData2": "Lokale gegevens verwijderen",
+      "backupPassphrase": "Back-upwachtzin",
+      "atLeast8CharactersYou": "Minimaal 8 tekens. Je hebt deze nodig om de back-up te herstellen.",
+      "passphrase": "Wachtzin",
+      "next": "Volgende",
+      "typeItAgain": "Typ het opnieuw",
+      "export": "Exporteren",
+      "saveYourTermixBackup": "Sla je Termix-back-up op"
+    },
+    "logs": {
+      "logs": "Logs",
+      "latestLinesFromThisRun": "Laatste regels van deze sessie. Serveradressen, wachtwoorden en tokens zijn verborgen.",
+      "logsCopied": "Logs gekopieerd",
+      "copy": "Kopiëren",
+      "share": "Delen",
+      "clear": "Wissen",
+      "noLogsYet": "Nog geen logs",
+      "nothingHasBeenLogged": "Er is nog niets gelogd."
+    },
+    "plugins": {
+      "worksOnThis": "Werkt op deze {{deviceWord}}",
+      "needsTheServer": "Vereist de server",
+      "notInTheApp": "Niet in de app",
+      "needsANewerVersionOf": "Vereist een nieuwere versie van de app",
+      "updateThePluginOnThe": "Plugin op de server bijwerken",
+      "inTheApp": "In de app",
+      "onThisServer": "Op deze server",
+      "version": "Versie",
+      "needsPluginApi": "Vereist plugin-API",
+      "thisAppHas": "Deze app heeft",
+      "note": "Opmerking",
+      "open": "Openen",
+      "openFromAHostS": "Open {{name}} vanuit het menu van een host.",
+      "plugins": "Plugins",
+      "everything": "Alles",
+      "thisDeviceWorksWithNo": "Dit apparaat werkt zonder server. Koppel een server om functies toe te voegen die een server vereisen.",
+      "pluginsOnAndHowEach": "Plugins op {{account}} en hoe ze in de app worden weergegeven. Sleep omlaag om opnieuw te controleren.",
+      "whatRunsOnThisAnd": "Wat op deze {{deviceWord}} draait en wat via {{account}} gaat.",
+      "noPluginList": "Geen pluginlijst",
+      "theServerDidNotSend": "De server heeft zijn plugins niet verzonden. Sleep omlaag om het opnieuw te proberen.",
+      "serversOlderThan29": "Servers ouder dan 2.9 hebben alle functies ingebouwd.",
+      "nothingToShow": "Niets om te tonen",
+      "notSentByThisServer": "Niet verzonden door deze server"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Lokale gegevens vervangen?",
+      "everythingSavedOnThisFor": "Alles wat op deze {{deviceWord}} voor {{accountName}} is opgeslagen, wordt vervangen door de back-up.",
+      "continue": "Doorgaan",
+      "couldNotReadThatFile": "Kon dat bestand niet lezen",
+      "backupRestored": "Back-up hersteld",
+      "couldNotRestoreTheBackup": "Kon de back-up niet herstellen",
+      "backupPassphrase": "Back-upwachtzin",
+      "thePassphraseUsedWhenThe": "De wachtzin die is gebruikt toen de back-up werd gemaakt.",
+      "passphrase": "Wachtzin",
+      "restore": "Herstellen"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Accounts",
+        "thisDeviceAndLinkedServers": "Dit apparaat en gekoppelde servers, met hun synchronisatiestatus",
+        "syncAndProxy": "Synchronisatie en proxy",
+        "whatSyncsConflictsProxyAnd": "Wat wordt gesynchroniseerd, conflicten, proxy en koppeling verbreken",
+        "serverAccount": "Serveraccount",
+        "whoIsSignedInOn": "Wie is aangemeld op de actieve server",
+        "activeSessions": "Actieve sessies",
+        "devicesSignedInToThe": "Apparaten die zijn aangemeld bij de server",
+        "apiKeys": "API-sleutels",
+        "keysForScriptsAndTools": "Sleutels voor scripts en tools",
+        "changePassword": "Wachtwoord wijzigen",
+        "passwordOfYourServerAccount": "Wachtwoord van je serveraccount",
+        "deleteServerAccount": "Serveraccount verwijderen",
+        "removeYourAccountFromThe": "Je account van de server verwijderen",
+        "theme": "Thema",
+        "darkLightDraculaNordAnd": "Donker, licht, Dracula, Nord en meer",
+        "accentColor": "Accentkleur",
+        "textSize": "Tekstgrootte",
+        "sizeOfTextAcrossThe": "Grootte van tekst in de hele app",
+        "density": "Dichtheid",
+        "howTallListRowsAnd": "Hoe hoog lijstregels en instellingen zijn",
+        "homeScreenWidgets": "Widgets op het startscherm",
+        "hostsAndSnippetsOnThe": "Hosts en snippets op het startscherm",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Lettertype, thema, cursor, scrollback",
+        "keyboard": "Toetsenbord",
+        "layoutKeysPresets": "Indeling, toetsen, voorinstellingen",
+        "appLock": "App-vergrendeling",
+        "askForFaceIdTouch": "Vraag om Face ID, Touch ID of een PIN om de app te openen",
+        "lockAfter": "Vergrendelen na",
+        "howLongTheAppCan": "Hoe lang de app uit het zicht kan zijn voordat deze wordt vergrendeld",
+        "hideInAppSwitcher": "Verbergen in app-schakelaar",
+        "showABlankScreenIn": "Een leeg scherm tonen in de lijst met recente apps",
+        "changePin": "PIN wijzigen",
+        "backgroundSessions": "Achtergrondsessies",
+        "whatHappensToOpenSessions": "Wat er gebeurt met geopende sessies wanneer je de app verlaat",
+        "serverAlerts": "Servermeldingen",
+        "alertsFromTheAlertsPlugin": "Meldingen van de Alerts-plugin op je server",
+        "whatStaysOnThis": "Wat op dit {{deviceWord}} blijft staan",
+        "hostsCredentialsAndSnippetsAre": "Hosts, referenties en snippets zijn hier versleuteld opgeslagen",
+        "recentHosts": "Recente hosts",
+        "forgetTheHostsYouOpened": "Vergeet de hosts die je recent hebt geopend",
+        "shareAnonymousUsageStatistics": "Anonieme gebruiksstatistieken delen",
+        "aShortReportOnceA": "Een kort rapport een keer per dag. Geen hosts, namen of adressen",
+        "nextReport": "Volgend rapport",
+        "seeExactlyWhatWouldBe": "Bekijk precies wat er zou worden verzonden",
+        "resetInstallId": "Installatie-ID resetten",
+        "futureReportsWillLookLike": "Toekomstige rapporten lijken op een nieuwe installatie",
+        "serverUsageStatistics": "Servergebruiksstatistieken",
+        "telemetrySettingsOnYourServer": "Telemetrie-instellingen op je server",
+        "plugins": "Plugins",
+        "whatTheServerAddsAnd": "Wat de server toevoegt en waar het wordt uitgevoerd",
+        "localData": "Lokale gegevens",
+        "backupRestoreAndDeleteWhat": "Back-up maken, herstellen en verwijderen van wat op dit {{deviceWord}} is opgeslagen",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versie en updates",
+        "logs": "Logs",
+        "latestLinesFromThisRun": "Laatste regels van deze uitvoering, voor bugrapporten"
+      },
+      "sections": {
+        "accountsAndSync": "Accounts en synchronisatie",
+        "thisDeviceLinkedServersAnd": "Dit apparaat, gekoppelde servers en synchronisatie",
+        "appearance": "Uiterlijk",
+        "themeAccentTextSizeAnd": "Taal, thema, accentkleur, tekstgrootte en dichtheid",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Lettertype, kleuren en achtergrondsessies",
+        "keyboard": "Toetsenbord",
+        "keyRowsAndShortcuts": "Toetsenrijen en sneltoetsen",
+        "security": "Beveiliging",
+        "appLockFaceIdAnd": "App-vergrendeling, Face ID en PIN",
+        "notifications": "Meldingen",
+        "alertsFromYourServer": "Waarschuwingen van uw server",
+        "privacyAndUsageStatistics": "Privacy en gebruiksstatistieken",
+        "whatStaysOnThis": "Wat op dit {{deviceWord}} blijft",
+        "plugins": "Plugins",
+        "whatTheServerAddsTo": "Wat de server aan de app toevoegt",
+        "backupAndData": "Back-up en gegevens",
+        "backUpRestoreImportAnd": "Back-up maken, herstellen, importeren en exporteren",
+        "aboutAndLogs": "Over en logs",
+        "versionAndLogsForBug": "Versie en logs voor bugrapporten"
+      }
+    },
+    "settings": "Instellingen",
+    "searchSettings": "Instellingen doorzoeken",
+    "noSettingsMatch": "Geen instellingen gevonden.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Snippets kunnen niet worden geladen",
+      "copied": "Gekopieerd: {{name}}",
+      "nameIsRequired": "Naam is verplicht",
+      "contentIsRequired": "Inhoud is verplicht",
+      "snippetUpdated": "Snippet bijgewerkt",
+      "snippetCreated": "Snippet aangemaakt",
+      "failedToSaveSnippet": "Snippet kan niet worden opgeslagen",
+      "snippetDeleted": "Snippet verwijderd",
+      "failedToDeleteSnippet": "Snippet kan niet worden verwijderd",
+      "folderNameIsRequired": "Mapnaam is verplicht",
+      "folderCreated": "Map aangemaakt",
+      "failedToCreateFolder": "Map kan niet worden aangemaakt",
+      "folderDeleted": "Map verwijderd",
+      "failedToDeleteFolder": "Map kan niet worden verwijderd",
+      "folderRenamed": "Map hernoemd",
+      "failedToRenameFolder": "Map kan niet worden hernoemd",
+      "failedToSaveOrder": "Volgorde kan niet worden opgeslagen",
+      "moveUp": "Omhoog verplaatsen",
+      "moveDown": "Omlaag verplaatsen",
+      "runOnHosts": "{{name}} uitvoeren op hosts",
+      "copy": "{{name}} kopiëren",
+      "delete": "{{name}} verwijderen",
+      "renameFolder": "Map hernoemen",
+      "deleteFolder": "Map verwijderen",
+      "noSnippetsInThisFolder": "Geen snippets in deze map",
+      "snippets": "Snippets",
+      "importAndExport": "Importeren en exporteren",
+      "folder": "Map",
+      "new": "Nieuw",
+      "loading": "Laden…",
+      "couldNotLoadSnippets": "Snippets kunnen niet worden geladen",
+      "checkTheConnectionToYour": "Controleer de verbinding met uw server en probeer het opnieuw.",
+      "tryAgain": "Opnieuw proberen",
+      "noSnippetsYet": "Nog geen snippets",
+      "createYourFirstSnippetOr": "Maak uw eerste snippet, of voeg snippets toe vanuit de Termix web- of desktop-app.",
+      "createSnippet": "Snippet aanmaken",
+      "askBeforeRunning": "Vragen voor uitvoering",
+      "confirmBeforeASnippetRuns": "Bevestigen voordat een snippet in de terminal wordt uitgevoerd",
+      "editSnippet": "Snippet bewerken",
+      "newSnippet": "Nieuwe snippet",
+      "cancel": "Annuleren",
+      "save": "Opslaan",
+      "create": "Maken",
+      "name": "Naam",
+      "eGUpdatePackages": "bijv. Pakketten bijwerken",
+      "content": "Inhoud",
+      "descriptionOptional": "Beschrijving (optioneel)",
+      "shortDescription": "Korte beschrijving",
+      "folderOptional": "Map (optioneel)",
+      "selectFolder": "Map selecteren",
+      "noFolder": "Geen map",
+      "targetHostsOptional": "Doelhosts (optioneel)",
+      "none": "Geen",
+      "note": "Opmerking",
+      "pastedIntoTheTerminalWithout": "In de terminal geplakt zonder uit te voeren",
+      "targetHosts": "Doelhosts",
+      "copy2": "Kopiëren",
+      "edit": "Bewerken",
+      "runOnHosts2": "Uitvoeren op hosts",
+      "delete2": "Verwijderen",
+      "deleteSnippet": "Snippet verwijderen",
+      "deleteThisCannotBeUndone": "“{{name}}” verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "renameFolder2": "Map hernoemen",
+      "rename": "Hernoemen",
+      "folderName": "Mapnaam",
+      "eGSystem": "bijv. Systeem",
+      "newFolder": "Nieuwe map",
+      "deleteFolder2": "Map verwijderen",
+      "deleteSnippetsInThisFolder": "“{{name}}” verwijderen? Snippets in deze map worden ongecategoriseerd."
+    },
+    "sync": {
+      "notYet": "Nog niet",
+      "justNow": "Zojuist",
+      "stopped": "Gestopt",
+      "signInToThisServer": "Meld je opnieuw aan bij deze server om te synchroniseren",
+      "couldNotChangeThat": "Dit kon niet worden gewijzigd",
+      "sync": "Synchroniseren",
+      "thisDeviceDoesNotSync": "Dit apparaat synchroniseert niet. Koppel een Termix-server om je hosts op meer dan één apparaat te behouden.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} houdt hosts, referenties, snippets en instellingen op deze {{deviceWord}} gesynchroniseerd. Een kopie blijft op deze {{deviceWord}}, zodat het ook offline werkt.",
+      "lastSynced": "Laatst gesynchroniseerd {{value}}",
+      "live": "Live",
+      "syncNow": "Nu synchroniseren",
+      "fix": "Oplossen",
+      "thisServerReadsLiveAnd": "Deze server leest live en bewaart geen kopie op de {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Schakel de Sync-plugin in op de Plugins-pagina van de server en meld je hier opnieuw aan om een kopie op deze {{deviceWord}} te behouden.",
+      "whatSyncs": "Wat wordt gesynchroniseerd",
+      "turnedOffThatDataStays": "Uitgeschakeld, deze gegevens blijven alleen op deze {{deviceWord}}.",
+      "conflicts": "Conflicten",
+      "changedHereAndOnThe": "Hier en op de server tegelijkertijd gewijzigd. De versie van de server is behouden.",
+      "useServer": "Server gebruiken",
+      "keepMine": "De mijne behouden",
+      "notSavedOnTheServer": "Niet opgeslagen op de server",
+      "theServerRefusedTheseChanges": "De server weigerde deze wijzigingen. Ze blijven op deze {{deviceWord}}.",
+      "tryAgain": "Opnieuw proberen",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Alleen nodig wanneer er een reverse proxy voor de server staat.",
+      "unlink": "Ontkoppelen",
+      "unlinkThisServer": "Deze server ontkoppelen",
+      "minAgo": "{{value}} min geleden",
+      "signedOut": "Afmelding voltooid",
+      "waitingToSync": "Wachten op synchronisatie",
+      "synced": "Gesynchroniseerd",
+      "syncing": "Synchroniseren",
+      "offline": "Offline"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Achtergrond",
+        "text": "Tekst",
+        "cursor": "Cursor",
+        "textUnderCursor": "Tekst onder cursor",
+        "selection": "Selectie",
+        "black": "Zwart",
+        "red": "Rood",
+        "green": "Groen",
+        "yellow": "Geel",
+        "blue": "Blauw",
+        "magenta": "Magenta",
+        "cyan": "Cyaan",
+        "white": "Wit",
+        "brightBlack": "Fell zwart",
+        "brightRed": "Fell rood",
+        "brightGreen": "Fell groen",
+        "brightYellow": "Fell geel",
+        "brightBlue": "Fell blauw",
+        "brightMagenta": "Fell magenta",
+        "brightCyan": "Fell cyaan",
+        "brightWhite": "Fell wit",
+        "customTheme": "Aangepast thema",
+        "colorsAsHexLike1e1e2e": "Kleuren als hex, zoals #1e1e2e.",
+        "cancel": "Annuleren",
+        "save": "Opslaan",
+        "isNotAHexColor": "{{label}} is geen hex-kleur"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Compact",
+      "default": "Standaard",
+      "relaxed": "Ontspannen",
+      "spacious": "Ruim",
+      "none": "Geen",
+      "couldNotSave": "Kon niet worden opgeslagen",
+      "pickASizeFromTo": "Kies een grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminalinstellingen zijn gereset",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Een host kan in Termix zijn eigen thema en cursor instellen, wat voorrang heeft op deze instellingen.",
+      "theme": "Thema",
+      "custom": "Aangepast",
+      "font": "Lettertype",
+      "active": "Actief",
+      "sizeAndSpacing": "Grootte en opmaak",
+      "pinchTheTerminalToChange": "Pinch de terminal om ook de grootte te wijzigen. Grote tekst in de instellingen van uw {{deviceWord}} maakt het groter.",
+      "custom2": "Aangepast {{fontSize}}",
+      "lineHeight": "Regelhoogte",
+      "letterSpacing": "Letterafstand",
+      "ligatures": "Ligaturen",
+      "cursor": "Cursor",
+      "blink": "Knipperen",
+      "bell": "Bel",
+      "vibrate": "Trillen",
+      "onTheBellAndWhen": "Bij het belsignaal en bij lang indrukken om te selecteren",
+      "scrollback": "Scrollback",
+      "linesKeptAboveTheScreen": "Regels die boven het scherm worden bewaard. Geldt voor nieuwe terminals.",
+      "linksAndKeys": "Links en sleutels",
+      "askBeforeOpeningLinks": "Vragen voordat links worden geopend",
+      "doubleTapSendsTab": "Dubbel tikken stuurt Tab",
+      "longPressStillSelectsText": "Lang indrukken selecteert nog steeds tekst",
+      "optionSendsAlt": "Option stuurt Alt",
+      "onAHardwareKeyboardOff": "Op een hardwaretoetsenbord. Uit typt symbolen zoals op een Mac.",
+      "history": "Geschiedenis",
+      "suggestCommands": "Commando's voorstellen",
+      "showsPastCommandsThatStart": "Toont eerdere commando's die beginnen met wat je typt",
+      "resetToDefault": "Terug naar standaard",
+      "fontSize": "Lettergrootte",
+      "aSizeFromTo": "Een grootte van {{MIN_FONT_SIZE}} tot {{MAX_FONT_SIZE}}.",
+      "cancel": "Annuleren",
+      "apply": "Toepassen",
+      "resetTerminalSettings": "Terminalinstellingen resetten?",
+      "themeFontSizeCursorBell": "Thema, lettertype, grootte, cursor, bel en de rest gaan terug naar de standaardwaarden.",
+      "reset": "Resetten",
+      "followsAppTheme": "Volgt app-thema"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kan 2FA-instelling niet starten",
+      "twoFactorAuthenticationEnabled": "Tweefactorauthenticatie ingeschakeld",
+      "invalidCodeTryAgain": "Ongeldige code, probeer het opnieuw",
+      "twoFactorAuthenticationDisabled": "Tweefactorauthenticatie uitgeschakeld",
+      "failedToDisable2fa": "Kan 2FA niet uitschakelen",
+      "failedToFetchBackupCodes": "Kan back-upcodes niet ophalen",
+      "secretCopied": "Geheim gekopieerd",
+      "backupCodesCopied": "Back-upcodes gekopieerd",
+      "twoFactorAuthentication": "Tweefactorauthenticatie",
+      "loading": "Laden…",
+      "scanThisQrCodeWith": "Scan deze QR-code met je authenticator-app (Google Authenticator, Authy, etc.) en voer vervolgens de 6-cijferige code in om te bevestigen.",
+      "verifyAmpEnable": "Verifiëren &amp; Inschakelen",
+      "cancel": "Annuleren",
+      "saveYourBackupCodes": "Bewaar je back-upcodes",
+      "storeTheseSomewhereSafeEach": "Bewaar deze op een veilige plek. Elke code kan maar één keer worden gebruikt als je de toegang tot je authenticator verliest.",
+      "copyAllCodes": "Alle codes kopiëren",
+      "done": "Klaar",
+      "yourAccountIsProtectedWith": "Je account is beschermd met een authenticator-app.",
+      "addAnExtraLayerOf": "Voeg een extra beveiligingslaag toe aan je account.",
+      "viewBackupCodes": "Back-upcodes bekijken",
+      "disable2fa": "2FA uitschakelen",
+      "enable2fa": "2FA inschakelen",
+      "disableTwoFactorAuthentication": "Tweefactorauthenticatie uitschakelen",
+      "enterACodeFromYour": "Voer een code in van je authenticator-app om te bevestigen. Je kunt 2FA op elk moment opnieuw inschakelen.",
+      "enterYourPasswordToConfirm": "Voer je wachtwoord in om te bevestigen. Je kunt 2FA op elk moment opnieuw inschakelen.",
+      "disable": "Uitschakelen",
+      "yourPassword": "Je wachtwoord",
+      "n2faIsEnabled": "2FA is ingeschakeld",
+      "n2faIsNotEnabled": "2FA is niet ingeschakeld"
+    },
+    "language": {
+      "label": "Taal",
+      "description": "De app herlaadt om te wisselen",
+      "system": "Hetzelfde als het apparaat"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Geen SSH-hosts hier",
+      "couldNotReadWhatWas": "Kan niet lezen wat is gedeeld",
+      "stopTheUploads": "Uploads stoppen?",
+      "stopAndLeave": "Stoppen en verlaten",
+      "sendTo": "Verzenden naar {{name}}",
+      "sendToAHost": "Verzenden naar een host",
+      "nothingToSend": "Niets om te verzenden",
+      "close": "Sluiten",
+      "done": "Klaar",
+      "cancel": "Annuleren",
+      "uploadHere": "Hier uploaden",
+      "uploadsStillGoing_one": "{{count}} upload loopt nog. Als je vertrekt, wordt deze gestopt.",
+      "uploadsStillGoing_other": "{{count}} uploads lopen nog. Als je vertrekt, worden ze gestopt.",
+      "filesSize_one": "{{count}} bestand | {{size}}",
+      "filesSize_other": "{{count}} bestanden | {{size}}",
+      "readingWhatWasShared": "Lees gedeelde inhoud"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Fout",
+      "worksWithoutAServer": "Werkt zonder server",
+      "accountSwitch": "Account {{account}}, wisselen",
+      "search": "Zoeken",
+      "notificationsUnread": "Meldingen, {{unread}} ongelezen",
+      "notifications": "Meldingen",
+      "signedIn": "Aangemeld",
+      "signedOut": "Afmeld",
+      "copyOnThis": "Kopiëren op dit {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Home",
+      "hosts": "Hosts",
+      "sessions": "Sessies",
+      "tools": "Tools",
+      "settings": "Instellingen",
+      "open": "{{label}}, {{count}} open"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} open"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Kies een host",
+      "searchHosts": "Hosts zoeken",
+      "clearSearch": "Zoekopdracht wissen",
+      "noHostsMatch": "Geen hosts gevonden",
+      "noHostsCanUseThis": "Geen hosts kunnen dit gebruiken",
+      "turnItOnForA": "Schakel dit in voor een host in de host-editor."
+    },
+    "noToolsHereYet": "Nog geen tools hier",
+    "onAHost": "Op een host",
+    "saved": "Opgeslagen",
+    "fromYourServer": "Vanaf je server"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Annuleren",
+      "delete": "Verwijderen",
+      "confirm": "Bevestigen"
+    },
+    "contextMenu": {
+      "closeMenu": "Menu sluiten"
+    },
+    "inlineView": {
+      "back": "Terug"
+    },
+    "listRow": {
+      "moreActions": "Meer acties"
+    },
+    "pinPad": {
+      "useBiometrics": "Biometrie gebruiken",
+      "delete": "Verwijderen"
+    },
+    "popover": {
+      "close": "Sluiten"
+    },
+    "promptSheet": {
+      "cancel": "Annuleren"
+    },
+    "sheet": {
+      "close": "Sluiten"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Deze sleutel is vergrendeld. Voer het wachtwoord in.",
+      "thatPassphraseDoesnTOpen": "Dit wachtwoord opent deze sleutel niet.",
+      "thisDoesnTLookLike": "Dit lijkt geen privésleutel te zijn.",
+      "loadedAndChangedItTo": "{{name}} geladen en omgezet naar OpenSSH-formaat",
+      "loadedItNeedsItsPassphrase": "{{name}} geladen. Het wachtwoord is nodig om verbinding te maken"
+    },
+    "ago": {
+      "justNow": "zojuist"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Kon je hosts niet laden.",
+      "failedOn": "{{name}} mislukt op {{name2}}",
+      "on": "{{name}} op {{name2}}: {{value}}",
+      "ranOn": "{{name}} uitgevoerd op {{name2}}",
+      "runOn": "Voer \"{{name}}\" uit op",
+      "runSnippet": "Snippet uitvoeren",
+      "loadingHosts": "Hosts laden…",
+      "noHostsAvailable": "Geen hosts beschikbaar",
+      "addAHostInTermix": "Voeg een host toe in Termix om snippets vanaf je startscherm uit te voeren.",
+      "lastUsed": "Laatst gebruikt",
+      "failedToRunSnippet": "Snippet uitvoeren mislukt"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Die snippet bestaat niet meer.",
+      "couldNotOpenThatSnippet": "Kon die snippet niet openen.",
+      "thatHostNoLongerExists": "Die host bestaat niet meer.",
+      "couldNotOpenThatHost": "Kan die host niet openen."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Home"
+      },
+      "hosts": {
+        "hosts": "Hosts"
+      },
+      "sessions": {
+        "sessions": "Sessies",
+        "connectToATermixServer": "Verbind met een Termix-server om terminals, tunnels en bestandsessies te openen."
+      }
+    },
+    "layout": {
+      "initializing": "Initialiseren…",
+      "cancel": "Annuleren"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Deze host heeft geen geldig MAC-adres.",
+    "thisBuildCanTSend": "Deze build kan geen Wake-on-LAN-pakketten verzenden.",
+    "couldNotSendThePacket": "Kon het pakket niet verzenden. Controleer of Wi-Fi aan staat."
+  },
+  "common": {
+    "hostCount_one": "{{count}} host",
+    "hostCount_other": "{{count}} hosts",
+    "device": {
+      "phone": "telefoon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "dit {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Delen",
+    "action": "Delen met mensen",
+    "levels": {
+      "connect": "Verbinden",
+      "view": "Bekijken",
+      "edit": "Bewerken",
+      "manage": "Beheren"
+    },
+    "levelHints": {
+      "connect": "Alleen sessies openen. De host-instellingen blijven verborgen.",
+      "view": "Verbinden, plus de host-instellingen bekijken. Geheimen worden nooit getoond.",
+      "edit": "Bekijken, plus instellingen wijzigen behalve de inloggegevens.",
+      "manage": "Bewerken, plus de host delen en toegang wijzigen of verwijderen."
+    },
+    "until": "tot {{date}}",
+    "sharedBy": "door {{name}}",
+    "couldNotLoad": "Kon niet laden wie toegang heeft",
+    "shared": "Host gedeeld",
+    "couldNotShare": "Kon de host niet delen",
+    "updated": "Toegang gewijzigd",
+    "couldNotUpdate": "Kon de toegang niet wijzigen",
+    "removeTitle": "{{name}} verwijderen?",
+    "removeHint": "Ze kunnen deze host niet meer gebruiken.",
+    "remove": "Verwijderen",
+    "removed": "Toegang verwijderd",
+    "couldNotRemove": "Kon de toegang niet verwijderen",
+    "whoHasAccess": "Wie heeft toegang",
+    "loading": "Laden...",
+    "nobodyYet": "Alleen jij kunt deze host gebruiken.",
+    "changeAccessFor": "Toegang wijzigen voor {{name}}",
+    "shareWith": "Delen met",
+    "users": "Gebruikers",
+    "roles": "Rollen",
+    "searchUsers": "Gebruikers zoeken",
+    "searchRoles": "Rollen zoeken",
+    "noUsers": "Geen andere gebruikers om mee te delen.",
+    "noRoles": "Geen rollen om mee te delen.",
+    "options": "Toegang",
+    "level": "Niveau",
+    "expires": "Eindigt",
+    "expiry": {
+      "never": "Nooit",
+      "1h": "Over 1 uur",
+      "1d": "Over 1 dag",
+      "7d": "Over 7 dagen",
+      "30d": "Over 30 dagen"
+    },
+    "pickSomeone": "Kies met wie je wilt delen",
+    "shareCount_one": "Delen met {{count}}",
+    "shareCount_other": "Delen met {{count}}",
+    "removeAccess": "Toegang verwijderen"
+  }
+}

@@ -1,1 +1,3852 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Пријава",
+      "addServer": "Додај сервер",
+      "switchAccount": "Промени налог",
+      "noServerConnected": "Ниједан сервер није повезан",
+      "connectToATermixServer": "Повежите се са Termix сервером да бисте управљали својим хостовима, терминалима, фајловима и многим другим."
+    },
+    "lockScreen": {
+      "cancel": "Откажи",
+      "tooManyTriesWaitSeconds": "Превише покушаја. Сачекајте {{value}} секунди",
+      "termixLocked": "Termix је закључан",
+      "enterYourPinToContinue": "Унесите ПИН да наставите"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Наранџаста",
+      "blue": "Плава",
+      "green": "Зелена",
+      "purple": "Љубичаста",
+      "pink": "Розе",
+      "cyan": "Цијан",
+      "red": "Црвена",
+      "yellow": "Жута",
+      "teal": "Тиркизна",
+      "indigo": "Индиго",
+      "rose": "Ружичаста",
+      "lime": "Лиме",
+      "system": "Систем",
+      "light": "Светла",
+      "dark": "Тамна"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Користи ПИН",
+      "unlockTermix": "Откључај Termix",
+      "unlockTermixFirst": "Прво откључајте Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ова функција је искључена на серверу.",
+      "aTabWasNotReopened": "Један таб није поново отворен јер је његов хост нестало",
+      "tabsWereNotReopenedBecause": "Није поново отворено {{count}} картица јер су њихови хостови нестали"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Повезајте Termix сервер да бисте ово користили",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Унесите адресу вашег сервера",
+        "theAddressCanTHave": "Адреса не сме садржати размаке",
+        "useAnHttpOrHttps": "Користите http:// или https:// адресу",
+        "thatDoesnTLookLike": "Ово не личи на адресу сервера",
+        "thePortMustBeFrom": "Порт мора бити између 1 и 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Логин прокси је одговорио уместо Termix. Прво се пријавите на прокси.",
+        "theServerDidNotSend": "Сервер није послао токен.",
+        "theServerDidNotSend2": "Сервер није послао сесију.",
+        "theServerSentNoSign": "Сервер није послао адресу за пријаву.",
+        "theSignInRanOut": "Пријава је истекла или је већ коришћена. Пријавите се поново.",
+        "wrongUsernameOrPassword": "Погрешно корисничко име или лозинка",
+        "signInFailedHttp": "Пријава није успела (HTTP {{status}})",
+        "thePageSignedYouIn": "Страница вас је пријавила, али није вратила сесију. Ажурирајте сервер на Termix 26.11.3 или новију верзију.",
+        "thisAccountIsnTAllowed": "Овај налог није дозвољен за пријаву овде.",
+        "noTermixAccountMatchesThat": "Ниједан Termix налог не одговара овој пријави."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Ова сесија нема сервер"
+    },
+    "store": {
+      "noSuchAccount": "Не постоји такав налог",
+      "thisDeviceCanTBe": "Овај уређај се не може уклонити",
+      "switchToAnotherAccountFirst": "Прво пређите на други налог"
+    },
+    "types": {
+      "thisDevice": "Овај уређај"
+    },
+    "accountSwitcher": {
+      "error": "Грешка",
+      "worksWithoutAServer": "Ради без сервера",
+      "couldNotSwitchAccount": "Није могуће променити налог",
+      "accounts": "Налози",
+      "openTabsKeepRunningWhen": "Отворени табови настављају да раде када пређете на други налог.",
+      "unlink": "Прекини везу са {{account}}",
+      "linkAServer": "Повезај сервер",
+      "eachServerKeepsItsOwn": "Сваки сервер чува своје хостове, акредитиве и подешавања на овом{{deviceWord}}.",
+      "signedIn": "Пријављен",
+      "signedOut": "Одјављен",
+      "syncedCopy": "Синхронизована копија"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Није могуће сачувати пин",
+      "theServerSKeyMatches": "Кључ сервера се поклапа са пином",
+      "theServerShowsAnotherKey": "Сервер приказује други кључ",
+      "pinThisKey": "Запипинати овај кључ?",
+      "pinThisKey2": "Запипинати овај кључ",
+      "keyPinned": "Кључ је запипинат",
+      "couldNotReadTheServer": "Није могуће прочитати кључ сервера",
+      "thatIsNotAPin": "То није пин",
+      "keysPinned": "Кључеви су запипинати",
+      "certificatePin": "Пин сертификата",
+      "trustThisServerOnlyBy": "Верујте овом серверу само на основу његовог кључа. Користите га за само-потписани сертификат или да одбијете сваки други кључ. Додајте нови кључ пре него што промените сертификат сервера.",
+      "removePin": "Уклони пин {{pin}}",
+      "remove": "Уклони",
+      "readTheKeyFromThe": "Прочитај кључ са сервера",
+      "orPasteAPin": "Или залепи пин",
+      "pin": "Пин",
+      "add": "Додај",
+      "issuedTo": "Издао: {{subject}}",
+      "issuedBy": "Издао: {{issuer}}",
+      "validUntil": "Важи до: {{value}}",
+      "checkThatThisKeyMatches": "Проверите да ли се овај кључ поклапа са оним на вашем серверу пре него што га запипинате.",
+      "pasteTheBase64Sha256Of": "Залепите base64 sha256 јавног кључа сервера, као што га openssl исписује."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Подешавања проксија су сачувана",
+      "couldNotSaveTheProxy": "Није могуће сачувати подешавања проксија",
+      "couldNotReadThatFile": "Није могуће прочитати тај фајл",
+      "certificateSaved": "Сертификат је сачуван",
+      "theFileOrItsPassphrase": "Фајл или његова лозинка су нетачни",
+      "couldNotSaveTheCertificate": "Није могуће сачувати сертификат",
+      "headers": "Заглавља",
+      "sentWithEveryRequestTo": "Шаље се са сваким захтевом ка овом серверу, као што је Cloudflare сервис токен.",
+      "name": "Име",
+      "value": "Вредност",
+      "removeHeader": "Уклони заглавље",
+      "addHeader": "Додај заглавље",
+      "cloudflareServiceToken": "Cloudflare сервис токен",
+      "basicAuth": "Основна аутентификација",
+      "forAProxyThatAsks": "За прокси који тражи корисничко име и лозинку.",
+      "userName": "Корисничко име",
+      "password": "Лозинка",
+      "saveHeadersAndBasicAuth": "Сачувај заглавља и основну аутентификацију",
+      "clientCertificate": "Клијентски сертификат",
+      "forServersThatAskFor": "За сервере који траже један (mTLS). Кључ се чува у безбедном складишту {{deviceWord}} и не може се прочитати назад.",
+      "certificate": "Сертификат",
+      "remove": "Уклони",
+      "replaceCertificate": "Замени сертификат",
+      "pickAP12OrPfx": "Изаберите .p12 или .pfx фајл",
+      "proxySignIn": "Пријава на прокси",
+      "thisIsSignedInTo": " Овај {{deviceWord}} је пријављен на прокси.",
+      "forCloudflareAccessAutheliaAuthentik": "За Cloudflare Access, Authelia, Authentik и друге проксије са сопственом страницом за пријаву.{{value}}",
+      "signInToTheProxy": "Пријави се на прокси",
+      "forget": "Заборави",
+      "certificatePassphrase": "Лозинка сертификата",
+      "thePassphraseTheFileWas": "Лозинка са којом је фајл сачуван. Оставите празно ако је нема.",
+      "passphrase": "Лозинка",
+      "save": "Сачувај"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Пријављен на прокси",
+      "couldNotSaveTheProxy": "Није могуће сачувати пријаву на прокси",
+      "signInToTheProxy": "Пријави се на прокси",
+      "thisBuildOfTheApp": "Ова верзија апликације не може да задржи пријаву кроз прокси. Уместо тога, користите сервисни токен у прокси заглављима."
+    },
+    "savedLoginRow": {
+      "signIn": "Пријави се",
+      "signInWith": "Пријави се са {{name}}",
+      "whenThisServerSignsYou": "Када вас овај сервер одјави, поново се пријавите без куцања лозинке."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Веза је уклоњена. {{copied}} ставки је задржано на Овом уређају.",
+      "unlinked": "Веза је уклоњена",
+      "couldNotUnlinkTheServer": "Није могуће уклонити везу са сервером",
+      "unlink": "Уклонити везу са {{value}}?",
+      "thisSignsOutOfThe": "Овај {{deviceWord}} се одјављује са сервера. Ништа се не брише на серверу.",
+      "keepACopyOnThis": "Задржи копију на Овом уређају",
+      "yourOwnHostsCredentialsAnd": "Ваши сопствени хостови, акредитиви и фрагменти се пресели на Овај уређај. Хостови који су вам подељени се не задржавају.",
+      "deleteFromThis": "Обриши са овог {{deviceWord}}",
+      "everythingThisHasForThe": "Све што овај {{deviceWord}} има за сервер ће бити уклоњено."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Промените га испод под Прокси",
+      "updateTermixMobileFromYour": "Ажурирајте Termix Mobile из продавнице апликација"
+    },
+    "savedLogin": {
+      "signInToTermix": "Пријавите се у Termix",
+      "faceUnlock": "откључавање лицем"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Ова верзија не може да провери закључани кључ овог сервера или да пошаље његов сертификат."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Овај сервер не подржава ову функцију",
+      "theProxyWantsYouTo": "Прокси захтева да се пријавите",
+      "endpointNotAvailableOnThis": "Крајња тачка није доступна на овом серверу",
+      "unknownError": "Непозната грешка"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Прокси испред овог сервера захтева да се поново пријавите.",
+      "authenticationRequiredPleaseLogIn": "Потребна је аутентификација. Молимо вас да се поново пријавите.",
+      "accessDeniedYouDoNot": "Приступ је одбијен. Немате дозволу за извршавање ове радње.",
+      "thisFeatureIsTurnedOff": "Ова функција је искључена на серверу.",
+      "thisServerDoesNotSupport": "Овај сервер не подржава ову функцију.",
+      "resourceNotFoundTheRequested": "Ресурс није пронађен. Тражена ставка је можда обрисана.",
+      "conflictTheResourceAlreadyExists": "Сукоб. Ресурс већ постоји или је у употреби.",
+      "validationErrorPleaseCheckYour": "Грешка у ваљаности. Проверите унос и покушајте поново.",
+      "serverErrorOccurredPleaseTry": "Дошло је до грешке на серверу. Покушајте поново касније.",
+      "sslCertificateVerificationFailed": "Верификација SSL сертификата није успела.",
+      "networkErrorPleaseCheckYour": "Мрежна грешка. Проверите везу и покушајте поново.",
+      "failedTo": "Није успело {{operation}}",
+      "unknownError": "Непозната грешка",
+      "unexpectedErrorDuring": "Неочекивана грешка током {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Апликација није могла да верује HTTPS-у за ову локалну ИП адресу. Закључајте кључ сервера под Прокси и клиентским сертификатом, користите сертификат коме {{deviceWord}} верује, или HTTP на верованој локалној или VPN мрежи.",
+        "thisServerIsBehindA": "Овај сервер је иза проксија за пријаву. Уместо тога, користите опцију спољне пријаве.",
+        "loginFailed": "Пријава није успела"
+      },
+      "files": {
+        "fileNotFound": "Фајл није пронађен",
+        "fileWriteOperationDidNot": "Операција писања фајла није вратила статус успеха",
+        "couldNot": "Није могуће {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Хост је сачуван, али су неке поставке биле неуспешне: {{value}}",
+        "unexpectedHostResponseFrom": "Неочекиван одговор хоста од {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Узорак уживо није успео"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Нема одговора"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Овај сервер није приказао кључ на који је закључан, па страница није отворена."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Тај {{what}} више не постоји.",
+      "aHostCannotBeIts": "Хост не може бити свој родитељ",
+      "parentHostNotFound": "Родитељски хост није пронађен",
+      "aHostCanTGo": "Хост не може ићи испод једног од својих под-хостова",
+      "thisIsSharedWithYou": "Овај {{what}} је подељен са вама. Само власник може да га промени.",
+      "nameIsRequired": "Име је обавезно",
+      "nameAndCommandAreRequired": "Име и команда су обавезни",
+      "aFolderWithThatName": "Фолдер са тим именом већ постоји"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Овај уређај не може да сачува {{what}} овде."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Овај фрагмент је подељен са вама и не може се променити."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Користите лозинку са најмање 8 знакова.",
+      "thisIsNotATermix": "Ово није Termix резервни фајл.",
+      "thisBackupIsFromA": "Ова резервна копија је из новије верзије Termix. Прво ажурирајте апликацију.",
+      "wrongPassphraseOrTheFile": "Погрешна лозинка или је датотека оштећена."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Ова верзија не може да шифрује локалне податке."
+    },
+    "keys": {
+      "unlockTermixFirst": "Прво откључајте Termix.",
+      "thatIsNotADatabase": "То није кључ базе података.",
+      "couldNotSaveTheDatabase": "Кључ базе података се није могао сачувати."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Ови подаци су сачувани новијом верзијом Termix-а. Ажурирајте апликацију да бисте их отворили."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Овај уређај не синхронизује податке.",
+      "localDataIsNotAvailable": "Локални подаци нису доступни овде.",
+      "unlockTermixFirst": "Прво откључајте Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Не могу да се повежем.",
+      "thisWayCanTRun": "Овај начин не може да извршава команде"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo лозинка",
+      "password": "Лозинка",
+      "run": "Изврши",
+      "thatPasswordWasWrong": "Та лозинка је била погрешна.",
+      "onNeedsRoot": "{{reason}} на {{hostName}} захтева root приступ.",
+      "needsRootForThis": "{{hostName}} захтева root приступ за ово.",
+      "itIsKeptUntilYou": "Чува се док не затворите апликацију."
+    },
+    "run": {
+      "theHostTookTooLong": "Хост је превише дуго одговарао",
+      "connectionLost": "Веза је прекинута"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Ово захтева root приступ. Пријавите се као root, подесите sudo без лозинке или сачувајте sudo лозинку за хост.",
+      "theSudoPasswordWasWrong": "Sudo лозинка је била погрешна",
+      "commandFailed": "Команда није успела"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet у терминалу захтева везу са {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Функција {{id}} је већ регистрована"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Адреса",
+      "theIpOrHostName": "IP адреса или име хоста испод имена",
+      "username": "Корисничко име",
+      "theUserBeforeTheAddress": "Корисник пре адресе",
+      "port": "Порт",
+      "thePortAfterTheAddress": "Порт после адресе",
+      "hostIcon": "Икона хоста",
+      "theIconSetOnThe": "Икона постављена на хосту",
+      "pinIcon": "Закачи икону",
+      "marksPinnedHosts": "Означава закачене хостове",
+      "sharedBadge": "Ознака за дељење",
+      "marksHostsSharedWithYou": "Означава хостове подељене са вама",
+      "protocolBadges": "Ознаке протокола",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker и друге ознаке",
+      "tags": "Ознаке",
+      "theHostSTags": "Ознаке хоста",
+      "cpuAndRam": "CPU и RAM",
+      "liveUsageBarsOnOnline": "Траке потрошње у реалном времену за активне хостове",
+      "statusColors": "Боје статуса",
+      "greenBarWhenOnlineRed": "Зелена трака када је активан, црвена када је неактиван"
+    },
+    "uiPrefs": {
+      "small": "Мало",
+      "default": "Подразумевано",
+      "large": "Велико",
+      "comfortable": "Удобно",
+      "compact": "Компактно"
+    },
+    "errors": {
+      "somethingWentWrong": "Нешто је пошло по злу"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "За закључавање кључа лозинком потребна је Termix апликација, а не веб преглед."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Одмах",
+      "after15Seconds": "Након 15 секунди",
+      "after1Minute": "Након 1 минута",
+      "after5Minutes": "Након 5 минута"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Тајна уређаја је нестала",
+      "noSealedKey": "Нема запечаћеног кључа",
+      "theSealedKeyIsDamaged": "Запечаћени кључ је оштећен",
+      "wrongPin": "Погрешан ПИН",
+      "theSealedKeyDidNot": "Затворени кључ се није отворио",
+      "biometricsCanTOpenThe": "Биометрија не може да отвори кључ"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Ажурирај апликацију",
+      "onYourServerNeedsA": "{{name}} на вашем серверу захтева новију верзију Termix-а на овом {{deviceWord}}.",
+      "updateThePlugin": "Ажурирај додатак",
+      "onYourServerIsToo": "{{name}} на вашем серверу је prestar за ову апликацију. Замолите администратора да га ажурира у Додацима."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Блокирано од стране апликације",
+      "theAppDoesNotLet": "Апликација не дозвољава додацима да користе ову руту.",
+      "thisBuildCanTReach": "Ова верзија не може безбедно да приступи овом серверу."
+    },
+    "support": {
+      "needsANewerVersionOf": "Захтева новију верзију апликације",
+      "updateThePluginOnThe": "Ажурирај додатак на серверу",
+      "theAppHasItsOwn": "Апликација има сопствени изглед",
+      "notInTheAppYet": "Још увек није у апликацији",
+      "linkAServerToUse": "Повезите сервер да бисте га користили",
+      "opensInTheAppFrom": "Отвара се у апликацији са сервера",
+      "runsOnTheServer": "Ради на серверу",
+      "throughTheServer": "Преко сервера",
+      "inTheApp": "У апликацији",
+      "webView": "Веб приказ",
+      "onTheServer": "На серверу",
+      "appLook": "Изглед апликације",
+      "notInTheApp": "Није у апликацији",
+      "safeMode": "Безбедан режим",
+      "notRunning": "Не ради",
+      "notInstalled": "Није инсталиран",
+      "notOnThisServer": "Није на овом серверу",
+      "thePluginIsNotInstalled": "Додатак није инсталиран на овом серверу.",
+      "turnedOffOnTheServer": "Искључен на серверу",
+      "itOpensHereAgainWhen": "Опет ће се отворити овде када администратор укључи додатак.",
+      "notRunningOnTheServer": "Не ради на серверу",
+      "theServerIsInSafe": "Сервер је у безбедном режиму, па раде само додаци за приказ.",
+      "thePluginDidNotStart": "Додатак није покренут. Администратор може да га провери у Додацима.",
+      "thisPluginIsNotAvailable": "Овај додатак није доступан",
+      "itIsNotMadeFor": "Није направљен за апликацију.",
+      "offOnThisServer": "искључен на овом серверу",
+      "notRunningOnThisServer": "не ради на овом серверу",
+      "notOnThisServer2": "није на овом серверу",
+      "notInTheAppYet2": "Још увек није у апликацији | на овом серверу",
+      "worksOnThis": "Ради на овом {{deviceWord}}",
+      "andServer": "{{DeviceWord}} и сервер",
+      "deviceOnly": "Само {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Освежи"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Прекини све везе",
+      "showOpenSessions": "Прикажи отворене сесије",
+      "termixShowsANotificationWhile": "Termix приказује обавештење док су сесије отворене, како би Android одржавао њихов рад у позадини.",
+      "sessionsOpen_one": "{{count}} отворена сесија",
+      "sessionsOpen_few": "{{count}} отворене сесије",
+      "sessionsOpen_other": "{{count}} отворених сесија",
+      "tunnelsActive_one": "{{count}} активан тунел",
+      "tunnelsActive_few": "{{count}} активна тунела",
+      "tunnelsActive_other": "{{count}} активних тунела",
+      "notConnected": "Није повезано",
+      "waitingForNetwork": "Чекање на мрежу",
+      "connecting": "Повезивање",
+      "connected": "Повезано",
+      "reconnecting": "Поново повезивање",
+      "failed": "Неуспешно",
+      "closed": "Затворено"
+    },
+    "companionPane": {
+      "resizeThePanel": "Промените величину панела {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Затвори",
+      "closeAllTabs": "Затворити свих {{count}} картица?",
+      "everySessionEnds": "Свака сесија се завршава.",
+      "closeAll": "Затвори све",
+      "noActiveConnections": "Нема активних веза",
+      "pickAHostFromThe": "Изаберите хост са листе да започнете сесију. Картице које отворите на другим уређајима такође се приказују овде.",
+      "connectToAHostTo": "Повежите се са хостом да започнете сесију. Картице које отворите на другим уређајима такође се приказују овде.",
+      "open": "Отвори",
+      "background": "Позадина",
+      "sessionsFromOtherDevicesOr": "Сесије са других уређаја или картице у позадини. Додирните да их обновите.",
+      "liveTapToReconnect": "Активно, додирните за поновно повезивање",
+      "tapToReopen": "Додирните за поновно отварање"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Ово је искључено на серверу",
+      "comesBackHereWhenAn": "{{title}} ће се вратити овде када администратор поново укључи његов прикључак.",
+      "closeTab": "Затвори картицу"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Везе",
+        "hideHostList": "Сакриј листу хостова",
+        "showHostList": "Прикажи листу хостова",
+        "backToHosts": "Назад на хостове",
+        "showKeyboard": "Прикажи тастатуру",
+        "hideKeyboard": "Сакриј тастатуру",
+        "hideKeysPanel": "Сакриј панел кључева",
+        "showKeysPanel": "Прикажи панел кључева"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Додирните за опције картице, задржите за померање",
+        "holdToMove": "Задржите за померање",
+        "close": "Затвори {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Чекање на мрежу",
+        "connectionFailed": "Веза није успела",
+        "reconnecting": "Поново се повезује"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Преименуј",
+      "newTabOnThisHost": "Нова картица на овом хосту",
+      "here": "{{title}} овде",
+      "hidePanel": "Сакриј {{title}} панел",
+      "showPanel": "Прикажи {{title}} панел",
+      "endSplitView": "Заврши подељени приказ",
+      "splitViewWith": "Подељени приказ са...",
+      "moveLeft": "Помери лево",
+      "moveRight": "Помери десно",
+      "closeTab": "Затвори картицу",
+      "closeAllTabs": "Затвори све картице",
+      "closeAllTabs2": "Затвори све {{count}} картице?",
+      "everySessionEnds": "Свака сесија се завршава.",
+      "closeAll": "Затвори све",
+      "splitViewWith2": "Подељени приказ са",
+      "renameTab": "Преименуј картицу",
+      "leaveItEmptyToUse": "Оставите празно да бисте користили име хоста."
+    },
+    "resizeHostList": "Промените величину листе хостова",
+    "resizeSplitView": "Промените величину подељеног приказа",
+    "connections": "Везе",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Двофакторска аутентификација",
+        "enterThe6DigitCode": "Унесите 6-цифрени код из ваше апликације за аутентификацију.",
+        "cancel": "Откажи",
+        "verify": "Верификуј",
+        "codeExpiresInSGet": "Код истиче за {{totpCountdown}}с, добијте нови код",
+        "warpgateAuthentication": "Warpgate аутентификација",
+        "confirmTheWarpgateAuthenticationUrl": "Потврдите Warpgate URL за аутентификацију и сигурносни кључ.",
+        "authenticate": "Аутентификуј",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Сигурносни кључ (опционо)",
+        "authenticationRequired": "Потребна је аутентификација",
+        "thisHostNeedsCredentialsTo": "Овом хосту су потребне акредитиве за повезивање.",
+        "connect": "Повези",
+        "password": "Лозинка",
+        "sshKey": "SSH кључ",
+        "pastePrivateKey": "Залепи приватни кључ",
+        "keyPassphraseOptional": "Лозинка за кључ (опционо)"
+      },
+      "connectionError": {
+        "tryAgain": "Покушај поново",
+        "close": "Затвори",
+        "connectThroughTheServer": "Повежи се кроз сервер",
+        "connectFromThis": "Повежи се са овог {{deviceWord}}",
+        "triedFromThis": "Покушано са овог {{deviceWord}}",
+        "triedThroughTheServer": "Покушано кроз сервер"
+      },
+      "execGate": {
+        "connecting": "Повезивање..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Нешто је пошло по злу",
+        "retry": "Покушај поново",
+        "refresh": "Освежи",
+        "nothingToShow": "Нема шта да се прикаже"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Логи су копиране",
+        "connectionLog": "Дневник везе ({{count}})",
+        "copyLog": "Копирај дневник",
+        "waitingForConnection": "Чека се веза…",
+        "noLogEntries": "Нема уноса у дневнику"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Није могуће сачувати како се овај хост повезује"
+      },
+      "useSessionConnect": {
+        "connected": "Повезано",
+        "connectingTo": "Повезивање са {{name}}…",
+        "connectionLost": "Веза је прекинута",
+        "failedToConnect": "Повезивање није успело",
+        "invalidCode": "Неисправан код",
+        "warpgateAuthenticationFailed": "Аутентификација преко Warpgate-а није успела",
+        "authenticationCancelled": "Аутентификација је отказана"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Претрага и команде",
+    "addHost": "Додај хост",
+    "keyboardShortcuts": "Пречице на тастатури",
+    "home": "Почетна",
+    "hosts": "Хостови",
+    "sessions": "Сесије",
+    "tools": "Алати",
+    "settings": "Подешавања",
+    "terminal": "Терминал",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Пречице на тастатури"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Хостови и фолдери",
+      "yourHostsFoldersAndHosts": "Ваши хостови, фолдери и хостови подељени са вама",
+      "credentials": "Акредитиви",
+      "savedPasswordsAndKeysAnd": "Сачуване лозинке и кључеви, и акредитиви подељени са вама",
+      "snippets": "Исечци",
+      "snippetsAndTheirFolders": "Исечци и њихови фолдери",
+      "hostDefaults": "Подразумевана подешавања за хостове",
+      "defaultSettingsForNewHosts": "Подразумевана подешавања за нове хостове",
+      "preferences": "Преференције",
+      "settingsThatFollowYouBetween": "Подешавања која вас прате између уређаја"
+    },
+    "link": {
+      "noSuchServerAccount": "Не постоји такав серверски налог",
+      "signInFirst": "Прво се пријавите.",
+      "thisServerAccountBelongsTo": "Овај серверски налог припада кориснику {{value}}. Пријавите се као тај корисник или додајте сервер поново за овог корисника."
+    },
+    "reasons": {
+      "signedOut": "Одјављен",
+      "thisSSignInTo": "Рок за пријаву овог {{deviceWord}} на сервер је истекao.",
+      "theServerEndedThisS": "Сервер је прекинуо сесију овог {{deviceWord}}. Можда је одјављен са другог уређаја.",
+      "proxySignInNeeded": "Потребна је пријава за прокси",
+      "theProxyInFrontOf": "Прокси испред овог сервера тражи да се поново пријавите.",
+      "proxyPasswordNeeded": "Потребна је лозинка за прокси",
+      "theProxyInFrontOf2": "Прокси испред овог сервера је затражио своју лозинку.",
+      "certificateRefused": "Сертификат је одбијен",
+      "theServerDidNotAccept": "Сервер није прихватио сертификат овог {{deviceWord}}.",
+      "untrustedServer": "Непоуздан сервер",
+      "theServerSCertificateIs": "Сертификат сервера није поверљив за овај {{deviceWord}}.",
+      "serverKeyChanged": "Кључ сервера је промењен",
+      "theServerShowsAnotherKey": "Сервер приказује други кључ од оног који је закачен за њега. Ако сте променили његов сертификат, закачите нови кључ.",
+      "offline": "Без везе",
+      "canTReachTheServer": "Не могу да ступим у контакт са сервером. Синхронизација ће поново покушати ускоро.",
+      "serverProblem": "Проблем са сервером",
+      "theServerHadAProblem": "Сервер је имао проблем. Синхронизација ће поново покушати ускоро.",
+      "updateNeeded": "Потребно је ажурирање",
+      "thisServerUsesANewer": "Овај сервер користи новију верзију синхронизације. Ажурирајте апликацију.",
+      "notATermixServer": "Није Termix сервер",
+      "theAddressDoesNotAnswer": "Ова адреса не одговара као Termix сервер.",
+      "syncIsOff": "Синхронизација је искључена",
+      "theSyncPluginIsOff": "Плагин за синхронизацију је искључен на овом серверу. Замолите администратора да га укључи у Плагинима.",
+      "differentUser": "Различит корисник",
+      "youSignedInAsA": "Пријавили сте се као други корисник од онога коме припада овај налог на серверу.",
+      "syncStopped": "Синхронизација је заустављена",
+      "somethingWentWrong": "Нешто је пошло по злу.",
+      "signInAgain": "Пријавите се поново",
+      "signInToTheProxy": "Пријавите се на прокси",
+      "enterThePassword": "Унесите лозинку",
+      "tryAgain": "Покушајте поново",
+      "checkThePin": "Проверите PIN",
+      "checkForUpdates": "Провери ажурирања",
+      "pickACertificate": "Изаберите сертификат"
+    },
+    "settings": {
+      "noSuchSetting": "Таква поставка не постоји",
+      "snippetFolder": "Фасцикла са фрагментима",
+      "hostDefault": "Подразумевано за хост"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Сервер није прихватио сертификат овог {{deviceWord}}.",
+      "theServerSCertificateIs": "Сертификат сервера није поверљив.",
+      "canTReachTheServer": "Не могу да ступим у контакт са сервером.",
+      "signedOut": "Одјављен",
+      "theProxyAskedForIts": "Прокси је затражио своју лозинку.",
+      "theProxyWantsYouTo": "Прокси жели да се пријавите.",
+      "theSyncPluginIsOff": "Плагин за синхронизацију је искључен на овом серверу.",
+      "serverError": "Грешка сервера {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Сервер приказује други кључ од закаченог."
+    },
+    "remote": {
+      "thisIsNotATermix": "Ово није Termix сервер.",
+      "theProxyWantsYouTo": "Прокси жели да се пријавите.",
+      "thisServerUsesANewer": "Овај сервер користи новију верзију синхронизације. Ажурирајте апликацију."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} хост",
+      "hostCount_few": "{{count}} хоста",
+      "hostCount_other": "{{count}} хостова",
+      "credentialCount_one": "{{count}} акредитив",
+      "credentialCount_few": "{{count}} акредитива",
+      "credentialCount_other": "{{count}} акредитива",
+      "snippetCount_one": "{{count}} фрагмент",
+      "snippetCount_few": "{{count}} фрагмента",
+      "snippetCount_other": "{{count}} фрагмената",
+      "folderCount_one": "{{count}} фасцикла",
+      "folderCount_few": "{{count}} фасцикле",
+      "folderCount_other": "{{count}} фасцикла",
+      "nothingYet": "ништа још",
+      "listAnd": "{{list}} и {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Не могу да се повежем.",
+      "connectingToFromThis": "Повезивање са {{name}} са овог {{deviceWord}}",
+      "connectingToThroughTheServer": "Повезивање са {{name}} преко сервера",
+      "reconnectingTry": "Поново се повезујем (покушај {{retry}})",
+      "disconnected": "Прекинуто",
+      "connected": "Повезано",
+      "reconnectedToTheSameSession": "Поново повезано на исту сесију",
+      "reconnectedWithANewShell": "Поново повезано са новим шелом",
+      "couldNotReachTheHost": "Не могу да ступим у контакт са хостом са овог {{deviceWord}}, покушавам преко сервера",
+      "couldNotConnectThroughThe": "Не могу да се повежем преко сервера, покушавам са овог {{deviceWord}}",
+      "connectionLost": "Веза је изгубљена: {{reason}}",
+      "offlineWaitingForTheNetwork": "Без везе, чекам мрежу",
+      "nextTryInS": "Следећи покушај за {{value}}с",
+      "reconnectingTry2": "Поново се повезујем (покушај {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Хост је престао да одговара",
+      "networkLost": "Мрежа је изгубљена",
+      "network": "Мрежа: {{type}}{{value}}",
+      "lowPowerModeOn": "Режим штедње енергије укључен",
+      "lowPowerModeOff": "Режим штедње енергије искључен",
+      "droppedTypedCharacters": "Изостављено {{count}} куцањих знакова",
+      "youDidNotTrustThe": "Нисте поверовали кључу хоста.",
+      "checkTheKeyWithWhoever": "Проверите кључ са особом која управља хостом, а затим покушајте поново.",
+      "loginCancelled": "Пријава отказана.",
+      "connectAgainWhenYouAre": "Повезајте се поново када будете спремни.",
+      "typedInputIsOver64": "Унети текст је дужи од 64 KB, најстарији део је изостављен",
+      "appInTheBackground": "Апликација у позадини",
+      "appInTheForeground": "Апликација у предњем плану",
+      "thisConnectionCanTRun": "Ова веза не може да извршава команде"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Проверите адресу и порт, као и да ли сервер може да ступи у контакт са хостом.",
+      "checkTheAddressAndPort2": "Проверите адресу и порт, као и да ли овај {{deviceWord}} може да ступи у контакт са хостом.",
+      "checkTheProxySettingsOf": "Проверите поставке проксија за овај хост.",
+      "checkTheKeyWithWhoever": "Проверите кључ са особом која управља хостом пре него што му поверујете.",
+      "checkTheUsernameAndLogin": "Проверите корисничко име и податке за пријаву у уређивачу хоста.",
+      "checkThatTheServerIs": "Проверите да ли је сервер покренут и да ли сте и даље пријављени.",
+      "tryAgainIfItKeeps": "Покушајте поново. Ако се веза и даље прекида, проверите мрежу.",
+      "connectAgainWhenYouAre": "Повезајте се поново када будете спремни.",
+      "pickAnotherWayToConnect": "Изаберите други начин повезивања са овим хостом.",
+      "connectThisHostThroughA": "Повезајте се са овим хостом преко Termix сервера.",
+      "pickTheJumpHostsAgain": "Поново изаберите скок хостове у уређивачу хоста.",
+      "thisIsATailscaleAddress": "Ово је Tailscale адреса. Проверите да ли је Tailscale повезан на овом {{deviceWord}}.",
+      "theSavedKeyCanT": "Сачувани кључ се не може прочитати. Наведите га поново у уређивачу хоста.",
+      "signInToThisServer": "Пријавите се поново на овај сервер.",
+      "openThisHostInThe": "Отворите овај хост у Termix веб апликацији.",
+      "canTConnectThisWay": "Не могу да се повежем на овај начин",
+      "couldNotReachTheHost": "Не могу да ступим у контакт са хостом",
+      "theProxyDidNotLet": "Прокси није дозволио везу",
+      "theHostKeyWasNot": "Кључ хоста није био поверљив",
+      "theLoginWasRefused": "Пријава је одбијена",
+      "theTermixServerDidNot": "Termix сервер није одговорио",
+      "theConnectionDropped": "Веза је прекинута",
+      "loginCancelled": "Пријава отказана"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH агент",
+        "thisHostSignsInWith": "Овај хост се пријављује помоћу „{{authType}}“, што захтева Termix сервер. Повежите један да бисте се повезали.",
+        "thisHostUsesA1password": "Овај хост користи 1Password референцу, што захтева Termix сервер са Secret Sources. Повежите један и повезајте овај хост преко њега.",
+        "signInWithFirstOpen": "Прво се пријавите са {{title}}. Отворите терминал за овај хост једном, а затим покушајте поново.",
+        "theSignInAndThe": "пријава и сертификат се налазе на серверу",
+        "theHasNoSshAgent": "{{deviceWord}} нема SSH агент",
+        "needsATermixServerBecause": "{{title}} захтева Termix сервер јер {{why}}. Повежите један и повезајте овај хост преко њега."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Скок хост овог хоста више не постоји."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Веза је прекинута",
+        "theShellChannelClosed": "Канал шкољке је затворен",
+        "jumpHost": "Скок хост {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Неисправан код, покушајте поново:",
+        "authenticationFailed": "Аутентификација није успела: {{message}}",
+        "theHostKeyWasNot": "Кључ хоста није био поверљив.",
+        "loginCancelled": "Пријава отказана.",
+        "notConnected": "Није повезано"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Веза је прекинута"
+      },
+      "thisBuildHasNoSsh": "Ова верзија нема SSH мотор. Користите апликацију из продавнице или повежите Termix сервер да бисте се повезали.",
+      "theHostsOnThisAre": "Хостови на овом {{deviceWord}} још нису отворени.",
+      "thisServerSHostsAre": "Хостови овог сервера нису на овом {{deviceWord}}. Укључите Sync додатак на серверу да бисте се повезали са {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Не могу да се повежем.",
+      "canTConnectFromThe": "Не могу да се повежем са овог {{deviceWord}}.",
+      "canTReachTheServer": "Не могу да ступим у контакт са сервером.",
+      "theOnlyConnectsToSsh": "Уређај {{deviceWord}} се повезује само на SSH и Telnet хостове.",
+      "connectThisHostThroughThe": "Повези се на овај хост преко сервера",
+      "connectThisHostFromThe": "Повежите овог хоста са {{deviceWord}}",
+      "termixServer": "Termix сервер",
+      "usesThisWhenItCan": "Користи овај {{deviceWord}} када може да приступи хосту, у супротном сервер.",
+      "thisConnectsToTheHost": "Овај {{deviceWord}} се повезује на сам хост.",
+      "theTermixServerConnectsTo": "Termix сервер се повезује на хост у ваше име.",
+      "anSshConnection": "SSH веза",
+      "aTermixServer": "Termix сервер",
+      "aConnectionFromThe": "веза са {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} је искључен на овом серверу. {{how}} да бисте га користили.",
+      "isOffOnThisServer2": "{{title}} је искључен на овом серверу.",
+      "anotherWayToConnect": "други начин повезивања",
+      "needsToUseIt": "{{title}} захтева {{what}}. {{how}} да бисте га користили.",
+      "needsWhichThisHostCan": "{{title}} захтева {{what}}, што овај хост тренутно не може да користи.",
+      "thisDevice": "Овај {{deviceWord}}",
+      "automatic": "Аутоматски"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Одјављени сте са овог сервера. Пријавите се да бисте се повезали преко њега.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux није инсталиран на овом хосту. Користи се обична шкољка.",
+        "tapRetryToBringIt": "Додирните Покушај поново да бисте га вратили овде.",
+        "thisSessionWasOpenedOn": "Ова сесија је отворена на другом уређају",
+        "noServerUrlFoundLink": "URL сервера није пронађен. Повезите сервер поново.",
+        "signedOutOfThisServer": "Одјављени сте са овог сервера. Пријавите се поново.",
+        "signInWithInYour": "Пријавите се са {{title}} у прегледачу. Ово ће се затворити када буде готово.",
+        "theSocketClosedWhileThe": "Сокет је затворен док је апликација била у позадини",
+        "noWebsocketUrlAvailableServer": "WebSocket URL није доступан - сервер није конфигурисан",
+        "connectionTimeoutServerNotResponding": "Време везе је истекло - сервер не одговара",
+        "verificationCode": "Код за верификацију:",
+        "hostKeyVerificationRequiredBut": "Потребна је верификација кључа хоста, али није регистрован ниједан руковалац",
+        "hostKeyChangedButNo": "Кључ хоста је промењен, али није регистрован ниједан руковалац",
+        "thisHostNeedsASign": "Овај хост захтева пријаву коју подржава само веб апликација",
+        "invalidCodeTryAgain": "Неважећи код, покушајте поново:",
+        "unknownError": "Непозната грешка",
+        "connectionClosed": "Веза је прекинута",
+        "connectionClosed2": "Веза је прекинута ({{code}})",
+        "theServerClosedTheConnection": "Сервер је прекинуо везу",
+        "theSocketClosed": "Сокет је затворен ({{code}})",
+        "signIn": "{{title}} пријава",
+        "signInFailed": "{{title}} пријава није успела",
+        "isNotSetUpOn": "{{title}} није подешен на серверу",
+        "signInTimedOut": "{{title}} пријава је истекла",
+        "authenticationFailed": "Аутентификација није успела: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Сачувајте хост и повезите се на њега да бисте га проверили.",
+      "loggedInAsOn": "Пријављени као {{username}} на {{host}}",
+      "theHostAskedForMore": "Хост је затражио више од лозинке, на пример код. Сачувајте хост и повезите се да бисте завршили пријаву."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Чекање на мрежу",
+      "couldNotOpenTheTunnel": "Не могу да отворим тунел",
+      "theConnectionDropped": "Веза је прекинута",
+      "iosStoppedThisTunnelWhile": "iOS је зауставио овај тунел док је апликација била у позадини. Покрените га поново да бисте га отворили.",
+      "connecting": "Повезивање",
+      "connected": "Повезано",
+      "retrying": "Покушај поново",
+      "waiting": "Чекање",
+      "failed": "Неуспех"
+    },
+    "gateways": {
+      "error": "Грешка",
+      "gateways": "Гатевеји",
+      "gatewaysCanOnlyBeChanged": "Гатевеји се могу мењати само у Termix-у на вебу.",
+      "noHandshake": "Нема рукопожатја",
+      "rulesMissing": "Недостају правила",
+      "up": "Активно",
+      "pending": "На чекању",
+      "applying": "Примењује се",
+      "down": "Искључен",
+      "unreachable": "Недоступан"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Још нема тунела. Додајте један да проследите порт са крајњег домаћина на овај домаћин.",
+      "tunnel": "Тунел {{value}}",
+      "removeTunnel": "Уклони тунел {{value}}",
+      "mode": "Режим",
+      "local": "Локални",
+      "remote": "Удаљени",
+      "dynamic": "Динамички",
+      "targetHost": "Циљани домаћин",
+      "onThisHostForTunnels": "На овом домаћину, за тунеле које покреће {{deviceWord}}",
+      "bindHost": "Домаћин за везивање",
+      "endpointHost": "Крајњи домаћин",
+      "addAnotherHostFirstTunnels": "Прво додајте други домаћин. Тунели пролазе кроз сачувани домаћин.",
+      "sourcePort": "Изворни порт",
+      "endpointPort": "Крајњи порт",
+      "maxRetries": "Макс. покушаја",
+      "retryEveryS": "Покушај сваких (с)",
+      "startOnItsOwn": "Покрени самостално",
+      "addTunnel": "Додај тунел",
+      "tunnelNeedsPortsFrom1": "Тунел {{value}} захтева портове од 1 до 65535"
+    },
+    "register": {
+      "tunnels": "Тунели",
+      "startAndStopSavedTunnels": "Покрени и заустави сачуване тунеле",
+      "tunnel": "ТУНЕЛ",
+      "tunnel2": "Тунел"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Локална тачка је копирана",
+      "tunnel": "Тунел | {{sourcePort}}",
+      "portMapping": "Мапирање портова",
+      "connect": "Повези",
+      "disconnect": "Прекини везу",
+      "cancel": "Откажи",
+      "connected": "Повезано",
+      "connecting": "Повезивање",
+      "disconnecting": "Прекидање везе",
+      "error": "Грешка",
+      "retrying": "Покушава поново ({{value}}/{{value2}})",
+      "waitingS": "Чекање {{value}}с",
+      "waiting": "Чекање",
+      "disconnected": "Прекинута веза"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Покретање тунела на порту {{sourcePort}}",
+      "connectingTunnelOnPort": "Повезивање тунела на порту {{sourcePort}}",
+      "disconnectingPort": "Прекидање везе са портом {{sourcePort}}",
+      "cancellingPort": "Отказивање порта {{sourcePort}}",
+      "failedToTunnel": "Неуспех при {{action}} тунела",
+      "tunnels": "Тунели | {{count}} | {{value}}",
+      "loadingTunnels": "Учитавање тунела…",
+      "noSshTunnelsConfiguredFor": "Ниједан SSH тунел није конфигурисан за овог домаћина. Додајте тунеле из форме домаћина.",
+      "runOn": "Покрени на",
+      "server": "Сервер",
+      "this": "Овај {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Тунели на овом {{deviceWord}} се заустављају када се апликација затвори. На iOS-у се такође заустављају ускоро након што апликација оде у позадину.",
+      "failedToFetchTunnelStatuses": "Неуспех при учитавању статуса тунела",
+      "thisBuildCanTOpen": "Ова верзија не може да отвори тунеле на {{deviceWord}}.",
+      "sourceHostNotFound": "Изворни домаћин није пронађен",
+      "endpointHostNotFound": "Крајњи домаћин није пронађен: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Тунели",
+      "tunnelCount_one": "{{count}} тунел",
+      "tunnelCount_few": "{{count}} тунела",
+      "tunnelCount_other": "{{count}} тунела",
+      "runningOnServer": "{{connected}} ради на серверу"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Алати за акредитиве"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker није инсталиран на овом хосту.",
+        "dockerDidNotAnswer": "Docker није одговорио",
+        "thatIsNotAValid": "То није исправан назив стека"
+      }
+    },
+    "containerDetail": {
+      "stop": "Заустави",
+      "start": "Покрени",
+      "restart": "Рестартуј",
+      "remove": "Уклони",
+      "logs": "Логи",
+      "stats": "Статистика",
+      "console": "Конзола",
+      "logsCopied": "Логи су копирали",
+      "copy": "Копирај",
+      "containerIsNotRunningNo": "Контејнер не ради, нема живе статистике.",
+      "cpu": "CPU",
+      "memory": "Меморија",
+      "networkIO": "Мрежни I/O",
+      "blockIO": "Блок I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Неуспешно учитавање лога",
+      "failedToLoadStats": "Неуспешно учитавање статистике",
+      "noOutput": "(нема излаза)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Повезивање са Docker-ом...",
+    "remove": "Уклонити {{name}}?",
+    "stop": "Зауставити {{name}}?",
+    "theContainerIsStoppedAnd": "Контејнер је заустављен и обрисан. Његови волуми остају.",
+    "anythingRunningInItStops": "Све што се извршава у њему се зауставља.",
+    "remove2": "Уклони",
+    "stop2": "Заустави",
+    "dockerThis": "Docker | овај {{deviceWord}}",
+    "lookingForDocker": "Претрага за Docker-ом...",
+    "dockerIsNotAvailableOn": "Docker није доступан на овом хосту.",
+    "noContainersFound": "Није пронађен ниједан контејнер",
+    "noContainersMatchYourFilters": "Ниједан контејнер не одговара вашим филтерима",
+    "useSudo": "Користи sudo",
+    "refresh": "Освежи",
+    "containers": "Контејнери",
+    "stacks": "Стекови",
+    "searchContainers": "Претражи контејнере...",
+    "all": "Сви",
+    "running": "Активни",
+    "stopped": "Заустављени",
+    "start": "Покрени",
+    "restart": "Рестартуј",
+    "pause": "Паузирај",
+    "unpause": "Настави",
+    "moreActions": "Више акција",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker није одговорио",
+      "docker": "Docker",
+      "noContainers": "Нема контејнера"
+    },
+    "dockerConsole": {
+      "attachingTo": "Повезивање са {{name}}...",
+      "consoleDisconnected": "Конзола је искључена",
+      "reconnect": "Поново повези",
+      "failedToLoadTheConsole": "Неуспешно учитавање конзоле",
+      "thisSessionHasNoServer": "Ова сесија нема сервер"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Контејнери, логи и статистика"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Стекови су искључени на овом серверу.",
+      "couldNotLoadStacks": "Не могу да учитам стекове",
+      "noStacks": "Нема стекова",
+      "composeProjectsOnThisHost": "Compose пројекти на овом хосту се приказују овде.",
+      "ofRunning": "{{running}} од {{total}} покренуто",
+      "couldNotLoadTheStack": "Није могуће учитати стеков",
+      "services": "Сервиси",
+      "nothingIsRunning": "Ништа није покренуто.",
+      "composeFile": "Compose фајл",
+      "partlyUp": "делимично покренуто",
+      "notDeployed": "није деплојовано",
+      "running": "покренуто",
+      "stopped": "заустављено",
+      "paused": "паузирано"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "То није валидан ID контејнера",
+      "consoleFailed": "Конзола није успела",
+      "notAuthenticated": "Није аутентиковано",
+      "consoleError": "Грешка конзоле",
+      "connectionFailed": "Повезивање није успело"
+    },
+    "dockerDidNotAnswer": "Docker није одговорио",
+    "failedToLoadContainers": "Учитавање контејнера није успело",
+    "failedTo": "Није успело {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Сервер није послао фајл",
+        "cancelled": "Отказано",
+        "isGone": "{{path}} више не постоји",
+        "canTGoToThe": "{{name}} не може у смеће"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Невалидан ID ставке у смећу",
+        "invalidTrashMetadata": "Невалидни метаподаци смећа",
+        "thisPathCanTBe": "Овај пут не може бити премештен у смеће",
+        "aFileAlreadyExistsAt": "Фајл већ постоји на оригиналном путу"
+      },
+      "sftp": {
+        "commandFailed": "Команда није успела: {{command}}",
+        "alreadyExists": "{{name}} већ постоји",
+        "alreadyExistsThere": "{{path}} већ постоји тамо",
+        "canTGoToThe": "{{name}} не може у смеће: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Терминал више није отворен",
+      "clearHistory": "Обриши историју",
+      "stopFollowingTheTerminal": "Престани да пратиш терминал",
+      "followTheTerminal": "Прати терминал",
+      "goToTheTerminalS": "Иди у фолдер терминала",
+      "cdTheTerminalHere": "cd терминал овде",
+      "folderHistory": "Историја фолдера",
+      "mostUsedFirstThenRecent": "Најчешће коришћени први, затим недавни",
+      "noFoldersYet": "Још нема фолдера"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Не могу да се повежем.",
+        "couldNotSaveHowThis": "Није могуће сачувати како се овај хост повезује",
+        "thisWayCanTOpen": "Овај начин не може да отвори фајлове"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Није могуће отворити овај фолдер",
+      "cancel": "Откажи",
+      "noFoldersHere": "Нема фолдера овде"
+    },
+    "couldNotOpenThisFolder": "Није могуће отворити овај фолдер",
+    "couldNotSaveToThe": "Није могуће сачувати у фолдер",
+    "failed": "{{label}} није успело",
+    "uploading": "Отпремам {{name}}",
+    "uploadingFiles": "Отпремам {{count}} фајлова",
+    "downloadingToFilesOnMy": "Преузимам у Files, On My iPhone, Termix",
+    "downloading": "Преузимам {{name}}",
+    "downloadingFiles": "Преузимам {{count}} фајлова",
+    "openALargeFile": "Отворити велики фајл?",
+    "isBigForAEditor": "{{name}} је велики за {{deviceWord}} едитор. Може бити споро.",
+    "open": "Отвори",
+    "thisLooksLikeABinary": "Ово изгледа као бинарни фајл",
+    "openItInAnotherApp": "Отворити га у другој апликацији?",
+    "openWith": "Отвори помоћу",
+    "tooBigForTheEditor": "Пре велики за уређивач",
+    "isOver10MbDownload": "{{name}} је већи од 10 MB. Да ли желите да га преузмете?",
+    "download": "Преузми",
+    "delete": "Обриши {{what}}?",
+    "moveToTheTrash": "Премести {{what}} у смеће?",
+    "thisCanTBeUndone": "Ово се не може поништити.",
+    "youCanRestoreItFrom": "Можете га вратити из смећа.",
+    "delete2": "Обриши",
+    "moveToTrash": "Премести у смеће",
+    "deleteForGood": "Обриши трајно?",
+    "deleteItForGoodInstead": "{{message}}. Да ли желите да га обришете трајно? Ово се не може поништити.",
+    "deleteFailed": "Брисање није успело",
+    "connectingThroughTheServer": "Повезивање кроз сервер...",
+    "connectingFromThis": "Повезивање са овог {{deviceWord}}...",
+    "connecting": "Повезивање...",
+    "edit": "Уреди",
+    "downloadFolder": "Преузми фасциклу",
+    "share": "Дели",
+    "rename": "Преименуј",
+    "copyTo": "Копирај у",
+    "moveTo": "Премести у",
+    "cut": "Исеци",
+    "copy": "Копирај",
+    "permissions": "Дозволе",
+    "properties": "Својства",
+    "makeALinkHere": "Направи везу овде",
+    "copyPath": "Копирај путању",
+    "pathCopied": "Путања је копирана",
+    "done": "Готово",
+    "selectAll": "Изабери све",
+    "filterByName": "Филтрирај по имену",
+    "closeSearch": "Затвори претрагу",
+    "search": "Претрага",
+    "changeSort": "Промени сортирање",
+    "paste": "Залепи {{count}}",
+    "upload": "Отпреми",
+    "transfers2": "Преноси",
+    "more": "Више",
+    "nothingMatches": "Ништа се не поклапа",
+    "emptyFolder": "Празна фасцикла",
+    "uploadFilesOrMakeA": "Отпремите датотеке или направите нову.",
+    "newFolder": "Нова фасцикла",
+    "newFile": "Нова датотека",
+    "select": "Изабери",
+    "hideHiddenFiles": "Сакриј скривене датотеке",
+    "showHiddenFiles": "Прикажи скривене датотеке",
+    "trash": "Смеће",
+    "folderProperties": "Својства фасцикле",
+    "refresh": "Освежи",
+    "rename2": "Преименуј {{name}}",
+    "newLink": "Нова веза",
+    "aLinkInThatPoints": "Веза у {{path}} која указује на {{path2}}",
+    "name": "Име",
+    "create": "Направи",
+    "copyHere": "Копирај овде",
+    "moveHere": "Премести овде",
+    "fileViewer": {
+      "saved": "Сачувано {{name}}",
+      "couldNotSaveTheFile": "Није могуће сачувати датотеку",
+      "discardChanges": "Одбацити промене?",
+      "hasChangesThatAreNot": "{{name}} има непромењене промене.",
+      "discard": "Одбаци",
+      "readOnly": "{{path}} | само за читање",
+      "find": "Пронађи",
+      "smallerText": "Мањи текст",
+      "biggerText": "Већи текст",
+      "turnOffLineWrap": "Искључи преламање линија",
+      "wrapLines": "Преламање линија",
+      "save": "Сачувај"
+    },
+    "hostSection": {
+      "startIn": "Покрени у",
+      "theFolderTheFileManager": "Фолдер у коме се прво отвара управник датотека",
+      "files": "Датотеке"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Иди на {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Више акција",
+        "moreFor": "Више за {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Дозволе",
+      "cancel": "Откажи",
+      "apply": "Примени ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Није могуће отворити",
+      "openWith": "Отвори са",
+      "share": "Подели"
+    },
+    "propertiesView": {
+      "properties": "Својства",
+      "path": "Путања",
+      "type": "Тип",
+      "pointsTo": "Указује на",
+      "size": "Величина",
+      "countFolderSize": "Израчунај величину фолдера",
+      "permissions": "Дозволе",
+      "change": "Промени",
+      "owner": "Власник",
+      "group": "Група",
+      "modified": "Измењено",
+      "opened": "Отворено",
+      "linkToA": "Веза ка {{value}}",
+      "notShownForFolders": "Не приказује се за фолдере",
+      "file": "Датотека",
+      "folder": "Фолдер",
+      "link": "Веза"
+    },
+    "register": {
+      "fileManager": "Управник датотека",
+      "files": "Датотеке",
+      "browseEditAndMoveFiles": "Прегледај, уређуј и крећите датотеке",
+      "files2": "ДАТОТЕКЕ",
+      "fileManagerAndTransfers": "Управник датотека и преноси"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Пренос није успео"
+      },
+      "transfersPanel": {
+        "pause": "Паузирај",
+        "resume": "Настави",
+        "tryAgain": "Покушај поново",
+        "open": "Отвори",
+        "cancel": "Откажи",
+        "transfers": "Преноси",
+        "goingOf": "{{active}} у току | {{done}} од {{total}}",
+        "clearFinished": "Обриши завршене",
+        "cancelAll": "Откажи све",
+        "noTransfersYet": "Још нема преноса",
+        "waiting": "Чекање",
+        "paused": "Паузирано",
+        "done": "Завршено",
+        "failed": "Неуспешно",
+        "cancelled": "Отказано"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Није могуће учитати смеће",
+      "restored": "Враћено {{name}}",
+      "failedToRestore": "Неуспешно враћање",
+      "failedToDelete": "Неуспешно брисање",
+      "trashEmptied": "Канта за смеће је испражњена",
+      "failedToEmptyTrash": "Неуспешно празњење канте за смеће",
+      "trash": "Канта за смеће",
+      "itemsAreRemovedAfterDays": "Ставке се бришу након {{retentionDays}} дана",
+      "close": "Затвори",
+      "emptyTrash": "Испразни канту за смеће",
+      "trashIsEmpty": "Канта за смеће је празна",
+      "restore": "Врати {{name}}",
+      "deleteForGood": "Заувек обриши {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Управо сада"
+      }
+    },
+    "getting": "Добављање {{name}}",
+    "itemCount_one": "{{count}} ставка",
+    "itemCount_few": "{{count}} ставке",
+    "itemCount_other": "{{count}} ставки",
+    "copiedWhat": "Копирано {{what}}",
+    "movedWhat": "Померено {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} има више од {{limit}} фајлова. Преузмите мање фолдере."
+    },
+    "downloadingToFilesOnMyIpad": "Преузимање у Files, On My iPad, Termix",
+    "size": "Величина",
+    "date": "Датум"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Линкови за услуге",
+      "openInHomepage": "Отвори на почетној страни",
+      "thisWidgetOnlyShowsOn": "Овај виџет се приказује само на целoj страници."
+    },
+    "register": {
+      "serviceLinks": "Линкови за услуге",
+      "homepage": "Почетна страна"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Није постављен фид.",
+        "couldNotLoadTheFeed": "Није могуће учитати фид.",
+        "theFeedIsEmpty": "Фид је празан.",
+        "noLocationSet": "Није постављена локација.",
+        "couldNotLoadTheWeather": "Није могуће учитати временску прогнозу.",
+        "noUrlSet": "Није постављен URL.",
+        "couldNotLoadTheData": "Није могуће учитати податке.",
+        "noPictureSet": "Није постављена слика.",
+        "badResponse": "лош одговор"
+      },
+      "services": "Услуге",
+      "service": "Услуга",
+      "serviceLinks": "Линкови за услуге",
+      "bookmarks": "Обележивачи",
+      "links2": "Линкови",
+      "search": "Претрага",
+      "clock": "Сат",
+      "countdown": "Одбројавање",
+      "calendar": "Календар",
+      "notes": "Белешке",
+      "banner": "Банер",
+      "ping": "Пинг",
+      "host": "Хост",
+      "hosts": "Хостови",
+      "quickConnect": "Брзо повезивање",
+      "feed": "Фид",
+      "weather": "Време",
+      "customApi": "Прилагођени API",
+      "picture": "Слика",
+      "widget": "Виџет",
+      "links": {
+        "noServicesYet": "Још нема услуга.",
+        "noLinkSet": "Није постављен линк.",
+        "noLinksYet": "Још нема линкова.",
+        "noSearchEngineSet": "Није постављен претраживач.",
+        "search": "Претрага",
+        "noShortcutsYet": "Још нема пречица.",
+        "search2": "Претражи {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Није могуће отворити везу"
+      },
+      "status": {
+        "noUrlsYet": "Још нема URL адреса.",
+        "down": "Недоступан",
+        "noHostsPicked": "Није изабран ниједан хост."
+      },
+      "text": {
+        "noNotesYet": "Још нема белешки.",
+        "noTextYet": "Још нема текста."
+      },
+      "time": {
+        "noDateSet": "Није подешен датум.",
+        "timeIsUp": "Време је истекло"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Није могуће сачувати подразумевано",
+    "couldNotResetTheDefault": "Није могуће ресетовати подразумевано",
+    "back": "Назад",
+    "hostDefaults": "Подразумевана подешавања за хостове",
+    "newHostsStartFromThese": "Нови хостови почињу са овим",
+    "managedOnTheServer": "Управљано на серверу",
+    "defaultsForThisServerAre": "Подразумевана подешавања за овај сервер су постављена у веб апликацији.",
+    "level": "Ниво",
+    "yourDefaultsOrOneFolder": "Ваша подразумевана или једне фасцикле",
+    "myDefaults": "Моја подразумевана",
+    "theServerSets": " Сервер поставља {{adminCount}}.",
+    "aFolderWinsOverYour": "Фасцикла има предност над вашим подразумеваним, а ваша подразумевана има предност над серверским. Хост задржава сваку вредност коју сте му сами доделили.{{value}}",
+    "save": "Сачувај",
+    "authentication": "Аутентификација",
+    "none": "Ништа",
+    "reset": "Ресетуј",
+    "model": {
+      "username": "Корисничко име",
+      "sshPort": "SSH порт",
+      "authentication": "Аутентификација",
+      "aSavedCredentialForNew": "Сачувана акредитива за нове хостове",
+      "forceKeyboardInteractive": "Присили интеракцију са тастатуром",
+      "keepaliveInterval": "Интервал за одржавање везе",
+      "seconds0TurnsItOff": "Секунде, 0 искључује",
+      "keepaliveTries": "Поруке за одржавање везе",
+      "allowOldAlgorithms": "Дозволи старе алгоритме",
+      "agentForwarding": "Пресмеравање агента",
+      "environmentVariables": "Променљиве окружења",
+      "oneNameValuePerLine": "Један НАЗИВ=вредност по линији",
+      "checkIfTheHostIs": "Провери да ли је хост доступан",
+      "checkInterval": "Интервал провере",
+      "secondsEmptyUsesTheServer": "Секунде, празно користи серверско",
+      "socks5Proxy": "SOCKS5 прокси",
+      "setInTheWebApp": "Постављено у веб апликацији",
+      "jumpHosts": "Прелазни хостови",
+      "portKnocking": "Куцање на порту",
+      "notSet": "Није постављено",
+      "fromTheServer": "Са сервера",
+      "fromYourDefaults": "Из ваших подразумеваних",
+      "builtIn": "Уграђено"
+    },
+    "register": {
+      "hostDefaults": "Подразумевана подешавања за хостове",
+      "portUserAndOptionsFor": "Порт, корисник и опције за нове хостове"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Још нема података",
+      "cpu": "CPU",
+      "memory": "Меморија",
+      "disk": "Диск",
+      "history": "Историја",
+      "loading": "Учитавање..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Није могуће прочитати метрике",
+      "metrics": "Метрике",
+      "cpu": "CPU",
+      "memory": "Меморија",
+      "disk": "Диск",
+      "noRecentSampleOpenThe": "Нема недавних података. Отворите метрике хоста да бисте их покренули."
+    },
+    "register": {
+      "enableMetrics": "Омогући метрике",
+      "cpuMemoryDiskAndNetwork": "CPU, меморија, диск и мрежа преко SSH-а",
+      "hostMetrics": "Метрике хоста",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Метрике",
+      "cpuMemoryDiskAndNetwork2": "CPU, меморија, диск и мрежа"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Метрике хоста | овај {{deviceWord}}",
+      "hostMetrics": "Метрике хоста",
+      "ran": "Извршено {{name}}",
+      "loadingMetrics": "Учитавање метрика...",
+      "couldNotReadMetricsFrom": "Није могуће прочитати метрике са овог хоста",
+      "failedToLoadMetrics": "Учитавање метрика није успело",
+      "thisSessionHasNoServer": "Ова сесија нема сервер",
+      "twoFactorRequiredForThis": "Двострука верификација је потребна за статистике овог хоста.",
+      "failedToStartMetrics": "Покретање метрика није успело",
+      "failedToRun": "Извршавање {{name}} није успело"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "По језгру: {{value}}",
+        "cores": "Језгра",
+        "load": "Оптерећење",
+        "user": "Корисник",
+        "system": "Систем",
+        "ioWait": "IO чекање",
+        "steal": "Крађа"
+      },
+      "diskWidget": {
+        "disk": "Диск {{mount}}",
+        "disk2": "Диск",
+        "used": "Искоришћено",
+        "total": "Укупно",
+        "free": "Слободно"
+      },
+      "firewallWidget": {
+        "firewall": "Зид",
+        "rules": "{{type}} | {{ruleCount}} правила",
+        "noFirewallDetected": "Зид није детектован"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-ови ({{count}})",
+        "gpu": "GPU",
+        "memory": "Меморија",
+        "temp": "Темп.",
+        "power": "Снага",
+        "fan": "Вентилатор"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Активност пријаве",
+        "noLoginActivityRecorded": "Није забележена активност пријаве",
+        "logins": "Пријаве",
+        "uniqueIps": "Јединствени IP-адресе",
+        "failed": "Неуспешно",
+        "recent": "Недавно"
+      },
+      "memoryWidget": {
+        "memory": "Меморија",
+        "used": "Искоришћено",
+        "total": "Укупно",
+        "cached": "Кеширано",
+        "free": "Слободно"
+      },
+      "networkWidget": {
+        "network": "Мрежа",
+        "noInterfaces": "Нема интерфејса",
+        "up": "На горе",
+        "down": "На доле"
+      },
+      "portsWidget": {
+        "listeningPorts": "Порти које слушају",
+        "noListeningPorts": "Нема портова који слушају"
+      },
+      "processesWidget": {
+        "sortBy": "Сортирај по {{label}}",
+        "processes": "Процеси",
+        "running": "{{value}} активан | {{total}}",
+        "noProcessData": "Нема података о процесима",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "НАРЕДБА"
+      },
+      "systemWidget": {
+        "system": "Систем",
+        "hostname": "Име хоста",
+        "os": "ОС",
+        "kernel": "Језгро",
+        "arch": "Архитектура",
+        "noSystemInfo": "Нема информација о систему"
+      },
+      "temperatureWidget": {
+        "temperature": "Температура"
+      },
+      "uptimeWidget": {
+        "uptime": "Време рада"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Копирано са лозинком",
+      "copiedTheLink": "Копиран линк",
+      "shareHost": "Дели хост",
+      "thatHostNoLongerExists": "Тај хост више не постоји",
+      "scanThisInTermixOn": "Скенирајте ово у Termix-у на другом {{deviceWord}}, под Увоз и извоз. Код садржи адресу, порт и корисника. Не садржи лозинку или кључ.",
+      "copyLink": "Копирај линк",
+      "copyLinkWithPassword": "Копирај линк са лозинком"
+    },
+    "includePasswordsAndKeys": "Укључити лозинке и кључеве?",
+    "anyoneWhoGetsThisFile": "Свако ко добије ову датотеку може да се пријави на ове хостове. Чувајте је безбедно.",
+    "includeThem": "Укључи их",
+    "pickAtLeastOneHost": "Изаберите најмање један хост",
+    "couldNotMakeTheFile": "Није могуће креирати датотеку",
+    "copiedToTheClipboard": "Копирано у клипборд",
+    "importAndExport": "Увоз и извоз",
+    "moveHostsInAndOut": "Премештајте хостове унутра и напоље",
+    "import": "Увоз",
+    "aTermixHostFileAn": "Termix датотека хоста, SSH конфигурациона датотека или линк/QR код хоста са другог {{deviceWord}}.",
+    "export": "Извоз",
+    "allHosts": "Сви хостови",
+    "picked": "{{size}} изабрано",
+    "pickHosts": "Изаберите хостове",
+    "includePasswordsAndKeys2": "Укључи лозинке и кључеве",
+    "offMakesAFileSafe": "Искључено чини датотеку безбедном за дељење. Хостови који користе сачуване акредитиве указују на њих по имену",
+    "shareAFile": "Дели датотеку",
+    "copy": "Копирај",
+    "importPanel": {
+      "couldNotReadThat": "Није могуће прочитати то",
+      "couldNotReadThatFile": "Није могуће прочитати ту датотеку",
+      "importFailed": "Увоз није успео",
+      "chooseAFile": "Изаберите датотеку",
+      "paste": "Налепи",
+      "scanACode": "Скенирај код",
+      "couldNotBeRead": "{{count}} није могуће прочитати",
+      "updateHostsThatExist": "Ажурирајте хостове који већ постоје",
+      "sameAddressPortAndUser": "Иста адреса, порт и корисник. У супротном, они се прескачу",
+      "cancel": "Откажи",
+      "import": "Увоз",
+      "andMore": "и још {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR код"
+    },
+    "register": {
+      "importAndExport": "Увоз и извоз",
+      "moveHostsInOrOut": "Премештајте хостове унутра или напоље помоћу датотеке или QR кода",
+      "shareHost": "Дели хост"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Скенирај код хоста",
+      "pointTheCameraAtA": "Усмерите камеру на Termix QR код хоста.",
+      "termixNeedsTheCameraTo": "Termix-у је потребна камера за скенирање кода. Ништа се не снима.",
+      "allowTheCamera": "Дозволи камеру"
+    },
+    "read": {
+      "termixFile": "Termix датотека",
+      "sshConfig": "SSH конфигурација",
+      "thereIsNothingToImport": "Нема шта да се увози",
+      "thatIsNotATermix": "Ово није Termix веза за хост",
+      "linkHost": "1 хост: {{name}}",
+      "sourceHosts_one": "{{what}} са {{count}} хостом",
+      "sourceHosts_few": "{{what}} са {{count}} хостова",
+      "sourceHosts_other": "{{what}} са {{count}} хостова"
+    },
+    "saveYourTermixHosts": "Сачувајте своје Termix хостове"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Завршено",
+      "rejected": "Одбијено",
+      "approvals": "Одобрења",
+      "nothingIsWaiting": "Ништа не чека",
+      "actionsARuleHoldsFor": "Акције за које правило захтева одобрење приказују се овде.",
+      "approveAndRun": "Одобри и покrenи",
+      "reject": "Одбиј",
+      "couldNotLoadApprovals": "Није могуће учитати одобрења",
+      "couldNotDecide": "Није могуће донети одлуку"
+    },
+    "approvalsCard": {
+      "approved": "Одобрено",
+      "rejected": "Одбијено",
+      "waitingForApproval": "Чека одобрење",
+      "approve": "Одобри",
+      "reject": "Одбиј",
+      "couldNotDecide": "Није могуће донети одлуку",
+      "seeAll": "Прикажи све"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Ово се не може поништити. Покренути?",
+      "run": "Покрени",
+      "sentForApproval": "Послато на одобрење",
+      "target": "Циљ",
+      "theItemOnTheHost": "Ставка на хосту, на пример контејнер",
+      "dryRun": "Суво тестирање",
+      "back": "Назад",
+      "actions": "Акције",
+      "noActionsForThisHost": "Нема акција за овај хост",
+      "turnOnAPluginLike": "Укључите додатак попут Docker или Services за овај хост на серверу.",
+      "destructive": "Деструктивно",
+      "changes": "Промене",
+      "theActionCouldNotRun": "Акција се није могла покренути",
+      "couldNotLoadActions": "Није могуће учитати акције"
+    },
+    "register": {
+      "actions": "Акције",
+      "waitingForApproval": "Чека одобрење",
+      "approvals": "Одобрења",
+      "actionsWaitingForAPerson": "Акције које чекају да неко каже да",
+      "runHistory": "Историја покретања",
+      "everyActionAnyoneRanFrom": "Свака акција коју је неко покренуо, са било ког уређаја"
+    },
+    "runHistory": {
+      "cancelThisRun": "Отказати ово покретање?",
+      "cancelRun": "Откажи покретање",
+      "keep": "Задржи",
+      "undoThisRun": "Поништити ово покретање?",
+      "thisRunsTheActionS": "Ово покреће поништавање акције са истим улазом.",
+      "undo": "Поништи",
+      "cancelled": "Отказано",
+      "itAlreadyFinished": "Већ је завршено",
+      "done": "Завршено",
+      "runHistory": "Историја покретања",
+      "nothingHasRunYet": "Још ништа није покренуто",
+      "dryRun": "Суво тестирање",
+      "cancel": "Откажи",
+      "couldNotLoadHistory": "Није могуће учитати историју",
+      "couldNotCancel": "Није могуће отказати",
+      "couldNotUndo": "Није могуће поништити"
+    },
+    "api": {
+      "needsApproval": "Захтева одобрење",
+      "needsSignIn": "Захтева пријаву",
+      "done": "Звршено",
+      "failed": "Неуспешно",
+      "running": "У току",
+      "interrupted": "Прекинуто",
+      "rejected": "Одбијено",
+      "cancelled": "Отказано",
+      "expired": "Истекло"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Укључи {{value}}",
+      "moreSettingsForThisAre": "Више подешавања за ово се налази у Termix веб апликацији.",
+      "pluginHostSettings": "Подешавања домаћина додатака"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} мора бити број",
+      "mustBeAtLeast": "{{field}} мора бити најмање {{min}}",
+      "mustBeAtMost": "{{field}} мора бити највише {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Повезите сервер да бисте га користили",
+      "runsOnYourTermixServer": "{{name}} ради на вашем Termix серверу."
+    },
+    "pluginWebView": {
+      "canTLoad": "Не могу да учитам {{name}}",
+      "theServerDidNotSend": "Сервер није послао додатак. Проверите да ли је укључен и покушајте поново.",
+      "openThisLink": "Отворити овај линк?",
+      "open": "Отвори",
+      "needsANewerVersionOf": "Потребна је новија верзија апликације",
+      "usesPartsOfTermixThis": "{{name}} користи делове Termix које ова апликација још нема.",
+      "didNotStart": "{{name}} није покренут",
+      "thisScreenIsNotIn": "Овај екран није у верзији додатка на серверу.",
+      "thePluginHitAnError": "Додатак је наишао на грешку током покретања.",
+      "youReOffline": "Нисте повезани на интернет",
+      "runsOnYourServerSo": "{{name}} ради на вашем серверу, па му је потребна веза. Отвориће се поново када се вратите на интернет.",
+      "tryAgain": "Покушајте поново"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Тај домаћин још није на овом {{deviceWord}}.",
+      "theAppCanTOpen": "Апликација не може да отвори то одавде.",
+      "thatHostIsNotOn2": "Тај домаћин још није на овом {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Лозинка",
+      "unchangedIfBlank": "Немењено ако је празно",
+      "port": "Порт",
+      "domain": "Домен",
+      "displaySoundAndClipboardSettings": "Подешавања приказа, звука и клипборда се налазе у Termix веб апликацији.",
+      "portMustBeFrom1": "{{label}} порт мора бити између 1 и 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Веза са удаљеним радним столом је прекинута",
+        "signIn": "Пријава за {{label}}",
+        "itWillNotBeSaved": "{{error}} Неће бити сачувано.",
+        "enterTheLoginForIt": "Унесите пријаву за {{title}}. Неће бити сачувано.",
+        "reconnecting": "Поново се повезујем на {{label}}",
+        "connecting": "Повезивање на {{label}}",
+        "connectionFailed": "Веза неуспешна",
+        "disconnected": "Прекинуто",
+        "reconnect": "Поново се повези",
+        "connectThroughTheServer": "Повези се преко сервера",
+        "pasteToRemote": "Налепи на удаљени",
+        "typeClipboard": "Укуцај са клипборда",
+        "copyRemoteClipboard": "Копирај удаљени клипборд",
+        "theComputerSCertificateWas": "Сертификат рачунара није био поверљив.",
+        "thatLoginWasRefusedTry": "Та пријава је одбијена. Покушајте поново."
+      },
+      "target": {
+        "trustThisComputer": "Поверити овом рачунару?",
+        "theCanTCheckS": "{{deviceWord}} не може да провери сертификат за {{hostName}}. Уверите се да се овај отисак подудара са оним на рачунару пре него што наставите.\n\n{{fingerprint}}",
+        "trustAndConnect": "Повери и повези",
+        "certificateChanged": "Сертификат је промењен",
+        "showsAnotherCertificateThanLast": "{{hostName}} приказује други сертификат него прошлог пута. То се дешава након што рачунар направи нови, или када неко прислушкује између.\n\nНови отисак:\n{{fingerprint}}",
+        "trustTheNewOne": "Поверити новом"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Удаљени радни сто",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Звршено",
+      "keyboard": "Тастатура",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Подешавања",
+      "remoteSettings": "Далечинска подешавања",
+      "mouseMode": "Режим миша",
+      "touch": "Додир",
+      "trackpad": "Трацпад",
+      "tapWhereYouWantTo": "Додирните где желите да кликнете. Држите за десни клик, превуците за превлачење.",
+      "dragToMoveThePointer": "Превуците да померите показивач. Додирните за клик, двоструки додир за десни клик, додирните и превуците за превлачење.",
+      "zoomXPinchAnywhereTo": "Зум: {{value}}x. Притисните и растегните било где за зумирање",
+      "reset": "Ресетуј",
+      "cancel": "Откажи",
+      "connect": "Повези се",
+      "username": "Корисничко име",
+      "domainOptional": "Домен (опционо)",
+      "domain": "Домен",
+      "password": "Лозинка",
+      "leftArrow": "Лева стрелица",
+      "upArrow": "Горња стрелица",
+      "downArrow": "Доња стрелица",
+      "rightArrow": "Десна стрелица",
+      "rdpSignIn": "RDP пријава"
+    },
+    "theRemoteDesktopDropped": "Далечинска радна површ је прекинута",
+    "theyWillNotBeSaved": "{{errorMessage}} Неће бити сачувани.",
+    "enterCredentialsForTheyWill": "Унесите акредитиве за {{title}}. Неће бити сачувани.",
+    "connecting": "Повезивање",
+    "connectionFailed": "Повезивање неуспешно",
+    "disconnected": "Прекинуто",
+    "reconnect": "Поново повези",
+    "route": {
+      "thisHostCanTOpen": "Овај хост не може да отвори далечинску радну површ одавде."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Блокирано од стране апликације"
+    },
+    "failedToStartRemoteSession": "Неуспешно покретање далечинске сесије",
+    "thatLoginWasRefusedTry": "Пријава је одбијена. Покушајте поново.",
+    "theRemoteRefusedTheSaved": "Далечински систем је одбио сачувану пријаву. Проверите RDP пријаву на овом хосту.",
+    "remoteSessionFailed": "Далечинска сесија неуспешна",
+    "remoteSessionReturnedAnInvalid": "Далечинска сесија је вратила неважећу поруку",
+    "failedToLoadTheRemote": "Неуспешно учитавање клијента за далечинску радну површ"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Нема журнала",
+      "thisHostDoesNotKeep": "Овај хост не чува systemd журнал.",
+      "all": "Све",
+      "warnings": "Упозорења",
+      "errors": "Грешке",
+      "stop": "Заустави",
+      "follow": "Прати",
+      "nothingLogged": "Ништа није забележено",
+      "tryAnotherLevel": "Покушајте са другим нивоом.",
+      "couldNotReadTheJournal": "Не могу да прочитам журнал"
+    },
+    "register": {
+      "services": "Услуге",
+      "startStopAndReadLogs": "Покрени, заустави и прочитај дневнике"
+    },
+    "readingServices": "Читање услуга...",
+    "thisHostHasNoSystemd": "Овај домаћин нема systemd или OpenRC.",
+    "noServicesMatch": "Нема услуга које одговарају",
+    "noServicesFound": "Нису пронађене услуге",
+    "services": "Услуге",
+    "journal": "Дневник",
+    "searchServices": "Претрага услуга...",
+    "all": "Све",
+    "running": "Активне",
+    "failed": "Неуспешне ({{failed}})",
+    "failed2": "Неуспешне",
+    "servicesCard": {
+      "services": "Услуге",
+      "noSystemdOrOpenrc": "Нема systemd или OpenRC",
+      "failed": "{{failed}} неуспешно",
+      "allRunning": "Све активне",
+      "couldNotReadServices": "Није могуће прочитати услуге"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Остaje заустављен док се поново не покрене или док се домаћин не подигне.",
+      "itStopsForAMoment": "Зауставља се на тренутак и поново се покреће.",
+      "stop": "Заустави",
+      "restart": "Поново покренути",
+      "is": "{{name}} је {{state}}",
+      "start": "Покрени",
+      "journal": "Дневник",
+      "couldNotReadTheService": "Није могуће прочитати услугу",
+      "couldNot": "Није могуће {{action}} {{name}}",
+      "startsAtBoot": "Покреће се при подизању",
+      "mainPid": "Главни PID",
+      "activeSince": "Активно од",
+      "unitFile": "Јединична датотека",
+      "notSet": "[није постављено]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Нисте пријављени",
+        "followFailed": "Праћење није успело",
+        "connectionFailed": "Повезавање није успело"
+      }
+    },
+    "couldNotReadServices": "Није могуће прочитати услуге",
+    "services2": "Услуге{{where}}",
+    "title": "Услуге",
+    "failedCount": "{{count}} неуспешно"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Дељење сесије",
+      "shareLink": "Повезница за дељење"
+    },
+    "shareSessionView": {
+      "canWatch": "Може гледати",
+      "canType": "Може куцати",
+      "n1Hour": "1 сат",
+      "n8Hours": "8 сати",
+      "n1Day": "1 дан",
+      "n7Days": "7 дана",
+      "never": "Никад",
+      "shareSession": "Поделите сесију",
+      "anyoneWithTheLinkCan": "Свако ко има повезницу може отворити овај терминал док је активан. Повезнице можете опозвати у Termix-у.",
+      "peopleWithTheLink": "Људи са повезницом",
+      "expiresAfter": "Истиче за",
+      "link": "Повезница",
+      "copy": "Копирај",
+      "share": "Поделити",
+      "makeLink": "Направи повезницу",
+      "theServerGaveNoLink": "Сервер није дао повезницу",
+      "couldNotMakeALink": "Није могуће направити повезницу",
+      "linkCopied": "Повезница је копирана"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Нема фасцикле"
+    },
+    "hostPicker": {
+      "selectNone": "Одбери ништа",
+      "selectAll": "Изабери све",
+      "done": "Завршено"
+    },
+    "register": {
+      "snippets": "Исечци",
+      "snippets2": "ИСЕЦЦИ",
+      "savedCommandsToRunOn": "Сачуване команде за покретање на било ком хосту"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Нема начина да се стигне до овог хоста одавде",
+      "exitedWith": "Изашао са {{exitCode}}",
+      "thisCanTRunIt": "Овај {{deviceWord}} не може да га покрене",
+      "noServerIsLinked": "Ниједан сервер није повезан"
+    },
+    "runOnHostsSheet": {
+      "run": "Покрени",
+      "run2": "Покрени „{{name}}“",
+      "runsOverSshOnEach": "Покреће се преко SSH-а на сваком хосту. Терминал се не отвара.",
+      "close": "Затвори",
+      "hosts": "Хостови",
+      "pickHosts": "Изабери хостове",
+      "workedFailed": "{{value}} успело, {{failed}} неуспешно",
+      "runOn2": "Покрени на",
+      "runOn_one": "Покренути {{name}} на {{count}} хосту?",
+      "runOn_few": "Покренути {{name}} на {{count}} хоста?",
+      "runOn_other": "Покренути {{name}} на {{count}} хостова?",
+      "hostsPicked_one": "Изабран {{count}} хост",
+      "hostsPicked_few": "Изабрана {{count}} хоста",
+      "hostsPicked_other": "Изабрана {{count}} хостова"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Претражи исечке",
+      "pastesTheNote": "Налепи белешку",
+      "runsTheSnippet": "Покрени исечац",
+      "noSnippetsMatch": "Нема поклопних исечака",
+      "noSnippetsYet": "Још нема исечака",
+      "addSnippetsInSettingsSnippets": "Додај исечке у Подешавања, Исечци",
+      "run": "Покрени",
+      "insertWithoutRunning": "Уметни без покретања",
+      "copy": "Копирај"
+    },
+    "snippetsCard": {
+      "snippets": "Исечци",
+      "run": "Покрени {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Нема исечака за извоз",
+      "couldNotMakeTheFile": "Није могуће направити датотеку",
+      "copiedToTheClipboard": "Копирано у оставу",
+      "couldNotImport": "Није могуће увести",
+      "couldNotReadThatFile": "Није могуће прочитати ту датотеку",
+      "importAndExport": "Увоз и извоз",
+      "theSameFileTheWeb": "Иста датотека коју користи веб апликација.",
+      "export": "Извоз",
+      "shareAFile": "Подели датотеку",
+      "copy": "Копирај",
+      "import": "Увоз",
+      "updateSnippetsThatExist": "Ажурирај постојеће исечке",
+      "sameNameInTheSame": "Исти назив у истој фасцикли. У супротном се прескачу",
+      "chooseAFile": "Изабери датотеку",
+      "paste": "Налепи",
+      "saveYourSnippets": "Сачувај своје исечке"
+    },
+    "useSnippetRunner": {
+      "run": "Покренути {{name}}?",
+      "run2": "Покрени",
+      "fillInTheValuesFor": "Попуните вредности за овај исечац.",
+      "cancel": "Откажи",
+      "insert": "Уметни",
+      "noTerminalIsOpen": "Ниједан терминал није отворен"
+    },
+    "variables": {
+      "input": "Унос {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "То није исправна JSON датотека",
+      "theFileNeedsASnippets": "Датотека мора да садржи листу исечака или фасцикли",
+      "snippetNameAndContentAre": "Исечац {{value}}: назив и садржај су обавезни",
+      "folder": "Фасцикла {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Учитавање Tailscale уређаја…",
+      "searchTailscaleDevices": "Претрага Tailscale уређаја…",
+      "searchTailscaleDevices2": "Претрага Tailscale уређаја",
+      "clearDeviceSearch": "Обриши претрагу уређаја",
+      "refreshTailscaleDevices": "Освежи Tailscale уређаје",
+      "device": "Уређај",
+      "noTailnetAddress": "Нема tailnet адресе",
+      "tailscaleDevice": "Tailscale уређај",
+      "tailscaleDevices": "Tailscale уређаји",
+      "addAHostThatConnects": "Додај хост који се повезује преко Tailscale SSH-а.",
+      "username": "Корисничко име",
+      "sshUsernameFor": "SSH корисничко име за {{value}}",
+      "addHost": "Додај хост",
+      "noTailscaleDevicesMatchYour": "Нема Tailscale уређаја који одговарају вашој претрази.",
+      "noTailscaleDevicesFound": "Нема пронађених Tailscale уређаја.",
+      "noTailscaleApiKeyIs": "На овом серверу није конфигурисан Tailscale API кључ. Замолите администратора да га дода.",
+      "youDoNotHavePermission": "Немате дозволу за приказивање Tailscale уређаја.",
+      "couldNotLoadTailscaleDevices": "Није могуће учитати Tailscale уређаје. Освежите да бисте покушали поново.",
+      "tailscaleIsUnavailableOnThis": "Tailscale није доступан на овом серверу."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Поновно повезивање | покушај {{attempt}}",
+      "reconnectingInSTry": "Поновно повезивање за {{secs}}с | покушај {{attempt}}",
+      "offlineWaitingForNetwork": "Искључено, чека се мрежа",
+      "sendToTheNewShell": "Послати {{what}} новој шкољци?",
+      "reconnectNow": "Повези се сада",
+      "send": "Пошаљи",
+      "discard": "Одбаци",
+      "typedChars_one": "{{count}} унети знак",
+      "typedChars_few": "{{count}} унета знака",
+      "typedChars_other": "{{count}} унети знакова",
+      "waiting": "{{what}} се чека"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Дневник везе је копиран",
+      "connectionLog": "Дневник везе",
+      "copyItIntoABug": "Копирајте га у извештај о грешци. Адресе и корисничка имена су изостављена.",
+      "copy": "Копирај"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Обрисати историју за овај хост?",
+        "clear": "Обриши",
+        "searchHistory": "Претрага историје",
+        "typesTheCommandWithoutRunning": "Уноси наредбу без њеног извршавања",
+        "noCommandsMatch": "Нема поклопних наредби",
+        "noHistoryYet": "Још нема историје",
+        "commandsYouRunOnThis": "Наредбе које покренете на овом хосту се приказују овде",
+        "run": "Покрени",
+        "typeWithoutRunning": "Унеси без покретања",
+        "copy": "Копирај",
+        "delete": "Обриши",
+        "historyCleared": "Историја је обрисана"
+      },
+      "suggestionStrip": {
+        "use": "Користи {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Подешавање апликације",
+      "delete": "Обриши (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Наслов картице из шкољке",
+      "programsCanSetTheTab": "Програми могу поставити наслов картице",
+      "openTmux": "Отвори tmux",
+      "attachToATmuxSession": "Прикључи се на tmux сесију или покрените нову",
+      "reconnectOnDrop": "Поновно повезивање при прекиду",
+      "keepTabOpenOnExit": "Задржи картицу отвореном при излазу",
+      "pressEnterToConnectAgain": "Притисните Enter да се поново повезете",
+      "saveCommandHistory": "Сачувај историју наредби",
+      "offerToFillPasswordPrompts": "Понуди попуну захтева за лозинку",
+      "offerToFillSudoPrompts": "Понуди попуну sudo захтева",
+      "usesTheSudoPasswordFrom": "Користи sudo лозинку из SSH картице",
+      "none": "Ништа",
+      "look": "Изглед",
+      "theme": "Тема",
+      "font": "Фонт",
+      "cursor": "Курсор",
+      "bell": "Звук",
+      "scrollbackLines": "Број линија за скроловање",
+      "app": "Апликација",
+      "behavior": "Понашање",
+      "backspaceSends": "Backspace шаље",
+      "startupSnippet": "Покретни фрагмент",
+      "runsOnceTheShellIs": "Извршава се чим је шел спреман",
+      "fillWithoutAsking": "Попуни без питања",
+      "onThisOnlyOnceYou": "Само на овом {{deviceWord}}-у, након што изаберете Увек попуни",
+      "connection": "Веза",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Секунде између пингова, 0 искључује",
+      "default": "Подразумевано",
+      "keepaliveSeconds": "Keepalive секунде",
+      "missedPings": "Пропуштени пингови",
+      "dropTheConnectionAfterThis": "Прекини везу након оволико непотврђених",
+      "missedPingsBeforeDrop": "Пропуштени пингови пре прекида",
+      "environment": "Окружење",
+      "removeVariable": "Уклони променљиву",
+      "addVariable": "Додај променљиву"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "Тастатура"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Ред",
+        "keys": "Тастери",
+        "sendsAKeyCode": "Шаље код тастера",
+        "stickyModifier": "Лепљиви модификатор",
+        "appAction": "Акција апликације",
+        "tmuxPrefixThen": "tmux префикс, затим {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Редови тастера",
+        "onlyFor": "Само за {{name}}",
+        "usingTheAppSRows": "Користи редове апликације. Промене овде су само за {{name}}",
+        "useTheAppSRows": "Користи редове апликације"
+      },
+      "keyButton": {
+        "locked": "Закључано"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Откажи",
+        "remove": "Уклонити {{what}}?",
+        "remove2": "Уклони",
+        "dragToReorder": "Превуци за промену реда",
+        "rowName": "Назив реда",
+        "groupName": "Назив групе",
+        "add": "Додај",
+        "addKey": "Додај тастер",
+        "addRow": "Додај ред",
+        "addGroup": "Додај групу",
+        "tmuxPrefix": "tmux префикс",
+        "name": "Назив",
+        "rename": "Преименуј",
+        "keys": "{{value}} тастера",
+        "noKeys": "Нема тастера",
+        "remove3": "Уклони {{label}}",
+        "keys2": "Тастери",
+        "custom": "Прилагођено",
+        "add2": "Додај {{label}}",
+        "typeText": "Укуцај текст",
+        "runCommand": "Изврши наредбу",
+        "ctrlKey": "Ctrl тастер",
+        "label": "Ознака",
+        "optional": "Опционо",
+        "letter": "Слово",
+        "command": "Команда",
+        "text": "Текст",
+        "resetToDefault": "Ресетуј на подразумевано"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Промените тастере у Подешавањима, Тастатура"
+      },
+      "keyRowBar": {
+        "keyRow": "Ред тастера {{label}}",
+        "tapForTheNextRow": "Додирните за следећи ред, задржите за избор",
+        "keyRows": "Редови тастера"
+      },
+      "model": {
+        "clear": "Обриши",
+        "main": "Главни",
+        "keys": "Тастери",
+        "arrows": "Стрелице",
+        "symbols": "Симболи",
+        "actions": "Акције",
+        "nav": "Навигација",
+        "move": "Помери",
+        "function": "Функција",
+        "brackets": "Заграде",
+        "punctuation": "Интерпункција",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Панели",
+        "copy": "Копирај",
+        "split": "Подијели ─",
+        "split2": "Подијели │",
+        "newWin": "Нови прозор",
+        "prevWin": "Претходни прозор",
+        "nextWin": "Следећи прозор",
+        "pane": "Панел ←",
+        "pane2": "Панел ↓",
+        "pane3": "Панел ↑",
+        "pane4": "Панел →",
+        "copyMode": "Режим копирања",
+        "pasteBuf": "Налепи буфер",
+        "killPane": "Затвори панел"
+      }
+    },
+    "output": {
+      "openLink": "Отворити везу?",
+      "open": "Отвори",
+      "pasteLines": "Налепити {{lines}} линија?",
+      "pasteThisText": "Налепити овај текст?",
+      "theShellMayRunIt": "Шел може одмах да га покрене.\n\n{{text}}",
+      "paste": "Налепи",
+      "letTheProgramReadYour": "Дозволити програму да чита садржај клипборда?",
+      "itAskedForWhatYou": "Тражио је оно што сте последњи копирани.",
+      "allow": "Дозволи",
+      "letTheProgramCopyTo": "Дозволити програму да копира у клипборд?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Попунити сачувану лозинку?",
+      "asksForTheSudoPassword": "{{hostName}} тражи sudo лозинку.",
+      "asksForAPassword": "{{hostName}} тражи лозинку.",
+      "fillPassword": "Попуни лозинку",
+      "alwaysFillOnThisHost": "Увек попуни на овом хосту",
+      "asksNoMoreOnThis": "Неће више питати на овом {{deviceWord}}. Искључите у картици Терминал хоста.",
+      "notNow": "Не сад"
+    },
+    "register": {
+      "terminal": "Терминал",
+      "terminalAndKeepalive": "Терминал и keepalive",
+      "history": "ИСТОРИЈА",
+      "find": "Пронађи",
+      "tmuxWindows": "tmux прозори",
+      "connectionLog": "Лог везе",
+      "keyRowsForThisHost": "Редови тастера за овај хост"
+    },
+    "searchBar": {
+      "noResults": "Нема резултата",
+      "matchCase": "Пошаљи величину слова",
+      "wholeWord": "Цела реч",
+      "regularExpression": "Регуларни израз",
+      "find": "Пронађи",
+      "closeFind": "Затвори претрагу"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Систем",
+      "block": "Блок",
+      "bar": "Црта",
+      "underline": "Подвучено",
+      "off": "Искључено",
+      "sound": "Звук",
+      "flash": "Трептање",
+      "both": "Оба"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Нова картица на овом хосту",
+      "closeTab": "Затвори картицу",
+      "nextTab": "Следећа картица",
+      "previousTab": "Претходна картица",
+      "goToTab": "Иди на картицу",
+      "find": "Пронађи",
+      "fontSize": "Величина фонта",
+      "paste": "Налепи",
+      "escape": "Escape",
+      "copyAndPaste": "Копирај и налепи"
+    },
+    "reconnecting": "Поновно повезивање...",
+    "waitingForNetwork": "Чекање на мрежу...",
+    "waitingForYou": "Чекамо вас...",
+    "connecting": "Повезивање...",
+    "terminalView": {
+      "scrollToBottom": "Скролуј до дна",
+      "onlyWebLinksCanOpen": "Само веб линкови могу бити отворени из терминала",
+      "couldNotOpenLink": "Није могуће отворити линк",
+      "copiedFromTheTerminal": "Копирано из терминала"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Отвори tmux сесију",
+        "newSession": "Нова сесија",
+        "plainShell": "Обичан шел",
+        "tmuxWindows": "tmux прозори",
+        "newWindow": "Нови прозор",
+        "windowCount_one": "{{count}} прозор",
+        "windowCount_few": "{{count}} прозора",
+        "windowCount_other": "{{count}} прозора",
+        "attached": "{{count}} прикључено",
+        "activeNow": "активно сада",
+        "activeMinAgo": "активно пре {{count}} мин",
+        "activeHoursAgo": "активно пре {{count}} с",
+        "activeDaysAgo_one": "активно пре {{count}} дана",
+        "activeDaysAgo_few": "активно пре {{count}} дана",
+        "activeDaysAgo_other": "активно пре {{count}} дана"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Копирај",
+        "selectAll": "Изабери све",
+        "cancel": "Откажи",
+        "scrollToBottom": "Скролуј до дна",
+        "couldNotCopy": "Није могуће копирати",
+        "webviewError": "WebView грешка: {{description}}",
+        "webviewHttpError": "WebView HTTP грешка: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Нема сачуване лозинке за овај хост",
+    "backInTmuxSession": "Назад у tmux сесију {{tmuxName}}",
+    "backInScreenSession": "Назад у screen сесију {{name}}",
+    "theServerSessionEndedThis": "Серверска сесија је завршена. Ово је нови шел.",
+    "termixWasClosedSoThe": "Termix је био затворен, па је стари шел завршен. Ово је нови шел.",
+    "theConnectionDroppedAndThe": "Веза је прекинута и стари шел је завршен. Ово је нови шел.",
+    "disconnectedFrom": "Прекинуто повезивање са {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Двострука аутентификација",
+      "codesFromAnAuthenticatorApp": "Кодови из аутентикатор апликације за ваш серверски налог"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC адреса",
+      "neededToWakeThisHost": "Потребно за буђење овог хоста преко Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Користите MAC адресу у облику 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN послато за {{name}}",
+      "failedToSendWakeOn": "Неуспешно слање Wake-on-LAN пакета",
+      "noServer": "Нема сервера"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Одбуди {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Делите анонимне статистике коришћења?",
+      "termixWouldSendAShort": "Termix ће једном дневно слати кратак извештај. Ово можете променити било када у Подешавањима.",
+      "noThanks": "Не, хвала",
+      "share": "Дели",
+      "theReportHasTheApp": "Извештај садржи верзију апликације, тип {{deviceWord}}, приближан број хостова и сесија, које функције користите и да ли је повезивање успело. Никада не садржи имена хостова, корисничка имена, адресе, путање, команде или имена сервера.",
+      "seeExactlyWhatIsSent": "Погледајте шта се тачно шаље"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Учитавање информација о верзији…",
+      "updateAvailable": "Доступно ажурирање",
+      "newVersionAvailable": "Доступна нова верзија",
+      "aNewerVersionOfThe": "Доступна је новија верзија мобилне апликације. Неке функције можда неће радити исправно док не ажурирате.",
+      "versionInformation": "Информације о верзији",
+      "installed": "Инсталирано",
+      "latest": "Најновије",
+      "unknown": "Непознато",
+      "tag": "Ознака",
+      "continueAnyway": "Настави ипак"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Копирано",
+      "copy": "Копирај",
+      "hostKeyChanged": "Кључ хоста је промењен",
+      "verifyHostKey": "Верификуј кључ хоста",
+      "cancel": "Откажи",
+      "acceptNewKey": "Прихвати нови кључ",
+      "connectAndTrust": "Повези се и веруј",
+      "theHostSSshKey": "SSH кључ хоста се променио од ваше последње везе. Ово може значити да неко пресреће везу.",
+      "youAreConnectingToThis": "Повезујете се са овим хостом први пут. Проверите отисак пре него што му верујете.",
+      "previousKey": "Претходни кључ",
+      "newFingerprint": "Нови отисак",
+      "hostFingerprint": "Отисак хоста"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Потребна лозинка",
+      "enterThePassphraseForYour": "Унесите лозинку за ваш SSH кључ.",
+      "cancel": "Откажи",
+      "connect": "Повези се",
+      "keyPassphrase": "Лозинка кључа"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Потребна SSH аутентификација",
+      "cancel": "Откажи",
+      "connect": "Повези се",
+      "password": "Лозинка",
+      "sshKey": "SSH кључ",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nНалепите ваш приватни кључ овде...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Лозинка кључа (опционо)",
+      "keyboardInteractiveAuthIsNot": "Интерактивна аутентификација са тастатуре није доступна. Унесите акредитиве директно.",
+      "authenticationFailedPleaseReEnter": "Аутентификација није успела. Поново унесите акредитиве.",
+      "connectionTimedOutPleaseTry": "Веза је истекла. Покушајте поново са вашим акредитивима."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH провера",
+      "completeTheTailscaleSshCheck": "Завршите Tailscale SSH проверу у прегледачу да бисте наставили.",
+      "cancel": "Откажи",
+      "copyUrl": "Копирај URL",
+      "openBrowser": "Отвори прегледач",
+      "urlCopied": "URL копиран",
+      "failedToCopy": "Неуспешно копирање",
+      "couldNotOpenBrowser": "Није могуће отворити прегледач"
+    },
+    "tOTPDialog": {
+      "cancel": "Откажи",
+      "submit": "Пошаљи",
+      "verify": "Потврди",
+      "password": "Лозинка",
+      "pasteCode": "Налепи код",
+      "passwordRequired": "Лозинка је обавезна",
+      "twoFactorAuthentication": "Двофакторска аутентификација",
+      "enterYourPasswordToContinue": "Унесите лозинку да наставите.",
+      "enterThe6DigitCode": "Унесите шифру од 6 цифара из ваше апликације за аутентификацију."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate аутентификација",
+      "authenticateViaTheWarpgatePortal": "Аутентификујте се преко Warpgate портала, затим додирните Настави.",
+      "cancel": "Откажи",
+      "openBrowser": "Отвори прегледач",
+      "continue": "Настави",
+      "securityKey": "Кључ за безбедност",
+      "authUrl": "Auth URL",
+      "copied": "Копирано",
+      "copy": "Копирај",
+      "urlCopied": "URL је копиран",
+      "failedToCopy": "Неуспешно копирање",
+      "couldNotOpenBrowser": "Није могуће отворити прегледач"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "овај {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Недавна активност",
+        "files": "Фајлови",
+        "terminal": "Терминал"
+      },
+      "alertsCard": {
+        "notifications": "Обавештења",
+        "seeAll": "Прикажи све"
+      },
+      "server": "Сервер",
+      "openSessions": "Отворене сесије",
+      "quickAccess": "Брзи приступ",
+      "notifications": "Обавештења",
+      "pinnedHosts": "Закачени хостови",
+      "recentHosts": "Недавни хостови",
+      "recentActivity": "Недавна активност",
+      "pinnedCard": {
+        "addYourFirstHost": "Додајте свој први хост",
+        "hostsYouOpenShowUp": "Хостови које отворите се приказују овде, а закачени хостови приказују карте уживо.",
+        "addHost": "Додај хост",
+        "linkAServer": "Повезајте сервер",
+        "pinAHostToSee": "Закачите хост да бисте га видели овде",
+        "pinnedHostsShowTheirMetrics": "Закачени хостови приказују њихове метрике, Docker и услуге на први поглед. Држите хост да бисте га закачили.",
+        "goToHosts": "Иди на хостове",
+        "pinned": "Закачено",
+        "opensTheTerminalHoldFor": "Отвара терминал. Држите за више.",
+        "turnOnDockerOrServices": "Укључите Docker или Услуге за овај хост, или га додирните да се повежете.",
+        "opens": "Отвара {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Брзи приступ",
+        "quickConnect": "Брзо повезивање",
+        "userHostPortWithoutSaving": "корисник@хост:порт, без чувања"
+      },
+      "recentCard": {
+        "recent": "Недавно"
+      },
+      "serverCard": {
+        "server": "Сервер",
+        "version": "Верзија",
+        "uptime": "Време рада",
+        "database": "База података",
+        "hosts": "Хостови",
+        "online": "На мрежи",
+        "offline": "Искључен",
+        "logins": "Пријављивања"
+      },
+      "sessionsCard": {
+        "openSessions": "Отворене сесије",
+        "connected": "Повезано"
+      }
+    },
+    "resetHome": "Ресетовање почетне стране?",
+    "cardsGoBackToThe": "Картице се враћају на подразумевани редослед и приказане картице.",
+    "reset": "Ресетуј",
+    "doneEditingHome": "Завршено уређивање почетне стране",
+    "editHome": "Уреди почетну страну",
+    "dragToReorder": "Превуци {{title}} за промену редоследа",
+    "show": "Прикажи {{title}}",
+    "dragCardsToReorderThem": "Превуци картице да би их преуредио. Искључи картицу да би је сакрио. Картице без садржаја остају сакривене саме од себе.",
+    "resetToDefault": "Ресетуј на подразумевано",
+    "done": "Завршено",
+    "serverReachBanner": {
+      "stillCanTReachThe": "И даље не могу да приступим серверу",
+      "canTReach": "Не могу да приступим {{account}}",
+      "youCanKeepWorkingWith": "Можеш наставити да радиш са копијом на овом {{deviceWord}}. Промене ће се синхронизовати када се врати.",
+      "hostsSetToConnectFrom": "Домаћини подешени да се повезују са овог {{deviceWord}} и даље раде.",
+      "tryAgain": "Покушај поново",
+      "noAnswer": "без одговора"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault профил",
+      "none": "Ништа",
+      "signsInWithInYour": "Пријављује се са {{title}} у прегледачу кроз твој Termix сервер. Повези овог домаћина кроз сервер.",
+      "needsATermixServerLink": "{{title}} захтева Termix сервер. Повези један да би користио ову пријаву.",
+      "isOffOnThisServer": "{{title}} је искључен на овом серверу. Овај домаћин задржава своју поставку пријаве."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Не могу да учитам акредитиве",
+      "deleted": "Обрисан „{{name}}“",
+      "couldNotDeleteTheCredential": "Не могу да обришем акредитив",
+      "credentials": "Акредитиви",
+      "add": "Додај",
+      "searchCredentials": "Претражи акредитиве",
+      "clearSearch": "Обриши претрагу",
+      "loadingCredentials": "Учитавање акредитива...",
+      "noCredentialsMatchYourSearch": "Нема акредитива који одговарају твојој претрази",
+      "noCredentialsYet": "Још нема акредитива",
+      "addCredential": "Додај акредитив",
+      "edit": "Уреди",
+      "delete": "Обриши",
+      "deleteCredential": "Обриши акредитив",
+      "willBePermanentlyDeletedHosts": "„{{name}}“ ће бити трајно обрисан. Домаћини који га користе изгубиће своје сачуване акредитиве.",
+      "cancel": "Откажи",
+      "hostCount_one": "{{count}} домаћин",
+      "hostCount_few": "{{count}} домаћина",
+      "hostCount_other": "{{count}} домаћина",
+      "sshKey": "SSH кључ"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Замени кључ?",
+        "theNewKeyTakesThe": "Нови кључ замењује тренутни. Домаћини који верују само старом кључу престају да прихватају овај акредитив.",
+        "replace": "Замени",
+        "newKeyMadeCopyThe": "Нови кључ је направљен. Копирај јавни кључ на своје домаћине.",
+        "couldNotMakeAKey": "Не могу да направим кључ",
+        "couldNotReadThatCertificate": "Не могу да прочитам тај сертификат",
+        "leaveWithoutSaving": "Напусти без чувања?",
+        "yourChangesToThisCredential": "Твоје промене на овом акредитиву ће бити изгубљене.",
+        "leave": "Напусти",
+        "credentialSaved": "Акредитив је сачуван",
+        "credentialAdded": "Акредитив је додат",
+        "couldNotSaveTheCredential": "Не могу да сачувам акредитив",
+        "enterAHostToTest": "Унеси домаћина за тестирање, на пример 10.0.0.5 или box:2222.",
+        "enterTheUsernameFirst": "Прво унеси корисничко име.",
+        "editCredential": "Уреди акредитив",
+        "newCredential": "Нови акредитив",
+        "cancel": "Откажи",
+        "save": "Сачувај",
+        "credential": "Акредитив",
+        "name": "Име",
+        "productionKey": "Производни кључ",
+        "username": "Корисничко име",
+        "signInWith": "Пријави се са",
+        "password": "Лозинка",
+        "sshKey": "SSH кључ",
+        "unchangedIfBlank": "Немења се ако је празно",
+        "key": "Кључ",
+        "fileOrPaste": "Фајл или налепи",
+        "makeANewKey": "Направи нови кључ",
+        "aKeyIsSavedChoose": "Кључ је сачуван. Изабери фајл или налепи да га замениш.",
+        "type": "Тип",
+        "ed25519AndEcdsaAreMade": "Ed25519 и ECDSA се праве на овом {{deviceWord}}, RSA на твом серверу.",
+        "madeOnThisEd25519Works": "Направљено на овом {{deviceWord}}. Ed25519 ради готово свуда.",
+        "passphrase": "Лозинка",
+        "optionalLocksTheNewKey": "Опционо. Закључава нови кључ на овом {{deviceWord}} и на диску.",
+        "makeKey": "Направи кључ",
+        "publicKey": "Јавни кључ",
+        "addThisLineToSsh": "Додај овај ред у ~/.ssh/authorized_keys на твојим хостовима",
+        "publicKeyCopied": "Јавни кључ је копиран",
+        "copyPublicKey": "Копирај јавни кључ",
+        "certificate": "Сертификат",
+        "aCertificateYourCaSigned": "Сертификат који је твоја CA потписала за овај кључ, за хостове који верују CA.",
+        "chooseCertificateFile": "Изабери фајл сертификата",
+        "thisDoesNotLookLike": "Ово не личи на OpenSSH сертификат.",
+        "test": "Тестирај",
+        "hostToTestOn": "Хост за тестирање",
+        "n10005Or": "10.0.0.5 или box.lan:2222",
+        "pickASavedHost": "Изабери сачувани хост",
+        "details": "Детаљи",
+        "description": "Опис",
+        "whatThisCredentialIsFor": "За шта је овај акредитив",
+        "folder": "Фолдер",
+        "serverKeys": "Серверски кључеви",
+        "testOnAHost": "Тестирај на хосту",
+        "rsaKeysNeedALinked": "RSA кључеви захтевају повезани сервер."
+      },
+      "model": {
+        "giveThisCredentialAName": "Дај име овом акредитиву",
+        "addAPrivateKeyOr": "Додај приватни кључ или направи нови"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Ово је хост сертификат, не кориснички.",
+        "thisCertificateIsNotValid": "Овај сертификат још није важећи.",
+        "thisCertificateHasExpired": "Овај сертификат је истекао.",
+        "itIsForAKey": "Наменjen је за {{keyType}} кључ, али овај кључ је {{keyType2}}.",
+        "forAnyUser": "За било ког корисника",
+        "validFromNoEndDate": "Важећи од {{validAfter}}, без датума истека",
+        "signedBy": "Потписано од {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Корисничко име",
+        "fromTheCredential": "Из акредитива: {{credentialUser}}",
+        "signInWith": "Пријави се са",
+        "password": "Лозинка",
+        "key": "Кључ",
+        "credential": "Акредитив",
+        "none": "Ништа",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Повезује се преко Tailscale SSH. Лозинка или кључ се не чувају.",
+        "tailscaleIsNotOnFor": "Tailscale није укључен за {{value}}. Овај хост задржава своје Tailscale пријављивање.",
+        "unchangedIfBlank": "Немења се ако је празно",
+        "noCredentialsYetTapThe": "Још нема акредитива. Кликни на иконицу кључа у Хостовима да додаш један.",
+        "useCredential": "Користи акредитив {{name}}",
+        "sudoPassword": "Лозинка за sudo",
+        "typedIntoSudoPromptsWhen": "Уноси се у sudo захтеве када секција Терминал то омогући",
+        "notSet": "Није постављено",
+        "thisServer": "овај сервер"
+      },
+      "colorIconField": {
+        "color": "Боја",
+        "noColor": "Без боје",
+        "color2": "Боја {{c}}",
+        "icon": "Икона",
+        "noIcon": "Без иконе",
+        "none": "Ништа",
+        "icon2": "Икона {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Напустити без чувања?",
+        "yourChangesToThisHost": "Ваше измене за овог хоста ће бити изгубљене.",
+        "leave": "Напусти",
+        "couldNotSaveHowThis": "Није могуће сачувати начин повезивања овог хоста",
+        "hostSaved": "Хост је сачуван",
+        "hostAdded": "Хост је додат",
+        "couldNotSaveTheHost": "Није могуће сачувати хост",
+        "enterTheHostSAddress": "Прво унесите адресу хоста.",
+        "turnOnSshToTest": "Омогућите SSH да бисте тестирали пријаву.",
+        "pickACredentialFirst": "Прво изаберите акредитив.",
+        "editHost": "Уреди хост",
+        "newHost": "Нови хост",
+        "cancel": "Откажи",
+        "save": "Сачувај",
+        "host": "Хост",
+        "name": "Назив",
+        "myServer": "Мој сервер",
+        "address": "Адреса",
+        "port": "Порт",
+        "portAndUsernameComeFrom": "Порт и корисничко име се узимају из подразумеваних подешавања хоста док их не промените.",
+        "folder": "Фолдер",
+        "production": "Продукција",
+        "useAFolderInstead": "Уместо тога користите фолдер",
+        "putItUnderAHost": "Уместо тога ставите га испод хоста",
+        "pinToTop": "Закачи на врх",
+        "colorAndIcon": "Боја и икона",
+        "notes": "Напомене",
+        "anythingWorthRememberingAboutThis": "Било шта вредно памћења о овом хосту",
+        "protocols": "Протоколи",
+        "terminalFilesAndMore": "Терминал, фајлови и више",
+        "connectFrom": "Повежи се са",
+        "features": "Функције",
+        "otherProtocols": "Остали протоколи",
+        "more": "Више",
+        "theTestRunsFromThis": "Тест се покреће са овог {{deviceWord}}-а. Овај хост се повезује кроз сервер, па може радити чак и када {{deviceWord}} не може да га достигне."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Џамп хостови",
+        "connectsThroughTheseInOrder": "Повезује се кроз њих по реду, затим на овај хост",
+        "reachThisHostThroughOther": "Прво стигните до овог хоста кроз друге хостове",
+        "moveUp": "Помери горе",
+        "moveDown": "Помери доле",
+        "removeJumpHost": "Уклони џамп хост",
+        "addJumpHost": "Додај џамп хост",
+        "pickASavedHostTo": "Изаберите сачувани хост за повезивање кроз њега",
+        "searchHosts": "Претражи хостове",
+        "noOtherHostsToPick": "Нема других хостова за избор. Хост не може да скока кроз себе или кроз хост који већ иде кроз њега.",
+        "missingHost": "Недостаје хост #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Омогућите барем један протокол",
+        "pickACredential": "Изаберите акредитив",
+        "enterTheHostSAddress": "Унесите адресу хоста",
+        "theAddressCanTHave": "Адреса не сме садржати размаке",
+        "portMustBeFrom1": "Порт мора бити између 1 и 65535",
+        "enterTheSshUsername": "Унесите SSH корисничко име"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Хост ће бити приказан уgneзђен испод одабраног",
+        "searchHosts": "Претражи хостове",
+        "noHostsToPickA": "Нема доступних хостова. Хост не може бити под самим собом, једним од својих подхостова или делимичним хостом.",
+        "parentHost": "Родитељски хост",
+        "subHostsFollowTheFolder": "Подхостови прате фасциклу свог родитеља",
+        "pickParentHost": "Изаберите родитељски хост",
+        "missingHost": "Недостаје хост #{{value}}",
+        "pickAHost": "Изаберите хост",
+        "clearParentHost": "Очисти родитељски хост"
+      },
+      "tagsField": {
+        "tags": "Ознаке",
+        "typeATagAndPress": "Унесите ознаку и притисните Enter",
+        "removeTag": "Уклони ознаку {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Није могуће сачувати начин повезивања овог хоста",
+      "addressCopied": "Адреса копирана",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Повежи се са",
+      "dismiss": "Одбаци",
+      "unpin": "Откачи",
+      "pinToHome": "Закачи на Почетну",
+      "select": "Изабери",
+      "editHost": "Уреди хост",
+      "copyAddress": "Копирај адресу",
+      "addSubHost": "Додај подхост",
+      "cloneHost": "Клонирај хост",
+      "deleteHost": "Обриши хост",
+      "connectThroughTheServer": "Повежи се кроз сервер",
+      "connectFromThis": "Повежи се са овог {{deviceWord}}"
+    },
+    "defaultYourOrder": "Подразумевано (ваш редослед)",
+    "nameAZ": "Име (А-Ж)",
+    "nameZA": "Име (Ж-А)",
+    "ipAscending": "IP (растући)",
+    "ipDescending": "IP (опадajući)",
+    "onlineFirst": "Прво они који су онлајн",
+    "offlineFirst": "Прво они који су офлајн",
+    "pinnedFirst": "Прво закачени",
+    "status": "Статус",
+    "online": "Онлајн",
+    "offline": "Офлајн",
+    "pinned": "Закачено",
+    "protocol": "Протокол",
+    "features": "Функције",
+    "hostsCanOnlyMoveInside": "Хостови се могу померати само унутар своје фасцикле",
+    "couldNotUpdateTheHosts": "Није могуће ажурирати хостове",
+    "sharedHostsCanTBe": "Делимични хостови се не могу брисати овде",
+    "delete2": "Обриши",
+    "noneOfTheseHostsOpen": "Ниједан од ових хостова не отвара терминал",
+    "couldNotPinTheHost": "Није могуће закачити хост",
+    "deleted": "Обрисан {{name}}",
+    "failedToDeleteHost": "Брисање хоста није успело",
+    "cloned": "Клониран {{name}}",
+    "failedToCloneHost": "Клонирање хоста није успело",
+    "reorderWorksWithTheDefault": "Преуређивање ради са подразумеваним сортирањем и без претраге или филтера",
+    "couldNotSaveTheOrder": "Није могуће сачувати редослед",
+    "noHostsYet": "Још нема хостова",
+    "addAHostToConnect": "Додајте хост да бисте се повезали једним додиром.",
+    "addHost": "Додај хост",
+    "quickConnect2": "Брзо повезивање",
+    "linkAServer": "Повези сервер",
+    "noHostsMatch": "Нема поклопних хостова",
+    "clearSearchAndFilters": "Обриши претрагу и филтере",
+    "more": "Више",
+    "dragAHostByIts": "Превуците хост за дршку да бисте га померили унутар фасцикле.",
+    "done": "Готово",
+    "filterHosts": "Филтрирај хостове",
+    "clearFilterText": "Обриши текст филтера",
+    "sortHosts": "Сортирај хостове",
+    "removeFilter": "Уклони филтер {{value}}",
+    "loadingHosts": "Учитавање хостова…",
+    "moveUnderAHost": "Помери испод хоста",
+    "moveToFolder": "Помери у фасциклу",
+    "leaveItEmptyToTake": "Оставите празно да бисте извели хостове из фасцикли.",
+    "folderLikeProdWeb": "Фасцикла, попут Prod / Web",
+    "move": "Помери",
+    "hosts": "Хостови",
+    "selectHosts": "Изабери хостове",
+    "reorderHosts": "Преуреди хостове",
+    "customizeList": "Прилагоди листу",
+    "chooseWhatEachHostRow": "Изаберите шта сваки ред хоста приказује",
+    "credentials2": "Повлашћења",
+    "savedPasswordsAndKeys": "Сачуване лозинке и кључеви",
+    "tailscaleDevices": "Tailscale уређаји",
+    "refresh": "Освежи",
+    "rowDensityFollowsSettingsAppearance": "Густина редова прати Подешавања, Изглед.",
+    "clearAllFilters": "Обриши све филтере",
+    "tags": "Ознаке",
+    "stopSelecting": "Прекини избор",
+    "selected": "{{count}} изабрано",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Није могуће прочитати тај фајл кључа",
+        "theClipboardIsEmpty": "Клипборд је празан",
+        "privateKey": "Приватни кључ",
+        "chooseFile": "Изабери фајл",
+        "paste": "Налепи",
+        "unchangedIfBlank": "Немењено ако је празно",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Лозинка",
+        "onlyIfTheKeyHas": "Само ако кључ има једну",
+        "theKeyIsCheckedWhen": "Кључ се проверава када се повезујете.",
+        "thePastedKey": "налепљени кључ"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Отвори",
+        "moreActions": "Више акција",
+        "opensTheTerminalHoldFor": "Отвара терминал. Држите за више.",
+        "shared": "Заједнички",
+        "drag": "Превуци {{name}}",
+        "showSubHosts_one": "Прикажи {{count}} под-хост од {{name}}",
+        "showSubHosts_few": "Прикажи {{count}} под-хоста од {{name}}",
+        "showSubHosts_other": "Прикажи {{count}} под-хостова од {{name}}",
+        "hideSubHosts_one": "Сакриј {{count}} под-хост од {{name}}",
+        "hideSubHosts_few": "Сакриј {{count}} под-хоста од {{name}}",
+        "hideSubHosts_other": "Сакриј {{count}} под-хостова од {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Фасцикла {{name}}, {{total}} хостова"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Хост и корисничко име су обавезни",
+      "hostSaved": "Хост сачуван",
+      "couldNotSaveTheHost": "Није могуће сачувати хост",
+      "quickConnect": "Брзо повезивање",
+      "connectToAHostWithout": "Повежите се са хостом без чувања.",
+      "hostIp": "Хост / IP",
+      "port": "Порт",
+      "username": "Корисничко име",
+      "password": "Лозинка",
+      "key": "Кључ",
+      "privateKey": "Приватни кључ",
+      "saveToMyHosts": "Сачувај у моје хостове",
+      "keepThisHostAfterConnecting": "Задржи овај хост након повезивања",
+      "cancel": "Откажи",
+      "connect": "Повези се"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Преузимање хостова са сервера",
+      "yourHostsStayOnThis": "{{message}} Ваш хостови остају на овом {{deviceWord}} у међувремену."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Кључ овог хоста се променио",
+      "trustThisHost": "Да ли да верујете овом хосту?",
+      "trust": "Веруј",
+      "stopTest": "Заустави тест",
+      "testConnection": "Тестирај везу",
+      "connecting": "Повезивање..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Неуспешно учитавање хостова."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} дељени хост је остављен непромењен.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} дељена хоста су остављена непромењена.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} дељених хостова је остављено непромењених.",
+    "deleteHosts_one": "Обриши {{count}} хост?",
+    "deleteHosts_few": "Обриши {{count}} хоста?",
+    "deleteHosts_other": "Обриши {{count}} хостова?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Нема фолдера са називом {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Хост „{{name}}”: неисправан порт",
+        "hostJumpIsNotIn": "Хост „{{name}}”: скок {{value}} није у датотеци, па је изостављен",
+        "credential": "Акредитив {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Није пронађена ниједна исправна Host ставка у SSH конфигурационој датотеци",
+        "credentialWasNotFound": "{{label}}: акредитив {{value}} није пронађен"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Хост {{value}}: дуплирани извезени ID хоста {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Недостају обавезна поља (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Невалидан authType. Мора бити један од {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Корисничко име је обавезно за SSH везе",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias је обавезан за аутентификацију акредитивима",
+        "thatIsNotAValid": "Ово није исправна JSON датотека",
+        "hostsArrayIsRequiredAnd": "Поље Hosts је обавезно и не сме бити празно",
+        "jumpHostCycle": "{{label}}: циклус скока хоста",
+        "jumpHostIsNotIn": "{{label}}: скок хоста {{id}} није у датотеци"
+      }
+    },
+    "movedTo": "Премештено у {{value}}",
+    "movedOutOfFolders": "Премештено из фолдера",
+    "movedUnder": "Премештено испод {{value}}",
+    "openTerminals": "Отвори терминале",
+    "theHost": "хост"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Сакриј лозинку",
+      "showPassword": "Прикажи лозинку",
+      "enterAUsernameAndPassword": "Унесите корисничко име и лозинку",
+      "useAtLeast6Characters": "Користите најмање 6 знакова за лозинку",
+      "thePasswordsDonTMatch": "Лозинке се не подударају",
+      "makeTheAdminAccount": "Направи администраторски налог",
+      "makeAnAccount": "Направи налог",
+      "thisIsTheFirstAccount": "Ово је први налог на серверу, па управља сервером.",
+      "pickAUsernameAndPassword": "Изаберите корисничко име и лозинку за овај сервер.",
+      "username": "Корисничко име",
+      "password": "Лозинка",
+      "passwordAgain": "Лозинка поново",
+      "makeAccount": "Направи налог",
+      "back": "Назад",
+      "haveAnAccountSignIn": "Имате налог? Пријавите се",
+      "resetCodeMadeItIs": "Код за ресетовање је направљен. Налази се у логовима сервера",
+      "enterYourUsername": "Унесите ваше корисничко име",
+      "enterTheResetCode": "Унесите код за ресетовање",
+      "passwordChangedSignInWith": "Лозинка је промењена. Пријавите се са њом сада",
+      "resetPassword": "Ресетуј лозинку",
+      "enterYourUsernameTheServer": "Унесите ваше корисничко име. Сервер ће написати код за ресетовање у своје логове.",
+      "sendResetCode": "Пошаљи код за ресетовање",
+      "enterThe6DigitCode": "Унесите 6-цифрени код из серверских логова.",
+      "resetCode": "Ресетуј код",
+      "checkCode": "Провери код",
+      "newPassword": "Нова лозинка",
+      "saveNewPassword": "Сачувај нову лозинку",
+      "backToSignIn": "Назад на пријаву",
+      "couldNotMakeTheAccount": "Није могуће креирати налог",
+      "couldNotStartTheReset": "Није могуће покренути ресетовање",
+      "thatCodeDidnTWork": "Тај код није радио",
+      "couldNotChangeThePassword": "Није могуће променити лозинку"
+    },
+    "browserStep": {
+      "signInFailed": "Пријава није успела",
+      "signInCanceled": "Пријава је отказана",
+      "couldNotOpenTheSign": "Није могуће отворити прегледач за пријаву",
+      "couldNotOpenTheSign2": "Није могуће отворити страницу за пријаву",
+      "certificateProblem": "Проблем са сертификатом",
+      "back": "Назад",
+      "signIn": "Пријава",
+      "reload": "Освежи",
+      "finishSigningInInYour": "Завршите пријаву у прегледачу",
+      "useAnySignInYour": "Користите било коју методу пријаве коју сервер подржава, као што је passkey или сигурносни кључ. Апликација ће преузети контролу чим се пријавите.",
+      "theAppPicksUpOnce": "Апликација преузима контролу чим ваш провајдер пријаве заврши процес.",
+      "signingIn": "Пријављивање...",
+      "openBrowserAgain": "Отвори прегледач поново",
+      "theServerTurnedTheSession": "Сервер је одбио сесију. Покушајте поново.",
+      "signedInButTheApp": "Пријављени сте, али апликација не може да достигне Termix. Прокси можда блокира приступ.",
+      "thatSignInLinkIs": "Тај линк за пријаву је из старијег покушаја. Пријавите се поново.",
+      "signInAgain": "Пријавите се поново.",
+      "openTheBrowserAgainWhen": "Отворите прегледач поново када будете спремни.",
+      "theWebPageSignedIn": "Веб страница је извршила пријаву, али није послала сесију. Ажурирајте сервер и покушајте поново.",
+      "theCanTCheckThis": "{{deviceWord}} не може да провери сертификат овог сервера. Инсталирајте његов root CA на {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Користити {{name}} за пријаву следећи пут?",
+      "ifThisServerSignsYou": "Ако вас овај сервер одјави, пријавите се поново помоћу {{name}} уместо да куцате лозинку. Лозинка остаје на овом {{deviceWord}}.",
+      "use": "Користи {{name}}",
+      "notNow": "Не сад",
+      "couldNotSaveTheLogin": "Није могуће сачувати податке за пријаву",
+      "thatSADifferentUser": "То је други корисник",
+      "signedIn": "Пријављени",
+      "close": "Затвори",
+      "linkYourTermixServer": "Повезајте свој Termix сервер",
+      "yourHostsCredentialsSnippetsAnd": "Ваши хостови, акредитиви, фрагменти и подешавања се синхронизују са њим, а добијате и његове додаци. Све наставља да ради на овом {{deviceWord}} када сервер није доступан.",
+      "checking": "Провера {{host}}...",
+      "proxyAndClientCertificate": "Прокси и клијентски сертификат",
+      "couldNotReachThatServer": "Није могуће достићи тај сервер. Проверите адресу или подесите прокси или клијентски сертификат.",
+      "couldNotReachThatServer2": "Није могуће достићи тај сервер",
+      "syncCouldNotStartYet": "Синхронизација још увек није могла да почне. Покушаће поново сама.",
+      "checkingTheServer": "Провера сервера",
+      "signIn": "Пријава",
+      "makeAnAccount": "Направи налог",
+      "resetPassword": "Ресетуј лозинку",
+      "oneMoreStep": "Још један корак",
+      "almostDone": "Скоро готово",
+      "linkAServer": "Повезај сервер"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Сачувани подаци за пријаву више не раде",
+      "enterYourUsernameAndPassword": "Унесите своје корисничко име и лозинку",
+      "thisServerIsBehindA": "Овај сервер је иза проксија за пријаву",
+      "signInWith": "Пријави се са {{saved}}",
+      "signInWith2": "Пријави се са",
+      "password": "Лозинка",
+      "username": "Корисничко име",
+      "signIn": "Пријава",
+      "forgotPassword": "Заборавили сте лозинку?",
+      "makeAnAccount": "Направи налог",
+      "or": "ИЛИ",
+      "continueWith": "Настави са {{label}}",
+      "signInWithAPasskey": "Пријави се помоћу пролазнице или безбедносног кључа",
+      "opensYourServerAposS": "Отвара страницу за пријаву вашег сервера у прегледачу. Face ID, отисак прста, NFC и USB кључићи раде тамо. Потребан је Termix 26.11.3 или новији.",
+      "signInInTheBrowser": "Пријави се у прегледачу",
+      "opensYourServerAposS2": "Отвара страницу за пријаву вашег сервера, за све што апликација не може да уради овде. Потребан је Termix 26.10.6 или новији.",
+      "thisServerHasNoSign": "Овај сервер нема укључену пријаву коју апликација може да користи. Питајте особу која га управља или покушајте пријаву кроз прегледач изнад.",
+      "signInWithYourPassword": "Пријави се помоћу лозинке.",
+      "signInFailed": "Пријава није успела",
+      "openingItsSignInPage": "Отвара се страница за пријаву."
+    },
+    "smallSteps": {
+      "serverAddress": "Адреса сервера",
+      "likeTermixExampleComOr": "На пример termix.example.com или 192.168.1.20:30001",
+      "checking": "Проверавање...",
+      "continue": "Настави",
+      "proxyAndClientCertificate": "Прокси и клиентски сертификат",
+      "aServerWithASelf": "Сервер са само-потписаним сертификатом прво мора да има инсталиран коренски CA на овом {{deviceWord}}. Обичан http ради на вашој локалној мрежи.",
+      "enterTheCode": "Унесите код",
+      "code": "Код",
+      "the6DigitCodeFrom": "Шифра од 6 цифара из ваше апликације за аутентификацију или резервни код",
+      "checkCode": "Провери код",
+      "thisAccountAsksForA": "Овај налог тражи безбедносни кључ након лозинке. Пријавите се на страници сервера у прегледачу да бисте га користили.",
+      "useASecurityKeyIn": "Користи безбедносни кључ у прегледачу",
+      "backToSignIn": "Назад на пријаву",
+      "bringThisAposSHosts": "Да ли да донесете хостове са овог {{deviceWord}}?",
+      "thisHasTheyStayOn": "Овај {{deviceWord}} има {{what}}. Они остају на Овом уређају у сваком случају.",
+      "merge": "Спој",
+      "copyThemToTooSo": "Копирајте их и на {{serverName}}, да се синхронизују. Они који изгледају исто као хост на серверу се прескачу.",
+      "replace": "Замени",
+      "useOnlyWhatIsOn": "Користи само оно што је на {{serverName}} за овај налог. Ништа се не копира.",
+      "thatCodeDidnTWork": "Тај код није радио",
+      "hostsCredentialsOrSnippets": "хостове, акредитиве или фрагменте"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Прво повезајте овај сервер",
+      "thatHostIsnTHere": "Тај хост није овде",
+      "couldNotOpenThatHost": "Није могуће отворити тај хост",
+      "noHostWithIdOn": "Нема хоста са id {{hostId}} на {{account}}.",
+      "isnTLinkedInThe": "{{value}} још није повезан у апликацији."
+    }
+  },
+  "notifications": {
+    "notifications": "Обавештења",
+    "markAllRead": "Означи све као прочитано",
+    "clearReadNotifications": "Обриши прочитана обавештења",
+    "unread2": "Непрочитано",
+    "all": "Све",
+    "noUnreadNotifications": "Нема непрочитаних обавештења",
+    "nothingHere": "Ништа овде",
+    "markRead": "Означи као прочитано",
+    "delete": "Обриши",
+    "couldNotLoadNotifications": "Није могуће учитати обавештења",
+    "couldNotMarkRead": "Није могуће означити као прочитано",
+    "couldNotDelete": "Није могуће обрисати",
+    "couldNotClear": "Није могуће очистити"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Увоз",
+      "hosts": "Хостови",
+      "aTermixHostFileYour": "Termix датотека хостова, ваша ~/.ssh/config или веза/QR код хоста са другог {{deviceWord}}. Они се чувају на овом {{deviceWord}}.",
+      "backup": "Резервна копија",
+      "aBackupThisAppMade": "Резервна копија коју је направила ова апликација, закључана лозинком. Враћа хостове, акредитиве и фрагменте.",
+      "restoreABackup": "Врати резервну копију",
+      "done": "Готово",
+      "skipForNow": "Прескочи за сада",
+      "sshFilesAndRemoteDesktops": "SSH, датотеке и удаљене радне површине са вашег {{deviceWord}}. Како желите да почнете?",
+      "useWithoutAServer": "Користи без сервера",
+      "hostsCredentialsAndSnippetsAre": "Домаћини, акредитиви и фрагменти се чувају шифровано на овом {{deviceWord}}. Сервер можете повезати у било ком тренутку.",
+      "linkATermixServer": "Повези Termix сервер",
+      "syncYourHostsCredentialsSnippets": "Синхронизујте домаћине, акредитиве, фрагменте и подешавања са сервером и користите његове додаци.",
+      "bringHostsFromATermix": "Увезите домаћине из Termix фајла, SSH конфигурације, QR кода или резервне копије.",
+      "thisDevice": "Овај уређај"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Претрага домаћина, фрагмената, радњи",
+      "clearSearch": "Обриши претрагу",
+      "nothingMatches": "Ништа се не поклапа",
+      "typeToSearch": "Унесите текст за претрагу",
+      "findAHostToConnect": "Пронађите домаћина за повезивање, фрагмент, подешавање или радњу.",
+      "suggested": "Предложено | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Покрени у {{title}}",
+      "copiedRunItFromThe": "Копирано. Покрените га из фрагмената терминала да бисте попунили вредности.",
+      "copiedOpenATerminalTo": "Копирано. Отворите терминал да бисте покренули фрагменте.",
+      "addHost": "Додај домаћина",
+      "quickConnect": "Брзо повезивање",
+      "switchAccount": "Промени налог",
+      "linkAServer": "Повези сервер",
+      "fromYourServer": "Са вашег сервера",
+      "settings": "Подешавања",
+      "accountsAppearanceSecurity": "Налози, изглед, безбедност"
+    },
+    "search": {
+      "hosts": "Домаћини",
+      "snippets": "Фрагменти",
+      "actions": "Радње",
+      "settings": "Подешавања"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Неуспешно учитавање сесија",
+      "sessionRevoked": "Сесија је опозвана",
+      "failedToRevokeSession": "Неуспешно опозивање сесије",
+      "allSessionsRevoked": "Све сесије су опозване",
+      "failedToRevokeAllSessions": "Неуспешно опозивање свих сесија",
+      "activeSessions": "Активне сесије",
+      "signOutAllOtherSessions": "Одјави све остале сесије",
+      "loading": "Учитавање…",
+      "noActiveSessionsFound": "Нема активних сесија.",
+      "unknownDevice": "Непознат уређај",
+      "lastActive": "Последњи пут активно {{lastActiveAt}}",
+      "created": "Направљено {{createdAt}}",
+      "revokeSession": "Опозови сесију",
+      "revokeSession2": "Опозвати сесију?",
+      "thisWillSignOutThat": "Ово ће одјавити тај уређај.",
+      "revoke": "Опозови",
+      "revokeAllSessions": "Опозвати све сесије?",
+      "thisWillSignOutEvery": "Ово ће одјавити сваки уређај. Остаете пријављени на овом уређају.",
+      "cancel": "Откажи",
+      "revokeAll": "Опозови све"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Неуспешно учитавање API кључева",
+      "failedToCreateApiKey": "Неуспешно креирање API кључа",
+      "deleteApiKey": "Обрисати API кључ?",
+      "willStopWorkingRightAway": "\"{{name}}\" ће престати да ради одмах.",
+      "apiKeyDeleted": "API кључ је обрисан",
+      "failedToDeleteApiKey": "Неуспешно брисање API кључа",
+      "apiKeys": "API кључеви",
+      "newApiKey": "Нови API кључ",
+      "loading": "Учитавање…",
+      "apiKeysAllowProgrammaticAccess": "API кључеви омогућавају програмски приступ Termix-у. Тајни кључ се приказује само једном, па га чувајте на безбедном месту.",
+      "noApiKeysYet": "Још нема API кључева",
+      "created": "Направљено {{createdAt}}",
+      "lastUsed": "Последњи пут коришћено {{lastUsedAt}}",
+      "expires": "Истиче {{expiresAt}}",
+      "delete": "Обриши {{name}}",
+      "keyCreatedCopyItNow": "Кључ је креиран. Копирај га сада",
+      "newApiKey2": "Нови API кључ",
+      "thisTokenWonTBe": "Овај токен се више неће приказати.",
+      "apiKeyCopied": "API кључ је копиран",
+      "copy": "Копирај",
+      "done": "Готово",
+      "cancel": "Откажи",
+      "create": "Креирај",
+      "name": "Назив *",
+      "eGCiPipeline": "нпр. CI Pipeline",
+      "user": "Корисник *",
+      "noUsersAvailable": "Нема доступних корисника.",
+      "expiresAtOptional": "Истиче (опционо)",
+      "yyyyMmDd": "ГГГГ/ММ/ДД",
+      "yearMonthDay": "Година / Месец / Дан"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Одржава сесије активним",
+      "showsANotificationWhileSessions": "Приказује обавештење док су сесије отворене, тако да Android наставља да их ради када напустите апликацију",
+      "batteryOptimization": "Оптимизација батерије",
+      "termixIsNotRestrictedSo": "Termix није ограничен, тако да сесије могу остати отворене са искљученим екраном.",
+      "androidMayStillStopSessions": "Android може и даље да заустави сесије ради штедње батерије. Отворите подешавања батерије, пронађите Termix и изаберите Не оптимизовано или Неограничено.",
+      "openBatterySettings": "Отвори подешавања батерије",
+      "notificationsAreOff": "Обавештења су искључена",
+      "sessionsStillRunButThe": "Сесије и даље раде, али листа отворених сесија и дугме Одјави све остају скривени.",
+      "openNotificationSettings": "Отвори подешавања обавештења",
+      "thisBuildCanTKeep": "Ова верзија не може да одржава сесије активним у позадини. Повезивање се обнавља када се вратите.",
+      "lowPowerMode": "Режим штедње енергије",
+      "batterySaver": "Штедња батерије",
+      "isOnTermixChecksConnections": "{{value}} је укључен. Termix ређе проверава везе и дуже чека између покушаја поновног повезивања.",
+      "backgroundSessions": "Сесије у позадини",
+      "iosStopsAppsSoonAfter": "iOS зауставља апликације ускоро након што их напустите, тако да сесије не могу да раде у позадини. Повезивање се обнавља када се вратите, а tmux или screen настављају тамо где сте стали."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Заустављено",
+        "active": "Активно",
+        "linkAServer": "Повези сервер",
+        "eachServerKeepsItsOwn": "Сваки сервер чува своју копију ваших хостова, акредитива и подешавања на овом {{deviceWord}}.",
+        "signedInAs": "Пријављен као",
+        "role": "Улога",
+        "administrator": "Администратор",
+        "user": "Корисник",
+        "serverVersion": "Верзија сервера",
+        "signOut": "Одјави се",
+        "youAreSignedOutOf": "Одјављени сте са овог сервера.",
+        "signIn": "Пријави се",
+        "passwordChanged": "Лозинка је промењена",
+        "couldNotChangeThePassword": "Није могуће променити лозинку",
+        "changePassword": "Промени лозинку",
+        "enterYourCurrentPasswordThen": "Унесите тренутну лозинку, па изаберите нову.",
+        "cancel": "Откажи",
+        "change": "Промени",
+        "currentPassword": "Тренутна лозинка",
+        "newPassword": "Нова лозинка",
+        "accountDeleted": "Налог је обрисан",
+        "couldNotDeleteTheAccount": "Није могуће обрисати налог",
+        "deleteServerAccount": "Обриши серверски налог",
+        "thisPermanentlyDeletesYourAccount": "Ово трајно брише ваш налог на серверу и све његове податке. Ово се не може поништити.",
+        "delete": "Обриши",
+        "confirmYourPassword": "Потврдите лозинку",
+        "worksWithoutAServer": "Ради без сервера",
+        "signedOut": "Одјављен",
+        "readsLive": "Чита уживо",
+        "toReview": "{{count}} на преглед",
+        "synced": "Синхронизовано",
+        "syncing": "Синхронизација",
+        "offline": "Офлајн"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Дели анонимне статистике коришћења",
+        "aShortReportOnceA": "Кратак извештај једном дневно. Без хостова, имена или адреса",
+        "nextReport": "Следећи извештај",
+        "seeExactlyWhatWouldBe": "Погледајте шта ће тачно бити послато",
+        "couldNotBuildTheReport": "Није могуће креирати извештај",
+        "preview": "Преглед",
+        "thisIsExactlyWhatWould": "Ово је тачно оно што би се послало у овом тренутку.",
+        "resetInstallId": "Ресетуј ID инсталације",
+        "futureReportsWillLookLike": "Будући извештаји ће изгледати као нова инсталација",
+        "resetTheInstallId": "Ресетовати ID инсталације?",
+        "futureReportsWillLookLike2": "Будући извештаји ће изгледати као нова инсталација.",
+        "reset": "Ресетуј",
+        "installIdReset": "ID инсталације је ресетован"
+      },
+      "appearanceControls": {
+        "theme": "Тема",
+        "accentColor": "Акцентна боја",
+        "textSize": "Величина текста",
+        "sizeOfTextAcrossThe": "Величина текста у апликацији, не у терминалу",
+        "density": "Густина",
+        "howTallListRowsAnd": "Висина редова у листама и подешавања"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Хостови, акредитиви и фрагменти се чувају у енкриптованој датотеци на овом{{deviceWord}}. Статистике коришћења су искључене док их не укључите испод. Повезани сервер добија само оно што му дозволите да синхронизује.",
+        "recentHosts": "Недавни хостови",
+        "forgetTheHostsYouOpened": "Заборави хостове које сте недавно отворили на сваком налогу",
+        "recentHostsCleared": "Недавни хостови су обрисани",
+        "clear": "Обриши",
+        "couldNotCheckForUpdates": "Није могуће проверити за ажурирања",
+        "versionIsOutUpdateFrom": "Верзија {{version}} је доступна. Ажурирајте из ваше продавке.",
+        "youHaveTheNewestVersion": "Имате најновију верзију",
+        "termixMobile": "Termix Mobile",
+        "updates": "Ажурирања",
+        "check": "Провери"
+      },
+      "pinSheet": {
+        "waitSeconds": "Чекај {{value}} секунди",
+        "digits": "{{PIN_LENGTH}} цифара"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-ови се не подударају",
+        "appLockIsOn": "Закључавање апликације је укључено",
+        "turnOffAppLock": "Искључи закључавање апликације",
+        "enterYourPinToConfirm": "Унесите ваш PIN за потврду.",
+        "appLockIsOff": "Закључавање апликације је искључено",
+        "appLock": "Закључавање апликације",
+        "askForFaceIdTouch": "Затражи Face ID, Touch ID или PIN за отварање апликације",
+        "askForAPinTo": "Затражи PIN за отварање апликације",
+        "pinChanged": "PIN је промењен",
+        "couldNotChangeThePin": "Није могуће променити PIN",
+        "changePin": "Промени PIN",
+        "lockAfter": "Закључај после",
+        "howLongTheAppCan": "Кoliko дуго апликација може бити невидљива пре него што се закључа",
+        "hideInAppSwitcher": "Сакриј у изборнику апликација",
+        "showABlankScreenIn": "Прикажи празан екран у листи недавних апликација",
+        "chooseA4DigitPin": "Изаберите 4-цифрени PIN.",
+        "confirmPin": "Потврди PIN",
+        "enterTheSamePinAgain": "Унесите исти PIN поново.",
+        "currentPin": "Тренутни PIN",
+        "enterYourCurrentPin": "Унесите ваш тренутни PIN.",
+        "newPin": "Нови PIN",
+        "chooseANew4Digit": "Изаберите нови 4-цифрени PIN.",
+        "confirmNewPin": "Потврди нови PIN",
+        "enterTheNewPinAgain": "Унесите нови PIN поново."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Виджети на почетном екрану",
+        "showYourHostsSnippetsAnd": "Прикажи хостове, фрагменте и дугмад за напајање на почетном екрану",
+        "showAddresses": "Прикажи адресе",
+        "showUserHostUnderEach": "Прикажи корисник@хост испод сваког имена сервера",
+        "includeOfflineHosts": "Укључи офлајн хостове",
+        "offShowsOnlyServersThat": "Онемогућено приказује само сервере који су онлајн",
+        "pinnedHostsOnly": "Само закачени хостови",
+        "showOnlyTheHostsYou": "Прикажи само хостове које си закачио/ла",
+        "snippetsWidget": "Виджет фрагмената",
+        "showSavedCommandsOnThe": "Прикажи сачуване команде на почетном екрану",
+        "showCommandPreview": "Прикажи преглед команде",
+        "showTheFirstLineOf": "Прикажи прву линију сваке команде"
+      }
+    },
+    "fileSettings": {
+      "files": "Фајлови",
+      "fileManagerOnThis": "Менаџер фајлова на овом {{deviceWord}}",
+      "browsing": "Прегледање",
+      "transfersAtOnce": "Преноси одједном",
+      "downloadsAndUploadsThatRun": "Преузимања и слања која се изводе истовремено",
+      "editor": "Едитор",
+      "textSize": "Величина текста",
+      "filesBesideTheTerminal": "Фајлови поред терминала",
+      "side": "Страна",
+      "whereThePanelSitsOn": "Где се панел налази на таблету",
+      "right": "Десно",
+      "left": "Лево",
+      "howOftenToCheck": "Колито често проверавати",
+      "folderHistory": "Историја фолдера",
+      "foldersKeptPerHost": "Фолдери задржани по хосту",
+      "showHiddenFiles": "Прикажи скривене фајлове",
+      "filesAndFoldersThatStart": "Фајлови и фолдери који почињу са тачком",
+      "askBeforeMovingToThe": "Питај пре него што преместиш у корпу",
+      "deletingForGoodAlwaysAsks": "Брисање заувек увек пита",
+      "wrapLongLines": "Преломи дуге линије",
+      "openWithNewTerminals": "Отвори са новим терминалима",
+      "onATabletShowThe": "На таблету, прикажи панел фајлова када се терминал отвори",
+      "followTheTerminal": "Праћени терминал",
+      "openTheFolderTheTerminal": "Отвори фолдер у коме се терминал налази док користиш cd"
+    },
+    "keyboardCustomization": {
+      "small": "Мало",
+      "medium": "Средње",
+      "large": "Велико",
+      "ms": "{{v}} ms",
+      "keyboard": "Тастатура",
+      "keyRowsAboveTheKeyboard": "Редови тастера изнад тастатуре",
+      "rows": "Редови",
+      "keys": "Тастери",
+      "aHostCanHaveIts": "Хост може имати своје редове: додирни његов отворени таб у сесији и изабери Редови тастера за овај хост.",
+      "keySize": "Величина тастера",
+      "vibrateOnKeyPress": "Вибрација при притиску на тастер",
+      "repeatAfter": "Понови након",
+      "howLongToHoldAn": "Колито дуго држати стрелицу или Backspace",
+      "repeatEvery": "Понови сваких",
+      "hardwareKeyboard": "Хардверска тастатура",
+      "allShortcuts": "Све пречице",
+      "show": "Прикажи"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Није могуће направити резервну копију",
+      "deleteLocalData": "Избрисати локалне податке?",
+      "hostsCredentialsSnippetsAndHistory": "Хостови, акредитиви, фрагменти и историја сачувани на овом {{deviceWord}} за {{account}} ће бити избрисани. Ово се не може поништити. Направи резервну копију прво ако желиш да их задржиш.",
+      "delete": "Избриши",
+      "localDataDeleted": "Локални подаци избрисани",
+      "couldNotDeleteLocalData": "Није могуће избрисати локалне податке",
+      "localData": "Локални подаци",
+      "localDataIsOnlySaved": "Локални подаци се чувају само у апликацији {{deviceWord}}.",
+      "savedOnThisForThe": "Сачувано на овом {{deviceWord}} за {{account}}. Датотека је шифрована кључем који никада не напушта овај {{deviceWord}}.",
+      "hosts": "Домаћини",
+      "credentials": "Акредитиви",
+      "snippets": "Исечци",
+      "size": "Величина",
+      "dataVersion": "Верзија података",
+      "backup": "Резервна копија",
+      "aBackupFileHoldsYour": "Датотека резервне копије садржи ваше лозинке и кључеве, закључане лозинком коју ви изаберете. Нико је не може отворити без те лозинке.",
+      "exportBackup": "Извези резервну копију",
+      "importBackup": "Увези резервну копију",
+      "removesEverythingThisAccountSaved": "Уклања све што је овај налог сачувао на овом {{deviceWord}}. Повезани сервер задржава своју копију.",
+      "deleteLocalData2": "Обриши локалне податке",
+      "backupPassphrase": "Лозинка за резервну копију",
+      "atLeast8CharactersYou": "Најмање 8 знакова. Потребна вам је за враћање резервне копије.",
+      "passphrase": "Лозинка",
+      "next": "Даље",
+      "typeItAgain": "Унесите поново",
+      "export": "Извези",
+      "saveYourTermixBackup": "Сачувајте резервну копију Termix-а"
+    },
+    "logs": {
+      "logs": "Дневници",
+      "latestLinesFromThisRun": "Најновије линије из ове сесије. Адресе сервера, лозинке и токени су сакривени.",
+      "logsCopied": "Дневници су копирали",
+      "copy": "Копирај",
+      "share": "Подели",
+      "clear": "Очисти",
+      "noLogsYet": "Још нема дневника",
+      "nothingHasBeenLogged": "Ништа није забележено."
+    },
+    "plugins": {
+      "worksOnThis": "Ради на овом {{deviceWord}}",
+      "needsTheServer": "Захтева сервер",
+      "notInTheApp": "Није у апликацији",
+      "needsANewerVersionOf": "Захтева новiju верзију апликације",
+      "updateThePluginOnThe": "Ажурирајте додатак на серверу",
+      "inTheApp": "У апликацији",
+      "onThisServer": "На овом серверу",
+      "version": "Верзија",
+      "needsPluginApi": "Захтева API за додатке",
+      "thisAppHas": "Ова апликација има",
+      "note": "Напомена",
+      "open": "Отвори",
+      "openFromAHostS": "Отворите {{name}} из менија домаћина.",
+      "plugins": "Додаци",
+      "everything": "Све",
+      "thisDeviceWorksWithNo": "Овај уређај ради без сервера. Повезите сервер да бисте додали функције које га захтевају.",
+      "pluginsOnAndHowEach": "Додаци на {{account}} и како се сваки приказује у апликацији. Povucite надоле да проверите поново.",
+      "whatRunsOnThisAnd": "Шта ради на овом {{deviceWord}} и шта пролази кроз {{account}}.",
+      "noPluginList": "Нема листе додатака",
+      "theServerDidNotSend": "Сервер није послао своје додатке. Povucite надоле да покушате поново.",
+      "serversOlderThan29": "Сервери старији од 2.9 имају све функције уграђене.",
+      "nothingToShow": "Нема шта да се прикаже",
+      "notSentByThisServer": "Није послато од овог сервера"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Замени локалне податке?",
+      "everythingSavedOnThisFor": "Све што је сачувано на овом {{deviceWord}} за {{accountName}} биће замењено резервном копијом.",
+      "continue": "Настави",
+      "couldNotReadThatFile": "Не могу да прочитам ту датотеку",
+      "backupRestored": "Резервна копија је враћена",
+      "couldNotRestoreTheBackup": "Не могу да вратим резервну копију",
+      "backupPassphrase": "Лозинка за резервну копију",
+      "thePassphraseUsedWhenThe": "Лозинка која је коришћена приликом прављења резервне копије.",
+      "passphrase": "Лозинка",
+      "restore": "Врати"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Налози",
+        "thisDeviceAndLinkedServers": "Овај уређај и повезани сервери, са њиховим стањем синхронизације",
+        "syncAndProxy": "Синхронизација и прокси",
+        "whatSyncsConflictsProxyAnd": "Шта се синхронизује, сукоби, прокси и одвајање",
+        "serverAccount": "Серверски налог",
+        "whoIsSignedInOn": "Ко је пријављен на активном серверу",
+        "activeSessions": "Активне сесије",
+        "devicesSignedInToThe": "Уређаји пријављени на сервер",
+        "apiKeys": "API кључеви",
+        "keysForScriptsAndTools": "Кључеви за скрипте и алате",
+        "changePassword": "Промени лозинку",
+        "passwordOfYourServerAccount": "Лозинка вашег серверског налога",
+        "deleteServerAccount": "Обриши серверски налог",
+        "removeYourAccountFromThe": "Уклони ваш налог са сервера",
+        "theme": "Тема",
+        "darkLightDraculaNordAnd": "Тамна, светла, Dracula, Nord и остало",
+        "accentColor": "Боја акцента",
+        "textSize": "Величина текста",
+        "sizeOfTextAcrossThe": "Величина текста широм апликације",
+        "density": "Густина",
+        "howTallListRowsAnd": "Колко су високе редове у листама и подешавањима",
+        "homeScreenWidgets": "Видџети на почетном екрану",
+        "hostsAndSnippetsOnThe": "Домаћини и фрагменти на почетном екрану",
+        "terminal": "Терминал",
+        "fontThemeCursorScrollback": "Фонт, тема, курсор, историја скроловања",
+        "keyboard": "Тастатура",
+        "layoutKeysPresets": "Распоред, тастери, предлози",
+        "appLock": "Бравица апликације",
+        "askForFaceIdTouch": "Затражи Face ID, Touch ID или PIN за отварање апликације",
+        "lockAfter": "Закључај после",
+        "howLongTheAppCan": "Колко дуго апликација може бити невидљива пре него што се закључа",
+        "hideInAppSwitcher": "Сакриј у прегледу апликација",
+        "showABlankScreenIn": "Прикажи празан екран у листи недавних апликација",
+        "changePin": "Промени PIN",
+        "backgroundSessions": "Позадинске сесије",
+        "whatHappensToOpenSessions": "Шта се дешава са отвореним сесијама када напустите апликацију",
+        "serverAlerts": "Серверска обавештења",
+        "alertsFromTheAlertsPlugin": "Обавештења из Alerts плугина на вашем серверу",
+        "whatStaysOnThis": "Шта остаје на овом {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Домаћини, акредитиви и фрагменти су овде сачувани у енкриптованом облику",
+        "recentHosts": "Недавни домаћини",
+        "forgetTheHostsYouOpened": "Заборави домаћине које сте недавно отворили",
+        "shareAnonymousUsageStatistics": "Дели анонимне статистике коришћења",
+        "aShortReportOnceA": "Кратак извештај једном дневно. Без домаћина, имена или адреса",
+        "nextReport": "Следећи извештај",
+        "seeExactlyWhatWouldBe": "Погледајте тачно шта ће бити послато",
+        "resetInstallId": "Ресетуј ID инсталације",
+        "futureReportsWillLookLike": "Будући извештаји ће изгледати као нова инсталација",
+        "serverUsageStatistics": "Статистике коришћења сервера",
+        "telemetrySettingsOnYourServer": "Подешавања телеметрије на вашем серверу",
+        "plugins": "Плугини",
+        "whatTheServerAddsAnd": "Шта сервер додаје и где се извршава",
+        "localData": "Локални подаци",
+        "backupRestoreAndDeleteWhat": "Направи резервну копију, врати и обриши оно што је сачувано на овом {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Верзија и ажурирања",
+        "logs": "Логи",
+        "latestLinesFromThisRun": "Најновије линије из овог покretaња, за пријаве грешака"
+      },
+      "sections": {
+        "accountsAndSync": "Налози и синхронизација",
+        "thisDeviceLinkedServersAnd": "Овај уређај, повезани сервери и шта се синхронизује",
+        "appearance": "Изглед",
+        "themeAccentTextSizeAnd": "Језик, тема, боја акцента, величина текста и густина",
+        "terminal": "Терминал",
+        "fontColorsAndBackgroundSessions": "Фонт, боје и сесије у позадини",
+        "keyboard": "Тастатура",
+        "keyRowsAndShortcuts": "Редови тастера и пречице",
+        "security": "Безбедност",
+        "appLockFaceIdAnd": "Блокада апликације, Face ID и PIN",
+        "notifications": "Обавештења",
+        "alertsFromYourServer": "Аларми са вашег сервера",
+        "privacyAndUsageStatistics": "Приватност и статистика коришћења",
+        "whatStaysOnThis": "Шта остаје на овом {{deviceWord}}",
+        "plugins": "Прилози",
+        "whatTheServerAddsTo": "Шта сервер додаје апликацији",
+        "backupAndData": "Резервна копија и подаци",
+        "backUpRestoreImportAnd": "Резервна копија, враћање, увоз и извоз",
+        "aboutAndLogs": "О апликацији и логови",
+        "versionAndLogsForBug": "Верзија и логови за пријаве грешака"
+      }
+    },
+    "settings": "Подешавања",
+    "searchSettings": "Претрага подешавања",
+    "noSettingsMatch": "Нема подешавања која одговарају.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Неуспешно учитавање фрагмената",
+      "copied": "Копирано: {{name}}",
+      "nameIsRequired": "Име је обавезно",
+      "contentIsRequired": "Садржај је обавезан",
+      "snippetUpdated": "Фрагмент је ажуриран",
+      "snippetCreated": "Фрагмент је креиран",
+      "failedToSaveSnippet": "Неуспешно чување фрагмента",
+      "snippetDeleted": "Фрагмент је обрисан",
+      "failedToDeleteSnippet": "Неуспешно брисање фрагмента",
+      "folderNameIsRequired": "Име фолдера је обавезно",
+      "folderCreated": "Фолдер је креиран",
+      "failedToCreateFolder": "Неуспешно креирање фолдера",
+      "folderDeleted": "Фолдер је обрисан",
+      "failedToDeleteFolder": "Неуспешно брисање фолдера",
+      "folderRenamed": "Фолдер је преименован",
+      "failedToRenameFolder": "Неуспешно преименовање фолдера",
+      "failedToSaveOrder": "Неуспешно чување реда",
+      "moveUp": "Помери нагоре",
+      "moveDown": "Помери надоле",
+      "runOnHosts": "Покрени {{name}} на хостовима",
+      "copy": "Копирај {{name}}",
+      "delete": "Обриши {{name}}",
+      "renameFolder": "Преименуј фолдер",
+      "deleteFolder": "Обриши фолдер",
+      "noSnippetsInThisFolder": "Нема фрагмената у овом фолдеру",
+      "snippets": "Фрагменти",
+      "importAndExport": "Увоз и извоз",
+      "folder": "Фолдер",
+      "new": "Нови",
+      "loading": "Учитавање…",
+      "couldNotLoadSnippets": "Не могу да учитам фрагменте",
+      "checkTheConnectionToYour": "Проверите везу са вашим сервером и покушајте поново.",
+      "tryAgain": "Покушајте поново",
+      "noSnippetsYet": "Још нема фрагмената",
+      "createYourFirstSnippetOr": "Креирајте свој први фрагмент или додајте фрагменте са веб или десктоп апликације Termix.",
+      "createSnippet": "Креирај фрагмент",
+      "askBeforeRunning": "Питај пре покретања",
+      "confirmBeforeASnippetRuns": "Потврди пре покретања фрагмента у терминалу",
+      "editSnippet": "Уреди фрагмент",
+      "newSnippet": "Нови фрагмент",
+      "cancel": "Откажи",
+      "save": "Сачувај",
+      "create": "Направи",
+      "name": "Назив",
+      "eGUpdatePackages": "нпр. Ажурирај пакете",
+      "content": "Садржај",
+      "descriptionOptional": "Опис (опционо)",
+      "shortDescription": "Кратак опис",
+      "folderOptional": "Фасцикла (опционо)",
+      "selectFolder": "Изабери фасциклу",
+      "noFolder": "Без фасцикле",
+      "targetHostsOptional": "Циљани хостови (опционо)",
+      "none": "Ништа",
+      "note": "Напомена",
+      "pastedIntoTheTerminalWithout": "Налепљено у терминал без покретања",
+      "targetHosts": "Циљани хостови",
+      "copy2": "Копирај",
+      "edit": "Уреди",
+      "runOnHosts2": "Покрени на хостовима",
+      "delete2": "Обриши",
+      "deleteSnippet": "Обриши фрагмент",
+      "deleteThisCannotBeUndone": "Обрисати „{{name}}“? Ово се не може поништити.",
+      "renameFolder2": "Преименуј фасциклу",
+      "rename": "Преименуј",
+      "folderName": "Назив фасцикле",
+      "eGSystem": "нпр. Систем",
+      "newFolder": "Нова фасцикла",
+      "deleteFolder2": "Обриши фасциклу",
+      "deleteSnippetsInThisFolder": "Обрисати „{{name}}“? Фрагменти у овој фасцикли постаће некатегорисани."
+    },
+    "sync": {
+      "notYet": "Још увек не",
+      "justNow": "Управо сада",
+      "stopped": "Заустављено",
+      "signInToThisServer": "Поновите пријаву на овај сервер за синхронизацију",
+      "couldNotChangeThat": "Није могуће променити",
+      "sync": "Синхронизуј",
+      "thisDeviceDoesNotSync": "Овај уређај се не синхронизује. Повезајте Termix сервер да бисте имали хостове на више уређаја.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} држи хостове, акредитиве, фрагменте и подешавања усклађеним са овим {{deviceWord}}. Копија остаје на овом {{deviceWord}}, тако да ради и без интернета.",
+      "lastSynced": "Последња синхронизација {{value}}",
+      "live": "Уживо",
+      "syncNow": "Синхронизуј сада",
+      "fix": "Поправи",
+      "thisServerReadsLiveAnd": "Овај сервер чита уживо и не чува копију на {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Укључите Sync додатак на страници Додаци сервера, затим се поново пријавите овде да бисте сачували копију на овом {{deviceWord}}.",
+      "whatSyncs": "Шта се синхронизује",
+      "turnedOffThatDataStays": "Искључено, ти подаци остају само на овом {{deviceWord}}.",
+      "conflicts": "Сукоби",
+      "changedHereAndOnThe": "Променјено овде и на серверу у исто време. Зadržана је верзија са сервера.",
+      "useServer": "Користи сервер",
+      "keepMine": "Задржи моје",
+      "notSavedOnTheServer": "Није сачувано на серверу",
+      "theServerRefusedTheseChanges": "Сервер је одбио ове промене. Оне остају на овом {{deviceWord}}.",
+      "tryAgain": "Покушај поново",
+      "proxy": "Прокси",
+      "onlyNeededWhenAReverse": "Потребно само када је реверзни прокси испред сервера.",
+      "unlink": "Прекини везу",
+      "unlinkThisServer": "Прекини везу са овим сервером",
+      "minAgo": "пре {{value}} мин",
+      "signedOut": "Одјављено",
+      "waitingToSync": "Чека се синхронизација",
+      "synced": "Синхронизовано",
+      "syncing": "Синхронизује се",
+      "offline": "Офлајн"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Позадина",
+        "text": "Текст",
+        "cursor": "Курсор",
+        "textUnderCursor": "Текст испод курсора",
+        "selection": "Изабрани део",
+        "black": "Црна",
+        "red": "Црвена",
+        "green": "Зелена",
+        "yellow": "Жута",
+        "blue": "Плава",
+        "magenta": "Магента",
+        "cyan": "Цијан",
+        "white": "Бела",
+        "brightBlack": "Светло црна",
+        "brightRed": "Светло црвена",
+        "brightGreen": "Светло зелена",
+        "brightYellow": "Светло жута",
+        "brightBlue": "Светло плава",
+        "brightMagenta": "Светло магента",
+        "brightCyan": "Светло цијан",
+        "brightWhite": "Светло бела",
+        "customTheme": "Прилагођена тема",
+        "colorsAsHexLike1e1e2e": "Боје у хексадецималном формату, као #1e1e2e.",
+        "cancel": "Откажи",
+        "save": "Сачувај",
+        "isNotAHexColor": "{{label}} није хекса боја"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Компактно",
+      "default": "Подразумевано",
+      "relaxed": "Опуштено",
+      "spacious": "Просторно",
+      "none": "Ништа",
+      "couldNotSave": "Није могуће сачувати",
+      "pickASizeFromTo": "Изаберите величину од {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Подешавања терминала су ресетована",
+      "terminal": "Терминал",
+      "aHostCanSetIts": "Домаћин може да постави сопствену тему и курсор у Termix-у, што има предност над овим подешавањима.",
+      "theme": "Тема",
+      "custom": "Прилагођено",
+      "font": "Фонт",
+      "active": "Активно",
+      "sizeAndSpacing": "Величина и размак",
+      "pinchTheTerminalToChange": "Пинч покретом на терминалу такође можете променити величину. Велики текст у подешавањима {{deviceWord}} га чини већим.",
+      "custom2": "Прилагођено {{fontSize}}",
+      "lineHeight": "Висина линије",
+      "letterSpacing": "Размак између слова",
+      "ligatures": "Лигатуре",
+      "cursor": "Курсор",
+      "blink": "Трептање",
+      "bell": "Звонце",
+      "vibrate": "Вибрација",
+      "onTheBellAndWhen": "Приликом звонца и када дуго притиснете за избор",
+      "scrollback": "Скроловање",
+      "linesKeptAboveTheScreen": "Број линија које се чувају изнад екрана. Примењује се на нове терминале.",
+      "linksAndKeys": "Линкови и кључеви",
+      "askBeforeOpeningLinks": "Питај пре отварања линкова",
+      "doubleTapSendsTab": "Дупли тап шаље Tab",
+      "longPressStillSelectsText": "Дуг притисак и даље бира текст",
+      "optionSendsAlt": "Option шаље Alt",
+      "onAHardwareKeyboardOff": "На хардверској тастатури. Када је искључено, куца се симболи као на Mac-у.",
+      "history": "Историја",
+      "suggestCommands": "Предложи команде",
+      "showsPastCommandsThatStart": "Приказује претходне команде које почињу оним што куцаш",
+      "resetToDefault": "Врати на подразумевано",
+      "fontSize": "Величина фонта",
+      "aSizeFromTo": "Величина од {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}.",
+      "cancel": "Откажи",
+      "apply": "Примени",
+      "resetTerminalSettings": "Вратити подешавања терминала?",
+      "themeFontSizeCursorBell": "Тема, фонт, величина, курсор, звук и остало се враћају на подразумеване вредности.",
+      "reset": "Врати",
+      "followsAppTheme": "Праћена тема апликације"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Неуспешно покретање подешавања 2FA",
+      "twoFactorAuthenticationEnabled": "Двофакторска аутентификација је укључена",
+      "invalidCodeTryAgain": "Неисправан код, покушај поново",
+      "twoFactorAuthenticationDisabled": "Двофакторска аутентификација је искључена",
+      "failedToDisable2fa": "Неуспешно искључивање 2FA",
+      "failedToFetchBackupCodes": "Неуспешно учитавање резервних кодова",
+      "secretCopied": "Тајна копирана",
+      "backupCodesCopied": "Резервни кодови су копирали",
+      "twoFactorAuthentication": "Двофакторска аутентификација",
+      "loading": "Учитавање…",
+      "scanThisQrCodeWith": "Скенирај овај QR код са апликацијом за аутентификацију (Google Authenticator, Authy, итд.), затим унеси 6-цифрени код за потврду.",
+      "verifyAmpEnable": "Потврди &amp; Укључи",
+      "cancel": "Откажи",
+      "saveYourBackupCodes": "Сачувај своје резервне кодове",
+      "storeTheseSomewhereSafeEach": "Чувај их на безбедном месту. Сваки код се може користити само једном ако изгубиш приступ својој апликацији за аутентификацију.",
+      "copyAllCodes": "Копирај све кодове",
+      "done": "Завршено",
+      "yourAccountIsProtectedWith": "Твој налог је заштићен апликацијом за аутентификацију.",
+      "addAnExtraLayerOf": "Додај додатни ниво безбедности свом налогу.",
+      "viewBackupCodes": "Прикажи резервне кодове",
+      "disable2fa": "Искључи 2FA",
+      "enable2fa": "Укључи 2FA",
+      "disableTwoFactorAuthentication": "Искључи двофакторску аутентификацију",
+      "enterACodeFromYour": "Унеси код из своје апликације за аутентификацију за потврду. Можеш поново укључити 2FA у било ком тренутку.",
+      "enterYourPasswordToConfirm": "Унеси своју лозинку за потврду. Можеш поново укључити 2FA у било ком тренутку.",
+      "disable": "Искључи",
+      "yourPassword": "Твоја лозинка",
+      "n2faIsEnabled": "2FA је укључен",
+      "n2faIsNotEnabled": "2FA није укључен"
+    },
+    "language": {
+      "label": "Језик",
+      "description": "Апликација се учитава поново за промену",
+      "system": "Исти као на уређају"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Нема SSH хостова овде",
+      "couldNotReadWhatWas": "Није могуће прочитати шта је подељено",
+      "stopTheUploads": "Зауставити слање?",
+      "stopAndLeave": "Заустави и напусти",
+      "sendTo": "Пошаљи на {{name}}",
+      "sendToAHost": "Пошаљи на хост",
+      "nothingToSend": "Нешта за слање",
+      "close": "Затвори",
+      "done": "Завршено",
+      "cancel": "Откажи",
+      "uploadHere": "Овде пошаљи",
+      "uploadsStillGoing_one": "Још увек се шаље {{count}} фајл. Напуштање ће то прекинути.",
+      "uploadsStillGoing_few": "Још увек се шаљу {{count}} фајла. Напуштање ће то прекинути.",
+      "uploadsStillGoing_other": "Још увек се шаљу {{count}} фајлова. Напуштање ће то прекинути.",
+      "filesSize_one": "{{count}} фајл | {{size}}",
+      "filesSize_few": "{{count}} фајла | {{size}}",
+      "filesSize_other": "{{count}} фајлова | {{size}}",
+      "readingWhatWasShared": "Читање подељеног садржаја"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Грешка",
+      "worksWithoutAServer": "Ради без сервера",
+      "accountSwitch": "Налог {{account}}, промени",
+      "search": "Претрага",
+      "notificationsUnread": "Обавештења, {{unread}} непрочитаних",
+      "notifications": "Обавештења",
+      "signedIn": "Пријављен",
+      "signedOut": "Одјављен",
+      "copyOnThis": "Копирај на овај {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Почетна",
+      "hosts": "Хостови",
+      "sessions": "Сесије",
+      "tools": "Алати",
+      "settings": "Подешавања",
+      "open": "{{label}}, {{count}} отворено"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} отворено"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Изабери хост",
+      "searchHosts": "Претражи хостове",
+      "clearSearch": "Обриши претрагу",
+      "noHostsMatch": "Нема поклопних хостова",
+      "noHostsCanUseThis": "Ниједан хост не може да користи ово",
+      "turnItOnForA": "Укључите га за хост у уређивачу хостова."
+    },
+    "noToolsHereYet": "Овде још нема алата",
+    "onAHost": "На хосту",
+    "saved": "Сачувано",
+    "fromYourServer": "Са вашег сервера"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Откажи",
+      "delete": "Обриши",
+      "confirm": "Потврди"
+    },
+    "contextMenu": {
+      "closeMenu": "Затвори мени"
+    },
+    "inlineView": {
+      "back": "Назад"
+    },
+    "listRow": {
+      "moreActions": "Више акција"
+    },
+    "pinPad": {
+      "useBiometrics": "Користи биометрију",
+      "delete": "Обриши"
+    },
+    "popover": {
+      "close": "Затвори"
+    },
+    "promptSheet": {
+      "cancel": "Откажи"
+    },
+    "sheet": {
+      "close": "Затвори"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Овај кључ је закључан. Унесите његову лозинку.",
+      "thatPassphraseDoesnTOpen": "Та лозинка не отвара овај кључ.",
+      "thisDoesnTLookLike": "Ово не личи на приватни кључ.",
+      "loadedAndChangedItTo": "Учитао {{name}} и променио га у OpenSSH формат",
+      "loadedItNeedsItsPassphrase": "Учитао {{name}}. Потребна му је лозинка за повезивање"
+    },
+    "ago": {
+      "justNow": "управо сада"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Није могуће учитати ваше хостове.",
+      "failedOn": "{{name}} није успело на {{name2}}",
+      "on": "{{name}} на {{name2}}: {{value}}",
+      "ranOn": "Извршено {{name}} на {{name2}}",
+      "runOn": "Покрени \"{{name}}\" на",
+      "runSnippet": "Покрени фрагмент",
+      "loadingHosts": "Учитавање хостова…",
+      "noHostsAvailable": "Нема доступних хостова",
+      "addAHostInTermix": "Додајте хост у Termix да бисте покретали фрагменте са почетног екрана.",
+      "lastUsed": "Последњи пут коришћено",
+      "failedToRunSnippet": "Није могуће покренути фрагмент"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Тај фрагмент више не постоји.",
+      "couldNotOpenThatSnippet": "Није могуће отворити тај фрагмент.",
+      "thatHostNoLongerExists": "Тај хост више не постоји.",
+      "couldNotOpenThatHost": "Не могу отворити овог хоста."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Почетна"
+      },
+      "hosts": {
+        "hosts": "Хостови"
+      },
+      "sessions": {
+        "sessions": "Сесије",
+        "connectToATermixServer": "Повежите се са Termix сервером да бисте отворили терминале, тунеле и сесије фајлова."
+      }
+    },
+    "layout": {
+      "initializing": "Иницијализација…",
+      "cancel": "Откажи"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Овај хост нема важећу MAC адресу.",
+    "thisBuildCanTSend": "Ова верзија не може да шаље Wake-on-LAN пакете.",
+    "couldNotSendThePacket": "Не могу да пошаљем пакет. Проверите да ли је Wi-Fi укључен."
+  },
+  "common": {
+    "hostCount_one": "{{count}} хост",
+    "hostCount_few": "{{count}} хоста",
+    "hostCount_other": "{{count}} хостова",
+    "device": {
+      "phone": "telefon",
+      "tablet": "таблет"
+    },
+    "thisDeviceLower": "овај {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Дељење",
+    "action": "Дели са људима",
+    "levels": {
+      "connect": "Повежи се",
+      "view": "Преглед",
+      "edit": "Уреди",
+      "manage": "Управљај"
+    },
+    "levelHints": {
+      "connect": "Само отварање сесија. Подешавања хоста остају скривена",
+      "view": "Повежи се, плус види подешавања хоста. Тајне се никада не приказују",
+      "edit": "Преглед, плус промена подешавања осим пријаве",
+      "manage": "Уреди, плус дели хост и мењај или уклањај приступ"
+    },
+    "until": "до {{date}}",
+    "sharedBy": "од {{name}}",
+    "couldNotLoad": "Не могу да учитам ко има приступ",
+    "shared": "Хост је подељен",
+    "couldNotShare": "Не могу да поделим хост",
+    "updated": "Приступ је промењен",
+    "couldNotUpdate": "Не могу да променим приступ",
+    "removeTitle": "Уклонити {{name}}?",
+    "removeHint": "Они више не могу да користе овог хоста.",
+    "remove": "Уклони",
+    "removed": "Приступ је уклоњен",
+    "couldNotRemove": "Не могу да уклоним приступ",
+    "whoHasAccess": "Ко има приступ",
+    "loading": "Учитавање...",
+    "nobodyYet": "Само ви можете да користите овог хоста.",
+    "changeAccessFor": "Промени приступ за {{name}}",
+    "shareWith": "Дели са",
+    "users": "Корисници",
+    "roles": "Улоге",
+    "searchUsers": "Претражи кориснике",
+    "searchRoles": "Претражи улоге",
+    "noUsers": "Нема других корисника са којима можете да делите.",
+    "noRoles": "Нема улога са којима можете да делите.",
+    "options": "Приступ",
+    "level": "Ниво",
+    "expires": "Завршава",
+    "expiry": {
+      "never": "Никада",
+      "1h": "За 1 сат",
+      "1d": "За 1 дан",
+      "7d": "За 7 дана",
+      "30d": "За 30 дана"
+    },
+    "pickSomeone": "Изаберите са ким ћете делити",
+    "shareCount_one": "Дели са {{count}}",
+    "shareCount_few": "Дели са {{count}}",
+    "shareCount_other": "Дели са {{count}}",
+    "removeAccess": "Уклони приступ"
+  }
+}

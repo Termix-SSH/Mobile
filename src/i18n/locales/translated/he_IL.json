@@ -1,1 +1,3852 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "התחברות",
+      "addServer": "הוספת שרת",
+      "switchAccount": "החלפת חשבון",
+      "noServerConnected": "לא מחובר לשרת",
+      "connectToATermixServer": "התחבר לשרת Termix כדי לנהל את המארחים, הטרמינלים, הקבצים ועוד."
+    },
+    "lockScreen": {
+      "cancel": "ביטול",
+      "tooManyTriesWaitSeconds": "ניסיונות רבים מדי. המתן {{value}} שניות",
+      "termixLocked": "Termix נעול",
+      "enterYourPinToContinue": "הזן את קוד ה-PIN שלך כדי להמשיך"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "כתום",
+      "blue": "כחול",
+      "green": "ירוק",
+      "purple": "סגול",
+      "pink": "ורוד",
+      "cyan": "טורקיז",
+      "red": "אדום",
+      "yellow": "צהוב",
+      "teal": "ירוק כהה",
+      "indigo": "אינדיגו",
+      "rose": "ורד",
+      "lime": "ליים",
+      "system": "מערכת",
+      "light": "בהיר",
+      "dark": "כהה"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "שימוש ב-PIN",
+      "unlockTermix": "פתיחת נעילת Termix",
+      "unlockTermixFirst": "פתח תחילה את נעילת Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "תכונה זו כבויה בשרת.",
+      "aTabWasNotReopened": "לשונית לא נפתחה מחדש כי המארח שלה אינו קיים",
+      "tabsWereNotReopenedBecause": "לא נפתחו מחדש {{count}} לשוניות כי המארחים שלהן אינם קיימים"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "קשר שרת Termix כדי להשתמש בזה",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "הזן את כתובת השרת שלך",
+        "theAddressCanTHave": "הכתובת לא יכולה להכיל רווחים",
+        "useAnHttpOrHttps": "השתמש בכתובת http:// או https://",
+        "thatDoesnTLookLike": "זה לא נראה כמו כתובת שרת",
+        "thePortMustBeFrom": "הפורט חייב להיות בין 1 ל-65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "פרוקסי התחברות ענה במקום Termix. התחבר תחילה לפרוקסי.",
+        "theServerDidNotSend": "השרת לא שלח אסימון.",
+        "theServerDidNotSend2": "השרת לא שלח סשן.",
+        "theServerSentNoSign": "השרת לא שלח כתובת התחברות.",
+        "theSignInRanOut": "ההתחברות פגה או כבר נוצלה. התחבר שוב.",
+        "wrongUsernameOrPassword": "שם משתמש או סיסמה שגויים",
+        "signInFailedHttp": "ההתחברות נכשלה (HTTP {{status}})",
+        "thePageSignedYouIn": "הדף ביצע התחברות אך לא החזיר סשן. עדכן את השרת ל-Termix 26.11.3 או חדש יותר.",
+        "thisAccountIsnTAllowed": "חשבון זה אינו מורשה להתחבר כאן.",
+        "noTermixAccountMatchesThat": "אין חשבון Termix התואם להתחברות זו."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "לסשן זה אין שרת"
+    },
+    "store": {
+      "noSuchAccount": "אין חשבון כזה",
+      "thisDeviceCanTBe": "לא ניתן להסיר מכשיר זה",
+      "switchToAnotherAccountFirst": "החלף תחילה לחשבון אחר"
+    },
+    "types": {
+      "thisDevice": "מכשיר זה"
+    },
+    "accountSwitcher": {
+      "error": "שגיאה",
+      "worksWithoutAServer": "עובד ללא שרת",
+      "couldNotSwitchAccount": "לא ניתן היה להחליף חשבון",
+      "accounts": "חשבונות",
+      "openTabsKeepRunningWhen": "לשוניות פתוחות ממשיכות לפעול בעת החלפה.",
+      "unlink": "ניתוק קישור של {{account}}",
+      "linkAServer": "קישור שרת",
+      "eachServerKeepsItsOwn": "כל שרת שומר את המארחים, האישורים וההגדרות שלו בנפרד ב-{{deviceWord}} זה.",
+      "signedIn": "מחובר",
+      "signedOut": "התנתק",
+      "syncedCopy": "עותק מסונכרן"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "לא ניתן לשמור את ה-pin",
+      "theServerSKeyMatches": "המפתח של השרת תואם ל-pin",
+      "theServerShowsAnotherKey": "השרת מציג מפתח אחר",
+      "pinThisKey": "לנעוץ את המפתח הזה?",
+      "pinThisKey2": "נעוץ מפתח זה",
+      "keyPinned": "המפתח ננעץ",
+      "couldNotReadTheServer": "לא ניתן לקרוא את המפתח של השרת",
+      "thatIsNotAPin": "זה לא pin תקין",
+      "keysPinned": "המפתחות ננעצו",
+      "certificatePin": "נעיצת תעודה (Certificate pin)",
+      "trustThisServerOnlyBy": "אמון בשרת זה רק לפי המפתח שלו. משמש לתעודה חתומה עצמית, או כדי לדחות כל מפתח אחר. הוסף את המפתח הבא לפני שמשנה את תעודת השרת.",
+      "removePin": "הסר את ה-pin {{pin}}",
+      "remove": "הסר",
+      "readTheKeyFromThe": "קרא את המפתח מהשרת",
+      "orPasteAPin": "או הדבק pin",
+      "pin": "נעוץ",
+      "add": "הוסף",
+      "issuedTo": "הונפק ל: {{subject}}",
+      "issuedBy": "הונפק על ידי: {{issuer}}",
+      "validUntil": "תקף עד: {{value}}",
+      "checkThatThisKeyMatches": "ודא שהמפתח הזה תואם לזה שבשרת שלך לפני שאתה נועץ אותו.",
+      "pasteTheBase64Sha256Of": "הדבק את ה-base64 sha256 של המפתח הציבורי של השרת, כמו ש-openssl מדפיס אותו."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "הגדרות הפרוקסי נשמרו",
+      "couldNotSaveTheProxy": "לא ניתן לשמור את הגדרות הפרוקסי",
+      "couldNotReadThatFile": "לא ניתן לקרוא את הקובץ הזה",
+      "certificateSaved": "התעודה נשמרה",
+      "theFileOrItsPassphrase": "הקובץ או משפט הסיסמה שלו שגויים",
+      "couldNotSaveTheCertificate": "לא ניתן לשמור את התעודה",
+      "headers": "כותרות (Headers)",
+      "sentWithEveryRequestTo": "נשלח עם כל בקשה לשרת זה, כמו אסימון שירות של Cloudflare.",
+      "name": "שם",
+      "value": "ערך",
+      "removeHeader": "הסר כותרת",
+      "addHeader": "הוסף כותרת",
+      "cloudflareServiceToken": "אסימון שירות של Cloudflare",
+      "basicAuth": "אימות בסיסי (Basic auth)",
+      "forAProxyThatAsks": "לפרוקסי שמבקש שם משתמש וסיסמה.",
+      "userName": "שם משתמש",
+      "password": "סיסמה",
+      "saveHeadersAndBasicAuth": "שמור כותרות ואימות בסיסי",
+      "clientCertificate": "תעודת לקוח",
+      "forServersThatAskFor": "לשרתים שמבקשים אחת כזו (mTLS). המפתח נשמר באחסון המאובטח של ה-{{deviceWord}} ולא ניתן לקרוא אותו חזרה.",
+      "certificate": "תעודה",
+      "remove": "הסר",
+      "replaceCertificate": "החלף תעודה",
+      "pickAP12OrPfx": "בחר קובץ .p12 או .pfx",
+      "proxySignIn": "התחברות דרך פרוקסי",
+      "thisIsSignedInTo": " ה-{{deviceWord}} הזה מחובר לפרוקסי.",
+      "forCloudflareAccessAutheliaAuthentik": "ל-Cloudflare Access, Authelia, Authentik ופרוקסים אחרים עם דף התחברות משלהם.{{value}}",
+      "signInToTheProxy": "התחבר לפרוקסי",
+      "forget": "שכח",
+      "certificatePassphrase": "משפט סיסמה לתעודה",
+      "thePassphraseTheFileWas": "משפט הסיסמה איתו הקובץ נשמר. השאר ריק אם אין כזה.",
+      "passphrase": "משפט סיסמה",
+      "save": "שמור"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "מחובר לפרוקסי",
+      "couldNotSaveTheProxy": "לא ניתן לשמור את התחברות הפרוקסי",
+      "signInToTheProxy": "התחבר לפרוקסי",
+      "thisBuildOfTheApp": "גרסה זו של האפליקציה אינה יכולה לשמור התחברות דרך פרוקסי. השתמש באסימון שירות בכותרות הפרוקסי במקום."
+    },
+    "savedLoginRow": {
+      "signIn": "התחברות",
+      "signInWith": "התחבר עם {{name}}",
+      "whenThisServerSignsYou": "כאשר שרת זה ינתק אותך, תתחבר מחדש ללא צורך להקליד את הסיסמה."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "הקשר הופסק. {{copied}} פריטים נשמרו במכשיר זה.",
+      "unlinked": "הקשר הופסק",
+      "couldNotUnlinkTheServer": "לא ניתן היה להפסיק את הקשר עם השרת",
+      "unlink": "להפסיק את הקשר עם {{value}}?",
+      "thisSignsOutOfThe": "ה{{deviceWord}} הזה ינותק מהשרת. כלום לא יימחק מהשרת.",
+      "keepACopyOnThis": "שמור עותק במכשיר זה",
+      "yourOwnHostsCredentialsAnd": "המארחים, האישורים והקטעים שלך יעברו למכשיר זה. מארחים ששיתפו איתך לא יישמרו.",
+      "deleteFromThis": "מחק מה{{deviceWord}} הזה",
+      "everythingThisHasForThe": "כל מה שיש ל{{deviceWord}} הזה לגבי השרת יוסר."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "שנה זאת תחת פרוקסי למטה",
+      "updateTermixMobileFromYour": "עדכן את Termix Mobile מחנות האפליקציות שלך"
+    },
+    "savedLogin": {
+      "signInToTermix": "התחבר ל-Termix",
+      "faceUnlock": "פתיחה באמצעות פנים"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "גרסה זו אינה יכולה לבדוק את המפתח המצורף של שרת זה או לשלוח את האישור שלו."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "שרת זה אינו תומך בתכונה זו",
+      "theProxyWantsYouTo": "הפרוקסי דורש ממך להתחבר",
+      "endpointNotAvailableOnThis": "נקודת הקצה אינה זמינה בשרת זה",
+      "unknownError": "שגיאה לא ידועה"
+    },
+    "errors": {
+      "theProxyInFrontOf": "הפרוקסי שמול שרת זה דורש ממך להתחבר מחדש.",
+      "authenticationRequiredPleaseLogIn": "נדרשת אימות. אנא התחבר מחדש.",
+      "accessDeniedYouDoNot": "גישה נדחתה. אין לך הרשאה לבצע פעולה זו.",
+      "thisFeatureIsTurnedOff": "תכונה זו כבויה בשרת.",
+      "thisServerDoesNotSupport": "שרת זה אינו תומך בתכונה זו.",
+      "resourceNotFoundTheRequested": "המשאב לא נמצא. ייתכן שהפריט המבוקש נמחק.",
+      "conflictTheResourceAlreadyExists": "סכסוך. המשאב כבר קיים או בשימוש.",
+      "validationErrorPleaseCheckYour": "שגיאת אימות. אנא בדוק את הקלט שלך ונסה שוב.",
+      "serverErrorOccurredPleaseTry": "אירעה שגיאת שרת. אנא נסה שוב מאוחר יותר.",
+      "sslCertificateVerificationFailed": "אימות אישור SSL נכשל.",
+      "networkErrorPleaseCheckYour": "שגיאת רשת. אנא בדוק את החיבור שלך ונסה שוב.",
+      "failedTo": "נכשל ב-{{operation}}",
+      "unknownError": "שגיאה לא ידועה",
+      "unexpectedErrorDuring": "שגיאה לא צפויה במהלך {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "האפליקציה לא הצליחה לאמון HTTPS עבור כתובת IP מקומית זו. צרף את המפתח של השרת תחת פרוקסי ואישור לקוח, השתמש באישור שה{{deviceWord}} מאמין לו, או השתמש ב-HTTP ברשת מקומית או VPN אמורה.",
+        "thisServerIsBehindA": "שרת זה נמצא מאחורי פרוקסי התחברות. השתמש באפשרות ההתחברות החיצונית במקום.",
+        "loginFailed": "התחברות נכשלה"
+      },
+      "files": {
+        "fileNotFound": "הקובץ לא נמצא",
+        "fileWriteOperationDidNot": "פעולת הכתיבה לקובץ לא החזירה סטטוס הצלחה",
+        "couldNot": "לא ניתן {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "המארח נשמר, אך חלק מההגדרות נכשלו: {{value}}",
+        "unexpectedHostResponseFrom": "תגובת מארח לא צפויה מ-{{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "דגימה חיה נכשלה"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "אין תשובה"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "שרת זה לא הראה את המפתח אליו הוא מצורף, ולכן הדף לא נפתח."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "ה{{what}} הזה כבר לא קיים.",
+      "aHostCannotBeIts": "מארח לא יכול להיות ההורה שלו עצמו",
+      "parentHostNotFound": "מארח ההורה לא נמצא",
+      "aHostCanTGo": "מארח לא יכול להיות מתחת לאחד מהמארחים המשניים שלו",
+      "thisIsSharedWithYou": "ה{{what}} הזה משותף איתך. רק הבעלים שלו יכול לשנות אותו.",
+      "nameIsRequired": "שם הוא שדה חובה",
+      "nameAndCommandAreRequired": "שם ופקודה הם שדות חובה",
+      "aFolderWithThatName": "תיקייה עם השם הזה כבר קיימת"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "מכשיר זה לא יכול לשמור {{what}} כאן."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "קטע זה משותף איתך ולא ניתן לשנות אותו."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "השתמש במשפט סיסמה עם לפחות 8 תווים.",
+      "thisIsNotATermix": "זהו לא קובץ גיבוי של Termix.",
+      "thisBackupIsFromA": "גיבוי זה הוא מגרסה חדשה יותר של Termix. עדכן את האפליקציה תחילה.",
+      "wrongPassphraseOrTheFile": "מילת הסיסמה שגויה, או שהקובץ פגום."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "גרסה זו אינה יכולה להצפין נתונים מקומיים."
+    },
+    "keys": {
+      "unlockTermixFirst": "נא לפתוח את Termix תחילה.",
+      "thatIsNotADatabase": "זהו לא מפתח למסד נתונים.",
+      "couldNotSaveTheDatabase": "לא ניתן לשמור את מפתח מסד הנתונים."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "נתונים אלה נשמרו על ידי גרסה חדשה יותר של Termix. נא לעדכן את האפליקציה כדי לפתוח אותם."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "מכשיר זה אינו מסנכרן.",
+      "localDataIsNotAvailable": "הנתונים המקומיים אינם זמינים כאן.",
+      "unlockTermixFirst": "נא לפתוח את Termix תחילה."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "לא ניתן להתחבר.",
+      "thisWayCanTRun": "דרך זו אינה יכולה להפעיל פקודות"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "סיסמת Sudo",
+      "password": "סיסמה",
+      "run": "הפעל",
+      "thatPasswordWasWrong": "הסיסמה שגויה.",
+      "onNeedsRoot": "{{reason}} ב-{{hostName}} דורש הרשאות root.",
+      "needsRootForThis": "{{hostName}} דורש הרשאות root לכך.",
+      "itIsKeptUntilYou": "היא נשמרת עד לסגירת האפליקציה."
+    },
+    "run": {
+      "theHostTookTooLong": "המארח לקח יותר מדי זמן להגיב",
+      "connectionLost": "החיבור אבד"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "פעולה זו דורשת הרשאות root. נא להתחבר כ-root, להגדיר sudo ללא סיסמה, או לשמור סיסמת sudo עבור המארח.",
+      "theSudoPasswordWasWrong": "סיסמת ה-sudo שגויה",
+      "commandFailed": "הפקודה נכשלה"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet בטרמינל דורש חיבור מה-{{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "התכונה {{id}} כבר רשומה"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "כתובת",
+      "theIpOrHostName": "ה-IP או שם המארח מתחת לשם",
+      "username": "שם משתמש",
+      "theUserBeforeTheAddress": "המשתמש לפני הכתובת",
+      "port": "פורט",
+      "thePortAfterTheAddress": "הפורט אחרי הכתובת",
+      "hostIcon": "סמל מארח",
+      "theIconSetOnThe": "הסמל שנקבע למארח",
+      "pinIcon": "סמל סימון",
+      "marksPinnedHosts": "מסמן מארחים שמוקמו",
+      "sharedBadge": "תגית שיתוף",
+      "marksHostsSharedWithYou": "מסמן מארחים ששותפו איתך",
+      "protocolBadges": "תגיות פרוטוקול",
+      "sshRdpDockerAndOther": "תגיות SSH, RDP, Docker ואחרות",
+      "tags": "תגיות",
+      "theHostSTags": "תגיות המארח",
+      "cpuAndRam": "מעבד וזיכרון",
+      "liveUsageBarsOnOnline": "סרגלי שימוש חיים במארחים מחוברים",
+      "statusColors": "צבעי סטטוס",
+      "greenBarWhenOnlineRed": "סרגל ירוק כשמתחבר, אדום כשלא מחובר"
+    },
+    "uiPrefs": {
+      "small": "קטן",
+      "default": "ברירת מחדל",
+      "large": "גדול",
+      "comfortable": "נוח",
+      "compact": "קומפקטי"
+    },
+    "errors": {
+      "somethingWentWrong": "משהו השתבש"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "נעילת מפתח עם מילת סיסמה דורשת את אפליקציית Termix, לא תצוגה מקדימה בדפדפן."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "מיד",
+      "after15Seconds": "לאחר 15 שניות",
+      "after1Minute": "לאחר דקה",
+      "after5Minutes": "לאחר 5 דקות"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "הסוד של המכשיר אבד",
+      "noSealedKey": "אין מפתח אטום",
+      "theSealedKeyIsDamaged": "המפתח האטום פגום",
+      "wrongPin": "קוד PIN שגוי",
+      "theSealedKeyDidNot": "המפתח החתום לא נפתח",
+      "biometricsCanTOpenThe": "הזיהוי הביומטרי אינו יכול לפתוח את המפתח"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "עדכן את האפליקציה",
+      "onYourServerNeedsA": "הגרסה של {{name}} בשרת שלך דורשת גרסה חדשה יותר של Termix ב-{{deviceWord}} הזה.",
+      "updateThePlugin": "עדכן את התוסף",
+      "onYourServerIsToo": "הגרסה של {{name}} בשרת שלך ישנה מדי עבור אפליקציה זו. בקש ממנהל מערכת לעדכן אותה בתוספים."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "חסום על ידי האפליקציה",
+      "theAppDoesNotLet": "האפליקציה אינה מאפשרת לתוספים להשתמש במסלול זה.",
+      "thisBuildCanTReach": "גרסה זו אינה יכולה להגיע לשרת זה באופן מאובטח."
+    },
+    "support": {
+      "needsANewerVersionOf": "דורש גרסה חדשה יותר של האפליקציה",
+      "updateThePluginOnThe": "עדכן את התוסף בשרת",
+      "theAppHasItsOwn": "לאפליקציה יש מראה משלה",
+      "notInTheAppYet": "עדיין לא זמין באפליקציה",
+      "linkAServerToUse": "חבר שרת כדי להשתמש בו",
+      "opensInTheAppFrom": "נפתח באפליקציה מהשרת",
+      "runsOnTheServer": "רץ על השרת",
+      "throughTheServer": "דרך השרת",
+      "inTheApp": "בתוך האפליקציה",
+      "webView": "תצוגת רשת",
+      "onTheServer": "על השרת",
+      "appLook": "מראה האפליקציה",
+      "notInTheApp": "לא זמין באפליקציה",
+      "safeMode": "מצב בטוח",
+      "notRunning": "לא פועל",
+      "notInstalled": "לא מותקן",
+      "notOnThisServer": "לא זמין בשרת זה",
+      "thePluginIsNotInstalled": "התוסף אינו מותקן בשרת זה.",
+      "turnedOffOnTheServer": "כבוי בשרת",
+      "itOpensHereAgainWhen": "הוא ייפתח כאן שוב כאשר מנהל מערכת יפעיל אותו.",
+      "notRunningOnTheServer": "לא פועל בשרת",
+      "theServerIsInSafe": "השרת נמצא במצב בטוח, ולכן רק תוספי מראה פועלים.",
+      "thePluginDidNotStart": "התוסף לא התחיל. מנהל מערכת יכול לבדוק אותו בתוספים.",
+      "thisPluginIsNotAvailable": "תוסף זה אינו זמין",
+      "itIsNotMadeFor": "הוא לא נועד לאפליקציה.",
+      "offOnThisServer": "כבוי בשרת זה",
+      "notRunningOnThisServer": "לא פועל בשרת זה",
+      "notOnThisServer2": "לא זמין בשרת זה",
+      "notInTheAppYet2": "עדיין לא זמין באפליקציה | בשרת זה",
+      "worksOnThis": "עובד ב-{{deviceWord}} הזה",
+      "andServer": "{{DeviceWord}} ושרת",
+      "deviceOnly": "רק {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "טען מחדש"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "נתק הכל",
+      "showOpenSessions": "הצג פגישות פתוחות",
+      "termixShowsANotificationWhile": "Termix מציג התראה כל עוד הפגישות פתוחות, כך ש-Android שומר אותן פועלות ברקע.",
+      "sessionsOpen_one": "פגישה אחת פתוחה",
+      "sessionsOpen_two": "{{count}} פגישות פתוחות",
+      "sessionsOpen_other": "{{count}} פגישות פתוחות",
+      "tunnelsActive_one": "מנהרה אחת פעילה",
+      "tunnelsActive_two": "{{count}} מנהרות פעילות",
+      "tunnelsActive_other": "{{count}} מנהרות פעילות",
+      "notConnected": "לא מחובר",
+      "waitingForNetwork": "ממתין לרשת",
+      "connecting": "מתחבר",
+      "connected": "מחובר",
+      "reconnecting": "מתחבר מחדש",
+      "failed": "נכשל",
+      "closed": "נסגר"
+    },
+    "companionPane": {
+      "resizeThePanel": "שנה את גודל הפאנל {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "סגור",
+      "closeAllTabs": "לסגור את כל {{count}} הלשוניות?",
+      "everySessionEnds": "כל הפגישות מסתיימות.",
+      "closeAll": "סגור הכל",
+      "noActiveConnections": "אין חיבורים פעילים",
+      "pickAHostFromThe": "בחר מארח מהרשימה כדי להתחיל סשן. לשוניות שפתחת במכשירים אחרים מופיעות כאן גם כן.",
+      "connectToAHostTo": "התחבר למארח כדי להתחיל סשן. לשוניות שפתחת במכשירים אחרים מופיעות כאן גם כן.",
+      "open": "פתח",
+      "background": "רקע",
+      "sessionsFromOtherDevicesOr": "סשנים ממכשירים אחרים או לשוניות ברקע. הקש כדי להחזיר לחיים.",
+      "liveTapToReconnect": "פעיל, הקש כדי להתחבר מחדש",
+      "tapToReopen": "הקש כדי לפתוח מחדש"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "זה כבוי בשרת",
+      "comesBackHereWhenAn": "{{title}} יחזור לכאן כשמתכנת יפעיל את התוסף שלו מחדש.",
+      "closeTab": "סגור לשונית"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "חיבורים",
+        "hideHostList": "הסתר רשימת מארחים",
+        "showHostList": "הצג רשימת מארחים",
+        "backToHosts": "חזרה למארחים",
+        "showKeyboard": "הצג מקלדת",
+        "hideKeyboard": "הסתר מקלדת",
+        "hideKeysPanel": "הסתר לוח מפתחות",
+        "showKeysPanel": "הצג לוח מפתחות"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "הקש לאפשרויות לשונית, החזק להזזה",
+        "holdToMove": "החזק להזזה",
+        "close": "סגור את {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "ממתין לרשת",
+        "connectionFailed": "החיבור נכשל",
+        "reconnecting": "מתחבר מחדש"
+      }
+    },
+    "sessionMenu": {
+      "rename": "שנה שם",
+      "newTabOnThisHost": "לשונית חדשה במארח זה",
+      "here": "{{title}} כאן",
+      "hidePanel": "הסתר לוח {{title}}",
+      "showPanel": "הצג לוח {{title}}",
+      "endSplitView": "סיום תצוגה מפוצלת",
+      "splitViewWith": "תצוגה מפוצלת עם...",
+      "moveLeft": "הזז שמאלה",
+      "moveRight": "הזז ימינה",
+      "closeTab": "סגור לשונית",
+      "closeAllTabs": "סגור את כל הלשוניות",
+      "closeAllTabs2": "לסגור את כל {{count}} הלשוניות?",
+      "everySessionEnds": "כל סשן מסתיים.",
+      "closeAll": "סגור הכל",
+      "splitViewWith2": "תצוגה מפוצלת עם",
+      "renameTab": "שנה שם לשונית",
+      "leaveItEmptyToUse": "השאר ריק כדי להשתמש בשם המארח."
+    },
+    "resizeHostList": "שנה גודל רשימת מארחים",
+    "resizeSplitView": "שנה גודל תצוגה מפוצלת",
+    "connections": "חיבורים",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "אימות דו-שלבי",
+        "enterThe6DigitCode": "הזן את הקוד בן 6 הספרות מאפליקציית האימות שלך.",
+        "cancel": "ביטול",
+        "verify": "אמת",
+        "codeExpiresInSGet": "הקוד פג תוקף בעוד {{totpCountdown}} שניות, קבל קוד חדש",
+        "warpgateAuthentication": "אימות Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "אמת את כתובת ה-URL לאימות Warpgate ואת מפתח האבטחה.",
+        "authenticate": "אמת",
+        "warpgateUrl": "כתובת Warpgate",
+        "securityKeyOptional": "מפתח אבטחה (אופציונלי)",
+        "authenticationRequired": "נדרש אימות",
+        "thisHostNeedsCredentialsTo": "מארח זה דורש פרטי כניסה כדי להתחבר.",
+        "connect": "התחבר",
+        "password": "סיסמה",
+        "sshKey": "מפתח SSH",
+        "pastePrivateKey": "הדבק מפתח פרטי",
+        "keyPassphraseOptional": "מילת צופן של מפתח (אופציונלי)"
+      },
+      "connectionError": {
+        "tryAgain": "נסה שוב",
+        "close": "סגור",
+        "connectThroughTheServer": "התחבר דרך השרת",
+        "connectFromThis": "התחבר מ-{{deviceWord}} זה",
+        "triedFromThis": "ניסיתי מ-{{deviceWord}} זה",
+        "triedThroughTheServer": "ניסיתי דרך השרת"
+      },
+      "execGate": {
+        "connecting": "מתחבר..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "משהו השתבש",
+        "retry": "נסה שוב",
+        "refresh": "רענן",
+        "nothingToShow": "אין מה להציג"
+      },
+      "useConnectionLog": {
+        "logsCopied": "היומנים הועתקו",
+        "connectionLog": "יומן חיבור ({{count}})",
+        "copyLog": "העתק יומן",
+        "waitingForConnection": "ממתין לחיבור…",
+        "noLogEntries": "אין רשומות ביומן"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "לא ניתן לשמור את אופן החיבור של מארח זה"
+      },
+      "useSessionConnect": {
+        "connected": "מחובר",
+        "connectingTo": "מתחבר ל-{{name}}…",
+        "connectionLost": "החיבור אבד",
+        "failedToConnect": "החיבור נכשל",
+        "invalidCode": "קוד לא תקין",
+        "warpgateAuthenticationFailed": "אימות Warpgate נכשל",
+        "authenticationCancelled": "האימות בוטל"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "חיפוש ופקודות",
+    "addHost": "הוסף מארח",
+    "keyboardShortcuts": "קיצורי מקלדת",
+    "home": "דף הבית",
+    "hosts": "מארחים",
+    "sessions": "סשנים",
+    "tools": "כלים",
+    "settings": "הגדרות",
+    "terminal": "טרמינל",
+    "shortcutSheet": {
+      "keyboardShortcuts": "קיצורי מקלדת"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "מארחים ותיקיות",
+      "yourHostsFoldersAndHosts": "המארחים והתיקיות שלך, והמארחים ששיתפו איתך",
+      "credentials": "פרטי כניסה",
+      "savedPasswordsAndKeysAnd": "סיסמאות ומפתחות שמורים, ופרטי כניסה ששיתפו איתך",
+      "snippets": "קטעי קוד",
+      "snippetsAndTheirFolders": "קטעי קוד והתיקיות שלהם",
+      "hostDefaults": "הגדרות ברירת מחדל למארחים",
+      "defaultSettingsForNewHosts": "הגדרות ברירת מחדל למארחים חדשים",
+      "preferences": "העדפות",
+      "settingsThatFollowYouBetween": "הגדרות שנוסעות איתך בין מכשירים"
+    },
+    "link": {
+      "noSuchServerAccount": "חשבון שרת כזה אינו קיים",
+      "signInFirst": "התחבר תחילה.",
+      "thisServerAccountBelongsTo": "חשבון השרת הזה שייך ל-{{value}}. התחבר כמשתמש זה, או הוסף את השרת שוב עבור המשתמש הנוכחי."
+    },
+    "reasons": {
+      "signedOut": "התנתק",
+      "thisSSignInTo": "תוקף ההתחברות של {{deviceWord}} זה לשרת פג.",
+      "theServerEndedThisS": "השרת סיים את סשן ה-{{deviceWord}} הזה. ייתכן שהתנתק ממכשיר אחר.",
+      "proxySignInNeeded": "נדרשת התחברות דרך פרוקסי",
+      "theProxyInFrontOf": "הפרוקסי שמול השרת הזה מבקש ממך להתחבר שוב.",
+      "proxyPasswordNeeded": "נדרשת סיסמת פרוקסי",
+      "theProxyInFrontOf2": "הפרוקסי שמול השרת הזה ביקש את הסיסמה שלו.",
+      "certificateRefused": "התעודה נדחתה",
+      "theServerDidNotAccept": "השרת לא קיבל את התעודה של {{deviceWord}} זה.",
+      "untrustedServer": "שרת לא אמין",
+      "theServerSCertificateIs": "תעודת השרת אינה מאומתת על ידי {{deviceWord}} זה.",
+      "serverKeyChanged": "מפתח השרת השתנה",
+      "theServerShowsAnotherKey": "השרת מציג מפתח אחר מזה שנקבע עבורו. אם שינית את התעודה שלו, קבע את המפתח החדש.",
+      "offline": "לא מחובר",
+      "canTReachTheServer": "לא ניתן להגיע לשרת. הסנכרון ינסה שוב בקרוב.",
+      "serverProblem": "בעיה בשרת",
+      "theServerHadAProblem": "השרת חווה בעיה. הסנכרון ינסה שוב בקרוב.",
+      "updateNeeded": "דרושה עדכון",
+      "thisServerUsesANewer": "שרת זה משתמש בגרסת סנכרון חדשה יותר. עדכן את האפליקציה.",
+      "notATermixServer": "לא שרת Termix",
+      "theAddressDoesNotAnswer": "הכתובת לא מגיבה כמו שרת Termix.",
+      "syncIsOff": "הסנכרון כבוי",
+      "theSyncPluginIsOff": "התוסף Sync כבוי בשרת זה. בקש ממנהל להפעיל אותו בתוספים.",
+      "differentUser": "משתמש אחר",
+      "youSignedInAsA": "התחברת כמשתמש אחר מזה שחשבון השרת הזה שייך לו.",
+      "syncStopped": "הסנכרון הופסק",
+      "somethingWentWrong": "משהו השתבש.",
+      "signInAgain": "התחבר שוב",
+      "signInToTheProxy": "התחבר לפרוקסי",
+      "enterThePassword": "הזן את הסיסמה",
+      "tryAgain": "נסה שוב",
+      "checkThePin": "בדוק את הקוד",
+      "checkForUpdates": "בדוק אם יש עדכונים",
+      "pickACertificate": "בחר תעודה"
+    },
+    "settings": {
+      "noSuchSetting": "אין הגדרה כזו",
+      "snippetFolder": "תיקיית קטעי קוד",
+      "hostDefault": "ברירת מחדל של מארח"
+    },
+    "errors": {
+      "theServerDidNotAccept": "השרת לא קיבל את תעודת ה-{{deviceWord}} הזו.",
+      "theServerSCertificateIs": "תעודת השרת אינה מהימנה.",
+      "canTReachTheServer": "לא ניתן להגיע לשרת.",
+      "signedOut": "התנתק",
+      "theProxyAskedForIts": "הפרוקסי ביקש את הסיסמה שלו.",
+      "theProxyWantsYouTo": "הפרוקסי רוצה שתתחבר.",
+      "theSyncPluginIsOff": "התוסף Sync כבוי בשרת זה.",
+      "serverError": "שגיאת שרת {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "השרת מציג מפתח אחר מזה שנקבע."
+    },
+    "remote": {
+      "thisIsNotATermix": "זה לא שרת Termix.",
+      "theProxyWantsYouTo": "הפרוקסי רוצה שתתחבר.",
+      "thisServerUsesANewer": "שרת זה משתמש בגרסת סנכרון חדשה יותר. עדכן את האפליקציה."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} מארח",
+      "hostCount_two": "{{count}} מארחים",
+      "hostCount_other": "{{count}} מארחים",
+      "credentialCount_one": "{{count}} אישור",
+      "credentialCount_two": "{{count}} אישורים",
+      "credentialCount_other": "{{count}} אישורים",
+      "snippetCount_one": "{{count}} קטע קוד",
+      "snippetCount_two": "{{count}} קטעי קוד",
+      "snippetCount_other": "{{count}} קטעי קוד",
+      "folderCount_one": "{{count}} תיקייה",
+      "folderCount_two": "{{count}} תיקיות",
+      "folderCount_other": "{{count}} תיקיות",
+      "nothingYet": "עדיין אין כלום",
+      "listAnd": "{{list}} ו-{{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "לא ניתן להתחבר.",
+      "connectingToFromThis": "מתחבר ל-{{name}} מ-{{deviceWord}} זה",
+      "connectingToThroughTheServer": "מתחבר ל-{{name}} דרך השרת",
+      "reconnectingTry": "מתחבר מחדש (ניסיון {{retry}})",
+      "disconnected": "התנתק",
+      "connected": "מחובר",
+      "reconnectedToTheSameSession": "התחבר מחדש לאותה הפעלה",
+      "reconnectedWithANewShell": "התחבר מחדש עם שׁל חדש",
+      "couldNotReachTheHost": "לא ניתן להגיע למארח מ-{{deviceWord}} זה, מנסה דרך השרת",
+      "couldNotConnectThroughThe": "לא ניתן להתחבר דרך השרת, מנסה מ-{{deviceWord}} זה",
+      "connectionLost": "החיבור אבד: {{reason}}",
+      "offlineWaitingForTheNetwork": "לא מחובר, ממתין לרשת",
+      "nextTryInS": "ניסיון הבא בעוד {{value}} שניות",
+      "reconnectingTry2": "מתחבר מחדש (ניסיון {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "המארח הפסיק להגיב",
+      "networkLost": "הרשת אבדה",
+      "network": "רשת: {{type}}{{value}}",
+      "lowPowerModeOn": "מצב חיסכון בסוללה פעיל",
+      "lowPowerModeOff": "מצב חיסכון בסוללה כבוי",
+      "droppedTypedCharacters": "נמחקו {{count}} תווים שהוקלדו",
+      "youDidNotTrustThe": "לא סומכת על מפתח המארח.",
+      "checkTheKeyWithWhoever": "בדוק את המפתח עם מי שמפעיל את המארח, ואז נסה שוב.",
+      "loginCancelled": "התחברות בוטלה.",
+      "connectAgainWhenYouAre": "התחבר שוב כשתהיה מוכן.",
+      "typedInputIsOver64": "הקלט המקולל עולה על 64 KB, החלק העתיק ביותר הושמט",
+      "appInTheBackground": "האפליקציה ברקע",
+      "appInTheForeground": "האפליקציה בקדמה",
+      "thisConnectionCanTRun": "חיבור זה אינו יכול להפעיל פקודות"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "בדוק את הכתובת ואת הפורט, וודא שהשרת יכול להגיע למארח.",
+      "checkTheAddressAndPort2": "בדוק את הכתובת ואת הפורט, וודא ש{{deviceWord}} זה יכול להגיע למארח.",
+      "checkTheProxySettingsOf": "בדוק את הגדרות הפרוקסי של מארח זה.",
+      "checkTheKeyWithWhoever": "בדוק את המפתח עם מי שמפעיל את המארח לפני שאתה סומך עליו.",
+      "checkTheUsernameAndLogin": "בדוק את שם המשתמש וההתחברות בעורך המארח.",
+      "checkThatTheServerIs": "בדוק שהשרת פעיל ושהתחברת.",
+      "tryAgainIfItKeeps": "נסה שוב. אם החיבור ממשיך להתנתק, בדוק את הרשת.",
+      "connectAgainWhenYouAre": "התחבר שוב כשתהיה מוכן.",
+      "pickAnotherWayToConnect": "בחר דרך אחרת להתחבר למארח זה.",
+      "connectThisHostThroughA": "התחבר למארח זה דרך שרת Termix.",
+      "pickTheJumpHostsAgain": "בחר שוב את מארחי הקפיצה בעורך המארח.",
+      "thisIsATailscaleAddress": "זוהי כתובת Tailscale. בדוק ש-Tailscale מחובר ב-{{deviceWord}} זה.",
+      "theSavedKeyCanT": "לא ניתן לקרוא את המפתח השמור. הדבק אותו שוב בעורך המארח.",
+      "signInToThisServer": "התחבר מחדש לשרת זה.",
+      "openThisHostInThe": "פתח את המארח הזה באפליקציית ה-Web של Termix.",
+      "canTConnectThisWay": "לא ניתן להתחבר בדרך זו",
+      "couldNotReachTheHost": "לא ניתן להגיע למארח",
+      "theProxyDidNotLet": "הפרוקסי לא איפשר את החיבור",
+      "theHostKeyWasNot": "מפתח המארח לא סומך עליו",
+      "theLoginWasRefused": "ההתחברות נדחתה",
+      "theTermixServerDidNot": "שרת Termix לא ענה",
+      "theConnectionDropped": "החיבור נותק",
+      "loginCancelled": "התחברות בוטלה"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "סוכן SSH",
+        "thisHostSignsInWith": "מארח זה מתחבר עם \"{{authType}}\", שדורש שרת Termix. חבר אחד כדי להתחבר.",
+        "thisHostUsesA1password": "מארח זה משתמש בהפניה ל-1Password, שדורשת שרת Termix עם Secret Sources. חבר אחד והתחבר למארח זה דרכו.",
+        "signInWithFirstOpen": "התחבר עם {{title}} תחילה. פתח מסוף למארח זה פעם אחת, ואז נסה שוב.",
+        "theSignInAndThe": "ההתחברות והתעודה נמצאות בשרת",
+        "theHasNoSshAgent": "ל-{{deviceWord}} אין סוכן SSH",
+        "needsATermixServerBecause": "{{title}} דורש שרת Termix כי {{why}}. חבר אחד והתחבר למארח זה דרכו."
+      },
+      "chain": {
+        "aJumpHostOfThis": "מארח קפיצה של מארח זה אינו קיים עוד."
+      },
+      "localShell": {
+        "theConnectionWasCut": "החיבור נותק",
+        "theShellChannelClosed": "ערוץ המסוף נסגר",
+        "jumpHost": "מארח קפיצה {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "קוד לא תקין, נסה שוב:",
+        "authenticationFailed": "אימות נכשל: {{message}}",
+        "theHostKeyWasNot": "מפתח המארח לא סומך עליו.",
+        "loginCancelled": "התחברות בוטלה.",
+        "notConnected": "לא מחובר"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "החיבור נותק"
+      },
+      "thisBuildHasNoSsh": "לבנייה זו אין מנוע SSH. השתמש באפליקציה מהחנות, או חבר שרת Termix כדי להתחבר.",
+      "theHostsOnThisAre": "המארחים ב-{{deviceWord}} זה עדיין לא פתוחים.",
+      "thisServerSHostsAre": "המארחים של שרת זה אינם ב-{{deviceWord}} זה. הפעל את תוסף ה-Sync בשרת כדי להתחבר מה-{{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "לא ניתן להתחבר.",
+      "canTConnectFromThe": "לא ניתן להתחבר מ-{{deviceWord}} זה.",
+      "canTReachTheServer": "לא ניתן להגיע לשרת.",
+      "theOnlyConnectsToSsh": "ה{{deviceWord}} מתחבר רק לשרתי SSH ו-Telnet.",
+      "connectThisHostThroughThe": "התחבר לשרת הזה דרך השרת",
+      "connectThisHostFromThe": "התחבר לשרת הזה מה{{deviceWord}}",
+      "termixServer": "שרת Termix",
+      "usesThisWhenItCan": "משתמש ב{{deviceWord}} הזה כשהוא יכול להגיע לשרת, אחרת דרך השרת.",
+      "thisConnectsToTheHost": "ה{{deviceWord}} הזה מתחבר לשרת עצמו.",
+      "theTermixServerConnectsTo": "שרת ה-Termix מתחבר לשרת עבורך.",
+      "anSshConnection": "חיבור SSH",
+      "aTermixServer": "שרת Termix",
+      "aConnectionFromThe": "חיבור מה{{deviceWord}}",
+      "isOffOnThisServer": "{{title}} כבוי בשרת הזה. {{how}} כדי להשתמש בו.",
+      "isOffOnThisServer2": "{{title}} כבוי בשרת הזה.",
+      "anotherWayToConnect": "דרך נוספת להתחברות",
+      "needsToUseIt": "{{title}} דורש {{what}}. {{how}} כדי להשתמש בו.",
+      "needsWhichThisHostCan": "{{title}} דורש {{what}}, שזה השרת לא יכול להשתמש בו כרגע.",
+      "thisDevice": "ה{{deviceWord}} הזה",
+      "automatic": "אוטומטי"
+    },
+    "relay": {
+      "youAreSignedOutOf": "התנתקת מהשרת הזה. התחבר כדי להתחבר דרכו.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux לא מותקן בשרת הזה. משתמש ב-shell רגיל.",
+        "tapRetryToBringIt": "לחץ על נסה שוב כדי להחזיר אותו לכאן.",
+        "thisSessionWasOpenedOn": "הסשן הזה נפתח במכשיר אחר",
+        "noServerUrlFoundLink": "לא נמצא כתובת URL של שרת. חבר את השרת שוב.",
+        "signedOutOfThisServer": "התנתקת מהשרת הזה. התחבר שוב.",
+        "signInWithInYour": "התחבר עם {{title}} בדפדפן שלך. זה ייסגר כשזה יסתיים.",
+        "theSocketClosedWhileThe": "ה-socket נסגר בזמן שהאפליקציה הייתה ברקע",
+        "noWebsocketUrlAvailableServer": "אין כתובת WebSocket זמינה - השרת לא מוגדר",
+        "connectionTimeoutServerNotResponding": "פסק זמן לחיבור - השרת לא מגיב",
+        "verificationCode": "קוד אימות:",
+        "hostKeyVerificationRequiredBut": "נדרש אימות מפתח שרת אך אין מטפל רשום",
+        "hostKeyChangedButNo": "מפתח השרת השתנה אך אין מטפל רשום",
+        "thisHostNeedsASign": "השרת הזה דורש התחברות שרק אפליקציית האינטרנט תומכת בה",
+        "invalidCodeTryAgain": "קוד לא תקין, נסה שוב:",
+        "unknownError": "שגיאה לא ידועה",
+        "connectionClosed": "החיבור נסגר",
+        "connectionClosed2": "החיבור נסגר ({{code}})",
+        "theServerClosedTheConnection": "השרת סגר את החיבור",
+        "theSocketClosed": "ה-socket נסגר ({{code}})",
+        "signIn": "התחברות {{title}}",
+        "signInFailed": "התחברות {{title}} נכשלה",
+        "isNotSetUpOn": "{{title}} לא מוגדר בשרת",
+        "signInTimedOut": "פסק זמן להתחברות {{title}}",
+        "authenticationFailed": "אימות נכשל: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "שמור את השרת והתחבר אליו כדי לבדוק אותו.",
+      "loggedInAsOn": "מחובר כ{{username}} ב{{host}}",
+      "theHostAskedForMore": "השרת ביקש יותר מסיסמה, כמו קוד. שמור את השרת והתחבר כדי להשלים את ההתחברות."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "ממתין לרשת",
+      "couldNotOpenTheTunnel": "לא ניתן לפתוח את המנהרה",
+      "theConnectionDropped": "החיבור נותק",
+      "iosStoppedThisTunnelWhile": "iOS עצר את המנהרה הזו בזמן שהאפליקציה הייתה ברקע. הפעל אותה שוב כדי לפתוח אותה.",
+      "connecting": "מתחבר",
+      "connected": "מחובר",
+      "retrying": "מנסה שוב",
+      "waiting": "ממתין",
+      "failed": "נכשל"
+    },
+    "gateways": {
+      "error": "שגיאה",
+      "gateways": "שערים",
+      "gatewaysCanOnlyBeChanged": "שערים יכולים להשתנות רק ב-Termix באינטרנט.",
+      "noHandshake": "אין לחיצת יד",
+      "rulesMissing": "חוקים חסרים",
+      "up": "פעיל",
+      "pending": "ממתין",
+      "applying": "מחיל",
+      "down": "כבוי",
+      "unreachable": "לא ניתן להגעה"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "אין מנהרות עדיין. הוסף אחת כדי להעביר פורט מהמארח הקצה למארח זה.",
+      "tunnel": "מנהרה {{value}}",
+      "removeTunnel": "הסר מנהרה {{value}}",
+      "mode": "מצב",
+      "local": "מקומי",
+      "remote": "מרוחק",
+      "dynamic": "דינמי",
+      "targetHost": "מארח יעד",
+      "onThisHostForTunnels": "על מארח זה, עבור מנהרות ש-{{deviceWord}} מפעיל",
+      "bindHost": "מארח קישור",
+      "endpointHost": "מארח קצה",
+      "addAnotherHostFirstTunnels": "הוסף מארח אחר תחילה. מנהרות עוברות דרך מארח שמור.",
+      "sourcePort": "פורט מקור",
+      "endpointPort": "פורט קצה",
+      "maxRetries": "מקסימום ניסיונות חוזרים",
+      "retryEveryS": "חזור על הניסיון כל (שניות)",
+      "startOnItsOwn": "התחל באופן עצמאי",
+      "addTunnel": "הוסף מנהרה",
+      "tunnelNeedsPortsFrom1": "מנהרה {{value}} דורשת פורטים בין 1 ל-65535"
+    },
+    "register": {
+      "tunnels": "מנהרות",
+      "startAndStopSavedTunnels": "הפעל והפסק מנהרות שמורות",
+      "tunnel": "מנהרה",
+      "tunnel2": "מנהרה"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "נקודת קצה מקומית הועתקה",
+      "tunnel": "מנהרה | {{sourcePort}}",
+      "portMapping": "מיפוי פורטים",
+      "connect": "חבר",
+      "disconnect": "נתק",
+      "cancel": "ביטול",
+      "connected": "מחובר",
+      "connecting": "מתחבר",
+      "disconnecting": "מתנתק",
+      "error": "שגיאה",
+      "retrying": "מנסה שוב ({{value}}/{{value2}})",
+      "waitingS": "ממתין {{value}} שניות",
+      "waiting": "ממתין",
+      "disconnected": "נתק"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "מפעיל מנהרה על פורט {{sourcePort}}",
+      "connectingTunnelOnPort": "מתחבר למנהרה על פורט {{sourcePort}}",
+      "disconnectingPort": "מנתק פורט {{sourcePort}}",
+      "cancellingPort": "מבטל פורט {{sourcePort}}",
+      "failedToTunnel": "נכשל ב-{{action}} מנהרה",
+      "tunnels": "מנהרות | {{count}} | {{value}}",
+      "loadingTunnels": "טוען מנהרות...",
+      "noSshTunnelsConfiguredFor": "לא הוגדרו מנהרות SSH עבור מארח זה. הוסף מנהרות מתוך טופס המארח.",
+      "runOn": "הפעל על",
+      "server": "שרת",
+      "this": "ה-{{deviceWord}} הזה",
+      "tunnelsOnThisStopWhen": "מנהרות על ה-{{deviceWord}} הזה נעצרות כש האפליקציה נסגרת. ב-iOS הן גם נעצרות זמן קצר לאחר שהאפליקציה עוברת לרקע.",
+      "failedToFetchTunnelStatuses": "נכשל בשליפת סטטוסים של מנהרות",
+      "thisBuildCanTOpen": "גרסה זו לא יכולה לפתוח מנהרות על ה-{{deviceWord}}.",
+      "sourceHostNotFound": "מארח המקור לא נמצא",
+      "endpointHostNotFound": "מארח הקצה לא נמצא: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "מנהרות",
+      "tunnelCount_one": "{{count}} מנהרה",
+      "tunnelCount_two": "{{count}} מנהרות",
+      "tunnelCount_other": "{{count}} מנהרות",
+      "runningOnServer": "{{connected}} רץ על השרת"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "כלי אימות"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker לא מותקן על מארח זה.",
+        "dockerDidNotAnswer": "Docker לא ענה",
+        "thatIsNotAValid": "זהו שם ערימה לא תקין"
+      }
+    },
+    "containerDetail": {
+      "stop": "עצור",
+      "start": "הפעל",
+      "restart": "הפעל מחדש",
+      "remove": "הסר",
+      "logs": "יומנים",
+      "stats": "סטטיסטיקות",
+      "console": "קונסולה",
+      "logsCopied": "היומנים הועתקו",
+      "copy": "העתק",
+      "containerIsNotRunningNo": "המיכל אינו פועל, אין נתונים בזמן אמת.",
+      "cpu": "מעבד",
+      "memory": "זיכרון",
+      "networkIO": "קלט/פלט רשת",
+      "blockIO": "קלט/פלט בלוקים",
+      "pids": "מזהי תהליכים",
+      "failedToLoadLogs": "טעינת היומנים נכשלה",
+      "failedToLoadStats": "טעינת הסטטיסטיקות נכשלה",
+      "noOutput": "(ללא פלט)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "מתחבר ל-Docker...",
+    "remove": "להסיר את {{name}}?",
+    "stop": "לעצור את {{name}}?",
+    "theContainerIsStoppedAnd": "המיכל הופסק ונמחק. הנפחים שלו נשמרים.",
+    "anythingRunningInItStops": "כל מה שרץ בתוכו יופסק.",
+    "remove2": "הסר",
+    "stop2": "עצור",
+    "dockerThis": "Docker | {{deviceWord}} זה",
+    "lookingForDocker": "מחפש את Docker...",
+    "dockerIsNotAvailableOn": "Docker לא זמין על מארח זה.",
+    "noContainersFound": "לא נמצאו מיכלים",
+    "noContainersMatchYourFilters": "אין מיכלים התואמים את המסננים שלך",
+    "useSudo": "השתמש ב-sudo",
+    "refresh": "רענן",
+    "containers": "מיכלים",
+    "stacks": "ערימות",
+    "searchContainers": "חפש מיכלים...",
+    "all": "הכל",
+    "running": "פועל",
+    "stopped": "מופסק",
+    "start": "הפעל",
+    "restart": "הפעל מחדש",
+    "pause": "השהה",
+    "unpause": "המשך",
+    "moreActions": "פעולות נוספות",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker לא ענה",
+      "docker": "Docker",
+      "noContainers": "אין מיכלים"
+    },
+    "dockerConsole": {
+      "attachingTo": "מתחבר ל-{{name}}...",
+      "consoleDisconnected": "הקונסולה התנתקה",
+      "reconnect": "חבר מחדש",
+      "failedToLoadTheConsole": "טעינת הקונסולה נכשלה",
+      "thisSessionHasNoServer": "לסשן זה אין שרת"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "מיכלים, יומנים וסטטיסטיקות"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "ערימות כבויות על שרת זה.",
+      "couldNotLoadStacks": "לא ניתן היה לטעון את הערימות",
+      "noStacks": "אין ערימות",
+      "composeProjectsOnThisHost": "פרויקטי Compose במארח זה מופיעים כאן.",
+      "ofRunning": "{{running}} מתוך {{total}} פעילים",
+      "couldNotLoadTheStack": "לא ניתן היה לטעון את הערימה",
+      "services": "שירותים",
+      "nothingIsRunning": "אין שירותים פעילים.",
+      "composeFile": "קובץ Compose",
+      "partlyUp": "חלקית פעיל",
+      "notDeployed": "לא פועל",
+      "running": "פעיל",
+      "stopped": "עצור",
+      "paused": "מושהה"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "זהו לא מזהה מיכל תקין",
+      "consoleFailed": "הקונסול נכשל",
+      "notAuthenticated": "לא מאומת",
+      "consoleError": "שגיאה בקונסול",
+      "connectionFailed": "החיבור נכשל"
+    },
+    "dockerDidNotAnswer": "Docker לא ענה",
+    "failedToLoadContainers": "טעינת המיכלים נכשלה",
+    "failedTo": "{{action}} נכשל"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "השרת לא שלח קובץ",
+        "cancelled": "בוטל",
+        "isGone": "{{path}} אינו קיים עוד",
+        "canTGoToThe": "לא ניתן להעביר את {{name}} לפח"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "מזהה פריט פח לא תקין",
+        "invalidTrashMetadata": "מטה-נתוני פח לא תקינים",
+        "thisPathCanTBe": "לא ניתן להעביר נתיב זה לפח",
+        "aFileAlreadyExistsAt": "קובץ כבר קיים בנתיב המקורי"
+      },
+      "sftp": {
+        "commandFailed": "הפקודה נכשלה: {{command}}",
+        "alreadyExists": "{{name}} כבר קיים",
+        "alreadyExistsThere": "{{path}} כבר קיים שם",
+        "canTGoToThe": "לא ניתן להעביר את {{name}} לפח: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "הטרמינל כבר לא פתוח",
+      "clearHistory": "נקה היסטוריה",
+      "stopFollowingTheTerminal": "הפסק לעקוב אחר הטרמינל",
+      "followTheTerminal": "עקוב אחר הטרמינל",
+      "goToTheTerminalS": "עבור לתיקייה של הטרמינל",
+      "cdTheTerminalHere": "העבר את הטרמינל לכאן",
+      "folderHistory": "היסטוריית תיקיות",
+      "mostUsedFirstThenRecent": "הנפוצים ביותר קודם, ואז האחרונים",
+      "noFoldersYet": "אין תיקיות עדיין"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "לא ניתן להתחבר.",
+        "couldNotSaveHowThis": "לא ניתן היה לשמור את פרטי החיבור של מארח זה",
+        "thisWayCanTOpen": "שיטה זו אינה יכולה לפתוח קבצים"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "לא ניתן היה לפתוח תיקייה זו",
+      "cancel": "ביטול",
+      "noFoldersHere": "אין תיקיות כאן"
+    },
+    "couldNotOpenThisFolder": "לא ניתן היה לפתוח תיקייה זו",
+    "couldNotSaveToThe": "לא ניתן היה לשמור לתיקייה",
+    "failed": "{{label}} נכשל",
+    "uploading": "מעלה את {{name}}",
+    "uploadingFiles": "מעלה {{count}} קבצים",
+    "downloadingToFilesOnMy": "מוריד ל-Files, On My iPhone, Termix",
+    "downloading": "מוריד את {{name}}",
+    "downloadingFiles": "מוריד {{count}} קבצים",
+    "openALargeFile": "לפתוח קובץ גדול?",
+    "isBigForAEditor": "{{name}} הוא קובץ גדול לעורך {{deviceWord}}. ייתכן שהוא יהיה איטי.",
+    "open": "פתח",
+    "thisLooksLikeABinary": "זה נראה כמו קובץ בינארי",
+    "openItInAnotherApp": "לפתוח אותו באפליקציה אחרת במקום?",
+    "openWith": "פתיחה באמצעות",
+    "tooBigForTheEditor": "הקובץ גדול מדי לעורך",
+    "isOver10MbDownload": "{{name}} גדול מ-10 MB. להוריד אותו במקום זאת?",
+    "download": "הורדה",
+    "delete": "למחוק את {{what}}?",
+    "moveToTheTrash": "להעביר את {{what}} לפח?",
+    "thisCanTBeUndone": "פעולה זו אינה ניתנת לביטול.",
+    "youCanRestoreItFrom": "תוכל לשחזר אותו מהפח.",
+    "delete2": "מחיקה",
+    "moveToTrash": "העברה לפח",
+    "deleteForGood": "למחוק לצמיתות?",
+    "deleteItForGoodInstead": "{{message}}. למחוק אותו לצמיתות במקום זאת? פעולה זו אינה ניתנת לביטול.",
+    "deleteFailed": "המחיקה נכשלה",
+    "connectingThroughTheServer": "מתחבר דרך השרת...",
+    "connectingFromThis": "מתחבר מ-{{deviceWord}} זה...",
+    "connecting": "מתחבר...",
+    "edit": "עריכה",
+    "downloadFolder": "הורדת תיקייה",
+    "share": "שיתוף",
+    "rename": "שינוי שם",
+    "copyTo": "העתקה ל",
+    "moveTo": "העברה ל",
+    "cut": "גזירה",
+    "copy": "העתקה",
+    "permissions": "הרשאות",
+    "properties": "מאפיינים",
+    "makeALinkHere": "יצירת קישור כאן",
+    "copyPath": "העתקת נתיב",
+    "pathCopied": "הנתיב הועתק",
+    "done": "בוצע",
+    "selectAll": "בחירת הכל",
+    "filterByName": "סינון לפי שם",
+    "closeSearch": "סגירת חיפוש",
+    "search": "חיפוש",
+    "changeSort": "שינוי מיון",
+    "paste": "הדבקה {{count}}",
+    "upload": "העלאה",
+    "transfers2": "העברות",
+    "more": "עוד",
+    "nothingMatches": "אין תוצאות תואמות",
+    "emptyFolder": "תיקייה ריקה",
+    "uploadFilesOrMakeA": "העלה קבצים או צור חדש.",
+    "newFolder": "תיקייה חדשה",
+    "newFile": "קובץ חדש",
+    "select": "בחירה",
+    "hideHiddenFiles": "הסתרת קבצים נסתרים",
+    "showHiddenFiles": "הצגת קבצים נסתרים",
+    "trash": "פח",
+    "folderProperties": "מאפייני תיקייה",
+    "refresh": "רענון",
+    "rename2": "שינוי שם של {{name}}",
+    "newLink": "קישור חדש",
+    "aLinkInThatPoints": "קישור ב-{{path}} המפנה ל-{{path2}}",
+    "name": "שם",
+    "create": "יצירה",
+    "copyHere": "העתקה לכאן",
+    "moveHere": "העברה לכאן",
+    "fileViewer": {
+      "saved": "נשמר {{name}}",
+      "couldNotSaveTheFile": "לא ניתן לשמור את הקובץ",
+      "discardChanges": "לבטל שינויים?",
+      "hasChangesThatAreNot": "{{name}} מכיל שינויים שלא נשמרו.",
+      "discard": "בטל שינויים",
+      "readOnly": "{{path}} | קריאה בלבד",
+      "find": "חפש",
+      "smallerText": "טקסט קטן יותר",
+      "biggerText": "טקסט גדול יותר",
+      "turnOffLineWrap": "כבה עטיפת שורות",
+      "wrapLines": "עטוף שורות",
+      "save": "שמור"
+    },
+    "hostSection": {
+      "startIn": "התחל ב-",
+      "theFolderTheFileManager": "התיקייה שבה מנהל הקבצים נפתח תחילה",
+      "files": "קבצים"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "עבור ל-{{path}}"
+      },
+      "fileRow": {
+        "moreActions": "פעולות נוספות",
+        "moreFor": "עוד עבור {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "הרשאות",
+      "cancel": "ביטול",
+      "apply": "החל ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "לא ניתן לפתוח",
+      "openWith": "פתח עם",
+      "share": "שתף"
+    },
+    "propertiesView": {
+      "properties": "מאפיינים",
+      "path": "נתיב",
+      "type": "סוג",
+      "pointsTo": "מפנה ל-",
+      "size": "גודל",
+      "countFolderSize": "חשב גודל תיקייה",
+      "permissions": "הרשאות",
+      "change": "שנה",
+      "owner": "בעלים",
+      "group": "קבוצה",
+      "modified": "שונה לאחרונה",
+      "opened": "נפתח לאחרונה",
+      "linkToA": "קישור ל-{{value}}",
+      "notShownForFolders": "לא מוצג עבור תיקיות",
+      "file": "קובץ",
+      "folder": "תיקייה",
+      "link": "קישור"
+    },
+    "register": {
+      "fileManager": "מנהל קבצים",
+      "files": "קבצים",
+      "browseEditAndMoveFiles": "דפדוף, עריכה והזזת קבצים",
+      "files2": "קבצים",
+      "fileManagerAndTransfers": "מנהל קבצים והעברות"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "ההעברה נכשלה"
+      },
+      "transfersPanel": {
+        "pause": "השהה",
+        "resume": "המשך",
+        "tryAgain": "נסה שוב",
+        "open": "פתח",
+        "cancel": "ביטול",
+        "transfers": "העברות",
+        "goingOf": "{{active}} פעילות | {{done}} מתוך {{total}}",
+        "clearFinished": "נקה הושלמו",
+        "cancelAll": "בטל הכל",
+        "noTransfersYet": "אין העברות עדיין",
+        "waiting": "ממתין",
+        "paused": "מושהה",
+        "done": "הושלם",
+        "failed": "נכשל",
+        "cancelled": "בוטל"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "טעינת הפח נכשלה",
+      "restored": "שוחזר {{name}}",
+      "failedToRestore": "השחזור נכשל",
+      "failedToDelete": "המחיקה נכשלה",
+      "trashEmptied": "פח האשפה נוקה",
+      "failedToEmptyTrash": "ניקוי פח האשפה נכשל",
+      "trash": "פח אשפה",
+      "itemsAreRemovedAfterDays": "פריטים יימחקו לאחר {{retentionDays}} ימים",
+      "close": "סגור",
+      "emptyTrash": "רוקן פח אשפה",
+      "trashIsEmpty": "פח האשפה ריק",
+      "restore": "שחזר את {{name}}",
+      "deleteForGood": "מחק את {{name}} לצמיתות"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "עכשיו"
+      }
+    },
+    "getting": "מקבל את {{name}}",
+    "itemCount_one": "פריט אחד",
+    "itemCount_two": "שני פריטים",
+    "itemCount_other": "{{count}} פריטים",
+    "copiedWhat": "הועתק {{what}}",
+    "movedWhat": "הועבר {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "ב-{{name}} יש יותר מ-{{limit}} קבצים. הורד תיקיות קטנות יותר."
+    },
+    "downloadingToFilesOnMyIpad": "מוריד ל-Files, On My iPad, Termix",
+    "size": "גודל",
+    "date": "תאריך"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "קישורי שירותים",
+      "openInHomepage": "פתח ב-Homepage",
+      "thisWidgetOnlyShowsOn": "ווידג'ט זה מוצג רק בעמוד המלא."
+    },
+    "register": {
+      "serviceLinks": "קישורי שירותים",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "לא הוגדר פיד.",
+        "couldNotLoadTheFeed": "לא ניתן לטעון את הפיד.",
+        "theFeedIsEmpty": "הפיד ריק.",
+        "noLocationSet": "לא הוגדר מיקום.",
+        "couldNotLoadTheWeather": "לא ניתן לטעון את מזג האוויר.",
+        "noUrlSet": "לא הוגדר כתובת URL.",
+        "couldNotLoadTheData": "לא ניתן לטעון את הנתונים.",
+        "noPictureSet": "לא הוגדרה תמונה.",
+        "badResponse": "תגובה שגויה"
+      },
+      "services": "שירותים",
+      "service": "שירות",
+      "serviceLinks": "קישורי שירותים",
+      "bookmarks": "סימניות",
+      "links2": "קישורים",
+      "search": "חיפוש",
+      "clock": "שעון",
+      "countdown": "ספירה לאחור",
+      "calendar": "לוח שנה",
+      "notes": "הערות",
+      "banner": "באנר",
+      "ping": "Ping",
+      "host": "מארח",
+      "hosts": "מארחים",
+      "quickConnect": "חיבור מהיר",
+      "feed": "פיד",
+      "weather": "מזג אוויר",
+      "customApi": "API מותאם אישית",
+      "picture": "תמונה",
+      "widget": "ווידג'ט",
+      "links": {
+        "noServicesYet": "אין שירותים עדיין.",
+        "noLinkSet": "לא הוגדר קישור.",
+        "noLinksYet": "אין קישורים עדיין.",
+        "noSearchEngineSet": "לא הוגדר מנוע חיפוש.",
+        "search": "חיפוש",
+        "noShortcutsYet": "אין קיצורי דרך עדיין.",
+        "search2": "חיפוש {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "לא ניתן לפתוח את הקישור"
+      },
+      "status": {
+        "noUrlsYet": "אין כתובות URL עדיין.",
+        "down": "כבוי",
+        "noHostsPicked": "לא נבחרו מארחים."
+      },
+      "text": {
+        "noNotesYet": "אין הערות עדיין.",
+        "noTextYet": "אין טקסט עדיין."
+      },
+      "time": {
+        "noDateSet": "לא הוגדר תאריך.",
+        "timeIsUp": "הזמן פג"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "לא ניתן לשמור את ברירת המחדל",
+    "couldNotResetTheDefault": "לא ניתן לאפס את ברירת המחדל",
+    "back": "חזרה",
+    "hostDefaults": "ברירות מחדל למארחים",
+    "newHostsStartFromThese": "מארחים חדשים מתחילים מאלה",
+    "managedOnTheServer": "מונהל בשרת",
+    "defaultsForThisServerAre": "ברירות המחדל לשרת זה מוגדרות באפליקציית ה-Web.",
+    "level": "רמה",
+    "yourDefaultsOrOneFolder": "ברירות המחדל שלך, או של תיקיה אחת",
+    "myDefaults": "ברירות המחדל שלי",
+    "theServerSets": " השרת מגדיר {{adminCount}}.",
+    "aFolderWinsOverYour": "תיקיה עדיפה על ברירות המחדל שלך, וברירות המחדל שלך עדיפות על אלו של השרת. מארח שומר על כל ערך שגדירת עליו בעצמך.{{value}}",
+    "save": "שמירה",
+    "authentication": "אימות",
+    "none": "ללא",
+    "reset": "איפוס",
+    "model": {
+      "username": "שם משתמש",
+      "sshPort": "פורט SSH",
+      "authentication": "אימות",
+      "aSavedCredentialForNew": "אישור שמור למארחים חדשים",
+      "forceKeyboardInteractive": "כפיית אינטראקציה עם מקלדת",
+      "keepaliveInterval": "מרווח Keepalive",
+      "seconds0TurnsItOff": "שניות, 0 מכבה את התכונה",
+      "keepaliveTries": "ניסיונות Keepalive",
+      "allowOldAlgorithms": "אפשר אלגוריתמים ישנים",
+      "agentForwarding": "העברת סוכן (Agent forwarding)",
+      "environmentVariables": "משתני סביבה",
+      "oneNameValuePerLine": "שם אחד=ערך בשורה",
+      "checkIfTheHostIs": "בדיקה אם המארח פעיל",
+      "checkInterval": "מרווח בדיקה",
+      "secondsEmptyUsesTheServer": "שניות, ריק משתמש בזה של השרת",
+      "socks5Proxy": "פרוקסי SOCKS5",
+      "setInTheWebApp": "מוגדר באפליקציית ה-Web",
+      "jumpHosts": "מארחי קפיצה",
+      "portKnocking": "הקש על פורט (Port knocking)",
+      "notSet": "לא מוגדר",
+      "fromTheServer": "מהשרת",
+      "fromYourDefaults": "מברירות המחדל שלך",
+      "builtIn": "מובנה"
+    },
+    "register": {
+      "hostDefaults": "ברירות מחדל למארחים",
+      "portUserAndOptionsFor": "פורט, משתמש ואפשרויות למארחים חדשים"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "אין נתונים עדיין",
+      "cpu": "מעבד",
+      "memory": "זיכרון",
+      "disk": "דיסק",
+      "history": "היסטוריה",
+      "loading": "טוען..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "לא ניתן לקרוא את המדדים",
+      "metrics": "מדדים",
+      "cpu": "מעבד",
+      "memory": "זיכרון",
+      "disk": "דיסק",
+      "noRecentSampleOpenThe": "אין דגימה עדכנית. פתח את מדדי המארח כדי להתחיל אחת."
+    },
+    "register": {
+      "enableMetrics": "הפעל מדדים",
+      "cpuMemoryDiskAndNetwork": "מעבד, זיכרון, דיסק ורשת דרך SSH",
+      "hostMetrics": "מדדי מארח",
+      "cpu": "מעבד",
+      "ram": "זיכרון RAM",
+      "metrics": "מדדים",
+      "cpuMemoryDiskAndNetwork2": "מעבד, זיכרון, דיסק ורשת"
+    },
+    "serverStats": {
+      "hostMetricsThis": "מדדי מארח | ה-{{deviceWord}} הזה",
+      "hostMetrics": "מדדי מארח",
+      "ran": "הרץ את {{name}}",
+      "loadingMetrics": "טוען מדדים...",
+      "couldNotReadMetricsFrom": "לא ניתן לקרוא את המדדים מהמארח הזה",
+      "failedToLoadMetrics": "טעינת המדדים נכשלה",
+      "thisSessionHasNoServer": "לסשן הזה אין שרת",
+      "twoFactorRequiredForThis": "נדרש אימות דו-שלבי לסטטיסטיקות של המארח הזה.",
+      "failedToStartMetrics": "הפעלת המדדים נכשלה",
+      "failedToRun": "הרצת {{name}} נכשלה"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "מעבד",
+        "perCore": "לפי ליבה: {{value}}",
+        "cores": "ליבות",
+        "load": "עומס",
+        "user": "משתמש",
+        "system": "מערכת",
+        "ioWait": "המתנת IO",
+        "steal": "גניבה"
+      },
+      "diskWidget": {
+        "disk": "דיסק {{mount}}",
+        "disk2": "דיסק",
+        "used": "בשימוש",
+        "total": "סה\"כ",
+        "free": "פנוי"
+      },
+      "firewallWidget": {
+        "firewall": "חומת אש",
+        "rules": "{{type}} | {{ruleCount}} כללים",
+        "noFirewallDetected": "לא זוהתה חומת אש"
+      },
+      "gpuWidget": {
+        "gpus": "כרטיסי מסך ({{count}})",
+        "gpu": "כרטיס מסך",
+        "memory": "זיכרון",
+        "temp": "טמפ'",
+        "power": "הספק",
+        "fan": "מאוורר"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "פעילות התחברות",
+        "noLoginActivityRecorded": "לא נרשמה פעילות התחברות",
+        "logins": "התחברויות",
+        "uniqueIps": "כתובות IP ייחודיות",
+        "failed": "נכשלו",
+        "recent": "אחרונים"
+      },
+      "memoryWidget": {
+        "memory": "זיכרון",
+        "used": "בשימוש",
+        "total": "סה\"כ",
+        "cached": "מטמון",
+        "free": "פנוי"
+      },
+      "networkWidget": {
+        "network": "רשת",
+        "noInterfaces": "אין ממשקים",
+        "up": "העלאה",
+        "down": "הורדה"
+      },
+      "portsWidget": {
+        "listeningPorts": "יציאות מקשיבות",
+        "noListeningPorts": "אין יציאות מקשיבות"
+      },
+      "processesWidget": {
+        "sortBy": "מיון לפי {{label}}",
+        "processes": "תהליכים",
+        "running": "{{value}} פעילים | {{total}}",
+        "noProcessData": "אין נתוני תהליכים",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "פקודה"
+      },
+      "systemWidget": {
+        "system": "מערכת",
+        "hostname": "שם מארח",
+        "os": "מערכת הפעלה",
+        "kernel": "ליבה",
+        "arch": "ארכיטקטורה",
+        "noSystemInfo": "אין מידע על המערכת"
+      },
+      "temperatureWidget": {
+        "temperature": "טמפרטורה"
+      },
+      "uptimeWidget": {
+        "uptime": "זמן פעולה"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "הועתק עם הסיסמה",
+      "copiedTheLink": "הקישור הועתק",
+      "shareHost": "שיתוף מארח",
+      "thatHostNoLongerExists": "המארח הזה כבר לא קיים",
+      "scanThisInTermixOn": "סרוק את זה ב-Termix ב-{{deviceWord}} אחר, תחת ייבוא וייצוא. הקוד כולל את הכתובת, הפורט והמשתמש. הוא לא כולל סיסמה או מפתח.",
+      "copyLink": "העתק קישור",
+      "copyLinkWithPassword": "העתק קישור עם סיסמה"
+    },
+    "includePasswordsAndKeys": "להכליל סיסמאות ומפתחות?",
+    "anyoneWhoGetsThisFile": "כל מי שישיג את הקובץ הזה יוכל להתחבר למארחים האלה. שמור אותו במקום בטוח.",
+    "includeThem": "הכלל אותם",
+    "pickAtLeastOneHost": "בחר לפחות מארח אחד",
+    "couldNotMakeTheFile": "לא ניתן ליצור את הקובץ",
+    "copiedToTheClipboard": "הועתק ללוח",
+    "importAndExport": "ייבוא וייצוא",
+    "moveHostsInAndOut": "העברת מארחים פנימה והחוצה",
+    "import": "ייבוא",
+    "aTermixHostFileAn": "קובץ מארח של Termix, קובץ תצורת SSH, או קישור מארח או קוד QR מ-{{deviceWord}} אחר.",
+    "export": "ייצוא",
+    "allHosts": "כל המארחים",
+    "picked": "{{size}} נבחרו",
+    "pickHosts": "בחר מארחים",
+    "includePasswordsAndKeys2": "הכלל סיסמאות ומפתחות",
+    "offMakesAFileSafe": "כיבוי הופך את הקובץ לבטוח לשיתוף. מארחים שמשתמשים באישור שמור מצביעים עליו לפי השם",
+    "shareAFile": "שתף קובץ",
+    "copy": "העתק",
+    "importPanel": {
+      "couldNotReadThat": "לא ניתן לקרוא את זה",
+      "couldNotReadThatFile": "לא ניתן לקרוא את הקובץ הזה",
+      "importFailed": "הייבוא נכשל",
+      "chooseAFile": "בחר קובץ",
+      "paste": "הדבק",
+      "scanACode": "סרוק קוד",
+      "couldNotBeRead": "{{count}} לא ניתן לקריאה",
+      "updateHostsThatExist": "עדכן מארחים שכבר קיימים",
+      "sameAddressPortAndUser": "אותה כתובת, פורט ומשתמש. אחרת הם ידולגו",
+      "cancel": "ביטול",
+      "import": "ייבוא",
+      "andMore": "ועוד {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "קוד QR"
+    },
+    "register": {
+      "importAndExport": "ייבוא וייצוא",
+      "moveHostsInOrOut": "העברת מארחים פנימה או החוצה עם קובץ או קוד QR",
+      "shareHost": "שיתוף מארח"
+    },
+    "scanSheet": {
+      "scanAHostCode": "סרוק קוד מארח",
+      "pointTheCameraAtA": "כוון את המצלמה לקוד QR של מארח Termix.",
+      "termixNeedsTheCameraTo": "ל-Termix נדרשת גישה למצלמה כדי לסרוק קוד. כלום לא מתועד.",
+      "allowTheCamera": "אפשר גישה למצלמה"
+    },
+    "read": {
+      "termixFile": "קובץ Termix",
+      "sshConfig": "קובץ תצורת SSH",
+      "thereIsNothingToImport": "אין מה לייבא",
+      "thatIsNotATermix": "זהו לא קישור מארח של Termix",
+      "linkHost": "מארח אחד: {{name}}",
+      "sourceHosts_one": "{{what}} עם מארח אחד",
+      "sourceHosts_two": "{{what}} עם {{count}} מארחים",
+      "sourceHosts_other": "{{what}} עם {{count}} מארחים"
+    },
+    "saveYourTermixHosts": "שמור את המארחים שלך ב-Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "הושלם",
+      "rejected": "נדחה",
+      "approvals": "אישורים",
+      "nothingIsWaiting": "אין המתנה",
+      "actionsARuleHoldsFor": "פעולות הדורשות אישור לפי כלל מופיעות כאן.",
+      "approveAndRun": "אשר והפעל",
+      "reject": "דחה",
+      "couldNotLoadApprovals": "לא ניתן לטעון את האישורים",
+      "couldNotDecide": "לא ניתן לקבל החלטה"
+    },
+    "approvalsCard": {
+      "approved": "אושר",
+      "rejected": "נדחה",
+      "waitingForApproval": "ממתין לאישור",
+      "approve": "אשר",
+      "reject": "דחה",
+      "couldNotDecide": "לא ניתן לקבל החלטה",
+      "seeAll": "הצג הכל"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "פעולה זו אינה ניתנת לביטול. להפעיל?",
+      "run": "הפעל",
+      "sentForApproval": "נשלח לאישור",
+      "target": "יעד",
+      "theItemOnTheHost": "הפריט במארח, כמו מיכל",
+      "dryRun": "הפעלת בדיקה",
+      "back": "חזרה",
+      "actions": "פעולות",
+      "noActionsForThisHost": "אין פעולות למארח זה",
+      "turnOnAPluginLike": "הפעל תוסף כמו Docker או Services למארח זה בשרת.",
+      "destructive": "הרסני",
+      "changes": "שינויים",
+      "theActionCouldNotRun": "לא ניתן היה להפעיל את הפעולה",
+      "couldNotLoadActions": "לא ניתן לטעון פעולות"
+    },
+    "register": {
+      "actions": "פעולות",
+      "waitingForApproval": "ממתין לאישור",
+      "approvals": "אישורים",
+      "actionsWaitingForAPerson": "פעולות הממתינות לאישור אדם",
+      "runHistory": "היסטוריית הפעלות",
+      "everyActionAnyoneRanFrom": "כל פעולה שהופעלה על ידי כל אדם, מכל מכשיר"
+    },
+    "runHistory": {
+      "cancelThisRun": "לבטל הפעלה זו?",
+      "cancelRun": "בטל הפעלה",
+      "keep": "שמור",
+      "undoThisRun": "לבטל הפעלה זו?",
+      "thisRunsTheActionS": "פעולה זו מפעילה את ביטול הפעולה עם אותן קלט.",
+      "undo": "בטל",
+      "cancelled": "בוטל",
+      "itAlreadyFinished": "הפעלה זו כבר הסתיימה",
+      "done": "הושלם",
+      "runHistory": "היסטוריית הפעלות",
+      "nothingHasRunYet": "עדיין לא הופעל כלום",
+      "dryRun": "הפעלת בדיקה",
+      "cancel": "ביטול",
+      "couldNotLoadHistory": "לא ניתן לטעון היסטוריה",
+      "couldNotCancel": "לא ניתן לבטל",
+      "couldNotUndo": "לא ניתן לבטל פעולה"
+    },
+    "api": {
+      "needsApproval": "דורש אישור",
+      "needsSignIn": "דורש התחברות",
+      "done": "הסתיים",
+      "failed": "נכשל",
+      "running": "מבצע",
+      "interrupted": "הופסק",
+      "rejected": "נדחה",
+      "cancelled": "בוטל",
+      "expired": "פג תוקף"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "הפעל את {{value}}",
+      "moreSettingsForThisAre": "יש הגדרות נוספות לכך באפליקציית האינטרנט של Termix.",
+      "pluginHostSettings": "הגדרות מארח תוסף"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} חייב להיות מספר",
+      "mustBeAtLeast": "{{field}} חייב להיות לפחות {{min}}",
+      "mustBeAtMost": "{{field}} חייב להיות לכל היותר {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "חבר שרת כדי להשתמש בו",
+      "runsOnYourTermixServer": "{{name}} פועל על שרת ה-Termix שלך."
+    },
+    "pluginWebView": {
+      "canTLoad": "לא ניתן לטעון את {{name}}",
+      "theServerDidNotSend": "השרת לא שלח את התוסף. וודא שהוא מופעל ונסה שוב.",
+      "openThisLink": "לפתוח את הקישור הזה?",
+      "open": "פתח",
+      "needsANewerVersionOf": "נדרשת גרסה חדשה יותר של האפליקציה",
+      "usesPartsOfTermixThis": "{{name}} משתמש בחלקים מ-Termix שאינם זמינים עדיין באפליקציה זו.",
+      "didNotStart": "{{name}} לא התחיל",
+      "thisScreenIsNotIn": "מסך זה אינו קיים בגרסת התוסף בשרת.",
+      "thePluginHitAnError": "התוסף נתקל בשגיאה בעת ההפעלה.",
+      "youReOffline": "אתה לא מחובר לאינטרנט",
+      "runsOnYourServerSo": "{{name}} פועל על השרת שלך, ולכן הוא זקוק לחיבור. הוא ייפתח מחדש כשתחזור להיות מחובר.",
+      "tryAgain": "נסה שוב"
+    },
+    "shell": {
+      "thatHostIsNotOn": "המארח הזה עדיין לא נמצא ב-{{deviceWord}} הזה.",
+      "theAppCanTOpen": "האפליקציה לא יכולה לפתוח את זה מכאן.",
+      "thatHostIsNotOn2": "המארח הזה עדיין לא נמצא ב-{{deviceWord}} הזה."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "סיסמה",
+      "unchangedIfBlank": "לא משתנה אם ריק",
+      "port": "פורט",
+      "domain": "דומיין",
+      "displaySoundAndClipboardSettings": "הגדרות תצוגה, צליל ולוח גזירים נמצאות באפליקציית האינטרנט של Termix.",
+      "portMustBeFrom1": "פורט {{label}} חייב להיות בין 1 ל-65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "החיבור לשולחן העבודה המרוחק נותק",
+        "signIn": "התחברות ל-{{label}}",
+        "itWillNotBeSaved": "{{error}} זה לא יישמר.",
+        "enterTheLoginForIt": "הזן את פרטי ההתחברות ל-{{title}}. הם לא יישמרו.",
+        "reconnecting": "מתחבר מחדש ל-{{label}}",
+        "connecting": "מתחבר ל-{{label}}",
+        "connectionFailed": "החיבור נכשל",
+        "disconnected": "נותק",
+        "reconnect": "התחבר מחדש",
+        "connectThroughTheServer": "התחבר דרך השרת",
+        "pasteToRemote": "הדבק למרחוק",
+        "typeClipboard": "הקלד מהלוח",
+        "copyRemoteClipboard": "העתק לוח גזירים מרוחק",
+        "theComputerSCertificateWas": "האישור של המחשב לא אומת.",
+        "thatLoginWasRefusedTry": "ההתחברות נדחתה. נסה שוב."
+      },
+      "target": {
+        "trustThisComputer": "לאמון את המחשב הזה?",
+        "theCanTCheckS": "ה-{{deviceWord}} לא יכול לאמת את האישור של {{hostName}}. וודא שטביעת האצבע הזו תואמת לזו שבמחשב לפני שתמשיך.\n\n{{fingerprint}}",
+        "trustAndConnect": "אמן והתחבר",
+        "certificateChanged": "האישור השתנה",
+        "showsAnotherCertificateThanLast": "{{hostName}} מציג אישור אחר מהפעם הקודמת. זה קורה לאחר שהמחשב יצר אישור חדש, או כאשר מישהו מאזין באמצע.\n\nטביעת אצבע חדשה:\n{{fingerprint}}",
+        "trustTheNewOne": "אמן את החדש"
+      }
+    },
+    "register": {
+      "remoteDesktop": "שולחן עבודה מרוחק",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "בוצע",
+      "keyboard": "מקלדת",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "הגדרות",
+      "remoteSettings": "הגדרות מרחוק",
+      "mouseMode": "מצב עכבר",
+      "touch": "מגע",
+      "trackpad": "משטח מגע",
+      "tapWhereYouWantTo": "גע במקום שבו תרצה ללחוץ. החזק ללחיצה ימנית, וגרור כדי לגרור.",
+      "dragToMoveThePointer": "גרור כדי להזיז את הסמן. גע ללחיצה, גע באצבעות ללחיצה ימנית, גע ואז גרור כדי לגרור.",
+      "zoomXPinchAnywhereTo": "תקריב: {{value}}x. צמצם בכל מקום כדי להתקרב",
+      "reset": "אפס",
+      "cancel": "ביטול",
+      "connect": "חיבור",
+      "username": "שם משתמש",
+      "domainOptional": "דומיין (אופציונלי)",
+      "domain": "דומיין",
+      "password": "סיסמה",
+      "leftArrow": "חץ שמאלה",
+      "upArrow": "חץ למעלה",
+      "downArrow": "חץ למטה",
+      "rightArrow": "חץ ימינה",
+      "rdpSignIn": "התחברות RDP"
+    },
+    "theRemoteDesktopDropped": "החיבור לשולחן העבודה המרוחק נותק",
+    "theyWillNotBeSaved": "{{errorMessage}} הם לא יישמרו.",
+    "enterCredentialsForTheyWill": "הזן פרטי התחברות עבור {{title}}. הם לא יישמרו.",
+    "connecting": "מתחבר",
+    "connectionFailed": "החיבור נכשל",
+    "disconnected": "נותק",
+    "reconnect": "חבר מחדש",
+    "route": {
+      "thisHostCanTOpen": "מארח זה לא יכול לפתוח שולחן עבודה מרוחק מכאן."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "חסום על ידי האפליקציה"
+    },
+    "failedToStartRemoteSession": "התחלת הפעלה מרחוק נכשלה",
+    "thatLoginWasRefusedTry": "ההתחברות נדחתה. נסה שוב.",
+    "theRemoteRefusedTheSaved": "המארח המרוחק דחה את פרטי ההתחברות השמורים. בדוק את פרטי ההתחברות ל-RDP במארח זה.",
+    "remoteSessionFailed": "הפעלה מרחוק נכשלה",
+    "remoteSessionReturnedAnInvalid": "הפעלה מרחוק החזירה הודעה לא תקינה",
+    "failedToLoadTheRemote": "טעינת לקוח שולחן העבודה המרוחק נכשלה"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "אין יומן",
+      "thisHostDoesNotKeep": "מארח זה לא שומר יומן systemd.",
+      "all": "הכל",
+      "warnings": "אזהרות",
+      "errors": "שגיאות",
+      "stop": "עצור",
+      "follow": "עקוב",
+      "nothingLogged": "לא נרשם כלום",
+      "tryAnotherLevel": "נסה רמה אחרת.",
+      "couldNotReadTheJournal": "לא ניתן לקרוא את היומן"
+    },
+    "register": {
+      "services": "שירותים",
+      "startStopAndReadLogs": "הפעל, עצור וקרא יומנים"
+    },
+    "readingServices": "קורא שירותים...",
+    "thisHostHasNoSystemd": "לאחר מכן אין systemd או OpenRC.",
+    "noServicesMatch": "אין שירותים תואמים",
+    "noServicesFound": "לא נמצאו שירותים",
+    "services": "שירותים",
+    "journal": "יומן",
+    "searchServices": "חפש שירותים...",
+    "all": "הכל",
+    "running": "פעיל",
+    "failed": "נכשל ({{failed}})",
+    "failed2": "נכשל",
+    "servicesCard": {
+      "services": "שירותים",
+      "noSystemdOrOpenrc": "אין systemd או OpenRC",
+      "failed": "{{failed}} נכשלו",
+      "allRunning": "הכל פעיל",
+      "couldNotReadServices": "לא ניתן לקרוא שירותים"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "הוא נשאר עצור עד שיופעל שוב או שהמארח יתחיל מחדש.",
+      "itStopsForAMoment": "הוא נעצר לרגע ומופעל מחדש.",
+      "stop": "עצור",
+      "restart": "הפעל מחדש",
+      "is": "{{name}} הוא {{state}}",
+      "start": "הפעל",
+      "journal": "יומן",
+      "couldNotReadTheService": "לא ניתן לקרוא את השירות",
+      "couldNot": "לא ניתן {{action}} {{name}}",
+      "startsAtBoot": "מופעל בהפעלה",
+      "mainPid": "PID ראשי",
+      "activeSince": "פעיל מאז",
+      "unitFile": "קובץ יחידה",
+      "notSet": "[לא הוגדר]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "לא מחובר",
+        "followFailed": "מעקב נכשל",
+        "connectionFailed": "החיבור נכשל"
+      }
+    },
+    "couldNotReadServices": "לא ניתן לקרוא שירותים",
+    "services2": "שירותים{{where}}",
+    "title": "שירותים",
+    "failedCount": "{{count}} נכשלו"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "שיתוף סשן",
+      "shareLink": "שתף קישור"
+    },
+    "shareSessionView": {
+      "canWatch": "יכול לצפות",
+      "canType": "יכול להקליד",
+      "n1Hour": "שעה אחת",
+      "n8Hours": "8 שעות",
+      "n1Day": "יום אחד",
+      "n7Days": "7 ימים",
+      "never": "לעולם לא",
+      "shareSession": "שתף סשן",
+      "anyoneWithTheLinkCan": "כל מי שיש לו את הקישור יכול לפתוח את הטרמינל הזה בזמן שהוא פועל. ניתן לבטל קישורים ב-Termix.",
+      "peopleWithTheLink": "אנשים עם הקישור",
+      "expiresAfter": "פג תוקף אחרי",
+      "link": "קישור",
+      "copy": "העתק",
+      "share": "שתף",
+      "makeLink": "צור קישור",
+      "theServerGaveNoLink": "השרת לא נתן קישור",
+      "couldNotMakeALink": "לא ניתן ליצור קישור",
+      "linkCopied": "הקישור הועתק"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "אין תיקייה"
+    },
+    "hostPicker": {
+      "selectNone": "בטל בחירה",
+      "selectAll": "בחר הכל",
+      "done": "סיום"
+    },
+    "register": {
+      "snippets": "קטעי קוד",
+      "snippets2": "קטעי קוד",
+      "savedCommandsToRunOn": "פקודות שמורות להרצה על כל מארח"
+    },
+    "runHosts": {
+      "noWayToReachThis": "אין דרך להגיע למארח זה מכאן",
+      "exitedWith": "יצא עם קוד יציאה {{exitCode}}",
+      "thisCanTRunIt": "ה{{deviceWord}} הזה לא יכול להריץ את זה",
+      "noServerIsLinked": "אין שרת מקושר"
+    },
+    "runOnHostsSheet": {
+      "run": "הרץ",
+      "run2": "הרץ את \"{{name}}\"",
+      "runsOverSshOnEach": "מריץ דרך SSH על כל מארח. לא נפתח מסוף.",
+      "close": "סגור",
+      "hosts": "מארחים",
+      "pickHosts": "בחר מארחים",
+      "workedFailed": "{{value}} הצליחו, {{failed}} נכשלו",
+      "runOn2": "הרץ על",
+      "runOn_one": "להריץ את {{name}} על מארח אחד?",
+      "runOn_two": "להריץ את {{name}} על {{count}} מארחים?",
+      "runOn_other": "להריץ את {{name}} על {{count}} מארחים?",
+      "hostsPicked_one": "מארח אחד נבחר",
+      "hostsPicked_two": "{{count}} מארחים נבחרו",
+      "hostsPicked_other": "{{count}} מארחים נבחרו"
+    },
+    "snippetsBar": {
+      "searchSnippets": "חפש קטעי קוד",
+      "pastesTheNote": "מדביק את ההערה",
+      "runsTheSnippet": "מריץ את קטע הקוד",
+      "noSnippetsMatch": "אין קטעי קוד תואמים",
+      "noSnippetsYet": "אין עדיין קטעי קוד",
+      "addSnippetsInSettingsSnippets": "הוסף קטעי קוד בהגדרות, קטעי קוד",
+      "run": "הרץ",
+      "insertWithoutRunning": "הכנס ללא הרצה",
+      "copy": "העתק"
+    },
+    "snippetsCard": {
+      "snippets": "קטעי קוד",
+      "run": "הרץ את {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "אין קטעי קוד לייצוא",
+      "couldNotMakeTheFile": "לא ניתן ליצור את הקובץ",
+      "copiedToTheClipboard": "הועתק ללוח",
+      "couldNotImport": "לא ניתן לייבא",
+      "couldNotReadThatFile": "לא ניתן לקרוא את הקובץ הזה",
+      "importAndExport": "ייבוא וייצוא",
+      "theSameFileTheWeb": "אותו קובץ שבו משתמשת אפליקציית ה-Web.",
+      "export": "ייצא",
+      "shareAFile": "שתף קובץ",
+      "copy": "העתק",
+      "import": "ייבא",
+      "updateSnippetsThatExist": "עדכן קטעי קוד קיימים",
+      "sameNameInTheSame": "אותו שם באותה תיקיה. אחרת הם ידולגו",
+      "chooseAFile": "בחר קובץ",
+      "paste": "הדבק",
+      "saveYourSnippets": "שמור את קטעי הקוד שלך"
+    },
+    "useSnippetRunner": {
+      "run": "להריץ את {{name}}?",
+      "run2": "הרץ",
+      "fillInTheValuesFor": "מלא את הערכים לקטע הקוד הזה.",
+      "cancel": "ביטול",
+      "insert": "הכנס",
+      "noTerminalIsOpen": "אין מסוף פתוח"
+    },
+    "variables": {
+      "input": "קלט {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "זהו לא קובץ JSON תקין",
+      "theFileNeedsASnippets": "הקובץ צריך רשימת קטעי קוד או תיקיות",
+      "snippetNameAndContentAre": "קטע קוד {{value}}: שם ותוכן הם חובה",
+      "folder": "תיקיה {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "טוען מכשירי Tailscale…",
+      "searchTailscaleDevices": "חפש מכשירי Tailscale…",
+      "searchTailscaleDevices2": "חיפוש מכשירי Tailscale",
+      "clearDeviceSearch": "ניקוי חיפוש מכשירים",
+      "refreshTailscaleDevices": "רענון מכשירי Tailscale",
+      "device": "מכשיר",
+      "noTailnetAddress": "אין כתובת tailnet",
+      "tailscaleDevice": "מכשיר Tailscale",
+      "tailscaleDevices": "מכשירי Tailscale",
+      "addAHostThatConnects": "הוסף מארח שמחבר באמצעות Tailscale SSH.",
+      "username": "שם משתמש",
+      "sshUsernameFor": "שם משתמש SSH עבור {{value}}",
+      "addHost": "הוסף מארח",
+      "noTailscaleDevicesMatchYour": "אין מכשירי Tailscale התואמים את החיפוש שלך.",
+      "noTailscaleDevicesFound": "לא נמצאו מכשירי Tailscale.",
+      "noTailscaleApiKeyIs": "לא הוגדר מפתח API של Tailscale על שרת זה. בקש ממנהל להוסיף אחד.",
+      "youDoNotHavePermission": "אין לך הרשאה להציג רשימת מכשירי Tailscale.",
+      "couldNotLoadTailscaleDevices": "לא ניתן לטעון את מכשירי Tailscale. רענן לניסיון חוזר.",
+      "tailscaleIsUnavailableOnThis": "Tailscale אינו זמין על שרת זה."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "מתחבר מחדש | ניסיון {{attempt}}",
+      "reconnectingInSTry": "מתחבר מחדש בעוד {{secs}} שניות | ניסיון {{attempt}}",
+      "offlineWaitingForNetwork": "לא מקוון, ממתין לרשת",
+      "sendToTheNewShell": "לשלוח את {{what}} ל-shell החדש?",
+      "reconnectNow": "התחבר מחדש עכשיו",
+      "send": "שלח",
+      "discard": "בטל",
+      "typedChars_one": "תו {{count}} שהוקלד",
+      "typedChars_two": "{{count}} תווים שהוקלדו",
+      "typedChars_other": "{{count}} תווים שהוקלדו",
+      "waiting": "{{what}} ממתינים"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "יומן החיבור הועתק",
+      "connectionLog": "יומן חיבור",
+      "copyItIntoABug": "העתק אותו לדיווח באג. כתובות ושמות משתמשים אינם כלולים.",
+      "copy": "העתק"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "לנקות את ההיסטוריה עבור מארח זה?",
+        "clear": "נקה",
+        "searchHistory": "חיפוש היסטוריה",
+        "typesTheCommandWithoutRunning": "מקליד את הפקודה ללא הרצה",
+        "noCommandsMatch": "אין פקודות תואמות",
+        "noHistoryYet": "אין היסטוריה עדיין",
+        "commandsYouRunOnThis": "פקודות שאתה מריץ על מארח זה מופיעות כאן",
+        "run": "הרץ",
+        "typeWithoutRunning": "הקלד ללא הרצה",
+        "copy": "העתק",
+        "delete": "מחק",
+        "historyCleared": "ההיסטוריה נוקתה"
+      },
+      "suggestionStrip": {
+        "use": "השתמש ב-{{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "הגדרת אפליקציה",
+      "delete": "מחק (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "כותרת לשונית מה-shell",
+      "programsCanSetTheTab": "תוכניות יכולות להגדיר את כותרת הלשונית",
+      "openTmux": "פתח tmux",
+      "attachToATmuxSession": "הצמד לסשן tmux, או התחל אחד",
+      "reconnectOnDrop": "התחבר מחדש בנפילה",
+      "keepTabOpenOnExit": "השאר לשונית פתוחה ביציאה",
+      "pressEnterToConnectAgain": "לחץ Enter להתחברות מחדש",
+      "saveCommandHistory": "שמור היסטוריית פקודות",
+      "offerToFillPasswordPrompts": "הצע מילוי בקשות סיסמה",
+      "offerToFillSudoPrompts": "הצע מילוי בקשות sudo",
+      "usesTheSudoPasswordFrom": "משתמש בסיסמת sudo מתוך לשונית ה-SSH",
+      "none": "ללא",
+      "look": "מראה",
+      "theme": "ערכת נושא",
+      "font": "גופן",
+      "cursor": "סמן",
+      "bell": "פעמון",
+      "scrollbackLines": "שורות גלילה לאחור",
+      "app": "אפליקציה",
+      "behavior": "התנהגות",
+      "backspaceSends": "מחיקה שולחת",
+      "startupSnippet": "קטע התחלתי",
+      "runsOnceTheShellIs": "מבוצע ברגע שהמעטפת מוכנה",
+      "fillWithoutAsking": "מילוי ללא שאלות",
+      "onThisOnlyOnceYou": "ב-{{deviceWord}} הזה בלבד, לאחר שבחרת 'תמיד מלא'",
+      "connection": "חיבור",
+      "keepalive": "שמירה על חיבור",
+      "secondsBetweenPings0Turns": "שניות בין פונגים, 0 מכבה",
+      "default": "ברירת מחדל",
+      "keepaliveSeconds": "שניות לשמירת חיבור",
+      "missedPings": "פונגים שלא נענו",
+      "dropTheConnectionAfterThis": "ניתוק החיבור לאחר מספר זה של פונגים שלא נענו",
+      "missedPingsBeforeDrop": "פונגים שלא נענו לפני ניתוק",
+      "environment": "סביבה",
+      "removeVariable": "הסר משתנה",
+      "addVariable": "הוסף משתנה"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "מקלדת"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "שורה",
+        "keys": "מקשים",
+        "sendsAKeyCode": "שולח קוד מקש",
+        "stickyModifier": "משתנה דביק",
+        "appAction": "פעולת אפליקציה",
+        "tmuxPrefixThen": "קידומת tmux, ואז {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "שורות מקשים",
+        "onlyFor": "רק עבור {{name}}",
+        "usingTheAppSRows": "משתמש בשורות של האפליקציה. שינויים כאן מיועדים רק ל-{{name}}",
+        "useTheAppSRows": "השתמש בשורות של האפליקציה"
+      },
+      "keyButton": {
+        "locked": "נעול"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "ביטול",
+        "remove": "להסיר את {{what}}?",
+        "remove2": "הסר",
+        "dragToReorder": "גרור לסידור מחדש",
+        "rowName": "שם שורה",
+        "groupName": "שם קבוצה",
+        "add": "הוסף",
+        "addKey": "הוסף מקש",
+        "addRow": "הוסף שורה",
+        "addGroup": "הוסף קבוצה",
+        "tmuxPrefix": "קידומת tmux",
+        "name": "שם",
+        "rename": "שנה שם",
+        "keys": "{{value}} מקשים",
+        "noKeys": "אין מקשים",
+        "remove3": "הסר את {{label}}",
+        "keys2": "מקשים",
+        "custom": "מותאם אישית",
+        "add2": "הוסף {{label}}",
+        "typeText": "הקלד טקסט",
+        "runCommand": "הרץ פקודה",
+        "ctrlKey": "מקש Ctrl",
+        "label": "תווית",
+        "optional": "אופציונלי",
+        "letter": "אות",
+        "command": "פקודה",
+        "text": "טקסט",
+        "resetToDefault": "איפוס לברירת מחדל"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "שנה מקשים בהגדרות, מקלדת"
+      },
+      "keyRowBar": {
+        "keyRow": "שורת מקשים {{label}}",
+        "tapForTheNextRow": "הקש לשורה הבאה, החזק לבחירה",
+        "keyRows": "שורות מקשים"
+      },
+      "model": {
+        "clear": "נקה",
+        "main": "ראשי",
+        "keys": "מקשים",
+        "arrows": "חצים",
+        "symbols": "סמלים",
+        "actions": "פעולות",
+        "nav": "ניווט",
+        "move": "הזזה",
+        "function": "פונקציה",
+        "brackets": "סוגריים",
+        "punctuation": "סימני פיסוק",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "חלונות",
+        "copy": "העתק",
+        "split": "חלק ─",
+        "split2": "חלק │",
+        "newWin": "חלון חדש",
+        "prevWin": "חלון קודם",
+        "nextWin": "חלון הבא",
+        "pane": "חלון ←",
+        "pane2": "חלון ↓",
+        "pane3": "חלון ↑",
+        "pane4": "חלון →",
+        "copyMode": "מצב העתקה",
+        "pasteBuf": "הדבק מאגר",
+        "killPane": "סגור חלון"
+      }
+    },
+    "output": {
+      "openLink": "לפתוח את הקישור?",
+      "open": "פתח",
+      "pasteLines": "להדביק {{lines}} שורות?",
+      "pasteThisText": "להדביק את הטקסט הזה?",
+      "theShellMayRunIt": "השורת פקודה עשויה להריץ אותו מיד.\n\n{{text}}",
+      "paste": "הדבק",
+      "letTheProgramReadYour": "לאפשר לתוכנית לקרוא מהלוח?",
+      "itAskedForWhatYou": "היא ביקשה את מה שהעתקת לאחרונה.",
+      "allow": "אפשר",
+      "letTheProgramCopyTo": "לאפשר לתוכנית להעתיק ללוח?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "למלא את הסיסמה השמורה?",
+      "asksForTheSudoPassword": "{{hostName}} מבקש את סיסמת ה-sudo.",
+      "asksForAPassword": "{{hostName}} מבקש סיסמה.",
+      "fillPassword": "מלא סיסמה",
+      "alwaysFillOnThisHost": "תמיד מלא במארח הזה",
+      "asksNoMoreOnThis": "לא ישאל שוב ב-{{deviceWord}} הזה. ניתן לכבות זאת בלשונית הטרמינל של המארח.",
+      "notNow": "לא עכשיו"
+    },
+    "register": {
+      "terminal": "טרמינל",
+      "terminalAndKeepalive": "טרמינל ושמירה על חיבור",
+      "history": "HISTORY",
+      "find": "חפש",
+      "tmuxWindows": "חלונות tmux",
+      "connectionLog": "יומן חיבורים",
+      "keyRowsForThisHost": "שורות מקשים למארח הזה"
+    },
+    "searchBar": {
+      "noResults": "אין תוצאות",
+      "matchCase": "התאמת אותיות",
+      "wholeWord": "מילה שלמה",
+      "regularExpression": "ביטוי רגולרי",
+      "find": "חיפוש",
+      "closeFind": "סגירת חיפוש"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "מערכת",
+      "block": "בלוק",
+      "bar": "סרגל",
+      "underline": "קו תחתון",
+      "off": "כבוי",
+      "sound": "צליל",
+      "flash": "הבהוב",
+      "both": "שניהם"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "לשונית חדשה במארח זה",
+      "closeTab": "סגירת לשונית",
+      "nextTab": "לשונית הבאה",
+      "previousTab": "לשונית קודמת",
+      "goToTab": "מעבר ללשונית",
+      "find": "חיפוש",
+      "fontSize": "גודל גופן",
+      "paste": "הדבקה",
+      "escape": "Escape",
+      "copyAndPaste": "העתקה והדבקה"
+    },
+    "reconnecting": "מתחבר מחדש...",
+    "waitingForNetwork": "ממתין לרשת...",
+    "waitingForYou": "ממתין לך...",
+    "connecting": "מתחבר...",
+    "terminalView": {
+      "scrollToBottom": "גלילה לתחתית",
+      "onlyWebLinksCanOpen": "רק קישורים אינטרנט יכולים להיפתח מהטרמינל",
+      "couldNotOpenLink": "לא ניתן לפתוח את הקישור",
+      "copiedFromTheTerminal": "הועתק מהטרמינל"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "פתיחת סשן tmux",
+        "newSession": "סשן חדש",
+        "plainShell": "Shell רגיל",
+        "tmuxWindows": "חלונות tmux",
+        "newWindow": "חלון חדש",
+        "windowCount_one": "{{count}} חלון",
+        "windowCount_two": "{{count}} חלונות",
+        "windowCount_other": "{{count}} חלונות",
+        "attached": "{{count}} מחובר",
+        "activeNow": "פעיל כעת",
+        "activeMinAgo": "פעיל לפני {{count}} דקות",
+        "activeHoursAgo": "פעיל לפני {{count}} שעות",
+        "activeDaysAgo_one": "פעיל לפני {{count}} יום",
+        "activeDaysAgo_two": "פעיל לפני {{count}} ימים",
+        "activeDaysAgo_other": "פעיל לפני {{count}} ימים"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "העתקה",
+        "selectAll": "בחירת הכל",
+        "cancel": "ביטול",
+        "scrollToBottom": "גלילה לתחתית",
+        "couldNotCopy": "לא ניתן להעתיק",
+        "webviewError": "שגיאת WebView: {{description}}",
+        "webviewHttpError": "שגיאת HTTP ב-WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "אין סיסמה שמורה למארח זה",
+    "backInTmuxSession": "חזרה לסשן tmux {{tmuxName}}",
+    "backInScreenSession": "חזרה לסשן screen {{name}}",
+    "theServerSessionEndedThis": "סשן השרת הסתיים. זהו shell חדש.",
+    "termixWasClosedSoThe": "Termix נסגר, ולכן ה-shell הישן הסתיים. זהו shell חדש.",
+    "theConnectionDroppedAndThe": "החיבור נותק וה-shell הישן הסתיים. זהו shell חדש.",
+    "disconnectedFrom": "החיבור ל-{{hostName}} נותק"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "אימות דו-שלבי",
+      "codesFromAnAuthenticatorApp": "קודים מאפליקציית אימות לחשבון השרת שלך"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "כתובת MAC",
+      "neededToWakeThisHost": "נדרש להפעלת מכשיר זה באמצעות Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "השתמש בכתובת MAC כמו 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "הפעלה דרך הרשת (Wake on LAN)"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "פקודת Wake-on-LAN נשלחה ל-{{name}}",
+      "failedToSendWakeOn": "שליחת חבילת Wake-on-LAN נכשלה",
+      "noServer": "אין שרת"
+    },
+    "wakeCard": {
+      "wakeOnLan": "הפעלה דרך הרשת (Wake on LAN)",
+      "wake": "הפעל את {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "לשתף סטטיסטיקות שימוש אנונימיות?",
+      "termixWouldSendAShort": "Termix תשלח דוח קצר אחת ליום. תוכל לשנות זאת בכל עת בהגדרות.",
+      "noThanks": "לא תודה",
+      "share": "שתף",
+      "theReportHasTheApp": "הדוח כולל את גרסת האפליקציה, סוג {{deviceWord}}, מספר משוער של מכשירים וסשנים, אילו תכונות אתה משתמש בהן, והאם החיבור הצליח. הוא לעולם לא כולל שמות מכשירים, שמות משתמשים, כתובות, נתיבים, פקודות או שמות שרתים.",
+      "seeExactlyWhatIsSent": "ראה בדיוק מה נשלח"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "טוען מידע על הגרסה…",
+      "updateAvailable": "עדכון זמין",
+      "newVersionAvailable": "גרסה חדשה זמינה",
+      "aNewerVersionOfThe": "גרסה חדשה יותר של אפליקציית המובייל זמינה. ייתכן שחלק מהתכונות לא יעבדו כראוי עד שתעדכן.",
+      "versionInformation": "מידע על הגרסה",
+      "installed": "מותקן",
+      "latest": "האחרון",
+      "unknown": "לא ידוע",
+      "tag": "תג",
+      "continueAnyway": "המשך בכל זאת"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "הועתק",
+      "copy": "העתק",
+      "hostKeyChanged": "מפתח המכשיר השתנה",
+      "verifyHostKey": "אמת מפתח מכשיר",
+      "cancel": "ביטול",
+      "acceptNewKey": "קבל את המפתח החדש",
+      "connectAndTrust": "התחבר והאמן",
+      "theHostSSshKey": "מפתח ה-SSH של המכשיר השתנה מאז החיבור האחרון שלך. ייתכן שמישהו חוסם את החיבור.",
+      "youAreConnectingToThis": "אתה מתחבר למכשיר זה בפעם הראשונה. בדוק את טביעת האצבע לפני שאתה מאמין לה.",
+      "previousKey": "מפתח קודם",
+      "newFingerprint": "טביעת אצבע חדשה",
+      "hostFingerprint": "טביעת אצבע של המכשיר"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "נדרש סיסמת הגנה",
+      "enterThePassphraseForYour": "הזן את סיסמת ההגנה למפתח ה-SSH שלך.",
+      "cancel": "ביטול",
+      "connect": "התחבר",
+      "keyPassphrase": "סיסמת הגנה למפתח"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "נדרש אימות SSH",
+      "cancel": "ביטול",
+      "connect": "התחבר",
+      "password": "סיסמה",
+      "sshKey": "מפתח SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nהדבק כאן את המפתח הפרטי שלך...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "סיסמת הגנה למפתח (אופציונלי)",
+      "keyboardInteractiveAuthIsNot": "אימות אינטראקטיבי דרך המקלדת אינו זמין. הזן פרטי התחברות ישירות.",
+      "authenticationFailedPleaseReEnter": "האימות נכשל. אנא הזן מחדש את פרטי ההתחברות שלך.",
+      "connectionTimedOutPleaseTry": "פג תוקף החיבור. אנא נסה שוב עם פרטי ההתחברות שלך."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "בדיקת SSH של Tailscale",
+      "completeTheTailscaleSshCheck": "השלם את בדיקת ה-SSH של Tailscale בדפדפן כדי להמשיך.",
+      "cancel": "ביטול",
+      "copyUrl": "העתק כתובת URL",
+      "openBrowser": "פתח דפדפן",
+      "urlCopied": "הכתובת URL הועתקה",
+      "failedToCopy": "העתקה נכשלה",
+      "couldNotOpenBrowser": "לא ניתן לפתוח את הדפדפן"
+    },
+    "tOTPDialog": {
+      "cancel": "ביטול",
+      "submit": "שליחה",
+      "verify": "אימות",
+      "password": "סיסמה",
+      "pasteCode": "הדבקת קוד",
+      "passwordRequired": "נדרשת סיסמה",
+      "twoFactorAuthentication": "אימות דו-שלבי",
+      "enterYourPasswordToContinue": "הזן את הסיסמה שלך כדי להמשיך.",
+      "enterThe6DigitCode": "הזן את הקוד בן 6 הספרות מאפליקציית האימות שלך."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "אימות Warpgate",
+      "authenticateViaTheWarpgatePortal": "בצע אימות דרך פורטל Warpgate, ואז לחץ על המשך.",
+      "cancel": "ביטול",
+      "openBrowser": "פתיחת דפדפן",
+      "continue": "המשך",
+      "securityKey": "מפתח אבטחה",
+      "authUrl": "כתובת אימות",
+      "copied": "הועתק",
+      "copy": "העתקה",
+      "urlCopied": "ה-URL הועתק",
+      "failedToCopy": "העתקה נכשלה",
+      "couldNotOpenBrowser": "לא ניתן לפתוח את הדפדפן"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "ה{{deviceWord}} הזה"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "פעילות אחרונה",
+        "files": "קבצים",
+        "terminal": "טרמינל"
+      },
+      "alertsCard": {
+        "notifications": "התראות",
+        "seeAll": "הצגת הכל"
+      },
+      "server": "שרת",
+      "openSessions": "סשנים פתוחים",
+      "quickAccess": "גישה מהירה",
+      "notifications": "התראות",
+      "pinnedHosts": "מארחים ממוסמרים",
+      "recentHosts": "מארחים אחרונים",
+      "recentActivity": "פעילות אחרונה",
+      "pinnedCard": {
+        "addYourFirstHost": "הוספת המארח הראשון שלך",
+        "hostsYouOpenShowUp": "מארחים שאתה פותח מופיעים כאן, ומארחים ממוסמרים מציגים כרטיסים חיים.",
+        "addHost": "הוספת מארח",
+        "linkAServer": "קישור שרת",
+        "pinAHostToSee": "המסמר מארח כדי לראות אותו כאן",
+        "pinnedHostsShowTheirMetrics": "מארחים ממוסמרים מציגים את המטריקות, Docker והשירותים שלהם במבט מהיר. החזק מארח כדי למסמר אותו.",
+        "goToHosts": "מעבר למארחים",
+        "pinned": "ממוסמר",
+        "opensTheTerminalHoldFor": "פותח את הטרמינל. החזק ליותר אפשרויות.",
+        "turnOnDockerOrServices": "הפעל Docker או שירותים עבור מארח זה, או לחץ עליו להתחברות.",
+        "opens": "פותח את {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "גישה מהירה",
+        "quickConnect": "חיבור מהיר",
+        "userHostPortWithoutSaving": "משתמש@מארח:פורט, ללא שמירה"
+      },
+      "recentCard": {
+        "recent": "אחרונים"
+      },
+      "serverCard": {
+        "server": "שרת",
+        "version": "גרסה",
+        "uptime": "זמן פעולה",
+        "database": "מסד נתונים",
+        "hosts": "מארחים",
+        "online": "מחובר",
+        "offline": "מנותק",
+        "logins": "התחברויות"
+      },
+      "sessionsCard": {
+        "openSessions": "סשנים פתוחים",
+        "connected": "מחובר"
+      }
+    },
+    "resetHome": "לאפס את הבית?",
+    "cardsGoBackToThe": "הכרטיסים יחזרו לסדר המוגדר כברירת מחדל ולכרטיסים המוצגים.",
+    "reset": "איפוס",
+    "doneEditingHome": "סיום עריכת הבית",
+    "editHome": "עריכת הבית",
+    "dragToReorder": "גרור את {{title}} כדי לסדר מחדש",
+    "show": "הצג את {{title}}",
+    "dragCardsToReorderThem": "גרור כרטיסים כדי לסדר אותם מחדש. כבה כרטיס כדי להסתיר אותו. כרטיסים ללא תוכן להצגה נשארים מוסתרים באופן אוטומטי.",
+    "resetToDefault": "איפוס לברירת מחדל",
+    "done": "בוצע",
+    "serverReachBanner": {
+      "stillCanTReachThe": "עדיין לא ניתן להגיע לשרת",
+      "canTReach": "לא ניתן להגיע ל-{{account}}",
+      "youCanKeepWorkingWith": "אתה יכול להמשיך לעבוד עם העותק ב-{{deviceWord}} הזה. השינויים יעלו כאשר הוא יחזור.",
+      "hostsSetToConnectFrom": "מארחים המוגדרים להתחבר מ-{{deviceWord}} הזה עדיין עובדים.",
+      "tryAgain": "נסה שוב",
+      "noAnswer": "אין מענה"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "פרופיל Vault",
+      "none": "ללא",
+      "signsInWithInYour": "מתחבר עם {{title}} בדפדפן שלך דרך שרת Termix שלך. חבר מארח זה דרך השרת.",
+      "needsATermixServerLink": "נדרש שרת Termix ל-{{title}}. חבר אחד כדי להשתמש בהתחברות זו.",
+      "isOffOnThisServer": "{{title}} כבוי בשרת זה. מארח זה שומר על הגדרת ההתחברות שלו."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "לא ניתן לטעון אישורי כניסה",
+      "deleted": "נמחק \"{{name}}\"",
+      "couldNotDeleteTheCredential": "לא ניתן למחוק את אישור הכניסה",
+      "credentials": "אישורי כניסה",
+      "add": "הוסף",
+      "searchCredentials": "חיפוש אישורי כניסה",
+      "clearSearch": "נקה חיפוש",
+      "loadingCredentials": "טוען אישורי כניסה...",
+      "noCredentialsMatchYourSearch": "אין אישורי כניסה התואמים את החיפוש שלך",
+      "noCredentialsYet": "אין אישורי כניסה עדיין",
+      "addCredential": "הוסף אישור כניסה",
+      "edit": "ערוך",
+      "delete": "מחק",
+      "deleteCredential": "מחק אישור כניסה",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" יימחק לצמיתות. מארחים המשתמשים בו יאבדו את אישורי הכניסה השמורים שלהם.",
+      "cancel": "ביטול",
+      "hostCount_one": "{{count}} מארח",
+      "hostCount_two": "{{count}} מארחים",
+      "hostCount_other": "{{count}} מארחים",
+      "sshKey": "מפתח SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "להחליף את המפתח?",
+        "theNewKeyTakesThe": "המפתח החדש יחליף את הנוכחי. מארחים המאמינים רק למפתח הישן יפסיקו לקבל אישור כניסה זה.",
+        "replace": "החלף",
+        "newKeyMadeCopyThe": "נוצר מפתח חדש. העתק את המפתח הציבורי למארחים שלך.",
+        "couldNotMakeAKey": "לא ניתן ליצור מפתח",
+        "couldNotReadThatCertificate": "לא ניתן לקרוא את קובץ האישור הזה",
+        "leaveWithoutSaving": "לעזוב בלי לשמור?",
+        "yourChangesToThisCredential": "השינויים שלך באישור כניסה זה יאבדו.",
+        "leave": "עזוב",
+        "credentialSaved": "אישור הכניסה נשמר",
+        "credentialAdded": "אישור כניסה נוסף",
+        "couldNotSaveTheCredential": "לא ניתן לשמור את אישור הכניסה",
+        "enterAHostToTest": "הזן מארח לבדיקה, כמו 10.0.0.5 או box:2222.",
+        "enterTheUsernameFirst": "הזן תחילה את שם המשתמש.",
+        "editCredential": "ערוך אישור כניסה",
+        "newCredential": "אישור כניסה חדש",
+        "cancel": "ביטול",
+        "save": "שמירה",
+        "credential": "אישור זהות",
+        "name": "שם",
+        "productionKey": "מפתח ייצור",
+        "username": "שם משתמש",
+        "signInWith": "התחבר באמצעות",
+        "password": "סיסמה",
+        "sshKey": "מפתח SSH",
+        "unchangedIfBlank": "לא משתנה אם ריק",
+        "key": "מפתח",
+        "fileOrPaste": "קובץ או הדבק",
+        "makeANewKey": "צור מפתח חדש",
+        "aKeyIsSavedChoose": "מפתח שמור כבר. בחר קובץ או הדבק כדי להחליף אותו.",
+        "type": "סוג",
+        "ed25519AndEcdsaAreMade": "Ed25519 ו-ECDSA נוצרים ב-{{deviceWord}} הזה, RSA בשרת שלך.",
+        "madeOnThisEd25519Works": "נוצר ב-{{deviceWord}} הזה. Ed25519 עובד כמעט בכל מקום.",
+        "passphrase": "מילת צ'יוור",
+        "optionalLocksTheNewKey": "אופציונלי. נועל את המפתח החדש ב-{{deviceWord}} הזה ובדיסק.",
+        "makeKey": "צור מפתח",
+        "publicKey": "מפתח ציבורי",
+        "addThisLineToSsh": "הוסף את השורה הזו ל-~/.ssh/authorized_keys בשרתים שלך",
+        "publicKeyCopied": "המפתח הציבורי הועתק",
+        "copyPublicKey": "העתק מפתח ציבורי",
+        "certificate": "תעודה",
+        "aCertificateYourCaSigned": "תעודה שחתמה עליה הרשות המוסמכת (CA) שלך עבור מפתח זה, עבור שרתים שסומכים על הרשות המוסמכת.",
+        "chooseCertificateFile": "בחר קובץ תעודה",
+        "thisDoesNotLookLike": "זה לא נראה כמו תעודת OpenSSH.",
+        "test": "בדיקה",
+        "hostToTestOn": "שרת לבדיקה",
+        "n10005Or": "10.0.0.5 או box.lan:2222",
+        "pickASavedHost": "בחר שרת שמור",
+        "details": "פרטים",
+        "description": "תיאור",
+        "whatThisCredentialIsFor": "למה משמש אישור הזהות הזה",
+        "folder": "תיקייה",
+        "serverKeys": "מפתחות שרת",
+        "testOnAHost": "בדוק על שרת",
+        "rsaKeysNeedALinked": "מפתחות RSA דורשים שרת מקושר."
+      },
+      "model": {
+        "giveThisCredentialAName": "תן שם לאישור הזהות הזה",
+        "addAPrivateKeyOr": "הוסף מפתח פרטי, או צור חדש"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "זוהי תעודת שרת, לא תעודת משתמש.",
+        "thisCertificateIsNotValid": "התעודה הזו עדיין לא תקפה.",
+        "thisCertificateHasExpired": "תוקף התעודה הזו פג.",
+        "itIsForAKey": "היא מיועדת למפתח {{keyType}}, אבל המפתח הזה הוא {{keyType2}}.",
+        "forAnyUser": "לכל משתמש",
+        "validFromNoEndDate": "תקף מ-{{validAfter}}, ללא תאריך סיום",
+        "signedBy": "חתום על ידי {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "שם משתמש",
+        "fromTheCredential": "מאישור הזהות: {{credentialUser}}",
+        "signInWith": "התחבר באמצעות",
+        "password": "סיסמה",
+        "key": "מפתח",
+        "credential": "אישור זהות",
+        "none": "ללא",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "מתחבר עם Tailscale SSH. אין שמירה של סיסמה או מפתח.",
+        "tailscaleIsNotOnFor": "Tailscale לא פעיל עבור {{value}}. שרת זה שומר את התחברות ה-Tailscale שלו.",
+        "unchangedIfBlank": "לא משתנה אם ריק",
+        "noCredentialsYetTapThe": "אין אישורי זהות עדיין. לחץ על סמל המפתח בשרתים כדי להוסיף אחד.",
+        "useCredential": "השתמש באישור {{name}}",
+        "sudoPassword": "סיסמת sudo",
+        "typedIntoSudoPromptsWhen": "מוקלד בקריאות sudo כאשר חלק הטרמינל מפעיל זאת",
+        "notSet": "לא הוגדר",
+        "thisServer": "שרת זה"
+      },
+      "colorIconField": {
+        "color": "צבע",
+        "noColor": "ללא צבע",
+        "color2": "צבע {{c}}",
+        "icon": "סמל",
+        "noIcon": "ללא סמל",
+        "none": "ללא",
+        "icon2": "סמל {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "לעזוב ללא שמירה?",
+        "yourChangesToThisHost": "השינויים שלך במארח זה יאבדו.",
+        "leave": "עזוב",
+        "couldNotSaveHowThis": "לא ניתן לשמור את אופן החיבור של מארח זה",
+        "hostSaved": "המארח נשמר",
+        "hostAdded": "המארח נוסף",
+        "couldNotSaveTheHost": "לא ניתן לשמור את המארח",
+        "enterTheHostSAddress": "הזן תחילה את כתובת המארח.",
+        "turnOnSshToTest": "הפעל SSH כדי לבדוק את ההתחברות.",
+        "pickACredentialFirst": "בחר אישור תחילה.",
+        "editHost": "ערוך מארח",
+        "newHost": "מארח חדש",
+        "cancel": "ביטול",
+        "save": "שמירה",
+        "host": "מארח",
+        "name": "שם",
+        "myServer": "השרת שלי",
+        "address": "כתובת",
+        "port": "פורט",
+        "portAndUsernameComeFrom": "הפורט ושם המשתמש מגיעים מההגדרות ברירת המחדל של המארח עד שתשנה אותם.",
+        "folder": "תיקייה",
+        "production": "ייצור",
+        "useAFolderInstead": "השתמש בתיקייה במקום",
+        "putItUnderAHost": "הצב אותו תחת מארח במקום",
+        "pinToTop": "הצמד למעלה",
+        "colorAndIcon": "צבע וסמל",
+        "notes": "הערות",
+        "anythingWorthRememberingAboutThis": "כל דבר ששווה לזכור על מארח זה",
+        "protocols": "פרוטוקולים",
+        "terminalFilesAndMore": "טרמינל, קבצים ועוד",
+        "connectFrom": "התחבר מ",
+        "features": "תכונות",
+        "otherProtocols": "פרוטוקולים אחרים",
+        "more": "עוד",
+        "theTestRunsFromThis": "הבדיקה מתבצעת מ-{{deviceWord}} זה. מארח זה מתחבר דרך השרת, כך שהוא עדיין יכול לעבוד כאשר {{deviceWord}} זה לא יכול להגיע אליו."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "מארחי קפיצה",
+        "connectsThroughTheseInOrder": "מתחבר דרך אלה לפי הסדר, ואז למארח זה",
+        "reachThisHostThroughOther": "הגיע למארח זה דרך מארחים אחרים תחילה",
+        "moveUp": "הזז למעלה",
+        "moveDown": "הזז למטה",
+        "removeJumpHost": "הסר מארח קפיצה",
+        "addJumpHost": "הוסף מארח קפיצה",
+        "pickASavedHostTo": "בחר מארח שמור להתחבר דרכו",
+        "searchHosts": "חפש מארחים",
+        "noOtherHostsToPick": "אין מארחים אחרים לבחירה. מארח לא יכול לקפוץ דרך עצמו או דרך מארח שכבר עובר דרכו.",
+        "missingHost": "מארח חסר #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "הפעל לפחות פרוטוקול אחד",
+        "pickACredential": "בחר אישור",
+        "enterTheHostSAddress": "הזן את כתובת השרת",
+        "theAddressCanTHave": "הכתובת לא יכולה להכיל רווחים",
+        "portMustBeFrom1": "הפורט חייב להיות בין 1 ל-65535",
+        "enterTheSshUsername": "הזן את שם המשתמש ל-SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "השרת יוצג כמקונן מתחת לשרת שבחרת",
+        "searchHosts": "חיפוש שרתים",
+        "noHostsToPickA": "אין שרתים לבחירה. שרת לא יכול להיות מקונן מתחת לעצמו, מתחת לאחד מהשרתים המשניים שלו, או מתחת לשרת משותף.",
+        "parentHost": "שרת אב",
+        "subHostsFollowTheFolder": "שרתים משניים עוקבים אחר התיקייה של השרת האב שלהם",
+        "pickParentHost": "בחר שרת אב",
+        "missingHost": "שרת חסר #{{value}}",
+        "pickAHost": "בחר שרת",
+        "clearParentHost": "נקה שרת אב"
+      },
+      "tagsField": {
+        "tags": "תגיות",
+        "typeATagAndPress": "הקלד תגית ולחץ על Enter",
+        "removeTag": "הסר את התגית {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "לא ניתן לשמור את פרטי החיבור של השרת הזה",
+      "addressCopied": "הכתובת הועתקה",
+      "cpu": "מעבד {{value}}%",
+      "ram": "זיכרון {{value}}%",
+      "connectFrom": "התחבר מ-",
+      "dismiss": "סגור",
+      "unpin": "בטל עיגון",
+      "pinToHome": "עגן לדף הבית",
+      "select": "בחר",
+      "editHost": "ערוך שרת",
+      "copyAddress": "העתק כתובת",
+      "addSubHost": "הוסף שרת משני",
+      "cloneHost": "שכפל שרת",
+      "deleteHost": "מחק שרת",
+      "connectThroughTheServer": "התחבר דרך השרת",
+      "connectFromThis": "התחבר מ-{{deviceWord}} זה"
+    },
+    "defaultYourOrder": "ברירת מחדל (הסדר שלך)",
+    "nameAZ": "שם (א'-ת')",
+    "nameZA": "שם (ת'-א')",
+    "ipAscending": "כתובת IP (עולה)",
+    "ipDescending": "כתובת IP (יורד)",
+    "onlineFirst": "מחוברים קודם",
+    "offlineFirst": "מנותקים קודם",
+    "pinnedFirst": "מעוגנים קודם",
+    "status": "סטטוס",
+    "online": "מחובר",
+    "offline": "מנותק",
+    "pinned": "מעוגן",
+    "protocol": "פרוטוקול",
+    "features": "תכונות",
+    "hostsCanOnlyMoveInside": "שרתים יכולים להזז רק בתוך התיקייה שלהם",
+    "couldNotUpdateTheHosts": "לא ניתן לעדכן את השרתים",
+    "sharedHostsCanTBe": "לא ניתן למחוק שרתים משותפים כאן",
+    "delete2": "מחק",
+    "noneOfTheseHostsOpen": "אף אחד מהשרתים האלה לא פותח מסוף",
+    "couldNotPinTheHost": "לא ניתן לעגן את השרת",
+    "deleted": "נמחק {{name}}",
+    "failedToDeleteHost": "המחיקה של השרת נכשלה",
+    "cloned": "הועתק {{name}}",
+    "failedToCloneHost": "העתקת השרת נכשלה",
+    "reorderWorksWithTheDefault": "מיומנות עובדת עם המיון ברירת מחדל וללא חיפוש או סינון",
+    "couldNotSaveTheOrder": "לא ניתן לשמור את הסדר",
+    "noHostsYet": "אין שרתים עדיין",
+    "addAHostToConnect": "הוסף מארח כדי להתחבר אליו בלחיצה אחת.",
+    "addHost": "הוסף מארח",
+    "quickConnect2": "חיבור מהיר",
+    "linkAServer": "קשר שרת",
+    "noHostsMatch": "לא נמצאו מארחים תואמים",
+    "clearSearchAndFilters": "נקה חיפוש וסינונים",
+    "more": "עוד",
+    "dragAHostByIts": "גרור מארח באמצעות ידית הצימוד שלו כדי להזיז אותו בתוך התיקייה שלו.",
+    "done": "בוצע",
+    "filterHosts": "סנן מארחים",
+    "clearFilterText": "נקה טקסט סינון",
+    "sortHosts": "מיון מארחים",
+    "removeFilter": "הסר סינון {{value}}",
+    "loadingHosts": "טוען מארחים…",
+    "moveUnderAHost": "הזז מתחת למארח",
+    "moveToFolder": "הזז לתיקייה",
+    "leaveItEmptyToTake": "השאר ריק כדי להוציא את המארחים מהתיקיות.",
+    "folderLikeProdWeb": "תיקייה, כמו Prod / Web",
+    "move": "הזז",
+    "hosts": "מארחים",
+    "selectHosts": "בחר מארחים",
+    "reorderHosts": "סדר מחדש מארחים",
+    "customizeList": "התאם אישית רשימה",
+    "chooseWhatEachHostRow": "בחר מה תציג כל שורת מארח",
+    "credentials2": "אישורים",
+    "savedPasswordsAndKeys": "סיסמאות ומפתחות שמורים",
+    "tailscaleDevices": "מכשירי Tailscale",
+    "refresh": "רענן",
+    "rowDensityFollowsSettingsAppearance": "צפיפות שורות עוקבת אחר הגדרות, מראה.",
+    "clearAllFilters": "נקה את כל הסינונים",
+    "tags": "תגיות",
+    "stopSelecting": "הפסק בחירה",
+    "selected": "{{count}} נבחרו",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "לא ניתן לקרוא את קובץ המפתח הזה",
+        "theClipboardIsEmpty": "הלוח ריק",
+        "privateKey": "מפתח פרטי",
+        "chooseFile": "בחר קובץ",
+        "paste": "הדבק",
+        "unchangedIfBlank": "לא משתנה אם ריק",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "משפט סיסמה",
+        "onlyIfTheKeyHas": "רק אם למפתח יש אחד",
+        "theKeyIsCheckedWhen": "המפתח נבדק בעת החיבור.",
+        "thePastedKey": "המפתח שהודבק"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "פתח",
+        "moreActions": "פעולות נוספות",
+        "opensTheTerminalHoldFor": "פותח את הטרמינל. החזק ליותר.",
+        "shared": "משותף",
+        "drag": "גרור {{name}}",
+        "showSubHosts_one": "הצג {{count}} תת-מארח של {{name}}",
+        "showSubHosts_two": "הצג {{count}} תת-מארחים של {{name}}",
+        "showSubHosts_other": "הצג {{count}} תת-מארחים של {{name}}",
+        "hideSubHosts_one": "הסתר {{count}} תת-מארח של {{name}}",
+        "hideSubHosts_two": "הסתר {{count}} תת-מארחים של {{name}}",
+        "hideSubHosts_other": "הסתר {{count}} תת-מארחים של {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "תיקייה {{name}}, {{total}} מארחים"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "נדרשים מארח ושם משתמש",
+      "hostSaved": "המארח נשמר",
+      "couldNotSaveTheHost": "לא ניתן לשמור את המארח",
+      "quickConnect": "חיבור מהיר",
+      "connectToAHostWithout": "התחבר למארח ללא שמירה שלו.",
+      "hostIp": "מארח / IP",
+      "port": "פורט",
+      "username": "שם משתמש",
+      "password": "סיסמה",
+      "key": "מפתח",
+      "privateKey": "מפתח פרטי",
+      "saveToMyHosts": "שמור לרשימת המארחים שלי",
+      "keepThisHostAfterConnecting": "שמור את המארח הזה לאחר החיבור",
+      "cancel": "ביטול",
+      "connect": "חיבור"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "טוען את המארחים מהשרת",
+      "yourHostsStayOnThis": "{{message}} בינתיים, המארחים שלך נשמרים ב-{{deviceWord}} הזה."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "המפתח של המארח הזה השתנה",
+      "trustThisHost": "לאמון במארח הזה?",
+      "trust": "אמון",
+      "stopTest": "עצור בדיקה",
+      "testConnection": "בדוק חיבור",
+      "connecting": "מתחבר..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "טעינת המארחים נכשלה."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. מארח משותף אחד נשאר ללא שינוי.",
+    "sharedLeftAsTheyAre_two": "{{done}}. שני מארחים משותפים נשארו ללא שינוי.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} מארחים משותפים נשארו ללא שינוי.",
+    "deleteHosts_one": "למחוק את המארח הזה?",
+    "deleteHosts_two": "למחוק את שני המארחים?",
+    "deleteHosts_other": "למחוק את {{count}} המארחים?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "אין תיקייה בשם {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "מארח \"{{name}}\": פורט לא תקין",
+        "hostJumpIsNotIn": "מארח \"{{name}}\": קפיצה ל-{{value}} אינה קיימת בקובץ, ולכן הושמטה",
+        "credential": "פרטי כניסה {{name}}: {{error}}",
+        "noValidHostEntriesFound": "לא נמצאו רשומות Host תקינות בקובץ התצורה של SSH",
+        "credentialWasNotFound": "{{label}}: פרטי הכניסה {{value}} לא נמצאו"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "מארח {{value}}: מזהה מארח יצוא כפול {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: שדות חובה חסרים (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: סוג אימות לא תקין. חייב להיות אחד מהבאים: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: שם משתמש נדרש לחיבורי SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias נדרש לאימות באמצעות פרטי כניסה",
+        "thatIsNotAValid": "זהו לא קובץ JSON תקין",
+        "hostsArrayIsRequiredAnd": "נדרש מערך מארחים והוא לא יכול להיות ריק",
+        "jumpHostCycle": "{{label}}: מחזור מארח קפיצה",
+        "jumpHostIsNotIn": "{{label}}: מארח הקפיצה {{id}} אינו קיים בקובץ"
+      }
+    },
+    "movedTo": "הועבר ל-{{value}}",
+    "movedOutOfFolders": "הועבר מחוץ לתיקיות",
+    "movedUnder": "הועבר מתחת ל-{{value}}",
+    "openTerminals": "טרמינלים פתוחים",
+    "theHost": "המארח"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "הסתר סיסמה",
+      "showPassword": "הצג סיסמה",
+      "enterAUsernameAndPassword": "הזן שם משתמש וסיסמה",
+      "useAtLeast6Characters": "השתמש ב-6 תווים לפחות לסיסמה",
+      "thePasswordsDonTMatch": "הסיסמאות לא תואמות",
+      "makeTheAdminAccount": "צור חשבון מנהל",
+      "makeAnAccount": "צור חשבון",
+      "thisIsTheFirstAccount": "זהו החשבון הראשון בשרת, ולכן הוא מפעיל את השרת.",
+      "pickAUsernameAndPassword": "בחר שם משתמש וסיסמה לשרת הזה.",
+      "username": "שם משתמש",
+      "password": "סיסמה",
+      "passwordAgain": "הזן שוב את הסיסמה",
+      "makeAccount": "צור חשבון",
+      "back": "חזרה",
+      "haveAnAccountSignIn": "יש לך חשבון? התחבר",
+      "resetCodeMadeItIs": "קוד איפוס נוצר. הוא נמצא ביומן של השרת",
+      "enterYourUsername": "הזן את שם המשתמש שלך",
+      "enterTheResetCode": "הזן את קוד האיפוס",
+      "passwordChangedSignInWith": "הסיסמה שונתה. התחבר איתה עכשיו",
+      "resetPassword": "אפס סיסמה",
+      "enterYourUsernameTheServer": "הזן את שם המשתמש שלך. השרת יכתוב קוד איפוס ליומן שלו.",
+      "sendResetCode": "שלח קוד איפוס",
+      "enterThe6DigitCode": "הזן את הקוד בן 6 הספרות מיומני השרת.",
+      "resetCode": "אפס קוד",
+      "checkCode": "בדוק קוד",
+      "newPassword": "סיסמה חדשה",
+      "saveNewPassword": "שמור סיסמה חדשה",
+      "backToSignIn": "חזרה להתחברות",
+      "couldNotMakeTheAccount": "לא ניתן ליצור את החשבון",
+      "couldNotStartTheReset": "לא ניתן להתחיל את האיפוס",
+      "thatCodeDidnTWork": "הקוד הזה לא עבד",
+      "couldNotChangeThePassword": "לא ניתן לשנות את הסיסמה"
+    },
+    "browserStep": {
+      "signInFailed": "ההתחברות נכשלה",
+      "signInCanceled": "ההתחברות בוטלה",
+      "couldNotOpenTheSign": "לא ניתן לפתוח את דפדפן ההתחברות",
+      "couldNotOpenTheSign2": "לא ניתן לפתוח את דף ההתחברות",
+      "certificateProblem": "בעיה בתעודה",
+      "back": "חזרה",
+      "signIn": "התחברות",
+      "reload": "טען מחדש",
+      "finishSigningInInYour": "השלם את ההתחברות בדפדפן שלך",
+      "useAnySignInYour": "השתמש בכל שיטת התחברות שיש לשרת שלך, כמו מפתח גישה או מפתח אבטחה. האפליקציה תתפוס את ההתחברות ברגע שתתחבר.",
+      "theAppPicksUpOnce": "האפליקציה תתפוס את ההתחברות ברגע שספק ההתחברות שלך יסיים.",
+      "signingIn": "מתחבר...",
+      "openBrowserAgain": "פתח את הדפדפן שוב",
+      "theServerTurnedTheSession": "השרת דחה את הפעילות. נסה שוב.",
+      "signedInButTheApp": "התחברת, אך האפליקציה לא יכולה להגיע ל-Termix. ייתכן שפרוקסי חוסם זאת.",
+      "thatSignInLinkIs": "קישור ההתחברות הזה הוא מניסיון קודם. התחבר שוב.",
+      "signInAgain": "התחבר שוב.",
+      "openTheBrowserAgainWhen": "פתח את הדפדפן שוב כשתהיה מוכן.",
+      "theWebPageSignedIn": "דף האינטרנט התחבר אך לא שלח פעילות. עדכן את השרת ונסה שוב.",
+      "theCanTCheckThis": "ה{{deviceWord}} לא יכול לבדוק את תעודת השרת הזה. התקן את רשות השורש (Root CA) שלו על ה{{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "להשתמש ב-{{name}} להתחברות בפעם הבאה?",
+      "ifThisServerSignsYou": "אם השרת הזה ינתק אותך, התחבר שוב באמצעות {{name}} במקום להקליד את הסיסמה שלך. הסיסמה תישאר על ה{{deviceWord}} הזה.",
+      "use": "השתמש ב-{{name}}",
+      "notNow": "לא עכשיו",
+      "couldNotSaveTheLogin": "לא ניתן לשמור את פרטי ההתחברות",
+      "thatSADifferentUser": "זה משתמש אחר",
+      "signedIn": "מחובר",
+      "close": "סגור",
+      "linkYourTermixServer": "חבר את שרת Termix שלך",
+      "yourHostsCredentialsSnippetsAnd": "המארחים, אישורי הגישה, קטעי הקוד וההגדרות שלך יסונכרנו איתו, ותקבל את התוספים שלו. הכל ימשיך לעבוד על ה{{deviceWord}} הזה כשהשרת לא זמין.",
+      "checking": "בודק את {{host}}...",
+      "proxyAndClientCertificate": "פרוקסי ותעודת לקוח",
+      "couldNotReachThatServer": "לא ניתן להגיע לשרת הזה. בדוק את הכתובת, או הגדר את הפרוקסי או את תעודת הלקוח.",
+      "couldNotReachThatServer2": "לא ניתן להגיע לשרת הזה",
+      "syncCouldNotStartYet": "הסנכרון לא יכול להתחיל עדיין. הוא ינסה שוב באופן אוטומטי.",
+      "checkingTheServer": "בודק את השרת",
+      "signIn": "התחברות",
+      "makeAnAccount": "צור חשבון",
+      "resetPassword": "אפס סיסמה",
+      "oneMoreStep": "צעד אחד נוסף",
+      "almostDone": "כמעט סיימנו",
+      "linkAServer": "חבר שרת"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "פרטי ההתחברות השמורים כבר לא עובדים",
+      "enterYourUsernameAndPassword": "הזן את שם המשתמש והסיסמה שלך",
+      "thisServerIsBehindA": "שרת זה נמצא מאחורי פרוקסי התחברות",
+      "signInWith": "התחבר עם {{saved}}",
+      "signInWith2": "התחבר עם",
+      "password": "סיסמה",
+      "username": "שם משתמש",
+      "signIn": "התחברות",
+      "forgotPassword": "שכחת סיסמה?",
+      "makeAnAccount": "צור חשבון",
+      "or": "או",
+      "continueWith": "המשך עם {{label}}",
+      "signInWithAPasskey": "התחבר באמצעות מפתח גישה או מפתח אבטחה",
+      "opensYourServerAposS": "פותח את דף ההתחברות של השרת בדפדפן. Face ID, טביעת אצבע, NFC ומפתחות USB עובדים שם. דורש Termix 26.11.3 או חדש יותר.",
+      "signInInTheBrowser": "התחבר בדפדפן",
+      "opensYourServerAposS2": "פותח את דף ההתחברות של השרת, לכל מה שהאפליקציה לא יכולה לעשות כאן. דורש Termix 26.10.6 או חדש יותר.",
+      "thisServerHasNoSign": "לשרת זה אין התחברות מופעלת שהאפליקציה יכולה להשתמש בה. בקש ממי שמנהל אותו, או נסה את התחברות הדפדפן למעלה.",
+      "signInWithYourPassword": "התחבר עם הסיסמה שלך.",
+      "signInFailed": "ההתחברות נכשלה",
+      "openingItsSignInPage": "פותח את דף ההתחברות שלו."
+    },
+    "smallSteps": {
+      "serverAddress": "כתובת השרת",
+      "likeTermixExampleComOr": "כמו termix.example.com או 192.168.1.20:30001",
+      "checking": "בודק...",
+      "continue": "המשך",
+      "proxyAndClientCertificate": "פרוקסי ותעודת לקוח",
+      "aServerWithASelf": "שרת עם תעודה עצמית חתומה דורש התקנת שורש CA על ה-{{deviceWord}} הזה קודם. HTTP רגיל עובד ברשת שלך.",
+      "enterTheCode": "הזן את הקוד",
+      "code": "קוד",
+      "the6DigitCodeFrom": "הקוד בן 6 הספרות מאפליקציית האימות שלך, או קוד גיבוי",
+      "checkCode": "בדוק קוד",
+      "thisAccountAsksForA": "חשבון זה מבקש מפתח אבטחה אחרי הסיסמה. התחבר בדף השרת בדפדפן שלך כדי להשתמש בו.",
+      "useASecurityKeyIn": "השתמש במפתח אבטחה בדפדפן",
+      "backToSignIn": "חזרה להתחברות",
+      "bringThisAposSHosts": "להביא את המארחים של ה-{{deviceWord}} הזה?",
+      "thisHasTheyStayOn": "ל-{{deviceWord}} הזה יש {{what}}. הם נשארים על המכשיר הזה בכל מקרה.",
+      "merge": "מזג",
+      "copyThemToTooSo": "העתק אותם גם ל-{{serverName}}, כדי שיתעדכנו. אלה שנראים כמו מארח שרת ידולגו.",
+      "replace": "החלף",
+      "useOnlyWhatIsOn": "השתמש רק במה שיש ב-{{serverName}} לחשבון זה. כלום לא מועתק.",
+      "thatCodeDidnTWork": "הקוד הזה לא עבד",
+      "hostsCredentialsOrSnippets": "מארחים, אישורים או קטעי קוד"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "קשר את השרת הזה קודם",
+      "thatHostIsnTHere": "המארח הזה לא כאן",
+      "couldNotOpenThatHost": "לא ניתן לפתוח את המארח הזה",
+      "noHostWithIdOn": "אין מארח עם מזהה {{hostId}} ב-{{account}}.",
+      "isnTLinkedInThe": "{{value}} עדיין לא מקושר באפליקציה."
+    }
+  },
+  "notifications": {
+    "notifications": "התראות",
+    "markAllRead": "סמן הכל כנקרא",
+    "clearReadNotifications": "נקה התראות שנקראו",
+    "unread2": "לא נקרא",
+    "all": "הכל",
+    "noUnreadNotifications": "אין התראות שלא נקראו",
+    "nothingHere": "אין כאן כלום",
+    "markRead": "סמן כנקרא",
+    "delete": "מחק",
+    "couldNotLoadNotifications": "לא ניתן לטעון התראות",
+    "couldNotMarkRead": "לא ניתן לסמן כנקרא",
+    "couldNotDelete": "לא ניתן למחוק",
+    "couldNotClear": "לא ניתן לנקות"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "ייבוא",
+      "hosts": "מארחים",
+      "aTermixHostFileYour": "קובץ מארח של Termix, ה-~/.ssh/config שלך, או קישור מארח או קוד QR מ-{{deviceWord}} אחר. הם נשמרים על ה-{{deviceWord}} הזה.",
+      "backup": "גיבוי",
+      "aBackupThisAppMade": "גיבוי שהאפליקציה הזו יצרה, נעול עם משפט סיסמה. הוא מחזיר מארחים, אישורים וקטעי קוד.",
+      "restoreABackup": "שחזר גיבוי",
+      "done": "בוצע",
+      "skipForNow": "דלג כרגע",
+      "sshFilesAndRemoteDesktops": "SSH, קבצים ושולחנות רחוקים מה-{{deviceWord}} שלך. איך תרצה להתחיל?",
+      "useWithoutAServer": "השתמש ללא שרת",
+      "hostsCredentialsAndSnippetsAre": "מארחים, אישורים וקטעי קוד נשמרים מוצפנים ב-{{deviceWord}} הזה. ניתן לקשר שרת בכל עת מאוחר יותר.",
+      "linkATermixServer": "קשר שרת Termix",
+      "syncYourHostsCredentialsSnippets": "סנכרן את המארחים, האישורים, קטעי הקוד וההגדרות שלך עם השרת והשתמש בתוספים שלו.",
+      "bringHostsFromATermix": "ייבא מארחים מקובץ Termix, קובץ תצורת SSH, קוד QR או גיבוי.",
+      "thisDevice": "המכשיר הזה"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "חפש מארחים, קטעי קוד, פעולות",
+      "clearSearch": "נקה חיפוש",
+      "nothingMatches": "אין תוצאות תואמות",
+      "typeToSearch": "הקלד לחיפוש",
+      "findAHostToConnect": "מצא מארח לחיבור, קטע קוד, הגדרה או פעולה.",
+      "suggested": "מומלץ | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "הפעל ב-{{title}}",
+      "copiedRunItFromThe": "הועתק. הפעל אותו מקטעי הקוד של המסוף כדי למלא את הערכים שלו.",
+      "copiedOpenATerminalTo": "הועתק. פתח מסוף כדי להפעיל קטעי קוד.",
+      "addHost": "הוסף מארח",
+      "quickConnect": "חיבור מהיר",
+      "switchAccount": "החלף חשבון",
+      "linkAServer": "קשר שרת",
+      "fromYourServer": "מהשרת שלך",
+      "settings": "הגדרות",
+      "accountsAppearanceSecurity": "חשבונות, מראה, אבטחה"
+    },
+    "search": {
+      "hosts": "מארחים",
+      "snippets": "קטעי קוד",
+      "actions": "פעולות",
+      "settings": "הגדרות"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "טעינת הפעילויות נכשלה",
+      "sessionRevoked": "הפעילות בוטלה",
+      "failedToRevokeSession": "ביטול הפעילות נכשל",
+      "allSessionsRevoked": "כל הפעילויות בוטלו",
+      "failedToRevokeAllSessions": "ביטול כל הפעילויות נכשל",
+      "activeSessions": "פעילויות פעילות",
+      "signOutAllOtherSessions": "התנתק מכל הפעילויות האחרות",
+      "loading": "טוען…",
+      "noActiveSessionsFound": "לא נמצאו פעילויות פעילות.",
+      "unknownDevice": "מכשיר לא ידוע",
+      "lastActive": "פעיל לאחרונה ב-{{lastActiveAt}}",
+      "created": "נוצר ב-{{createdAt}}",
+      "revokeSession": "בטל פעילות",
+      "revokeSession2": "לבטל את הפעילות?",
+      "thisWillSignOutThat": "פעולה זו תנתק את המכשיר הזה.",
+      "revoke": "בטל",
+      "revokeAllSessions": "לבטל את כל הפעילויות?",
+      "thisWillSignOutEvery": "פעולה זו תנתק כל מכשיר. תישאר מחובר במכשיר הזה.",
+      "cancel": "ביטול",
+      "revokeAll": "בטל הכל"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "טעינת מפתחות API נכשלה",
+      "failedToCreateApiKey": "יצירת מפתח API נכשלה",
+      "deleteApiKey": "למחוק את מפתח ה-API?",
+      "willStopWorkingRightAway": "\"{{name}}\" יפסיק לעבוד מיד.",
+      "apiKeyDeleted": "מפתח ה-API נמחק",
+      "failedToDeleteApiKey": "מחיקת מפתח ה-API נכשלה",
+      "apiKeys": "מפתחות API",
+      "newApiKey": "מפתח API חדש",
+      "loading": "טוען…",
+      "apiKeysAllowProgrammaticAccess": "מפתחות API מאפשרים גישה תכנותית ל-Termix. הסוד מוצג רק פעם אחת, אז שמור אותו במקום בטוח.",
+      "noApiKeysYet": "אין עדיין מפתחות API",
+      "created": "נוצר ב-{{createdAt}}",
+      "lastUsed": "הופעל לאחרונה ב-{{lastUsedAt}}",
+      "expires": "פג תוקף ב-{{expiresAt}}",
+      "delete": "מחק את {{name}}",
+      "keyCreatedCopyItNow": "המפתח נוצר. העתק אותו עכשיו",
+      "newApiKey2": "מפתח API חדש",
+      "thisTokenWonTBe": "אסימון זה לא יוצג שוב.",
+      "apiKeyCopied": "מפתח API הועתק",
+      "copy": "העתק",
+      "done": "בוצע",
+      "cancel": "ביטול",
+      "create": "צור",
+      "name": "שם *",
+      "eGCiPipeline": "למשל: צינור CI",
+      "user": "משתמש *",
+      "noUsersAvailable": "אין משתמשים זמינים.",
+      "expiresAtOptional": "תפוגה (אופציונלי)",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "שנה / חודש / יום"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "שמור על הפעלת הפעלות ברקע",
+      "showsANotificationWhileSessions": "מציג התראה כאשר הפעלות פתוחות, כך ש-Android ימשיך להפעיל אותן גם כשאתה עוזב את האפליקציה",
+      "batteryOptimization": "אופטימיזציית סוללה",
+      "termixIsNotRestrictedSo": "Termix אינו מוגבל, כך שהפעלות יכולות להישאר פתוחות גם כשהמסך כבוי.",
+      "androidMayStillStopSessions": "Android עשוי עדיין לעצור פעלות כדי לחסוך בסוללה. פתח את הגדרות הסוללה, חפש את Termix ובחר 'לא מותאם' או 'ללא הגבלה'.",
+      "openBatterySettings": "פתח הגדרות סוללה",
+      "notificationsAreOff": "התראות כבויות",
+      "sessionsStillRunButThe": "הפעלות עדיין רצות, אך רשימת הפעלות הפתוחות וכפתור 'נתק הכל' נשארים מוסתרים.",
+      "openNotificationSettings": "פתח הגדרות התראות",
+      "thisBuildCanTKeep": "גרסה זו אינה יכולה לשמור על הפעלות רצות ברקע. הן יתחברו מחדש כשתחזור.",
+      "lowPowerMode": "מצב חיסכון בסוללה",
+      "batterySaver": "חוסך סוללה",
+      "isOnTermixChecksConnections": "{{value}} פעיל. Termix בודק חיבורים פחות לעיתים וממתין זמן רב יותר בין ניסיונות חיבור מחדש.",
+      "backgroundSessions": "פעלות ברקע",
+      "iosStopsAppsSoonAfter": "iOS עוצר אפליקציות זמן קצר לאחר שעוזבים אותן, כך שהפעלות אינן יכולות לרוץ ברקע. הן יתחברו מחדש כשתחזור, ו-tmux או screen ימשיכו מאיפה שהפסקת."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "מופסק",
+        "active": "פעיל",
+        "linkAServer": "קשר שרת",
+        "eachServerKeepsItsOwn": "כל שרת שומר עותק משלו של המארחים, האישורים וההגדרות שלך ב-{{deviceWord}} זה.",
+        "signedInAs": "מחובר כ",
+        "role": "תפקיד",
+        "administrator": "מנהל מערכת",
+        "user": "משתמש",
+        "serverVersion": "גרסת שרת",
+        "signOut": "התנתק",
+        "youAreSignedOutOf": "התנתקת מהשרת הזה.",
+        "signIn": "התחבר",
+        "passwordChanged": "הסיסמה שונתה",
+        "couldNotChangeThePassword": "לא ניתן לשנות את הסיסמה",
+        "changePassword": "שנה סיסמה",
+        "enterYourCurrentPasswordThen": "הזן את הסיסמה הנוכחית שלך, ואז בחר סיסמה חדשה.",
+        "cancel": "ביטול",
+        "change": "שנה",
+        "currentPassword": "סיסמה נוכחית",
+        "newPassword": "סיסמה חדשה",
+        "accountDeleted": "החשבון נמחק",
+        "couldNotDeleteTheAccount": "לא ניתן למחוק את החשבון",
+        "deleteServerAccount": "מחק חשבון שרת",
+        "thisPermanentlyDeletesYourAccount": "פעולה זו תמחק לצמיתות את החשבון שלך בשרת ואת כל הנתונים שלו. לא ניתן לבטל פעולה זו.",
+        "delete": "מחק",
+        "confirmYourPassword": "אשר את הסיסמה שלך",
+        "worksWithoutAServer": "עובד ללא שרת",
+        "signedOut": "התנתק",
+        "readsLive": "קורא בזמן אמת",
+        "toReview": "לסקירה: {{count}}",
+        "synced": "סונכרן",
+        "syncing": "מתבצע סנכרון",
+        "offline": "לא מקוון"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "שתף סטטיסטיקות שימוש אנונימיות",
+        "aShortReportOnceA": "דוח קצר פעם ביום. ללא מארחים, שמות או כתובות",
+        "nextReport": "הדוח הבא",
+        "seeExactlyWhatWouldBe": "ראה בדיוק מה ישלח",
+        "couldNotBuildTheReport": "לא ניתן ליצור את הדוח",
+        "preview": "תצוגה מקדימה",
+        "thisIsExactlyWhatWould": "זה בדיוק מה שישלח כרגע.",
+        "resetInstallId": "אפס את מזהה ההתקנה",
+        "futureReportsWillLookLike": "דוחות עתידיים ייראו כמו התקנה חדשה",
+        "resetTheInstallId": "לאפס את מזהה ההתקנה?",
+        "futureReportsWillLookLike2": "דוחות עתידיים ייראו כמו התקנה חדשה.",
+        "reset": "אפס",
+        "installIdReset": "מזהה ההתקנה אופס"
+      },
+      "appearanceControls": {
+        "theme": "ערכת נושא",
+        "accentColor": "צבע הדגשה",
+        "textSize": "גודל טקסט",
+        "sizeOfTextAcrossThe": "גודל הטקסט ברחבי האפליקציה, לא בטרמינל",
+        "density": "צפיפות",
+        "howTallListRowsAnd": "כמה גבוהות שורות הרשימה וההגדרות"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "מארחים, אישורים וקטעי קוד נשמרים בקובץ מוצפן ב{{deviceWord}} הזה. סטטיסטיקות שימוש כבויות אלא אם תפעיל אותן למטה. שרת מקושר מקבל רק את מה שאתה מאפשר לו לסנכרן.",
+        "recentHosts": "מארחים אחרונים",
+        "forgetTheHostsYouOpened": "שכח את המארחים שפתחת לאחרונה בכל חשבון",
+        "recentHostsCleared": "המארחים האחרונים נמחקו",
+        "clear": "נקה",
+        "couldNotCheckForUpdates": "לא ניתן לבדוק עדכונים",
+        "versionIsOutUpdateFrom": "גרסה {{version}} זמינה. עדכן מהחנות שלך.",
+        "youHaveTheNewestVersion": "יש לך את הגרסה העדכנית ביותר",
+        "termixMobile": "Termix Mobile",
+        "updates": "עדכונים",
+        "check": "בדוק"
+      },
+      "pinSheet": {
+        "waitSeconds": "המתן {{value}} שניות",
+        "digits": "{{PIN_LENGTH}} ספרות"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "קודי PIN אינם תואמים",
+        "appLockIsOn": "נעילת אפליקציה פעילה",
+        "turnOffAppLock": "כבה נעילת אפליקציה",
+        "enterYourPinToConfirm": "הזן את קוד ה-PIN שלך לאישור.",
+        "appLockIsOff": "נעילת אפליקציה כבויה",
+        "appLock": "נעילת אפליקציה",
+        "askForFaceIdTouch": "בקש Face ID, Touch ID או קוד PIN לפתיחת האפליקציה",
+        "askForAPinTo": "בקש קוד PIN לפתיחת האפליקציה",
+        "pinChanged": "קוד PIN שונה",
+        "couldNotChangeThePin": "לא ניתן לשנות את קוד ה-PIN",
+        "changePin": "שנה קוד PIN",
+        "lockAfter": "נעל אחרי",
+        "howLongTheAppCan": "כמה זמן האפליקציה יכולה להיות מחוץ לתצוגה לפני שהיא ננעלת",
+        "hideInAppSwitcher": "הסתר במחליף אפליקציות",
+        "showABlankScreenIn": "הצג מסך ריק ברשימת האפליקציות האחרונות",
+        "chooseA4DigitPin": "בחר קוד PIN בן 4 ספרות.",
+        "confirmPin": "אשר קוד PIN",
+        "enterTheSamePinAgain": "הזן את אותו קוד PIN שוב.",
+        "currentPin": "קוד PIN נוכחי",
+        "enterYourCurrentPin": "הזן את קוד ה-PIN הנוכחי שלך.",
+        "newPin": "קוד PIN חדש",
+        "chooseANew4Digit": "בחר קוד PIN חדש בן 4 ספרות.",
+        "confirmNewPin": "אשר קוד PIN חדש",
+        "enterTheNewPinAgain": "הזן את קוד ה-PIN החדש שוב."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "ווידג'טים למסך הבית",
+        "showYourHostsSnippetsAnd": "הצג את המארחים, הקטעים וכפתורי ההפעלה במסך הבית",
+        "showAddresses": "הצג כתובות",
+        "showUserHostUnderEach": "הצג user@host מתחת לכל שם שרת",
+        "includeOfflineHosts": "כלול מארחים לא מקוונים",
+        "offShowsOnlyServersThat": "כבוי מציג רק שרתים שמחוברים לאינטרנט",
+        "pinnedHostsOnly": "רק מארחים ממוסמרים",
+        "showOnlyTheHostsYou": "הצג רק את המארחים שמוסמרו",
+        "snippetsWidget": "ווידג'ט קטעים",
+        "showSavedCommandsOnThe": "הצג פקודות שמורות במסך הבית",
+        "showCommandPreview": "הצג תצוגה מקדימה של פקודה",
+        "showTheFirstLineOf": "הצג את השורה הראשונה של כל פקודה"
+      }
+    },
+    "fileSettings": {
+      "files": "קבצים",
+      "fileManagerOnThis": "מנהל קבצים ב-{{deviceWord}} הזה",
+      "browsing": "דפדוף",
+      "transfersAtOnce": "העברות בו זמנית",
+      "downloadsAndUploadsThatRun": "הורדות והעלאות שרצות יחד",
+      "editor": "עורך",
+      "textSize": "גודל טקסט",
+      "filesBesideTheTerminal": "קבצים ליד הטרמינל",
+      "side": "צד",
+      "whereThePanelSitsOn": "איפה הלוח ממוקם בטאבלט",
+      "right": "ימין",
+      "left": "שמאל",
+      "howOftenToCheck": "תדירות בדיקה",
+      "folderHistory": "היסטוריית תיקיות",
+      "foldersKeptPerHost": "תיקיות שמורות לכל מארח",
+      "showHiddenFiles": "הצג קבצים נסתרים",
+      "filesAndFoldersThatStart": "קבצים ותיקיות שמתחילים בנקודה",
+      "askBeforeMovingToThe": "שאל לפני העברה לפח",
+      "deletingForGoodAlwaysAsks": "מחיקה לצמיתות תמיד שואלת",
+      "wrapLongLines": "שבור שורות ארוכות",
+      "openWithNewTerminals": "פתח עם טרמינלים חדשים",
+      "onATabletShowThe": "בטאבלט, הצג את לוח הקבצים כשטרמינל נפתח",
+      "followTheTerminal": "עקוב אחרי הטרמינל",
+      "openTheFolderTheTerminal": "פתח את התיקייה שהטרמינל נמצא בה בעת שימוש ב-cd"
+    },
+    "keyboardCustomization": {
+      "small": "קטן",
+      "medium": "בינוני",
+      "large": "גדול",
+      "ms": "{{v}} מ\"ש",
+      "keyboard": "מקלדת",
+      "keyRowsAboveTheKeyboard": "שורות מקשים מעל המקלדת",
+      "rows": "שורות",
+      "keys": "מקשים",
+      "aHostCanHaveIts": "למארח יכולות להיות שורות משלו: הקש על הלשונית הפתוחה שלו בהפעלה ובחר שורות מקשים למארח זה.",
+      "keySize": "גודל מקש",
+      "vibrateOnKeyPress": "רטט בלחיצת מקש",
+      "repeatAfter": "חזור אחרי",
+      "howLongToHoldAn": "כמה זמן להחזיק חץ או Backspace",
+      "repeatEvery": "חזור כל",
+      "hardwareKeyboard": "מקלדת חומרה",
+      "allShortcuts": "כל הקיצורים",
+      "show": "הצג"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "לא ניתן ליצור גיבוי",
+      "deleteLocalData": "למחוק נתונים מקומיים?",
+      "hostsCredentialsSnippetsAndHistory": "מארחים, אישורים, קטעים והיסטוריה שנשמרו ב-{{deviceWord}} הזה עבור {{account}} יימחקו. פעולה זו אינה ניתנת לביטול. צור גיבוי קודם אם ברצונך לשמור אותם.",
+      "delete": "מחק",
+      "localDataDeleted": "נתונים מקומיים נמחקו",
+      "couldNotDeleteLocalData": "לא ניתן למחוק נתונים מקומיים",
+      "localData": "נתונים מקומיים",
+      "localDataIsOnlySaved": "נתונים מקומיים נשמרים רק באפליקציית {{deviceWord}}.",
+      "savedOnThisForThe": "נשמר ב-{{deviceWord}} הזה עבור {{account}}. הקובץ מוצפן עם מפתח שלא עוזב את ה-{{deviceWord}} הזה.",
+      "hosts": "מארחים",
+      "credentials": "פרטי כניסה",
+      "snippets": "קטעי קוד",
+      "size": "גודל",
+      "dataVersion": "גרסת נתונים",
+      "backup": "גיבוי",
+      "aBackupFileHoldsYour": "קובץ גיבוי מכיל את הסיסמאות והמפתחות שלך, נעול עם משפט סיסמה שבחרת. אף אחד לא יכול לפתוח אותו ללא משפט הסיסמה הזה.",
+      "exportBackup": "ייצוא גיבוי",
+      "importBackup": "ייבוא גיבוי",
+      "removesEverythingThisAccountSaved": "מסיר הכל שנשמר על ידי חשבון זה ב-{{deviceWord}} הזה. שרת מקושר שומר עותק משלו.",
+      "deleteLocalData2": "מחק נתונים מקומיים",
+      "backupPassphrase": "משפט סיסמה לגיבוי",
+      "atLeast8CharactersYou": "לפחות 8 תווים. תצטרך אותו כדי לשחזר את הגיבוי.",
+      "passphrase": "משפט סיסמה",
+      "next": "הבא",
+      "typeItAgain": "הקלד שוב",
+      "export": "ייצוא",
+      "saveYourTermixBackup": "שמור את הגיבוי של Termix"
+    },
+    "logs": {
+      "logs": "יומנים",
+      "latestLinesFromThisRun": "שורות אחרונות מהפעלה זו. כתובות שרת, סיסמאות ואסימונים מוסתרים.",
+      "logsCopied": "היומנים הועתקו",
+      "copy": "העתק",
+      "share": "שתף",
+      "clear": "נקה",
+      "noLogsYet": "אין יומנים עדיין",
+      "nothingHasBeenLogged": "לא נרשם כלום."
+    },
+    "plugins": {
+      "worksOnThis": "עובד ב-{{deviceWord}} הזה",
+      "needsTheServer": "דורש את השרת",
+      "notInTheApp": "לא באפליקציה",
+      "needsANewerVersionOf": "דורש גרסה חדשה יותר של האפליקציה",
+      "updateThePluginOnThe": "עדכן את התוסף בשרת",
+      "inTheApp": "באפליקציה",
+      "onThisServer": "בשרת הזה",
+      "version": "גרסה",
+      "needsPluginApi": "דורש ממשק API לתוספים",
+      "thisAppHas": "לאפליקציה הזו יש",
+      "note": "הערה",
+      "open": "פתח",
+      "openFromAHostS": "פתח את {{name}} מתפריט המארח.",
+      "plugins": "תוספים",
+      "everything": "הכל",
+      "thisDeviceWorksWithNo": "המכשיר הזה עובד ללא שרת. חבר שרת כדי להוסיף מה שדורש אחד.",
+      "pluginsOnAndHowEach": "תוספים ב-{{account}} וכיצד כל אחד מהם מופיע באפליקציה. גרור למטה כדי לבדוק שוב.",
+      "whatRunsOnThisAnd": "מה רץ ב-{{deviceWord}} הזה ומה עובר דרך {{account}}.",
+      "noPluginList": "אין רשימת תוספים",
+      "theServerDidNotSend": "השרת לא שלח את התוספים שלו. גרור למטה כדי לנסות שוב.",
+      "serversOlderThan29": "שרתים ישנים מ-2.9 מכילים כל תכונה מובנית.",
+      "nothingToShow": "אין מה להציג",
+      "notSentByThisServer": "לא נשלח על ידי השרת הזה"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "להחליף נתונים מקומיים?",
+      "everythingSavedOnThisFor": "הכל שנשמר ב-{{deviceWord}} הזה עבור {{accountName}} יוחלף על ידי הגיבוי.",
+      "continue": "המשך",
+      "couldNotReadThatFile": "לא ניתן לקרוא את הקובץ הזה",
+      "backupRestored": "הגיבוי שוחזר",
+      "couldNotRestoreTheBackup": "לא ניתן לשחזר את הגיבוי",
+      "backupPassphrase": "משפט סיסמה לגיבוי",
+      "thePassphraseUsedWhenThe": "משפט הסיסמה ששימש בעת יצירת הגיבוי.",
+      "passphrase": "משפט סיסמה",
+      "restore": "שחזור"
+    },
+    "schema": {
+      "items": {
+        "accounts": "חשבונות",
+        "thisDeviceAndLinkedServers": "המכשיר הזה ושרתים מקושרים, עם מצב הסנכרון שלהם",
+        "syncAndProxy": "סנכרון ופרוקסי",
+        "whatSyncsConflictsProxyAnd": "מה מסונכרן, קונפליקטים, פרוקסי וניתוק קישור",
+        "serverAccount": "חשבון שרת",
+        "whoIsSignedInOn": "מי מחובר בשרת הפעיל",
+        "activeSessions": "סשנים פעילים",
+        "devicesSignedInToThe": "מכשירים מחוברים לשרת",
+        "apiKeys": "מפתחות API",
+        "keysForScriptsAndTools": "מפתחות לסקריפטים וכלים",
+        "changePassword": "שינוי סיסמה",
+        "passwordOfYourServerAccount": "סיסמת חשבון השרת שלך",
+        "deleteServerAccount": "מחיקת חשבון שרת",
+        "removeYourAccountFromThe": "הסרת החשבון שלך מהשרת",
+        "theme": "ערכת נושא",
+        "darkLightDraculaNordAnd": "כהה, בהיר, Dracula, Nord ועוד",
+        "accentColor": "צבע הדגשה",
+        "textSize": "גודל טקסט",
+        "sizeOfTextAcrossThe": "גודל הטקסט בכל האפליקציה",
+        "density": "צפיפות",
+        "howTallListRowsAnd": "כמה גבוהות שורות רשימה והגדרות",
+        "homeScreenWidgets": "ווידג'טים למסך הבית",
+        "hostsAndSnippetsOnThe": "מארחים וקטעי קוד במסך הבית",
+        "terminal": "טרמינל",
+        "fontThemeCursorScrollback": "גופן, ערכת נושא, סמן, גלילה אחורה",
+        "keyboard": "מקלדת",
+        "layoutKeysPresets": "פריסה, מקשים, הגדרות מראש",
+        "appLock": "נעילת אפליקציה",
+        "askForFaceIdTouch": "בקש Face ID, Touch ID או קוד PIN לפתיחת האפליקציה",
+        "lockAfter": "נעל אחרי",
+        "howLongTheAppCan": "כמה זמן האפליקציה יכולה להיות מחוץ לתצוגה לפני נעילה",
+        "hideInAppSwitcher": "הסתר במחליף אפליקציות",
+        "showABlankScreenIn": "הצג מסך ריק ברשימת האפליקציות האחרונות",
+        "changePin": "שינוי קוד PIN",
+        "backgroundSessions": "סשנים ברקע",
+        "whatHappensToOpenSessions": "מה קורה לסשנים פתוחים כשיוצאים מהאפליקציה",
+        "serverAlerts": "התראות שרת",
+        "alertsFromTheAlertsPlugin": "התראות מתוסף ההתראות בשרת שלך",
+        "whatStaysOnThis": "מה נשאר על ה{{deviceWord}} הזה",
+        "hostsCredentialsAndSnippetsAre": "מארחים, אישורים וקטעי קוד מאוחסנים כאן בצורה מוצפנת",
+        "recentHosts": "מארחים אחרונים",
+        "forgetTheHostsYouOpened": "שכח את המארחים שפתחת לאחרונה",
+        "shareAnonymousUsageStatistics": "שתף סטטיסטיקות שימוש אנונימיות",
+        "aShortReportOnceA": "דוח קצר פעם ביום. ללא מארחים, שמות או כתובות",
+        "nextReport": "הדוח הבא",
+        "seeExactlyWhatWouldBe": "ראה בדיוק מה יישלח",
+        "resetInstallId": "אפס מזהה התקנה",
+        "futureReportsWillLookLike": "דוחות עתידיים ייראו כמו התקנה חדשה",
+        "serverUsageStatistics": "סטטיסטיקות שימוש בשרת",
+        "telemetrySettingsOnYourServer": "הגדרות טלמטריה בשרת שלך",
+        "plugins": "תוספים",
+        "whatTheServerAddsAnd": "מה השרת מוסיף ואיפה הוא רץ",
+        "localData": "נתונים מקומיים",
+        "backupRestoreAndDeleteWhat": "גיבוי, שחזור ומחיקת מה שמאוחסן על ה{{deviceWord}} הזה",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "גרסה ועדכונים",
+        "logs": "יומנים",
+        "latestLinesFromThisRun": "שורות אחרונות מהרץ הזה, לדוחות באגים"
+      },
+      "sections": {
+        "accountsAndSync": "חשבונות וסנכרון",
+        "thisDeviceLinkedServersAnd": "המכשיר הזה, שרתים מקושרים ומה מסונכרן",
+        "appearance": "מראה",
+        "themeAccentTextSizeAnd": "שפה, ערכת נושא, צבע הדגשה, גודל טקסט וצפיפות",
+        "terminal": "טרמינל",
+        "fontColorsAndBackgroundSessions": "גופן, צבעים וסשנים ברקע",
+        "keyboard": "מקלדת",
+        "keyRowsAndShortcuts": "שורות מקשים וקיצורי דרך",
+        "security": "אבטחה",
+        "appLockFaceIdAnd": "נעילת אפליקציה, Face ID ו-PIN",
+        "notifications": "התראות",
+        "alertsFromYourServer": "התראות מהשרת שלך",
+        "privacyAndUsageStatistics": "פרטיות וסטטיסטיקות שימוש",
+        "whatStaysOnThis": "מה נשאר על ה-{{deviceWord}} הזה",
+        "plugins": "תוספים",
+        "whatTheServerAddsTo": "מה השרת מוסיף לאפליקציה",
+        "backupAndData": "גיבוי ונתונים",
+        "backUpRestoreImportAnd": "גיבוי, שחזור, ייבוא וייצוא",
+        "aboutAndLogs": "אודות ויומנים",
+        "versionAndLogsForBug": "גרסה ויומנים לדיווח על באגים"
+      }
+    },
+    "settings": "הגדרות",
+    "searchSettings": "חיפוש בהגדרות",
+    "noSettingsMatch": "לא נמצאו הגדרות תואמות.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "טעינת הקטעים נכשלה",
+      "copied": "הועתק: {{name}}",
+      "nameIsRequired": "שם הוא שדה חובה",
+      "contentIsRequired": "תוכן הוא שדה חובה",
+      "snippetUpdated": "הקטע עודכן",
+      "snippetCreated": "הקטע נוצר",
+      "failedToSaveSnippet": "שמירת הקטע נכשלה",
+      "snippetDeleted": "הקטע נמחק",
+      "failedToDeleteSnippet": "מחיקת הקטע נכשלה",
+      "folderNameIsRequired": "שם תיקייה הוא שדה חובה",
+      "folderCreated": "התיקייה נוצרה",
+      "failedToCreateFolder": "יצירת התיקייה נכשלה",
+      "folderDeleted": "התיקייה נמחקה",
+      "failedToDeleteFolder": "מחיקת התיקייה נכשלה",
+      "folderRenamed": "שם התיקייה שונה",
+      "failedToRenameFolder": "שינוי שם התיקייה נכשל",
+      "failedToSaveOrder": "שמירת הסדר נכשלה",
+      "moveUp": "הזז למעלה",
+      "moveDown": "הזז למטה",
+      "runOnHosts": "הפעל את {{name}} על השרתים",
+      "copy": "העתק את {{name}}",
+      "delete": "מחק את {{name}}",
+      "renameFolder": "שנה שם תיקייה",
+      "deleteFolder": "מחק תיקייה",
+      "noSnippetsInThisFolder": "אין קטעים בתיקייה זו",
+      "snippets": "קטעים",
+      "importAndExport": "ייבוא וייצוא",
+      "folder": "תיקייה",
+      "new": "חדש",
+      "loading": "טוען…",
+      "couldNotLoadSnippets": "לא ניתן לטעון קטעים",
+      "checkTheConnectionToYour": "בדוק את החיבור לשרת שלך ונסה שוב.",
+      "tryAgain": "נסה שוב",
+      "noSnippetsYet": "עדיין אין קטעים",
+      "createYourFirstSnippetOr": "צור את הקטע הראשון שלך, או הוסף קטעים מאפליקציית ה-Web או ה-Desktop של Termix.",
+      "createSnippet": "צור קטע",
+      "askBeforeRunning": "שאל לפני הרצה",
+      "confirmBeforeASnippetRuns": "אשר לפני ש-snippet מורץ בטרמינל",
+      "editSnippet": "עריכת Snippet",
+      "newSnippet": "Snippet חדש",
+      "cancel": "ביטול",
+      "save": "שמירה",
+      "create": "יצירה",
+      "name": "שם",
+      "eGUpdatePackages": "למשל: עדכון חבילות",
+      "content": "תוכן",
+      "descriptionOptional": "תיאור (אופציונלי)",
+      "shortDescription": "תיאור קצר",
+      "folderOptional": "תיקייה (אופציונלי)",
+      "selectFolder": "בחירת תיקייה",
+      "noFolder": "ללא תיקייה",
+      "targetHostsOptional": "מארחים יעד (אופציונלי)",
+      "none": "ללא",
+      "note": "הערה",
+      "pastedIntoTheTerminalWithout": "הודבק לטרמינל ללא הרצה",
+      "targetHosts": "מארחים יעד",
+      "copy2": "העתקה",
+      "edit": "עריכה",
+      "runOnHosts2": "הרץ על מארחים",
+      "delete2": "מחיקה",
+      "deleteSnippet": "מחק Snippet",
+      "deleteThisCannotBeUndone": "למחוק את \"{{name}}\"? פעולה זו אינה ניתנת לביטול.",
+      "renameFolder2": "שינוי שם תיקייה",
+      "rename": "שינוי שם",
+      "folderName": "שם תיקייה",
+      "eGSystem": "למשל: מערכת",
+      "newFolder": "תיקייה חדשה",
+      "deleteFolder2": "מחק תיקייה",
+      "deleteSnippetsInThisFolder": "למחוק את \"{{name}}\"? ה-snippets בתיקייה זו יהפכו ללא מסווגים."
+    },
+    "sync": {
+      "notYet": "עדיין לא",
+      "justNow": "עכשיו",
+      "stopped": "עוצר",
+      "signInToThisServer": "התחבר מחדש לשרת הזה כדי לסנכרן",
+      "couldNotChangeThat": "לא ניתן לשנות זאת",
+      "sync": "סנכרון",
+      "thisDeviceDoesNotSync": "המכשיר הזה לא מבצע סנכרון. חבר שרת Termix כדי לשמור את המארחים שלך על יותר ממכשיר אחד.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} שומר את המארחים, האישורים, ה-snippets וההגדרות בסנכרון עם ה-{{deviceWord}} הזה. עותק נשמר על ה-{{deviceWord}} הזה, כך שהוא עובד גם במצב לא מקוון.",
+      "lastSynced": "סונכרן לאחרונה {{value}}",
+      "live": "חי",
+      "syncNow": "סנכרן עכשיו",
+      "fix": "תיקון",
+      "thisServerReadsLiveAnd": "השרת הזה קורא בזמן אמת ואינו שומר עותק על ה-{{deviceWord}}.",
+      "turnOnTheSyncPlugin": "הפעל את תוסף הסנכרון בדף התוספים של השרת, ואז התחבר מחדש כאן כדי לשמור עותק על ה-{{deviceWord}} הזה.",
+      "whatSyncs": "מה מסונכרן",
+      "turnedOffThatDataStays": "כבוי, הנתונים האלה נשארים רק על ה-{{deviceWord}} הזה.",
+      "conflicts": "סכסוכים",
+      "changedHereAndOnThe": "שונה כאן ובשרת בו זמנית. גרסת השרת נשמרה.",
+      "useServer": "השתמש בשרת",
+      "keepMine": "שמור את שלי",
+      "notSavedOnTheServer": "לא נשמר בשרת",
+      "theServerRefusedTheseChanges": "השרת דחה את השינויים האלה. הם נשארים על ה-{{deviceWord}} הזה.",
+      "tryAgain": "נסה שוב",
+      "proxy": "פרוקסי",
+      "onlyNeededWhenAReverse": "נדרש רק כאשר פרוקסי הפוך עומד לפני השרת.",
+      "unlink": "ניתוק קישור",
+      "unlinkThisServer": "נתק קישור לשרת הזה",
+      "minAgo": "{{value}} דקות לפני כן",
+      "signedOut": "התנתק",
+      "waitingToSync": "ממתין לסנכרון",
+      "synced": "סונכרן",
+      "syncing": "מסנכרן",
+      "offline": "מנותק"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "רקע",
+        "text": "טקסט",
+        "cursor": "סמן",
+        "textUnderCursor": "טקסט מתחת לסמן",
+        "selection": "בחירה",
+        "black": "שחור",
+        "red": "אדום",
+        "green": "ירוק",
+        "yellow": "צהוב",
+        "blue": "כחול",
+        "magenta": "מגנטה",
+        "cyan": "סיאן",
+        "white": "לבן",
+        "brightBlack": "שחור בהיר",
+        "brightRed": "אדום בהיר",
+        "brightGreen": "ירוק בהיר",
+        "brightYellow": "צהוב בהיר",
+        "brightBlue": "כחול בהיר",
+        "brightMagenta": "מגנטה בהיר",
+        "brightCyan": "סיאן בהיר",
+        "brightWhite": "לבן בהיר",
+        "customTheme": "ערכת נושא מותאמת אישית",
+        "colorsAsHexLike1e1e2e": "צבעים כקודים הקסדצימליים, כמו #1e1e2e.",
+        "cancel": "ביטול",
+        "save": "שמירה",
+        "isNotAHexColor": "{{label}} אינו קוד צבע הקסדצימלי"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "קומפקטי",
+      "default": "ברירת מחדל",
+      "relaxed": "רפוי",
+      "spacious": "רחב",
+      "none": "ללא",
+      "couldNotSave": "לא ניתן לשמור",
+      "pickASizeFromTo": "בחר גודל בין {{MIN_FONT_SIZE}} ל-{{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "הגדרות מסוף אופסו",
+      "terminal": "מסוף",
+      "aHostCanSetIts": "מארח יכול להגדיר ערכת נושא וסמן משלו ב-Termix, שיעדיפו על אלו.",
+      "theme": "ערכת נושא",
+      "custom": "מותאם אישית",
+      "font": "גופן",
+      "active": "פעיל",
+      "sizeAndSpacing": "גודל ורווחים",
+      "pinchTheTerminalToChange": "השתמש בפעולת פיצול אצבעות על המסוף כדי לשנות גם את הגודל. טקסט גדול בהגדרות ה-{{deviceWord}} שלך יגדיל אותו.",
+      "custom2": "מותאם אישית {{fontSize}}",
+      "lineHeight": "גובה שורה",
+      "letterSpacing": "רווח בין אותיות",
+      "ligatures": "ליגטורות",
+      "cursor": "סמן",
+      "blink": "הבהוב",
+      "bell": "פעמון",
+      "vibrate": "רטט",
+      "onTheBellAndWhen": "בפעמון ובחיצון לחיצה ארוכה לבחירה",
+      "scrollback": "גלילה אחורה",
+      "linesKeptAboveTheScreen": "שורות שנשמרות מעל המסך. חל על מסופים חדשים.",
+      "linksAndKeys": "קישורים ומקשים",
+      "askBeforeOpeningLinks": "שאל לפני פתיחת קישורים",
+      "doubleTapSendsTab": "הקשה כפולה שולחת Tab",
+      "longPressStillSelectsText": "לחיצה ארוכה עדיין בוחרת טקסט",
+      "optionSendsAlt": "Option שולחת Alt",
+      "onAHardwareKeyboardOff": "על מקלדת חומרה. כבוי מקליד תווים כמו ב-Mac.",
+      "history": "היסטוריה",
+      "suggestCommands": "הצעת פקודות",
+      "showsPastCommandsThatStart": "מציג פקודות קודמות שמתחילות במה שאתה מקליד",
+      "resetToDefault": "אפס לברירת מחדל",
+      "fontSize": "גודל גופן",
+      "aSizeFromTo": "גודל מ-{{MIN_FONT_SIZE}} עד {{MAX_FONT_SIZE}}.",
+      "cancel": "ביטול",
+      "apply": "החל",
+      "resetTerminalSettings": "לאפס הגדרות מסוף?",
+      "themeFontSizeCursorBell": "ערכת נושא, גופן, גודל, סמן, צלצול ושאר ההגדרות יוחזרו לברירת המחדל.",
+      "reset": "אפס",
+      "followsAppTheme": "עוקב אחר ערכת הנושא של האפליקציה"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "התחלת הגדרת 2FA נכשלה",
+      "twoFactorAuthenticationEnabled": "אימות דו-שלבי מופעל",
+      "invalidCodeTryAgain": "קוד לא תקין, נסה שוב",
+      "twoFactorAuthenticationDisabled": "אימות דו-שלבי מושבת",
+      "failedToDisable2fa": "השבתת 2FA נכשלה",
+      "failedToFetchBackupCodes": "איחזור קודי גיבוי נכשל",
+      "secretCopied": "הסוד הועתק",
+      "backupCodesCopied": "קודי גיבוי הועתקו",
+      "twoFactorAuthentication": "אימות דו-שלבי",
+      "loading": "טוען…",
+      "scanThisQrCodeWith": "סרוק את קוד ה-QR הזה עם אפליקציית האימות שלך (Google Authenticator, Authy וכו'), ואז הזן את הקוד ב-6 ספרות לאימות.",
+      "verifyAmpEnable": "אמת &amp; הפעל",
+      "cancel": "ביטול",
+      "saveYourBackupCodes": "שמור את קודי הגיבוי שלך",
+      "storeTheseSomewhereSafeEach": "שמור אותם במקום בטוח. כל קוד ניתן לשימוש חד פעמי אם תאבד גישה לאפליקציית האימות שלך.",
+      "copyAllCodes": "העתק את כל הקודים",
+      "done": "בוצע",
+      "yourAccountIsProtectedWith": "החשבון שלך מוגן באמצעות אפליקציית אימות.",
+      "addAnExtraLayerOf": "הוסף שכבת אבטחה נוספת לחשבון שלך.",
+      "viewBackupCodes": "הצג קודי גיבוי",
+      "disable2fa": "השבת 2FA",
+      "enable2fa": "הפעל 2FA",
+      "disableTwoFactorAuthentication": "השבת אימות דו-שלבי",
+      "enterACodeFromYour": "הזן קוד מאפליקציית האימות שלך לאימות. תוכל להפעיל מחדש את ה-2FA בכל עת.",
+      "enterYourPasswordToConfirm": "הזן את הסיסמה שלך לאימות. תוכל להפעיל מחדש את ה-2FA בכל עת.",
+      "disable": "השבת",
+      "yourPassword": "הסיסמה שלך",
+      "n2faIsEnabled": "2FA מופעל",
+      "n2faIsNotEnabled": "2FA אינו מופעל"
+    },
+    "language": {
+      "label": "שפה",
+      "description": "האפליקציה תטען מחדש כדי להחליף",
+      "system": "כמו במכשיר"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "אין מארחי SSH כאן",
+      "couldNotReadWhatWas": "לא ניתן לקרוא את מה ששותף",
+      "stopTheUploads": "לעצור את ההעלאות?",
+      "stopAndLeave": "עצור וצא",
+      "sendTo": "שלח ל-{{name}}",
+      "sendToAHost": "שלח למארח",
+      "nothingToSend": "אין מה לשלוח",
+      "close": "סגור",
+      "done": "בוצע",
+      "cancel": "ביטול",
+      "uploadHere": "העלה לכאן",
+      "uploadsStillGoing_one": "עלייה אחת עדיין מתבצעת. יציאה תעצור אותה.",
+      "uploadsStillGoing_two": "{{count}} עליות עדיין מתבצעות. יציאה תעצור אותן.",
+      "uploadsStillGoing_other": "{{count}} עליות עדיין מתבצעות. יציאה תעצור אותן.",
+      "filesSize_one": "{{count}} קובץ | {{size}}",
+      "filesSize_two": "{{count}} קבצים | {{size}}",
+      "filesSize_other": "{{count}} קבצים | {{size}}",
+      "readingWhatWasShared": "קריאת מה ששותף"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "שגיאה",
+      "worksWithoutAServer": "עובד ללא שרת",
+      "accountSwitch": "חשבון {{account}}, החלף",
+      "search": "חיפוש",
+      "notificationsUnread": "התראות, {{unread}} לא נקראו",
+      "notifications": "התראות",
+      "signedIn": "מחובר",
+      "signedOut": "מנותק",
+      "copyOnThis": "העתק ל-{{deviceWord}} הזה"
+    },
+    "bottomBar": {
+      "home": "בית",
+      "hosts": "מארחים",
+      "sessions": "הפעלות",
+      "tools": "כלים",
+      "settings": "הגדרות",
+      "open": "{{label}}, {{count}} פתוחים"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} פתוחים"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "בחר מארח",
+      "searchHosts": "חפש מארחים",
+      "clearSearch": "נקה חיפוש",
+      "noHostsMatch": "אין מארחים תואמים",
+      "noHostsCanUseThis": "אף מארח לא יכול להשתמש בזה",
+      "turnItOnForA": "הפעל זאת עבור מארח בעורך המארחים."
+    },
+    "noToolsHereYet": "אין כאן כלים עדיין",
+    "onAHost": "על מארח",
+    "saved": "שמור",
+    "fromYourServer": "מהשרת שלך"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "ביטול",
+      "delete": "מחיקה",
+      "confirm": "אישור"
+    },
+    "contextMenu": {
+      "closeMenu": "סגור תפריט"
+    },
+    "inlineView": {
+      "back": "חזור"
+    },
+    "listRow": {
+      "moreActions": "פעולות נוספות"
+    },
+    "pinPad": {
+      "useBiometrics": "השתמש בביומטריה",
+      "delete": "מחק"
+    },
+    "popover": {
+      "close": "סגור"
+    },
+    "promptSheet": {
+      "cancel": "ביטול"
+    },
+    "sheet": {
+      "close": "סגור"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "המפתח הזה נעול. הזן את משפט הססמה שלו.",
+      "thatPassphraseDoesnTOpen": "משפט הססמה הזה לא פותח את המפתח הזה.",
+      "thisDoesnTLookLike": "זה לא נראה כמו מפתח פרטי.",
+      "loadedAndChangedItTo": "טען את {{name}} והמרת אותו לפורמט OpenSSH",
+      "loadedItNeedsItsPassphrase": "טען את {{name}}. נדרש משפט ססמה כדי להתחבר"
+    },
+    "ago": {
+      "justNow": "עכשיו"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "לא ניתן היה לטעון את המארחים שלך.",
+      "failedOn": "{{name}} נכשל ב-{{name2}}",
+      "on": "{{name}} ב-{{name2}}: {{value}}",
+      "ranOn": "הרץ את {{name}} ב-{{name2}}",
+      "runOn": "הרץ את \"{{name}}\" על",
+      "runSnippet": "הרץ קטע קוד",
+      "loadingHosts": "טוען מארחים…",
+      "noHostsAvailable": "אין מארחים זמינים",
+      "addAHostInTermix": "הוסף מארח ב-Termix כדי להריץ קטעי קוד ממסך הבית שלך.",
+      "lastUsed": "שימוש אחרון",
+      "failedToRunSnippet": "הרצת קטע הקוד נכשלה"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "קטע הקוד הזה כבר לא קיים.",
+      "couldNotOpenThatSnippet": "לא ניתן היה לפתוח את קטע הקוד הזה.",
+      "thatHostNoLongerExists": "המארח הזה כבר לא קיים.",
+      "couldNotOpenThatHost": "לא ניתן לפתוח את המארח הזה."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "בית"
+      },
+      "hosts": {
+        "hosts": "מארחים"
+      },
+      "sessions": {
+        "sessions": "הפעלות",
+        "connectToATermixServer": "התחבר לשרת Termix כדי לפתוח מסופים, מנהרות והפעלות קבצים."
+      }
+    },
+    "layout": {
+      "initializing": "מאתחל…",
+      "cancel": "ביטול"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "למארח הזה אין כתובת MAC תקפה.",
+    "thisBuildCanTSend": "גרסה זו אינה יכולה לשלוח חבילות Wake-on-LAN.",
+    "couldNotSendThePacket": "לא ניתן לשלוח את החבילה. ודא ש-Wi-Fi דלוק."
+  },
+  "common": {
+    "hostCount_one": "{{count}} מארח",
+    "hostCount_two": "{{count}} מארחים",
+    "hostCount_other": "{{count}} מארחים",
+    "device": {
+      "phone": "טלפון",
+      "tablet": "טאבלט"
+    },
+    "thisDeviceLower": "ה{{deviceWord}} הזה"
+  },
+  "hostAccess": {
+    "title": "שיתוף",
+    "action": "שתף עם אנשים",
+    "levels": {
+      "connect": "התחברות",
+      "view": "צפייה",
+      "edit": "עריכה",
+      "manage": "ניהול"
+    },
+    "levelHints": {
+      "connect": "פתיחת הפעלות בלבד. הגדרות המארח נשארות מוסתרות",
+      "view": "התחברות, בנוסף לצפייה בהגדרות המארח. סודות לעולם לא מוצגים",
+      "edit": "צפייה, בנוסף לשינוי הגדרות שאינן כניסה למערכת",
+      "manage": "עריכה, בנוסף לשיתוף המארח ושינוי או הסרת גישה"
+    },
+    "until": "עד {{date}}",
+    "sharedBy": "על ידי {{name}}",
+    "couldNotLoad": "לא ניתן לטעון מי יש לו גישה",
+    "shared": "המארח שותף",
+    "couldNotShare": "לא ניתן לשתף את המארח",
+    "updated": "הגישה שונתה",
+    "couldNotUpdate": "לא ניתן לשנות את הגישה",
+    "removeTitle": "להסיר את {{name}}?",
+    "removeHint": "הם לא יוכלו עוד להשתמש במארח הזה.",
+    "remove": "הסרה",
+    "removed": "הגישה הוסרה",
+    "couldNotRemove": "לא ניתן להסיר את הגישה",
+    "whoHasAccess": "מי יש לו גישה",
+    "loading": "טוען...",
+    "nobodyYet": "רק אתה יכול להשתמש במארח הזה.",
+    "changeAccessFor": "שינוי גישה עבור {{name}}",
+    "shareWith": "שתף עם",
+    "users": "משתמשים",
+    "roles": "תפקידים",
+    "searchUsers": "חיפוש משתמשים",
+    "searchRoles": "חיפוש תפקידים",
+    "noUsers": "אין משתמשים אחרים לשתף איתם.",
+    "noRoles": "אין תפקידים לשתף איתם.",
+    "options": "גישה",
+    "level": "רמה",
+    "expires": "פג תוקף",
+    "expiry": {
+      "never": "לעולם לא",
+      "1h": "בעוד שעה",
+      "1d": "בעוד יום",
+      "7d": "בעוד 7 ימים",
+      "30d": "בעוד 30 ימים"
+    },
+    "pickSomeone": "בחר עם מי לשתף",
+    "shareCount_one": "שתף עם {{count}}",
+    "shareCount_two": "שתף עם {{count}}",
+    "shareCount_other": "שתף עם {{count}}",
+    "removeAccess": "הסר גישה"
+  }
+}

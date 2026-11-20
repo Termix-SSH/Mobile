@@ -1,1 +1,3806 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Đăng nhập",
+      "addServer": "Thêm máy chủ",
+      "switchAccount": "Chuyển tài khoản",
+      "noServerConnected": "Chưa kết nối máy chủ nào",
+      "connectToATermixServer": "Kết nối với máy chủ Termix để quản lý các host, terminal, tệp tin và nhiều hơn nữa."
+    },
+    "lockScreen": {
+      "cancel": "Hủy",
+      "tooManyTriesWaitSeconds": "Quá nhiều lần thử. Vui lòng chờ {{value}} giây",
+      "termixLocked": "Termix đã khóa",
+      "enterYourPinToContinue": "Nhập mã PIN để tiếp tục"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Cam",
+      "blue": "Xanh dương",
+      "green": "Xanh lá",
+      "purple": "Tím",
+      "pink": "Hồng",
+      "cyan": "Xanh ngọc",
+      "red": "Đỏ",
+      "yellow": "Vàng",
+      "teal": "Xanh teal",
+      "indigo": "Xanh chàm",
+      "rose": "Hồng nhạt",
+      "lime": "Xanh chanh",
+      "system": "Hệ thống",
+      "light": "Sáng",
+      "dark": "Tối"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Sử dụng mã PIN",
+      "unlockTermix": "Mở khóa Termix",
+      "unlockTermixFirst": "Vui lòng mở khóa Termix trước."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Tính năng này đã bị tắt trên máy chủ.",
+      "aTabWasNotReopened": "Một tab không được mở lại vì host của nó đã mất",
+      "tabsWereNotReopenedBecause": "Không thể mở lại {{count}} tab vì máy chủ của chúng đã bị xóa"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Liên kết một máy chủ Termix để sử dụng tính năng này",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Nhập địa chỉ máy chủ của bạn",
+        "theAddressCanTHave": "Địa chỉ không được chứa khoảng trắng",
+        "useAnHttpOrHttps": "Sử dụng địa chỉ http:// hoặc https://",
+        "thatDoesnTLookLike": "Điều này không giống một địa chỉ máy chủ",
+        "thePortMustBeFrom": "Cổng phải nằm trong khoảng từ 1 đến 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Một proxy đăng nhập đã phản hồi thay vì Termix. Vui lòng đăng nhập vào proxy trước.",
+        "theServerDidNotSend": "Máy chủ không gửi token.",
+        "theServerDidNotSend2": "Máy chủ không gửi phiên làm việc.",
+        "theServerSentNoSign": "Máy chủ không gửi địa chỉ đăng nhập.",
+        "theSignInRanOut": "Phiên đăng nhập đã hết hạn hoặc đã được sử dụng. Vui lòng đăng nhập lại.",
+        "wrongUsernameOrPassword": "Sai tên người dùng hoặc mật khẩu",
+        "signInFailedHttp": "Đăng nhập thất bại (HTTP {{status}})",
+        "thePageSignedYouIn": "Trang web đã đăng nhập cho bạn nhưng không gửi lại phiên làm việc. Vui lòng cập nhật máy chủ lên Termix 26.11.3 hoặc mới hơn.",
+        "thisAccountIsnTAllowed": "Tài khoản này không được phép đăng nhập tại đây.",
+        "noTermixAccountMatchesThat": "Không có tài khoản Termix nào khớp với thông tin đăng nhập này."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Phiên làm việc này không có máy chủ"
+    },
+    "store": {
+      "noSuchAccount": "Không tìm thấy tài khoản này",
+      "thisDeviceCanTBe": "Không thể xóa thiết bị này",
+      "switchToAnotherAccountFirst": "Vui lòng chuyển sang tài khoản khác trước"
+    },
+    "types": {
+      "thisDevice": "Thiết bị này"
+    },
+    "accountSwitcher": {
+      "error": "Lỗi",
+      "worksWithoutAServer": "Hoạt động mà không cần máy chủ",
+      "couldNotSwitchAccount": "Không thể chuyển tài khoản",
+      "accounts": "Tài khoản",
+      "openTabsKeepRunningWhen": "Các tab đang mở sẽ tiếp tục chạy khi bạn chuyển tài khoản.",
+      "unlink": "Hủy liên kết {{account}}",
+      "linkAServer": "Liên kết máy chủ",
+      "eachServerKeepsItsOwn": "Mỗi máy chủ lưu trữ riêng các host, thông tin đăng nhập và cài đặt trên {{deviceWord}} này.",
+      "signedIn": "Đã đăng nhập",
+      "signedOut": "Đã đăng xuất",
+      "syncedCopy": "Bản sao đã đồng bộ"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Không thể lưu pin",
+      "theServerSKeyMatches": "Khóa của máy chủ khớp với pin",
+      "theServerShowsAnotherKey": "Máy chủ hiển thị một khóa khác",
+      "pinThisKey": "Ghim khóa này?",
+      "pinThisKey2": "Ghim khóa này",
+      "keyPinned": "Đã ghim khóa",
+      "couldNotReadTheServer": "Không thể đọc khóa của máy chủ",
+      "thatIsNotAPin": "Đó không phải là một pin",
+      "keysPinned": "Đã ghim các khóa",
+      "certificatePin": "Pin chứng chỉ",
+      "trustThisServerOnlyBy": "Chỉ tin tưởng máy chủ này thông qua khóa của nó. Sử dụng cho chứng chỉ tự ký, hoặc để từ chối bất kỳ khóa nào khác. Thêm khóa mới trước khi thay đổi chứng chỉ của máy chủ.",
+      "removePin": "Xóa pin {{pin}}",
+      "remove": "Xóa",
+      "readTheKeyFromThe": "Đọc khóa từ máy chủ",
+      "orPasteAPin": "Hoặc dán một pin",
+      "pin": "Pin",
+      "add": "Thêm",
+      "issuedTo": "Cấp cho: {{subject}}",
+      "issuedBy": "Cấp bởi: {{issuer}}",
+      "validUntil": "Hữu hiệu đến: {{value}}",
+      "checkThatThisKeyMatches": "Kiểm tra xem khóa này có khớp với khóa trên máy chủ của bạn trước khi ghim nó.",
+      "pasteTheBase64Sha256Of": "Dán base64 sha256 của khóa công khai máy chủ, giống như openssl in ra."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Đã lưu cài đặt proxy",
+      "couldNotSaveTheProxy": "Không thể lưu cài đặt proxy",
+      "couldNotReadThatFile": "Không thể đọc tệp đó",
+      "certificateSaved": "Đã lưu chứng chỉ",
+      "theFileOrItsPassphrase": "Tệp hoặc mật khẩu của nó không đúng",
+      "couldNotSaveTheCertificate": "Không thể lưu chứng chỉ",
+      "headers": "Headers",
+      "sentWithEveryRequestTo": "Được gửi kèm mọi yêu cầu đến máy chủ này, giống như token dịch vụ Cloudflare.",
+      "name": "Tên",
+      "value": "Giá trị",
+      "removeHeader": "Xóa header",
+      "addHeader": "Thêm header",
+      "cloudflareServiceToken": "Token dịch vụ Cloudflare",
+      "basicAuth": "Xác thực cơ bản",
+      "forAProxyThatAsks": "Dành cho proxy yêu cầu tên người dùng và mật khẩu.",
+      "userName": "Tên người dùng",
+      "password": "Mật khẩu",
+      "saveHeadersAndBasicAuth": "Lưu headers và xác thực cơ bản",
+      "clientCertificate": "Chứng chỉ máy khách",
+      "forServersThatAskFor": "Dành cho các máy chủ yêu cầu chứng chỉ (mTLS). Khóa được lưu trữ trong bộ nhớ an toàn của {{deviceWord}} và không thể đọc lại.",
+      "certificate": "Chứng chỉ",
+      "remove": "Xóa",
+      "replaceCertificate": "Thay thế chứng chỉ",
+      "pickAP12OrPfx": "Chọn tệp .p12 hoặc .pfx",
+      "proxySignIn": "Đăng nhập proxy",
+      "thisIsSignedInTo": " {{deviceWord}} này đã đăng nhập vào proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Dành cho Cloudflare Access, Authelia, Authentik và các proxy khác có trang đăng nhập riêng.{{value}}",
+      "signInToTheProxy": "Đăng nhập vào proxy",
+      "forget": "Quên",
+      "certificatePassphrase": "Mật khẩu chứng chỉ",
+      "thePassphraseTheFileWas": "Mật khẩu dùng để lưu tệp. Để trống nếu không có.",
+      "passphrase": "Mật khẩu",
+      "save": "Lưu"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Đã đăng nhập vào proxy",
+      "couldNotSaveTheProxy": "Không thể lưu đăng nhập proxy",
+      "signInToTheProxy": "Đăng nhập vào proxy",
+      "thisBuildOfTheApp": "Phiên bản ứng dụng này không thể duy trì đăng nhập qua proxy. Hãy sử dụng token dịch vụ trong tiêu đề proxy thay thế."
+    },
+    "savedLoginRow": {
+      "signIn": "Đăng nhập",
+      "signInWith": "Đăng nhập bằng {{name}}",
+      "whenThisServerSignsYou": "Khi máy chủ này đăng xuất bạn, hãy đăng nhập lại mà không cần nhập mật khẩu."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Đã hủy liên kết. {{copied}} mục đã được giữ lại trên Thiết bị này.",
+      "unlinked": "Đã hủy liên kết",
+      "couldNotUnlinkTheServer": "Không thể hủy liên kết máy chủ",
+      "unlink": "Hủy liên kết {{value}}?",
+      "thisSignsOutOfThe": "Thiết bị {{deviceWord}} này sẽ đăng xuất khỏi máy chủ. Không có dữ liệu nào bị xóa trên máy chủ.",
+      "keepACopyOnThis": "Giữ một bản sao trên Thiết bị này",
+      "yourOwnHostsCredentialsAnd": "Các máy chủ, thông tin đăng nhập và đoạn lệnh của bạn sẽ chuyển sang Thiết bị này. Các máy chủ được chia sẻ với bạn sẽ không được giữ lại.",
+      "deleteFromThis": "Xóa khỏi {{deviceWord}} này",
+      "everythingThisHasForThe": "Mọi dữ liệu mà {{deviceWord}} này có cho máy chủ sẽ bị xóa."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Thay đổi nó trong phần Proxy bên dưới",
+      "updateTermixMobileFromYour": "Cập nhật Termix Mobile từ cửa hàng ứng dụng của bạn"
+    },
+    "savedLogin": {
+      "signInToTermix": "Đăng nhập vào Termix",
+      "faceUnlock": "mở khóa khuôn mặt"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Phiên bản này không thể kiểm tra khóa đã ghim của máy chủ này hoặc gửi chứng chỉ của nó."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Máy chủ này không hỗ trợ tính năng này",
+      "theProxyWantsYouTo": "Proxy yêu cầu bạn đăng nhập",
+      "endpointNotAvailableOnThis": "Điểm cuối không khả dụng trên máy chủ này",
+      "unknownError": "Lỗi không xác định"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxy phía trước máy chủ này yêu cầu bạn đăng nhập lại.",
+      "authenticationRequiredPleaseLogIn": "Yêu cầu xác thực. Vui lòng đăng nhập lại.",
+      "accessDeniedYouDoNot": "Từ chối truy cập. Bạn không có quyền thực hiện hành động này.",
+      "thisFeatureIsTurnedOff": "Tính năng này đã bị tắt trên máy chủ.",
+      "thisServerDoesNotSupport": "Máy chủ này không hỗ trợ tính năng này.",
+      "resourceNotFoundTheRequested": "Không tìm thấy tài nguyên. Mục được yêu cầu có thể đã bị xóa.",
+      "conflictTheResourceAlreadyExists": "Xung đột. Tài nguyên đã tồn tại hoặc đang được sử dụng.",
+      "validationErrorPleaseCheckYour": "Lỗi xác thực. Vui lòng kiểm tra đầu vào của bạn và thử lại.",
+      "serverErrorOccurredPleaseTry": "Đã xảy ra lỗi máy chủ. Vui lòng thử lại sau.",
+      "sslCertificateVerificationFailed": "Xác minh chứng chỉ SSL thất bại.",
+      "networkErrorPleaseCheckYour": "Lỗi mạng. Vui lòng kiểm tra kết nối của bạn và thử lại.",
+      "failedTo": "Không thể {{operation}}",
+      "unknownError": "Lỗi không xác định",
+      "unexpectedErrorDuring": "Lỗi không mong muốn trong quá trình {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Ứng dụng không thể tin tưởng HTTPS cho địa chỉ IP cục bộ này. Ghim khóa của máy chủ trong phần Proxy và chứng chỉ máy khách, sử dụng chứng chỉ mà {{deviceWord}} tin tưởng, hoặc sử dụng HTTP trên mạng cục bộ hoặc VPN đáng tin cậy.",
+        "thisServerIsBehindA": "Máy chủ này nằm sau một proxy đăng nhập. Hãy sử dụng tùy chọn đăng nhập bên ngoài thay thế.",
+        "loginFailed": "Đăng nhập thất bại"
+      },
+      "files": {
+        "fileNotFound": "Không tìm thấy tệp",
+        "fileWriteOperationDidNot": "Thao tác ghi tệp không trả về trạng thái thành công",
+        "couldNot": "Không thể {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Đã lưu máy chủ, nhưng một số cài đặt thất bại: {{value}}",
+        "unexpectedHostResponseFrom": "Phản hồi không mong đợi từ máy chủ {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Lấy mẫu trực tiếp thất bại"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Không có phản hồi"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Máy chủ này không hiển thị khóa đã ghim, vì vậy trang không được mở."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "{{what}} đó không còn tồn tại.",
+      "aHostCannotBeIts": "Một máy chủ không thể là cha của chính nó",
+      "parentHostNotFound": "Không tìm thấy máy chủ cha",
+      "aHostCanTGo": "Một máy chủ không thể nằm dưới một trong các máy chủ con của chính nó",
+      "thisIsSharedWithYou": "{{what}} này được chia sẻ với bạn. Chỉ chủ sở hữu mới có thể thay đổi nó.",
+      "nameIsRequired": "Tên là bắt buộc",
+      "nameAndCommandAreRequired": "Tên và lệnh là bắt buộc",
+      "aFolderWithThatName": "Một thư mục với tên đó đã tồn tại"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Thiết bị này không thể lưu {{what}} ở đây."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Đoạn lệnh này được chia sẻ với bạn và không thể thay đổi."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Sử dụng mật khẩu có ít nhất 8 ký tự.",
+      "thisIsNotATermix": "Đây không phải là tệp sao lưu Termix.",
+      "thisBackupIsFromA": "Bản sao lưu này từ phiên bản mới hơn của Termix. Vui lòng cập nhật ứng dụng trước.",
+      "wrongPassphraseOrTheFile": "Mật khẩu sai hoặc tệp bị hỏng."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Phiên bản này không thể mã hóa dữ liệu cục bộ."
+    },
+    "keys": {
+      "unlockTermixFirst": "Mở khóa Termix trước.",
+      "thatIsNotADatabase": "Đó không phải là khóa cơ sở dữ liệu.",
+      "couldNotSaveTheDatabase": "Không thể lưu khóa cơ sở dữ liệu."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Dữ liệu này được lưu bởi phiên bản mới hơn của Termix. Cập nhật ứng dụng để mở nó."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Thiết bị này không đồng bộ.",
+      "localDataIsNotAvailable": "Dữ liệu cục bộ không khả dụng ở đây.",
+      "unlockTermixFirst": "Mở khóa Termix trước."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Không thể kết nối.",
+      "thisWayCanTRun": "Cách này không thể chạy lệnh"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Mật khẩu Sudo",
+      "password": "Mật khẩu",
+      "run": "Chạy",
+      "thatPasswordWasWrong": "Mật khẩu đó sai.",
+      "onNeedsRoot": "{{reason}} trên {{hostName}} cần quyền root.",
+      "needsRootForThis": "{{hostName}} cần quyền root cho việc này.",
+      "itIsKeptUntilYou": "Nó sẽ được giữ cho đến khi bạn đóng ứng dụng."
+    },
+    "run": {
+      "theHostTookTooLong": "Máy chủ mất quá nhiều thời gian để phản hồi",
+      "connectionLost": "Mất kết nối"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Việc này cần quyền root. Đăng nhập bằng root, thiết lập sudo không mật khẩu, hoặc lưu mật khẩu sudo cho máy chủ.",
+      "theSudoPasswordWasWrong": "Mật khẩu sudo sai",
+      "commandFailed": "Lệnh thất bại"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet trong terminal cần kết nối từ {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Tính năng {{id}} đã được đăng ký"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Địa chỉ",
+      "theIpOrHostName": "IP hoặc tên máy chủ dưới tên",
+      "username": "Tên người dùng",
+      "theUserBeforeTheAddress": "Người dùng trước địa chỉ",
+      "port": "Cổng",
+      "thePortAfterTheAddress": "Cổng sau địa chỉ",
+      "hostIcon": "Biểu tượng máy chủ",
+      "theIconSetOnThe": "Biểu tượng đặt trên máy chủ",
+      "pinIcon": "Biểu tượng ghim",
+      "marksPinnedHosts": "Đánh dấu máy chủ đã ghim",
+      "sharedBadge": "Huy hiệu chia sẻ",
+      "marksHostsSharedWithYou": "Đánh dấu máy chủ được chia sẻ với bạn",
+      "protocolBadges": "Huy hiệu giao thức",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker và các nhãn khác",
+      "tags": "Thẻ",
+      "theHostSTags": "Thẻ của máy chủ",
+      "cpuAndRam": "CPU và RAM",
+      "liveUsageBarsOnOnline": "Thanh sử dụng trực tiếp trên máy chủ trực tuyến",
+      "statusColors": "Màu trạng thái",
+      "greenBarWhenOnlineRed": "Thanh xanh khi trực tuyến, đỏ khi ngoại tuyến"
+    },
+    "uiPrefs": {
+      "small": "Nhỏ",
+      "default": "Mặc định",
+      "large": "Lớn",
+      "comfortable": "Thoải mái",
+      "compact": "Gọn gàng"
+    },
+    "errors": {
+      "somethingWentWrong": "Đã xảy ra lỗi"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Khóa khóa bằng mật khẩu cần ứng dụng Termix, không phải bản xem trước web."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Ngay lập tức",
+      "after15Seconds": "Sau 15 giây",
+      "after1Minute": "Sau 1 phút",
+      "after5Minutes": "Sau 5 phút"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Bí mật thiết bị đã mất",
+      "noSealedKey": "Không có khóa đã niêm phong",
+      "theSealedKeyIsDamaged": "Khóa đã niêm phong bị hỏng",
+      "wrongPin": "Mã PIN sai",
+      "theSealedKeyDidNot": "Khóa đã niêm phong không thể mở",
+      "biometricsCanTOpenThe": "Xác thực sinh trắc học không thể mở khóa"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Cập nhật ứng dụng",
+      "onYourServerNeedsA": "{{name}} trên máy chủ của bạn cần phiên bản Termix mới hơn trên {{deviceWord}} này.",
+      "updateThePlugin": "Cập nhật plugin",
+      "onYourServerIsToo": "{{name}} trên máy chủ của bạn quá cũ so với ứng dụng này. Hãy yêu cầu quản trị viên cập nhật nó trong mục Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Bị ứng dụng chặn",
+      "theAppDoesNotLet": "Ứng dụng không cho phép plugin sử dụng tuyến đường này.",
+      "thisBuildCanTReach": "Phiên bản này không thể kết nối an toàn đến máy chủ này."
+    },
+    "support": {
+      "needsANewerVersionOf": "Cần phiên bản ứng dụng mới hơn",
+      "updateThePluginOnThe": "Cập nhật plugin trên máy chủ",
+      "theAppHasItsOwn": "Ứng dụng có giao diện riêng",
+      "notInTheAppYet": "Chưa có trong ứng dụng",
+      "linkAServerToUse": "Liên kết máy chủ để sử dụng",
+      "opensInTheAppFrom": "Mở trong ứng dụng từ máy chủ",
+      "runsOnTheServer": "Chạy trên máy chủ",
+      "throughTheServer": "Qua máy chủ",
+      "inTheApp": "Trong ứng dụng",
+      "webView": "Chế độ xem web",
+      "onTheServer": "Trên máy chủ",
+      "appLook": "Giao diện ứng dụng",
+      "notInTheApp": "Không có trong ứng dụng",
+      "safeMode": "Chế độ an toàn",
+      "notRunning": "Không đang chạy",
+      "notInstalled": "Chưa cài đặt",
+      "notOnThisServer": "Không có trên máy chủ này",
+      "thePluginIsNotInstalled": "Plugin chưa được cài đặt trên máy chủ này.",
+      "turnedOffOnTheServer": "Đã tắt trên máy chủ",
+      "itOpensHereAgainWhen": "Nó sẽ mở lại ở đây khi quản trị viên bật nó lên.",
+      "notRunningOnTheServer": "Không đang chạy trên máy chủ",
+      "theServerIsInSafe": "Máy chủ đang ở chế độ an toàn, vì vậy chỉ các plugin giao diện mới chạy.",
+      "thePluginDidNotStart": "Plugin không khởi động được. Quản trị viên có thể kiểm tra nó trong mục Plugins.",
+      "thisPluginIsNotAvailable": "Plugin này không khả dụng",
+      "itIsNotMadeFor": "Nó không được thiết kế cho ứng dụng này.",
+      "offOnThisServer": "tắt trên máy chủ này",
+      "notRunningOnThisServer": "không đang chạy trên máy chủ này",
+      "notOnThisServer2": "không có trên máy chủ này",
+      "notInTheAppYet2": "Chưa có trong ứng dụng | trên máy chủ này",
+      "worksOnThis": "Hoạt động trên {{deviceWord}} này",
+      "andServer": "{{DeviceWord}} và máy chủ",
+      "deviceOnly": "Chỉ {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Tải lại"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Ngắt kết nối tất cả",
+      "showOpenSessions": "Hiển thị các phiên đang mở",
+      "termixShowsANotificationWhile": "Termix hiển thị thông báo khi các phiên đang mở, để Android giữ chúng chạy ở chế độ nền.",
+      "sessionsOpen_other": "{{count}} phiên đang mở",
+      "tunnelsActive_other": "{{count}} đường hầm đang hoạt động",
+      "notConnected": "Chưa kết nối",
+      "waitingForNetwork": "Đang chờ mạng",
+      "connecting": "Đang kết nối",
+      "connected": "Đã kết nối",
+      "reconnecting": "Đang kết nối lại",
+      "failed": "Thất bại",
+      "closed": "Đã đóng"
+    },
+    "companionPane": {
+      "resizeThePanel": "Điều chỉnh kích thước bảng {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Đóng",
+      "closeAllTabs": "Đóng tất cả {{count}} tab?",
+      "everySessionEnds": "Mọi phiên sẽ kết thúc.",
+      "closeAll": "Đóng tất cả",
+      "noActiveConnections": "Không có kết nối đang hoạt động",
+      "pickAHostFromThe": "Chọn một host từ danh sách để bắt đầu phiên làm việc. Các tab bạn mở trên các thiết bị khác cũng sẽ hiển thị ở đây.",
+      "connectToAHostTo": "Kết nối với một host để bắt đầu phiên làm việc. Các tab bạn mở trên các thiết bị khác cũng sẽ hiển thị ở đây.",
+      "open": "Mở",
+      "background": "Chế độ nền",
+      "sessionsFromOtherDevicesOr": "Các phiên từ thiết bị khác hoặc các tab đang chạy ở chế độ nền. Nhấn để khôi phục.",
+      "liveTapToReconnect": "Đang hoạt động, nhấn để kết nối lại",
+      "tapToReopen": "Nhấn để mở lại"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Tính năng này đã bị tắt trên máy chủ",
+      "comesBackHereWhenAn": "{{title}} sẽ xuất hiện trở lại ở đây khi quản trị viên bật lại plugin của nó.",
+      "closeTab": "Đóng tab"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Kết nối",
+        "hideHostList": "Ẩn danh sách host",
+        "showHostList": "Hiện danh sách host",
+        "backToHosts": "Quay lại danh sách host",
+        "showKeyboard": "Hiện bàn phím",
+        "hideKeyboard": "Ẩn bàn phím",
+        "hideKeysPanel": "Ẩn bảng phím tắt",
+        "showKeysPanel": "Hiện bảng phím tắt"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Nhấn để xem tùy chọn tab, giữ để di chuyển",
+        "holdToMove": "Giữ để di chuyển",
+        "close": "Đóng {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Đang chờ mạng",
+        "connectionFailed": "Kết nối thất bại",
+        "reconnecting": "Đang kết nối lại"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Đổi tên",
+      "newTabOnThisHost": "Tab mới trên host này",
+      "here": "{{title}} tại đây",
+      "hidePanel": "Ẩn bảng {{title}}",
+      "showPanel": "Hiện bảng {{title}}",
+      "endSplitView": "Thoát chế độ chia màn hình",
+      "splitViewWith": "Chia màn hình với...",
+      "moveLeft": "Di chuyển sang trái",
+      "moveRight": "Di chuyển sang phải",
+      "closeTab": "Đóng tab",
+      "closeAllTabs": "Đóng tất cả tab",
+      "closeAllTabs2": "Đóng tất cả {{count}} tab?",
+      "everySessionEnds": "Tất cả các phiên sẽ bị kết thúc.",
+      "closeAll": "Đóng tất cả",
+      "splitViewWith2": "Chia màn hình với",
+      "renameTab": "Đổi tên tab",
+      "leaveItEmptyToUse": "Để trống để sử dụng tên của host."
+    },
+    "resizeHostList": "Điều chỉnh kích thước danh sách host",
+    "resizeSplitView": "Điều chỉnh kích thước chế độ chia màn hình",
+    "connections": "Kết nối",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Xác thực hai yếu tố",
+        "enterThe6DigitCode": "Nhập mã 6 chữ số từ ứng dụng xác thực của bạn.",
+        "cancel": "Hủy",
+        "verify": "Xác minh",
+        "codeExpiresInSGet": "Mã sẽ hết hạn sau {{totpCountdown}} giây, lấy mã mới",
+        "warpgateAuthentication": "Xác thực Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Xác nhận URL xác thực Warpgate và khóa bảo mật.",
+        "authenticate": "Xác thực",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Khóa bảo mật (tùy chọn)",
+        "authenticationRequired": "Yêu cầu xác thực",
+        "thisHostNeedsCredentialsTo": "Host này cần thông tin đăng nhập để kết nối.",
+        "connect": "Kết nối",
+        "password": "Mật khẩu",
+        "sshKey": "Khóa SSH",
+        "pastePrivateKey": "Dán khóa riêng",
+        "keyPassphraseOptional": "Mật khẩu khóa (tùy chọn)"
+      },
+      "connectionError": {
+        "tryAgain": "Thử lại",
+        "close": "Đóng",
+        "connectThroughTheServer": "Kết nối qua máy chủ",
+        "connectFromThis": "Kết nối từ {{deviceWord}} này",
+        "triedFromThis": "Đã thử từ {{deviceWord}} này",
+        "triedThroughTheServer": "Đã thử qua máy chủ"
+      },
+      "execGate": {
+        "connecting": "Đang kết nối..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Đã xảy ra lỗi",
+        "retry": "Thử lại",
+        "refresh": "Làm mới",
+        "nothingToShow": "Không có gì để hiển thị"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Đã sao chép nhật ký",
+        "connectionLog": "Nhật ký kết nối ({{count}})",
+        "copyLog": "Sao chép nhật ký",
+        "waitingForConnection": "Đang chờ kết nối…",
+        "noLogEntries": "Không có mục nhật ký"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Không thể lưu cách máy chủ này kết nối"
+      },
+      "useSessionConnect": {
+        "connected": "Đã kết nối",
+        "connectingTo": "Đang kết nối đến {{name}}…",
+        "connectionLost": "Mất kết nối",
+        "failedToConnect": "Không thể kết nối",
+        "invalidCode": "Mã không hợp lệ",
+        "warpgateAuthenticationFailed": "Xác thực Warpgate thất bại",
+        "authenticationCancelled": "Đã hủy xác thực"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Tìm kiếm và lệnh",
+    "addHost": "Thêm máy chủ",
+    "keyboardShortcuts": "Phím tắt bàn phím",
+    "home": "Trang chủ",
+    "hosts": "Máy chủ",
+    "sessions": "Phiên làm việc",
+    "tools": "Công cụ",
+    "settings": "Cài đặt",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Phím tắt bàn phím"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Máy chủ và thư mục",
+      "yourHostsFoldersAndHosts": "Máy chủ, thư mục của bạn và máy chủ được chia sẻ với bạn",
+      "credentials": "Thông tin đăng nhập",
+      "savedPasswordsAndKeysAnd": "Mật khẩu và khóa đã lưu, cùng thông tin đăng nhập được chia sẻ với bạn",
+      "snippets": "Mảnh lệnh",
+      "snippetsAndTheirFolders": "Mảnh lệnh và thư mục của chúng",
+      "hostDefaults": "Cài đặt mặc định cho máy chủ",
+      "defaultSettingsForNewHosts": "Cài đặt mặc định cho máy chủ mới",
+      "preferences": "Tùy chọn",
+      "settingsThatFollowYouBetween": "Cài đặt theo bạn giữa các thiết bị"
+    },
+    "link": {
+      "noSuchServerAccount": "Không tìm thấy tài khoản máy chủ này",
+      "signInFirst": "Vui lòng đăng nhập trước.",
+      "thisServerAccountBelongsTo": "Tài khoản máy chủ này thuộc về {{value}}. Vui lòng đăng nhập với tài khoản đó, hoặc thêm máy chủ này lại cho người dùng hiện tại."
+    },
+    "reasons": {
+      "signedOut": "Đã đăng xuất",
+      "thisSSignInTo": "Phiên đăng nhập của {{deviceWord}} này vào máy chủ đã hết hạn.",
+      "theServerEndedThisS": "Máy chủ đã kết thúc phiên của {{deviceWord}} này. Có thể bạn đã đăng xuất từ thiết bị khác.",
+      "proxySignInNeeded": "Cần đăng nhập qua proxy",
+      "theProxyInFrontOf": "Proxy phía trước máy chủ này yêu cầu bạn đăng nhập lại.",
+      "proxyPasswordNeeded": "Cần mật khẩu proxy",
+      "theProxyInFrontOf2": "Proxy phía trước máy chủ này yêu cầu mật khẩu.",
+      "certificateRefused": "Chứng chỉ bị từ chối",
+      "theServerDidNotAccept": "Máy chủ không chấp nhận chứng chỉ của {{deviceWord}} này.",
+      "untrustedServer": "Máy chủ không đáng tin",
+      "theServerSCertificateIs": "Chứng chỉ của máy chủ không được {{deviceWord}} này tin cậy.",
+      "serverKeyChanged": "Khóa máy chủ đã thay đổi",
+      "theServerShowsAnotherKey": "Máy chủ hiển thị một khóa khác với khóa đã ghim cho nó. Nếu bạn đã thay đổi chứng chỉ của nó, hãy ghim khóa mới.",
+      "offline": "Ngoại tuyến",
+      "canTReachTheServer": "Không thể kết nối đến máy chủ. Đồng bộ hóa sẽ thử lại sớm.",
+      "serverProblem": "Lỗi máy chủ",
+      "theServerHadAProblem": "Máy chủ gặp sự cố. Đồng bộ hóa sẽ thử lại sớm.",
+      "updateNeeded": "Cần cập nhật",
+      "thisServerUsesANewer": "Máy chủ này sử dụng phiên bản đồng bộ hóa mới hơn. Hãy cập nhật ứng dụng.",
+      "notATermixServer": "Không phải máy chủ Termix",
+      "theAddressDoesNotAnswer": "Địa chỉ này không phản hồi như một máy chủ Termix.",
+      "syncIsOff": "Đồng bộ hóa đã tắt",
+      "theSyncPluginIsOff": "Plugin Đồng bộ hóa đang tắt trên máy chủ này. Hãy yêu cầu quản trị viên bật nó trong mục Plugin.",
+      "differentUser": "Người dùng khác",
+      "youSignedInAsA": "Bạn đã đăng nhập với một người dùng khác với tài khoản máy chủ này thuộc về.",
+      "syncStopped": "Đồng bộ hóa đã dừng",
+      "somethingWentWrong": "Đã xảy ra lỗi.",
+      "signInAgain": "Đăng nhập lại",
+      "signInToTheProxy": "Đăng nhập vào proxy",
+      "enterThePassword": "Nhập mật khẩu",
+      "tryAgain": "Thử lại",
+      "checkThePin": "Kiểm tra mã ghim",
+      "checkForUpdates": "Kiểm tra cập nhật",
+      "pickACertificate": "Chọn chứng chỉ"
+    },
+    "settings": {
+      "noSuchSetting": "Không có cài đặt này",
+      "snippetFolder": "Thư mục đoạn lệnh",
+      "hostDefault": "Mặc định của máy chủ"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Máy chủ không chấp nhận chứng chỉ của {{deviceWord}} này.",
+      "theServerSCertificateIs": "Chứng chỉ của máy chủ không được tin cậy.",
+      "canTReachTheServer": "Không thể kết nối đến máy chủ.",
+      "signedOut": "Đã đăng xuất",
+      "theProxyAskedForIts": "Proxy yêu cầu mật khẩu của nó.",
+      "theProxyWantsYouTo": "Proxy yêu cầu bạn đăng nhập.",
+      "theSyncPluginIsOff": "Plugin Đồng bộ hóa đang tắt trên máy chủ này.",
+      "serverError": "Lỗi máy chủ {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Máy chủ hiển thị một khóa khác với khóa đã ghim."
+    },
+    "remote": {
+      "thisIsNotATermix": "Đây không phải là máy chủ Termix.",
+      "theProxyWantsYouTo": "Proxy yêu cầu bạn đăng nhập.",
+      "thisServerUsesANewer": "Máy chủ này sử dụng phiên bản đồng bộ hóa mới hơn. Hãy cập nhật ứng dụng."
+    },
+    "copy": {
+      "hostCount_other": "{{count}} máy chủ",
+      "credentialCount_other": "{{count}} thông tin đăng nhập",
+      "snippetCount_other": "{{count}} đoạn lệnh",
+      "folderCount_other": "{{count}} thư mục",
+      "nothingYet": "chưa có gì",
+      "listAnd": "{{list}} và {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Không thể kết nối.",
+      "connectingToFromThis": "Đang kết nối đến {{name}} từ {{deviceWord}} này",
+      "connectingToThroughTheServer": "Đang kết nối đến {{name}} qua máy chủ",
+      "reconnectingTry": "Đang kết nối lại (lần thử {{retry}})",
+      "disconnected": "Đã ngắt kết nối",
+      "connected": "Đã kết nối",
+      "reconnectedToTheSameSession": "Đã kết nối lại vào cùng phiên làm việc",
+      "reconnectedWithANewShell": "Đã kết nối lại với shell mới",
+      "couldNotReachTheHost": "Không thể kết nối đến máy chủ từ {{deviceWord}} này, đang thử qua máy chủ trung gian",
+      "couldNotConnectThroughThe": "Không thể kết nối qua máy chủ trung gian, đang thử từ {{deviceWord}} này",
+      "connectionLost": "Mất kết nối: {{reason}}",
+      "offlineWaitingForTheNetwork": "Ngoại tuyến, đang chờ mạng",
+      "nextTryInS": "Lần thử tiếp theo sau {{value}} giây",
+      "reconnectingTry2": "Đang kết nối lại (lần thử {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Máy chủ ngừng phản hồi",
+      "networkLost": "Mất kết nối mạng",
+      "network": "Mạng: {{type}}{{value}}",
+      "lowPowerModeOn": "Chế độ tiết kiệm pin đang bật",
+      "lowPowerModeOff": "Chế độ tiết kiệm pin đang tắt",
+      "droppedTypedCharacters": "Đã bỏ {{count}} ký tự đã nhập",
+      "youDidNotTrustThe": "Bạn chưa tin tưởng khóa máy chủ.",
+      "checkTheKeyWithWhoever": "Hãy kiểm tra khóa với người quản lý máy chủ, sau đó thử lại.",
+      "loginCancelled": "Đăng nhập đã bị hủy.",
+      "connectAgainWhenYouAre": "Kết nối lại khi bạn sẵn sàng.",
+      "typedInputIsOver64": "Dữ liệu nhập vượt quá 64 KB, phần cũ nhất đã bị bỏ",
+      "appInTheBackground": "Ứng dụng đang chạy ở nền",
+      "appInTheForeground": "Ứng dụng đang ở tiền cảnh",
+      "thisConnectionCanTRun": "Kết nối này không thể chạy lệnh"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Kiểm tra địa chỉ và cổng, cũng như khả năng máy chủ có thể tiếp cận được máy chủ đích.",
+      "checkTheAddressAndPort2": "Kiểm tra địa chỉ và cổng, cũng như khả năng {{deviceWord}} này có thể tiếp cận được máy chủ.",
+      "checkTheProxySettingsOf": "Kiểm tra cài đặt proxy của máy chủ này.",
+      "checkTheKeyWithWhoever": "Hãy kiểm tra khóa với người quản lý máy chủ trước khi tin tưởng nó.",
+      "checkTheUsernameAndLogin": "Kiểm tra tên người dùng và thông tin đăng nhập trong trình chỉnh sửa máy chủ.",
+      "checkThatTheServerIs": "Kiểm tra xem máy chủ có đang hoạt động và bạn vẫn còn đăng nhập hay không.",
+      "tryAgainIfItKeeps": "Thử lại. Nếu kết nối vẫn bị ngắt, hãy kiểm tra mạng.",
+      "connectAgainWhenYouAre": "Kết nối lại khi bạn sẵn sàng.",
+      "pickAnotherWayToConnect": "Chọn cách kết nối khác cho máy chủ này.",
+      "connectThisHostThroughA": "Kết nối máy chủ này thông qua máy chủ Termix.",
+      "pickTheJumpHostsAgain": "Chọn lại các máy chủ trung gian trong trình chỉnh sửa máy chủ.",
+      "thisIsATailscaleAddress": "Đây là địa chỉ Tailscale. Kiểm tra xem Tailscale có đang kết nối trên {{deviceWord}} này không.",
+      "theSavedKeyCanT": "Không thể đọc khóa đã lưu. Hãy dán lại khóa trong trình chỉnh sửa máy chủ.",
+      "signInToThisServer": "Đăng nhập lại vào máy chủ này.",
+      "openThisHostInThe": "Mở máy chủ này trong ứng dụng web Termix.",
+      "canTConnectThisWay": "Không thể kết nối theo cách này",
+      "couldNotReachTheHost": "Không thể tiếp cận máy chủ",
+      "theProxyDidNotLet": "Proxy không cho phép kết nối đi qua",
+      "theHostKeyWasNot": "Khóa máy chủ chưa được tin tưởng",
+      "theLoginWasRefused": "Đăng nhập bị từ chối",
+      "theTermixServerDidNot": "Máy chủ Termix không phản hồi",
+      "theConnectionDropped": "Kết nối bị ngắt",
+      "loginCancelled": "Đăng nhập đã bị hủy"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "Máy chủ này đăng nhập bằng \"{{authType}}\", cần máy chủ Termix. Hãy liên kết một máy chủ để kết nối.",
+        "thisHostUsesA1password": "Máy chủ này sử dụng tham chiếu 1Password, cần máy chủ Termix có Secret Sources. Hãy liên kết một máy chủ và kết nối máy chủ này thông qua nó.",
+        "signInWithFirstOpen": "Đăng nhập bằng {{title}} trước. Mở một terminal đến máy chủ này một lần, sau đó thử lại.",
+        "theSignInAndThe": "thông tin đăng nhập và chứng chỉ nằm trên máy chủ",
+        "theHasNoSshAgent": "{{deviceWord}} không có SSH agent",
+        "needsATermixServerBecause": "{{title}} cần máy chủ Termix vì {{why}}. Hãy liên kết một máy chủ và kết nối máy chủ này thông qua nó."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Một máy chủ trung gian của máy chủ này không còn tồn tại."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Kết nối bị ngắt",
+        "theShellChannelClosed": "Kênh shell đã đóng",
+        "jumpHost": "Máy chủ trung gian {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Mã không hợp lệ, thử lại:",
+        "authenticationFailed": "Xác thực thất bại: {{message}}",
+        "theHostKeyWasNot": "Khóa máy chủ chưa được tin tưởng.",
+        "loginCancelled": "Đăng nhập đã bị hủy.",
+        "notConnected": "Chưa kết nối"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Kết nối bị ngắt"
+      },
+      "thisBuildHasNoSsh": "Phiên bản này không có công cụ SSH. Hãy dùng ứng dụng từ cửa hàng, hoặc liên kết máy chủ Termix để kết nối.",
+      "theHostsOnThisAre": "Các máy chủ trên {{deviceWord}} này chưa được mở.",
+      "thisServerSHostsAre": "Các máy chủ của máy chủ này không có trên {{deviceWord}} này. Bật plugin Đồng bộ hóa trên máy chủ để kết nối từ {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Không thể kết nối.",
+      "canTConnectFromThe": "Không thể kết nối từ {{deviceWord}} này.",
+      "canTReachTheServer": "Không thể tiếp cận máy chủ.",
+      "theOnlyConnectsToSsh": "Thiết bị {{deviceWord}} chỉ kết nối đến các máy chủ SSH và Telnet.",
+      "connectThisHostThroughThe": "Kết nối máy chủ này thông qua máy chủ trung gian",
+      "connectThisHostFromThe": "Kết nối máy chủ này từ {{deviceWord}}",
+      "termixServer": "Máy chủ Termix",
+      "usesThisWhenItCan": "Sử dụng {{deviceWord}} này khi có thể kết nối đến máy chủ, nếu không thì dùng máy chủ trung gian.",
+      "thisConnectsToTheHost": "{{deviceWord}} này kết nối trực tiếp đến máy chủ.",
+      "theTermixServerConnectsTo": "Máy chủ Termix sẽ kết nối đến máy chủ thay cho bạn.",
+      "anSshConnection": "một kết nối SSH",
+      "aTermixServer": "một máy chủ Termix",
+      "aConnectionFromThe": "một kết nối từ {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} đang tắt trên máy chủ này. {{how}} để sử dụng.",
+      "isOffOnThisServer2": "{{title}} đang tắt trên máy chủ này.",
+      "anotherWayToConnect": "một cách kết nối khác",
+      "needsToUseIt": "{{title}} cần {{what}}. {{how}} để sử dụng.",
+      "needsWhichThisHostCan": "{{title}} cần {{what}}, nhưng máy chủ này hiện không thể sử dụng được.",
+      "thisDevice": "{{deviceWord}} này",
+      "automatic": "Tự động"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Bạn đã đăng xuất khỏi máy chủ này. Đăng nhập để kết nối thông qua nó.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux chưa được cài đặt trên máy chủ này. Đang sử dụng shell cơ bản.",
+        "tapRetryToBringIt": "Nhấn Thử lại để khôi phục nó ở đây.",
+        "thisSessionWasOpenedOn": "Phiên làm việc này đã được mở trên một thiết bị khác",
+        "noServerUrlFoundLink": "Không tìm thấy URL máy chủ. Vui lòng liên kết lại máy chủ.",
+        "signedOutOfThisServer": "Đã đăng xuất khỏi máy chủ này. Vui lòng đăng nhập lại.",
+        "signInWithInYour": "Đăng nhập bằng {{title}} trong trình duyệt. Cửa sổ này sẽ đóng khi hoàn tất.",
+        "theSocketClosedWhileThe": "Socket đã đóng khi ứng dụng chạy nền",
+        "noWebsocketUrlAvailableServer": "Không có URL WebSocket khả dụng - máy chủ chưa được cấu hình",
+        "connectionTimeoutServerNotResponding": "Hết thời gian kết nối - máy chủ không phản hồi",
+        "verificationCode": "Mã xác minh:",
+        "hostKeyVerificationRequiredBut": "Yêu cầu xác minh khóa máy chủ nhưng không có trình xử lý nào được đăng ký",
+        "hostKeyChangedButNo": "Khóa máy chủ đã thay đổi nhưng không có trình xử lý nào được đăng ký",
+        "thisHostNeedsASign": "Máy chủ này yêu cầu đăng nhập chỉ được hỗ trợ bởi ứng dụng web",
+        "invalidCodeTryAgain": "Mã không hợp lệ, vui lòng thử lại:",
+        "unknownError": "Lỗi không xác định",
+        "connectionClosed": "Kết nối đã đóng",
+        "connectionClosed2": "Kết nối đã đóng ({{code}})",
+        "theServerClosedTheConnection": "Máy chủ đã đóng kết nối",
+        "theSocketClosed": "Socket đã đóng ({{code}})",
+        "signIn": "Đăng nhập {{title}}",
+        "signInFailed": "Đăng nhập {{title}} thất bại",
+        "isNotSetUpOn": "{{title}} chưa được thiết lập trên máy chủ",
+        "signInTimedOut": "Đăng nhập {{title}} hết thời gian chờ",
+        "authenticationFailed": "Xác thực thất bại: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Lưu máy chủ và kết nối đến nó để kiểm tra.",
+      "loggedInAsOn": "Đã đăng nhập với tên {{username}} trên {{host}}",
+      "theHostAskedForMore": "Máy chủ yêu cầu thêm thông tin ngoài mật khẩu, chẳng hạn như mã xác minh. Lưu máy chủ và kết nối để hoàn tất đăng nhập."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Đang chờ mạng",
+      "couldNotOpenTheTunnel": "Không thể mở đường hầm",
+      "theConnectionDropped": "Kết nối bị gián đoạn",
+      "iosStoppedThisTunnelWhile": "iOS đã dừng đường hầm này khi ứng dụng chạy nền. Khởi động lại để mở nó.",
+      "connecting": "Đang kết nối",
+      "connected": "Đã kết nối",
+      "retrying": "Đang thử lại",
+      "waiting": "Đang chờ",
+      "failed": "Thất bại"
+    },
+    "gateways": {
+      "error": "Lỗi",
+      "gateways": "Cổng kết nối",
+      "gatewaysCanOnlyBeChanged": "Cổng kết nối chỉ có thể thay đổi trong Termix trên web.",
+      "noHandshake": "Không có bắt tay",
+      "rulesMissing": "Thiếu quy tắc",
+      "up": "Hoạt động",
+      "pending": "Đang chờ",
+      "applying": "Đang áp dụng",
+      "down": "Ngừng hoạt động",
+      "unreachable": "Không thể kết nối"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Chưa có đường hầm nào. Hãy thêm một đường hầm để chuyển tiếp cổng từ máy chủ đích sang máy chủ này.",
+      "tunnel": "Đường hầm {{value}}",
+      "removeTunnel": "Xóa đường hầm {{value}}",
+      "mode": "Chế độ",
+      "local": "Cục bộ",
+      "remote": "Xa",
+      "dynamic": "Động",
+      "targetHost": "Máy chủ đích",
+      "onThisHostForTunnels": "Trên máy chủ này, cho các đường hầm mà {{deviceWord}} chạy",
+      "bindHost": "Máy chủ ràng buộc",
+      "endpointHost": "Máy chủ đầu cuối",
+      "addAnotherHostFirstTunnels": "Hãy thêm một máy chủ khác trước. Đường hầm đi qua một máy chủ đã lưu.",
+      "sourcePort": "Cổng nguồn",
+      "endpointPort": "Cổng đầu cuối",
+      "maxRetries": "Số lần thử lại tối đa",
+      "retryEveryS": "Thử lại mỗi (giây)",
+      "startOnItsOwn": "Tự động khởi động",
+      "addTunnel": "Thêm đường hầm",
+      "tunnelNeedsPortsFrom1": "Đường hầm {{value}} cần cổng từ 1 đến 65535"
+    },
+    "register": {
+      "tunnels": "Đường hầm",
+      "startAndStopSavedTunnels": "Khởi động và dừng các đường hầm đã lưu",
+      "tunnel": "ĐƯỜNG HẦM",
+      "tunnel2": "Đường hầm"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Đã sao chép điểm cuối cục bộ",
+      "tunnel": "Đường hầm | {{sourcePort}}",
+      "portMapping": "Ánh xạ cổng",
+      "connect": "Kết nối",
+      "disconnect": "Ngắt kết nối",
+      "cancel": "Hủy",
+      "connected": "Đã kết nối",
+      "connecting": "Đang kết nối",
+      "disconnecting": "Đang ngắt kết nối",
+      "error": "Lỗi",
+      "retrying": "Đang thử lại ({{value}}/{{value2}})",
+      "waitingS": "Đang chờ {{value}}s",
+      "waiting": "Đang chờ",
+      "disconnected": "Đã ngắt kết nối"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Đang khởi động đường hầm trên cổng {{sourcePort}}",
+      "connectingTunnelOnPort": "Đang kết nối đường hầm trên cổng {{sourcePort}}",
+      "disconnectingPort": "Đang ngắt kết nối cổng {{sourcePort}}",
+      "cancellingPort": "Đang hủy cổng {{sourcePort}}",
+      "failedToTunnel": "Không thể {{action}} đường hầm",
+      "tunnels": "Đường hầm | {{count}} | {{value}}",
+      "loadingTunnels": "Đang tải đường hầm…",
+      "noSshTunnelsConfiguredFor": "Không có đường hầm SSH nào được cấu hình cho máy chủ này. Hãy thêm đường hầm từ biểu mẫu máy chủ.",
+      "runOn": "Chạy trên",
+      "server": "Máy chủ",
+      "this": "{{deviceWord}} này",
+      "tunnelsOnThisStopWhen": "Các đường hầm trên {{deviceWord}} này sẽ dừng khi ứng dụng đóng. Trên iOS, chúng cũng sẽ dừng ngay sau khi ứng dụng chạy nền.",
+      "failedToFetchTunnelStatuses": "Không thể lấy trạng thái đường hầm",
+      "thisBuildCanTOpen": "Phiên bản này không thể mở đường hầm trên {{deviceWord}}.",
+      "sourceHostNotFound": "Không tìm thấy máy chủ nguồn",
+      "endpointHostNotFound": "Không tìm thấy máy chủ đầu cuối: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Đường hầm",
+      "tunnelCount_other": "{{count}} đường hầm",
+      "runningOnServer": "{{connected}} đang chạy trên máy chủ"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Công cụ thông tin đăng nhập"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker chưa được cài đặt trên máy chủ này.",
+        "dockerDidNotAnswer": "Docker không phản hồi",
+        "thatIsNotAValid": "Tên stack không hợp lệ"
+      }
+    },
+    "containerDetail": {
+      "stop": "Dừng",
+      "start": "Khởi động",
+      "restart": "Khởi động lại",
+      "remove": "Xóa",
+      "logs": "Nhật ký",
+      "stats": "Thống kê",
+      "console": "Bảng điều khiển",
+      "logsCopied": "Đã sao chép nhật ký",
+      "copy": "Sao chép",
+      "containerIsNotRunningNo": "Container không đang chạy, không có thống kê trực tiếp.",
+      "cpu": "CPU",
+      "memory": "Bộ nhớ",
+      "networkIO": "I/O mạng",
+      "blockIO": "I/O khối",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Không thể tải nhật ký",
+      "failedToLoadStats": "Không thể tải thống kê",
+      "noOutput": "(không có đầu ra)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Đang kết nối với Docker...",
+    "remove": "Xóa {{name}}?",
+    "stop": "Dừng {{name}}?",
+    "theContainerIsStoppedAnd": "Container đã bị dừng và xóa. Các volume của nó vẫn được giữ lại.",
+    "anythingRunningInItStops": "Mọi thứ đang chạy trong đó sẽ bị dừng.",
+    "remove2": "Xóa",
+    "stop2": "Dừng",
+    "dockerThis": "Docker | {{deviceWord}} này",
+    "lookingForDocker": "Đang tìm Docker...",
+    "dockerIsNotAvailableOn": "Docker không khả dụng trên máy chủ này.",
+    "noContainersFound": "Không tìm thấy container nào",
+    "noContainersMatchYourFilters": "Không có container nào khớp với bộ lọc của bạn",
+    "useSudo": "Sử dụng sudo",
+    "refresh": "Làm mới",
+    "containers": "Container",
+    "stacks": "Stack",
+    "searchContainers": "Tìm kiếm container...",
+    "all": "Tất cả",
+    "running": "Đang chạy",
+    "stopped": "Đã dừng",
+    "start": "Khởi động",
+    "restart": "Khởi động lại",
+    "pause": "Tạm dừng",
+    "unpause": "Hủy tạm dừng",
+    "moreActions": "Hành động khác",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker không phản hồi",
+      "docker": "Docker",
+      "noContainers": "Không có container"
+    },
+    "dockerConsole": {
+      "attachingTo": "Đang kết nối với {{name}}...",
+      "consoleDisconnected": "Bảng điều khiển đã ngắt kết nối",
+      "reconnect": "Kết nối lại",
+      "failedToLoadTheConsole": "Không thể tải bảng điều khiển",
+      "thisSessionHasNoServer": "Phiên này không có máy chủ"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Container, nhật ký và thống kê"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stack đã bị tắt trên máy chủ này.",
+      "couldNotLoadStacks": "Không thể tải stack",
+      "noStacks": "Không có stack",
+      "composeProjectsOnThisHost": "Các dự án Compose trên host này sẽ hiển thị ở đây.",
+      "ofRunning": "{{running}} trong số {{total}} đang chạy",
+      "couldNotLoadTheStack": "Không thể tải stack",
+      "services": "Dịch vụ",
+      "nothingIsRunning": "Không có gì đang chạy.",
+      "composeFile": "Tệp Compose",
+      "partlyUp": "đang chạy một phần",
+      "notDeployed": "chưa triển khai",
+      "running": "đang chạy",
+      "stopped": "đã dừng",
+      "paused": "đã tạm dừng"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Đó không phải là ID container hợp lệ",
+      "consoleFailed": "Bảng điều khiển bị lỗi",
+      "notAuthenticated": "Chưa xác thực",
+      "consoleError": "Lỗi bảng điều khiển",
+      "connectionFailed": "Kết nối thất bại"
+    },
+    "dockerDidNotAnswer": "Docker không phản hồi",
+    "failedToLoadContainers": "Không thể tải các container",
+    "failedTo": "Không thể {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Máy chủ không gửi tệp nào",
+        "cancelled": "Đã hủy",
+        "isGone": "{{path}} không còn tồn tại",
+        "canTGoToThe": "{{name}} không thể đưa vào thùng rác"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "ID mục thùng rác không hợp lệ",
+        "invalidTrashMetadata": "Metadata thùng rác không hợp lệ",
+        "thisPathCanTBe": "Đường dẫn này không thể di chuyển vào thùng rác",
+        "aFileAlreadyExistsAt": "Đã có một tệp ở đường dẫn gốc"
+      },
+      "sftp": {
+        "commandFailed": "Lệnh thất bại: {{command}}",
+        "alreadyExists": "{{name}} đã tồn tại",
+        "alreadyExistsThere": "{{path}} đã tồn tại ở đó",
+        "canTGoToThe": "{{name}} không thể đưa vào thùng rác: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminal không còn mở nữa",
+      "clearHistory": "Xóa lịch sử",
+      "stopFollowingTheTerminal": "Dừng theo dõi terminal",
+      "followTheTerminal": "Theo dõi terminal",
+      "goToTheTerminalS": "Đi đến thư mục của terminal",
+      "cdTheTerminalHere": "cd terminal đến đây",
+      "folderHistory": "Lịch sử thư mục",
+      "mostUsedFirstThenRecent": "Sử dụng nhiều nhất trước, sau đó là gần đây",
+      "noFoldersYet": "Chưa có thư mục nào"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Không thể kết nối.",
+        "couldNotSaveHowThis": "Không thể lưu cách kết nối của host này",
+        "thisWayCanTOpen": "Cách này không thể mở tệp"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Không thể mở thư mục này",
+      "cancel": "Hủy",
+      "noFoldersHere": "Không có thư mục nào ở đây"
+    },
+    "couldNotOpenThisFolder": "Không thể mở thư mục này",
+    "couldNotSaveToThe": "Không thể lưu vào thư mục",
+    "failed": "{{label}} thất bại",
+    "uploading": "Đang tải lên {{name}}",
+    "uploadingFiles": "Đang tải lên {{count}} tệp",
+    "downloadingToFilesOnMy": "Đang tải xuống vào Files, On My iPhone, Termix",
+    "downloading": "Đang tải xuống {{name}}",
+    "downloadingFiles": "Đang tải xuống {{count}} tệp",
+    "openALargeFile": "Mở một tệp lớn?",
+    "isBigForAEditor": "{{name}} khá lớn cho trình soạn thảo {{deviceWord}}. Nó có thể chạy chậm.",
+    "open": "Mở",
+    "thisLooksLikeABinary": "Đây có vẻ là một tệp nhị phân",
+    "openItInAnotherApp": "Mở nó trong ứng dụng khác thay vì?",
+    "openWith": "Mở bằng",
+    "tooBigForTheEditor": "Quá lớn để chỉnh sửa",
+    "isOver10MbDownload": "{{name}} lớn hơn 10 MB. Tải xuống thay vì mở?",
+    "download": "Tải xuống",
+    "delete": "Xóa {{what}}?",
+    "moveToTheTrash": "Di chuyển {{what}} vào thùng rác?",
+    "thisCanTBeUndone": "Hành động này không thể hoàn tác.",
+    "youCanRestoreItFrom": "Bạn có thể khôi phục nó từ thùng rác.",
+    "delete2": "Xóa",
+    "moveToTrash": "Di chuyển vào thùng rác",
+    "deleteForGood": "Xóa vĩnh viễn?",
+    "deleteItForGoodInstead": "{{message}}. Xóa vĩnh viễn thay vì di chuyển vào thùng rác? Hành động này không thể hoàn tác.",
+    "deleteFailed": "Xóa thất bại",
+    "connectingThroughTheServer": "Đang kết nối qua máy chủ...",
+    "connectingFromThis": "Đang kết nối từ {{deviceWord}} này...",
+    "connecting": "Đang kết nối...",
+    "edit": "Chỉnh sửa",
+    "downloadFolder": "Tải xuống thư mục",
+    "share": "Chia sẻ",
+    "rename": "Đổi tên",
+    "copyTo": "Sao chép đến",
+    "moveTo": "Di chuyển đến",
+    "cut": "Cắt",
+    "copy": "Sao chép",
+    "permissions": "Quyền truy cập",
+    "properties": "Thuộc tính",
+    "makeALinkHere": "Tạo liên kết tại đây",
+    "copyPath": "Sao chép đường dẫn",
+    "pathCopied": "Đã sao chép đường dẫn",
+    "done": "Xong",
+    "selectAll": "Chọn tất cả",
+    "filterByName": "Lọc theo tên",
+    "closeSearch": "Đóng tìm kiếm",
+    "search": "Tìm kiếm",
+    "changeSort": "Thay đổi sắp xếp",
+    "paste": "Dán {{count}}",
+    "upload": "Tải lên",
+    "transfers2": "Truyền tệp",
+    "more": "Thêm",
+    "nothingMatches": "Không có kết quả phù hợp",
+    "emptyFolder": "Thư mục trống",
+    "uploadFilesOrMakeA": "Tải lên tệp hoặc tạo mới.",
+    "newFolder": "Thư mục mới",
+    "newFile": "Tệp mới",
+    "select": "Chọn",
+    "hideHiddenFiles": "Ẩn tệp ẩn",
+    "showHiddenFiles": "Hiện tệp ẩn",
+    "trash": "Thùng rác",
+    "folderProperties": "Thuộc tính thư mục",
+    "refresh": "Làm mới",
+    "rename2": "Đổi tên {{name}}",
+    "newLink": "Liên kết mới",
+    "aLinkInThatPoints": "Một liên kết trong {{path}} trỏ đến {{path2}}",
+    "name": "Tên",
+    "create": "Tạo",
+    "copyHere": "Sao chép vào đây",
+    "moveHere": "Di chuyển vào đây",
+    "fileViewer": {
+      "saved": "Đã lưu {{name}}",
+      "couldNotSaveTheFile": "Không thể lưu tệp",
+      "discardChanges": "Hủy thay đổi?",
+      "hasChangesThatAreNot": "{{name}} có những thay đổi chưa được lưu.",
+      "discard": "Bỏ qua",
+      "readOnly": "{{path}} | chỉ đọc",
+      "find": "Tìm kiếm",
+      "smallerText": "Giảm cỡ chữ",
+      "biggerText": "Tăng cỡ chữ",
+      "turnOffLineWrap": "Tắt xuống dòng tự động",
+      "wrapLines": "Xuống dòng tự động",
+      "save": "Lưu"
+    },
+    "hostSection": {
+      "startIn": "Mở tại",
+      "theFolderTheFileManager": "Thư mục mà trình quản lý tệp mở đầu tiên",
+      "files": "Tệp"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Đi đến {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Hành động khác",
+        "moreFor": "Thêm cho {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Quyền truy cập",
+      "cancel": "Hủy",
+      "apply": "Áp dụng ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Không thể mở tệp",
+      "openWith": "Mở bằng",
+      "share": "Chia sẻ"
+    },
+    "propertiesView": {
+      "properties": "Thuộc tính",
+      "path": "Đường dẫn",
+      "type": "Loại",
+      "pointsTo": "Trỏ đến",
+      "size": "Kích thước",
+      "countFolderSize": "Tính kích thước thư mục",
+      "permissions": "Quyền truy cập",
+      "change": "Thay đổi",
+      "owner": "Chủ sở hữu",
+      "group": "Nhóm",
+      "modified": "Sửa đổi lần cuối",
+      "opened": "Mở lần cuối",
+      "linkToA": "Liên kết đến {{value}}",
+      "notShownForFolders": "Không hiển thị cho thư mục",
+      "file": "Tệp",
+      "folder": "Thư mục",
+      "link": "Liên kết"
+    },
+    "register": {
+      "fileManager": "Trình quản lý tệp",
+      "files": "Tệp",
+      "browseEditAndMoveFiles": "Duyệt, chỉnh sửa và di chuyển tệp",
+      "files2": "TỆP",
+      "fileManagerAndTransfers": "Trình quản lý tệp và truyền tệp"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Truyền tệp thất bại"
+      },
+      "transfersPanel": {
+        "pause": "Tạm dừng",
+        "resume": "Tiếp tục",
+        "tryAgain": "Thử lại",
+        "open": "Mở",
+        "cancel": "Hủy",
+        "transfers": "Truyền tệp",
+        "goingOf": "{{active}} đang thực hiện | {{done}} trên {{total}}",
+        "clearFinished": "Xóa đã hoàn thành",
+        "cancelAll": "Hủy tất cả",
+        "noTransfersYet": "Chưa có truyền tệp nào",
+        "waiting": "Đang chờ",
+        "paused": "Đã tạm dừng",
+        "done": "Hoàn thành",
+        "failed": "Thất bại",
+        "cancelled": "Đã hủy"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Không thể tải thùng rác",
+      "restored": "Đã khôi phục {{name}}",
+      "failedToRestore": "Không thể khôi phục",
+      "failedToDelete": "Không thể xóa",
+      "trashEmptied": "Thùng rác đã được dọn sạch",
+      "failedToEmptyTrash": "Không thể dọn sạch thùng rác",
+      "trash": "Thùng rác",
+      "itemsAreRemovedAfterDays": "Mục sẽ bị xóa sau {{retentionDays}} ngày",
+      "close": "Đóng",
+      "emptyTrash": "Dọn sạch thùng rác",
+      "trashIsEmpty": "Thùng rác trống",
+      "restore": "Khôi phục {{name}}",
+      "deleteForGood": "Xóa vĩnh viễn {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Vừa xong"
+      }
+    },
+    "getting": "Đang lấy {{name}}",
+    "itemCount_other": "{{count}} mục",
+    "copiedWhat": "Đã sao chép {{what}}",
+    "movedWhat": "Đã di chuyển {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} có nhiều hơn {{limit}} tệp. Hãy tải xuống các thư mục nhỏ hơn."
+    },
+    "downloadingToFilesOnMyIpad": "Đang tải xuống vào Files, Trên iPad của tôi, Termix",
+    "size": "Kích thước",
+    "date": "Ngày"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Liên kết dịch vụ",
+      "openInHomepage": "Mở trong Homepage",
+      "thisWidgetOnlyShowsOn": "Tiện ích này chỉ hiển thị trên trang đầy đủ."
+    },
+    "register": {
+      "serviceLinks": "Liên kết dịch vụ",
+      "homepage": "Trang chủ"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Chưa đặt nguồn cấp dữ liệu.",
+        "couldNotLoadTheFeed": "Không thể tải nguồn cấp dữ liệu.",
+        "theFeedIsEmpty": "Nguồn cấp dữ liệu trống.",
+        "noLocationSet": "Chưa đặt vị trí.",
+        "couldNotLoadTheWeather": "Không thể tải thời tiết.",
+        "noUrlSet": "Chưa đặt URL.",
+        "couldNotLoadTheData": "Không thể tải dữ liệu.",
+        "noPictureSet": "Chưa đặt hình ảnh.",
+        "badResponse": "phản hồi không hợp lệ"
+      },
+      "services": "Dịch vụ",
+      "service": "Dịch vụ",
+      "serviceLinks": "Liên kết dịch vụ",
+      "bookmarks": "Dấu trang",
+      "links2": "Liên kết",
+      "search": "Tìm kiếm",
+      "clock": "Đồng hồ",
+      "countdown": "Đếm ngược",
+      "calendar": "Lịch",
+      "notes": "Ghi chú",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Máy chủ",
+      "hosts": "Máy chủ",
+      "quickConnect": "Kết nối nhanh",
+      "feed": "Nguồn cấp dữ liệu",
+      "weather": "Thời tiết",
+      "customApi": "API tùy chỉnh",
+      "picture": "Hình ảnh",
+      "widget": "Tiện ích",
+      "links": {
+        "noServicesYet": "Chưa có dịch vụ nào.",
+        "noLinkSet": "Chưa đặt liên kết.",
+        "noLinksYet": "Chưa có liên kết nào.",
+        "noSearchEngineSet": "Chưa đặt công cụ tìm kiếm.",
+        "search": "Tìm kiếm",
+        "noShortcutsYet": "Chưa có lối tắt nào.",
+        "search2": "Tìm kiếm {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Không thể mở liên kết"
+      },
+      "status": {
+        "noUrlsYet": "Chưa có URL nào.",
+        "down": "Ngừng hoạt động",
+        "noHostsPicked": "Chưa chọn máy chủ nào."
+      },
+      "text": {
+        "noNotesYet": "Chưa có ghi chú nào.",
+        "noTextYet": "Chưa có văn bản nào."
+      },
+      "time": {
+        "noDateSet": "Chưa đặt ngày.",
+        "timeIsUp": "Hết giờ"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Không thể lưu cài đặt mặc định",
+    "couldNotResetTheDefault": "Không thể đặt lại cài đặt mặc định",
+    "back": "Quay lại",
+    "hostDefaults": "Cài đặt mặc định cho máy chủ",
+    "newHostsStartFromThese": "Máy chủ mới sẽ bắt đầu từ những cài đặt này",
+    "managedOnTheServer": "Được quản lý trên máy chủ",
+    "defaultsForThisServerAre": "Cài đặt mặc định cho máy chủ này được đặt trong ứng dụng web.",
+    "level": "Mức độ",
+    "yourDefaultsOrOneFolder": "Cài đặt mặc định của bạn, hoặc của một thư mục",
+    "myDefaults": "Cài đặt mặc định của tôi",
+    "theServerSets": " Máy chủ đặt {{adminCount}}.",
+    "aFolderWinsOverYour": "Cài đặt của thư mục ưu tiên hơn cài đặt mặc định của bạn, và cài đặt mặc định của bạn ưu tiên hơn cài đặt của máy chủ. Một máy chủ sẽ giữ nguyên bất kỳ giá trị nào bạn tự đặt cho nó.{{value}}",
+    "save": "Lưu",
+    "authentication": "Xác thực",
+    "none": "Không có",
+    "reset": "Đặt lại",
+    "model": {
+      "username": "Tên người dùng",
+      "sshPort": "Cổng SSH",
+      "authentication": "Xác thực",
+      "aSavedCredentialForNew": "Thông tin đăng nhập đã lưu cho máy chủ mới",
+      "forceKeyboardInteractive": "Buộc sử dụng tương tác bàn phím",
+      "keepaliveInterval": "Khoảng thời gian giữ kết nối",
+      "seconds0TurnsItOff": "Giây, 0 để tắt",
+      "keepaliveTries": "Số lần thử giữ kết nối",
+      "allowOldAlgorithms": "Cho phép thuật toán cũ",
+      "agentForwarding": "Chuyển tiếp agent",
+      "environmentVariables": "Biến môi trường",
+      "oneNameValuePerLine": "Một dòng NAME=value mỗi dòng",
+      "checkIfTheHostIs": "Kiểm tra xem máy chủ có đang hoạt động không",
+      "checkInterval": "Khoảng thời gian kiểm tra",
+      "secondsEmptyUsesTheServer": "Giây, để trống sẽ dùng của máy chủ",
+      "socks5Proxy": "Proxy SOCKS5",
+      "setInTheWebApp": "Đặt trong ứng dụng web",
+      "jumpHosts": "Máy chủ nhảy",
+      "portKnocking": "Gõ cổng",
+      "notSet": "Chưa đặt",
+      "fromTheServer": "Từ máy chủ",
+      "fromYourDefaults": "Từ cài đặt mặc định của bạn",
+      "builtIn": "Có sẵn"
+    },
+    "register": {
+      "hostDefaults": "Cài đặt mặc định cho máy chủ",
+      "portUserAndOptionsFor": "Cổng, người dùng và tùy chọn cho máy chủ mới"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Chưa có dữ liệu",
+      "cpu": "CPU",
+      "memory": "Bộ nhớ",
+      "disk": "Đĩa",
+      "history": "Lịch sử",
+      "loading": "Đang tải..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Không thể đọc chỉ số",
+      "metrics": "Chỉ số",
+      "cpu": "CPU",
+      "memory": "Bộ nhớ",
+      "disk": "Đĩa",
+      "noRecentSampleOpenThe": "Không có dữ liệu gần đây. Mở thông số của máy chủ để bắt đầu thu thập."
+    },
+    "register": {
+      "enableMetrics": "Bật thông số",
+      "cpuMemoryDiskAndNetwork": "CPU, bộ nhớ, đĩa và mạng qua SSH",
+      "hostMetrics": "Thông số máy chủ",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Thông số",
+      "cpuMemoryDiskAndNetwork2": "CPU, bộ nhớ, đĩa và mạng"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Thông số máy chủ | {{deviceWord}} này",
+      "hostMetrics": "Thông số máy chủ",
+      "ran": "Đã chạy {{name}}",
+      "loadingMetrics": "Đang tải thông số...",
+      "couldNotReadMetricsFrom": "Không thể đọc thông số từ máy chủ này",
+      "failedToLoadMetrics": "Không thể tải thông số",
+      "thisSessionHasNoServer": "Phiên này không có máy chủ",
+      "twoFactorRequiredForThis": "Yêu cầu xác thực hai yếu tố cho thống kê của máy chủ này.",
+      "failedToStartMetrics": "Không thể khởi động thông số",
+      "failedToRun": "Không thể chạy {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Mỗi lõi: {{value}}",
+        "cores": "Lõi",
+        "load": "Tải",
+        "user": "Người dùng",
+        "system": "Hệ thống",
+        "ioWait": "Chờ IO",
+        "steal": "Bị chiếm"
+      },
+      "diskWidget": {
+        "disk": "Đĩa {{mount}}",
+        "disk2": "Đĩa",
+        "used": "Đã dùng",
+        "total": "Tổng",
+        "free": "Trống"
+      },
+      "firewallWidget": {
+        "firewall": "Tường lửa",
+        "rules": "{{type}} | {{ruleCount}} quy tắc",
+        "noFirewallDetected": "Không phát hiện tường lửa"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Bộ nhớ",
+        "temp": "Nhiệt độ",
+        "power": "Công suất",
+        "fan": "Quạt"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Hoạt động đăng nhập",
+        "noLoginActivityRecorded": "Không ghi nhận hoạt động đăng nhập nào",
+        "logins": "Đăng nhập",
+        "uniqueIps": "IP duy nhất",
+        "failed": "Thất bại",
+        "recent": "Gần đây"
+      },
+      "memoryWidget": {
+        "memory": "Bộ nhớ",
+        "used": "Đã dùng",
+        "total": "Tổng",
+        "cached": "Đã đệm",
+        "free": "Trống"
+      },
+      "networkWidget": {
+        "network": "Mạng",
+        "noInterfaces": "Không có giao diện",
+        "up": "Tăng",
+        "down": "Giảm"
+      },
+      "portsWidget": {
+        "listeningPorts": "Cổng đang lắng nghe",
+        "noListeningPorts": "Không có cổng đang lắng nghe"
+      },
+      "processesWidget": {
+        "sortBy": "Sắp xếp theo {{label}}",
+        "processes": "Quá trình",
+        "running": "{{value}} đang chạy | {{total}}",
+        "noProcessData": "Không có dữ liệu quá trình",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "LỆNH"
+      },
+      "systemWidget": {
+        "system": "Hệ thống",
+        "hostname": "Tên máy chủ",
+        "os": "Hệ điều hành",
+        "kernel": "Nhân",
+        "arch": "Kiến trúc",
+        "noSystemInfo": "Không có thông tin hệ thống"
+      },
+      "temperatureWidget": {
+        "temperature": "Nhiệt độ"
+      },
+      "uptimeWidget": {
+        "uptime": "Thời gian hoạt động"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Đã sao chép kèm mật khẩu",
+      "copiedTheLink": "Đã sao chép liên kết",
+      "shareHost": "Chia sẻ máy chủ",
+      "thatHostNoLongerExists": "Máy chủ đó không còn tồn tại",
+      "scanThisInTermixOn": "Quét mã này trong Termix trên {{deviceWord}} khác, ở mục Nhập và xuất. Mã này chứa địa chỉ, cổng và người dùng. Nó không chứa mật khẩu hoặc khóa.",
+      "copyLink": "Sao chép liên kết",
+      "copyLinkWithPassword": "Sao chép liên kết kèm mật khẩu"
+    },
+    "includePasswordsAndKeys": "Bao gồm mật khẩu và khóa?",
+    "anyoneWhoGetsThisFile": "Bất kỳ ai có được tệp này đều có thể đăng nhập vào các máy chủ này. Hãy giữ an toàn.",
+    "includeThem": "Bao gồm chúng",
+    "pickAtLeastOneHost": "Chọn ít nhất một máy chủ",
+    "couldNotMakeTheFile": "Không thể tạo tệp",
+    "copiedToTheClipboard": "Đã sao chép vào bộ nhớ tạm",
+    "importAndExport": "Nhập và xuất",
+    "moveHostsInAndOut": "Di chuyển máy chủ vào và ra",
+    "import": "Nhập",
+    "aTermixHostFileAn": "Một tệp máy chủ Termix, tệp cấu hình SSH, hoặc liên kết máy chủ hoặc mã QR từ {{deviceWord}} khác.",
+    "export": "Xuất",
+    "allHosts": "Tất cả máy chủ",
+    "picked": "{{size}} đã chọn",
+    "pickHosts": "Chọn máy chủ",
+    "includePasswordsAndKeys2": "Bao gồm mật khẩu và khóa",
+    "offMakesAFileSafe": "Tắt giúp tệp an toàn để chia sẻ. Các máy chủ sử dụng thông tin đăng nhập đã lưu sẽ trỏ đến nó theo tên",
+    "shareAFile": "Chia sẻ tệp",
+    "copy": "Sao chép",
+    "importPanel": {
+      "couldNotReadThat": "Không thể đọc nội dung đó",
+      "couldNotReadThatFile": "Không thể đọc tệp đó",
+      "importFailed": "Nhập thất bại",
+      "chooseAFile": "Chọn một tệp",
+      "paste": "Dán",
+      "scanACode": "Quét mã",
+      "couldNotBeRead": "{{count}} không thể đọc được",
+      "updateHostsThatExist": "Cập nhật các máy chủ đã tồn tại",
+      "sameAddressPortAndUser": "Cùng địa chỉ, cổng và người dùng. Nếu không, chúng sẽ bị bỏ qua",
+      "cancel": "Hủy",
+      "import": "Nhập",
+      "andMore": "và {{value}} mục khác"
+    },
+    "qrCode": {
+      "qrCode": "Mã QR"
+    },
+    "register": {
+      "importAndExport": "Nhập và xuất",
+      "moveHostsInOrOut": "Di chuyển máy chủ vào hoặc ra bằng tệp hoặc mã QR",
+      "shareHost": "Chia sẻ máy chủ"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Quét mã máy chủ",
+      "pointTheCameraAtA": "Đưa camera hướng vào mã QR máy chủ Termix.",
+      "termixNeedsTheCameraTo": "Termix cần quyền truy cập camera để quét mã. Không có gì được ghi lại.",
+      "allowTheCamera": "Cho phép camera"
+    },
+    "read": {
+      "termixFile": "Tệp Termix",
+      "sshConfig": "Cấu hình SSH",
+      "thereIsNothingToImport": "Không có gì để nhập",
+      "thatIsNotATermix": "Đây không phải là liên kết máy chủ Termix",
+      "linkHost": "1 máy chủ: {{name}}",
+      "sourceHosts_other": "{{what}} với {{count}} máy chủ"
+    },
+    "saveYourTermixHosts": "Lưu máy chủ Termix của bạn"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Hoàn tất",
+      "rejected": "Từ chối",
+      "approvals": "Phê duyệt",
+      "nothingIsWaiting": "Không có gì đang chờ",
+      "actionsARuleHoldsFor": "Các hành động cần phê duyệt theo quy tắc sẽ hiển thị ở đây.",
+      "approveAndRun": "Phê duyệt và chạy",
+      "reject": "Từ chối",
+      "couldNotLoadApprovals": "Không thể tải danh sách phê duyệt",
+      "couldNotDecide": "Không thể quyết định"
+    },
+    "approvalsCard": {
+      "approved": "Đã phê duyệt",
+      "rejected": "Đã từ chối",
+      "waitingForApproval": "Đang chờ phê duyệt",
+      "approve": "Phê duyệt",
+      "reject": "Từ chối",
+      "couldNotDecide": "Không thể quyết định",
+      "seeAll": "Xem tất cả"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Thao tác này không thể hoàn tác. Chạy chứ?",
+      "run": "Chạy",
+      "sentForApproval": "Đã gửi để phê duyệt",
+      "target": "Mục tiêu",
+      "theItemOnTheHost": "Mục trên máy chủ, chẳng hạn như một container",
+      "dryRun": "Chạy thử",
+      "back": "Quay lại",
+      "actions": "Hành động",
+      "noActionsForThisHost": "Không có hành động nào cho máy chủ này",
+      "turnOnAPluginLike": "Bật plugin như Docker hoặc Dịch vụ cho máy chủ này trên máy chủ.",
+      "destructive": "Phá hủy",
+      "changes": "Thay đổi",
+      "theActionCouldNotRun": "Hành động không thể chạy",
+      "couldNotLoadActions": "Không thể tải hành động"
+    },
+    "register": {
+      "actions": "Hành động",
+      "waitingForApproval": "Đang chờ phê duyệt",
+      "approvals": "Phê duyệt",
+      "actionsWaitingForAPerson": "Hành động đang chờ người dùng xác nhận",
+      "runHistory": "Lịch sử chạy",
+      "everyActionAnyoneRanFrom": "Mọi hành động bất kỳ ai đã chạy, từ bất kỳ thiết bị nào"
+    },
+    "runHistory": {
+      "cancelThisRun": "Hủy lần chạy này?",
+      "cancelRun": "Hủy chạy",
+      "keep": "Giữ lại",
+      "undoThisRun": "Hoàn tác lần chạy này?",
+      "thisRunsTheActionS": "Điều này sẽ chạy lệnh hoàn tác của hành động với cùng đầu vào.",
+      "undo": "Hoàn tác",
+      "cancelled": "Đã hủy",
+      "itAlreadyFinished": "Đã hoàn tất",
+      "done": "Hoàn tất",
+      "runHistory": "Lịch sử chạy",
+      "nothingHasRunYet": "Chưa có gì được chạy",
+      "dryRun": "Chạy thử",
+      "cancel": "Hủy",
+      "couldNotLoadHistory": "Không thể tải lịch sử",
+      "couldNotCancel": "Không thể hủy",
+      "couldNotUndo": "Không thể hoàn tác"
+    },
+    "api": {
+      "needsApproval": "Cần phê duyệt",
+      "needsSignIn": "Cần đăng nhập",
+      "done": "Hoàn tất",
+      "failed": "Thất bại",
+      "running": "Đang chạy",
+      "interrupted": "Bị gián đoạn",
+      "rejected": "Bị từ chối",
+      "cancelled": "Đã hủy",
+      "expired": "Đã hết hạn"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Bật {{value}}",
+      "moreSettingsForThisAre": "Các cài đặt khác cho tính năng này có trong ứng dụng web Termix.",
+      "pluginHostSettings": "Cài đặt máy chủ plugin"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} phải là một số",
+      "mustBeAtLeast": "{{field}} phải ít nhất là {{min}}",
+      "mustBeAtMost": "{{field}} phải tối đa là {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Liên kết một máy chủ để sử dụng",
+      "runsOnYourTermixServer": "{{name}} chạy trên máy chủ Termix của bạn."
+    },
+    "pluginWebView": {
+      "canTLoad": "Không thể tải {{name}}",
+      "theServerDidNotSend": "Máy chủ không gửi plugin. Hãy kiểm tra xem nó có đang bật không và thử lại.",
+      "openThisLink": "Mở liên kết này?",
+      "open": "Mở",
+      "needsANewerVersionOf": "Cần phiên bản mới hơn của ứng dụng",
+      "usesPartsOfTermixThis": "{{name}} sử dụng các thành phần của Termix mà ứng dụng này chưa có.",
+      "didNotStart": "{{name}} không khởi động được",
+      "thisScreenIsNotIn": "Màn hình này không có trong phiên bản plugin trên máy chủ.",
+      "thePluginHitAnError": "Plugin gặp lỗi khi khởi động.",
+      "youReOffline": "Bạn đang ngoại tuyến",
+      "runsOnYourServerSo": "{{name}} chạy trên máy chủ của bạn, nên cần kết nối mạng. Nó sẽ mở lại khi bạn quay lại trực tuyến.",
+      "tryAgain": "Thử lại"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Máy chủ đó chưa có trên {{deviceWord}} này.",
+      "theAppCanTOpen": "Ứng dụng không thể mở điều đó từ đây.",
+      "thatHostIsNotOn2": "Máy chủ đó chưa có trên {{deviceWord}} này."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Mật khẩu",
+      "unchangedIfBlank": "Không thay đổi nếu để trống",
+      "port": "Cổng",
+      "domain": "Tên miền",
+      "displaySoundAndClipboardSettings": "Cài đặt hiển thị, âm thanh và bảng tạm có trong ứng dụng web Termix.",
+      "portMustBeFrom1": "Cổng {{label}} phải từ 1 đến 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Màn hình từ xa đã ngắt kết nối",
+        "signIn": "Đăng nhập {{label}}",
+        "itWillNotBeSaved": "{{error}} Sẽ không được lưu.",
+        "enterTheLoginForIt": "Nhập thông tin đăng nhập cho {{title}}. Sẽ không được lưu.",
+        "reconnecting": "Đang kết nối lại {{label}}",
+        "connecting": "Đang kết nối {{label}}",
+        "connectionFailed": "Kết nối thất bại",
+        "disconnected": "Đã ngắt kết nối",
+        "reconnect": "Kết nối lại",
+        "connectThroughTheServer": "Kết nối qua máy chủ",
+        "pasteToRemote": "Dán vào máy từ xa",
+        "typeClipboard": "Gõ từ bảng tạm",
+        "copyRemoteClipboard": "Sao chép bảng tạm từ xa",
+        "theComputerSCertificateWas": "Chứng chỉ của máy tính không được tin cậy.",
+        "thatLoginWasRefusedTry": "Thông tin đăng nhập đó bị từ chối. Hãy thử lại."
+      },
+      "target": {
+        "trustThisComputer": "Tin tưởng máy tính này?",
+        "theCanTCheckS": "{{deviceWord}} không thể kiểm tra chứng chỉ của {{hostName}}. Hãy đảm bảo dấu vân tay này khớp với dấu vân tay trên máy tính trước khi tiếp tục.\n\n{{fingerprint}}",
+        "trustAndConnect": "Tin tưởng và kết nối",
+        "certificateChanged": "Chứng chỉ đã thay đổi",
+        "showsAnotherCertificateThanLast": "{{hostName}} hiển thị chứng chỉ khác so với lần trước. Điều này xảy ra sau khi máy tính tạo chứng chỉ mới, hoặc khi có ai đó đang nghe lén giữa đường.\n\nDấu vân tay mới:\n{{fingerprint}}",
+        "trustTheNewOne": "Tin tưởng chứng chỉ mới"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Màn hình từ xa",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Xong",
+      "keyboard": "Bàn phím",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Cài đặt",
+      "remoteSettings": "Cài đặt từ xa",
+      "mouseMode": "Chế độ chuột",
+      "touch": "Chạm",
+      "trackpad": "Bàn di chuột",
+      "tapWhereYouWantTo": "Chạm vào nơi bạn muốn nhấp. Giữ để nhấp chuột phải, kéo để di chuyển.",
+      "dragToMoveThePointer": "Kéo để di chuyển con trỏ. Chạm để nhấp, chạm hai ngón tay để nhấp chuột phải, chạm rồi kéo để di chuyển.",
+      "zoomXPinchAnywhereTo": "Thu phóng: {{value}}x. Chụm ngón tay ở bất kỳ đâu để thu phóng",
+      "reset": "Đặt lại",
+      "cancel": "Hủy",
+      "connect": "Kết nối",
+      "username": "Tên người dùng",
+      "domainOptional": "Tên miền (tùy chọn)",
+      "domain": "Tên miền",
+      "password": "Mật khẩu",
+      "leftArrow": "Mũi tên trái",
+      "upArrow": "Mũi tên lên",
+      "downArrow": "Mũi tên xuống",
+      "rightArrow": "Mũi tên phải",
+      "rdpSignIn": "Đăng nhập RDP"
+    },
+    "theRemoteDesktopDropped": "Màn hình từ xa đã ngắt kết nối",
+    "theyWillNotBeSaved": "{{errorMessage}} Chúng sẽ không được lưu.",
+    "enterCredentialsForTheyWill": "Nhập thông tin đăng nhập cho {{title}}. Chúng sẽ không được lưu.",
+    "connecting": "Đang kết nối",
+    "connectionFailed": "Kết nối thất bại",
+    "disconnected": "Đã ngắt kết nối",
+    "reconnect": "Kết nối lại",
+    "route": {
+      "thisHostCanTOpen": "Máy chủ này không thể mở màn hình từ xa từ đây."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Bị ứng dụng chặn"
+    },
+    "failedToStartRemoteSession": "Không thể khởi động phiên từ xa",
+    "thatLoginWasRefusedTry": "Đăng nhập bị từ chối. Hãy thử lại.",
+    "theRemoteRefusedTheSaved": "Máy từ xa đã từ chối thông tin đăng nhập đã lưu. Kiểm tra thông tin đăng nhập RDP trên máy chủ này.",
+    "remoteSessionFailed": "Phiên từ xa thất bại",
+    "remoteSessionReturnedAnInvalid": "Phiên từ xa trả về thông điệp không hợp lệ",
+    "failedToLoadTheRemote": "Không thể tải ứng dụng khách màn hình từ xa"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Không có nhật ký",
+      "thisHostDoesNotKeep": "Máy chủ này không lưu trữ nhật ký systemd.",
+      "all": "Tất cả",
+      "warnings": "Cảnh báo",
+      "errors": "Lỗi",
+      "stop": "Dừng",
+      "follow": "Theo dõi",
+      "nothingLogged": "Không có gì được ghi lại",
+      "tryAnotherLevel": "Hãy thử mức độ khác.",
+      "couldNotReadTheJournal": "Không thể đọc nhật ký"
+    },
+    "register": {
+      "services": "Dịch vụ",
+      "startStopAndReadLogs": "Khởi động, dừng và đọc nhật ký"
+    },
+    "readingServices": "Đang đọc dịch vụ...",
+    "thisHostHasNoSystemd": "Máy chủ này không có systemd hoặc OpenRC.",
+    "noServicesMatch": "Không có dịch vụ nào khớp",
+    "noServicesFound": "Không tìm thấy dịch vụ nào",
+    "services": "Dịch vụ",
+    "journal": "Nhật ký",
+    "searchServices": "Tìm kiếm dịch vụ...",
+    "all": "Tất cả",
+    "running": "Đang chạy",
+    "failed": "Thất bại ({{failed}})",
+    "failed2": "Thất bại",
+    "servicesCard": {
+      "services": "Dịch vụ",
+      "noSystemdOrOpenrc": "Không có systemd hoặc OpenRC",
+      "failed": "{{failed}} thất bại",
+      "allRunning": "Tất cả đang chạy",
+      "couldNotReadServices": "Không thể đọc dịch vụ"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Nó sẽ ở trạng thái dừng cho đến khi được khởi động lại hoặc máy chủ khởi động.",
+      "itStopsForAMoment": "Nó dừng lại trong chốc lát và khởi động lại.",
+      "stop": "Dừng",
+      "restart": "Khởi động lại",
+      "is": "{{name}} đang ở trạng thái {{state}}",
+      "start": "Khởi động",
+      "journal": "Nhật ký",
+      "couldNotReadTheService": "Không thể đọc dịch vụ",
+      "couldNot": "Không thể {{action}} {{name}}",
+      "startsAtBoot": "Khởi động cùng hệ thống",
+      "mainPid": "PID chính",
+      "activeSince": "Hoạt động từ",
+      "unitFile": "Tệp đơn vị",
+      "notSet": "[chưa đặt]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Chưa đăng nhập",
+        "followFailed": "Theo dõi thất bại",
+        "connectionFailed": "Kết nối thất bại"
+      }
+    },
+    "couldNotReadServices": "Không thể đọc dịch vụ",
+    "services2": "Dịch vụ{{where}}",
+    "title": "Dịch vụ",
+    "failedCount": "{{count}} thất bại"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Chia sẻ phiên làm việc",
+      "shareLink": "Chia sẻ liên kết"
+    },
+    "shareSessionView": {
+      "canWatch": "Có thể xem",
+      "canType": "Có thể gõ",
+      "n1Hour": "1 giờ",
+      "n8Hours": "8 giờ",
+      "n1Day": "1 ngày",
+      "n7Days": "7 ngày",
+      "never": "Không bao giờ",
+      "shareSession": "Chia sẻ phiên làm việc",
+      "anyoneWithTheLinkCan": "Bất kỳ ai có liên kết đều có thể mở terminal này trong khi nó đang chạy. Bạn có thể thu hồi liên kết trong Termix.",
+      "peopleWithTheLink": "Người có liên kết",
+      "expiresAfter": "Hết hạn sau",
+      "link": "Liên kết",
+      "copy": "Sao chép",
+      "share": "Chia sẻ",
+      "makeLink": "Tạo liên kết",
+      "theServerGaveNoLink": "Máy chủ không cung cấp liên kết",
+      "couldNotMakeALink": "Không thể tạo liên kết",
+      "linkCopied": "Đã sao chép liên kết"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Không có thư mục"
+    },
+    "hostPicker": {
+      "selectNone": "Bỏ chọn tất cả",
+      "selectAll": "Chọn tất cả",
+      "done": "Xong"
+    },
+    "register": {
+      "snippets": "Mảnh lệnh",
+      "snippets2": "MẢNH LỆNH",
+      "savedCommandsToRunOn": "Các lệnh đã lưu để chạy trên bất kỳ máy chủ nào"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Không có cách nào để kết nối đến máy chủ này từ đây",
+      "exitedWith": "Đã thoát với mã {{exitCode}}",
+      "thisCanTRunIt": "Thiết bị {{deviceWord}} này không thể chạy lệnh đó",
+      "noServerIsLinked": "Chưa liên kết máy chủ nào"
+    },
+    "runOnHostsSheet": {
+      "run": "Chạy",
+      "run2": "Chạy \"{{name}}\"",
+      "runsOverSshOnEach": "Chạy qua SSH trên từng máy chủ. Không mở cửa sổ terminal.",
+      "close": "Đóng",
+      "hosts": "Máy chủ",
+      "pickHosts": "Chọn máy chủ",
+      "workedFailed": "{{value}} thành công, {{failed}} thất bại",
+      "runOn2": "Chạy trên",
+      "runOn_other": "Chạy {{name}} trên {{count}} máy chủ?",
+      "hostsPicked_other": "Đã chọn {{count}} máy chủ"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Tìm kiếm mảnh lệnh",
+      "pastesTheNote": "Dán ghi chú",
+      "runsTheSnippet": "Chạy mảnh lệnh",
+      "noSnippetsMatch": "Không có mảnh lệnh nào khớp",
+      "noSnippetsYet": "Chưa có mảnh lệnh nào",
+      "addSnippetsInSettingsSnippets": "Thêm mảnh lệnh trong Cài đặt, Mảnh lệnh",
+      "run": "Chạy",
+      "insertWithoutRunning": "Chèn mà không chạy",
+      "copy": "Sao chép"
+    },
+    "snippetsCard": {
+      "snippets": "Mảnh lệnh",
+      "run": "Chạy {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Không có mảnh lệnh nào để xuất",
+      "couldNotMakeTheFile": "Không thể tạo tệp",
+      "copiedToTheClipboard": "Đã sao chép vào bộ nhớ tạm",
+      "couldNotImport": "Không thể nhập",
+      "couldNotReadThatFile": "Không thể đọc tệp đó",
+      "importAndExport": "Nhập và xuất",
+      "theSameFileTheWeb": "Cùng tệp mà ứng dụng web sử dụng.",
+      "export": "Xuất",
+      "shareAFile": "Chia sẻ tệp",
+      "copy": "Sao chép",
+      "import": "Nhập",
+      "updateSnippetsThatExist": "Cập nhật các mảnh lệnh đã tồn tại",
+      "sameNameInTheSame": "Cùng tên trong cùng thư mục. Nếu không, chúng sẽ bị bỏ qua",
+      "chooseAFile": "Chọn một tệp",
+      "paste": "Dán",
+      "saveYourSnippets": "Lưu các mảnh lệnh của bạn"
+    },
+    "useSnippetRunner": {
+      "run": "Chạy {{name}}?",
+      "run2": "Chạy",
+      "fillInTheValuesFor": "Điền giá trị cho mảnh lệnh này.",
+      "cancel": "Hủy",
+      "insert": "Chèn",
+      "noTerminalIsOpen": "Không có terminal nào đang mở"
+    },
+    "variables": {
+      "input": "Nhập {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Đó không phải là tệp JSON hợp lệ",
+      "theFileNeedsASnippets": "Tệp cần có danh sách snippets hoặc folders",
+      "snippetNameAndContentAre": "Mảnh lệnh {{value}}: tên và nội dung là bắt buộc",
+      "folder": "Thư mục {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Đang tải thiết bị Tailscale…",
+      "searchTailscaleDevices": "Tìm kiếm thiết bị Tailscale…",
+      "searchTailscaleDevices2": "Tìm kiếm thiết bị Tailscale",
+      "clearDeviceSearch": "Xóa tìm kiếm thiết bị",
+      "refreshTailscaleDevices": "Làm mới thiết bị Tailscale",
+      "device": "Thiết bị",
+      "noTailnetAddress": "Không có địa chỉ tailnet",
+      "tailscaleDevice": "Thiết bị Tailscale",
+      "tailscaleDevices": "Thiết bị Tailscale",
+      "addAHostThatConnects": "Thêm một host kết nối qua Tailscale SSH.",
+      "username": "Tên người dùng",
+      "sshUsernameFor": "Tên người dùng SSH cho {{value}}",
+      "addHost": "Thêm host",
+      "noTailscaleDevicesMatchYour": "Không có thiết bị Tailscale nào khớp với tìm kiếm của bạn.",
+      "noTailscaleDevicesFound": "Không tìm thấy thiết bị Tailscale nào.",
+      "noTailscaleApiKeyIs": "Chưa cấu hình khóa API Tailscale trên máy chủ này. Hãy yêu cầu quản trị viên thêm một khóa.",
+      "youDoNotHavePermission": "Bạn không có quyền liệt kê thiết bị Tailscale.",
+      "couldNotLoadTailscaleDevices": "Không thể tải thiết bị Tailscale. Hãy làm mới để thử lại.",
+      "tailscaleIsUnavailableOnThis": "Tailscale không khả dụng trên máy chủ này."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Đang kết nối lại | thử lần {{attempt}}",
+      "reconnectingInSTry": "Đang kết nối lại sau {{secs}}s | thử lần {{attempt}}",
+      "offlineWaitingForNetwork": "Ngoại tuyến, đang chờ mạng",
+      "sendToTheNewShell": "Gửi {{what}} sang shell mới?",
+      "reconnectNow": "Kết nối lại ngay",
+      "send": "Gửi",
+      "discard": "Bỏ",
+      "typedChars_other": "{{count}} ký tự đã nhập",
+      "waiting": "{{what}} đang chờ"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Đã sao chép nhật ký kết nối",
+      "connectionLog": "Nhật ký kết nối",
+      "copyItIntoABug": "Sao chép vào báo cáo lỗi. Địa chỉ và tên người dùng đã được ẩn.",
+      "copy": "Sao chép"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Xóa lịch sử cho host này?",
+        "clear": "Xóa",
+        "searchHistory": "Tìm kiếm lịch sử",
+        "typesTheCommandWithoutRunning": "Nhập lệnh mà không chạy",
+        "noCommandsMatch": "Không có lệnh nào khớp",
+        "noHistoryYet": "Chưa có lịch sử",
+        "commandsYouRunOnThis": "Các lệnh bạn chạy trên host này sẽ hiển thị ở đây",
+        "run": "Chạy",
+        "typeWithoutRunning": "Nhập mà không chạy",
+        "copy": "Sao chép",
+        "delete": "Xóa",
+        "historyCleared": "Đã xóa lịch sử"
+      },
+      "suggestionStrip": {
+        "use": "Sử dụng {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Cài đặt ứng dụng",
+      "delete": "Xóa (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Tiêu đề tab từ shell",
+      "programsCanSetTheTab": "Chương trình có thể đặt tiêu đề tab",
+      "openTmux": "Mở tmux",
+      "attachToATmuxSession": "Gắn vào phiên tmux, hoặc bắt đầu một phiên mới",
+      "reconnectOnDrop": "Kết nối lại khi ngắt",
+      "keepTabOpenOnExit": "Giữ tab mở khi thoát",
+      "pressEnterToConnectAgain": "Nhấn Enter để kết nối lại",
+      "saveCommandHistory": "Lưu lịch sử lệnh",
+      "offerToFillPasswordPrompts": "Đề xuất điền mật khẩu",
+      "offerToFillSudoPrompts": "Đề xuất điền mật khẩu sudo",
+      "usesTheSudoPasswordFrom": "Sử dụng mật khẩu sudo từ tab SSH",
+      "none": "Không",
+      "look": "Giao diện",
+      "theme": "Giao diện",
+      "font": "Phông chữ",
+      "cursor": "Con trỏ",
+      "bell": "Chuông báo",
+      "scrollbackLines": "Số dòng cuộn lại",
+      "app": "Ứng dụng",
+      "behavior": "Hành vi",
+      "backspaceSends": "Phím Backspace gửi",
+      "startupSnippet": "Lệnh khởi động",
+      "runsOnceTheShellIs": "Chạy khi shell đã sẵn sàng",
+      "fillWithoutAsking": "Điền tự động mà không hỏi",
+      "onThisOnlyOnceYou": "Chỉ trên {{deviceWord}} này, sau khi bạn chọn Luôn điền",
+      "connection": "Kết nối",
+      "keepalive": "Giữ kết nối",
+      "secondsBetweenPings0Turns": "Giây giữa các lần ping, 0 để tắt",
+      "default": "Mặc định",
+      "keepaliveSeconds": "Giây giữ kết nối",
+      "missedPings": "Ping bị bỏ lỡ",
+      "dropTheConnectionAfterThis": "Ngắt kết nối sau số lần này không có phản hồi",
+      "missedPingsBeforeDrop": "Ping bị bỏ lỡ trước khi ngắt",
+      "environment": "Môi trường",
+      "removeVariable": "Xóa biến",
+      "addVariable": "Thêm biến"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "BÀN PHÍM"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Hàng",
+        "keys": "Phím",
+        "sendsAKeyCode": "Gửi mã phím",
+        "stickyModifier": "Phím sửa đổi dính",
+        "appAction": "Hành động ứng dụng",
+        "tmuxPrefixThen": "tiền tố tmux, sau đó {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Hàng phím",
+        "onlyFor": "Chỉ cho {{name}}",
+        "usingTheAppSRows": "Sử dụng hàng của ứng dụng. Thay đổi ở đây chỉ áp dụng cho {{name}}",
+        "useTheAppSRows": "Sử dụng hàng của ứng dụng"
+      },
+      "keyButton": {
+        "locked": "Đã khóa"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Hủy",
+        "remove": "Xóa {{what}}?",
+        "remove2": "Xóa",
+        "dragToReorder": "Kéo để sắp xếp lại",
+        "rowName": "Tên hàng",
+        "groupName": "Tên nhóm",
+        "add": "Thêm",
+        "addKey": "Thêm phím",
+        "addRow": "Thêm hàng",
+        "addGroup": "Thêm nhóm",
+        "tmuxPrefix": "tiền tố tmux",
+        "name": "Tên",
+        "rename": "Đổi tên",
+        "keys": "{{value}} phím",
+        "noKeys": "Không có phím",
+        "remove3": "Xóa {{label}}",
+        "keys2": "Phím",
+        "custom": "Tùy chỉnh",
+        "add2": "Thêm {{label}}",
+        "typeText": "Nhập văn bản",
+        "runCommand": "Chạy lệnh",
+        "ctrlKey": "Phím Ctrl",
+        "label": "Nhãn",
+        "optional": "Tùy chọn",
+        "letter": "Chữ cái",
+        "command": "Lệnh",
+        "text": "Văn bản",
+        "resetToDefault": "Đặt lại về mặc định"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Thay đổi phím trong Cài đặt, Bàn phím"
+      },
+      "keyRowBar": {
+        "keyRow": "Hàng phím {{label}}",
+        "tapForTheNextRow": "Nhấn để chuyển sang hàng tiếp theo, giữ để chọn một hàng",
+        "keyRows": "Hàng phím"
+      },
+      "model": {
+        "clear": "Xóa",
+        "main": "Chính",
+        "keys": "Phím",
+        "arrows": "Mũi tên",
+        "symbols": "Ký tự đặc biệt",
+        "actions": "Hành động",
+        "nav": "Điều hướng",
+        "move": "Di chuyển",
+        "function": "Chức năng",
+        "brackets": "Dấu ngoặc",
+        "punctuation": "Dấu câu",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Khung",
+        "copy": "Sao chép",
+        "split": "Chia ─",
+        "split2": "Chia │",
+        "newWin": "Cửa sổ mới",
+        "prevWin": "Cửa sổ trước",
+        "nextWin": "Cửa sổ tiếp",
+        "pane": "Khung ←",
+        "pane2": "Khung ↓",
+        "pane3": "Khung ↑",
+        "pane4": "Khung →",
+        "copyMode": "Chế độ sao chép",
+        "pasteBuf": "Dán bộ nhớ đệm",
+        "killPane": "Đóng khung"
+      }
+    },
+    "output": {
+      "openLink": "Mở liên kết?",
+      "open": "Mở",
+      "pasteLines": "Dán {{lines}} dòng?",
+      "pasteThisText": "Dán văn bản này?",
+      "theShellMayRunIt": "Shell có thể chạy lệnh ngay lập tức.\n\n{{text}}",
+      "paste": "Dán",
+      "letTheProgramReadYour": "Cho phép chương trình đọc clipboard của bạn?",
+      "itAskedForWhatYou": "Chương trình yêu cầu nội dung bạn vừa sao chép.",
+      "allow": "Cho phép",
+      "letTheProgramCopyTo": "Cho phép chương trình sao chép vào clipboard của bạn?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Điền mật khẩu đã lưu?",
+      "asksForTheSudoPassword": "{{hostName}} yêu cầu mật khẩu sudo.",
+      "asksForAPassword": "{{hostName}} yêu cầu mật khẩu.",
+      "fillPassword": "Điền mật khẩu",
+      "alwaysFillOnThisHost": "Luôn điền trên máy chủ này",
+      "asksNoMoreOnThis": "Không còn hỏi trên {{deviceWord}} này. Tắt tính năng này trong tab Terminal của máy chủ.",
+      "notNow": "Không bây giờ"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal và keepalive",
+      "history": "LỊCH SỬ",
+      "find": "Tìm kiếm",
+      "tmuxWindows": "cửa sổ tmux",
+      "connectionLog": "Nhật ký kết nối",
+      "keyRowsForThisHost": "Hàng phím cho máy chủ này"
+    },
+    "searchBar": {
+      "noResults": "Không có kết quả",
+      "matchCase": "Phân biệt chữ hoa/thường",
+      "wholeWord": "Toàn bộ từ",
+      "regularExpression": "Biểu thức chính quy",
+      "find": "Tìm",
+      "closeFind": "Đóng tìm kiếm"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Hệ thống",
+      "block": "Khối",
+      "bar": "Thanh",
+      "underline": "Gạch chân",
+      "off": "Tắt",
+      "sound": "Âm thanh",
+      "flash": "Nhấp nháy",
+      "both": "Cả hai"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Tạo tab mới trên máy chủ này",
+      "closeTab": "Đóng tab",
+      "nextTab": "Tab tiếp theo",
+      "previousTab": "Tab trước",
+      "goToTab": "Đi đến tab",
+      "find": "Tìm",
+      "fontSize": "Cỡ chữ",
+      "paste": "Dán",
+      "escape": "Thoát",
+      "copyAndPaste": "Sao chép và dán"
+    },
+    "reconnecting": "Đang kết nối lại...",
+    "waitingForNetwork": "Đang chờ mạng...",
+    "waitingForYou": "Đang chờ bạn...",
+    "connecting": "Đang kết nối...",
+    "terminalView": {
+      "scrollToBottom": "Cuộn xuống cuối",
+      "onlyWebLinksCanOpen": "Chỉ có thể mở liên kết web từ terminal",
+      "couldNotOpenLink": "Không thể mở liên kết",
+      "copiedFromTheTerminal": "Đã sao chép từ terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Mở phiên tmux",
+        "newSession": "Phiên mới",
+        "plainShell": "Shell đơn giản",
+        "tmuxWindows": "Cửa sổ tmux",
+        "newWindow": "Cửa sổ mới",
+        "windowCount_other": "{{count}} cửa sổ",
+        "attached": "{{count}} đang kết nối",
+        "activeNow": "đang hoạt động",
+        "activeMinAgo": "hoạt động {{count}} phút trước",
+        "activeHoursAgo": "hoạt động {{count}} giờ trước",
+        "activeDaysAgo_other": "hoạt động {{count}} ngày trước"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Sao chép",
+        "selectAll": "Chọn tất cả",
+        "cancel": "Hủy",
+        "scrollToBottom": "Cuộn xuống cuối",
+        "couldNotCopy": "Không thể sao chép",
+        "webviewError": "Lỗi WebView: {{description}}",
+        "webviewHttpError": "Lỗi HTTP của WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Không có mật khẩu đã lưu cho máy chủ này",
+    "backInTmuxSession": "Quay lại phiên tmux {{tmuxName}}",
+    "backInScreenSession": "Quay lại phiên screen {{name}}",
+    "theServerSessionEndedThis": "Phiên máy chủ đã kết thúc. Đây là một shell mới.",
+    "termixWasClosedSoThe": "Termix đã đóng nên shell cũ đã kết thúc. Đây là một shell mới.",
+    "theConnectionDroppedAndThe": "Kết nối bị ngắt và shell cũ đã kết thúc. Đây là một shell mới.",
+    "disconnectedFrom": "Đã ngắt kết nối từ {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Xác thực hai yếu tố",
+      "codesFromAnAuthenticatorApp": "Mã từ ứng dụng xác thực cho tài khoản máy chủ của bạn"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Địa chỉ MAC",
+      "neededToWakeThisHost": "Cần thiết để đánh thức máy chủ này bằng Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Sử dụng địa chỉ MAC như 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Đã gửi Wake-on-LAN đến {{name}}",
+      "failedToSendWakeOn": "Không thể gửi gói Wake-on-LAN",
+      "noServer": "Không có máy chủ"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Đánh thức {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Chia sẻ thống kê sử dụng ẩn danh?",
+      "termixWouldSendAShort": "Termix sẽ gửi một báo cáo ngắn mỗi ngày. Bạn có thể thay đổi cài đặt này bất cứ lúc nào trong Cài đặt.",
+      "noThanks": "Không, cảm ơn",
+      "share": "Chia sẻ",
+      "theReportHasTheApp": "Báo cáo bao gồm phiên bản ứng dụng, loại {{deviceWord}}, số lượng ước tính của máy chủ và phiên, các tính năng bạn sử dụng, và việc kết nối có thành công hay không. Báo cáo không bao giờ chứa tên máy chủ, tên người dùng, địa chỉ, đường dẫn, lệnh hoặc tên máy chủ.",
+      "seeExactlyWhatIsSent": "Xem chính xác những gì được gửi"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Đang tải thông tin phiên bản…",
+      "updateAvailable": "Có bản cập nhật",
+      "newVersionAvailable": "Có phiên bản mới",
+      "aNewerVersionOfThe": "Một phiên bản mới hơn của ứng dụng di động đã có sẵn. Một số tính năng có thể không hoạt động đúng cho đến khi bạn cập nhật.",
+      "versionInformation": "Thông tin phiên bản",
+      "installed": "Đã cài đặt",
+      "latest": "Mới nhất",
+      "unknown": "Không xác định",
+      "tag": "Thẻ",
+      "continueAnyway": "Vẫn tiếp tục"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Đã sao chép",
+      "copy": "Sao chép",
+      "hostKeyChanged": "Khóa máy chủ đã thay đổi",
+      "verifyHostKey": "Xác minh khóa máy chủ",
+      "cancel": "Hủy",
+      "acceptNewKey": "Chấp nhận khóa mới",
+      "connectAndTrust": "Kết nối và tin tưởng",
+      "theHostSSshKey": "Khóa SSH của máy chủ đã thay đổi kể từ lần kết nối trước. Điều này có thể có nghĩa là ai đó đang chặn kết nối.",
+      "youAreConnectingToThis": "Bạn đang kết nối đến máy chủ này lần đầu tiên. Hãy kiểm tra dấu vân tay trước khi tin tưởng nó.",
+      "previousKey": "Khóa trước đó",
+      "newFingerprint": "Dấu vân tay mới",
+      "hostFingerprint": "Dấu vân tay máy chủ"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Yêu cầu mật khẩu",
+      "enterThePassphraseForYour": "Nhập mật khẩu cho khóa SSH của bạn.",
+      "cancel": "Hủy",
+      "connect": "Kết nối",
+      "keyPassphrase": "Mật khẩu khóa"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Yêu cầu xác thực SSH",
+      "cancel": "Hủy",
+      "connect": "Kết nối",
+      "password": "Mật khẩu",
+      "sshKey": "Khóa SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nDán khóa riêng của bạn vào đây...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Mật khẩu khóa (tùy chọn)",
+      "keyboardInteractiveAuthIsNot": "Xác thực tương tác bàn phím không khả dụng. Nhập thông tin đăng nhập trực tiếp.",
+      "authenticationFailedPleaseReEnter": "Xác thực thất bại. Vui lòng nhập lại thông tin đăng nhập của bạn.",
+      "connectionTimedOutPleaseTry": "Kết nối hết giờ. Vui lòng thử lại với thông tin đăng nhập của bạn."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Kiểm tra SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Hoàn thành kiểm tra SSH Tailscale trong trình duyệt của bạn để tiếp tục.",
+      "cancel": "Hủy",
+      "copyUrl": "Sao chép URL",
+      "openBrowser": "Mở trình duyệt",
+      "urlCopied": "Đã sao chép URL",
+      "failedToCopy": "Sao chép thất bại",
+      "couldNotOpenBrowser": "Không thể mở trình duyệt"
+    },
+    "tOTPDialog": {
+      "cancel": "Hủy",
+      "submit": "Gửi",
+      "verify": "Xác minh",
+      "password": "Mật khẩu",
+      "pasteCode": "Dán mã",
+      "passwordRequired": "Yêu cầu mật khẩu",
+      "twoFactorAuthentication": "Xác thực hai yếu tố",
+      "enterYourPasswordToContinue": "Nhập mật khẩu của bạn để tiếp tục.",
+      "enterThe6DigitCode": "Nhập mã 6 chữ số từ ứng dụng xác thực của bạn."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Xác thực Warpgate",
+      "authenticateViaTheWarpgatePortal": "Xác thực qua cổng Warpgate, sau đó nhấn Tiếp tục.",
+      "cancel": "Hủy",
+      "openBrowser": "Mở trình duyệt",
+      "continue": "Tiếp tục",
+      "securityKey": "Khóa bảo mật",
+      "authUrl": "URL xác thực",
+      "copied": "Đã sao chép",
+      "copy": "Sao chép",
+      "urlCopied": "Đã sao chép URL",
+      "failedToCopy": "Sao chép thất bại",
+      "couldNotOpenBrowser": "Không thể mở trình duyệt"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "{{deviceWord}} này"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Hoạt động gần đây",
+        "files": "Tệp",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Thông báo",
+        "seeAll": "Xem tất cả"
+      },
+      "server": "Máy chủ",
+      "openSessions": "Phiên đang mở",
+      "quickAccess": "Truy cập nhanh",
+      "notifications": "Thông báo",
+      "pinnedHosts": "Máy chủ đã ghim",
+      "recentHosts": "Máy chủ gần đây",
+      "recentActivity": "Hoạt động gần đây",
+      "pinnedCard": {
+        "addYourFirstHost": "Thêm máy chủ đầu tiên",
+        "hostsYouOpenShowUp": "Các máy chủ bạn mở sẽ hiển thị ở đây, và các máy chủ đã ghim sẽ hiển thị thẻ trực tiếp.",
+        "addHost": "Thêm máy chủ",
+        "linkAServer": "Liên kết máy chủ",
+        "pinAHostToSee": "Ghim một máy chủ để xem ở đây",
+        "pinnedHostsShowTheirMetrics": "Các máy chủ đã ghim hiển thị chỉ số, Docker và dịch vụ của chúng một cách tổng quan. Nhấn giữ một máy chủ để ghim nó.",
+        "goToHosts": "Đi đến máy chủ",
+        "pinned": "Đã ghim",
+        "opensTheTerminalHoldFor": "Mở terminal. Nhấn giữ để xem thêm.",
+        "turnOnDockerOrServices": "Bật Docker hoặc Dịch vụ cho máy chủ này, hoặc nhấn vào để kết nối.",
+        "opens": "Mở {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Truy cập nhanh",
+        "quickConnect": "Kết nối nhanh",
+        "userHostPortWithoutSaving": "user@host:port, không lưu"
+      },
+      "recentCard": {
+        "recent": "Gần đây"
+      },
+      "serverCard": {
+        "server": "Máy chủ",
+        "version": "Phiên bản",
+        "uptime": "Thời gian hoạt động",
+        "database": "Cơ sở dữ liệu",
+        "hosts": "Máy chủ",
+        "online": "Trực tuyến",
+        "offline": "Ngoại tuyến",
+        "logins": "Đăng nhập"
+      },
+      "sessionsCard": {
+        "openSessions": "Phiên đang mở",
+        "connected": "Đã kết nối"
+      }
+    },
+    "resetHome": "Đặt lại Trang chủ?",
+    "cardsGoBackToThe": "Các thẻ sẽ quay lại thứ tự mặc định và các thẻ được hiển thị.",
+    "reset": "Đặt lại",
+    "doneEditingHome": "Hoàn tất chỉnh sửa Trang chủ",
+    "editHome": "Chỉnh sửa Trang chủ",
+    "dragToReorder": "Kéo {{title}} để sắp xếp lại",
+    "show": "Hiển thị {{title}}",
+    "dragCardsToReorderThem": "Kéo các thẻ để sắp xếp lại. Tắt một thẻ để ẩn nó. Các thẻ không có nội dung sẽ tự động ẩn.",
+    "resetToDefault": "Đặt lại về mặc định",
+    "done": "Hoàn tất",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Vẫn không thể kết nối đến máy chủ",
+      "canTReach": "Không thể kết nối đến {{account}}",
+      "youCanKeepWorkingWith": "Bạn vẫn có thể làm việc với bản sao trên {{deviceWord}} này. Các thay đổi sẽ được đồng bộ khi kết nối được khôi phục.",
+      "hostsSetToConnectFrom": "Các máy chủ được cấu hình kết nối từ {{deviceWord}} này vẫn hoạt động bình thường.",
+      "tryAgain": "Thử lại",
+      "noAnswer": "không có phản hồi"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Hồ sơ Vault",
+      "none": "Không có",
+      "signsInWithInYour": "Đăng nhập bằng {{title}} trong trình duyệt của bạn thông qua máy chủ Termix. Kết nối máy chủ này thông qua máy chủ.",
+      "needsATermixServerLink": "{{title}} cần một máy chủ Termix. Liên kết một máy chủ để sử dụng phương thức đăng nhập này.",
+      "isOffOnThisServer": "{{title}} đang tắt trên máy chủ này. Máy chủ này vẫn giữ cài đặt đăng nhập hiện tại."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Không thể tải thông tin đăng nhập",
+      "deleted": "Đã xóa \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Không thể xóa thông tin đăng nhập",
+      "credentials": "Thông tin đăng nhập",
+      "add": "Thêm",
+      "searchCredentials": "Tìm kiếm thông tin đăng nhập",
+      "clearSearch": "Xóa tìm kiếm",
+      "loadingCredentials": "Đang tải thông tin đăng nhập...",
+      "noCredentialsMatchYourSearch": "Không có thông tin đăng nhập nào khớp với tìm kiếm của bạn",
+      "noCredentialsYet": "Chưa có thông tin đăng nhập nào",
+      "addCredential": "Thêm thông tin đăng nhập",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa",
+      "deleteCredential": "Xóa thông tin đăng nhập",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" sẽ bị xóa vĩnh viễn. Các máy chủ đang sử dụng nó sẽ mất thông tin đăng nhập đã lưu.",
+      "cancel": "Hủy",
+      "hostCount_other": "{{count}} máy chủ",
+      "sshKey": "Khóa SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Thay thế khóa?",
+        "theNewKeyTakesThe": "Khóa mới sẽ thay thế khóa hiện tại. Các máy chủ chỉ tin tưởng khóa cũ sẽ ngừng chấp nhận thông tin đăng nhập này.",
+        "replace": "Thay thế",
+        "newKeyMadeCopyThe": "Đã tạo khóa mới. Sao chép khóa công khai đến các máy chủ của bạn.",
+        "couldNotMakeAKey": "Không thể tạo khóa",
+        "couldNotReadThatCertificate": "Không thể đọc tệp chứng chỉ đó",
+        "leaveWithoutSaving": "Rời đi mà không lưu?",
+        "yourChangesToThisCredential": "Các thay đổi của bạn đối với thông tin đăng nhập này sẽ bị mất.",
+        "leave": "Rời đi",
+        "credentialSaved": "Đã lưu thông tin đăng nhập",
+        "credentialAdded": "Đã thêm thông tin đăng nhập",
+        "couldNotSaveTheCredential": "Không thể lưu thông tin đăng nhập",
+        "enterAHostToTest": "Nhập một máy chủ để kiểm tra, ví dụ: 10.0.0.5 hoặc box:2222.",
+        "enterTheUsernameFirst": "Nhập tên người dùng trước.",
+        "editCredential": "Chỉnh sửa thông tin đăng nhập",
+        "newCredential": "Thông tin đăng nhập mới",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "credential": "Thông tin đăng nhập",
+        "name": "Tên",
+        "productionKey": "Khóa sản xuất",
+        "username": "Tên đăng nhập",
+        "signInWith": "Đăng nhập bằng",
+        "password": "Mật khẩu",
+        "sshKey": "Khóa SSH",
+        "unchangedIfBlank": "Giữ nguyên nếu để trống",
+        "key": "Khóa",
+        "fileOrPaste": "Tệp hoặc dán",
+        "makeANewKey": "Tạo khóa mới",
+        "aKeyIsSavedChoose": "Đã lưu một khóa. Chọn tệp hoặc dán để thay thế.",
+        "type": "Loại",
+        "ed25519AndEcdsaAreMade": "Ed25519 và ECDSA được tạo trên {{deviceWord}} này, RSA trên máy chủ của bạn.",
+        "madeOnThisEd25519Works": "Được tạo trên {{deviceWord}} này. Ed25519 hoạt động ở hầu hết mọi nơi.",
+        "passphrase": "Cụm mật khẩu",
+        "optionalLocksTheNewKey": "Tùy chọn. Khóa mới sẽ được bảo vệ trên {{deviceWord}} này và trên ổ đĩa.",
+        "makeKey": "Tạo khóa",
+        "publicKey": "Khóa công khai",
+        "addThisLineToSsh": "Thêm dòng này vào ~/.ssh/authorized_keys trên các máy chủ của bạn",
+        "publicKeyCopied": "Đã sao chép khóa công khai",
+        "copyPublicKey": "Sao chép khóa công khai",
+        "certificate": "Chứng chỉ",
+        "aCertificateYourCaSigned": "Chứng chỉ do CA của bạn ký cho khóa này, dành cho các máy chủ tin tưởng CA.",
+        "chooseCertificateFile": "Chọn tệp chứng chỉ",
+        "thisDoesNotLookLike": "Đây không giống một chứng chỉ OpenSSH.",
+        "test": "Kiểm tra",
+        "hostToTestOn": "Máy chủ để kiểm tra",
+        "n10005Or": "10.0.0.5 hoặc box.lan:2222",
+        "pickASavedHost": "Chọn máy chủ đã lưu",
+        "details": "Chi tiết",
+        "description": "Mô tả",
+        "whatThisCredentialIsFor": "Mục đích của thông tin đăng nhập này",
+        "folder": "Thư mục",
+        "serverKeys": "Khóa máy chủ",
+        "testOnAHost": "Kiểm tra trên máy chủ",
+        "rsaKeysNeedALinked": "Khóa RSA cần một máy chủ được liên kết."
+      },
+      "model": {
+        "giveThisCredentialAName": "Đặt tên cho thông tin đăng nhập này",
+        "addAPrivateKeyOr": "Thêm khóa riêng hoặc tạo khóa mới"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Đây là chứng chỉ máy chủ, không phải chứng chỉ người dùng.",
+        "thisCertificateIsNotValid": "Chứng chỉ này chưa hợp lệ.",
+        "thisCertificateHasExpired": "Chứng chỉ này đã hết hạn.",
+        "itIsForAKey": "Dành cho khóa {{keyType}}, nhưng khóa này là {{keyType2}}.",
+        "forAnyUser": "Dành cho bất kỳ người dùng nào",
+        "validFromNoEndDate": "Hợp lệ từ {{validAfter}}, không có ngày kết thúc",
+        "signedBy": "Được ký bởi {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Tên đăng nhập",
+        "fromTheCredential": "Từ thông tin đăng nhập: {{credentialUser}}",
+        "signInWith": "Đăng nhập bằng",
+        "password": "Mật khẩu",
+        "key": "Khóa",
+        "credential": "Thông tin đăng nhập",
+        "none": "Không có",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Kết nối bằng Tailscale SSH. Không lưu mật khẩu hay khóa.",
+        "tailscaleIsNotOnFor": "Tailscale chưa bật cho {{value}}. Máy chủ này giữ nguyên thông tin đăng nhập Tailscale.",
+        "unchangedIfBlank": "Giữ nguyên nếu để trống",
+        "noCredentialsYetTapThe": "Chưa có thông tin đăng nhập nào. Nhấn biểu tượng khóa trong Máy chủ để thêm.",
+        "useCredential": "Sử dụng thông tin đăng nhập {{name}}",
+        "sudoPassword": "Mật khẩu sudo",
+        "typedIntoSudoPromptsWhen": "Được nhập vào các lời nhắc sudo khi phần Terminal bật tính năng này",
+        "notSet": "Chưa đặt",
+        "thisServer": "máy chủ này"
+      },
+      "colorIconField": {
+        "color": "Màu sắc",
+        "noColor": "Không màu",
+        "color2": "Màu {{c}}",
+        "icon": "Biểu tượng",
+        "noIcon": "Không có biểu tượng",
+        "none": "Không có",
+        "icon2": "Biểu tượng {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Rời đi mà không lưu?",
+        "yourChangesToThisHost": "Các thay đổi của bạn đối với máy chủ này sẽ bị mất.",
+        "leave": "Rời đi",
+        "couldNotSaveHowThis": "Không thể lưu cách kết nối của máy chủ này",
+        "hostSaved": "Đã lưu máy chủ",
+        "hostAdded": "Đã thêm máy chủ",
+        "couldNotSaveTheHost": "Không thể lưu máy chủ",
+        "enterTheHostSAddress": "Hãy nhập địa chỉ của máy chủ trước.",
+        "turnOnSshToTest": "Bật SSH để kiểm tra đăng nhập.",
+        "pickACredentialFirst": "Hãy chọn thông tin đăng nhập trước.",
+        "editHost": "Chỉnh sửa máy chủ",
+        "newHost": "Máy chủ mới",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "host": "Máy chủ",
+        "name": "Tên",
+        "myServer": "Máy chủ của tôi",
+        "address": "Địa chỉ",
+        "port": "Cổng",
+        "portAndUsernameComeFrom": "Cổng và tên người dùng được lấy từ cài đặt mặc định của máy chủ cho đến khi bạn thay đổi chúng.",
+        "folder": "Thư mục",
+        "production": "Sản xuất",
+        "useAFolderInstead": "Sử dụng thư mục thay thế",
+        "putItUnderAHost": "Đặt nó dưới một máy chủ thay thế",
+        "pinToTop": "Ghim lên đầu",
+        "colorAndIcon": "Màu sắc và biểu tượng",
+        "notes": "Ghi chú",
+        "anythingWorthRememberingAboutThis": "Bất kỳ thông tin nào đáng nhớ về máy chủ này",
+        "protocols": "Giao thức",
+        "terminalFilesAndMore": "Terminal, tệp và hơn thế nữa",
+        "connectFrom": "Kết nối từ",
+        "features": "Tính năng",
+        "otherProtocols": "Giao thức khác",
+        "more": "Thêm",
+        "theTestRunsFromThis": "Bài kiểm tra chạy từ {{deviceWord}} này. Máy chủ này kết nối thông qua máy chủ, vì vậy nó vẫn có thể hoạt động khi {{deviceWord}} không thể tiếp cận được."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Máy chủ nhảy",
+        "connectsThroughTheseInOrder": "Kết nối theo thứ tự này, sau đó đến máy chủ này",
+        "reachThisHostThroughOther": "Tiếp cận máy chủ này thông qua các máy chủ khác trước",
+        "moveUp": "Di chuyển lên",
+        "moveDown": "Di chuyển xuống",
+        "removeJumpHost": "Xóa máy chủ nhảy",
+        "addJumpHost": "Thêm máy chủ nhảy",
+        "pickASavedHostTo": "Chọn một máy chủ đã lưu để kết nối thông qua",
+        "searchHosts": "Tìm kiếm máy chủ",
+        "noOtherHostsToPick": "Không có máy chủ nào khác để chọn. Một máy chủ không thể nhảy qua chính nó hoặc một máy chủ đã đi qua nó.",
+        "missingHost": "Thiếu máy chủ #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Bật ít nhất một giao thức",
+        "pickACredential": "Chọn thông tin đăng nhập",
+        "enterTheHostSAddress": "Nhập địa chỉ của host",
+        "theAddressCanTHave": "Địa chỉ không được chứa khoảng trắng",
+        "portMustBeFrom1": "Cổng phải từ 1 đến 65535",
+        "enterTheSshUsername": "Nhập tên người dùng SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Host sẽ hiển thị lồng dưới host bạn chọn",
+        "searchHosts": "Tìm kiếm host",
+        "noHostsToPickA": "Không có host nào để chọn. Một host không thể nằm dưới chính nó, một sub-host của nó hoặc một host được chia sẻ.",
+        "parentHost": "Host cha",
+        "subHostsFollowTheFolder": "Các sub-host sẽ theo thư mục của host cha",
+        "pickParentHost": "Chọn host cha",
+        "missingHost": "Thiếu host #{{value}}",
+        "pickAHost": "Chọn một host",
+        "clearParentHost": "Xóa host cha"
+      },
+      "tagsField": {
+        "tags": "Thẻ",
+        "typeATagAndPress": "Nhập một thẻ và nhấn Enter",
+        "removeTag": "Xóa thẻ {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Không thể lưu cách kết nối của host này",
+      "addressCopied": "Đã sao chép địa chỉ",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Kết nối từ",
+      "dismiss": "Đóng",
+      "unpin": "Bỏ ghim",
+      "pinToHome": "Ghim lên Trang chủ",
+      "select": "Chọn",
+      "editHost": "Chỉnh sửa Host",
+      "copyAddress": "Sao chép Địa chỉ",
+      "addSubHost": "Thêm Sub-host",
+      "cloneHost": "Nhân bản Host",
+      "deleteHost": "Xóa Host",
+      "connectThroughTheServer": "Kết nối qua máy chủ",
+      "connectFromThis": "Kết nối từ {{deviceWord}} này"
+    },
+    "defaultYourOrder": "Mặc định (thứ tự của bạn)",
+    "nameAZ": "Tên (A-Z)",
+    "nameZA": "Tên (Z-A)",
+    "ipAscending": "IP (tăng dần)",
+    "ipDescending": "IP (giảm dần)",
+    "onlineFirst": "Trực tuyến trước",
+    "offlineFirst": "Ngoại tuyến trước",
+    "pinnedFirst": "Đã ghim trước",
+    "status": "Trạng thái",
+    "online": "Trực tuyến",
+    "offline": "Ngoại tuyến",
+    "pinned": "Đã ghim",
+    "protocol": "Giao thức",
+    "features": "Tính năng",
+    "hostsCanOnlyMoveInside": "Host chỉ có thể di chuyển bên trong thư mục của chính nó",
+    "couldNotUpdateTheHosts": "Không thể cập nhật các host",
+    "sharedHostsCanTBe": "Không thể xóa các host được chia sẻ ở đây",
+    "delete2": "Xóa",
+    "noneOfTheseHostsOpen": "Không có host nào trong số này mở terminal",
+    "couldNotPinTheHost": "Không thể ghim host",
+    "deleted": "Đã xóa {{name}}",
+    "failedToDeleteHost": "Không thể xóa host",
+    "cloned": "Đã nhân bản {{name}}",
+    "failedToCloneHost": "Không thể nhân bản host",
+    "reorderWorksWithTheDefault": "Sắp xếp lại hoạt động với chế độ sắp xếp Mặc định và không có tìm kiếm hoặc bộ lọc",
+    "couldNotSaveTheOrder": "Không thể lưu thứ tự",
+    "noHostsYet": "Chưa có host nào",
+    "addAHostToConnect": "Thêm một host để kết nối chỉ với một chạm.",
+    "addHost": "Thêm host",
+    "quickConnect2": "Kết nối nhanh",
+    "linkAServer": "Liên kết máy chủ",
+    "noHostsMatch": "Không có host nào khớp",
+    "clearSearchAndFilters": "Xóa tìm kiếm và bộ lọc",
+    "more": "Thêm",
+    "dragAHostByIts": "Kéo host bằng tay cầm để di chuyển nó trong thư mục.",
+    "done": "Xong",
+    "filterHosts": "Lọc host",
+    "clearFilterText": "Xóa văn bản lọc",
+    "sortHosts": "Sắp xếp host",
+    "removeFilter": "Xóa bộ lọc {{value}}",
+    "loadingHosts": "Đang tải host…",
+    "moveUnderAHost": "Di chuyển dưới một host",
+    "moveToFolder": "Di chuyển vào thư mục",
+    "leaveItEmptyToTake": "Để trống để đưa các host ra khỏi thư mục.",
+    "folderLikeProdWeb": "Thư mục, như Prod / Web",
+    "move": "Di chuyển",
+    "hosts": "Hosts",
+    "selectHosts": "Chọn host",
+    "reorderHosts": "Sắp xếp lại host",
+    "customizeList": "Tùy chỉnh danh sách",
+    "chooseWhatEachHostRow": "Chọn thông tin hiển thị cho mỗi hàng host",
+    "credentials2": "Thông tin đăng nhập",
+    "savedPasswordsAndKeys": "Mật khẩu và khóa đã lưu",
+    "tailscaleDevices": "Thiết bị Tailscale",
+    "refresh": "Làm mới",
+    "rowDensityFollowsSettingsAppearance": "Mật độ hàng theo Cài đặt, Giao diện.",
+    "clearAllFilters": "Xóa tất cả bộ lọc",
+    "tags": "Thẻ",
+    "stopSelecting": "Dừng chọn",
+    "selected": "Đã chọn {{count}}",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Không thể đọc tệp khóa đó",
+        "theClipboardIsEmpty": "Bảng tạm trống",
+        "privateKey": "Khóa riêng",
+        "chooseFile": "Chọn tệp",
+        "paste": "Dán",
+        "unchangedIfBlank": "Không thay đổi nếu để trống",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Cụm từ mật khẩu",
+        "onlyIfTheKeyHas": "Chỉ nếu khóa có cụm từ mật khẩu",
+        "theKeyIsCheckedWhen": "Khóa sẽ được kiểm tra khi bạn kết nối.",
+        "thePastedKey": "khóa đã dán"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Mở",
+        "moreActions": "Hành động khác",
+        "opensTheTerminalHoldFor": "Mở terminal. Nhấn giữ để xem thêm.",
+        "shared": "Đã chia sẻ",
+        "drag": "Kéo {{name}}",
+        "showSubHosts_other": "Hiển thị {{count}} host con của {{name}}",
+        "hideSubHosts_other": "Ẩn {{count}} host con của {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Thư mục {{name}}, {{total}} host"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Bắt buộc nhập host và tên người dùng",
+      "hostSaved": "Đã lưu host",
+      "couldNotSaveTheHost": "Không thể lưu host",
+      "quickConnect": "Kết nối nhanh",
+      "connectToAHostWithout": "Kết nối đến host mà không cần lưu.",
+      "hostIp": "Host / IP",
+      "port": "Cổng",
+      "username": "Tên người dùng",
+      "password": "Mật khẩu",
+      "key": "Khóa",
+      "privateKey": "Khóa riêng",
+      "saveToMyHosts": "Lưu vào danh sách máy chủ của tôi",
+      "keepThisHostAfterConnecting": "Giữ máy chủ này sau khi kết nối",
+      "cancel": "Hủy",
+      "connect": "Kết nối"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Đang lấy danh sách máy chủ từ máy chủ",
+      "yourHostsStayOnThis": "{{message}} Danh sách máy chủ của bạn vẫn ở trên {{deviceWord}} này trong lúc đó."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Khóa của máy chủ này đã thay đổi",
+      "trustThisHost": "Tin tưởng máy chủ này?",
+      "trust": "Tin tưởng",
+      "stopTest": "Dừng kiểm tra",
+      "testConnection": "Kiểm tra kết nối",
+      "connecting": "Đang kết nối..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Không thể tải danh sách máy chủ."
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} máy chủ chia sẻ được giữ nguyên.",
+    "deleteHosts_other": "Xóa {{count}} máy chủ?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Không có thư mục nào tên là {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Máy chủ \"{{name}}\": cổng không hợp lệ",
+        "hostJumpIsNotIn": "Máy chủ \"{{name}}\": máy chủ nhảy {{value}} không có trong tệp, nên đã bị bỏ qua",
+        "credential": "Thông tin đăng nhập {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Không tìm thấy mục nhập Host hợp lệ nào trong tệp cấu hình SSH",
+        "credentialWasNotFound": "{{label}}: không tìm thấy thông tin đăng nhập {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Máy chủ {{value}}: ID máy chủ xuất bản trùng lặp {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Thiếu các trường bắt buộc (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: authType không hợp lệ. Phải là một trong các giá trị {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Cần tên người dùng cho kết nối SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: cần credentialAlias để xác thực bằng thông tin đăng nhập",
+        "thatIsNotAValid": "Đó không phải là tệp JSON hợp lệ",
+        "hostsArrayIsRequiredAnd": "Mảng máy chủ là bắt buộc và không được để trống",
+        "jumpHostCycle": "{{label}}: vòng lặp máy chủ nhảy",
+        "jumpHostIsNotIn": "{{label}}: máy chủ nhảy {{id}} không có trong tệp"
+      }
+    },
+    "movedTo": "Đã di chuyển đến {{value}}",
+    "movedOutOfFolders": "Đã di chuyển ra khỏi thư mục",
+    "movedUnder": "Đã di chuyển vào {{value}}",
+    "openTerminals": "Mở terminal",
+    "theHost": "máy chủ"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Ẩn mật khẩu",
+      "showPassword": "Hiện mật khẩu",
+      "enterAUsernameAndPassword": "Nhập tên người dùng và mật khẩu",
+      "useAtLeast6Characters": "Sử dụng ít nhất 6 ký tự cho mật khẩu",
+      "thePasswordsDonTMatch": "Mật khẩu không khớp",
+      "makeTheAdminAccount": "Tạo tài khoản quản trị viên",
+      "makeAnAccount": "Tạo tài khoản",
+      "thisIsTheFirstAccount": "Đây là tài khoản đầu tiên trên máy chủ, nên nó sẽ quản lý máy chủ.",
+      "pickAUsernameAndPassword": "Chọn tên người dùng và mật khẩu cho máy chủ này.",
+      "username": "Tên người dùng",
+      "password": "Mật khẩu",
+      "passwordAgain": "Nhập lại mật khẩu",
+      "makeAccount": "Tạo tài khoản",
+      "back": "Quay lại",
+      "haveAnAccountSignIn": "Đã có tài khoản? Đăng nhập",
+      "resetCodeMadeItIs": "Đã tạo mã đặt lại. Mã này có trong nhật ký của máy chủ",
+      "enterYourUsername": "Nhập tên người dùng của bạn",
+      "enterTheResetCode": "Nhập mã đặt lại",
+      "passwordChangedSignInWith": "Mật khẩu đã thay đổi. Đăng nhập bằng mật khẩu mới ngay bây giờ",
+      "resetPassword": "Đặt lại mật khẩu",
+      "enterYourUsernameTheServer": "Nhập tên người dùng của bạn. Máy chủ sẽ ghi mã đặt lại vào nhật ký của nó.",
+      "sendResetCode": "Gửi mã đặt lại",
+      "enterThe6DigitCode": "Nhập mã 6 chữ số từ nhật ký máy chủ.",
+      "resetCode": "Đặt lại mã",
+      "checkCode": "Kiểm tra mã",
+      "newPassword": "Mật khẩu mới",
+      "saveNewPassword": "Lưu mật khẩu mới",
+      "backToSignIn": "Quay lại đăng nhập",
+      "couldNotMakeTheAccount": "Không thể tạo tài khoản",
+      "couldNotStartTheReset": "Không thể bắt đầu đặt lại",
+      "thatCodeDidnTWork": "Mã đó không hoạt động",
+      "couldNotChangeThePassword": "Không thể thay đổi mật khẩu"
+    },
+    "browserStep": {
+      "signInFailed": "Đăng nhập thất bại",
+      "signInCanceled": "Đã hủy đăng nhập",
+      "couldNotOpenTheSign": "Không thể mở trình duyệt đăng nhập",
+      "couldNotOpenTheSign2": "Không thể mở trang đăng nhập",
+      "certificateProblem": "Vấn đề về chứng chỉ",
+      "back": "Quay lại",
+      "signIn": "Đăng nhập",
+      "reload": "Tải lại",
+      "finishSigningInInYour": "Hoàn tất đăng nhập trong trình duyệt của bạn",
+      "useAnySignInYour": "Sử dụng bất kỳ phương thức đăng nhập nào trên máy chủ của bạn, như passkey hoặc khóa bảo mật. Ứng dụng sẽ tiếp nối sau khi bạn đã đăng nhập.",
+      "theAppPicksUpOnce": "Ứng dụng sẽ tiếp nối sau khi nhà cung cấp đăng nhập của bạn hoàn tất.",
+      "signingIn": "Đang đăng nhập...",
+      "openBrowserAgain": "Mở trình duyệt lại",
+      "theServerTurnedTheSession": "Máy chủ đã từ chối phiên làm việc. Hãy thử lại.",
+      "signedInButTheApp": "Đã đăng nhập, nhưng ứng dụng không thể kết nối đến Termix. Một proxy có thể đang chặn kết nối.",
+      "thatSignInLinkIs": "Liên kết đăng nhập đó từ một lần thử trước đó. Hãy đăng nhập lại.",
+      "signInAgain": "Đăng nhập lại.",
+      "openTheBrowserAgainWhen": "Mở trình duyệt lại khi bạn sẵn sàng.",
+      "theWebPageSignedIn": "Trang web đã đăng nhập nhưng không gửi phiên làm việc nào. Hãy cập nhật máy chủ và thử lại.",
+      "theCanTCheckThis": "{{deviceWord}} không thể kiểm tra chứng chỉ của máy chủ này. Hãy cài đặt CA gốc của nó trên {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Sử dụng {{name}} để đăng nhập lần sau?",
+      "ifThisServerSignsYou": "Nếu máy chủ này đăng xuất bạn, hãy đăng nhập lại bằng {{name}} thay vì nhập mật khẩu. Mật khẩu sẽ được lưu trên {{deviceWord}} này.",
+      "use": "Sử dụng {{name}}",
+      "notNow": "Không phải lúc này",
+      "couldNotSaveTheLogin": "Không thể lưu thông tin đăng nhập",
+      "thatSADifferentUser": "Đó là một người dùng khác",
+      "signedIn": "Đã đăng nhập",
+      "close": "Đóng",
+      "linkYourTermixServer": "Liên kết máy chủ Termix của bạn",
+      "yourHostsCredentialsSnippetsAnd": "Máy chủ, thông tin đăng nhập, đoạn lệnh và cài đặt của bạn sẽ đồng bộ với nó, và bạn sẽ nhận được các plugin của nó. Mọi thứ vẫn hoạt động trên {{deviceWord}} này khi máy chủ không có mặt.",
+      "checking": "Đang kiểm tra {{host}}...",
+      "proxyAndClientCertificate": "Proxy và chứng chỉ máy khách",
+      "couldNotReachThatServer": "Không thể kết nối đến máy chủ đó. Kiểm tra địa chỉ, hoặc thiết lập proxy hoặc chứng chỉ máy khách.",
+      "couldNotReachThatServer2": "Không thể kết nối đến máy chủ đó",
+      "syncCouldNotStartYet": "Đồng bộ chưa thể bắt đầu. Nó sẽ tự động thử lại.",
+      "checkingTheServer": "Đang kiểm tra máy chủ",
+      "signIn": "Đăng nhập",
+      "makeAnAccount": "Tạo tài khoản",
+      "resetPassword": "Đặt lại mật khẩu",
+      "oneMoreStep": "Một bước nữa",
+      "almostDone": "Gần hoàn tất",
+      "linkAServer": "Liên kết một máy chủ"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Thông tin đăng nhập đã lưu không còn hoạt động",
+      "enterYourUsernameAndPassword": "Nhập tên người dùng và mật khẩu của bạn",
+      "thisServerIsBehindA": "Máy chủ này nằm sau một proxy đăng nhập",
+      "signInWith": "Đăng nhập bằng {{saved}}",
+      "signInWith2": "Đăng nhập bằng",
+      "password": "Mật khẩu",
+      "username": "Tên người dùng",
+      "signIn": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "makeAnAccount": "Tạo tài khoản",
+      "or": "HOẶC",
+      "continueWith": "Tiếp tục với {{label}}",
+      "signInWithAPasskey": "Đăng nhập bằng passkey hoặc khóa bảo mật",
+      "opensYourServerAposS": "Mở trang đăng nhập của máy chủ trong trình duyệt. Face ID, vân tay, NFC và khóa USB đều hoạt động ở đó. Cần Termix 26.11.3 trở lên.",
+      "signInInTheBrowser": "Đăng nhập trong trình duyệt",
+      "opensYourServerAposS2": "Mở trang đăng nhập của máy chủ, dành cho các trường hợp ứng dụng không thể xử lý. Cần Termix 26.10.6 trở lên.",
+      "thisServerHasNoSign": "Máy chủ này chưa bật tính năng đăng nhập mà ứng dụng có thể sử dụng. Hãy hỏi người quản lý máy chủ hoặc thử đăng nhập qua trình duyệt ở trên.",
+      "signInWithYourPassword": "Đăng nhập bằng mật khẩu của bạn.",
+      "signInFailed": "Đăng nhập thất bại",
+      "openingItsSignInPage": "Đang mở trang đăng nhập."
+    },
+    "smallSteps": {
+      "serverAddress": "Địa chỉ máy chủ",
+      "likeTermixExampleComOr": "Ví dụ: termix.example.com hoặc 192.168.1.20:30001",
+      "checking": "Đang kiểm tra...",
+      "continue": "Tiếp tục",
+      "proxyAndClientCertificate": "Proxy và chứng chỉ máy khách",
+      "aServerWithASelf": "Máy chủ sử dụng chứng chỉ tự ký cần cài đặt chứng chỉ gốc CA lên {{deviceWord}} này trước. HTTP thông thường hoạt động trên mạng nội bộ của bạn.",
+      "enterTheCode": "Nhập mã",
+      "code": "Mã",
+      "the6DigitCodeFrom": "Mã 6 chữ số từ ứng dụng xác thực hoặc mã dự phòng",
+      "checkCode": "Kiểm tra mã",
+      "thisAccountAsksForA": "Tài khoản này yêu cầu khóa bảo mật sau khi nhập mật khẩu. Đăng nhập trên trang máy chủ trong trình duyệt để sử dụng.",
+      "useASecurityKeyIn": "Sử dụng khóa bảo mật trong trình duyệt",
+      "backToSignIn": "Quay lại đăng nhập",
+      "bringThisAposSHosts": "Đồng bộ danh sách máy chủ từ {{deviceWord}} này?",
+      "thisHasTheyStayOn": "{{deviceWord}} này có {{what}}. Chúng sẽ vẫn lưu trên thiết bị này trong mọi trường hợp.",
+      "merge": "Gộp",
+      "copyThemToTooSo": "Sao chép chúng sang {{serverName}} để đồng bộ. Các mục trùng với máy chủ trên server sẽ bị bỏ qua.",
+      "replace": "Thay thế",
+      "useOnlyWhatIsOn": "Chỉ sử dụng dữ liệu từ {{serverName}} cho tài khoản này. Không sao chép dữ liệu nào.",
+      "thatCodeDidnTWork": "Mã đó không hoạt động",
+      "hostsCredentialsOrSnippets": "máy chủ, thông tin đăng nhập hoặc đoạn lệnh"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Liên kết máy chủ này trước",
+      "thatHostIsnTHere": "Máy chủ đó không có ở đây",
+      "couldNotOpenThatHost": "Không thể mở máy chủ đó",
+      "noHostWithIdOn": "Không tìm thấy máy chủ có id {{hostId}} trên {{account}}.",
+      "isnTLinkedInThe": "{{value}} chưa được liên kết trong ứng dụng."
+    }
+  },
+  "notifications": {
+    "notifications": "Thông báo",
+    "markAllRead": "Đánh dấu tất cả đã đọc",
+    "clearReadNotifications": "Xóa thông báo đã đọc",
+    "unread2": "Chưa đọc",
+    "all": "Tất cả",
+    "noUnreadNotifications": "Không có thông báo chưa đọc",
+    "nothingHere": "Không có gì ở đây",
+    "markRead": "Đánh dấu đã đọc",
+    "delete": "Xóa",
+    "couldNotLoadNotifications": "Không thể tải thông báo",
+    "couldNotMarkRead": "Không thể đánh dấu đã đọc",
+    "couldNotDelete": "Không thể xóa",
+    "couldNotClear": "Không thể xóa"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Nhập",
+      "hosts": "Máy chủ",
+      "aTermixHostFileYour": "Tệp máy chủ Termix, tệp ~/.ssh/config của bạn, hoặc liên kết máy chủ hoặc mã QR từ {{deviceWord}} khác. Chúng sẽ được lưu trên {{deviceWord}} này.",
+      "backup": "Sao lưu",
+      "aBackupThisAppMade": "Tệp sao lưu do ứng dụng tạo, được khóa bằng mật khẩu. Nó khôi phục máy chủ, thông tin đăng nhập và đoạn lệnh.",
+      "restoreABackup": "Khôi phục bản sao lưu",
+      "done": "Xong",
+      "skipForNow": "Bỏ qua tạm thời",
+      "sshFilesAndRemoteDesktops": "SSH, tệp và màn hình từ xa từ {{deviceWord}} của bạn. Bạn muốn bắt đầu như thế nào?",
+      "useWithoutAServer": "Sử dụng không cần máy chủ",
+      "hostsCredentialsAndSnippetsAre": "Máy chủ, thông tin đăng nhập và đoạn lệnh được lưu trữ dưới dạng mã hóa trên {{deviceWord}} này. Bạn có thể liên kết máy chủ bất cứ lúc nào sau này.",
+      "linkATermixServer": "Liên kết máy chủ Termix",
+      "syncYourHostsCredentialsSnippets": "Đồng bộ hóa máy chủ, thông tin đăng nhập, đoạn lệnh và cài đặt của bạn với máy chủ và sử dụng các plugin của nó.",
+      "bringHostsFromATermix": "Nhập máy chủ từ tệp Termix, cấu hình SSH, mã QR hoặc bản sao lưu.",
+      "thisDevice": "Thiết bị này"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Tìm kiếm máy chủ, đoạn lệnh, hành động",
+      "clearSearch": "Xóa tìm kiếm",
+      "nothingMatches": "Không có kết quả phù hợp",
+      "typeToSearch": "Nhập để tìm kiếm",
+      "findAHostToConnect": "Tìm máy chủ để kết nối, đoạn lệnh, cài đặt hoặc hành động.",
+      "suggested": "Đề xuất | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Chạy trong {{title}}",
+      "copiedRunItFromThe": "Đã sao chép. Chạy nó từ các đoạn lệnh trong terminal để điền giá trị.",
+      "copiedOpenATerminalTo": "Đã sao chép. Mở terminal để chạy đoạn lệnh.",
+      "addHost": "Thêm máy chủ",
+      "quickConnect": "Kết nối nhanh",
+      "switchAccount": "Chuyển tài khoản",
+      "linkAServer": "Liên kết máy chủ",
+      "fromYourServer": "Từ máy chủ của bạn",
+      "settings": "Cài đặt",
+      "accountsAppearanceSecurity": "Tài khoản, giao diện, bảo mật"
+    },
+    "search": {
+      "hosts": "Máy chủ",
+      "snippets": "Đoạn lệnh",
+      "actions": "Hành động",
+      "settings": "Cài đặt"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Không thể tải phiên làm việc",
+      "sessionRevoked": "Phiên làm việc đã bị thu hồi",
+      "failedToRevokeSession": "Không thể thu hồi phiên làm việc",
+      "allSessionsRevoked": "Tất cả phiên làm việc đã bị thu hồi",
+      "failedToRevokeAllSessions": "Không thể thu hồi tất cả phiên làm việc",
+      "activeSessions": "Phiên làm việc đang hoạt động",
+      "signOutAllOtherSessions": "Đăng xuất tất cả các phiên làm việc khác",
+      "loading": "Đang tải…",
+      "noActiveSessionsFound": "Không tìm thấy phiên làm việc đang hoạt động.",
+      "unknownDevice": "Thiết bị không xác định",
+      "lastActive": "Hoạt động lần cuối {{lastActiveAt}}",
+      "created": "Được tạo {{createdAt}}",
+      "revokeSession": "Thu hồi phiên làm việc",
+      "revokeSession2": "Thu hồi phiên làm việc?",
+      "thisWillSignOutThat": "Điều này sẽ đăng xuất thiết bị đó.",
+      "revoke": "Thu hồi",
+      "revokeAllSessions": "Thu hồi tất cả phiên làm việc?",
+      "thisWillSignOutEvery": "Điều này sẽ đăng xuất mọi thiết bị. Bạn sẽ vẫn đăng nhập trên thiết bị này.",
+      "cancel": "Hủy",
+      "revokeAll": "Thu hồi tất cả"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Không thể tải khóa API",
+      "failedToCreateApiKey": "Không thể tạo khóa API",
+      "deleteApiKey": "Xóa khóa API?",
+      "willStopWorkingRightAway": "\"{{name}}\" sẽ ngừng hoạt động ngay lập tức.",
+      "apiKeyDeleted": "Khóa API đã bị xóa",
+      "failedToDeleteApiKey": "Không thể xóa khóa API",
+      "apiKeys": "Khóa API",
+      "newApiKey": "Khóa API mới",
+      "loading": "Đang tải…",
+      "apiKeysAllowProgrammaticAccess": "Khóa API cho phép truy cập theo chương trình vào Termix. Bí mật chỉ được hiển thị một lần nên hãy lưu trữ nó một cách an toàn.",
+      "noApiKeysYet": "Chưa có khóa API nào",
+      "created": "Được tạo {{createdAt}}",
+      "lastUsed": "Sử dụng lần cuối {{lastUsedAt}}",
+      "expires": "Hết hạn {{expiresAt}}",
+      "delete": "Xóa {{name}}",
+      "keyCreatedCopyItNow": "Đã tạo khóa. Sao chép ngay bây giờ",
+      "newApiKey2": "Khóa API mới",
+      "thisTokenWonTBe": "Mã thông báo này sẽ không được hiển thị lại.",
+      "apiKeyCopied": "Đã sao chép khóa API",
+      "copy": "Sao chép",
+      "done": "Xong",
+      "cancel": "Hủy",
+      "create": "Tạo",
+      "name": "Tên *",
+      "eGCiPipeline": "ví dụ: CI Pipeline",
+      "user": "Người dùng *",
+      "noUsersAvailable": "Không có người dùng khả dụng.",
+      "expiresAtOptional": "Hết hạn vào (tùy chọn)",
+      "yyyyMmDd": "NNNN/TT/Ng",
+      "yearMonthDay": "Năm / Tháng / Ngày"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Giữ phiên chạy",
+      "showsANotificationWhileSessions": "Hiển thị thông báo khi có phiên đang mở, giúp Android duy trì chúng khi bạn rời khỏi ứng dụng",
+      "batteryOptimization": "Tối ưu hóa pin",
+      "termixIsNotRestrictedSo": "Termix không bị hạn chế, nên các phiên có thể giữ nguyên khi màn hình tắt.",
+      "androidMayStillStopSessions": "Android vẫn có thể dừng các phiên để tiết kiệm pin. Mở cài đặt pin, tìm Termix và chọn Không tối ưu hóa hoặc Không hạn chế.",
+      "openBatterySettings": "Mở cài đặt pin",
+      "notificationsAreOff": "Thông báo đã tắt",
+      "sessionsStillRunButThe": "Các phiên vẫn chạy, nhưng danh sách phiên đang mở và nút Ngắt kết nối tất cả sẽ bị ẩn.",
+      "openNotificationSettings": "Mở cài đặt thông báo",
+      "thisBuildCanTKeep": "Phiên bản này không thể giữ các phiên chạy ở nền. Chúng sẽ kết nối lại khi bạn quay lại.",
+      "lowPowerMode": "Chế độ tiết kiệm pin",
+      "batterySaver": "Tiết kiệm pin",
+      "isOnTermixChecksConnections": "{{value}} đang bật. Termix kiểm tra kết nối ít thường xuyên hơn và chờ lâu hơn giữa các lần thử kết nối lại.",
+      "backgroundSessions": "Phiên nền",
+      "iosStopsAppsSoonAfter": "iOS dừng ứng dụng ngay sau khi bạn rời khỏi, nên các phiên không thể chạy ở nền. Chúng sẽ kết nối lại khi bạn quay lại, và tmux hoặc screen sẽ tiếp tục từ nơi bạn đã dừng."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Đã dừng",
+        "active": "Hoạt động",
+        "linkAServer": "Liên kết máy chủ",
+        "eachServerKeepsItsOwn": "Mỗi máy chủ giữ một bản sao riêng của các host, thông tin đăng nhập và cài đặt của bạn trên {{deviceWord}} này.",
+        "signedInAs": "Đã đăng nhập với tư cách",
+        "role": "Vai trò",
+        "administrator": "Quản trị viên",
+        "user": "Người dùng",
+        "serverVersion": "Phiên bản máy chủ",
+        "signOut": "Đăng xuất",
+        "youAreSignedOutOf": "Bạn đã đăng xuất khỏi máy chủ này.",
+        "signIn": "Đăng nhập",
+        "passwordChanged": "Đã thay đổi mật khẩu",
+        "couldNotChangeThePassword": "Không thể thay đổi mật khẩu",
+        "changePassword": "Thay đổi mật khẩu",
+        "enterYourCurrentPasswordThen": "Nhập mật khẩu hiện tại, sau đó chọn mật khẩu mới.",
+        "cancel": "Hủy",
+        "change": "Thay đổi",
+        "currentPassword": "Mật khẩu hiện tại",
+        "newPassword": "Mật khẩu mới",
+        "accountDeleted": "Đã xóa tài khoản",
+        "couldNotDeleteTheAccount": "Không thể xóa tài khoản",
+        "deleteServerAccount": "Xóa tài khoản máy chủ",
+        "thisPermanentlyDeletesYourAccount": "Hành động này sẽ xóa vĩnh viễn tài khoản của bạn trên máy chủ và tất cả dữ liệu liên quan. Không thể hoàn tác.",
+        "delete": "Xóa",
+        "confirmYourPassword": "Xác nhận mật khẩu của bạn",
+        "worksWithoutAServer": "Hoạt động mà không cần máy chủ",
+        "signedOut": "Đã đăng xuất",
+        "readsLive": "Đọc trực tiếp",
+        "toReview": "{{count}} cần xem xét",
+        "synced": "Đã đồng bộ",
+        "syncing": "Đang đồng bộ",
+        "offline": "Ngoại tuyến"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Chia sẻ thống kê sử dụng ẩn danh",
+        "aShortReportOnceA": "Báo cáo ngắn mỗi ngày. Không chứa host, tên hay địa chỉ",
+        "nextReport": "Báo cáo tiếp theo",
+        "seeExactlyWhatWouldBe": "Xem chính xác những gì sẽ được gửi",
+        "couldNotBuildTheReport": "Không thể tạo báo cáo",
+        "preview": "Xem trước",
+        "thisIsExactlyWhatWould": "Đây chính là những gì sẽ được gửi ngay bây giờ.",
+        "resetInstallId": "Đặt lại ID cài đặt",
+        "futureReportsWillLookLike": "Các báo cáo trong tương lai sẽ giống như một cài đặt mới",
+        "resetTheInstallId": "Đặt lại ID cài đặt?",
+        "futureReportsWillLookLike2": "Các báo cáo trong tương lai sẽ giống như một cài đặt mới.",
+        "reset": "Đặt lại",
+        "installIdReset": "Đã đặt lại ID cài đặt"
+      },
+      "appearanceControls": {
+        "theme": "Giao diện",
+        "accentColor": "Màu nhấn",
+        "textSize": "Cỡ chữ",
+        "sizeOfTextAcrossThe": "Cỡ chữ trong ứng dụng, không phải trong terminal",
+        "density": "Mật độ",
+        "howTallListRowsAnd": "Chiều cao của các hàng danh sách và mục cài đặt"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Host, thông tin đăng nhập và snippet được lưu trong một file mã hóa trên {{deviceWord}} này. Thống kê sử dụng tắt trừ khi bạn bật ở bên dưới. Máy chủ liên kết chỉ nhận những gì bạn cho phép đồng bộ.",
+        "recentHosts": "Host gần đây",
+        "forgetTheHostsYouOpened": "Quên các host bạn đã mở gần đây trên mọi tài khoản",
+        "recentHostsCleared": "Đã xóa host gần đây",
+        "clear": "Xóa",
+        "couldNotCheckForUpdates": "Không thể kiểm tra cập nhật",
+        "versionIsOutUpdateFrom": "Phiên bản {{version}} đã ra mắt. Cập nhật từ cửa hàng của bạn.",
+        "youHaveTheNewestVersion": "Bạn đang dùng phiên bản mới nhất",
+        "termixMobile": "Termix Mobile",
+        "updates": "Cập nhật",
+        "check": "Kiểm tra"
+      },
+      "pinSheet": {
+        "waitSeconds": "Chờ {{value}} giây",
+        "digits": "{{PIN_LENGTH}} chữ số"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "Mã PIN không khớp",
+        "appLockIsOn": "Khóa ứng dụng đang bật",
+        "turnOffAppLock": "Tắt khóa ứng dụng",
+        "enterYourPinToConfirm": "Nhập mã PIN để xác nhận.",
+        "appLockIsOff": "Khóa ứng dụng đang tắt",
+        "appLock": "Khóa ứng dụng",
+        "askForFaceIdTouch": "Yêu cầu Face ID, Touch ID hoặc mã PIN để mở ứng dụng",
+        "askForAPinTo": "Yêu cầu mã PIN để mở ứng dụng",
+        "pinChanged": "Đã thay đổi mã PIN",
+        "couldNotChangeThePin": "Không thể thay đổi mã PIN",
+        "changePin": "Thay đổi mã PIN",
+        "lockAfter": "Khóa sau",
+        "howLongTheAppCan": "Thời gian ứng dụng có thể bị ẩn trước khi khóa",
+        "hideInAppSwitcher": "Ẩn trong trình chuyển đổi ứng dụng",
+        "showABlankScreenIn": "Hiển thị màn hình trống trong danh sách ứng dụng gần đây",
+        "chooseA4DigitPin": "Chọn một mã PIN 4 chữ số.",
+        "confirmPin": "Xác nhận mã PIN",
+        "enterTheSamePinAgain": "Nhập lại cùng mã PIN.",
+        "currentPin": "Mã PIN hiện tại",
+        "enterYourCurrentPin": "Nhập mã PIN hiện tại của bạn.",
+        "newPin": "Mã PIN mới",
+        "chooseANew4Digit": "Chọn một mã PIN 4 chữ số mới.",
+        "confirmNewPin": "Xác nhận mã PIN mới",
+        "enterTheNewPinAgain": "Nhập lại mã PIN mới."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widget màn hình chính",
+        "showYourHostsSnippetsAnd": "Hiển thị máy chủ, đoạn lệnh và nút nguồn trên màn hình chính",
+        "showAddresses": "Hiển thị địa chỉ",
+        "showUserHostUnderEach": "Hiển thị user@host dưới mỗi tên máy chủ",
+        "includeOfflineHosts": "Bao gồm máy chủ ngoại tuyến",
+        "offShowsOnlyServersThat": "Tắt chỉ hiển thị các máy chủ đang trực tuyến",
+        "pinnedHostsOnly": "Chỉ máy chủ đã ghim",
+        "showOnlyTheHostsYou": "Chỉ hiển thị các máy chủ bạn đã ghim",
+        "snippetsWidget": "Widget đoạn lệnh",
+        "showSavedCommandsOnThe": "Hiển thị lệnh đã lưu trên màn hình chính",
+        "showCommandPreview": "Hiển thị bản xem trước lệnh",
+        "showTheFirstLineOf": "Hiển thị dòng đầu tiên của mỗi lệnh"
+      }
+    },
+    "fileSettings": {
+      "files": "Tệp tin",
+      "fileManagerOnThis": "Quản lý tệp tin trên {{deviceWord}} này",
+      "browsing": "Duyệt",
+      "transfersAtOnce": "Chuyển tệp đồng thời",
+      "downloadsAndUploadsThatRun": "Tải xuống và tải lên chạy cùng lúc",
+      "editor": "Trình soạn thảo",
+      "textSize": "Cỡ chữ",
+      "filesBesideTheTerminal": "Tệp tin bên cạnh terminal",
+      "side": "Bên",
+      "whereThePanelSitsOn": "Vị trí bảng điều khiển trên máy tính bảng",
+      "right": "Phải",
+      "left": "Trái",
+      "howOftenToCheck": "Tần suất kiểm tra",
+      "folderHistory": "Lịch sử thư mục",
+      "foldersKeptPerHost": "Số thư mục lưu cho mỗi máy chủ",
+      "showHiddenFiles": "Hiển thị tệp ẩn",
+      "filesAndFoldersThatStart": "Tệp và thư mục bắt đầu bằng dấu chấm",
+      "askBeforeMovingToThe": "Hỏi trước khi chuyển vào thùng rác",
+      "deletingForGoodAlwaysAsks": "Xóa vĩnh viễn luôn yêu cầu xác nhận",
+      "wrapLongLines": "Xuống dòng dài",
+      "openWithNewTerminals": "Mở với terminal mới",
+      "onATabletShowThe": "Trên máy tính bảng, hiển thị bảng tệp khi terminal mở",
+      "followTheTerminal": "Theo dõi terminal",
+      "openTheFolderTheTerminal": "Mở thư mục hiện tại của terminal khi bạn dùng lệnh cd"
+    },
+    "keyboardCustomization": {
+      "small": "Nhỏ",
+      "medium": "Vừa",
+      "large": "Lớn",
+      "ms": "{{v}} ms",
+      "keyboard": "Bàn phím",
+      "keyRowsAboveTheKeyboard": "Hàng phím trên bàn phím",
+      "rows": "Hàng",
+      "keys": "Phím",
+      "aHostCanHaveIts": "Máy chủ có thể có hàng phím riêng: chạm vào tab đang mở của nó trong phiên và chọn Hàng phím cho máy chủ này.",
+      "keySize": "Kích thước phím",
+      "vibrateOnKeyPress": "Rung khi nhấn phím",
+      "repeatAfter": "Lặp lại sau",
+      "howLongToHoldAn": "Giữ phím mũi tên hoặc Backspace bao lâu",
+      "repeatEvery": "Lặp lại mỗi",
+      "hardwareKeyboard": "Bàn phím vật lý",
+      "allShortcuts": "Tất cả phím tắt",
+      "show": "Hiển thị"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Không thể tạo bản sao lưu",
+      "deleteLocalData": "Xóa dữ liệu cục bộ?",
+      "hostsCredentialsSnippetsAndHistory": "Máy chủ, thông tin đăng nhập, đoạn lệnh và lịch sử được lưu trên {{deviceWord}} này cho {{account}} sẽ bị xóa. Thao tác này không thể hoàn tác. Hãy sao lưu trước nếu bạn muốn giữ lại chúng.",
+      "delete": "Xóa",
+      "localDataDeleted": "Đã xóa dữ liệu cục bộ",
+      "couldNotDeleteLocalData": "Không thể xóa dữ liệu cục bộ",
+      "localData": "Dữ liệu cục bộ",
+      "localDataIsOnlySaved": "Dữ liệu cục bộ chỉ được lưu trong ứng dụng {{deviceWord}}.",
+      "savedOnThisForThe": "Đã lưu trên {{deviceWord}} này cho {{account}}. Tệp được mã hóa bằng khóa không bao giờ rời khỏi {{deviceWord}} này.",
+      "hosts": "Máy chủ",
+      "credentials": "Thông tin đăng nhập",
+      "snippets": "Mảnh lệnh",
+      "size": "Kích thước",
+      "dataVersion": "Phiên bản dữ liệu",
+      "backup": "Sao lưu",
+      "aBackupFileHoldsYour": "Tệp sao lưu chứa mật khẩu và khóa của bạn, được khóa bằng cụm mật khẩu bạn chọn. Không ai có thể mở nó nếu không có cụm mật khẩu đó.",
+      "exportBackup": "Xuất bản sao lưu",
+      "importBackup": "Nhập bản sao lưu",
+      "removesEverythingThisAccountSaved": "Xóa mọi thứ tài khoản này đã lưu trên {{deviceWord}} này. Máy chủ được liên kết sẽ giữ lại bản sao riêng của nó.",
+      "deleteLocalData2": "Xóa dữ liệu cục bộ",
+      "backupPassphrase": "Cụm mật khẩu sao lưu",
+      "atLeast8CharactersYou": "Ít nhất 8 ký tự. Bạn cần nó để khôi phục bản sao lưu.",
+      "passphrase": "Cụm mật khẩu",
+      "next": "Tiếp theo",
+      "typeItAgain": "Nhập lại",
+      "export": "Xuất",
+      "saveYourTermixBackup": "Lưu bản sao lưu Termix của bạn"
+    },
+    "logs": {
+      "logs": "Nhật ký",
+      "latestLinesFromThisRun": "Các dòng mới nhất từ lần chạy này. Địa chỉ máy chủ, mật khẩu và mã thông báo đã được ẩn.",
+      "logsCopied": "Đã sao chép nhật ký",
+      "copy": "Sao chép",
+      "share": "Chia sẻ",
+      "clear": "Xóa",
+      "noLogsYet": "Chưa có nhật ký",
+      "nothingHasBeenLogged": "Chưa có gì được ghi lại."
+    },
+    "plugins": {
+      "worksOnThis": "Hoạt động trên {{deviceWord}} này",
+      "needsTheServer": "Cần máy chủ",
+      "notInTheApp": "Không có trong ứng dụng",
+      "needsANewerVersionOf": "Cần phiên bản ứng dụng mới hơn",
+      "updateThePluginOnThe": "Cập nhật plugin trên máy chủ",
+      "inTheApp": "Trong ứng dụng",
+      "onThisServer": "Trên máy chủ này",
+      "version": "Phiên bản",
+      "needsPluginApi": "Cần API plugin",
+      "thisAppHas": "Ứng dụng này có",
+      "note": "Lưu ý",
+      "open": "Mở",
+      "openFromAHostS": "Mở {{name}} từ menu của máy chủ.",
+      "plugins": "Plugin",
+      "everything": "Tất cả",
+      "thisDeviceWorksWithNo": "Thiết bị này hoạt động mà không cần máy chủ. Liên kết một máy chủ để thêm các tính năng cần máy chủ.",
+      "pluginsOnAndHowEach": "Plugin trên {{account}} và cách mỗi plugin hiển thị trong ứng dụng. Kéo xuống để kiểm tra lại.",
+      "whatRunsOnThisAnd": "Những gì chạy trên {{deviceWord}} này và những gì đi qua {{account}}.",
+      "noPluginList": "Không có danh sách plugin",
+      "theServerDidNotSend": "Máy chủ không gửi danh sách plugin của nó. Kéo xuống để thử lại.",
+      "serversOlderThan29": "Máy chủ cũ hơn 2.9 có mọi tính năng tích hợp sẵn.",
+      "nothingToShow": "Không có gì để hiển thị",
+      "notSentByThisServer": "Không được gửi bởi máy chủ này"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Thay thế dữ liệu cục bộ?",
+      "everythingSavedOnThisFor": "Mọi thứ đã lưu trên {{deviceWord}} này cho {{accountName}} sẽ bị thay thế bằng bản sao lưu.",
+      "continue": "Tiếp tục",
+      "couldNotReadThatFile": "Không thể đọc tệp đó",
+      "backupRestored": "Đã khôi phục bản sao lưu",
+      "couldNotRestoreTheBackup": "Không thể khôi phục bản sao lưu",
+      "backupPassphrase": "Cụm mật khẩu sao lưu",
+      "thePassphraseUsedWhenThe": "Cụm mật khẩu được sử dụng khi tạo bản sao lưu.",
+      "passphrase": "Cụm mật khẩu",
+      "restore": "Khôi phục"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Tài khoản",
+        "thisDeviceAndLinkedServers": "Thiết bị này và các máy chủ liên kết, cùng trạng thái đồng bộ của chúng",
+        "syncAndProxy": "Đồng bộ và proxy",
+        "whatSyncsConflictsProxyAnd": "Nội dung đồng bộ, xung đột, proxy và hủy liên kết",
+        "serverAccount": "Tài khoản máy chủ",
+        "whoIsSignedInOn": "Người đang đăng nhập trên máy chủ hiện tại",
+        "activeSessions": "Phiên hoạt động",
+        "devicesSignedInToThe": "Các thiết bị đã đăng nhập vào máy chủ",
+        "apiKeys": "Khóa API",
+        "keysForScriptsAndTools": "Khóa cho tập lệnh và công cụ",
+        "changePassword": "Đổi mật khẩu",
+        "passwordOfYourServerAccount": "Mật khẩu của tài khoản máy chủ của bạn",
+        "deleteServerAccount": "Xóa tài khoản máy chủ",
+        "removeYourAccountFromThe": "Xóa tài khoản của bạn khỏi máy chủ",
+        "theme": "Giao diện",
+        "darkLightDraculaNordAnd": "Tối, sáng, Dracula, Nord và nhiều hơn nữa",
+        "accentColor": "Màu nhấn",
+        "textSize": "Cỡ chữ",
+        "sizeOfTextAcrossThe": "Cỡ chữ trên toàn ứng dụng",
+        "density": "Mật độ",
+        "howTallListRowsAnd": "Chiều cao của các hàng danh sách và mục cài đặt",
+        "homeScreenWidgets": "Widget màn hình chính",
+        "hostsAndSnippetsOnThe": "Máy chủ và đoạn lệnh trên màn hình chính",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Phông chữ, giao diện, con trỏ, cuộn lại",
+        "keyboard": "Bàn phím",
+        "layoutKeysPresets": "Bố cục, phím, cấu hình sẵn",
+        "appLock": "Khóa ứng dụng",
+        "askForFaceIdTouch": "Yêu cầu Face ID, Touch ID hoặc mã PIN để mở ứng dụng",
+        "lockAfter": "Khóa sau",
+        "howLongTheAppCan": "Thời gian ứng dụng có thể bị che khuất trước khi khóa",
+        "hideInAppSwitcher": "Ẩn trong trình chuyển đổi ứng dụng",
+        "showABlankScreenIn": "Hiển thị màn hình trống trong danh sách ứng dụng gần đây",
+        "changePin": "Đổi mã PIN",
+        "backgroundSessions": "Phiên nền",
+        "whatHappensToOpenSessions": "Điều xảy ra với các phiên đang mở khi bạn rời khỏi ứng dụng",
+        "serverAlerts": "Cảnh báo máy chủ",
+        "alertsFromTheAlertsPlugin": "Cảnh báo từ plugin Alerts trên máy chủ của bạn",
+        "whatStaysOnThis": "Nội dung lưu trên {{deviceWord}} này",
+        "hostsCredentialsAndSnippetsAre": "Máy chủ, thông tin đăng nhập và đoạn lệnh được lưu trữ ở đây dưới dạng mã hóa",
+        "recentHosts": "Máy chủ gần đây",
+        "forgetTheHostsYouOpened": "Quên các máy chủ bạn đã mở gần đây",
+        "shareAnonymousUsageStatistics": "Chia sẻ thống kê sử dụng ẩn danh",
+        "aShortReportOnceA": "Báo cáo ngắn mỗi ngày. Không có máy chủ, tên hay địa chỉ",
+        "nextReport": "Báo cáo tiếp theo",
+        "seeExactlyWhatWouldBe": "Xem chính xác những gì sẽ được gửi",
+        "resetInstallId": "Đặt lại ID cài đặt",
+        "futureReportsWillLookLike": "Các báo cáo trong tương lai sẽ giống như một cài đặt mới",
+        "serverUsageStatistics": "Thống kê sử dụng máy chủ",
+        "telemetrySettingsOnYourServer": "Cài đặt đo lường trên máy chủ của bạn",
+        "plugins": "Plugin",
+        "whatTheServerAddsAnd": "Những gì máy chủ thêm vào và nơi chúng chạy",
+        "localData": "Dữ liệu cục bộ",
+        "backupRestoreAndDeleteWhat": "Sao lưu, khôi phục và xóa những gì được lưu trên {{deviceWord}} này",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Phiên bản và cập nhật",
+        "logs": "Nhật ký",
+        "latestLinesFromThisRun": "Các dòng mới nhất từ lần chạy này, dùng cho báo cáo lỗi"
+      },
+      "sections": {
+        "accountsAndSync": "Tài khoản và đồng bộ",
+        "thisDeviceLinkedServersAnd": "Thiết bị này, máy chủ liên kết và dữ liệu đồng bộ",
+        "appearance": "Giao diện",
+        "themeAccentTextSizeAnd": "Ngôn ngữ, chủ đề, màu nhấn, kích thước chữ và mật độ",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Phông chữ, màu sắc và phiên làm việc nền",
+        "keyboard": "Bàn phím",
+        "keyRowsAndShortcuts": "Hàng phím và phím tắt",
+        "security": "Bảo mật",
+        "appLockFaceIdAnd": "Khóa ứng dụng, Face ID và mã PIN",
+        "notifications": "Thông báo",
+        "alertsFromYourServer": "Cảnh báo từ máy chủ của bạn",
+        "privacyAndUsageStatistics": "Quyền riêng tư và thống kê sử dụng",
+        "whatStaysOnThis": "Dữ liệu lưu trên {{deviceWord}} này",
+        "plugins": "Plugin",
+        "whatTheServerAddsTo": "Những gì máy chủ thêm vào ứng dụng",
+        "backupAndData": "Sao lưu và dữ liệu",
+        "backUpRestoreImportAnd": "Sao lưu, khôi phục, nhập và xuất",
+        "aboutAndLogs": "Giới thiệu và nhật ký",
+        "versionAndLogsForBug": "Phiên bản và nhật ký cho báo cáo lỗi"
+      }
+    },
+    "settings": "Cài đặt",
+    "searchSettings": "Tìm kiếm cài đặt",
+    "noSettingsMatch": "Không có cài đặt nào khớp.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Không thể tải snippets",
+      "copied": "Đã sao chép: {{name}}",
+      "nameIsRequired": "Bắt buộc nhập tên",
+      "contentIsRequired": "Bắt buộc nhập nội dung",
+      "snippetUpdated": "Đã cập nhật snippet",
+      "snippetCreated": "Đã tạo snippet",
+      "failedToSaveSnippet": "Không thể lưu snippet",
+      "snippetDeleted": "Đã xóa snippet",
+      "failedToDeleteSnippet": "Không thể xóa snippet",
+      "folderNameIsRequired": "Bắt buộc nhập tên thư mục",
+      "folderCreated": "Đã tạo thư mục",
+      "failedToCreateFolder": "Không thể tạo thư mục",
+      "folderDeleted": "Đã xóa thư mục",
+      "failedToDeleteFolder": "Không thể xóa thư mục",
+      "folderRenamed": "Đã đổi tên thư mục",
+      "failedToRenameFolder": "Không thể đổi tên thư mục",
+      "failedToSaveOrder": "Không thể lưu thứ tự",
+      "moveUp": "Di chuyển lên",
+      "moveDown": "Di chuyển xuống",
+      "runOnHosts": "Chạy {{name}} trên các máy chủ",
+      "copy": "Sao chép {{name}}",
+      "delete": "Xóa {{name}}",
+      "renameFolder": "Đổi tên thư mục",
+      "deleteFolder": "Xóa thư mục",
+      "noSnippetsInThisFolder": "Không có snippet nào trong thư mục này",
+      "snippets": "Snippets",
+      "importAndExport": "Nhập và xuất",
+      "folder": "Thư mục",
+      "new": "Mới",
+      "loading": "Đang tải…",
+      "couldNotLoadSnippets": "Không thể tải snippets",
+      "checkTheConnectionToYour": "Kiểm tra kết nối với máy chủ của bạn và thử lại.",
+      "tryAgain": "Thử lại",
+      "noSnippetsYet": "Chưa có snippet nào",
+      "createYourFirstSnippetOr": "Tạo snippet đầu tiên của bạn, hoặc thêm snippets từ ứng dụng web hoặc máy tính để bàn của Termix.",
+      "createSnippet": "Tạo snippet",
+      "askBeforeRunning": "Hỏi trước khi chạy",
+      "confirmBeforeASnippetRuns": "Xác nhận trước khi đoạn lệnh chạy trong terminal",
+      "editSnippet": "Chỉnh sửa đoạn lệnh",
+      "newSnippet": "Đoạn lệnh mới",
+      "cancel": "Hủy",
+      "save": "Lưu",
+      "create": "Tạo",
+      "name": "Tên",
+      "eGUpdatePackages": "vd. Cập nhật gói phần mềm",
+      "content": "Nội dung",
+      "descriptionOptional": "Mô tả (tùy chọn)",
+      "shortDescription": "Mô tả ngắn",
+      "folderOptional": "Thư mục (tùy chọn)",
+      "selectFolder": "Chọn thư mục",
+      "noFolder": "Không có thư mục",
+      "targetHostsOptional": "Máy chủ mục tiêu (tùy chọn)",
+      "none": "Không có",
+      "note": "Ghi chú",
+      "pastedIntoTheTerminalWithout": "Dán vào terminal mà không chạy",
+      "targetHosts": "Máy chủ mục tiêu",
+      "copy2": "Sao chép",
+      "edit": "Chỉnh sửa",
+      "runOnHosts2": "Chạy trên máy chủ",
+      "delete2": "Xóa",
+      "deleteSnippet": "Xóa đoạn lệnh",
+      "deleteThisCannotBeUndone": "Xóa \"{{name}}\"? Thao tác này không thể hoàn tác.",
+      "renameFolder2": "Đổi tên thư mục",
+      "rename": "Đổi tên",
+      "folderName": "Tên thư mục",
+      "eGSystem": "vd. Hệ thống",
+      "newFolder": "Thư mục mới",
+      "deleteFolder2": "Xóa thư mục",
+      "deleteSnippetsInThisFolder": "Xóa \"{{name}}\"? Các đoạn lệnh trong thư mục này sẽ trở thành không phân loại."
+    },
+    "sync": {
+      "notYet": "Chưa",
+      "justNow": "Vừa xong",
+      "stopped": "Đã dừng",
+      "signInToThisServer": "Đăng nhập lại vào máy chủ này để đồng bộ",
+      "couldNotChangeThat": "Không thể thay đổi",
+      "sync": "Đồng bộ",
+      "thisDeviceDoesNotSync": "Thiết bị này không đồng bộ. Kết nối với máy chủ Termix để giữ máy chủ của bạn trên nhiều hơn một thiết bị.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} giữ máy chủ, thông tin đăng nhập, đoạn lệnh và cài đặt đồng bộ với {{deviceWord}} này. Một bản sao được lưu trên {{deviceWord}} này, vì vậy nó cũng hoạt động ngoại tuyến.",
+      "lastSynced": "Đồng bộ lần cuối {{value}}",
+      "live": "Trực tiếp",
+      "syncNow": "Đồng bộ ngay",
+      "fix": "Sửa",
+      "thisServerReadsLiveAnd": "Máy chủ này đọc trực tiếp và không lưu bản sao trên {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Bật plugin Đồng bộ trên trang Plugin của máy chủ, sau đó đăng nhập lại ở đây để lưu bản sao trên {{deviceWord}} này.",
+      "whatSyncs": "Những gì được đồng bộ",
+      "turnedOffThatDataStays": "Đã tắt, dữ liệu đó chỉ ở trên {{deviceWord}} này.",
+      "conflicts": "Xung đột",
+      "changedHereAndOnThe": "Đã thay đổi ở đây và trên máy chủ cùng lúc. Phiên bản của máy chủ đã được giữ lại.",
+      "useServer": "Dùng của máy chủ",
+      "keepMine": "Giữ của tôi",
+      "notSavedOnTheServer": "Chưa lưu trên máy chủ",
+      "theServerRefusedTheseChanges": "Máy chủ đã từ chối những thay đổi này. Chúng vẫn ở trên {{deviceWord}} này.",
+      "tryAgain": "Thử lại",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Chỉ cần khi có reverse proxy đứng trước máy chủ.",
+      "unlink": "Hủy kết nối",
+      "unlinkThisServer": "Hủy kết nối máy chủ này",
+      "minAgo": "{{value}} phút trước",
+      "signedOut": "Đã đăng xuất",
+      "waitingToSync": "Đang chờ đồng bộ",
+      "synced": "Đã đồng bộ",
+      "syncing": "Đang đồng bộ",
+      "offline": "Ngoại tuyến"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Nền",
+        "text": "Văn bản",
+        "cursor": "Con trỏ",
+        "textUnderCursor": "Văn bản dưới con trỏ",
+        "selection": "Vùng chọn",
+        "black": "Đen",
+        "red": "Đỏ",
+        "green": "Xanh lá",
+        "yellow": "Vàng",
+        "blue": "Xanh dương",
+        "magenta": "Đỏ tươi",
+        "cyan": "Xanh lơ",
+        "white": "Trắng",
+        "brightBlack": "Đen sáng",
+        "brightRed": "Đỏ sáng",
+        "brightGreen": "Xanh lá sáng",
+        "brightYellow": "Vàng sáng",
+        "brightBlue": "Xanh dương sáng",
+        "brightMagenta": "Đỏ tươi sáng",
+        "brightCyan": "Xanh lơ sáng",
+        "brightWhite": "Trắng sáng",
+        "customTheme": "Giao diện tùy chỉnh",
+        "colorsAsHexLike1e1e2e": "Màu dưới dạng hex, ví dụ #1e1e2e.",
+        "cancel": "Hủy",
+        "save": "Lưu",
+        "isNotAHexColor": "{{label}} không phải là mã màu hex"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Gọn",
+      "default": "Mặc định",
+      "relaxed": "Thư giãn",
+      "spacious": "Rộng rãi",
+      "none": "Không có",
+      "couldNotSave": "Không thể lưu",
+      "pickASizeFromTo": "Chọn kích thước từ {{MIN_FONT_SIZE}} đến {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Đã đặt lại cài đặt terminal",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Một host có thể đặt riêng giao diện và con trỏ trong Termix, ưu tiên hơn các cài đặt này.",
+      "theme": "Giao diện",
+      "custom": "Tùy chỉnh",
+      "font": "Phông chữ",
+      "active": "Hoạt động",
+      "sizeAndSpacing": "Kích thước và khoảng cách",
+      "pinchTheTerminalToChange": "Cũng có thể thu phóng terminal bằng cử chỉ. Văn bản lớn trong {{deviceWord}}cài đặt sẽ làm nó to hơn.",
+      "custom2": "Tùy chỉnh {{fontSize}}",
+      "lineHeight": "Chiều cao dòng",
+      "letterSpacing": "Khoảng cách chữ",
+      "ligatures": "Ligature",
+      "cursor": "Con trỏ",
+      "blink": "Nhấp nháy",
+      "bell": "Chuông",
+      "vibrate": "Rung",
+      "onTheBellAndWhen": "Khi chuông báo và khi nhấn giữ để chọn",
+      "scrollback": "Cuộn ngược",
+      "linesKeptAboveTheScreen": "Số dòng được giữ trên màn hình. Áp dụng cho các terminal mới.",
+      "linksAndKeys": "Liên kết và phím",
+      "askBeforeOpeningLinks": "Hỏi trước khi mở liên kết",
+      "doubleTapSendsTab": "Nhấn đúp gửi phím Tab",
+      "longPressStillSelectsText": "Nhấn giữ vẫn chọn văn bản",
+      "optionSendsAlt": "Phím Option gửi Alt",
+      "onAHardwareKeyboardOff": "Trên bàn phím vật lý. Tắt sẽ gõ ký tự giống như trên Mac.",
+      "history": "Lịch sử",
+      "suggestCommands": "Gợi ý lệnh",
+      "showsPastCommandsThatStart": "Hiển thị các lệnh trước đó bắt đầu bằng những gì bạn gõ",
+      "resetToDefault": "Đặt lại về mặc định",
+      "fontSize": "Cỡ chữ",
+      "aSizeFromTo": "Cỡ từ {{MIN_FONT_SIZE}} đến {{MAX_FONT_SIZE}}.",
+      "cancel": "Hủy",
+      "apply": "Áp dụng",
+      "resetTerminalSettings": "Đặt lại cài đặt terminal?",
+      "themeFontSizeCursorBell": "Giao diện, phông chữ, cỡ chữ, con trỏ, âm thanh cảnh báo và các mục khác sẽ quay về mặc định.",
+      "reset": "Đặt lại",
+      "followsAppTheme": "Theo giao diện ứng dụng"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Không thể bắt đầu thiết lập 2FA",
+      "twoFactorAuthenticationEnabled": "Xác thực hai yếu tố đã bật",
+      "invalidCodeTryAgain": "Mã không hợp lệ, vui lòng thử lại",
+      "twoFactorAuthenticationDisabled": "Xác thực hai yếu tố đã tắt",
+      "failedToDisable2fa": "Không thể tắt 2FA",
+      "failedToFetchBackupCodes": "Không thể lấy mã dự phòng",
+      "secretCopied": "Đã sao chép bí mật",
+      "backupCodesCopied": "Đã sao chép mã dự phòng",
+      "twoFactorAuthentication": "Xác thực hai yếu tố",
+      "loading": "Đang tải…",
+      "scanThisQrCodeWith": "Quét mã QR này bằng ứng dụng xác thực của bạn (Google Authenticator, Authy, v.v.), sau đó nhập mã 6 chữ số để xác nhận.",
+      "verifyAmpEnable": "Xác nhận &amp; Bật",
+      "cancel": "Hủy",
+      "saveYourBackupCodes": "Lưu mã dự phòng của bạn",
+      "storeTheseSomewhereSafeEach": "Lưu trữ những mã này ở nơi an toàn. Mỗi mã chỉ có thể dùng một lần nếu bạn mất quyền truy cập vào ứng dụng xác thực.",
+      "copyAllCodes": "Sao chép tất cả mã",
+      "done": "Xong",
+      "yourAccountIsProtectedWith": "Tài khoản của bạn được bảo vệ bằng ứng dụng xác thực.",
+      "addAnExtraLayerOf": "Thêm một lớp bảo mật cho tài khoản của bạn.",
+      "viewBackupCodes": "Xem mã dự phòng",
+      "disable2fa": "Tắt 2FA",
+      "enable2fa": "Bật 2FA",
+      "disableTwoFactorAuthentication": "Tắt Xác thực Hai Yếu Tố",
+      "enterACodeFromYour": "Nhập mã từ ứng dụng xác thực của bạn để xác nhận. Bạn có thể bật lại 2FA bất cứ lúc nào.",
+      "enterYourPasswordToConfirm": "Nhập mật khẩu của bạn để xác nhận. Bạn có thể bật lại 2FA bất cứ lúc nào.",
+      "disable": "Tắt",
+      "yourPassword": "Mật khẩu của bạn",
+      "n2faIsEnabled": "2FA đã bật",
+      "n2faIsNotEnabled": "2FA chưa bật"
+    },
+    "language": {
+      "label": "Ngôn ngữ",
+      "description": "Ứng dụng sẽ tải lại để chuyển đổi",
+      "system": "Giống thiết bị"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Không có máy chủ SSH nào ở đây",
+      "couldNotReadWhatWas": "Không thể đọc nội dung đã chia sẻ",
+      "stopTheUploads": "Dừng tải lên?",
+      "stopAndLeave": "Dừng và rời khỏi",
+      "sendTo": "Gửi đến {{name}}",
+      "sendToAHost": "Gửi đến máy chủ",
+      "nothingToSend": "Không có gì để gửi",
+      "close": "Đóng",
+      "done": "Xong",
+      "cancel": "Hủy",
+      "uploadHere": "Tải lên đây",
+      "uploadsStillGoing_other": "{{count}} bản tải lên vẫn đang diễn ra. Việc rời đi sẽ dừng chúng.",
+      "filesSize_other": "{{count}} tệp | {{size}}",
+      "readingWhatWasShared": "Đang đọc nội dung đã chia sẻ"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Lỗi",
+      "worksWithoutAServer": "Hoạt động mà không cần máy chủ",
+      "accountSwitch": "Tài khoản {{account}}, chuyển đổi",
+      "search": "Tìm kiếm",
+      "notificationsUnread": "Thông báo, {{unread}} chưa đọc",
+      "notifications": "Thông báo",
+      "signedIn": "Đã đăng nhập",
+      "signedOut": "Đã đăng xuất",
+      "copyOnThis": "Sao chép trên {{deviceWord}} này"
+    },
+    "bottomBar": {
+      "home": "Trang chủ",
+      "hosts": "Máy chủ",
+      "sessions": "Phiên làm việc",
+      "tools": "Công cụ",
+      "settings": "Cài đặt",
+      "open": "{{label}}, {{count}} đang mở"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} đang mở"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Chọn một máy chủ",
+      "searchHosts": "Tìm kiếm máy chủ",
+      "clearSearch": "Xóa tìm kiếm",
+      "noHostsMatch": "Không có máy chủ nào khớp",
+      "noHostsCanUseThis": "Không có máy chủ nào có thể sử dụng tính năng này",
+      "turnItOnForA": "Bật tính năng này cho một máy chủ trong trình chỉnh sửa máy chủ."
+    },
+    "noToolsHereYet": "Chưa có công cụ nào ở đây",
+    "onAHost": "Trên máy chủ",
+    "saved": "Đã lưu",
+    "fromYourServer": "Từ máy chủ của bạn"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Hủy",
+      "delete": "Xóa",
+      "confirm": "Xác nhận"
+    },
+    "contextMenu": {
+      "closeMenu": "Đóng menu"
+    },
+    "inlineView": {
+      "back": "Quay lại"
+    },
+    "listRow": {
+      "moreActions": "Thêm hành động"
+    },
+    "pinPad": {
+      "useBiometrics": "Sử dụng sinh trắc học",
+      "delete": "Xóa"
+    },
+    "popover": {
+      "close": "Đóng"
+    },
+    "promptSheet": {
+      "cancel": "Hủy"
+    },
+    "sheet": {
+      "close": "Đóng"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Khóa này bị khóa. Nhập mật khẩu của nó.",
+      "thatPassphraseDoesnTOpen": "Mật khẩu đó không mở được khóa này.",
+      "thisDoesnTLookLike": "Cái này trông không giống một khóa riêng tư.",
+      "loadedAndChangedItTo": "Đã tải {{name}} và chuyển đổi sang định dạng OpenSSH",
+      "loadedItNeedsItsPassphrase": "Đã tải {{name}}. Cần mật khẩu để kết nối"
+    },
+    "ago": {
+      "justNow": "vừa xong"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Không thể tải máy chủ của bạn.",
+      "failedOn": "{{name}} thất bại trên {{name2}}",
+      "on": "{{name}} trên {{name2}}: {{value}}",
+      "ranOn": "Đã chạy {{name}} trên {{name2}}",
+      "runOn": "Chạy \"{{name}}\" trên",
+      "runSnippet": "Chạy đoạn lệnh",
+      "loadingHosts": "Đang tải máy chủ…",
+      "noHostsAvailable": "Không có máy chủ nào khả dụng",
+      "addAHostInTermix": "Thêm một máy chủ trong Termix để chạy đoạn lệnh từ màn hình chính.",
+      "lastUsed": "Lần sử dụng cuối",
+      "failedToRunSnippet": "Không thể chạy đoạn lệnh"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Đoạn lệnh đó không còn tồn tại.",
+      "couldNotOpenThatSnippet": "Không thể mở đoạn lệnh đó.",
+      "thatHostNoLongerExists": "Máy chủ đó không còn tồn tại.",
+      "couldNotOpenThatHost": "Không thể mở máy chủ đó."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Trang chủ"
+      },
+      "hosts": {
+        "hosts": "Máy chủ"
+      },
+      "sessions": {
+        "sessions": "Phiên làm việc",
+        "connectToATermixServer": "Kết nối với máy chủ Termix để mở terminal, đường hầm và phiên làm việc với tệp."
+      }
+    },
+    "layout": {
+      "initializing": "Đang khởi tạo…",
+      "cancel": "Hủy"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Máy chủ này không có địa chỉ MAC hợp lệ.",
+    "thisBuildCanTSend": "Phiên bản này không thể gửi gói tin Wake-on-LAN.",
+    "couldNotSendThePacket": "Không thể gửi gói tin. Hãy kiểm tra xem Wi-Fi đã bật chưa."
+  },
+  "common": {
+    "hostCount_other": "{{count}} máy chủ",
+    "device": {
+      "phone": "điện thoại",
+      "tablet": "máy tính bảng"
+    },
+    "thisDeviceLower": "{{deviceWord}} này"
+  },
+  "hostAccess": {
+    "title": "Chia sẻ",
+    "action": "Chia sẻ với người dùng",
+    "levels": {
+      "connect": "Kết nối",
+      "view": "Xem",
+      "edit": "Chỉnh sửa",
+      "manage": "Quản lý"
+    },
+    "levelHints": {
+      "connect": "Chỉ mở phiên làm việc. Cài đặt máy chủ sẽ bị ẩn.",
+      "view": "Kết nối, đồng thời xem cài đặt máy chủ. Thông tin mật không bao giờ được hiển thị.",
+      "edit": "Xem, đồng thời thay đổi cài đặt ngoại trừ thông tin đăng nhập.",
+      "manage": "Chỉnh sửa, đồng thời chia sẻ máy chủ và thay đổi hoặc xóa quyền truy cập."
+    },
+    "until": "cho đến {{date}}",
+    "sharedBy": "bởi {{name}}",
+    "couldNotLoad": "Không thể tải danh sách người có quyền truy cập",
+    "shared": "Đã chia sẻ máy chủ",
+    "couldNotShare": "Không thể chia sẻ máy chủ",
+    "updated": "Đã thay đổi quyền truy cập",
+    "couldNotUpdate": "Không thể thay đổi quyền truy cập",
+    "removeTitle": "Xóa {{name}}?",
+    "removeHint": "Người dùng này sẽ không còn sử dụng được máy chủ này.",
+    "remove": "Xóa",
+    "removed": "Đã xóa quyền truy cập",
+    "couldNotRemove": "Không thể xóa quyền truy cập",
+    "whoHasAccess": "Ai có quyền truy cập",
+    "loading": "Đang tải...",
+    "nobodyYet": "Chỉ có bạn mới có thể sử dụng máy chủ này.",
+    "changeAccessFor": "Thay đổi quyền truy cập cho {{name}}",
+    "shareWith": "Chia sẻ với",
+    "users": "Người dùng",
+    "roles": "Vai trò",
+    "searchUsers": "Tìm kiếm người dùng",
+    "searchRoles": "Tìm kiếm vai trò",
+    "noUsers": "Không có người dùng nào khác để chia sẻ.",
+    "noRoles": "Không có vai trò nào để chia sẻ.",
+    "options": "Quyền truy cập",
+    "level": "Cấp độ",
+    "expires": "Hết hạn",
+    "expiry": {
+      "never": "Không bao giờ",
+      "1h": "Sau 1 giờ",
+      "1d": "Sau 1 ngày",
+      "7d": "Sau 7 ngày",
+      "30d": "Sau 30 ngày"
+    },
+    "pickSomeone": "Chọn người để chia sẻ",
+    "shareCount_other": "Chia sẻ với {{count}}",
+    "removeAccess": "Xóa quyền truy cập"
+  }
+}

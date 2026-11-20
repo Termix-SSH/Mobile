@@ -1,1 +1,3804 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "登录",
+      "addServer": "添加服务器",
+      "switchAccount": "切换账户",
+      "noServerConnected": "未连接服务器",
+      "connectToATermixServer": "连接到 Termix 服务器以管理您的主机、终端、文件等。"
+    },
+    "lockScreen": {
+      "cancel": "取消",
+      "tooManyTriesWaitSeconds": "尝试次数过多。请等待 {{value}} 秒",
+      "termixLocked": "Termix 已锁定",
+      "enterYourPinToContinue": "输入您的 PIN 码以继续"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "橙色",
+      "blue": "蓝色",
+      "green": "绿色",
+      "purple": "紫色",
+      "pink": "粉色",
+      "cyan": "青色",
+      "red": "红色",
+      "yellow": "黄色",
+      "teal": "蓝绿色",
+      "indigo": "靛蓝色",
+      "rose": "玫瑰色",
+      "lime": "青柠色",
+      "system": "系统",
+      "light": "浅色",
+      "dark": "深色"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "使用 PIN 码",
+      "unlockTermix": "解锁 Termix",
+      "unlockTermixFirst": "请先解锁 Termix。"
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "服务器上已关闭此功能。",
+      "aTabWasNotReopened": "未重新打开一个标签页，因为其主机已不存在",
+      "tabsWereNotReopenedBecause": "未重新打开 {{count}} 个标签页，因为其主机已不存在"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "链接 Termix 服务器以使用此功能",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "输入您的服务器地址",
+        "theAddressCanTHave": "地址不能包含空格",
+        "useAnHttpOrHttps": "请使用 http:// 或 https:// 地址",
+        "thatDoesnTLookLike": "这看起来不像服务器地址",
+        "thePortMustBeFrom": "端口号必须在 1 到 65535 之间"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "登录代理响应了请求，而不是 Termix。请先登录代理。",
+        "theServerDidNotSend": "服务器未发送令牌。",
+        "theServerDidNotSend2": "服务器未发送会话。",
+        "theServerSentNoSign": "服务器未发送登录地址。",
+        "theSignInRanOut": "登录链接已过期或已被使用。请重新登录。",
+        "wrongUsernameOrPassword": "用户名或密码错误",
+        "signInFailedHttp": "登录失败 (HTTP {{status}})",
+        "thePageSignedYouIn": "页面已完成登录，但未返回会话。请将服务器升级到 Termix 26.11.3 或更高版本。",
+        "thisAccountIsnTAllowed": "此账户不允许在此处登录。",
+        "noTermixAccountMatchesThat": "没有 Termix 账户与该登录匹配。"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "此会话没有关联服务器"
+    },
+    "store": {
+      "noSuchAccount": "不存在该账户",
+      "thisDeviceCanTBe": "无法移除此设备",
+      "switchToAnotherAccountFirst": "请先切换到另一个账户"
+    },
+    "types": {
+      "thisDevice": "此设备"
+    },
+    "accountSwitcher": {
+      "error": "错误",
+      "worksWithoutAServer": "无需服务器即可使用",
+      "couldNotSwitchAccount": "无法切换账户",
+      "accounts": "账户",
+      "openTabsKeepRunningWhen": "切换时，打开的标签页将继续运行。",
+      "unlink": "取消链接 {{account}}",
+      "linkAServer": "链接服务器",
+      "eachServerKeepsItsOwn": "每个服务器在此{{deviceWord}}上保留其自己的主机、凭据和设置。",
+      "signedIn": "已登录",
+      "signedOut": "已退出登录",
+      "syncedCopy": "同步副本"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "无法保存证书锁定",
+      "theServerSKeyMatches": "服务器的密钥与锁定值匹配",
+      "theServerShowsAnotherKey": "服务器显示了另一个密钥",
+      "pinThisKey": "锁定此密钥？",
+      "pinThisKey2": "锁定此密钥",
+      "keyPinned": "密钥已锁定",
+      "couldNotReadTheServer": "无法读取服务器的密钥",
+      "thatIsNotAPin": "这不是有效的锁定值",
+      "keysPinned": "密钥已锁定",
+      "certificatePin": "证书锁定",
+      "trustThisServerOnlyBy": "仅通过其密钥信任此服务器。适用于自签名证书，或用于拒绝其他任何密钥。在更改服务器证书之前，请先添加新密钥。",
+      "removePin": "移除锁定 {{pin}}",
+      "remove": "移除",
+      "readTheKeyFromThe": "从服务器读取密钥",
+      "orPasteAPin": "或粘贴锁定值",
+      "pin": "锁定",
+      "add": "添加",
+      "issuedTo": "颁发给：{{subject}}",
+      "issuedBy": "颁发者：{{issuer}}",
+      "validUntil": "有效期至：{{value}}",
+      "checkThatThisKeyMatches": "在锁定之前，请检查此密钥是否与服务器上的密钥匹配。",
+      "pasteTheBase64Sha256Of": "粘贴服务器公钥的 base64 sha256 哈希值，格式如 openssl 输出所示。"
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "代理设置已保存",
+      "couldNotSaveTheProxy": "无法保存代理设置",
+      "couldNotReadThatFile": "无法读取该文件",
+      "certificateSaved": "证书已保存",
+      "theFileOrItsPassphrase": "文件或密码错误",
+      "couldNotSaveTheCertificate": "无法保存证书",
+      "headers": "请求头",
+      "sentWithEveryRequestTo": "随每次向此服务器的请求发送，例如 Cloudflare 服务令牌。",
+      "name": "名称",
+      "value": "值",
+      "removeHeader": "移除请求头",
+      "addHeader": "添加请求头",
+      "cloudflareServiceToken": "Cloudflare 服务令牌",
+      "basicAuth": "基本身份验证",
+      "forAProxyThatAsks": "用于需要用户名和密码的代理。",
+      "userName": "用户名",
+      "password": "密码",
+      "saveHeadersAndBasicAuth": "保存请求头和基本身份验证",
+      "clientCertificate": "客户端证书",
+      "forServersThatAskFor": "用于要求提供客户端证书的服务器（mTLS）。密钥存储在 {{deviceWord}} 的安全存储中，无法被读取。",
+      "certificate": "证书",
+      "remove": "移除",
+      "replaceCertificate": "替换证书",
+      "pickAP12OrPfx": "选择 .p12 或 .pfx 文件",
+      "proxySignIn": "代理登录",
+      "thisIsSignedInTo": " 此 {{deviceWord}} 已登录到代理。",
+      "forCloudflareAccessAutheliaAuthentik": "适用于 Cloudflare Access、Authelia、Authentik 及其他具有独立登录页面的代理。{{value}}",
+      "signInToTheProxy": "登录到代理",
+      "forget": "忘记",
+      "certificatePassphrase": "证书密码",
+      "thePassphraseTheFileWas": "保存文件时使用的密码。如果没有密码，请留空。",
+      "passphrase": "密码",
+      "save": "保存"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "已登录到代理",
+      "couldNotSaveTheProxy": "无法保存代理登录状态",
+      "signInToTheProxy": "登录到代理",
+      "thisBuildOfTheApp": "此应用版本无法保持代理登录状态。请在代理标头中使用服务令牌。"
+    },
+    "savedLoginRow": {
+      "signIn": "登录",
+      "signInWith": "使用 {{name}} 登录",
+      "whenThisServerSignsYou": "当此服务器注销您时，无需输入密码即可重新登录。"
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "已取消链接。{{copied}} 个项目已保留在“此设备”上。",
+      "unlinked": "已取消链接",
+      "couldNotUnlinkTheServer": "无法取消链接服务器",
+      "unlink": "取消链接 {{value}}？",
+      "thisSignsOutOfThe": "此 {{deviceWord}} 将从服务器注销。服务器上的内容不会被删除。",
+      "keepACopyOnThis": "在“此设备”上保留副本",
+      "yourOwnHostsCredentialsAnd": "您自己的主机、凭据和代码片段将移至“此设备”。与您共享的主机将不会保留。",
+      "deleteFromThis": "从此 {{deviceWord}} 删除",
+      "everythingThisHasForThe": "此 {{deviceWord}} 中有关该服务器的所有内容都将被移除。"
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "在下方“代理”中更改",
+      "updateTermixMobileFromYour": "从应用商店更新 Termix Mobile"
+    },
+    "savedLogin": {
+      "signInToTermix": "登录 Termix",
+      "faceUnlock": "面容解锁"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "此版本无法检查此服务器的固定密钥或发送其证书。"
+    },
+    "http": {
+      "thisServerDoesNotSupport": "此服务器不支持此功能",
+      "theProxyWantsYouTo": "代理要求您登录",
+      "endpointNotAvailableOnThis": "此服务器上不可用端点",
+      "unknownError": "未知错误"
+    },
+    "errors": {
+      "theProxyInFrontOf": "此服务器前面的代理要求您重新登录。",
+      "authenticationRequiredPleaseLogIn": "需要身份验证。请重新登录。",
+      "accessDeniedYouDoNot": "访问被拒绝。您无权执行此操作。",
+      "thisFeatureIsTurnedOff": "此功能已在服务器上关闭。",
+      "thisServerDoesNotSupport": "此服务器不支持此功能。",
+      "resourceNotFoundTheRequested": "未找到资源。请求的项目可能已被删除。",
+      "conflictTheResourceAlreadyExists": "冲突。资源已存在或正在使用中。",
+      "validationErrorPleaseCheckYour": "验证错误。请检查您的输入并重试。",
+      "serverErrorOccurredPleaseTry": "发生服务器错误。请稍后重试。",
+      "sslCertificateVerificationFailed": "SSL 证书验证失败。",
+      "networkErrorPleaseCheckYour": "网络错误。请检查您的连接并重试。",
+      "failedTo": "{{operation}} 失败",
+      "unknownError": "未知错误",
+      "unexpectedErrorDuring": "{{operation}} 期间发生意外错误：{{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "应用无法信任此本地 IP 的 HTTPS。请在“代理”和客户端证书下固定服务器的密钥，使用 {{deviceWord}} 信任的证书，或在受信任的本地或 VPN 网络上使用 HTTP。",
+        "thisServerIsBehindA": "此服务器位于登录代理后面。请改用外部登录选项。",
+        "loginFailed": "登录失败"
+      },
+      "files": {
+        "fileNotFound": "未找到文件",
+        "fileWriteOperationDidNot": "文件写入操作未返回成功状态",
+        "couldNot": "无法 {{operation}}（{{status}}）"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "主机已保存，但部分设置失败：{{value}}",
+        "unexpectedHostResponseFrom": "来自 {{baseURL}} 的意外主机响应"
+      },
+      "metrics": {
+        "liveSampleFailed": "实时采样失败"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "无响应"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "此服务器未显示其固定的密钥，因此未打开页面。"
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "该 {{what}} 已不存在。",
+      "aHostCannotBeIts": "主机不能是其自身的父级",
+      "parentHostNotFound": "未找到父主机",
+      "aHostCanTGo": "主机不能置于其自身的子主机之下",
+      "thisIsSharedWithYou": "此 {{what}} 已与您共享。只有其所有者才能更改它。",
+      "nameIsRequired": "名称为必填项",
+      "nameAndCommandAreRequired": "名称和命令为必填项",
+      "aFolderWithThatName": "已存在同名文件夹"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "此设备无法在此处保存 {{what}}。"
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "此代码片段已与您共享，无法更改。"
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "请使用至少 8 个字符的密码短语。",
+      "thisIsNotATermix": "这不是 Termix 备份文件。",
+      "thisBackupIsFromA": "此备份来自更新版本的 Termix。请先更新应用。",
+      "wrongPassphraseOrTheFile": "密码错误，或文件已损坏。"
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "此版本无法加密本地数据。"
+    },
+    "keys": {
+      "unlockTermixFirst": "请先解锁 Termix。",
+      "thatIsNotADatabase": "这不是数据库密钥。",
+      "couldNotSaveTheDatabase": "无法保存数据库密钥。"
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "此数据由更新版本的 Termix 保存。请更新应用以打开它。"
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "此设备不同步。",
+      "localDataIsNotAvailable": "此处不可用本地数据。",
+      "unlockTermixFirst": "请先解锁 Termix。"
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "无法连接。",
+      "thisWayCanTRun": "此方式无法运行命令"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo 密码",
+      "password": "密码",
+      "run": "运行",
+      "thatPasswordWasWrong": "密码错误。",
+      "onNeedsRoot": "{{hostName}} 上的 {{reason}} 需要 root 权限。",
+      "needsRootForThis": "{{hostName}} 执行此操作需要 root 权限。",
+      "itIsKeptUntilYou": "密码将保留至您关闭应用。"
+    },
+    "run": {
+      "theHostTookTooLong": "主机响应超时",
+      "connectionLost": "连接丢失"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "此操作需要 root 权限。请以 root 身份登录，配置免密 sudo，或为主机保存 sudo 密码。",
+      "theSudoPasswordWasWrong": "Sudo 密码错误",
+      "commandFailed": "命令执行失败"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "终端中的 Telnet 需要来自 {{deviceWord}} 的连接。"
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "功能 {{id}} 已注册"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "地址",
+      "theIpOrHostName": "名称下方的 IP 或主机名",
+      "username": "用户名",
+      "theUserBeforeTheAddress": "地址前的用户",
+      "port": "端口",
+      "thePortAfterTheAddress": "地址后的端口",
+      "hostIcon": "主机图标",
+      "theIconSetOnThe": "主机上设置的图标",
+      "pinIcon": "固定图标",
+      "marksPinnedHosts": "标记已固定的主机",
+      "sharedBadge": "共享徽章",
+      "marksHostsSharedWithYou": "标记与您共享的主机",
+      "protocolBadges": "协议徽章",
+      "sshRdpDockerAndOther": "SSH、RDP、Docker 及其他标签",
+      "tags": "标签",
+      "theHostSTags": "主机的标签",
+      "cpuAndRam": "CPU 和 RAM",
+      "liveUsageBarsOnOnline": "在线主机的实时使用率条",
+      "statusColors": "状态颜色",
+      "greenBarWhenOnlineRed": "在线时显示绿色条，离线时显示红色条"
+    },
+    "uiPrefs": {
+      "small": "小",
+      "default": "默认",
+      "large": "大",
+      "comfortable": "舒适",
+      "compact": "紧凑"
+    },
+    "errors": {
+      "somethingWentWrong": "发生错误"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "使用密码短语锁定密钥需要 Termix 应用，而非网页预览。"
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "立即",
+      "after15Seconds": "15 秒后",
+      "after1Minute": "1 分钟后",
+      "after5Minutes": "5 分钟后"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "设备密钥已丢失",
+      "noSealedKey": "无密封密钥",
+      "theSealedKeyIsDamaged": "密封密钥已损坏",
+      "wrongPin": "PIN 错误",
+      "theSealedKeyDidNot": "密封密钥无法打开",
+      "biometricsCanTOpenThe": "生物识别无法打开密钥"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "更新应用",
+      "onYourServerNeedsA": "您服务器上的 {{name}} 需要此 {{deviceWord}} 上更新版本的 Termix。",
+      "updateThePlugin": "更新插件",
+      "onYourServerIsToo": "您服务器上的 {{name}} 版本过旧，不兼容此应用。请联系管理员在“插件”中更新它。"
+    },
+    "frameBridge": {
+      "blockedByTheApp": "被应用阻止",
+      "theAppDoesNotLet": "应用不允许插件使用此路由。",
+      "thisBuildCanTReach": "此构建版本无法安全地连接到此服务器。"
+    },
+    "support": {
+      "needsANewerVersionOf": "需要更新版本的应用",
+      "updateThePluginOnThe": "更新服务器上的插件",
+      "theAppHasItsOwn": "应用自带外观",
+      "notInTheAppYet": "尚未集成到应用中",
+      "linkAServerToUse": "关联服务器以使用",
+      "opensInTheAppFrom": "从服务器在应用中打开",
+      "runsOnTheServer": "在服务器上运行",
+      "throughTheServer": "通过服务器",
+      "inTheApp": "在应用中",
+      "webView": "网页视图",
+      "onTheServer": "在服务器上",
+      "appLook": "应用外观",
+      "notInTheApp": "不在应用中",
+      "safeMode": "安全模式",
+      "notRunning": "未运行",
+      "notInstalled": "未安装",
+      "notOnThisServer": "不在此服务器上",
+      "thePluginIsNotInstalled": "此服务器上未安装该插件。",
+      "turnedOffOnTheServer": "在服务器上已关闭",
+      "itOpensHereAgainWhen": "管理员开启后，它将再次在此处打开。",
+      "notRunningOnTheServer": "未在服务器上运行",
+      "theServerIsInSafe": "服务器处于安全模式，因此仅运行外观类插件。",
+      "thePluginDidNotStart": "插件未启动。管理员可以在“插件”中检查它。",
+      "thisPluginIsNotAvailable": "此插件不可用",
+      "itIsNotMadeFor": "它不是为应用制作的。",
+      "offOnThisServer": "在此服务器上已关闭",
+      "notRunningOnThisServer": "未在此服务器上运行",
+      "notOnThisServer2": "不在此服务器上",
+      "notInTheAppYet2": "尚未集成到应用中 | 在此服务器上",
+      "worksOnThis": "在此 {{deviceWord}} 上可用",
+      "andServer": "{{DeviceWord}} 和服务器",
+      "deviceOnly": "仅限 {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "重新加载"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "断开所有连接",
+      "showOpenSessions": "显示打开的会话",
+      "termixShowsANotificationWhile": "当会话处于打开状态时，Termix 会显示通知，以便 Android 在后台保持它们运行。",
+      "sessionsOpen_other": "{{count}} 个会话已打开",
+      "tunnelsActive_other": "{{count}} 个隧道处于活动状态",
+      "notConnected": "未连接",
+      "waitingForNetwork": "等待网络",
+      "connecting": "正在连接",
+      "connected": "已连接",
+      "reconnecting": "正在重新连接",
+      "failed": "失败",
+      "closed": "已关闭"
+    },
+    "companionPane": {
+      "resizeThePanel": "调整 {{title}} 面板大小"
+    },
+    "connectionsPanel": {
+      "close": "关闭",
+      "closeAllTabs": "关闭所有 {{count}} 个标签页？",
+      "everySessionEnds": "所有会话都将结束。",
+      "closeAll": "全部关闭",
+      "noActiveConnections": "没有活动连接",
+      "pickAHostFromThe": "从列表中选择一个主机以开始会话。您在其他设备上打开的标签页也会显示在这里。",
+      "connectToAHostTo": "连接到主机以开始会话。您在其他设备上打开的标签页也会显示在这里。",
+      "open": "打开",
+      "background": "后台",
+      "sessionsFromOtherDevicesOr": "来自其他设备的会话或后台标签页。点击以恢复。",
+      "liveTapToReconnect": "在线，点击以重新连接",
+      "tapToReopen": "点击以重新打开"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "此功能在服务器上已关闭",
+      "comesBackHereWhenAn": "当管理员重新启用其插件时，{{title}} 将重新出现在这里。",
+      "closeTab": "关闭标签页"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "连接",
+        "hideHostList": "隐藏主机列表",
+        "showHostList": "显示主机列表",
+        "backToHosts": "返回主机列表",
+        "showKeyboard": "显示键盘",
+        "hideKeyboard": "隐藏键盘",
+        "hideKeysPanel": "隐藏密钥面板",
+        "showKeysPanel": "显示密钥面板"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "点击以查看标签页选项，长按以移动",
+        "holdToMove": "长按以移动",
+        "close": "关闭 {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "等待网络",
+        "connectionFailed": "连接失败",
+        "reconnecting": "正在重新连接"
+      }
+    },
+    "sessionMenu": {
+      "rename": "重命名",
+      "newTabOnThisHost": "在此主机上打开新标签页",
+      "here": "在此处打开 {{title}}",
+      "hidePanel": "隐藏 {{title}} 面板",
+      "showPanel": "显示 {{title}} 面板",
+      "endSplitView": "结束分屏视图",
+      "splitViewWith": "分屏视图...",
+      "moveLeft": "向左移动",
+      "moveRight": "向右移动",
+      "closeTab": "关闭标签页",
+      "closeAllTabs": "关闭所有标签页",
+      "closeAllTabs2": "关闭所有 {{count}} 个标签页？",
+      "everySessionEnds": "所有会话都将结束。",
+      "closeAll": "全部关闭",
+      "splitViewWith2": "分屏视图",
+      "renameTab": "重命名标签页",
+      "leaveItEmptyToUse": "留空则使用主机名称。"
+    },
+    "resizeHostList": "调整主机列表大小",
+    "resizeSplitView": "调整分屏视图大小",
+    "connections": "连接",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "双因素认证",
+        "enterThe6DigitCode": "输入来自身份验证应用的 6 位代码。",
+        "cancel": "取消",
+        "verify": "验证",
+        "codeExpiresInSGet": "代码将在 {{totpCountdown}} 秒后过期，获取新代码",
+        "warpgateAuthentication": "Warpgate 认证",
+        "confirmTheWarpgateAuthenticationUrl": "确认 Warpgate 认证 URL 和安全密钥。",
+        "authenticate": "认证",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "安全密钥（可选）",
+        "authenticationRequired": "需要认证",
+        "thisHostNeedsCredentialsTo": "此主机需要凭据才能连接。",
+        "connect": "连接",
+        "password": "密码",
+        "sshKey": "SSH 密钥",
+        "pastePrivateKey": "粘贴私钥",
+        "keyPassphraseOptional": "密钥短语（可选）"
+      },
+      "connectionError": {
+        "tryAgain": "重试",
+        "close": "关闭",
+        "connectThroughTheServer": "通过服务器连接",
+        "connectFromThis": "从此{{deviceWord}}连接",
+        "triedFromThis": "已尝试从此{{deviceWord}}连接",
+        "triedThroughTheServer": "已尝试通过服务器连接"
+      },
+      "execGate": {
+        "connecting": "正在连接..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "出了点问题",
+        "retry": "重试",
+        "refresh": "刷新",
+        "nothingToShow": "无内容显示"
+      },
+      "useConnectionLog": {
+        "logsCopied": "日志已复制",
+        "connectionLog": "连接日志（{{count}}）",
+        "copyLog": "复制日志",
+        "waitingForConnection": "等待连接…",
+        "noLogEntries": "无日志条目"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "无法保存此主机的连接方式"
+      },
+      "useSessionConnect": {
+        "connected": "已连接",
+        "connectingTo": "正在连接到 {{name}}…",
+        "connectionLost": "连接已断开",
+        "failedToConnect": "连接失败",
+        "invalidCode": "无效代码",
+        "warpgateAuthenticationFailed": "Warpgate 身份验证失败",
+        "authenticationCancelled": "身份验证已取消"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "搜索和命令",
+    "addHost": "添加主机",
+    "keyboardShortcuts": "键盘快捷键",
+    "home": "主页",
+    "hosts": "主机",
+    "sessions": "会话",
+    "tools": "工具",
+    "settings": "设置",
+    "terminal": "终端",
+    "shortcutSheet": {
+      "keyboardShortcuts": "键盘快捷键"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "主机和文件夹",
+      "yourHostsFoldersAndHosts": "您的主机、文件夹以及与您共享的主机",
+      "credentials": "凭据",
+      "savedPasswordsAndKeysAnd": "保存的密码和密钥，以及与您共享的凭据",
+      "snippets": "代码片段",
+      "snippetsAndTheirFolders": "代码片段及其文件夹",
+      "hostDefaults": "主机默认设置",
+      "defaultSettingsForNewHosts": "新主机的默认设置",
+      "preferences": "偏好设置",
+      "settingsThatFollowYouBetween": "在设备间同步的设置"
+    },
+    "link": {
+      "noSuchServerAccount": "不存在该服务器账户",
+      "signInFirst": "请先登录。",
+      "thisServerAccountBelongsTo": "此服务器账户属于 {{value}}。请以该身份登录，或为此用户重新添加服务器。"
+    },
+    "reasons": {
+      "signedOut": "已退出登录",
+      "thisSSignInTo": "此{{deviceWord}}登录服务器的会话已过期。",
+      "theServerEndedThisS": "服务器已结束此{{deviceWord}}的会话。可能是从其他设备退出了登录。",
+      "proxySignInNeeded": "需要代理登录",
+      "theProxyInFrontOf": "此服务器前的代理要求您重新登录。",
+      "proxyPasswordNeeded": "需要代理密码",
+      "theProxyInFrontOf2": "此服务器前的代理请求输入其密码。",
+      "certificateRefused": "证书被拒绝",
+      "theServerDidNotAccept": "服务器未接受此{{deviceWord}}的证书。",
+      "untrustedServer": "不受信任的服务器",
+      "theServerSCertificateIs": "此{{deviceWord}}不信任服务器的证书。",
+      "serverKeyChanged": "服务器密钥已更改",
+      "theServerShowsAnotherKey": "服务器显示的密钥与为其固定的密钥不同。如果您更改了其证书，请固定新密钥。",
+      "offline": "离线",
+      "canTReachTheServer": "无法连接到服务器。同步将在稍后重试。",
+      "serverProblem": "服务器问题",
+      "theServerHadAProblem": "服务器出现问题。同步将在稍后重试。",
+      "updateNeeded": "需要更新",
+      "thisServerUsesANewer": "此服务器使用较新的同步版本。请更新应用。",
+      "notATermixServer": "非 Termix 服务器",
+      "theAddressDoesNotAnswer": "该地址的响应不符合 Termix 服务器的特征。",
+      "syncIsOff": "同步已关闭",
+      "theSyncPluginIsOff": "此服务器上的同步插件已关闭。请联系管理员在插件中将其开启。",
+      "differentUser": "用户不同",
+      "youSignedInAsA": "您登录的用户与此服务器账户所属的用户不同。",
+      "syncStopped": "同步已停止",
+      "somethingWentWrong": "出了点问题。",
+      "signInAgain": "重新登录",
+      "signInToTheProxy": "登录代理",
+      "enterThePassword": "输入密码",
+      "tryAgain": "重试",
+      "checkThePin": "检查固定密钥",
+      "checkForUpdates": "检查更新",
+      "pickACertificate": "选择证书"
+    },
+    "settings": {
+      "noSuchSetting": "无此设置",
+      "snippetFolder": "代码片段文件夹",
+      "hostDefault": "主机默认值"
+    },
+    "errors": {
+      "theServerDidNotAccept": "服务器不接受此 {{deviceWord}} 的证书。",
+      "theServerSCertificateIs": "服务器证书不受信任。",
+      "canTReachTheServer": "无法连接到服务器。",
+      "signedOut": "已退出登录",
+      "theProxyAskedForIts": "代理要求输入其密码。",
+      "theProxyWantsYouTo": "代理要求您登录。",
+      "theSyncPluginIsOff": "此服务器上的同步插件已关闭。",
+      "serverError": "服务器错误 {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "服务器显示的密钥与固定的密钥不同。"
+    },
+    "remote": {
+      "thisIsNotATermix": "这不是 Termix 服务器。",
+      "theProxyWantsYouTo": "代理要求您登录。",
+      "thisServerUsesANewer": "此服务器使用较新的同步版本。请更新应用。"
+    },
+    "copy": {
+      "hostCount_other": "{{count}} 个主机",
+      "credentialCount_other": "{{count}} 个凭据",
+      "snippetCount_other": "{{count}} 个代码片段",
+      "folderCount_other": "{{count}} 个文件夹",
+      "nothingYet": "暂无内容",
+      "listAnd": "{{list}} 和 {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "无法连接。",
+      "connectingToFromThis": "正在从此 {{deviceWord}} 连接到 {{name}}",
+      "connectingToThroughTheServer": "正在通过服务器连接到 {{name}}",
+      "reconnectingTry": "正在重新连接（第 {{retry}} 次尝试）",
+      "disconnected": "已断开连接",
+      "connected": "已连接",
+      "reconnectedToTheSameSession": "已重新连接到同一会话",
+      "reconnectedWithANewShell": "已使用新 Shell 重新连接",
+      "couldNotReachTheHost": "无法从此 {{deviceWord}} 连接到主机，正在尝试通过服务器连接",
+      "couldNotConnectThroughThe": "无法通过服务器连接，正在尝试从此 {{deviceWord}} 连接",
+      "connectionLost": "连接丢失：{{reason}}",
+      "offlineWaitingForTheNetwork": "离线，正在等待网络恢复",
+      "nextTryInS": "{{value}} 秒后重试",
+      "reconnectingTry2": "正在重新连接（第 {{reconnectAttempt}} 次尝试）",
+      "theHostStoppedAnswering": "主机停止响应",
+      "networkLost": "网络丢失",
+      "network": "网络：{{type}}{{value}}",
+      "lowPowerModeOn": "已开启低功耗模式",
+      "lowPowerModeOff": "已关闭低功耗模式",
+      "droppedTypedCharacters": "丢弃了 {{count}} 个输入的字符",
+      "youDidNotTrustThe": "您未信任该主机密钥。",
+      "checkTheKeyWithWhoever": "请与主机管理员核对密钥，然后重试。",
+      "loginCancelled": "登录已取消。",
+      "connectAgainWhenYouAre": "准备好后请重新连接。",
+      "typedInputIsOver64": "输入内容超过 64 KB，已丢弃最早的部分",
+      "appInTheBackground": "应用处于后台",
+      "appInTheForeground": "应用处于前台",
+      "thisConnectionCanTRun": "此连接无法运行命令"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "请检查地址和端口，并确保服务器能够访问该主机。",
+      "checkTheAddressAndPort2": "请检查地址和端口，并确保此 {{deviceWord}} 能够访问该主机。",
+      "checkTheProxySettingsOf": "请检查此主机的代理设置。",
+      "checkTheKeyWithWhoever": "在信任之前，请与主机管理员核对密钥。",
+      "checkTheUsernameAndLogin": "请在主机编辑器中检查用户名和登录信息。",
+      "checkThatTheServerIs": "请检查服务器是否正常运行，以及您是否仍处于登录状态。",
+      "tryAgainIfItKeeps": "请重试。如果持续断开，请检查网络。",
+      "connectAgainWhenYouAre": "准备好后请重新连接。",
+      "pickAnotherWayToConnect": "请选择其他方式连接此主机。",
+      "connectThisHostThroughA": "请通过 Termix 服务器连接此主机。",
+      "pickTheJumpHostsAgain": "请在主机编辑器中重新选择跳板主机。",
+      "thisIsATailscaleAddress": "这是一个 Tailscale 地址。请检查此 {{deviceWord}} 上的 Tailscale 是否已连接。",
+      "theSavedKeyCanT": "无法读取已保存的密钥。请在主机编辑器中重新粘贴。",
+      "signInToThisServer": "请重新登录此服务器。",
+      "openThisHostInThe": "请在 Termix Web 应用中打开此主机。",
+      "canTConnectThisWay": "无法通过此方式连接",
+      "couldNotReachTheHost": "无法访问该主机",
+      "theProxyDidNotLet": "代理未允许连接通过",
+      "theHostKeyWasNot": "未信任该主机密钥",
+      "theLoginWasRefused": "登录被拒绝",
+      "theTermixServerDidNot": "Termix 服务器未响应",
+      "theConnectionDropped": "连接已断开",
+      "loginCancelled": "登录已取消"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "此主机使用“{{authType}}”登录，这需要 Termix 服务器。请关联一个服务器以进行连接。",
+        "thisHostUsesA1password": "此主机使用 1Password 引用，这需要带有 Secret Sources 功能的 Termix 服务器。请关联一个服务器并通过它连接此主机。",
+        "signInWithFirstOpen": "请先使用 {{title}} 登录。打开一次到此主机的终端，然后重试。",
+        "theSignInAndThe": "登录和证书位于服务器上",
+        "theHasNoSshAgent": "此 {{deviceWord}} 没有 SSH agent",
+        "needsATermixServerBecause": "{{title}} 需要 Termix 服务器，因为 {{why}}。请关联一个服务器并通过它连接此主机。"
+      },
+      "chain": {
+        "aJumpHostOfThis": "此主机的一个跳板主机已不存在。"
+      },
+      "localShell": {
+        "theConnectionWasCut": "连接已中断",
+        "theShellChannelClosed": "Shell 通道已关闭",
+        "jumpHost": "跳板机 {{value}}/{{total}}（{{ip}}）： ",
+        "invalidCodeTryAgain": "代码无效，请重试：",
+        "authenticationFailed": "身份验证失败：{{message}}",
+        "theHostKeyWasNot": "未信任该主机密钥。",
+        "loginCancelled": "登录已取消。",
+        "notConnected": "未连接"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "连接已中断"
+      },
+      "thisBuildHasNoSsh": "此版本没有 SSH 引擎。请使用应用商店中的应用，或关联 Termix 服务器以进行连接。",
+      "theHostsOnThisAre": "此 {{deviceWord}} 上的主机尚未开放。",
+      "thisServerSHostsAre": "此服务器的主机不在本 {{deviceWord}} 上。请在服务器上启用 Sync 插件，以便从此 {{deviceWord}} 连接。"
+    },
+    "origin": {
+      "canTConnect": "无法连接。",
+      "canTConnectFromThe": "无法从此 {{deviceWord}} 连接。",
+      "canTReachTheServer": "无法访问服务器。",
+      "theOnlyConnectsToSsh": "该{{deviceWord}}仅连接 SSH 和 Telnet 主机。",
+      "connectThisHostThroughThe": "通过服务器连接此主机",
+      "connectThisHostFromThe": "从{{deviceWord}}连接此主机",
+      "termixServer": "Termix 服务器",
+      "usesThisWhenItCan": "在能够直接访问主机时使用此{{deviceWord}}，否则使用服务器。",
+      "thisConnectsToTheHost": "此{{deviceWord}}直接连接主机。",
+      "theTermixServerConnectsTo": "Termix 服务器将为您连接主机。",
+      "anSshConnection": "一个 SSH 连接",
+      "aTermixServer": "一个 Termix 服务器",
+      "aConnectionFromThe": "来自{{deviceWord}}的连接",
+      "isOffOnThisServer": "此服务器上已关闭{{title}}。{{how}}以使用它。",
+      "isOffOnThisServer2": "此服务器上已关闭{{title}}。",
+      "anotherWayToConnect": "另一种连接方式",
+      "needsToUseIt": "{{title}}需要{{what}}。{{how}}以使用它。",
+      "needsWhichThisHostCan": "{{title}}需要{{what}}，但此主机目前无法使用。",
+      "thisDevice": "此{{deviceWord}}",
+      "automatic": "自动"
+    },
+    "relay": {
+      "youAreSignedOutOf": "您已从此服务器注销。请登录以通过它连接。",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "此主机未安装 tmux。正在使用普通 shell。",
+        "tapRetryToBringIt": "点击重试将其带回此处。",
+        "thisSessionWasOpenedOn": "此会话是在另一台设备上打开的",
+        "noServerUrlFoundLink": "未找到服务器 URL。请重新链接服务器。",
+        "signedOutOfThisServer": "已从此服务器注销。请重新登录。",
+        "signInWithInYour": "在浏览器中使用{{title}}登录。完成后此窗口将关闭。",
+        "theSocketClosedWhileThe": "应用处于后台时 socket 已关闭",
+        "noWebsocketUrlAvailableServer": "无可用 WebSocket URL - 服务器未配置",
+        "connectionTimeoutServerNotResponding": "连接超时 - 服务器无响应",
+        "verificationCode": "验证码：",
+        "hostKeyVerificationRequiredBut": "需要主机密钥验证，但未注册处理程序",
+        "hostKeyChangedButNo": "主机密钥已更改，但未注册处理程序",
+        "thisHostNeedsASign": "此主机需要仅 Web 应用支持的登录方式",
+        "invalidCodeTryAgain": "代码无效，请重试：",
+        "unknownError": "未知错误",
+        "connectionClosed": "连接已关闭",
+        "connectionClosed2": "连接已关闭（{{code}}）",
+        "theServerClosedTheConnection": "服务器已关闭连接",
+        "theSocketClosed": "Socket 已关闭（{{code}}）",
+        "signIn": "{{title}}登录",
+        "signInFailed": "{{title}}登录失败",
+        "isNotSetUpOn": "服务器上未设置{{title}}",
+        "signInTimedOut": "{{title}}登录超时"
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "保存主机并连接以进行检查。",
+      "loggedInAsOn": "以 {{username}} 身份登录到 {{host}}",
+      "theHostAskedForMore": "主机要求提供密码以外的信息，例如验证码。保存主机并连接以完成登录。"
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "等待网络",
+      "couldNotOpenTheTunnel": "无法打开隧道",
+      "theConnectionDropped": "连接已断开",
+      "iosStoppedThisTunnelWhile": "应用处于后台时 iOS 停止了此隧道。重新启动以打开它。",
+      "connecting": "正在连接",
+      "connected": "已连接",
+      "retrying": "正在重试",
+      "waiting": "等待中",
+      "failed": "失败"
+    },
+    "gateways": {
+      "error": "错误",
+      "gateways": "网关",
+      "gatewaysCanOnlyBeChanged": "网关只能在 Web 版 Termix 中更改。",
+      "noHandshake": "无握手",
+      "rulesMissing": "缺少规则",
+      "up": "运行中",
+      "pending": "等待中",
+      "applying": "应用中",
+      "down": "已断开",
+      "unreachable": "无法访问"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "暂无隧道。添加一个隧道，将端点主机的端口转发到当前主机。",
+      "tunnel": "隧道 {{value}}",
+      "removeTunnel": "移除隧道 {{value}}",
+      "mode": "模式",
+      "local": "本地",
+      "remote": "远程",
+      "dynamic": "动态",
+      "targetHost": "目标主机",
+      "onThisHostForTunnels": "在此主机上，用于运行 {{deviceWord}} 的隧道",
+      "bindHost": "绑定主机",
+      "endpointHost": "端点主机",
+      "addAnotherHostFirstTunnels": "请先添加另一个主机。隧道需要通过已保存的主机进行。",
+      "sourcePort": "源端口",
+      "endpointPort": "端点端口",
+      "maxRetries": "最大重试次数",
+      "retryEveryS": "重试间隔（秒）",
+      "startOnItsOwn": "自动启动",
+      "addTunnel": "添加隧道",
+      "tunnelNeedsPortsFrom1": "隧道 {{value}} 的端口必须在 1 到 65535 之间"
+    },
+    "register": {
+      "tunnels": "隧道",
+      "startAndStopSavedTunnels": "启动和停止已保存的隧道",
+      "tunnel": "隧道",
+      "tunnel2": "隧道"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "本地端点已复制",
+      "tunnel": "隧道 | {{sourcePort}}",
+      "portMapping": "端口映射",
+      "connect": "连接",
+      "disconnect": "断开连接",
+      "cancel": "取消",
+      "connected": "已连接",
+      "connecting": "连接中",
+      "disconnecting": "断开中",
+      "error": "错误",
+      "retrying": "重试中（{{value}}/{{value2}}）",
+      "waitingS": "等待 {{value}} 秒",
+      "waiting": "等待中",
+      "disconnected": "已断开"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "正在启动端口 {{sourcePort}} 上的隧道",
+      "connectingTunnelOnPort": "正在连接端口 {{sourcePort}} 上的隧道",
+      "disconnectingPort": "正在断开端口 {{sourcePort}}",
+      "cancellingPort": "正在取消端口 {{sourcePort}}",
+      "failedToTunnel": "{{action}} 隧道失败",
+      "tunnels": "隧道 | {{count}} | {{value}}",
+      "loadingTunnels": "正在加载隧道…",
+      "noSshTunnelsConfiguredFor": "此主机未配置 SSH 隧道。请从主机表单中添加隧道。",
+      "runOn": "运行于",
+      "server": "服务器",
+      "this": "此 {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "此 {{deviceWord}} 上的隧道会在应用关闭时停止。在 iOS 上，应用进入后台后不久也会停止。",
+      "failedToFetchTunnelStatuses": "获取隧道状态失败",
+      "thisBuildCanTOpen": "此版本无法在 {{deviceWord}} 上打开隧道。",
+      "sourceHostNotFound": "未找到源主机",
+      "endpointHostNotFound": "未找到端点主机：{{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "隧道",
+      "tunnelCount_other": "{{count}} 个隧道",
+      "runningOnServer": "{{connected}} 在服务器上运行"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "凭据工具"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "此主机未安装 Docker。",
+        "dockerDidNotAnswer": "Docker 无响应",
+        "thatIsNotAValid": "这不是有效的堆栈名称"
+      }
+    },
+    "containerDetail": {
+      "stop": "停止",
+      "start": "启动",
+      "restart": "重启",
+      "remove": "移除",
+      "logs": "日志",
+      "stats": "统计信息",
+      "console": "控制台",
+      "logsCopied": "日志已复制",
+      "copy": "复制",
+      "containerIsNotRunningNo": "容器未运行，无实时统计信息。",
+      "cpu": "CPU",
+      "memory": "内存",
+      "networkIO": "网络 I/O",
+      "blockIO": "块 I/O",
+      "pids": "进程 ID",
+      "failedToLoadLogs": "加载日志失败",
+      "failedToLoadStats": "加载统计信息失败",
+      "noOutput": "（无输出）"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "正在连接 Docker...",
+    "remove": "移除 {{name}}？",
+    "stop": "停止 {{name}}？",
+    "theContainerIsStoppedAnd": "容器已停止并删除。其卷将保留。",
+    "anythingRunningInItStops": "其中运行的任何内容都会停止。",
+    "remove2": "移除",
+    "stop2": "停止",
+    "dockerThis": "Docker | 此{{deviceWord}}",
+    "lookingForDocker": "正在查找 Docker...",
+    "dockerIsNotAvailableOn": "此主机上不可用 Docker。",
+    "noContainersFound": "未找到容器",
+    "noContainersMatchYourFilters": "没有容器符合您的筛选条件",
+    "useSudo": "使用 sudo",
+    "refresh": "刷新",
+    "containers": "容器",
+    "stacks": "堆栈",
+    "searchContainers": "搜索容器...",
+    "all": "全部",
+    "running": "运行中",
+    "stopped": "已停止",
+    "start": "启动",
+    "restart": "重启",
+    "pause": "暂停",
+    "unpause": "恢复",
+    "moreActions": "更多操作",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker 无响应",
+      "docker": "Docker",
+      "noContainers": "无容器"
+    },
+    "dockerConsole": {
+      "attachingTo": "正在连接到 {{name}}...",
+      "consoleDisconnected": "控制台已断开连接",
+      "reconnect": "重新连接",
+      "failedToLoadTheConsole": "加载控制台失败",
+      "thisSessionHasNoServer": "此会话没有服务器"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "容器、日志和统计信息"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "此服务器已关闭堆栈功能。",
+      "couldNotLoadStacks": "无法加载堆栈",
+      "noStacks": "没有堆栈",
+      "composeProjectsOnThisHost": "此主机上的 Compose 项目将显示在这里。",
+      "ofRunning": "{{running}} / {{total}} 正在运行",
+      "couldNotLoadTheStack": "无法加载堆栈",
+      "services": "服务",
+      "nothingIsRunning": "没有正在运行的服务。",
+      "composeFile": "Compose 文件",
+      "partlyUp": "部分运行中",
+      "notDeployed": "未部署",
+      "running": "运行中",
+      "stopped": "已停止",
+      "paused": "已暂停"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "这不是有效的容器 ID",
+      "consoleFailed": "控制台失败",
+      "notAuthenticated": "未通过身份验证",
+      "consoleError": "控制台错误",
+      "connectionFailed": "连接失败"
+    },
+    "dockerDidNotAnswer": "Docker 无响应",
+    "failedToLoadContainers": "加载容器失败",
+    "failedTo": "{{action}} 失败"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "服务器未发送文件",
+        "cancelled": "已取消",
+        "isGone": "{{path}} 已不存在",
+        "canTGoToThe": "{{name}} 无法移至废纸篓"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "无效的废纸篓项目 ID",
+        "invalidTrashMetadata": "无效的废纸篓元数据",
+        "thisPathCanTBe": "此路径无法移至废纸篓",
+        "aFileAlreadyExistsAt": "原始路径下已存在文件"
+      },
+      "sftp": {
+        "commandFailed": "命令失败：{{command}}",
+        "alreadyExists": "{{name}} 已存在",
+        "alreadyExistsThere": "{{path}} 在该位置已存在",
+        "canTGoToThe": "{{name}} 无法移至废纸篓：{{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "终端已关闭",
+      "clearHistory": "清除历史记录",
+      "stopFollowingTheTerminal": "停止跟随终端",
+      "followTheTerminal": "跟随终端",
+      "goToTheTerminalS": "前往终端所在文件夹",
+      "cdTheTerminalHere": "将终端切换到此目录",
+      "folderHistory": "文件夹历史记录",
+      "mostUsedFirstThenRecent": "按使用频率排序，最近使用的排在后面",
+      "noFoldersYet": "暂无文件夹"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "无法连接。",
+        "couldNotSaveHowThis": "无法保存此主机的连接方式",
+        "thisWayCanTOpen": "此方式无法打开文件"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "无法打开此文件夹",
+      "cancel": "取消",
+      "noFoldersHere": "此处没有文件夹"
+    },
+    "couldNotOpenThisFolder": "无法打开此文件夹",
+    "couldNotSaveToThe": "无法保存到文件夹",
+    "failed": "{{label}} 失败",
+    "uploading": "正在上传 {{name}}",
+    "uploadingFiles": "正在上传 {{count}} 个文件",
+    "downloadingToFilesOnMy": "正在下载到“文件”应用中的“我的 iPhone” > “Termix”",
+    "downloading": "正在下载 {{name}}",
+    "downloadingFiles": "正在下载 {{count}} 个文件",
+    "openALargeFile": "要打开这个大文件吗？",
+    "isBigForAEditor": "{{name}} 对于 {{deviceWord}} 编辑器来说太大了，可能会导致运行缓慢。",
+    "open": "打开",
+    "thisLooksLikeABinary": "这看起来像是一个二进制文件",
+    "openItInAnotherApp": "要在其他应用中打开吗？",
+    "openWith": "使用...打开",
+    "tooBigForTheEditor": "文件过大，无法在编辑器中打开",
+    "isOver10MbDownload": "{{name}} 超过 10 MB。是否改为下载？",
+    "download": "下载",
+    "delete": "删除 {{what}}？",
+    "moveToTheTrash": "将 {{what}} 移至回收站？",
+    "thisCanTBeUndone": "此操作无法撤销。",
+    "youCanRestoreItFrom": "您可以从回收站恢复它。",
+    "delete2": "删除",
+    "moveToTrash": "移至回收站",
+    "deleteForGood": "永久删除？",
+    "deleteItForGoodInstead": "{{message}}。是否改为永久删除？此操作无法撤销。",
+    "deleteFailed": "删除失败",
+    "connectingThroughTheServer": "正在通过服务器连接...",
+    "connectingFromThis": "正在从此 {{deviceWord}} 连接...",
+    "connecting": "正在连接...",
+    "edit": "编辑",
+    "downloadFolder": "下载文件夹",
+    "share": "分享",
+    "rename": "重命名",
+    "copyTo": "复制到",
+    "moveTo": "移动到",
+    "cut": "剪切",
+    "copy": "复制",
+    "permissions": "权限",
+    "properties": "属性",
+    "makeALinkHere": "在此处创建链接",
+    "copyPath": "复制路径",
+    "pathCopied": "路径已复制",
+    "done": "完成",
+    "selectAll": "全选",
+    "filterByName": "按名称筛选",
+    "closeSearch": "关闭搜索",
+    "search": "搜索",
+    "changeSort": "更改排序",
+    "paste": "粘贴 {{count}} 项",
+    "upload": "上传",
+    "transfers2": "传输",
+    "more": "更多",
+    "nothingMatches": "无匹配项",
+    "emptyFolder": "空文件夹",
+    "uploadFilesOrMakeA": "上传文件或新建一个。",
+    "newFolder": "新建文件夹",
+    "newFile": "新建文件",
+    "select": "选择",
+    "hideHiddenFiles": "隐藏隐藏文件",
+    "showHiddenFiles": "显示隐藏文件",
+    "trash": "回收站",
+    "folderProperties": "文件夹属性",
+    "refresh": "刷新",
+    "rename2": "重命名 {{name}}",
+    "newLink": "新建链接",
+    "aLinkInThatPoints": "{{path}} 中指向 {{path2}} 的链接",
+    "name": "名称",
+    "create": "创建",
+    "copyHere": "复制到此",
+    "moveHere": "移动到此",
+    "fileViewer": {
+      "saved": "已保存 {{name}}",
+      "couldNotSaveTheFile": "无法保存文件",
+      "discardChanges": "放弃更改？",
+      "hasChangesThatAreNot": "{{name}} 有未保存的更改。",
+      "discard": "放弃",
+      "readOnly": "{{path}} | 只读",
+      "find": "查找",
+      "smallerText": "缩小文字",
+      "biggerText": "放大文字",
+      "turnOffLineWrap": "关闭自动换行",
+      "wrapLines": "自动换行",
+      "save": "保存"
+    },
+    "hostSection": {
+      "startIn": "起始目录",
+      "theFolderTheFileManager": "文件管理器首次打开时显示的目录",
+      "files": "文件"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "前往 {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "更多操作",
+        "moreFor": "{{name}} 的更多操作"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "权限",
+      "cancel": "取消",
+      "apply": "应用 ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "无法打开",
+      "openWith": "打开方式",
+      "share": "分享"
+    },
+    "propertiesView": {
+      "properties": "属性",
+      "path": "路径",
+      "type": "类型",
+      "pointsTo": "指向",
+      "size": "大小",
+      "countFolderSize": "计算文件夹大小",
+      "permissions": "权限",
+      "change": "更改",
+      "owner": "所有者",
+      "group": "组",
+      "modified": "修改时间",
+      "opened": "访问时间",
+      "linkToA": "指向 {{value}} 的链接",
+      "notShownForFolders": "文件夹不显示此项",
+      "file": "文件",
+      "folder": "文件夹",
+      "link": "链接"
+    },
+    "register": {
+      "fileManager": "文件管理器",
+      "files": "文件",
+      "browseEditAndMoveFiles": "浏览、编辑和移动文件",
+      "files2": "文件",
+      "fileManagerAndTransfers": "文件管理器与传输"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "传输失败"
+      },
+      "transfersPanel": {
+        "pause": "暂停",
+        "resume": "恢复",
+        "tryAgain": "重试",
+        "open": "打开",
+        "cancel": "取消",
+        "transfers": "传输",
+        "goingOf": "{{active}} 进行中 | {{done}} / {{total}}",
+        "clearFinished": "清除已完成",
+        "cancelAll": "全部取消",
+        "noTransfersYet": "暂无传输",
+        "waiting": "等待中",
+        "paused": "已暂停",
+        "done": "已完成",
+        "failed": "失败",
+        "cancelled": "已取消"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "加载回收站失败",
+      "restored": "已恢复 {{name}}",
+      "failedToRestore": "恢复失败",
+      "failedToDelete": "删除失败",
+      "trashEmptied": "回收站已清空",
+      "failedToEmptyTrash": "清空回收站失败",
+      "trash": "回收站",
+      "itemsAreRemovedAfterDays": "文件将在 {{retentionDays}} 天后自动删除",
+      "close": "关闭",
+      "emptyTrash": "清空回收站",
+      "trashIsEmpty": "回收站为空",
+      "restore": "恢复 {{name}}",
+      "deleteForGood": "永久删除 {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "刚刚"
+      }
+    },
+    "getting": "正在获取 {{name}}",
+    "itemCount_other": "{{count}} 个项目",
+    "copiedWhat": "已复制 {{what}}",
+    "movedWhat": "已移动 {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} 包含超过 {{limit}} 个文件。请下载较小的文件夹。"
+    },
+    "downloadingToFilesOnMyIpad": "正在下载至“文件”App 中的“我的 iPad” > Termix",
+    "size": "大小",
+    "date": "日期"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "服务链接",
+      "openInHomepage": "在 Homepage 中打开",
+      "thisWidgetOnlyShowsOn": "此小组件仅在全页视图中显示。"
+    },
+    "register": {
+      "serviceLinks": "服务链接",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "未设置订阅源。",
+        "couldNotLoadTheFeed": "无法加载订阅源。",
+        "theFeedIsEmpty": "订阅源为空。",
+        "noLocationSet": "未设置位置。",
+        "couldNotLoadTheWeather": "无法加载天气数据。",
+        "noUrlSet": "未设置 URL。",
+        "couldNotLoadTheData": "无法加载数据。",
+        "noPictureSet": "未设置图片。",
+        "badResponse": "响应错误"
+      },
+      "services": "服务",
+      "service": "服务",
+      "serviceLinks": "服务链接",
+      "bookmarks": "书签",
+      "links2": "链接",
+      "search": "搜索",
+      "clock": "时钟",
+      "countdown": "倒计时",
+      "calendar": "日历",
+      "notes": "笔记",
+      "banner": "横幅",
+      "ping": "Ping",
+      "host": "主机",
+      "hosts": "主机",
+      "quickConnect": "快速连接",
+      "feed": "订阅源",
+      "weather": "天气",
+      "customApi": "自定义 API",
+      "picture": "图片",
+      "widget": "小组件",
+      "links": {
+        "noServicesYet": "暂无服务。",
+        "noLinkSet": "未设置链接。",
+        "noLinksYet": "暂无链接。",
+        "noSearchEngineSet": "未设置搜索引擎。",
+        "search": "搜索",
+        "noShortcutsYet": "暂无快捷方式。",
+        "search2": "搜索 {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "无法打开链接"
+      },
+      "status": {
+        "noUrlsYet": "暂无 URL。",
+        "down": "已离线",
+        "noHostsPicked": "未选择主机。"
+      },
+      "text": {
+        "noNotesYet": "暂无笔记。",
+        "noTextYet": "暂无文本。"
+      },
+      "time": {
+        "noDateSet": "未设置日期。",
+        "timeIsUp": "时间到"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "无法保存默认值",
+    "couldNotResetTheDefault": "无法重置默认值",
+    "back": "返回",
+    "hostDefaults": "主机默认设置",
+    "newHostsStartFromThese": "新主机将基于这些设置创建",
+    "managedOnTheServer": "在服务器上管理",
+    "defaultsForThisServerAre": "此服务器的默认设置已在 Web 应用中配置。",
+    "level": "级别",
+    "yourDefaultsOrOneFolder": "您的默认设置，或某个文件夹的设置",
+    "myDefaults": "我的默认设置",
+    "aFolderWinsOverYour": "文件夹设置优先于您的默认设置，而您的默认设置优先于服务器设置。主机将保留您手动设置的任何值。{{value}}",
+    "save": "保存",
+    "authentication": "身份验证",
+    "none": "无",
+    "reset": "重置",
+    "model": {
+      "username": "用户名",
+      "sshPort": "SSH 端口",
+      "authentication": "身份验证",
+      "aSavedCredentialForNew": "新主机使用的已保存凭据",
+      "forceKeyboardInteractive": "强制使用键盘交互",
+      "keepaliveInterval": "保活间隔",
+      "seconds0TurnsItOff": "秒数，0 表示关闭",
+      "keepaliveTries": "保活重试次数",
+      "allowOldAlgorithms": "允许旧算法",
+      "agentForwarding": "Agent 转发",
+      "environmentVariables": "环境变量",
+      "oneNameValuePerLine": "每行一个 NAME=value",
+      "checkIfTheHostIs": "检查主机是否在线",
+      "checkInterval": "检查间隔",
+      "secondsEmptyUsesTheServer": "秒数，留空则使用服务器设置",
+      "socks5Proxy": "SOCKS5 代理",
+      "setInTheWebApp": "在 Web 应用中设置",
+      "jumpHosts": "跳板主机",
+      "portKnocking": "端口敲门",
+      "notSet": "未设置",
+      "fromTheServer": "来自服务器",
+      "fromYourDefaults": "来自您的默认设置",
+      "builtIn": "内置"
+    },
+    "register": {
+      "hostDefaults": "主机默认设置",
+      "portUserAndOptionsFor": "新主机的端口、用户和选项"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "暂无数据",
+      "cpu": "CPU",
+      "memory": "内存",
+      "disk": "磁盘",
+      "history": "历史记录",
+      "loading": "加载中..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "无法读取指标",
+      "metrics": "指标",
+      "cpu": "CPU",
+      "memory": "内存",
+      "disk": "磁盘",
+      "noRecentSampleOpenThe": "无近期采样数据。打开主机的指标监控以开始采样。"
+    },
+    "register": {
+      "enableMetrics": "启用指标监控",
+      "cpuMemoryDiskAndNetwork": "通过 SSH 监控 CPU、内存、磁盘和网络",
+      "hostMetrics": "主机指标",
+      "cpu": "CPU",
+      "ram": "内存",
+      "metrics": "指标",
+      "cpuMemoryDiskAndNetwork2": "CPU、内存、磁盘和网络"
+    },
+    "serverStats": {
+      "hostMetricsThis": "主机指标 | 此{{deviceWord}}",
+      "hostMetrics": "主机指标",
+      "ran": "已运行 {{name}}",
+      "loadingMetrics": "正在加载指标...",
+      "couldNotReadMetricsFrom": "无法从此主机读取指标",
+      "failedToLoadMetrics": "加载指标失败",
+      "thisSessionHasNoServer": "此会话没有服务器",
+      "twoFactorRequiredForThis": "查看此主机的统计信息需要双因素认证。",
+      "failedToStartMetrics": "启动指标监控失败",
+      "failedToRun": "运行 {{name}} 失败"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "每核：{{value}}",
+        "cores": "核心数",
+        "load": "负载",
+        "user": "用户",
+        "system": "系统",
+        "ioWait": "IO 等待",
+        "steal": "窃取"
+      },
+      "diskWidget": {
+        "disk": "磁盘 {{mount}}",
+        "disk2": "磁盘",
+        "used": "已用",
+        "total": "总计",
+        "free": "可用"
+      },
+      "firewallWidget": {
+        "firewall": "防火墙",
+        "rules": "{{type}} | {{ruleCount}} 条规则",
+        "noFirewallDetected": "未检测到防火墙"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "内存",
+        "temp": "温度",
+        "power": "功耗",
+        "fan": "风扇"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "登录活动",
+        "noLoginActivityRecorded": "未记录登录活动",
+        "logins": "登录次数",
+        "uniqueIps": "唯一 IP",
+        "failed": "失败",
+        "recent": "最近"
+      },
+      "memoryWidget": {
+        "memory": "内存",
+        "used": "已用",
+        "total": "总计",
+        "cached": "缓存",
+        "free": "可用"
+      },
+      "networkWidget": {
+        "network": "网络",
+        "noInterfaces": "无接口",
+        "up": "上行",
+        "down": "下行"
+      },
+      "portsWidget": {
+        "listeningPorts": "监听端口",
+        "noListeningPorts": "无监听端口"
+      },
+      "processesWidget": {
+        "sortBy": "按 {{label}} 排序",
+        "processes": "进程",
+        "running": "{{value}} 个运行中 | {{total}}",
+        "noProcessData": "无进程数据",
+        "cpu": "CPU%",
+        "mem": "内存%",
+        "command": "命令"
+      },
+      "systemWidget": {
+        "system": "系统",
+        "hostname": "主机名",
+        "os": "操作系统",
+        "kernel": "内核",
+        "arch": "架构",
+        "noSystemInfo": "无系统信息"
+      },
+      "temperatureWidget": {
+        "temperature": "温度"
+      },
+      "uptimeWidget": {
+        "uptime": "运行时间"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "已复制（含密码）",
+      "copiedTheLink": "已复制链接",
+      "shareHost": "共享主机",
+      "thatHostNoLongerExists": "该主机已不存在",
+      "scanThisInTermixOn": "在另一台 {{deviceWord}} 上的 Termix 中，通过“导入和导出”扫描此代码。代码包含地址、端口和用户，但不包含密码或密钥。",
+      "copyLink": "复制链接",
+      "copyLinkWithPassword": "复制含密码的链接"
+    },
+    "includePasswordsAndKeys": "是否包含密码和密钥？",
+    "anyoneWhoGetsThisFile": "任何获得此文件的人都可以登录这些主机。请妥善保管。",
+    "includeThem": "包含它们",
+    "pickAtLeastOneHost": "至少选择一个主机",
+    "couldNotMakeTheFile": "无法创建文件",
+    "copiedToTheClipboard": "已复制到剪贴板",
+    "importAndExport": "导入和导出",
+    "moveHostsInAndOut": "导入和导出主机",
+    "import": "导入",
+    "aTermixHostFileAn": "Termix 主机文件、SSH 配置文件，或来自另一台 {{deviceWord}} 的主机链接或二维码。",
+    "export": "导出",
+    "allHosts": "所有主机",
+    "picked": "已选 {{size}} 个",
+    "pickHosts": "选择主机",
+    "includePasswordsAndKeys2": "包含密码和密钥",
+    "offMakesAFileSafe": "关闭此选项可使文件安全共享。使用已保存凭据的主机将通过名称引用该凭据",
+    "shareAFile": "共享文件",
+    "copy": "复制",
+    "importPanel": {
+      "couldNotReadThat": "无法读取该内容",
+      "couldNotReadThatFile": "无法读取该文件",
+      "importFailed": "导入失败",
+      "chooseAFile": "选择文件",
+      "paste": "粘贴",
+      "scanACode": "扫描二维码",
+      "couldNotBeRead": "{{count}} 项无法读取",
+      "updateHostsThatExist": "更新已存在的主机",
+      "sameAddressPortAndUser": "地址、端口和用户相同。否则将跳过",
+      "cancel": "取消",
+      "import": "导入",
+      "andMore": "及其他 {{value}} 项"
+    },
+    "qrCode": {
+      "qrCode": "二维码"
+    },
+    "register": {
+      "importAndExport": "导入和导出",
+      "moveHostsInOrOut": "通过文件或二维码导入或导出主机",
+      "shareHost": "共享主机"
+    },
+    "scanSheet": {
+      "scanAHostCode": "扫描主机代码",
+      "pointTheCameraAtA": "将摄像头对准 Termix 主机二维码。",
+      "termixNeedsTheCameraTo": "Termix 需要摄像头权限才能扫描二维码。不会记录任何内容。",
+      "allowTheCamera": "允许使用摄像头"
+    },
+    "read": {
+      "termixFile": "Termix 文件",
+      "sshConfig": "SSH 配置",
+      "thereIsNothingToImport": "没有可导入的内容",
+      "thatIsNotATermix": "这不是 Termix 主机链接",
+      "linkHost": "1 台主机：{{name}}",
+      "sourceHosts_other": "{{what}}，包含 {{count}} 台主机"
+    },
+    "saveYourTermixHosts": "保存您的 Termix 主机"
+  },
+  "operations": {
+    "approvals": {
+      "done": "已完成",
+      "rejected": "已拒绝",
+      "approvals": "审批",
+      "nothingIsWaiting": "没有等待处理的事项",
+      "actionsARuleHoldsFor": "需要审批规则批准的操作会显示在这里。",
+      "approveAndRun": "批准并运行",
+      "reject": "拒绝",
+      "couldNotLoadApprovals": "无法加载审批列表",
+      "couldNotDecide": "无法做出决定"
+    },
+    "approvalsCard": {
+      "approved": "已批准",
+      "rejected": "已拒绝",
+      "waitingForApproval": "等待审批",
+      "approve": "批准",
+      "reject": "拒绝",
+      "couldNotDecide": "无法做出决定",
+      "seeAll": "查看全部"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "此操作无法撤销。是否运行？",
+      "run": "运行",
+      "sentForApproval": "已发送待审批",
+      "target": "目标",
+      "theItemOnTheHost": "主机上的项目，例如容器",
+      "dryRun": "试运行",
+      "back": "返回",
+      "actions": "操作",
+      "noActionsForThisHost": "此主机没有可用操作",
+      "turnOnAPluginLike": "在服务器上为此主机启用 Docker 或 Services 等插件。",
+      "destructive": "破坏性",
+      "changes": "更改",
+      "theActionCouldNotRun": "操作无法运行",
+      "couldNotLoadActions": "无法加载操作"
+    },
+    "register": {
+      "actions": "操作",
+      "waitingForApproval": "等待审批",
+      "approvals": "审批",
+      "actionsWaitingForAPerson": "等待人工确认的操作",
+      "runHistory": "运行历史",
+      "everyActionAnyoneRanFrom": "任何人从任何设备运行的所有操作"
+    },
+    "runHistory": {
+      "cancelThisRun": "取消此次运行？",
+      "cancelRun": "取消运行",
+      "keep": "保留",
+      "undoThisRun": "撤销此次运行？",
+      "thisRunsTheActionS": "这将使用相同的输入运行操作的撤销逻辑。",
+      "undo": "撤销",
+      "cancelled": "已取消",
+      "itAlreadyFinished": "已完成",
+      "done": "已完成",
+      "runHistory": "运行历史",
+      "nothingHasRunYet": "尚未运行任何操作",
+      "dryRun": "试运行",
+      "cancel": "取消",
+      "couldNotLoadHistory": "无法加载历史记录",
+      "couldNotCancel": "无法取消",
+      "couldNotUndo": "无法撤销"
+    },
+    "api": {
+      "needsApproval": "需要审批",
+      "needsSignIn": "需要登录",
+      "done": "已完成",
+      "failed": "失败",
+      "running": "运行中",
+      "interrupted": "已中断",
+      "rejected": "已拒绝",
+      "cancelled": "已取消",
+      "expired": "已过期"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "启用 {{value}}",
+      "moreSettingsForThisAre": "更多设置请在 Termix Web 应用中查看。",
+      "pluginHostSettings": "插件主机设置"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} 必须为数字",
+      "mustBeAtLeast": "{{field}} 至少为 {{min}}",
+      "mustBeAtMost": "{{field}} 至多为 {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "关联服务器以使用",
+      "runsOnYourTermixServer": "{{name}} 运行在您的 Termix 服务器上。"
+    },
+    "pluginWebView": {
+      "canTLoad": "无法加载 {{name}}",
+      "theServerDidNotSend": "服务器未发送插件。请检查服务器是否已开启，然后重试。",
+      "openThisLink": "打开此链接？",
+      "open": "打开",
+      "needsANewerVersionOf": "需要更新应用版本",
+      "usesPartsOfTermixThis": "{{name}} 使用了当前应用尚未包含的 Termix 功能。",
+      "didNotStart": "{{name}} 启动失败",
+      "thisScreenIsNotIn": "此界面不在服务器上的插件版本中。",
+      "thePluginHitAnError": "插件在启动时遇到错误。",
+      "youReOffline": "您已离线",
+      "runsOnYourServerSo": "{{name}} 运行在您的服务器上，因此需要网络连接。当您重新上线时，它将自动打开。",
+      "tryAgain": "重试"
+    },
+    "shell": {
+      "thatHostIsNotOn": "该主机尚未在此 {{deviceWord}} 上。",
+      "theAppCanTOpen": "应用无法从此处打开该内容。",
+      "thatHostIsNotOn2": "该主机尚未在此 {{deviceWord}} 上。"
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "密码",
+      "unchangedIfBlank": "留空则保持不变",
+      "port": "端口",
+      "domain": "域名",
+      "displaySoundAndClipboardSettings": "显示、声音和剪贴板设置请在 Termix Web 应用中查看。",
+      "portMustBeFrom1": "{{label}} 端口必须在 1 到 65535 之间"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "远程桌面连接已断开",
+        "signIn": "{{label}} 登录",
+        "itWillNotBeSaved": "{{error}} 不会保存。",
+        "enterTheLoginForIt": "输入 {{title}} 的登录信息。不会保存。",
+        "reconnecting": "正在重新连接 {{label}}",
+        "connecting": "正在连接 {{label}}",
+        "connectionFailed": "连接失败",
+        "disconnected": "已断开连接",
+        "reconnect": "重新连接",
+        "connectThroughTheServer": "通过服务器连接",
+        "pasteToRemote": "粘贴到远程",
+        "typeClipboard": "键入剪贴板内容",
+        "copyRemoteClipboard": "复制远程剪贴板",
+        "theComputerSCertificateWas": "不受信任的计算机证书。",
+        "thatLoginWasRefusedTry": "登录被拒绝。请重试。"
+      },
+      "target": {
+        "trustThisComputer": "信任此计算机？",
+        "theCanTCheckS": "{{deviceWord}} 无法验证 {{hostName}} 的证书。请确保此指纹与计算机上的指纹一致后再继续。\n\n{{fingerprint}}",
+        "trustAndConnect": "信任并连接",
+        "certificateChanged": "证书已更改",
+        "showsAnotherCertificateThanLast": "{{hostName}} 显示的证书与上次不同。这通常发生在计算机生成新证书时，或者有人在中间监听。\n\n新指纹：\n{{fingerprint}}",
+        "trustTheNewOne": "信任新证书"
+      }
+    },
+    "register": {
+      "remoteDesktop": "远程桌面",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "完成",
+      "keyboard": "键盘",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "设置",
+      "remoteSettings": "远程设置",
+      "mouseMode": "鼠标模式",
+      "touch": "触控",
+      "trackpad": "触控板",
+      "tapWhereYouWantTo": "点击要单击的位置。长按右键单击，拖动以拖拽。",
+      "dragToMoveThePointer": "拖动以移动指针。单击左键，双指点击右键，点击后拖动以拖拽。",
+      "zoomXPinchAnywhereTo": "缩放：{{value}}x。在任意位置捏合以缩放",
+      "reset": "重置",
+      "cancel": "取消",
+      "connect": "连接",
+      "username": "用户名",
+      "domainOptional": "域（可选）",
+      "domain": "域",
+      "password": "密码",
+      "leftArrow": "左箭头",
+      "upArrow": "上箭头",
+      "downArrow": "下箭头",
+      "rightArrow": "右箭头",
+      "rdpSignIn": "RDP 登录"
+    },
+    "theRemoteDesktopDropped": "远程桌面已断开",
+    "theyWillNotBeSaved": "{{errorMessage}} 它们不会被保存。",
+    "enterCredentialsForTheyWill": "输入 {{title}} 的凭据。它们不会被保存。",
+    "connecting": "正在连接",
+    "connectionFailed": "连接失败",
+    "disconnected": "已断开连接",
+    "reconnect": "重新连接",
+    "route": {
+      "thisHostCanTOpen": "此主机无法从此处打开远程桌面。"
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "被应用阻止"
+    },
+    "failedToStartRemoteSession": "启动远程会话失败",
+    "thatLoginWasRefusedTry": "登录被拒绝。请重试。",
+    "theRemoteRefusedTheSaved": "远程端拒绝了保存的登录信息。请检查此主机上的 RDP 登录设置。",
+    "remoteSessionFailed": "远程会话失败",
+    "remoteSessionReturnedAnInvalid": "远程会话返回了无效消息",
+    "failedToLoadTheRemote": "加载远程桌面客户端失败"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "无日志",
+      "thisHostDoesNotKeep": "此主机未保留 systemd 日志。",
+      "all": "全部",
+      "warnings": "警告",
+      "errors": "错误",
+      "stop": "停止",
+      "follow": "跟随",
+      "nothingLogged": "无日志记录",
+      "tryAnotherLevel": "尝试其他级别。",
+      "couldNotReadTheJournal": "无法读取日志"
+    },
+    "register": {
+      "services": "服务",
+      "startStopAndReadLogs": "启动、停止并查看日志"
+    },
+    "readingServices": "正在读取服务...",
+    "thisHostHasNoSystemd": "此主机未安装 systemd 或 OpenRC。",
+    "noServicesMatch": "没有匹配的服务",
+    "noServicesFound": "未找到服务",
+    "services": "服务",
+    "journal": "日志",
+    "searchServices": "搜索服务...",
+    "all": "全部",
+    "running": "运行中",
+    "failed": "失败 ({{failed}})",
+    "failed2": "失败",
+    "servicesCard": {
+      "services": "服务",
+      "noSystemdOrOpenrc": "无 systemd 或 OpenRC",
+      "failed": "{{failed}} 个失败",
+      "allRunning": "全部运行中",
+      "couldNotReadServices": "无法读取服务"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "它将保持停止状态，直到再次启动或主机重启。",
+      "itStopsForAMoment": "它会短暂停止，然后重新启动。",
+      "stop": "停止",
+      "restart": "重启",
+      "is": "{{name}} 状态为 {{state}}",
+      "start": "启动",
+      "journal": "日志",
+      "couldNotReadTheService": "无法读取服务",
+      "couldNot": "无法 {{action}} {{name}}",
+      "startsAtBoot": "开机自启",
+      "mainPid": "主进程 ID",
+      "activeSince": "活跃于",
+      "unitFile": "单元文件",
+      "notSet": "[未设置]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "未登录",
+        "followFailed": "跟随失败",
+        "connectionFailed": "连接失败"
+      }
+    },
+    "couldNotReadServices": "无法读取服务",
+    "services2": "服务{{where}}",
+    "title": "服务",
+    "failedCount": "{{count}} 个失败"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "会话共享",
+      "shareLink": "分享链接"
+    },
+    "shareSessionView": {
+      "canWatch": "可观看",
+      "canType": "可输入",
+      "n1Hour": "1 小时",
+      "n8Hours": "8 小时",
+      "n1Day": "1 天",
+      "n7Days": "7 天",
+      "never": "永不过期",
+      "shareSession": "共享会话",
+      "anyoneWithTheLinkCan": "任何拥有链接的人都可以在此终端运行时打开它。您可以在 Termix 中撤销链接。",
+      "peopleWithTheLink": "拥有链接的人",
+      "expiresAfter": "过期时间",
+      "link": "链接",
+      "copy": "复制",
+      "share": "分享",
+      "makeLink": "生成链接",
+      "theServerGaveNoLink": "服务器未返回链接",
+      "couldNotMakeALink": "无法生成链接",
+      "linkCopied": "链接已复制"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "无文件夹"
+    },
+    "hostPicker": {
+      "selectNone": "取消全选",
+      "selectAll": "全选",
+      "done": "完成"
+    },
+    "register": {
+      "snippets": "代码片段",
+      "snippets2": "代码片段",
+      "savedCommandsToRunOn": "保存的命令，可在任意主机上运行"
+    },
+    "runHosts": {
+      "noWayToReachThis": "无法从此处访问该主机",
+      "exitedWith": "退出码为 {{exitCode}}",
+      "thisCanTRunIt": "此 {{deviceWord}} 无法运行它",
+      "noServerIsLinked": "未链接任何服务器"
+    },
+    "runOnHostsSheet": {
+      "run": "运行",
+      "run2": "运行“{{name}}”",
+      "runsOverSshOnEach": "通过 SSH 在每个主机上运行。不会打开终端。",
+      "close": "关闭",
+      "hosts": "主机",
+      "pickHosts": "选择主机",
+      "workedFailed": "{{value}} 成功，{{failed}} 失败",
+      "runOn2": "运行于",
+      "runOn_other": "在 {{count}} 个主机上运行 {{name}}？",
+      "hostsPicked_other": "已选择 {{count}} 个主机"
+    },
+    "snippetsBar": {
+      "searchSnippets": "搜索代码片段",
+      "pastesTheNote": "粘贴备注",
+      "runsTheSnippet": "运行代码片段",
+      "noSnippetsMatch": "没有匹配的代码片段",
+      "noSnippetsYet": "暂无代码片段",
+      "addSnippetsInSettingsSnippets": "在“设置”>“代码片段”中添加代码片段",
+      "run": "运行",
+      "insertWithoutRunning": "插入而不运行",
+      "copy": "复制"
+    },
+    "snippetsCard": {
+      "snippets": "代码片段",
+      "run": "运行 {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "没有可导出的代码片段",
+      "couldNotMakeTheFile": "无法创建文件",
+      "copiedToTheClipboard": "已复制到剪贴板",
+      "couldNotImport": "无法导入",
+      "couldNotReadThatFile": "无法读取该文件",
+      "importAndExport": "导入和导出",
+      "theSameFileTheWeb": "与 Web 应用使用的文件相同。",
+      "export": "导出",
+      "shareAFile": "分享文件",
+      "copy": "复制",
+      "import": "导入",
+      "updateSnippetsThatExist": "更新已存在的代码片段",
+      "sameNameInTheSame": "同一文件夹中名称相同的片段。否则将跳过它们",
+      "chooseAFile": "选择文件",
+      "paste": "粘贴",
+      "saveYourSnippets": "保存你的代码片段"
+    },
+    "useSnippetRunner": {
+      "run": "运行 {{name}}？",
+      "run2": "运行",
+      "fillInTheValuesFor": "填写此代码片段的值。",
+      "cancel": "取消",
+      "insert": "插入",
+      "noTerminalIsOpen": "没有打开的终端"
+    },
+    "variables": {
+      "input": "输入 {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "这不是有效的 JSON 文件",
+      "theFileNeedsASnippets": "文件需要包含代码片段或文件夹列表",
+      "snippetNameAndContentAre": "代码片段 {{value}}：名称和内容是必需的",
+      "folder": "文件夹 {{name}}：{{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "正在加载 Tailscale 设备…",
+      "searchTailscaleDevices": "搜索 Tailscale 设备…",
+      "searchTailscaleDevices2": "搜索 Tailscale 设备",
+      "clearDeviceSearch": "清除设备搜索",
+      "refreshTailscaleDevices": "刷新 Tailscale 设备",
+      "device": "设备",
+      "noTailnetAddress": "无 tailnet 地址",
+      "tailscaleDevice": "Tailscale 设备",
+      "tailscaleDevices": "Tailscale 设备",
+      "addAHostThatConnects": "添加通过 Tailscale SSH 连接的主机。",
+      "username": "用户名",
+      "sshUsernameFor": "{{value}} 的 SSH 用户名",
+      "addHost": "添加主机",
+      "noTailscaleDevicesMatchYour": "没有 Tailscale 设备匹配您的搜索。",
+      "noTailscaleDevicesFound": "未找到 Tailscale 设备。",
+      "noTailscaleApiKeyIs": "此服务器上未配置 Tailscale API 密钥。请联系管理员添加。",
+      "youDoNotHavePermission": "您无权列出 Tailscale 设备。",
+      "couldNotLoadTailscaleDevices": "无法加载 Tailscale 设备。请刷新重试。",
+      "tailscaleIsUnavailableOnThis": "此服务器上的 Tailscale 不可用。"
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "正在重新连接 | 尝试 {{attempt}}",
+      "reconnectingInSTry": "{{secs}} 秒后重新连接 | 尝试 {{attempt}}",
+      "offlineWaitingForNetwork": "离线，正在等待网络",
+      "sendToTheNewShell": "将 {{what}} 发送到新 shell？",
+      "reconnectNow": "立即重新连接",
+      "send": "发送",
+      "discard": "丢弃",
+      "typedChars_other": "{{count}} 个已输入字符",
+      "waiting": "{{what}} 等待中"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "连接日志已复制",
+      "connectionLog": "连接日志",
+      "copyItIntoABug": "将其复制到错误报告中。地址和用户名已省略。",
+      "copy": "复制"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "清除此主机的历史记录？",
+        "clear": "清除",
+        "searchHistory": "搜索历史记录",
+        "typesTheCommandWithoutRunning": "输入命令但不运行",
+        "noCommandsMatch": "没有匹配的命令",
+        "noHistoryYet": "暂无历史记录",
+        "commandsYouRunOnThis": "您在此主机上运行的命令将显示在这里",
+        "run": "运行",
+        "typeWithoutRunning": "输入但不运行",
+        "copy": "复制",
+        "delete": "删除",
+        "historyCleared": "历史记录已清除"
+      },
+      "suggestionStrip": {
+        "use": "使用 {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "应用设置",
+      "delete": "删除 (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "从 shell 获取标签页标题",
+      "programsCanSetTheTab": "程序可以设置标签页标题",
+      "openTmux": "打开 tmux",
+      "attachToATmuxSession": "连接到 tmux 会话，或创建一个",
+      "reconnectOnDrop": "断开时重新连接",
+      "keepTabOpenOnExit": "退出时保持标签页打开",
+      "pressEnterToConnectAgain": "按 Enter 重新连接",
+      "saveCommandHistory": "保存命令历史记录",
+      "offerToFillPasswordPrompts": "提供填充密码提示",
+      "offerToFillSudoPrompts": "提供填充 sudo 提示",
+      "usesTheSudoPasswordFrom": "使用 SSH 标签页中的 sudo 密码",
+      "none": "无",
+      "look": "外观",
+      "theme": "主题",
+      "font": "字体",
+      "cursor": "光标",
+      "bell": "响铃",
+      "scrollbackLines": "回滚行数",
+      "app": "应用",
+      "behavior": "行为",
+      "backspaceSends": "退格键发送",
+      "startupSnippet": "启动代码片段",
+      "runsOnceTheShellIs": "Shell 就绪后运行",
+      "fillWithoutAsking": "自动填充",
+      "onThisOnlyOnceYou": "仅在此 {{deviceWord}} 上，选择“始终填充”后生效",
+      "connection": "连接",
+      "keepalive": "保活",
+      "secondsBetweenPings0Turns": "Ping 间隔（秒），0 表示关闭",
+      "default": "默认",
+      "keepaliveSeconds": "保活间隔（秒）",
+      "missedPings": "未响应 Ping 次数",
+      "dropTheConnectionAfterThis": "超过此次数未响应则断开连接",
+      "missedPingsBeforeDrop": "断开前的未响应 Ping 次数",
+      "environment": "环境变量",
+      "removeVariable": "移除变量",
+      "addVariable": "添加变量"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "键盘"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "行",
+        "keys": "按键",
+        "sendsAKeyCode": "发送按键代码",
+        "stickyModifier": "粘滞修饰键",
+        "appAction": "应用操作",
+        "tmuxPrefixThen": "tmux 前缀，然后 {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "按键行",
+        "onlyFor": "仅用于 {{name}}",
+        "usingTheAppSRows": "使用应用的按键行。此处的更改仅适用于 {{name}}",
+        "useTheAppSRows": "使用应用的按键行"
+      },
+      "keyButton": {
+        "locked": "已锁定"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "取消",
+        "remove": "移除 {{what}}？",
+        "remove2": "移除",
+        "dragToReorder": "拖拽以重新排序",
+        "rowName": "行名称",
+        "groupName": "组名称",
+        "add": "添加",
+        "addKey": "添加按键",
+        "addRow": "添加行",
+        "addGroup": "添加组",
+        "tmuxPrefix": "tmux 前缀",
+        "name": "名称",
+        "rename": "重命名",
+        "keys": "{{value}} 个按键",
+        "noKeys": "无按键",
+        "remove3": "移除 {{label}}",
+        "keys2": "按键",
+        "custom": "自定义",
+        "add2": "添加 {{label}}",
+        "typeText": "输入文本",
+        "runCommand": "运行命令",
+        "ctrlKey": "Ctrl 键",
+        "label": "标签",
+        "optional": "可选",
+        "letter": "字母",
+        "command": "命令",
+        "text": "文本",
+        "resetToDefault": "恢复默认"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "在“设置”>“键盘”中更改按键"
+      },
+      "keyRowBar": {
+        "keyRow": "按键行 {{label}}",
+        "tapForTheNextRow": "轻点切换下一行，长按选择一行",
+        "keyRows": "按键行"
+      },
+      "model": {
+        "clear": "清除",
+        "main": "主键",
+        "keys": "按键",
+        "arrows": "方向键",
+        "symbols": "符号",
+        "actions": "操作",
+        "nav": "导航",
+        "move": "移动",
+        "function": "功能键",
+        "brackets": "括号",
+        "punctuation": "标点",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "窗格",
+        "copy": "复制",
+        "split": "水平分割 ─",
+        "split2": "垂直分割 │",
+        "newWin": "新建窗口",
+        "prevWin": "上一个窗口",
+        "nextWin": "下一个窗口",
+        "pane": "左窗格 ←",
+        "pane2": "下窗格 ↓",
+        "pane3": "上窗格 ↑",
+        "pane4": "右窗格 →",
+        "copyMode": "复制模式",
+        "pasteBuf": "粘贴缓冲区",
+        "killPane": "关闭窗格"
+      }
+    },
+    "output": {
+      "openLink": "打开链接？",
+      "open": "打开",
+      "pasteLines": "粘贴 {{lines}} 行？",
+      "pasteThisText": "粘贴此文本？",
+      "theShellMayRunIt": "Shell 可能会立即执行它。\n\n{{text}}",
+      "paste": "粘贴",
+      "letTheProgramReadYour": "允许程序读取剪贴板？",
+      "itAskedForWhatYou": "它请求的是你上次复制的内容。",
+      "allow": "允许",
+      "letTheProgramCopyTo": "允许程序复制到剪贴板？"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "填充已保存的密码？",
+      "asksForTheSudoPassword": "{{hostName}} 请求 sudo 密码。",
+      "asksForAPassword": "{{hostName}} 请求密码。",
+      "fillPassword": "填充密码",
+      "alwaysFillOnThisHost": "在此主机上始终填充",
+      "asksNoMoreOnThis": "在此 {{deviceWord}} 上不再询问。可在该主机的“终端”标签页中关闭此功能。",
+      "notNow": "暂不"
+    },
+    "register": {
+      "terminal": "终端",
+      "terminalAndKeepalive": "终端与保活",
+      "history": "历史记录",
+      "find": "查找",
+      "tmuxWindows": "tmux 窗口",
+      "connectionLog": "连接日志",
+      "keyRowsForThisHost": "此主机的按键行"
+    },
+    "searchBar": {
+      "noResults": "无结果",
+      "matchCase": "区分大小写",
+      "wholeWord": "全字匹配",
+      "regularExpression": "正则表达式",
+      "find": "查找",
+      "closeFind": "关闭查找"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "系统默认",
+      "block": "块状",
+      "bar": "竖线",
+      "underline": "下划线",
+      "off": "关闭",
+      "sound": "声音",
+      "flash": "闪烁",
+      "both": "两者"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "在此主机上打开新标签页",
+      "closeTab": "关闭标签页",
+      "nextTab": "下一个标签页",
+      "previousTab": "上一个标签页",
+      "goToTab": "跳转到标签页",
+      "find": "查找",
+      "fontSize": "字体大小",
+      "paste": "粘贴",
+      "escape": "转义",
+      "copyAndPaste": "复制并粘贴"
+    },
+    "reconnecting": "正在重新连接...",
+    "waitingForNetwork": "正在等待网络...",
+    "waitingForYou": "正在等待您...",
+    "connecting": "正在连接...",
+    "terminalView": {
+      "scrollToBottom": "滚动到底部",
+      "onlyWebLinksCanOpen": "只能从终端打开网页链接",
+      "couldNotOpenLink": "无法打开链接",
+      "copiedFromTheTerminal": "已从终端复制"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "打开 tmux 会话",
+        "newSession": "新建会话",
+        "plainShell": "普通 Shell",
+        "tmuxWindows": "tmux 窗口",
+        "newWindow": "新建窗口",
+        "windowCount_other": "{{count}} 个窗口",
+        "attached": "{{count}} 个已连接",
+        "activeNow": "当前活跃",
+        "activeMinAgo": "{{count}} 分钟前活跃",
+        "activeHoursAgo": "{{count}} 小时前活跃",
+        "activeDaysAgo_other": "{{count}} 天前活跃"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "复制",
+        "selectAll": "全选",
+        "cancel": "取消",
+        "scrollToBottom": "滚动到底部",
+        "couldNotCopy": "无法复制",
+        "webviewError": "WebView 错误：{{description}}",
+        "webviewHttpError": "WebView HTTP 错误：{{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "此主机没有保存的密码",
+    "backInTmuxSession": "返回 tmux 会话 {{tmuxName}}",
+    "backInScreenSession": "返回 screen 会话 {{name}}",
+    "theServerSessionEndedThis": "服务器会话已结束。这是一个新的 Shell。",
+    "termixWasClosedSoThe": "Termix 已关闭，因此旧的 Shell 已结束。这是一个新的 Shell。",
+    "theConnectionDroppedAndThe": "连接已断开，旧的 Shell 已结束。这是一个新的 Shell。",
+    "disconnectedFrom": "已与 {{hostName}} 断开连接"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "双因素认证",
+      "codesFromAnAuthenticatorApp": "用于您服务器账户的身份验证器应用代码"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC 地址",
+      "neededToWakeThisHost": "使用 Wake-on-LAN 唤醒此主机所需",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "使用类似 00:1A:2B:3C:4D:5E 的 MAC 地址"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "已向 {{name}} 发送 Wake-on-LAN",
+      "failedToSendWakeOn": "发送 Wake-on-LAN 数据包失败",
+      "noServer": "无服务器"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "唤醒 {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "是否分享匿名使用统计信息？",
+      "termixWouldSendAShort": "Termix 每天会发送一份简短报告。您可以随时在设置中更改此选项。",
+      "noThanks": "不用了，谢谢",
+      "share": "分享",
+      "theReportHasTheApp": "报告包含应用版本、{{deviceWord}} 类型、主机和会话的大致数量、您使用的功能以及连接是否成功。报告绝不会包含主机名、用户名、地址、路径、命令或服务器名称。",
+      "seeExactlyWhatIsSent": "查看发送的确切内容"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "正在加载版本信息…",
+      "updateAvailable": "有可用更新",
+      "newVersionAvailable": "有新版本可用",
+      "aNewerVersionOfThe": "移动应用有新版本可用。在更新之前，某些功能可能无法正常工作。",
+      "versionInformation": "版本信息",
+      "installed": "已安装",
+      "latest": "最新",
+      "unknown": "未知",
+      "tag": "标签",
+      "continueAnyway": "仍然继续"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "已复制",
+      "copy": "复制",
+      "hostKeyChanged": "主机密钥已更改",
+      "verifyHostKey": "验证主机密钥",
+      "cancel": "取消",
+      "acceptNewKey": "接受新密钥",
+      "connectAndTrust": "连接并信任",
+      "theHostSSshKey": "自您上次连接以来，主机的 SSH 密钥已更改。这可能意味着有人正在拦截连接。",
+      "youAreConnectingToThis": "您正在首次连接到此主机。请在信任之前检查指纹。",
+      "previousKey": "之前的密钥",
+      "newFingerprint": "新指纹",
+      "hostFingerprint": "主机指纹"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "需要密码短语",
+      "enterThePassphraseForYour": "输入您 SSH 密钥的密码短语。",
+      "cancel": "取消",
+      "connect": "连接",
+      "keyPassphrase": "密钥密码短语"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "需要 SSH 身份验证",
+      "cancel": "取消",
+      "connect": "连接",
+      "password": "密码",
+      "sshKey": "SSH 密钥",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\n在此粘贴您的私钥...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "密钥密码短语（可选）",
+      "keyboardInteractiveAuthIsNot": "键盘交互式身份验证不可用。请直接输入凭据。",
+      "authenticationFailedPleaseReEnter": "身份验证失败。请重新输入您的凭据。",
+      "connectionTimedOutPleaseTry": "连接超时。请使用您的凭据重试。"
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH 检查",
+      "completeTheTailscaleSshCheck": "在浏览器中完成 Tailscale SSH 检查以继续。",
+      "cancel": "取消",
+      "copyUrl": "复制 URL",
+      "openBrowser": "打开浏览器",
+      "urlCopied": "URL 已复制",
+      "failedToCopy": "复制失败",
+      "couldNotOpenBrowser": "无法打开浏览器"
+    },
+    "tOTPDialog": {
+      "cancel": "取消",
+      "submit": "提交",
+      "verify": "验证",
+      "password": "密码",
+      "pasteCode": "粘贴代码",
+      "passwordRequired": "需要密码",
+      "twoFactorAuthentication": "双因素认证",
+      "enterYourPasswordToContinue": "输入密码以继续。",
+      "enterThe6DigitCode": "输入来自身份验证器应用的 6 位代码。"
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate 认证",
+      "authenticateViaTheWarpgatePortal": "通过 Warpgate 门户进行认证，然后点按继续。",
+      "cancel": "取消",
+      "openBrowser": "打开浏览器",
+      "continue": "继续",
+      "securityKey": "安全密钥",
+      "authUrl": "认证 URL",
+      "copied": "已复制",
+      "copy": "复制",
+      "urlCopied": "URL 已复制",
+      "failedToCopy": "复制失败",
+      "couldNotOpenBrowser": "无法打开浏览器"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "此 {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "最近活动",
+        "files": "文件",
+        "terminal": "终端"
+      },
+      "alertsCard": {
+        "notifications": "通知",
+        "seeAll": "查看全部"
+      },
+      "server": "服务器",
+      "openSessions": "打开的会话",
+      "quickAccess": "快速访问",
+      "notifications": "通知",
+      "pinnedHosts": "已固定的主机",
+      "recentHosts": "最近的主机",
+      "recentActivity": "最近活动",
+      "pinnedCard": {
+        "addYourFirstHost": "添加你的第一台主机",
+        "hostsYouOpenShowUp": "你打开的主机会显示在这里，已固定的主机会显示实时卡片。",
+        "addHost": "添加主机",
+        "linkAServer": "链接服务器",
+        "pinAHostToSee": "固定一台主机以在此处查看",
+        "pinnedHostsShowTheirMetrics": "已固定的主机会一目了然地显示其指标、Docker 和服务。长按主机即可固定。",
+        "goToHosts": "前往主机",
+        "pinned": "已固定",
+        "opensTheTerminalHoldFor": "打开终端。长按查看更多。",
+        "turnOnDockerOrServices": "为此主机启用 Docker 或服务，或点按连接。",
+        "opens": "打开 {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "快速访问",
+        "quickConnect": "快速连接",
+        "userHostPortWithoutSaving": "user@host:port，无需保存"
+      },
+      "recentCard": {
+        "recent": "最近"
+      },
+      "serverCard": {
+        "server": "服务器",
+        "version": "版本",
+        "uptime": "运行时间",
+        "database": "数据库",
+        "hosts": "主机",
+        "online": "在线",
+        "offline": "离线",
+        "logins": "登录"
+      },
+      "sessionsCard": {
+        "openSessions": "打开的会话",
+        "connected": "已连接"
+      }
+    },
+    "resetHome": "重置主页？",
+    "cardsGoBackToThe": "卡片将恢复为默认顺序和显示状态。",
+    "reset": "重置",
+    "doneEditingHome": "主页编辑完成",
+    "editHome": "编辑主页",
+    "dragToReorder": "拖动 {{title}} 以重新排序",
+    "show": "显示 {{title}}",
+    "dragCardsToReorderThem": "拖动卡片以重新排序。关闭卡片可将其隐藏。没有内容显示的卡片会自动隐藏。",
+    "resetToDefault": "恢复默认",
+    "done": "完成",
+    "serverReachBanner": {
+      "stillCanTReachThe": "仍无法连接到服务器",
+      "canTReach": "无法连接到 {{account}}",
+      "youCanKeepWorkingWith": "您可以继续使用此 {{deviceWord}} 上的副本进行工作。当服务器恢复连接后，更改将同步上去。",
+      "hostsSetToConnectFrom": "设置为从此 {{deviceWord}} 连接的主机仍可正常工作。",
+      "tryAgain": "重试",
+      "noAnswer": "无响应"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault 配置文件",
+      "none": "无",
+      "signsInWithInYour": "通过您的 Termix 服务器在浏览器中使用 {{title}} 登录。通过服务器连接此主机。",
+      "needsATermixServerLink": "{{title}} 需要 Termix 服务器。链接一个服务器以使用此登录方式。",
+      "isOffOnThisServer": "此服务器上已关闭 {{title}}。此主机将保留其登录设置。"
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "无法加载凭据",
+      "deleted": "已删除“{{name}}”",
+      "couldNotDeleteTheCredential": "无法删除凭据",
+      "credentials": "凭据",
+      "add": "添加",
+      "searchCredentials": "搜索凭据",
+      "clearSearch": "清除搜索",
+      "loadingCredentials": "正在加载凭据...",
+      "noCredentialsMatchYourSearch": "没有凭据符合您的搜索条件",
+      "noCredentialsYet": "暂无凭据",
+      "addCredential": "添加凭据",
+      "edit": "编辑",
+      "delete": "删除",
+      "deleteCredential": "删除凭据",
+      "willBePermanentlyDeletedHosts": "“{{name}}”将被永久删除。使用它的主机将丢失其保存的凭据。",
+      "cancel": "取消",
+      "hostCount_other": "{{count}} 个主机",
+      "sshKey": "SSH 密钥"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "替换密钥？",
+        "theNewKeyTakesThe": "新密钥将取代当前密钥。仅信任旧密钥的主机将不再接受此凭据。",
+        "replace": "替换",
+        "newKeyMadeCopyThe": "新密钥已生成。将公钥复制到您的主机上。",
+        "couldNotMakeAKey": "无法生成密钥",
+        "couldNotReadThatCertificate": "无法读取该证书文件",
+        "leaveWithoutSaving": "不保存并离开？",
+        "yourChangesToThisCredential": "您对凭据所做的更改将丢失。",
+        "leave": "离开",
+        "credentialSaved": "凭据已保存",
+        "credentialAdded": "凭据已添加",
+        "couldNotSaveTheCredential": "无法保存凭据",
+        "enterAHostToTest": "输入要测试的主机，例如 10.0.0.5 或 box:2222。",
+        "enterTheUsernameFirst": "请先输入用户名。",
+        "editCredential": "编辑凭据",
+        "newCredential": "新建凭据",
+        "cancel": "取消",
+        "save": "保存",
+        "credential": "凭据",
+        "name": "名称",
+        "productionKey": "生产密钥",
+        "username": "用户名",
+        "signInWith": "登录方式",
+        "password": "密码",
+        "sshKey": "SSH 密钥",
+        "unchangedIfBlank": "留空则不更改",
+        "key": "密钥",
+        "fileOrPaste": "文件或粘贴",
+        "makeANewKey": "生成新密钥",
+        "aKeyIsSavedChoose": "已保存一个密钥。选择文件或粘贴内容以替换它。",
+        "type": "类型",
+        "ed25519AndEcdsaAreMade": "Ed25519 和 ECDSA 在此 {{deviceWord}} 上生成，RSA 在您的服务器上生成。",
+        "madeOnThisEd25519Works": "在此 {{deviceWord}} 上生成。Ed25519 几乎适用于所有环境。",
+        "passphrase": "密码短语",
+        "optionalLocksTheNewKey": "可选。在此 {{deviceWord}} 和磁盘上锁定新密钥。",
+        "makeKey": "生成密钥",
+        "publicKey": "公钥",
+        "addThisLineToSsh": "将此添加到您主机上的 ~/.ssh/authorized_keys",
+        "publicKeyCopied": "公钥已复制",
+        "copyPublicKey": "复制公钥",
+        "certificate": "证书",
+        "aCertificateYourCaSigned": "由您的 CA 为此密钥签发的证书，用于信任该 CA 的主机。",
+        "chooseCertificateFile": "选择证书文件",
+        "thisDoesNotLookLike": "这看起来不像 OpenSSH 证书。",
+        "test": "测试",
+        "hostToTestOn": "测试主机",
+        "n10005Or": "10.0.0.5 或 box.lan:2222",
+        "pickASavedHost": "选择一个已保存的主机",
+        "details": "详细信息",
+        "description": "描述",
+        "whatThisCredentialIsFor": "此凭据的用途",
+        "folder": "文件夹",
+        "serverKeys": "服务器密钥",
+        "testOnAHost": "在主机上测试",
+        "rsaKeysNeedALinked": "RSA 密钥需要关联服务器。"
+      },
+      "model": {
+        "giveThisCredentialAName": "为此凭据命名",
+        "addAPrivateKeyOr": "添加私钥，或生成一个新密钥"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "这是一个主机证书，而非用户证书。",
+        "thisCertificateIsNotValid": "此证书尚未生效。",
+        "thisCertificateHasExpired": "此证书已过期。",
+        "itIsForAKey": "它适用于 {{keyType}} 密钥，但此密钥是 {{keyType2}}。",
+        "forAnyUser": "适用于任何用户",
+        "validFromNoEndDate": "自 {{validAfter}} 起有效，无到期日",
+        "signedBy": "由 {{caSha256}} 签名"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "用户名",
+        "fromTheCredential": "来自凭据：{{credentialUser}}",
+        "signInWith": "登录方式",
+        "password": "密码",
+        "key": "密钥",
+        "credential": "凭据",
+        "none": "无",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "使用 Tailscale SSH 连接。不保存密码或密钥。",
+        "tailscaleIsNotOnFor": "{{value}} 未启用 Tailscale。此主机保留其 Tailscale 登录信息。",
+        "unchangedIfBlank": "留空则不更改",
+        "noCredentialsYetTapThe": "暂无凭据。点击“主机”中的密钥图标添加一个。",
+        "useCredential": "使用凭据 {{name}}",
+        "sudoPassword": "Sudo 密码",
+        "typedIntoSudoPromptsWhen": "当终端部分开启此功能时，输入到 sudo 提示符中",
+        "notSet": "未设置",
+        "thisServer": "此服务器"
+      },
+      "colorIconField": {
+        "color": "颜色",
+        "noColor": "无颜色",
+        "color2": "颜色 {{c}}",
+        "icon": "图标",
+        "noIcon": "无图标",
+        "none": "无",
+        "icon2": "图标 {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "不保存并离开？",
+        "yourChangesToThisHost": "对此主机的更改将丢失。",
+        "leave": "离开",
+        "couldNotSaveHowThis": "无法保存此主机的连接方式",
+        "hostSaved": "主机已保存",
+        "hostAdded": "主机已添加",
+        "couldNotSaveTheHost": "无法保存主机",
+        "enterTheHostSAddress": "请先输入主机的地址。",
+        "turnOnSshToTest": "开启 SSH 以测试登录。",
+        "pickACredentialFirst": "请先选择凭据。",
+        "editHost": "编辑主机",
+        "newHost": "新建主机",
+        "cancel": "取消",
+        "save": "保存",
+        "host": "主机",
+        "name": "名称",
+        "myServer": "我的服务器",
+        "address": "地址",
+        "port": "端口",
+        "portAndUsernameComeFrom": "端口和用户名将使用您的主机默认值，直到您更改它们。",
+        "folder": "文件夹",
+        "production": "生产环境",
+        "useAFolderInstead": "改用文件夹",
+        "putItUnderAHost": "改放在主机下",
+        "pinToTop": "置顶",
+        "colorAndIcon": "颜色和图标",
+        "notes": "备注",
+        "anythingWorthRememberingAboutThis": "关于此主机的任何值得记住的信息",
+        "protocols": "协议",
+        "terminalFilesAndMore": "终端、文件等",
+        "connectFrom": "连接来源",
+        "features": "功能",
+        "otherProtocols": "其他协议",
+        "more": "更多",
+        "theTestRunsFromThis": "测试从此 {{deviceWord}} 运行。此主机通过服务器连接，因此即使 {{deviceWord}} 无法直接访问它，连接仍可能成功。"
+      },
+      "jumpHostsField": {
+        "jumpHosts": "跳板主机",
+        "connectsThroughTheseInOrder": "按顺序通过这些主机连接，然后连接到此主机",
+        "reachThisHostThroughOther": "先通过其他主机连接到此主机",
+        "moveUp": "上移",
+        "moveDown": "下移",
+        "removeJumpHost": "移除跳板主机",
+        "addJumpHost": "添加跳板主机",
+        "pickASavedHostTo": "选择要穿透连接的主机",
+        "searchHosts": "搜索主机",
+        "noOtherHostsToPick": "没有其他主机可选。主机不能通过自身或已经通过它连接的主机进行跳转。",
+        "missingHost": "缺少主机 #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "请至少开启一个协议",
+        "pickACredential": "请选择凭据",
+        "enterTheHostSAddress": "输入主机地址",
+        "theAddressCanTHave": "地址不能包含空格",
+        "portMustBeFrom1": "端口号必须在 1 到 65535 之间",
+        "enterTheSshUsername": "输入 SSH 用户名"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "该主机将显示在您选择的主机下方",
+        "searchHosts": "搜索主机",
+        "noHostsToPickA": "没有可选的主机。主机不能嵌套在自身、其子主机或共享主机下。",
+        "parentHost": "父主机",
+        "subHostsFollowTheFolder": "子主机将继承其父主机的文件夹",
+        "pickParentHost": "选择父主机",
+        "missingHost": "缺少主机 #{{value}}",
+        "pickAHost": "选择主机",
+        "clearParentHost": "清除父主机"
+      },
+      "tagsField": {
+        "tags": "标签",
+        "typeATagAndPress": "输入标签并按回车",
+        "removeTag": "移除标签 {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "无法保存此主机的连接方式",
+      "addressCopied": "地址已复制",
+      "cpu": "CPU {{value}}%",
+      "ram": "内存 {{value}}%",
+      "connectFrom": "从...连接",
+      "dismiss": "关闭",
+      "unpin": "取消置顶",
+      "pinToHome": "固定到主页",
+      "select": "选择",
+      "editHost": "编辑主机",
+      "copyAddress": "复制地址",
+      "addSubHost": "添加子主机",
+      "cloneHost": "克隆主机",
+      "deleteHost": "删除主机",
+      "connectThroughTheServer": "通过服务器连接",
+      "connectFromThis": "从此 {{deviceWord}} 连接"
+    },
+    "defaultYourOrder": "默认（您的顺序）",
+    "nameAZ": "名称 (A-Z)",
+    "nameZA": "名称 (Z-A)",
+    "ipAscending": "IP (升序)",
+    "ipDescending": "IP (降序)",
+    "onlineFirst": "在线优先",
+    "offlineFirst": "离线优先",
+    "pinnedFirst": "置顶优先",
+    "status": "状态",
+    "online": "在线",
+    "offline": "离线",
+    "pinned": "已置顶",
+    "protocol": "协议",
+    "features": "功能",
+    "hostsCanOnlyMoveInside": "主机只能在所属文件夹内移动",
+    "couldNotUpdateTheHosts": "无法更新主机",
+    "sharedHostsCanTBe": "无法在此处删除共享主机",
+    "delete2": "删除",
+    "noneOfTheseHostsOpen": "这些主机均无法打开终端",
+    "couldNotPinTheHost": "无法置顶该主机",
+    "deleted": "已删除 {{name}}",
+    "failedToDeleteHost": "删除主机失败",
+    "cloned": "已克隆 {{name}}",
+    "failedToCloneHost": "克隆主机失败",
+    "reorderWorksWithTheDefault": "重新排序仅在默认排序且无搜索或筛选时生效",
+    "couldNotSaveTheOrder": "无法保存顺序",
+    "noHostsYet": "暂无主机",
+    "addAHostToConnect": "添加主机，一键连接。",
+    "addHost": "添加主机",
+    "quickConnect2": "快速连接",
+    "linkAServer": "关联服务器",
+    "noHostsMatch": "没有匹配的主机",
+    "clearSearchAndFilters": "清除搜索和筛选条件",
+    "more": "更多",
+    "dragAHostByIts": "拖动主机旁的把手，可在文件夹内移动它。",
+    "done": "完成",
+    "filterHosts": "筛选主机",
+    "clearFilterText": "清除筛选文本",
+    "sortHosts": "排序主机",
+    "removeFilter": "移除筛选条件 {{value}}",
+    "loadingHosts": "正在加载主机…",
+    "moveUnderAHost": "移动到某主机下",
+    "moveToFolder": "移动到文件夹",
+    "leaveItEmptyToTake": "留空可将主机移出文件夹。",
+    "folderLikeProdWeb": "文件夹，例如 Prod / Web",
+    "move": "移动",
+    "hosts": "主机",
+    "selectHosts": "选择主机",
+    "reorderHosts": "重新排序主机",
+    "customizeList": "自定义列表",
+    "chooseWhatEachHostRow": "选择每行主机显示的内容",
+    "credentials2": "凭据",
+    "savedPasswordsAndKeys": "已保存的密码和密钥",
+    "tailscaleDevices": "Tailscale 设备",
+    "refresh": "刷新",
+    "rowDensityFollowsSettingsAppearance": "行密度遵循“设置”中的“外观”选项。",
+    "clearAllFilters": "清除所有筛选条件",
+    "tags": "标签",
+    "stopSelecting": "停止选择",
+    "selected": "已选择 {{count}} 项",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "无法读取该密钥文件",
+        "theClipboardIsEmpty": "剪贴板为空",
+        "privateKey": "私钥",
+        "chooseFile": "选择文件",
+        "paste": "粘贴",
+        "unchangedIfBlank": "留空则保持不变",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "密码短语",
+        "onlyIfTheKeyHas": "仅当密钥包含密码短语时",
+        "theKeyIsCheckedWhen": "连接时会验证密钥。",
+        "thePastedKey": "粘贴的密钥"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "打开",
+        "moreActions": "更多操作",
+        "opensTheTerminalHoldFor": "打开终端。长按查看更多。",
+        "shared": "已共享",
+        "drag": "拖动 {{name}}",
+        "showSubHosts_other": "显示 {{name}} 的 {{count}} 个子主机",
+        "hideSubHosts_other": "隐藏 {{name}} 的 {{count}} 个子主机"
+      },
+      "hostList": {
+        "folderHosts": "文件夹 {{name}}，共 {{total}} 台主机"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "必须填写主机和用户名",
+      "hostSaved": "主机已保存",
+      "couldNotSaveTheHost": "无法保存主机",
+      "quickConnect": "快速连接",
+      "connectToAHostWithout": "在不保存的情况下连接主机。",
+      "hostIp": "主机 / IP",
+      "port": "端口",
+      "username": "用户名",
+      "password": "密码",
+      "key": "密钥",
+      "privateKey": "私钥",
+      "saveToMyHosts": "保存到我的主机",
+      "keepThisHostAfterConnecting": "连接后保留此主机",
+      "cancel": "取消",
+      "connect": "连接"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "正在从服务器获取您的主机",
+      "yourHostsStayOnThis": "{{message}} 在此期间，您的主机仍保留在此 {{deviceWord}} 上。"
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "此主机的密钥已更改",
+      "trustThisHost": "信任此主机？",
+      "trust": "信任",
+      "stopTest": "停止测试",
+      "testConnection": "测试连接",
+      "connecting": "正在连接..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "加载主机失败。"
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}。{{count}} 个共享主机保持原样。",
+    "deleteHosts_other": "删除 {{count}} 个主机？",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "没有名为 {{name}} 的文件夹"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "主机“{{name}}”：端口无效",
+        "hostJumpIsNotIn": "主机“{{name}}”：跳转主机 {{value}} 不在文件中，因此已省略",
+        "credential": "凭据 {{name}}：{{error}}",
+        "noValidHostEntriesFound": "在 SSH 配置文件中未找到有效的 Host 条目",
+        "credentialWasNotFound": "{{label}}：未找到凭据 {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "主机 {{value}}：重复的导出主机 ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}：缺少必填字段（ip、port）",
+        "invalidAuthtypeMustBeOne": "{{label}}：authType 无效。必须是 {{value}} 之一",
+        "usernameRequiredForSshConnections": "{{label}}：SSH 连接需要用户名",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}：凭据身份验证需要 credentialAlias",
+        "thatIsNotAValid": "这不是有效的 JSON 文件",
+        "hostsArrayIsRequiredAnd": "需要 Hosts 数组且不能为空",
+        "jumpHostCycle": "{{label}}：跳转主机循环",
+        "jumpHostIsNotIn": "{{label}}：跳转主机 {{id}} 不在文件中"
+      }
+    },
+    "movedTo": "已移动到 {{value}}",
+    "movedOutOfFolders": "已移出文件夹",
+    "movedUnder": "已移动到 {{value}} 下",
+    "openTerminals": "打开终端",
+    "theHost": "该主机"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "隐藏密码",
+      "showPassword": "显示密码",
+      "enterAUsernameAndPassword": "输入用户名和密码",
+      "useAtLeast6Characters": "密码至少使用 6 个字符",
+      "thePasswordsDonTMatch": "密码不匹配",
+      "makeTheAdminAccount": "创建管理员账户",
+      "makeAnAccount": "创建账户",
+      "thisIsTheFirstAccount": "这是服务器上的第一个账户，因此它将作为管理员运行服务器。",
+      "pickAUsernameAndPassword": "为此服务器选择用户名和密码。",
+      "username": "用户名",
+      "password": "密码",
+      "passwordAgain": "再次输入密码",
+      "makeAccount": "创建账户",
+      "back": "返回",
+      "haveAnAccountSignIn": "已有账户？登录",
+      "resetCodeMadeItIs": "重置码已生成。它位于服务器的日志中",
+      "enterYourUsername": "输入您的用户名",
+      "enterTheResetCode": "输入重置码",
+      "passwordChangedSignInWith": "密码已更改。现在使用新密码登录",
+      "resetPassword": "重置密码",
+      "enterYourUsernameTheServer": "输入您的用户名。服务器会将重置码写入其日志。",
+      "sendResetCode": "发送重置码",
+      "enterThe6DigitCode": "输入服务器日志中的 6 位代码。",
+      "resetCode": "重置代码",
+      "checkCode": "检查代码",
+      "newPassword": "新密码",
+      "saveNewPassword": "保存新密码",
+      "backToSignIn": "返回登录",
+      "couldNotMakeTheAccount": "无法创建账户",
+      "couldNotStartTheReset": "无法启动重置",
+      "thatCodeDidnTWork": "该代码无效",
+      "couldNotChangeThePassword": "无法更改密码"
+    },
+    "browserStep": {
+      "signInFailed": "登录失败",
+      "signInCanceled": "登录已取消",
+      "couldNotOpenTheSign": "无法打开登录浏览器",
+      "couldNotOpenTheSign2": "无法打开登录页面",
+      "certificateProblem": "证书问题",
+      "back": "返回",
+      "signIn": "登录",
+      "reload": "重新加载",
+      "finishSigningInInYour": "在浏览器中完成登录",
+      "useAnySignInYour": "使用服务器上的任何登录方式，例如 Passkey 或安全密钥。登录后，应用会自动接管。",
+      "theAppPicksUpOnce": "登录提供商完成后，应用会自动接管。",
+      "signingIn": "正在登录...",
+      "openBrowserAgain": "再次打开浏览器",
+      "theServerTurnedTheSession": "服务器拒绝了会话。请重试。",
+      "signedInButTheApp": "已登录，但应用无法连接到 Termix。可能是代理阻止了连接。",
+      "thatSignInLinkIs": "该登录链接来自之前的尝试。请重新登录。",
+      "signInAgain": "请重新登录。",
+      "openTheBrowserAgainWhen": "准备好后，请再次打开浏览器。",
+      "theWebPageSignedIn": "网页已登录，但未发送会话。请更新服务器并重试。",
+      "theCanTCheckThis": "{{deviceWord}} 无法验证此服务器的证书。请在 {{deviceWord}} 上安装其根 CA。{{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "下次使用 {{name}} 登录？",
+      "ifThisServerSignsYou": "如果此服务器注销了您，请使用 {{name}} 重新登录，而不是输入密码。密码将保留在此 {{deviceWord}} 上。",
+      "use": "使用 {{name}}",
+      "notNow": "暂时不用",
+      "couldNotSaveTheLogin": "无法保存登录信息",
+      "thatSADifferentUser": "这是不同的用户",
+      "signedIn": "已登录",
+      "close": "关闭",
+      "linkYourTermixServer": "链接您的 Termix 服务器",
+      "yourHostsCredentialsSnippetsAnd": "您的主机、凭据、代码片段和设置将与服务器同步，并且您可以使用其插件。当服务器离线时，此 {{deviceWord}} 上的所有内容仍将继续工作。",
+      "checking": "正在检查 {{host}}...",
+      "proxyAndClientCertificate": "代理和客户端证书",
+      "couldNotReachThatServer": "无法连接到该服务器。请检查地址，或设置代理或客户端证书。",
+      "couldNotReachThatServer2": "无法连接到该服务器",
+      "syncCouldNotStartYet": "同步尚未开始。它将自动重试。",
+      "checkingTheServer": "正在检查服务器",
+      "signIn": "登录",
+      "makeAnAccount": "创建账户",
+      "resetPassword": "重置密码",
+      "oneMoreStep": "还有一步",
+      "almostDone": "即将完成",
+      "linkAServer": "链接服务器"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "保存的登录信息已失效",
+      "enterYourUsernameAndPassword": "输入您的用户名和密码",
+      "thisServerIsBehindA": "此服务器位于登录代理之后",
+      "signInWith": "使用 {{saved}} 登录",
+      "signInWith2": "使用以下方式登录",
+      "password": "密码",
+      "username": "用户名",
+      "signIn": "登录",
+      "forgotPassword": "忘记密码？",
+      "makeAnAccount": "创建账户",
+      "or": "或",
+      "continueWith": "使用 {{label}} 继续",
+      "signInWithAPasskey": "使用 Passkey 或安全密钥登录",
+      "opensYourServerAposS": "在浏览器中打开服务器的登录页面。Face ID、指纹、NFC 和 USB 密钥均支持。需要 Termix 26.11.3 或更高版本。",
+      "signInInTheBrowser": "在浏览器中登录",
+      "opensYourServerAposS2": "打开服务器的登录页面，用于处理应用在此处无法完成的操作。需要 Termix 26.10.6 或更高版本。",
+      "thisServerHasNoSign": "此服务器未启用应用可用的登录方式。请联系服务器管理员，或尝试上方的浏览器登录。",
+      "signInWithYourPassword": "使用密码登录。",
+      "signInFailed": "登录失败",
+      "openingItsSignInPage": "正在打开登录页面。"
+    },
+    "smallSteps": {
+      "serverAddress": "服务器地址",
+      "likeTermixExampleComOr": "例如 termix.example.com 或 192.168.1.20:30001",
+      "checking": "检查中...",
+      "continue": "继续",
+      "proxyAndClientCertificate": "代理和客户端证书",
+      "aServerWithASelf": "使用自签名证书的服务器需要先在 {{deviceWord}} 上安装其根 CA。在本地网络中可使用普通 http。",
+      "enterTheCode": "输入验证码",
+      "code": "验证码",
+      "the6DigitCodeFrom": "来自身份验证器应用的 6 位验证码，或备用验证码",
+      "checkCode": "验证验证码",
+      "thisAccountAsksForA": "此账户在输入密码后要求使用安全密钥。请在浏览器中访问服务器页面以使用安全密钥登录。",
+      "useASecurityKeyIn": "在浏览器中使用安全密钥",
+      "backToSignIn": "返回登录",
+      "bringThisAposSHosts": "是否同步此 {{deviceWord}} 上的主机？",
+      "thisHasTheyStayOn": "此 {{deviceWord}} 上有 {{what}}。无论如何，它们都会保留在此设备上。",
+      "merge": "合并",
+      "copyThemToTooSo": "将它们也复制到 {{serverName}} 以进行同步。与服务器主机相同的项目将被跳过。",
+      "replace": "替换",
+      "useOnlyWhatIsOn": "仅使用 {{serverName}} 上此账户的数据。不会复制任何内容。",
+      "thatCodeDidnTWork": "该验证码无效",
+      "hostsCredentialsOrSnippets": "主机、凭据或代码片段"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "请先链接此服务器",
+      "thatHostIsnTHere": "找不到该主机",
+      "couldNotOpenThatHost": "无法打开该主机",
+      "noHostWithIdOn": "{{account}} 上没有 ID 为 {{hostId}} 的主机。",
+      "isnTLinkedInThe": "{{value}} 尚未在应用中链接。"
+    }
+  },
+  "notifications": {
+    "notifications": "通知",
+    "markAllRead": "全部标记为已读",
+    "clearReadNotifications": "清除已读通知",
+    "unread2": "未读",
+    "all": "全部",
+    "noUnreadNotifications": "没有未读通知",
+    "nothingHere": "此处为空",
+    "markRead": "标记为已读",
+    "delete": "删除",
+    "couldNotLoadNotifications": "无法加载通知",
+    "couldNotMarkRead": "无法标记为已读",
+    "couldNotDelete": "无法删除",
+    "couldNotClear": "无法清除"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "导入",
+      "hosts": "主机",
+      "aTermixHostFileYour": "Termix 主机文件、您的 ~/.ssh/config，或来自其他 {{deviceWord}} 的主机链接或二维码。它们将保存于此 {{deviceWord}} 上。",
+      "backup": "备份",
+      "aBackupThisAppMade": "由本应用创建的备份，使用密码短语加密。可恢复主机、凭据和代码片段。",
+      "restoreABackup": "恢复备份",
+      "done": "完成",
+      "skipForNow": "暂时跳过",
+      "sshFilesAndRemoteDesktops": "从您的 {{deviceWord}} 管理 SSH、文件和远程桌面。您想如何开始？",
+      "useWithoutAServer": "无需服务器即可使用",
+      "hostsCredentialsAndSnippetsAre": "主机、凭据和代码片段均加密保存在此 {{deviceWord}} 上。您可以随时稍后链接服务器。",
+      "linkATermixServer": "链接 Termix 服务器",
+      "syncYourHostsCredentialsSnippets": "将您的主机、凭据、代码片段和设置与服务器同步，并使用其插件。",
+      "bringHostsFromATermix": "从 Termix 文件、SSH 配置、二维码或备份中导入主机。",
+      "thisDevice": "此设备"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "搜索主机、代码片段、操作",
+      "clearSearch": "清除搜索",
+      "nothingMatches": "无匹配结果",
+      "typeToSearch": "输入以搜索",
+      "findAHostToConnect": "查找要连接的主机、代码片段、设置或操作。",
+      "suggested": "建议 | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "在 {{title}} 中运行",
+      "copiedRunItFromThe": "已复制。请从终端的代码片段中运行它以填充其值。",
+      "copiedOpenATerminalTo": "已复制。请打开终端以运行代码片段。",
+      "addHost": "添加主机",
+      "quickConnect": "快速连接",
+      "switchAccount": "切换账户",
+      "linkAServer": "链接服务器",
+      "fromYourServer": "来自您的服务器",
+      "settings": "设置",
+      "accountsAppearanceSecurity": "账户、外观、安全"
+    },
+    "search": {
+      "hosts": "主机",
+      "snippets": "代码片段",
+      "actions": "操作",
+      "settings": "设置"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "加载会话失败",
+      "sessionRevoked": "会话已撤销",
+      "failedToRevokeSession": "撤销会话失败",
+      "allSessionsRevoked": "所有会话已撤销",
+      "failedToRevokeAllSessions": "撤销所有会话失败",
+      "activeSessions": "活跃会话",
+      "signOutAllOtherSessions": "退出所有其他会话",
+      "loading": "加载中…",
+      "noActiveSessionsFound": "未找到活跃会话。",
+      "unknownDevice": "未知设备",
+      "lastActive": "上次活跃于 {{lastActiveAt}}",
+      "created": "创建于 {{createdAt}}",
+      "revokeSession": "撤销会话",
+      "revokeSession2": "撤销会话？",
+      "thisWillSignOutThat": "这将使该设备退出登录。",
+      "revoke": "撤销",
+      "revokeAllSessions": "撤销所有会话？",
+      "thisWillSignOutEvery": "这将使所有设备退出登录。您在此设备上将保持登录状态。",
+      "cancel": "取消",
+      "revokeAll": "全部撤销"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "加载 API 密钥失败",
+      "failedToCreateApiKey": "创建 API 密钥失败",
+      "deleteApiKey": "删除 API 密钥？",
+      "willStopWorkingRightAway": "“{{name}}” 将立即停止工作。",
+      "apiKeyDeleted": "API 密钥已删除",
+      "failedToDeleteApiKey": "删除 API 密钥失败",
+      "apiKeys": "API 密钥",
+      "newApiKey": "新建 API 密钥",
+      "loading": "加载中…",
+      "apiKeysAllowProgrammaticAccess": "API 密钥允许以编程方式访问 Termix。密钥仅显示一次，请妥善保存。",
+      "noApiKeysYet": "暂无 API 密钥",
+      "created": "创建于 {{createdAt}}",
+      "lastUsed": "上次使用于 {{lastUsedAt}}",
+      "expires": "有效期至 {{expiresAt}}",
+      "delete": "删除 {{name}}",
+      "keyCreatedCopyItNow": "密钥已创建。请立即复制",
+      "newApiKey2": "新建 API 密钥",
+      "thisTokenWonTBe": "此令牌将不再显示。",
+      "apiKeyCopied": "API 密钥已复制",
+      "copy": "复制",
+      "done": "完成",
+      "cancel": "取消",
+      "create": "创建",
+      "name": "名称 *",
+      "eGCiPipeline": "例如：CI 流水线",
+      "user": "用户 *",
+      "noUsersAvailable": "没有可用用户。",
+      "expiresAtOptional": "过期时间（可选）",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "年 / 月 / 日"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "保持会话运行",
+      "showsANotificationWhileSessions": "在会话打开时显示通知，以便在您离开应用时 Android 保持会话运行",
+      "batteryOptimization": "电池优化",
+      "termixIsNotRestrictedSo": "Termix 未受限制，因此即使屏幕关闭，会话也可以保持打开状态。",
+      "androidMayStillStopSessions": "Android 仍可能会为了节省电量而停止会话。请打开电池设置，找到 Termix 并选择“不优化”或“无限制”。",
+      "openBatterySettings": "打开电池设置",
+      "notificationsAreOff": "通知已关闭",
+      "sessionsStillRunButThe": "会话仍在运行，但打开的会话列表和“全部断开”按钮将保持隐藏。",
+      "openNotificationSettings": "打开通知设置",
+      "thisBuildCanTKeep": "此版本无法在后台保持会话运行。当您返回时，它们会重新连接。",
+      "lowPowerMode": "低电量模式",
+      "batterySaver": "省电模式",
+      "isOnTermixChecksConnections": "{{value}} 已开启。Termix 检查连接的频率较低，且重试重新连接的等待时间较长。",
+      "backgroundSessions": "后台会话",
+      "iosStopsAppsSoonAfter": "iOS 在您离开应用后很快就会停止应用，因此会话无法在后台运行。当您返回时，它们会重新连接，tmux 或 screen 会从您离开的位置继续。"
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "已停止",
+        "active": "活跃",
+        "linkAServer": "链接服务器",
+        "eachServerKeepsItsOwn": "每个服务器都会在此 {{deviceWord}} 上保留您主机、凭据和设置的独立副本。",
+        "signedInAs": "已登录为",
+        "role": "角色",
+        "administrator": "管理员",
+        "user": "用户",
+        "serverVersion": "服务器版本",
+        "signOut": "退出登录",
+        "youAreSignedOutOf": "您已从此服务器退出登录。",
+        "signIn": "登录",
+        "passwordChanged": "密码已更改",
+        "couldNotChangeThePassword": "无法更改密码",
+        "changePassword": "更改密码",
+        "enterYourCurrentPasswordThen": "输入当前密码，然后选择新密码。",
+        "cancel": "取消",
+        "change": "更改",
+        "currentPassword": "当前密码",
+        "newPassword": "新密码",
+        "accountDeleted": "账户已删除",
+        "couldNotDeleteTheAccount": "无法删除账户",
+        "deleteServerAccount": "删除服务器账户",
+        "thisPermanentlyDeletesYourAccount": "这将永久删除您在服务器上的账户及其所有数据。此操作无法撤销。",
+        "delete": "删除",
+        "confirmYourPassword": "确认您的密码",
+        "worksWithoutAServer": "无需服务器即可工作",
+        "signedOut": "已退出登录",
+        "readsLive": "实时读取",
+        "toReview": "{{count}} 项待审核",
+        "synced": "已同步",
+        "syncing": "同步中",
+        "offline": "离线"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "分享匿名使用统计",
+        "aShortReportOnceA": "每日发送简短报告。不包含主机、名称或地址",
+        "nextReport": "下次报告",
+        "seeExactlyWhatWouldBe": "查看将发送的确切内容",
+        "couldNotBuildTheReport": "无法生成报告",
+        "preview": "预览",
+        "thisIsExactlyWhatWould": "这就是当前会发送的确切内容。",
+        "resetInstallId": "重置安装 ID",
+        "futureReportsWillLookLike": "未来的报告将视为新安装",
+        "resetTheInstallId": "重置安装 ID？",
+        "futureReportsWillLookLike2": "未来的报告将视为新安装。",
+        "reset": "重置",
+        "installIdReset": "安装 ID 已重置"
+      },
+      "appearanceControls": {
+        "theme": "主题",
+        "accentColor": "强调色",
+        "textSize": "文字大小",
+        "sizeOfTextAcrossThe": "应用内文字大小，不包括终端",
+        "density": "密度",
+        "howTallListRowsAnd": "列表行和设置的高度"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "主机、凭据和代码片段保存在此{{deviceWord}}上的加密文件中。除非你在下方开启，否则不会收集使用统计。链接的服务器只会同步你允许的内容。",
+        "recentHosts": "最近使用的主机",
+        "forgetTheHostsYouOpened": "清除所有账户中最近打开的主机",
+        "recentHostsCleared": "最近使用的主机已清除",
+        "clear": "清除",
+        "couldNotCheckForUpdates": "无法检查更新",
+        "versionIsOutUpdateFrom": "版本 {{version}} 已发布。请从应用商店更新。",
+        "youHaveTheNewestVersion": "你已拥有最新版本",
+        "termixMobile": "Termix Mobile",
+        "updates": "更新",
+        "check": "检查"
+      },
+      "pinSheet": {
+        "waitSeconds": "等待 {{value}} 秒",
+        "digits": "{{PIN_LENGTH}} 位数字"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN 码不匹配",
+        "appLockIsOn": "应用锁已开启",
+        "turnOffAppLock": "关闭应用锁",
+        "enterYourPinToConfirm": "输入你的 PIN 码以确认。",
+        "appLockIsOff": "应用锁已关闭",
+        "appLock": "应用锁",
+        "askForFaceIdTouch": "打开应用时要求使用 Face ID、Touch ID 或 PIN 码",
+        "askForAPinTo": "打开应用时要求输入 PIN 码",
+        "pinChanged": "PIN 码已更改",
+        "couldNotChangeThePin": "无法更改 PIN 码",
+        "changePin": "更改 PIN 码",
+        "lockAfter": "锁定时间",
+        "howLongTheAppCan": "应用离开屏幕多久后自动锁定",
+        "hideInAppSwitcher": "在应用切换器中隐藏",
+        "showABlankScreenIn": "在最近应用列表中显示空白屏幕",
+        "chooseA4DigitPin": "选择一个 4 位 PIN 码。",
+        "confirmPin": "确认 PIN 码",
+        "enterTheSamePinAgain": "再次输入相同的 PIN 码。",
+        "currentPin": "当前 PIN 码",
+        "enterYourCurrentPin": "输入你的当前 PIN 码。",
+        "newPin": "新 PIN 码",
+        "chooseANew4Digit": "选择一个新的 4 位 PIN 码。",
+        "confirmNewPin": "确认新 PIN 码",
+        "enterTheNewPinAgain": "再次输入新 PIN 码。"
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "主屏幕小组件",
+        "showYourHostsSnippetsAnd": "在主屏幕上显示您的主机、代码片段和电源按钮",
+        "showAddresses": "显示地址",
+        "showUserHostUnderEach": "在每个服务器名称下方显示 user@host",
+        "includeOfflineHosts": "包含离线主机",
+        "offShowsOnlyServersThat": "关闭时仅显示在线服务器",
+        "pinnedHostsOnly": "仅显示已固定的主机",
+        "showOnlyTheHostsYou": "仅显示您已固定的主机",
+        "snippetsWidget": "代码片段小组件",
+        "showSavedCommandsOnThe": "在主屏幕上显示已保存的命令",
+        "showCommandPreview": "显示命令预览",
+        "showTheFirstLineOf": "显示每条命令的第一行"
+      }
+    },
+    "fileSettings": {
+      "files": "文件",
+      "fileManagerOnThis": "此 {{deviceWord}} 上的文件管理器",
+      "browsing": "浏览",
+      "transfersAtOnce": "同时传输的数量",
+      "downloadsAndUploadsThatRun": "同时运行的下载和上传任务数",
+      "editor": "编辑器",
+      "textSize": "文本大小",
+      "filesBesideTheTerminal": "终端旁的文件面板",
+      "side": "位置",
+      "whereThePanelSitsOn": "在平板上，面板显示的位置",
+      "right": "右侧",
+      "left": "左侧",
+      "howOftenToCheck": "检查频率",
+      "folderHistory": "文件夹历史记录",
+      "foldersKeptPerHost": "每个主机保留的文件夹数",
+      "showHiddenFiles": "显示隐藏文件",
+      "filesAndFoldersThatStart": "以点开头的文件和文件夹",
+      "askBeforeMovingToThe": "移至废纸篓前询问",
+      "deletingForGoodAlwaysAsks": "永久删除始终会询问",
+      "wrapLongLines": "长行自动换行",
+      "openWithNewTerminals": "使用新终端打开",
+      "onATabletShowThe": "在平板上，打开终端时显示文件面板",
+      "followTheTerminal": "跟随终端",
+      "openTheFolderTheTerminal": "当您使用 cd 命令时，打开终端当前所在的文件夹"
+    },
+    "keyboardCustomization": {
+      "small": "小",
+      "medium": "中",
+      "large": "大",
+      "ms": "{{v}} 毫秒",
+      "keyboard": "键盘",
+      "keyRowsAboveTheKeyboard": "键盘上方的按键行",
+      "rows": "行数",
+      "keys": "按键",
+      "aHostCanHaveIts": "主机可以拥有自己的按键行：在会话中点击其打开的标签页，然后选择“此主机的按键行”。",
+      "keySize": "按键大小",
+      "vibrateOnKeyPress": "按键时振动",
+      "repeatAfter": "长按重复延迟",
+      "howLongToHoldAn": "按住方向键或退格键的时间",
+      "repeatEvery": "重复间隔",
+      "hardwareKeyboard": "硬件键盘",
+      "allShortcuts": "所有快捷键",
+      "show": "显示"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "无法创建备份",
+      "deleteLocalData": "删除本地数据？",
+      "hostsCredentialsSnippetsAndHistory": "此 {{deviceWord}} 上为 {{account}} 保存的主机、凭据、代码片段和历史记录将被删除。此操作无法撤销。如果您想保留这些数据，请先进行备份。",
+      "delete": "删除",
+      "localDataDeleted": "本地数据已删除",
+      "couldNotDeleteLocalData": "无法删除本地数据",
+      "localData": "本地数据",
+      "localDataIsOnlySaved": "本地数据仅保存在 {{deviceWord}} 应用中。",
+      "savedOnThisForThe": "已保存在此 {{deviceWord}} 的 {{account}} 账户中。文件使用密钥加密，该密钥不会离开此 {{deviceWord}}。",
+      "hosts": "主机",
+      "credentials": "凭据",
+      "snippets": "代码片段",
+      "size": "大小",
+      "dataVersion": "数据版本",
+      "backup": "备份",
+      "aBackupFileHoldsYour": "备份文件包含您的密码和密钥，并使用您选择的密码短语锁定。没有该密码短语，任何人都无法打开它。",
+      "exportBackup": "导出备份",
+      "importBackup": "导入备份",
+      "removesEverythingThisAccountSaved": "删除此账户在此 {{deviceWord}} 上保存的所有内容。关联的服务器会保留其自身的副本。",
+      "deleteLocalData2": "删除本地数据",
+      "backupPassphrase": "备份密码短语",
+      "atLeast8CharactersYou": "至少 8 个字符。您需要它来恢复备份。",
+      "passphrase": "密码短语",
+      "next": "下一步",
+      "typeItAgain": "再次输入",
+      "export": "导出",
+      "saveYourTermixBackup": "保存您的 Termix 备份"
+    },
+    "logs": {
+      "logs": "日志",
+      "latestLinesFromThisRun": "本次运行的最新日志行。服务器地址、密码和令牌已隐藏。",
+      "logsCopied": "日志已复制",
+      "copy": "复制",
+      "share": "分享",
+      "clear": "清除",
+      "noLogsYet": "暂无日志",
+      "nothingHasBeenLogged": "尚未记录任何内容。"
+    },
+    "plugins": {
+      "worksOnThis": "在此 {{deviceWord}} 上运行",
+      "needsTheServer": "需要服务器",
+      "notInTheApp": "不在应用中",
+      "needsANewerVersionOf": "需要更新的应用版本",
+      "updateThePluginOnThe": "在服务器上更新插件",
+      "inTheApp": "在应用中",
+      "onThisServer": "在此服务器上",
+      "version": "版本",
+      "needsPluginApi": "需要插件 API",
+      "thisAppHas": "此应用具有",
+      "note": "注意",
+      "open": "打开",
+      "openFromAHostS": "从主机菜单中打开 {{name}}。",
+      "plugins": "插件",
+      "everything": "全部",
+      "thisDeviceWorksWithNo": "此设备无需服务器即可工作。关联服务器以添加需要服务器的功能。",
+      "pluginsOnAndHowEach": "{{account}} 上的插件及其在应用中的显示方式。下拉以重新检查。",
+      "whatRunsOnThisAnd": "在此 {{deviceWord}} 上运行的内容以及通过 {{account}} 传输的内容。",
+      "noPluginList": "无插件列表",
+      "theServerDidNotSend": "服务器未发送其插件。下拉以重试。",
+      "serversOlderThan29": "2.9 之前的服务器版本内置了所有功能。",
+      "nothingToShow": "无内容显示",
+      "notSentByThisServer": "未由此服务器发送"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "替换本地数据？",
+      "everythingSavedOnThisFor": "此 {{deviceWord}} 上为 {{accountName}} 保存的所有内容将被备份替换。",
+      "continue": "继续",
+      "couldNotReadThatFile": "无法读取该文件",
+      "backupRestored": "备份已恢复",
+      "couldNotRestoreTheBackup": "无法恢复备份",
+      "backupPassphrase": "备份密码短语",
+      "thePassphraseUsedWhenThe": "创建备份时使用的密码短语。",
+      "passphrase": "密码短语",
+      "restore": "恢复"
+    },
+    "schema": {
+      "items": {
+        "accounts": "账户",
+        "thisDeviceAndLinkedServers": "此设备与已链接的服务器及其同步状态",
+        "syncAndProxy": "同步与代理",
+        "whatSyncsConflictsProxyAnd": "同步内容、冲突处理、代理与取消链接",
+        "serverAccount": "服务器账户",
+        "whoIsSignedInOn": "当前活跃服务器上的登录用户",
+        "activeSessions": "活跃会话",
+        "devicesSignedInToThe": "已登录到服务器的设备",
+        "apiKeys": "API 密钥",
+        "keysForScriptsAndTools": "用于脚本和工具的密钥",
+        "changePassword": "更改密码",
+        "passwordOfYourServerAccount": "服务器账户密码",
+        "deleteServerAccount": "删除服务器账户",
+        "removeYourAccountFromThe": "从服务器移除您的账户",
+        "theme": "主题",
+        "darkLightDraculaNordAnd": "深色、浅色、Dracula、Nord 等",
+        "accentColor": "强调色",
+        "textSize": "文字大小",
+        "sizeOfTextAcrossThe": "应用内文字的大小",
+        "density": "密度",
+        "howTallListRowsAnd": "列表行和设置项的高度",
+        "homeScreenWidgets": "主屏幕小组件",
+        "hostsAndSnippetsOnThe": "主屏幕上的主机和代码片段",
+        "terminal": "终端",
+        "fontThemeCursorScrollback": "字体、主题、光标、滚动缓冲区",
+        "keyboard": "键盘",
+        "layoutKeysPresets": "布局、按键、预设",
+        "appLock": "应用锁",
+        "askForFaceIdTouch": "打开应用时要求验证 Face ID、Touch ID 或 PIN 码",
+        "lockAfter": "锁定时间",
+        "howLongTheAppCan": "应用不可见多久后自动锁定",
+        "hideInAppSwitcher": "在应用切换器中隐藏",
+        "showABlankScreenIn": "在最近应用列表中显示空白屏幕",
+        "changePin": "更改 PIN 码",
+        "backgroundSessions": "后台会话",
+        "whatHappensToOpenSessions": "离开应用时已打开会话的处理方式",
+        "serverAlerts": "服务器警报",
+        "alertsFromTheAlertsPlugin": "来自服务器上 Alerts 插件的警报",
+        "whatStaysOnThis": "保留在此 {{deviceWord}} 上的内容",
+        "hostsCredentialsAndSnippetsAre": "主机、凭据和代码片段均加密存储于此",
+        "recentHosts": "最近使用的主机",
+        "forgetTheHostsYouOpened": "清除最近打开的主机记录",
+        "shareAnonymousUsageStatistics": "分享匿名使用统计",
+        "aShortReportOnceA": "每日发送简短报告。不包含主机、名称或地址",
+        "nextReport": "下次报告",
+        "seeExactlyWhatWouldBe": "查看将要发送的确切内容",
+        "resetInstallId": "重置安装 ID",
+        "futureReportsWillLookLike": "未来的报告将视为新安装",
+        "serverUsageStatistics": "服务器使用统计",
+        "telemetrySettingsOnYourServer": "服务器上的遥测设置",
+        "plugins": "插件",
+        "whatTheServerAddsAnd": "服务器添加的功能及其运行位置",
+        "localData": "本地数据",
+        "backupRestoreAndDeleteWhat": "备份、恢复或删除此 {{deviceWord}} 上保存的数据",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "版本与更新",
+        "logs": "日志",
+        "latestLinesFromThisRun": "本次运行的最新日志行，用于提交错误报告"
+      },
+      "sections": {
+        "accountsAndSync": "账户与同步",
+        "thisDeviceLinkedServersAnd": "本机、已链接的服务器及同步内容",
+        "appearance": "外观",
+        "themeAccentTextSizeAnd": "语言、主题、强调色、文字大小与密度",
+        "terminal": "终端",
+        "fontColorsAndBackgroundSessions": "字体、颜色与后台会话",
+        "keyboard": "键盘",
+        "keyRowsAndShortcuts": "按键行与快捷键",
+        "security": "安全",
+        "appLockFaceIdAnd": "应用锁、Face ID 与 PIN 码",
+        "notifications": "通知",
+        "alertsFromYourServer": "来自服务器的警报",
+        "privacyAndUsageStatistics": "隐私与使用统计",
+        "whatStaysOnThis": "保留在此 {{deviceWord}} 上的内容",
+        "plugins": "插件",
+        "whatTheServerAddsTo": "服务器为应用添加的功能",
+        "backupAndData": "备份与数据",
+        "backUpRestoreImportAnd": "备份、恢复、导入与导出",
+        "aboutAndLogs": "关于与日志",
+        "versionAndLogsForBug": "版本与用于错误报告的日志"
+      }
+    },
+    "settings": "设置",
+    "searchSettings": "搜索设置",
+    "noSettingsMatch": "没有匹配的设置。",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "加载代码片段失败",
+      "copied": "已复制：{{name}}",
+      "nameIsRequired": "名称为必填项",
+      "contentIsRequired": "内容为必填项",
+      "snippetUpdated": "代码片段已更新",
+      "snippetCreated": "代码片段已创建",
+      "failedToSaveSnippet": "保存代码片段失败",
+      "snippetDeleted": "代码片段已删除",
+      "failedToDeleteSnippet": "删除代码片段失败",
+      "folderNameIsRequired": "文件夹名称为必填项",
+      "folderCreated": "文件夹已创建",
+      "failedToCreateFolder": "创建文件夹失败",
+      "folderDeleted": "文件夹已删除",
+      "failedToDeleteFolder": "删除文件夹失败",
+      "folderRenamed": "文件夹已重命名",
+      "failedToRenameFolder": "重命名文件夹失败",
+      "failedToSaveOrder": "保存顺序失败",
+      "moveUp": "上移",
+      "moveDown": "下移",
+      "runOnHosts": "在主机上运行 {{name}}",
+      "copy": "复制 {{name}}",
+      "delete": "删除 {{name}}",
+      "renameFolder": "重命名文件夹",
+      "deleteFolder": "删除文件夹",
+      "noSnippetsInThisFolder": "此文件夹中没有代码片段",
+      "snippets": "代码片段",
+      "importAndExport": "导入与导出",
+      "folder": "文件夹",
+      "new": "新建",
+      "loading": "加载中…",
+      "couldNotLoadSnippets": "无法加载代码片段",
+      "checkTheConnectionToYour": "请检查与服务器的连接，然后重试。",
+      "tryAgain": "重试",
+      "noSnippetsYet": "暂无代码片段",
+      "createYourFirstSnippetOr": "创建您的第一个代码片段，或从 Termix Web 或桌面应用添加代码片段。",
+      "createSnippet": "创建代码片段",
+      "askBeforeRunning": "运行前询问",
+      "confirmBeforeASnippetRuns": "在终端中运行代码片段前确认",
+      "editSnippet": "编辑代码片段",
+      "newSnippet": "新建代码片段",
+      "cancel": "取消",
+      "save": "保存",
+      "create": "创建",
+      "name": "名称",
+      "eGUpdatePackages": "例如：更新软件包",
+      "content": "内容",
+      "descriptionOptional": "描述（可选）",
+      "shortDescription": "简短描述",
+      "folderOptional": "文件夹（可选）",
+      "selectFolder": "选择文件夹",
+      "noFolder": "无文件夹",
+      "targetHostsOptional": "目标主机（可选）",
+      "none": "无",
+      "note": "注意",
+      "pastedIntoTheTerminalWithout": "粘贴到终端但不运行",
+      "targetHosts": "目标主机",
+      "copy2": "复制",
+      "edit": "编辑",
+      "runOnHosts2": "在主机上运行",
+      "delete2": "删除",
+      "deleteSnippet": "删除代码片段",
+      "deleteThisCannotBeUndone": "删除“{{name}}”？此操作无法撤销。",
+      "renameFolder2": "重命名文件夹",
+      "rename": "重命名",
+      "folderName": "文件夹名称",
+      "eGSystem": "例如：系统",
+      "newFolder": "新建文件夹",
+      "deleteFolder2": "删除文件夹",
+      "deleteSnippetsInThisFolder": "删除“{{name}}”？该文件夹中的代码片段将变为未分类。"
+    },
+    "sync": {
+      "notYet": "尚未同步",
+      "justNow": "刚刚",
+      "stopped": "已停止",
+      "signInToThisServer": "重新登录此服务器以同步",
+      "couldNotChangeThat": "无法更改",
+      "sync": "同步",
+      "thisDeviceDoesNotSync": "此设备不同步。链接 Termix 服务器可在多个设备上保留您的主机。",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} 会将主机、凭据、代码片段和设置与此 {{deviceWord}} 保持同步。此 {{deviceWord}} 上会保留一份副本，因此离线时也可使用。",
+      "lastSynced": "上次同步于 {{value}}",
+      "live": "实时",
+      "syncNow": "立即同步",
+      "fix": "修复",
+      "thisServerReadsLiveAnd": "此服务器读取实时数据，不在 {{deviceWord}} 上保留副本。",
+      "turnOnTheSyncPlugin": "在服务器的插件页面中启用同步插件，然后在此处重新登录，以便在此 {{deviceWord}} 上保留副本。",
+      "whatSyncs": "同步内容",
+      "turnedOffThatDataStays": "已关闭，该数据仅保留在此 {{deviceWord}} 上。",
+      "conflicts": "冲突",
+      "changedHereAndOnThe": "此处和服务器同时发生了更改。保留了服务器的版本。",
+      "useServer": "使用服务器版本",
+      "keepMine": "保留我的版本",
+      "notSavedOnTheServer": "未保存到服务器",
+      "theServerRefusedTheseChanges": "服务器拒绝了这些更改。它们将保留在此 {{deviceWord}} 上。",
+      "tryAgain": "重试",
+      "proxy": "代理",
+      "onlyNeededWhenAReverse": "仅当服务器前有反向代理时才需要。",
+      "unlink": "取消链接",
+      "unlinkThisServer": "取消链接此服务器",
+      "minAgo": "{{value}} 分钟前",
+      "signedOut": "已退出登录",
+      "waitingToSync": "等待同步",
+      "synced": "已同步",
+      "syncing": "同步中",
+      "offline": "离线"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "背景",
+        "text": "文本",
+        "cursor": "光标",
+        "textUnderCursor": "光标下的文本",
+        "selection": "选区",
+        "black": "黑色",
+        "red": "红色",
+        "green": "绿色",
+        "yellow": "黄色",
+        "blue": "蓝色",
+        "magenta": "洋红色",
+        "cyan": "青色",
+        "white": "白色",
+        "brightBlack": "亮黑色",
+        "brightRed": "亮红色",
+        "brightGreen": "亮绿色",
+        "brightYellow": "亮黄色",
+        "brightBlue": "亮蓝色",
+        "brightMagenta": "亮洋红色",
+        "brightCyan": "亮青色",
+        "brightWhite": "亮白色",
+        "customTheme": "自定义主题",
+        "colorsAsHexLike1e1e2e": "颜色使用十六进制格式，例如 #1e1e2e。",
+        "cancel": "取消",
+        "save": "保存",
+        "isNotAHexColor": "{{label}} 不是有效的十六进制颜色"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "紧凑",
+      "default": "默认",
+      "relaxed": "宽松",
+      "spacious": "宽敞",
+      "none": "无",
+      "couldNotSave": "无法保存",
+      "pickASizeFromTo": "选择 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}} 之间的尺寸",
+      "terminalSettingsReset": "终端设置已重置",
+      "terminal": "终端",
+      "aHostCanSetIts": "主机可以在 Termix 中设置自己的主题和光标，其优先级高于此处设置。",
+      "theme": "主题",
+      "custom": "自定义",
+      "font": "字体",
+      "active": "活动状态",
+      "sizeAndSpacing": "尺寸与间距",
+      "pinchTheTerminalToChange": "捏合终端也可调整尺寸。{{deviceWord}}设置中的大文本也会使其变大。",
+      "custom2": "自定义 {{fontSize}}",
+      "lineHeight": "行高",
+      "letterSpacing": "字间距",
+      "ligatures": "连字",
+      "cursor": "光标",
+      "blink": "闪烁",
+      "bell": "响铃",
+      "vibrate": "振动",
+      "onTheBellAndWhen": "响铃时以及长按选择时",
+      "scrollback": "回滚缓冲区",
+      "linesKeptAboveTheScreen": "保留在屏幕之上的行数。仅对新终端生效。",
+      "linksAndKeys": "链接与密钥",
+      "askBeforeOpeningLinks": "打开链接前询问",
+      "doubleTapSendsTab": "双击发送 Tab",
+      "longPressStillSelectsText": "长按仍可选中文字",
+      "optionSendsAlt": "Option 键发送 Alt",
+      "onAHardwareKeyboardOff": "在物理键盘上。关闭时，输入符号的方式类似 Mac。",
+      "history": "历史记录",
+      "suggestCommands": "命令建议",
+      "showsPastCommandsThatStart": "显示以你输入内容开头的历史命令",
+      "resetToDefault": "恢复默认设置",
+      "fontSize": "字体大小",
+      "aSizeFromTo": "大小范围为 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}}。",
+      "cancel": "取消",
+      "apply": "应用",
+      "resetTerminalSettings": "重置终端设置？",
+      "themeFontSizeCursorBell": "主题、字体、大小、光标、提示音及其他设置将恢复为默认值。",
+      "reset": "重置",
+      "followsAppTheme": "跟随应用主题"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "启动双因素认证设置失败",
+      "twoFactorAuthenticationEnabled": "已启用双因素认证",
+      "invalidCodeTryAgain": "验证码无效，请重试",
+      "twoFactorAuthenticationDisabled": "已禁用双因素认证",
+      "failedToDisable2fa": "禁用双因素认证失败",
+      "failedToFetchBackupCodes": "获取备用代码失败",
+      "secretCopied": "密钥已复制",
+      "backupCodesCopied": "备用代码已复制",
+      "twoFactorAuthentication": "双因素认证",
+      "loading": "加载中…",
+      "scanThisQrCodeWith": "使用你的身份验证器应用（如 Google Authenticator、Authy 等）扫描此二维码，然后输入 6 位验证码以确认。",
+      "verifyAmpEnable": "验证并启用",
+      "cancel": "取消",
+      "saveYourBackupCodes": "保存你的备用代码",
+      "storeTheseSomewhereSafeEach": "请将它们保存在安全的地方。每个代码只能使用一次，以防你无法访问身份验证器。",
+      "copyAllCodes": "复制所有代码",
+      "done": "完成",
+      "yourAccountIsProtectedWith": "你的账户已通过身份验证器应用保护。",
+      "addAnExtraLayerOf": "为你的账户增加一层额外的安全保障。",
+      "viewBackupCodes": "查看备用代码",
+      "disable2fa": "禁用双因素认证",
+      "enable2fa": "启用双因素认证",
+      "disableTwoFactorAuthentication": "禁用双因素认证",
+      "enterACodeFromYour": "输入你身份验证器应用中的验证码以确认。你可以随时重新启用双因素认证。",
+      "enterYourPasswordToConfirm": "输入你的密码以确认。你可以随时重新启用双因素认证。",
+      "disable": "禁用",
+      "yourPassword": "你的密码",
+      "n2faIsEnabled": "已启用双因素认证",
+      "n2faIsNotEnabled": "未启用双因素认证"
+    },
+    "language": {
+      "label": "语言",
+      "description": "切换语言后应用将重新加载",
+      "system": "与设备相同"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "此处没有 SSH 主机",
+      "couldNotReadWhatWas": "无法读取共享内容",
+      "stopTheUploads": "停止上传？",
+      "stopAndLeave": "停止并离开",
+      "sendTo": "发送到 {{name}}",
+      "sendToAHost": "发送到主机",
+      "nothingToSend": "无内容可发送",
+      "close": "关闭",
+      "done": "完成",
+      "cancel": "取消",
+      "uploadHere": "上传到此处",
+      "uploadsStillGoing_other": "还有 {{count}} 个上传正在进行。离开将停止它们。",
+      "filesSize_other": "{{count}} 个文件 | {{size}}",
+      "readingWhatWasShared": "正在读取共享内容"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "错误",
+      "worksWithoutAServer": "无需服务器即可使用",
+      "accountSwitch": "账户 {{account}}，切换",
+      "search": "搜索",
+      "notificationsUnread": "通知，{{unread}} 条未读",
+      "notifications": "通知",
+      "signedIn": "已登录",
+      "signedOut": "已退出登录",
+      "copyOnThis": "在此 {{deviceWord}} 上复制"
+    },
+    "bottomBar": {
+      "home": "首页",
+      "hosts": "主机",
+      "sessions": "会话",
+      "tools": "工具",
+      "settings": "设置",
+      "open": "{{label}}，{{count}} 个已打开"
+    },
+    "sideBar": {
+      "open": "{{label}}，{{count}} 个已打开"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "选择主机",
+      "searchHosts": "搜索主机",
+      "clearSearch": "清除搜索",
+      "noHostsMatch": "没有匹配的主机",
+      "noHostsCanUseThis": "没有主机可以使用此功能",
+      "turnItOnForA": "请在主机编辑器中为主机启用此功能。"
+    },
+    "noToolsHereYet": "这里还没有工具",
+    "onAHost": "在主机上",
+    "saved": "已保存",
+    "fromYourServer": "来自您的服务器"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "取消",
+      "delete": "删除",
+      "confirm": "确认"
+    },
+    "contextMenu": {
+      "closeMenu": "关闭菜单"
+    },
+    "inlineView": {
+      "back": "返回"
+    },
+    "listRow": {
+      "moreActions": "更多操作"
+    },
+    "pinPad": {
+      "useBiometrics": "使用生物识别",
+      "delete": "删除"
+    },
+    "popover": {
+      "close": "关闭"
+    },
+    "promptSheet": {
+      "cancel": "取消"
+    },
+    "sheet": {
+      "close": "关闭"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "此密钥已锁定。请输入其密码短语。",
+      "thatPassphraseDoesnTOpen": "该密码短语无法打开此密钥。",
+      "thisDoesnTLookLike": "这看起来不像私钥。",
+      "loadedAndChangedItTo": "已加载 {{name}} 并将其转换为 OpenSSH 格式",
+      "loadedItNeedsItsPassphrase": "已加载 {{name}}。连接需要其密码短语"
+    },
+    "ago": {
+      "justNow": "刚刚"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "无法加载您的主机。",
+      "failedOn": "{{name}} 在 {{name2}} 上失败",
+      "on": "{{name}} 在 {{name2}} 上：{{value}}",
+      "ranOn": "在 {{name2}} 上运行了 {{name}}",
+      "runOn": "在...上运行“{{name}}”",
+      "runSnippet": "运行代码片段",
+      "loadingHosts": "正在加载主机…",
+      "noHostsAvailable": "没有可用的主机",
+      "addAHostInTermix": "在 Termix 中添加主机，以便从主屏幕运行代码片段。",
+      "lastUsed": "上次使用",
+      "failedToRunSnippet": "运行代码片段失败"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "该代码片段已不存在。",
+      "couldNotOpenThatSnippet": "无法打开该代码片段。",
+      "thatHostNoLongerExists": "该主机已不存在。",
+      "couldNotOpenThatHost": "无法打开该主机。"
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "主页"
+      },
+      "hosts": {
+        "hosts": "主机"
+      },
+      "sessions": {
+        "sessions": "会话",
+        "connectToATermixServer": "连接到 Termix 服务器以打开终端、隧道和文件会话。"
+      }
+    },
+    "layout": {
+      "initializing": "正在初始化…",
+      "cancel": "取消"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "此主机没有有效的 MAC 地址。",
+    "thisBuildCanTSend": "此版本无法发送 Wake-on-LAN 数据包。",
+    "couldNotSendThePacket": "无法发送数据包。请检查 Wi-Fi 是否已开启。"
+  },
+  "common": {
+    "hostCount_other": "{{count}} 台主机",
+    "device": {
+      "phone": "手机",
+      "tablet": "平板"
+    },
+    "thisDeviceLower": "此{{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "共享",
+    "action": "与他人共享",
+    "levels": {
+      "connect": "连接",
+      "view": "查看",
+      "edit": "编辑",
+      "manage": "管理"
+    },
+    "levelHints": {
+      "connect": "仅打开会话。主机设置保持隐藏",
+      "view": "连接，并查看主机设置。绝不会显示密钥",
+      "edit": "查看，并更改除登录凭据以外的设置",
+      "manage": "编辑，并共享主机或更改/移除访问权限"
+    },
+    "until": "有效期至 {{date}}",
+    "sharedBy": "由 {{name}} 共享",
+    "couldNotLoad": "无法加载访问者列表",
+    "shared": "主机已共享",
+    "couldNotShare": "无法共享主机",
+    "updated": "访问权限已更改",
+    "couldNotUpdate": "无法更改访问权限",
+    "removeTitle": "移除 {{name}}？",
+    "removeHint": "他们将无法再使用此主机。",
+    "remove": "移除",
+    "removed": "访问权限已移除",
+    "couldNotRemove": "无法移除访问权限",
+    "whoHasAccess": "谁有访问权限",
+    "loading": "加载中...",
+    "nobodyYet": "只有您可以使用此主机。",
+    "changeAccessFor": "更改 {{name}} 的访问权限",
+    "shareWith": "共享给",
+    "users": "用户",
+    "roles": "角色",
+    "searchUsers": "搜索用户",
+    "searchRoles": "搜索角色",
+    "noUsers": "没有其他用户可共享。",
+    "noRoles": "没有可共享的角色。",
+    "options": "访问权限",
+    "level": "权限级别",
+    "expires": "到期时间",
+    "expiry": {
+      "never": "永不过期",
+      "1h": "1 小时后",
+      "1d": "1 天后",
+      "7d": "7 天后",
+      "30d": "30 天后"
+    },
+    "pickSomeone": "选择共享对象",
+    "shareCount_other": "与 {{count}} 人共享",
+    "removeAccess": "移除访问权限"
+  }
+}

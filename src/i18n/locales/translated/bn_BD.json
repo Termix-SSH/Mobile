@@ -1,1 +1,3829 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "সাইন ইন",
+      "addServer": "সার্ভার যোগ করুন",
+      "switchAccount": "অ্যাকাউন্ট পরিবর্তন করুন",
+      "noServerConnected": "কোনো সার্ভার সংযুক্ত নেই",
+      "connectToATermixServer": "আপনার হোস্ট, টার্মিনাল, ফাইল এবং আরও অনেক কিছু পরিচালনা করতে একটি Termix সার্ভারে সংযুক্ত হন।"
+    },
+    "lockScreen": {
+      "cancel": "বাতিল",
+      "tooManyTriesWaitSeconds": "অনেকবার চেষ্টা করা হয়েছে। {{value}} সেকেন্ড অপেক্ষা করুন",
+      "termixLocked": "Termix লক করা আছে",
+      "enterYourPinToContinue": "চালিয়ে যেতে আপনার PIN লিখুন"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "কমলা",
+      "blue": "নীল",
+      "green": "সবুজ",
+      "purple": "বেগুনি",
+      "pink": "গোলাপী",
+      "cyan": "সায়ান",
+      "red": "লাল",
+      "yellow": "হলুদ",
+      "teal": "টিয়াল",
+      "indigo": "নীলগোলাপী",
+      "rose": "গোলাপ",
+      "lime": "লেবু",
+      "system": "সিস্টেম",
+      "light": "হালকা",
+      "dark": "গাঢ়"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "PIN ব্যবহার করুন",
+      "unlockTermix": "Termix আনলক করুন",
+      "unlockTermixFirst": "প্রথমে Termix আনলক করুন।"
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "এই ফিচারটি সার্ভারে বন্ধ আছে।",
+      "aTabWasNotReopened": "একটি ট্যাব পুনরায় খোলা হয়নি কারণ এর হোস্ট আর নেই",
+      "tabsWereNotReopenedBecause": "{{count}} টি ট্যাব পুনরায় খোলা হয়নি কারণ তাদের হোস্ট আর নেই"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "এটি ব্যবহার করতে একটি Termix সার্ভার লিঙ্ক করুন",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "আপনার সার্ভারের ঠিকানা লিখুন",
+        "theAddressCanTHave": "ঠিকানায় স্পেস থাকতে পারবে না",
+        "useAnHttpOrHttps": "http:// বা https:// ঠিকানা ব্যবহার করুন",
+        "thatDoesnTLookLike": "এটি সার্ভারের ঠিকানার মতো দেখায় না",
+        "thePortMustBeFrom": "পোর্ট ১ থেকে ৬৫৫৩৫ এর মধ্যে হতে হবে"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Termix এর পরিবর্তে একটি লগইন প্রক্সি উত্তর দিয়েছে। প্রথমে প্রক্সিতে সাইন ইন করুন।",
+        "theServerDidNotSend": "সার্ভার কোনো টোকেন পাঠায়নি।",
+        "theServerDidNotSend2": "সার্ভার কোনো সেশন পাঠায়নি।",
+        "theServerSentNoSign": "সার্ভার কোনো সাইন ইন ঠিকানা পাঠায়নি।",
+        "theSignInRanOut": "সাইন ইন মেয়াদ শেষ হয়েছে বা আগেই ব্যবহৃত হয়েছে। আবার সাইন ইন করুন।",
+        "wrongUsernameOrPassword": "ভুল ব্যবহারকারীর নাম বা পাসওয়ার্ড",
+        "signInFailedHttp": "সাইন ইন ব্যর্থ হয়েছে (HTTP {{status}})",
+        "thePageSignedYouIn": "পৃষ্ঠাটি আপনাকে সাইন ইন করেছে কিন্তু কোনো সেশন ফিরিয়ে দেয়নি। সার্ভারটি Termix 26.11.3 বা তার নতুনতরে আপডেট করুন।",
+        "thisAccountIsnTAllowed": "এই অ্যাকাউন্টটি এখানে সাইন ইন করতে অনুমতি পায়নি।",
+        "noTermixAccountMatchesThat": "এই সাইন ইনের সাথে কোনো Termix অ্যাকাউন্ট মিলছে না।"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "এই সেশনের কোনো সার্ভার নেই"
+    },
+    "store": {
+      "noSuchAccount": "এমন কোনো অ্যাকাউন্ট নেই",
+      "thisDeviceCanTBe": "এই ডিভাইসটি সরানো যাবে না",
+      "switchToAnotherAccountFirst": "প্রথমে অন্য অ্যাকাউন্টে সুইচ করুন"
+    },
+    "types": {
+      "thisDevice": "এই ডিভাইস"
+    },
+    "accountSwitcher": {
+      "error": "ত্রুটি",
+      "worksWithoutAServer": "সার্ভার ছাড়াই কাজ করে",
+      "couldNotSwitchAccount": "অ্যাকাউন্ট পরিবর্তন করা যায়নি",
+      "accounts": "অ্যাকাউন্টসমূহ",
+      "openTabsKeepRunningWhen": "পরিবর্তনের সময় খোলা ট্যাবগুলো চালু থাকবে।",
+      "unlink": "{{account}} এর লিঙ্ক সরান",
+      "linkAServer": "একটি সার্ভার লিঙ্ক করুন",
+      "eachServerKeepsItsOwn": "প্রতিটি সার্ভার এই {{deviceWord}} এ তার নিজস্ব হোস্ট, ক্রেডেনশিয়াল এবং সেটিংস সংরক্ষণ করে।",
+      "signedIn": "সাইন ইন করা হয়েছে",
+      "signedOut": "সাইন আউট করা হয়েছে",
+      "syncedCopy": "সিঙ্ক করা কপি"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "পিনটি সংরক্ষণ করা যায়নি",
+      "theServerSKeyMatches": "সার্ভারের কী পিনের সাথে মিলেছে",
+      "theServerShowsAnotherKey": "সার্ভারটি অন্য একটি কী দেখাচ্ছে",
+      "pinThisKey": "এই কীটি পিন করবেন?",
+      "pinThisKey2": "এই কীটি পিন করুন",
+      "keyPinned": "কী পিন করা হয়েছে",
+      "couldNotReadTheServer": "সার্ভারের কী পড়া যায়নি",
+      "thatIsNotAPin": "এটি কোনো পিন নয়",
+      "keysPinned": "কীগুলো পিন করা হয়েছে",
+      "certificatePin": "সার্টিফিকেট পিন",
+      "trustThisServerOnlyBy": "শুধুমাত্র এর কী দ্বারা এই সার্ভারকে বিশ্বাস করুন। এটি স্ব-স্বাক্ষরিত সার্টিফিকেটের জন্য ব্যবহার করুন, অথবা অন্য কোনো কী প্রত্যাখ্যান করতে। সার্ভারের সার্টিফিকেট পরিবর্তনের আগে পরবর্তী কীটি যোগ করুন।",
+      "removePin": "পিন {{pin}} সরান",
+      "remove": "সরান",
+      "readTheKeyFromThe": "সার্ভার থেকে কী পড়ুন",
+      "orPasteAPin": "অথবা একটি পিন পেস্ট করুন",
+      "pin": "পিন",
+      "add": "যোগ করুন",
+      "issuedTo": "ইস্যু করা হয়েছে: {{subject}}",
+      "issuedBy": "ইস্যুকারী: {{issuer}}",
+      "validUntil": "বৈধ পর্যন্ত: {{value}}",
+      "checkThatThisKeyMatches": "পিন করার আগে নিশ্চিত হোন যে এই কীটি আপনার সার্ভারে থাকা কীটির সাথে মিলেছে।",
+      "pasteTheBase64Sha256Of": "সার্ভারের পাবলিক কী-এর base64 sha256 পেস্ট করুন, যেমন openssl প্রিন্ট করে।"
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "প্রক্সি সেটিংস সংরক্ষণ করা হয়েছে",
+      "couldNotSaveTheProxy": "প্রক্সি সেটিংস সংরক্ষণ করা যায়নি",
+      "couldNotReadThatFile": "সেই ফাইলটি পড়া যায়নি",
+      "certificateSaved": "সার্টিফিকেট সংরক্ষণ করা হয়েছে",
+      "theFileOrItsPassphrase": "ফাইলটি বা এর পাসফ্রেজ ভুল",
+      "couldNotSaveTheCertificate": "সার্টিফিকেট সংরক্ষণ করা যায়নি",
+      "headers": "হেডার",
+      "sentWithEveryRequestTo": "এই সার্ভারে প্রতিটি অনুরোধের সাথে পাঠানো হয়, যেমন Cloudflare সার্ভিস টোকেন।",
+      "name": "নাম",
+      "value": "মান",
+      "removeHeader": "হেডার সরান",
+      "addHeader": "হেডার যোগ করুন",
+      "cloudflareServiceToken": "Cloudflare সার্ভিস টোকেন",
+      "basicAuth": "বেসিক অথ",
+      "forAProxyThatAsks": "যে প্রক্সি ব্যবহারকারীর নাম এবং পাসওয়ার্ড চায়।",
+      "userName": "ব্যবহারকারীর নাম",
+      "password": "পাসওয়ার্ড",
+      "saveHeadersAndBasicAuth": "হেডার এবং বেসিক অথ সংরক্ষণ করুন",
+      "clientCertificate": "ক্লায়েন্ট সার্টিফিকেট",
+      "forServersThatAskFor": "যেসব সার্ভার একটি চায় (mTLS)। কীটি {{deviceWord}}-এর নিরাপদ স্টোরেজে রাখা হয় এবং তা পুনরায় পড়া যায় না।",
+      "certificate": "সার্টিফিকেট",
+      "remove": "সরান",
+      "replaceCertificate": "সার্টিফিকেট প্রতিস্থাপন করুন",
+      "pickAP12OrPfx": "একটি .p12 বা .pfx ফাইল নির্বাচন করুন",
+      "proxySignIn": "প্রক্সি সাইন ইন",
+      "thisIsSignedInTo": " এই {{deviceWord}} প্রক্সিতে সাইন ইন করা আছে।",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik এবং তাদের নিজস্ব সাইন ইন পেজ সহ অন্যান্য প্রক্সির জন্য।{{value}}",
+      "signInToTheProxy": "প্রক্সিতে সাইন ইন করুন",
+      "forget": "ভুলে যান",
+      "certificatePassphrase": "সার্টিফিকেট পাসফ্রেজ",
+      "thePassphraseTheFileWas": "ফাইলটি সংরক্ষণ করার সময় যে পাসফ্রেজ ব্যবহার করা হয়েছিল। যদি কোনো না থাকে তবে এটি খালি রাখুন।",
+      "passphrase": "পাসফ্রেজ",
+      "save": "সংরক্ষণ করুন"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "প্রক্সিতে সাইন ইন করা হয়েছে",
+      "couldNotSaveTheProxy": "প্রক্সি সাইন ইন সংরক্ষণ করা যায়নি",
+      "signInToTheProxy": "প্রক্সিতে সাইন ইন করুন",
+      "thisBuildOfTheApp": "এই অ্যাপ বিল্ডটি প্রক্সি সাইন-ইন রাখতে পারে না। এর পরিবর্তে প্রক্সি হেডারে একটি সার্ভিস টোকেন ব্যবহার করুন।"
+    },
+    "savedLoginRow": {
+      "signIn": "সাইন ইন করুন",
+      "signInWith": "{{name}} দিয়ে সাইন ইন করুন",
+      "whenThisServerSignsYou": "যখন এই সার্ভার আপনাকে সাইন আউট করবে, তখন পাসওয়ার্ড টাইপ না করেই আবার সাইন ইন করুন।"
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "আনলিঙ্ক করা হয়েছে। {{copied}} আইটেম এই ডিভাইসে রাখা হয়েছে।",
+      "unlinked": "আনলিঙ্ক করা হয়েছে",
+      "couldNotUnlinkTheServer": "সার্ভার আনলিঙ্ক করা যায়নি",
+      "unlink": "{{value}} আনলিঙ্ক করবেন?",
+      "thisSignsOutOfThe": "এই {{deviceWord}} সার্ভার থেকে সাইন আউট করবে। সার্ভারে কিছুই মুছে ফেলা হবে না।",
+      "keepACopyOnThis": "এই ডিভাইসে একটি কপি রাখুন",
+      "yourOwnHostsCredentialsAnd": "আপনার নিজস্ব হোস্ট, ক্রেডেনশিয়াল এবং স্নিপেটগুলো এই ডিভাইসে চলে যাবে। আপনার সাথে শেয়ার করা হোস্টগুলো রাখা হবে না।",
+      "deleteFromThis": "এই {{deviceWord}} থেকে মুছে ফেলুন",
+      "everythingThisHasForThe": "এই সার্ভারের জন্য এই {{deviceWord}}-এর সমস্ত কিছু সরিয়ে ফেলা হবে।"
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "নিচে প্রক্সির অধীনে এটি পরিবর্তন করুন",
+      "updateTermixMobileFromYour": "আপনার অ্যাপ স্টোর থেকে Termix Mobile আপডেট করুন"
+    },
+    "savedLogin": {
+      "signInToTermix": "Termix-এ সাইন ইন করুন",
+      "faceUnlock": "ফেস আনলক"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "এই বিল্ডটি এই সার্ভারের পিন করা কী বা এর সার্টিফিকেট পাঠাতে পারে না।"
+    },
+    "http": {
+      "thisServerDoesNotSupport": "এই সার্ভার এই ফিচারটি সমর্থন করে না",
+      "theProxyWantsYouTo": "প্রক্সি চায় আপনি সাইন ইন করুন",
+      "endpointNotAvailableOnThis": "এই সার্ভারে এন্ডপয়েন্ট উপলব্ধ নয়",
+      "unknownError": "অজানা ত্রুটি"
+    },
+    "errors": {
+      "theProxyInFrontOf": "এই সার্ভারের সামনের প্রক্সি চায় আপনি আবার সাইন ইন করুন।",
+      "authenticationRequiredPleaseLogIn": "প্রমাণীকরণ প্রয়োজন। অনুগ্রহ করে আবার লগ ইন করুন।",
+      "accessDeniedYouDoNot": "অ্যাক্সেস অস্বীকার করা হয়েছে। আপনার এই কাজটি করার অনুমতি নেই।",
+      "thisFeatureIsTurnedOff": "সার্ভারে এই ফিচারটি বন্ধ আছে।",
+      "thisServerDoesNotSupport": "এই সার্ভার এই ফিচারটি সমর্থন করে না।",
+      "resourceNotFoundTheRequested": "সম্পদ পাওয়া যায়নি। অনুরোধ করা আইটেমটি মুছে ফেলা হয়ে থাকতে পারে।",
+      "conflictTheResourceAlreadyExists": "দ্বন্দ্ব। সম্পদটি ইতিমধ্যে বিদ্যমান বা ব্যবহারে আছে।",
+      "validationErrorPleaseCheckYour": "বৈধতা ত্রুটি। অনুগ্রহ করে আপনার ইনপুট পরীক্ষা করুন এবং আবার চেষ্টা করুন।",
+      "serverErrorOccurredPleaseTry": "সার্ভার ত্রুটি হয়েছে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।",
+      "sslCertificateVerificationFailed": "SSL সার্টিফিকেট যাচাইকরণ ব্যর্থ হয়েছে।",
+      "networkErrorPleaseCheckYour": "নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আপনার সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।",
+      "failedTo": "{{operation}} ব্যর্থ হয়েছে",
+      "unknownError": "অজানা ত্রুটি",
+      "unexpectedErrorDuring": "{{operation}}-এর সময় অপ্রত্যাশিত ত্রুটি: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "অ্যাপটি এই স্থানীয় IP-এর জন্য HTTPS-এর ওপর বিশ্বাস স্থাপন করতে পারেনি। প্রক্সি এবং ক্লায়েন্ট সার্টিফিকেটের অধীনে সার্ভারের কী পিন করুন, {{deviceWord}}-এর বিশ্বাসযোগ্য একটি সার্টিফিকেট ব্যবহার করুন, অথবা বিশ্বস্ত স্থানীয় বা VPN নেটওয়ার্কে HTTP ব্যবহার করুন।",
+        "thisServerIsBehindA": "এই সার্ভারটি একটি লগইন প্রক্সির পেছনে আছে। এর পরিবর্তে বাহ্যিক সাইন-ইন অপশনটি ব্যবহার করুন।",
+        "loginFailed": "লগইন ব্যর্থ হয়েছে"
+      },
+      "files": {
+        "fileNotFound": "ফাইল পাওয়া যায়নি",
+        "fileWriteOperationDidNot": "ফাইল লেখার অপারেশনটি সফলতার অবস্থা ফেরত দেয়নি",
+        "couldNot": "{{operation}} করা যায়নি ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "হোস্ট সংরক্ষিত হয়েছে, কিন্তু কিছু সেটিংস ব্যর্থ হয়েছে: {{value}}",
+        "unexpectedHostResponseFrom": "{{baseURL}} থেকে অপ্রত্যাশিত হোস্ট প্রতিক্রিয়া"
+      },
+      "metrics": {
+        "liveSampleFailed": "লাইভ স্যাম্পল ব্যর্থ হয়েছে"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "কোনো উত্তর নেই"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "এই সার্ভারটি যে কী-এর সাথে পিন করা আছে তা দেখায়নি, তাই পৃষ্ঠাটি খোলা হয়নি।"
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "সেই {{what}} আর বিদ্যমান নেই।",
+      "aHostCannotBeIts": "একটি হোস্ট নিজের প্যারেন্ট হতে পারে না",
+      "parentHostNotFound": "প্যারেন্ট হোস্ট পাওয়া যায়নি",
+      "aHostCanTGo": "একটি হোস্ট তার নিজস্ব সাব-হোস্টগুলোর একটির নিচে যেতে পারে না",
+      "thisIsSharedWithYou": "এই {{what}} আপনার সাথে শেয়ার করা হয়েছে। শুধুমাত্র এর মালিক এটি পরিবর্তন করতে পারেন।",
+      "nameIsRequired": "নাম প্রয়োজন",
+      "nameAndCommandAreRequired": "নাম এবং কমান্ড প্রয়োজন",
+      "aFolderWithThatName": "সেই নামে একটি ফোল্ডার বিদ্যমান"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "এই ডিভাইসটি এখানে {{what}} সংরক্ষণ করতে পারে না।"
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "এই স্নিপেটটি আপনার সাথে শেয়ার করা হয়েছে এবং এটি পরিবর্তন করা যায় না।"
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "অন্তত ৮ অক্ষরের একটি পাসফ্রেজ ব্যবহার করুন।",
+      "thisIsNotATermix": "এটি একটি Termix ব্যাকআপ ফাইল নয়।",
+      "thisBackupIsFromA": "এই ব্যাকআপটি Termix-এর একটি নতুন সংস্করণ থেকে। প্রথমে অ্যাপটি আপডেট করুন।",
+      "wrongPassphraseOrTheFile": "ভুল পাসফ্রেজ, অথবা ফাইলটি ক্ষতিগ্রস্ত।"
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "এই বিল্ডটি স্থানীয় ডেটা এনক্রিপ্ট করতে পারে না।"
+    },
+    "keys": {
+      "unlockTermixFirst": "প্রথমে Termix আনলক করুন।",
+      "thatIsNotADatabase": "এটি কোনো ডেটাবেস কী নয়।",
+      "couldNotSaveTheDatabase": "ডেটাবেস কী সেভ করা যায়নি।"
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "এই ডেটাটি Termix-এর নতুনতর সংস্করণ দ্বারা সংরক্ষিত হয়েছিল। এটি খুলতে অ্যাপটি আপডেট করুন।"
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "এই ডিভাইসটি সিঙ্ক করে না।",
+      "localDataIsNotAvailable": "এখানে স্থানীয় ডেটা উপলব্ধ নয়।",
+      "unlockTermixFirst": "প্রথমে Termix আনলক করুন।"
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "কানেক্ট করা যাচ্ছে না।",
+      "thisWayCanTRun": "এই পদ্ধতিতে কমান্ড চালানো যায় না"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo পাসওয়ার্ড",
+      "password": "পাসওয়ার্ড",
+      "run": "চালান",
+      "thatPasswordWasWrong": "পাসওয়ার্ডটি ভুল ছিল।",
+      "onNeedsRoot": "{{hostName}}-এ {{reason}}-এর জন্য রুট প্রয়োজন।",
+      "needsRootForThis": "{{hostName}}-এর জন্য এটি রুট প্রয়োজন।",
+      "itIsKeptUntilYou": "আপনি অ্যাপটি বন্ধ না করা পর্যন্ত এটি সংরক্ষিত থাকবে।"
+    },
+    "run": {
+      "theHostTookTooLong": "হোস্টের উত্তর দিতে বেশি সময় লাগছে",
+      "connectionLost": "কানেকশন হারিয়ে গেছে"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "এটির জন্য রুট প্রয়োজন। রুট হিসেবে লগ ইন করুন, পাসওয়ার্ডহীন sudo সেটআপ করুন, অথবা হোস্টের জন্য একটি sudo পাসওয়ার্ড সেভ করুন।",
+      "theSudoPasswordWasWrong": "Sudo পাসওয়ার্ডটি ভুল ছিল",
+      "commandFailed": "কমান্ড ব্যর্থ হয়েছে"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "টার্মিনালে Telnet-এর জন্য {{deviceWord}} থেকে একটি কানেকশন প্রয়োজন।"
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "ফিচার {{id}} ইতিমধ্যে নিবন্ধিত আছে"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "ঠিকানা",
+      "theIpOrHostName": "নামের নিচে আইপি বা হোস্ট নাম",
+      "username": "ইউজারনেম",
+      "theUserBeforeTheAddress": "ঠিকানার আগে ইউজার",
+      "port": "পোর্ট",
+      "thePortAfterTheAddress": "ঠিকানার পরে পোর্ট",
+      "hostIcon": "হোস্ট আইকন",
+      "theIconSetOnThe": "হোস্টে সেট করা আইকন",
+      "pinIcon": "পিন আইকন",
+      "marksPinnedHosts": "পিন করা হোস্ট চিহ্নিত করে",
+      "sharedBadge": "শেয়ার করা ব্যাজ",
+      "marksHostsSharedWithYou": "আপনার সাথে শেয়ার করা হোস্ট চিহ্নিত করে",
+      "protocolBadges": "প্রোটোকল ব্যাজ",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker এবং অন্যান্য চিপ",
+      "tags": "ট্যাগ",
+      "theHostSTags": "হোস্টের ট্যাগ",
+      "cpuAndRam": "CPU এবং RAM",
+      "liveUsageBarsOnOnline": "অনলাইন হোস্টে লাইভ ব্যবহার বার",
+      "statusColors": "স্ট্যাটাস রঙ",
+      "greenBarWhenOnlineRed": "অনলাইন থাকলে সবুজ বার, অফলাইন থাকলে লাল"
+    },
+    "uiPrefs": {
+      "small": "ছোট",
+      "default": "ডিফল্ট",
+      "large": "বড়",
+      "comfortable": "আরামদায়ক",
+      "compact": "কমপ্যাক্ট"
+    },
+    "errors": {
+      "somethingWentWrong": "কিছু একটা ভুল হয়েছে"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "পাসফ্রেজ দিয়ে কী লক করার জন্য Termix অ্যাপ প্রয়োজন, ওয়েব প্রিভিউ নয়।"
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "তৎক্ষণাৎ",
+      "after15Seconds": "১৫ সেকেন্ড পরে",
+      "after1Minute": "১ মিনিট পরে",
+      "after5Minutes": "৫ মিনিট পরে"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "ডিভাইস সিক্রেটটি আর নেই",
+      "noSealedKey": "কোনো সিল করা কী নেই",
+      "theSealedKeyIsDamaged": "সিল করা কীটি ক্ষতিগ্রস্ত",
+      "wrongPin": "ভুল পিন",
+      "theSealedKeyDidNot": "সিল করা কীটি খোলা যায়নি",
+      "biometricsCanTOpenThe": "বায়োমেট্রিক্স কীটি খুলতে পারেনি"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "অ্যাপটি আপডেট করুন",
+      "onYourServerNeedsA": "আপনার সার্ভারে {{name}} এর জন্য এই {{deviceWord}} এ Termix এর নতুনতর সংস্করণ প্রয়োজন।",
+      "updateThePlugin": "প্লাগইনটি আপডেট করুন",
+      "onYourServerIsToo": "আপনার সার্ভারে {{name}} এই অ্যাপের জন্য খুব পুরনো। একজন প্রশাসককে প্লাগইন থেকে এটি আপডেট করতে বলুন।"
+    },
+    "frameBridge": {
+      "blockedByTheApp": "অ্যাপ দ্বারা ব্লক করা হয়েছে",
+      "theAppDoesNotLet": "অ্যাপটি প্লাগইনকে এই রুট ব্যবহার করতে দেয় না।",
+      "thisBuildCanTReach": "এই বিল্ডটি নিরাপদে এই সার্ভারে পৌঁছাতে পারে না।"
+    },
+    "support": {
+      "needsANewerVersionOf": "অ্যাপের নতুনতর সংস্করণ প্রয়োজন",
+      "updateThePluginOnThe": "সার্ভারে প্লাগইনটি আপডেট করুন",
+      "theAppHasItsOwn": "অ্যাপটির নিজস্ব লুক রয়েছে",
+      "notInTheAppYet": "এখনও অ্যাপে নেই",
+      "linkAServerToUse": "ব্যবহার করতে একটি সার্ভার লিঙ্ক করুন",
+      "opensInTheAppFrom": "সার্ভার থেকে অ্যাপে খোলে",
+      "runsOnTheServer": "সার্ভারে চলে",
+      "throughTheServer": "সার্ভারের মাধ্যমে",
+      "inTheApp": "অ্যাপের মধ্যে",
+      "webView": "ওয়েব ভিউ",
+      "onTheServer": "সার্ভারে",
+      "appLook": "অ্যাপের লুক",
+      "notInTheApp": "অ্যাপে নেই",
+      "safeMode": "সেফ মোড",
+      "notRunning": "চলছে না",
+      "notInstalled": "ইনস্টল করা হয়নি",
+      "notOnThisServer": "এই সার্ভারে নেই",
+      "thePluginIsNotInstalled": "প্লাগইনটি এই সার্ভারে ইনস্টল করা হয়নি।",
+      "turnedOffOnTheServer": "সার্ভারে বন্ধ করা হয়েছে",
+      "itOpensHereAgainWhen": "একজন প্রশাসক এটি চালু করলে এটি আবার এখানে খুলবে।",
+      "notRunningOnTheServer": "সার্ভারে চলছে না",
+      "theServerIsInSafe": "সার্ভারটি সেফ মোডে আছে, তাই শুধুমাত্র লুক প্লাগইন চলে।",
+      "thePluginDidNotStart": "প্লাগইনটি শুরু হয়নি। একজন প্রশাসক প্লাগইন থেকে এটি চেক করতে পারেন।",
+      "thisPluginIsNotAvailable": "এই প্লাগইনটি উপলব্ধ নয়",
+      "itIsNotMadeFor": "এটি অ্যাপের জন্য তৈরি করা হয়নি।",
+      "offOnThisServer": "এই সার্ভারে বন্ধ",
+      "notRunningOnThisServer": "এই সার্ভারে চলছে না",
+      "notOnThisServer2": "এই সার্ভারে নেই",
+      "notInTheAppYet2": "এখনও অ্যাপে নেই | এই সার্ভারে",
+      "worksOnThis": "এই {{deviceWord}} এ কাজ করে",
+      "andServer": "{{DeviceWord}} এবং সার্ভার",
+      "deviceOnly": "শুধুমাত্র {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "রিলোড"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "সব ডিসকানেক্ট করুন",
+      "showOpenSessions": "খোলা সেশন দেখান",
+      "termixShowsANotificationWhile": "সেশন খোলা থাকাকালীন Termix একটি নোটিফিকেশন দেখায়, যাতে Android এটি ব্যাকগ্রাউন্ডে চালু রাখে।",
+      "sessionsOpen_one": "{{count}} সেশন খোলা",
+      "sessionsOpen_other": "{{count}} সেশন খোলা",
+      "tunnelsActive_one": "{{count}} টানেল সক্রিয়",
+      "tunnelsActive_other": "{{count}} টানেল সক্রিয়",
+      "notConnected": "কানেক্ট করা হয়নি",
+      "waitingForNetwork": "নেটওয়ার্কের জন্য অপেক্ষা করছে",
+      "connecting": "কানেক্ট হচ্ছে",
+      "connected": "কানেক্ট করা হয়েছে",
+      "reconnecting": "আবার কানেক্ট হচ্ছে",
+      "failed": "ব্যর্থ হয়েছে",
+      "closed": "বন্ধ হয়েছে"
+    },
+    "companionPane": {
+      "resizeThePanel": "{{title}} প্যানেলটি রিসাইজ করুন"
+    },
+    "connectionsPanel": {
+      "close": "বন্ধ করুন",
+      "closeAllTabs": "সব {{count}} ট্যাব বন্ধ করবেন?",
+      "everySessionEnds": "প্রতিটি সেশন শেষ হয়।",
+      "closeAll": "সব বন্ধ করুন",
+      "noActiveConnections": "কোনো সক্রিয় সংযোগ নেই",
+      "pickAHostFromThe": "সেশন শুরু করতে তালিকা থেকে একটি হোস্ট নির্বাচন করুন। অন্য ডিভাইসে আপনি যে ট্যাবগুলো খুলবেন, সেগুলোও এখানে দেখা যাবে।",
+      "connectToAHostTo": "সেশন শুরু করতে একটি হোস্টের সাথে সংযোগ করুন। অন্য ডিভাইসে আপনি যে ট্যাবগুলো খুলবেন, সেগুলোও এখানে দেখা যাবে।",
+      "open": "খুলুন",
+      "background": "ব্যাকগ্রাউন্ড",
+      "sessionsFromOtherDevicesOr": "অন্য ডিভাইসের সেশন বা ব্যাকগ্রাউন্ডে থাকা ট্যাব। পুনরায় চালু করতে ট্যাপ করুন।",
+      "liveTapToReconnect": "লাইভ, পুনরায় সংযোগ করতে ট্যাপ করুন",
+      "tapToReopen": "পুনরায় খুলতে ট্যাপ করুন"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "এটি সার্ভারে বন্ধ আছে",
+      "comesBackHereWhenAn": "একজন প্রশাসক প্লাগিনটি আবার চালু করলে {{title}} এখানে ফিরে আসবে।",
+      "closeTab": "ট্যাব বন্ধ করুন"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "সংযোগ",
+        "hideHostList": "হোস্ট তালিকা লুকান",
+        "showHostList": "হোস্ট তালিকা দেখান",
+        "backToHosts": "হোস্টে ফিরে যান",
+        "showKeyboard": "কীবোর্ড দেখান",
+        "hideKeyboard": "কীবোর্ড লুকান",
+        "hideKeysPanel": "কী প্যানেল লুকান",
+        "showKeysPanel": "কী প্যানেল দেখান"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "ট্যাবের অপশনের জন্য ট্যাপ করুন, সরানোর জন্য ধরে রাখুন",
+        "holdToMove": "সরানোর জন্য ধরে রাখুন",
+        "close": "{{title}} বন্ধ করুন"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "নেটওয়ার্কের জন্য অপেক্ষা করছে",
+        "connectionFailed": "সংযোগ ব্যর্থ হয়েছে",
+        "reconnecting": "পুনরায় সংযোগ হচ্ছে"
+      }
+    },
+    "sessionMenu": {
+      "rename": "নাম পরিবর্তন করুন",
+      "newTabOnThisHost": "এই হোস্টে নতুন ট্যাব",
+      "here": "{{title}} এখানে",
+      "hidePanel": "{{title}} প্যানেল লুকান",
+      "showPanel": "{{title}} প্যানেল দেখান",
+      "endSplitView": "স্প্লিট ভিউ শেষ করুন",
+      "splitViewWith": "স্প্লিট ভিউ...",
+      "moveLeft": "বামে সরান",
+      "moveRight": "ডানে সরান",
+      "closeTab": "ট্যাব বন্ধ করুন",
+      "closeAllTabs": "সব ট্যাব বন্ধ করুন",
+      "closeAllTabs2": "সব {{count}} ট্যাব বন্ধ করবেন?",
+      "everySessionEnds": "প্রতিটি সেশন শেষ হয়।",
+      "closeAll": "সব বন্ধ করুন",
+      "splitViewWith2": "স্প্লিট ভিউ",
+      "renameTab": "ট্যাবের নাম পরিবর্তন করুন",
+      "leaveItEmptyToUse": "হোস্টের নাম ব্যবহার করতে এটি খালি রাখুন।"
+    },
+    "resizeHostList": "হোস্ট তালিকার আকার পরিবর্তন করুন",
+    "resizeSplitView": "স্প্লিট ভিউয়ের আকার পরিবর্তন করুন",
+    "connections": "সংযোগ",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "দুই-ফ্যাক্টর প্রমাণীকরণ",
+        "enterThe6DigitCode": "আপনার অথেন্টিকেটর অ্যাপ থেকে ৬ সংখ্যার কোডটি লিখুন।",
+        "cancel": "বাতিল করুন",
+        "verify": "যাচাই করুন",
+        "codeExpiresInSGet": "কোডটি {{totpCountdown}} সেকেন্ড পর মেয়াদোত্তীর্ণ হবে, একটি নতুন কোড নিন",
+        "warpgateAuthentication": "Warpgate প্রমাণীকরণ",
+        "confirmTheWarpgateAuthenticationUrl": "Warpgate প্রমাণীকরণ URL এবং সিকিউরিটি কী নিশ্চিত করুন।",
+        "authenticate": "প্রমাণীকরণ করুন",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "সিকিউরিটি কী (ঐচ্ছিক)",
+        "authenticationRequired": "প্রমাণীকরণ প্রয়োজন",
+        "thisHostNeedsCredentialsTo": "সংযোগ করতে এই হোস্টের জন্য ক্রেডেনশিয়াল প্রয়োজন।",
+        "connect": "সংযোগ করুন",
+        "password": "পাসওয়ার্ড",
+        "sshKey": "SSH কী",
+        "pastePrivateKey": "প্রাইভেট কী পেস্ট করুন",
+        "keyPassphraseOptional": "কী পাসফ্রেজ (ঐচ্ছিক)"
+      },
+      "connectionError": {
+        "tryAgain": "আবার চেষ্টা করুন",
+        "close": "বন্ধ করুন",
+        "connectThroughTheServer": "সার্ভারের মাধ্যমে সংযোগ করুন",
+        "connectFromThis": "এই {{deviceWord}} থেকে সংযোগ করুন",
+        "triedFromThis": "এই {{deviceWord}} থেকে চেষ্টা করা হয়েছে",
+        "triedThroughTheServer": "সার্ভারের মাধ্যমে চেষ্টা করা হয়েছে"
+      },
+      "execGate": {
+        "connecting": "সংযোগ হচ্ছে..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "কিছু একটা ভুল হয়েছে",
+        "retry": "পুনরায় চেষ্টা করুন",
+        "refresh": "রিফ্রেশ করুন",
+        "nothingToShow": "দেখানোর মতো কিছু নেই"
+      },
+      "useConnectionLog": {
+        "logsCopied": "লগ কপি করা হয়েছে",
+        "connectionLog": "কানেকশন লগ ({{count}})",
+        "copyLog": "লগ কপি করুন",
+        "waitingForConnection": "সংযোগের জন্য অপেক্ষা করা হচ্ছে…",
+        "noLogEntries": "কোনো লগ এন্ট্রি নেই"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "এই হোস্টটি কীভাবে সংযোগ করে তা সংরক্ষণ করা যায়নি"
+      },
+      "useSessionConnect": {
+        "connected": "সংযুক্ত হয়েছে",
+        "connectingTo": "{{name}} এর সাথে সংযোগ হচ্ছে…",
+        "connectionLost": "সংযোগ বিচ্ছিন্ন হয়েছে",
+        "failedToConnect": "সংযোগ করতে ব্যর্থ হয়েছে",
+        "invalidCode": "অবৈধ কোড",
+        "warpgateAuthenticationFailed": "Warpgate প্রমাণীকরণ ব্যর্থ হয়েছে",
+        "authenticationCancelled": "প্রমাণীকরণ বাতিল করা হয়েছে"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "সার্চ এবং কমান্ড",
+    "addHost": "হোস্ট যোগ করুন",
+    "keyboardShortcuts": "কীবোর্ড শর্টকাট",
+    "home": "হোম",
+    "hosts": "হোস্ট",
+    "sessions": "সেশন",
+    "tools": "টুলস",
+    "settings": "সেটিংস",
+    "terminal": "টার্মিনাল",
+    "shortcutSheet": {
+      "keyboardShortcuts": "কীবোর্ড শর্টকাট"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "হোস্ট এবং ফোল্ডার",
+      "yourHostsFoldersAndHosts": "আপনার হোস্ট, ফোল্ডার এবং আপনার সাথে শেয়ার করা হোস্ট",
+      "credentials": "ক্রেডেনশিয়াল",
+      "savedPasswordsAndKeysAnd": "সংরক্ষিত পাসওয়ার্ড এবং কী, এবং আপনার সাথে শেয়ার করা ক্রেডেনশিয়াল",
+      "snippets": "স্নিপেট",
+      "snippetsAndTheirFolders": "স্নিপেট এবং তাদের ফোল্ডার",
+      "hostDefaults": "হোস্ট ডিফল্ট",
+      "defaultSettingsForNewHosts": "নতুন হোস্টের জন্য ডিফল্ট সেটিংস",
+      "preferences": "পছন্দ",
+      "settingsThatFollowYouBetween": "ডিভাইসগুলোর মধ্যে আপনাকে অনুসরণ করে এমন সেটিংস"
+    },
+    "link": {
+      "noSuchServerAccount": "এমন কোনো সার্ভার অ্যাকাউন্ট নেই",
+      "signInFirst": "প্রথমে সাইন ইন করুন।",
+      "thisServerAccountBelongsTo": "এই সার্ভার অ্যাকাউন্টটি {{value}} এর। তাদের হিসেবে সাইন ইন করুন, অথবা এই ব্যবহারকারীর জন্য সার্ভারটি আবার যোগ করুন।"
+    },
+    "reasons": {
+      "signedOut": "সাইন আউট হয়েছে",
+      "thisSSignInTo": "এই {{deviceWord}} এর সার্ভারে সাইন ইন মেয়াদ শেষ হয়েছে।",
+      "theServerEndedThisS": "সার্ভার এই {{deviceWord}} এর সেশন শেষ করেছে। এটি অন্য ডিভাইস থেকে সাইন আউট হয়ে থাকতে পারে।",
+      "proxySignInNeeded": "প্রক্সি সাইন ইন প্রয়োজন",
+      "theProxyInFrontOf": "এই সার্ভারের সামনের প্রক্সি আপনাকে আবার সাইন ইন করতে চায়।",
+      "proxyPasswordNeeded": "প্রক্সি পাসওয়ার্ড প্রয়োজন",
+      "theProxyInFrontOf2": "এই সার্ভারের সামনের প্রক্সি তার পাসওয়ার্ড চেয়েছে।",
+      "certificateRefused": "সার্টিফিকেট প্রত্যাখ্যান করা হয়েছে",
+      "theServerDidNotAccept": "সার্ভার এই {{deviceWord}} এর সার্টিফিকেট গ্রহণ করেনি।",
+      "untrustedServer": "অবিশ্বস্ত সার্ভার",
+      "theServerSCertificateIs": "সার্ভারের সার্টিফিকেট এই {{deviceWord}} দ্বারা বিশ্বস্ত নয়।",
+      "serverKeyChanged": "সার্ভারের কী পরিবর্তন হয়েছে",
+      "theServerShowsAnotherKey": "সার্ভারটি পিন করা কীটির চেয়ে ভিন্ন একটি কী দেখাচ্ছে। যদি আপনি এর সার্টিফিকেট পরিবর্তন করে থাকেন, তবে নতুন কীটি পিন করুন।",
+      "offline": "অফলাইন",
+      "canTReachTheServer": "সার্ভারে সংযোগ স্থাপন করা যাচ্ছে না। সিন্ক শীঘ্রই আবার চেষ্টা করবে।",
+      "serverProblem": "সার্ভার সমস্যা",
+      "theServerHadAProblem": "সার্ভারে একটি সমস্যা হয়েছে। সিন্ক শীঘ্রই আবার চেষ্টা করবে।",
+      "updateNeeded": "আপডেট প্রয়োজন",
+      "thisServerUsesANewer": "এই সার্ভারটি একটি নতুন সিন্ক ভার্সন ব্যবহার করছে। অ্যাপটি আপডেট করুন।",
+      "notATermixServer": "এটি Termix সার্ভার নয়",
+      "theAddressDoesNotAnswer": "এই ঠিকানাটি Termix সার্ভারের মতো সাড়া দিচ্ছে না।",
+      "syncIsOff": "সিন্ক বন্ধ আছে",
+      "theSyncPluginIsOff": "এই সার্ভারে সিন্ক প্লাগইন বন্ধ আছে। প্লাগইন থেকে এটি চালু করতে একজন প্রশাসকের কাছে অনুরোধ করুন।",
+      "differentUser": "ভিন্ন ব্যবহারকারী",
+      "youSignedInAsA": "আপনি লগইন করেছেন এমন এক ব্যবহারকারী হিসেবে যার এই সার্ভার অ্যাকাউন্টটি নয়।",
+      "syncStopped": "সিন্ক বন্ধ হয়ে গেছে",
+      "somethingWentWrong": "কিছু একটা ভুল হয়েছে।",
+      "signInAgain": "আবার লগইন করুন",
+      "signInToTheProxy": "প্রক্সিতে লগইন করুন",
+      "enterThePassword": "পাসওয়ার্ড দিন",
+      "tryAgain": "আবার চেষ্টা করুন",
+      "checkThePin": "পিনটি পরীক্ষা করুন",
+      "checkForUpdates": "আপডেটের জন্য পরীক্ষা করুন",
+      "pickACertificate": "একটি সার্টিফিকেট নির্বাচন করুন"
+    },
+    "settings": {
+      "noSuchSetting": "এমন কোনো সেটিংস নেই",
+      "snippetFolder": "স্নিপেট ফোল্ডার",
+      "hostDefault": "হোস্ট ডিফল্ট"
+    },
+    "errors": {
+      "theServerDidNotAccept": "সার্ভারটি এই {{deviceWord}}-এর সার্টিফিকেট গ্রহণ করেনি।",
+      "theServerSCertificateIs": "সার্ভারের সার্টিফিকেটটি বিশ্বস্ত নয়।",
+      "canTReachTheServer": "সার্ভারে সংযোগ স্থাপন করা যাচ্ছে না।",
+      "signedOut": "লগআউট করা হয়েছে",
+      "theProxyAskedForIts": "প্রক্সিটি এর পাসওয়ার্ড চাইছে।",
+      "theProxyWantsYouTo": "প্রক্সি চাইছে আপনি লগইন করুন।",
+      "theSyncPluginIsOff": "এই সার্ভারে সিন্ক প্লাগইন বন্ধ আছে।",
+      "serverError": "সার্ভার ত্রুটি {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "সার্ভারটি পিন করা কীটির চেয়ে ভিন্ন একটি কী দেখাচ্ছে।"
+    },
+    "remote": {
+      "thisIsNotATermix": "এটি Termix সার্ভার নয়।",
+      "theProxyWantsYouTo": "প্রক্সি চাইছে আপনি লগইন করুন।",
+      "thisServerUsesANewer": "এই সার্ভারটি একটি নতুন সিন্ক ভার্সন ব্যবহার করছে। অ্যাপটি আপডেট করুন।"
+    },
+    "copy": {
+      "hostCount_one": "{{count}} হোস্ট",
+      "hostCount_other": "{{count}} হোস্ট",
+      "credentialCount_one": "{{count}} ক্রেডেনশিয়াল",
+      "credentialCount_other": "{{count}} ক্রেডেনশিয়াল",
+      "snippetCount_one": "{{count}} স্নিপেট",
+      "snippetCount_other": "{{count}} স্নিপেট",
+      "folderCount_one": "{{count}} ফোল্ডার",
+      "folderCount_other": "{{count}} ফোল্ডার",
+      "nothingYet": "এখনো কিছু নেই",
+      "listAnd": "{{list}} এবং {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "সংযোগ স্থাপন করা যাচ্ছে না।",
+      "connectingToFromThis": "এই {{deviceWord}} থেকে {{name}}-এ সংযোগ স্থাপন করা হচ্ছে",
+      "connectingToThroughTheServer": "সার্ভারের মাধ্যমে {{name}}-এ সংযোগ স্থাপন করা হচ্ছে",
+      "reconnectingTry": "আবার সংযোগ স্থাপন করা হচ্ছে (চেষ্টা {{retry}})",
+      "disconnected": "সংযোগ বিচ্ছিন্ন",
+      "connected": "সংযুক্ত",
+      "reconnectedToTheSameSession": "একই সেশনে আবার সংযুক্ত হয়েছে",
+      "reconnectedWithANewShell": "নতুন শেলের সাথে আবার সংযুক্ত হয়েছে",
+      "couldNotReachTheHost": "এই {{deviceWord}} থেকে হোস্টে পৌঁছানো যাচ্ছে না, সার্ভারের মাধ্যমে চেষ্টা করা হচ্ছে",
+      "couldNotConnectThroughThe": "সার্ভারের মাধ্যমে সংযোগ স্থাপন করা যাচ্ছে না, এই {{deviceWord}} থেকে চেষ্টা করা হচ্ছে",
+      "connectionLost": "সংযোগ হারিয়ে গেছে: {{reason}}",
+      "offlineWaitingForTheNetwork": "অফলাইন, নেটওয়ার্কের জন্য অপেক্ষা করা হচ্ছে",
+      "nextTryInS": "পরবর্তী চেষ্টা {{value}} সেকেন্ড পরে",
+      "reconnectingTry2": "আবার সংযোগ স্থাপন করা হচ্ছে (চেষ্টা {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "হোস্টটি আর সাড়া দিচ্ছে না",
+      "networkLost": "নেটওয়ার্ক হারিয়ে গেছে",
+      "network": "নেটওয়ার্ক: {{type}}{{value}}",
+      "lowPowerModeOn": "লো পাওয়ার মোড চালু",
+      "lowPowerModeOff": "লো পাওয়ার মোড বন্ধ",
+      "droppedTypedCharacters": "টাইপ করা {{count}}টি অক্ষর বাদ দেওয়া হয়েছে",
+      "youDidNotTrustThe": "আপনি হোস্ট কী-টি বিশ্বাস করেননি।",
+      "checkTheKeyWithWhoever": "যে ব্যক্তি হোস্টটি পরিচালনা করেন তাকে কীটি যাচাই করে দেখুন, তারপর আবার চেষ্টা করুন।",
+      "loginCancelled": "লগইন বাতিল করা হয়েছে।",
+      "connectAgainWhenYouAre": "আপনি প্রস্তুত হলে আবার সংযোগ করুন।",
+      "typedInputIsOver64": "টাইপ করা ইনপুট ৬৪ কেবি-এর বেশি, তাই সবচেয়ে পুরনো অংশটি বাদ দেওয়া হয়েছে",
+      "appInTheBackground": "অ্যাপটি ব্যাকগ্রাউন্ডে আছে",
+      "appInTheForeground": "অ্যাপটি ফোরগ্রাউন্ডে আছে",
+      "thisConnectionCanTRun": "এই সংযোগটি কমান্ড চালাতে পারে না"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "ঠিকানা এবং পোর্টটি যাচাই করুন, এবং নিশ্চিত হোন যে সার্ভারটি হোস্টের সাথে যোগাযোগ করতে পারছে।",
+      "checkTheAddressAndPort2": "ঠিকানা এবং পোর্টটি যাচাই করুন, এবং নিশ্চিত হোন যে এই {{deviceWord}} থেকে হোস্টের সাথে যোগাযোগ করা যাচ্ছে।",
+      "checkTheProxySettingsOf": "এই হোস্টের প্রক্সি সেটিংস যাচাই করুন।",
+      "checkTheKeyWithWhoever": "কীটি বিশ্বাস করার আগে যে ব্যক্তি হোস্টটি পরিচালনা করেন তাকে কীটি যাচাই করে দেখুন।",
+      "checkTheUsernameAndLogin": "হোস্ট এডিটরে ব্যবহারকারীর নাম এবং লগইন যাচাই করুন।",
+      "checkThatTheServerIs": "নিশ্চিত হোন যে সার্ভারটি চালু আছে এবং আপনি এখনও সাইন ইন করে আছেন।",
+      "tryAgainIfItKeeps": "আবার চেষ্টা করুন। যদি এটি বারবার ড্রপ করে, তবে নেটওয়ার্কটি যাচাই করুন।",
+      "connectAgainWhenYouAre": "আপনি প্রস্তুত হলে আবার সংযোগ করুন।",
+      "pickAnotherWayToConnect": "এই হোস্টের সাথে সংযোগ করার জন্য অন্য একটি উপায় বেছে নিন।",
+      "connectThisHostThroughA": "একটি Termix সার্ভারের মাধ্যমে এই হোস্টের সাথে সংযোগ করুন।",
+      "pickTheJumpHostsAgain": "হোস্ট এডিটরে আবার জাম্প হোস্টগুলো বেছে নিন।",
+      "thisIsATailscaleAddress": "এটি একটি Tailscale ঠিকানা। নিশ্চিত হোন যে এই {{deviceWord}}-এ Tailscale সংযুক্ত আছে।",
+      "theSavedKeyCanT": "সংরক্ষিত কীটি পড়া যাচ্ছে না। হোস্ট এডিটরে আবার এটি পেস্ট করুন।",
+      "signInToThisServer": "এই সার্ভারে আবার সাইন ইন করুন।",
+      "openThisHostInThe": "Termix ওয়েব অ্যাপে এই হোস্টটি খুলুন।",
+      "canTConnectThisWay": "এইভাবে সংযোগ করা যাচ্ছে না",
+      "couldNotReachTheHost": "হোস্টের সাথে যোগাযোগ করা যাচ্ছে না",
+      "theProxyDidNotLet": "প্রক্সিটি সংযোগটিকে অনুমতি দেয়নি",
+      "theHostKeyWasNot": "হোস্ট কীটি বিশ্বাসযোগ্য ছিল না",
+      "theLoginWasRefused": "লগইন প্রত্যাখ্যান করা হয়েছে",
+      "theTermixServerDidNot": "Termix সার্ভারের কোনো উত্তর আসেনি",
+      "theConnectionDropped": "সংযোগটি ড্রপ হয়ে গেছে",
+      "loginCancelled": "লগইন বাতিল করা হয়েছে"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH এজেন্ট",
+        "thisHostSignsInWith": "এই হোস্টটি \"{{authType}}\" দিয়ে সাইন ইন করে, যার জন্য একটি Termix সার্ভার প্রয়োজন। সংযোগ করতে একটি লিঙ্ক করুন।",
+        "thisHostUsesA1password": "এই হোস্টটি একটি 1Password রেফারেন্স ব্যবহার করে, যার জন্য Secret Sources সহ একটি Termix সার্ভার প্রয়োজন। একটি লিঙ্ক করুন এবং এর মাধ্যমে এই হোস্টের সাথে সংযোগ করুন।",
+        "signInWithFirstOpen": "প্রথমে {{title}} দিয়ে সাইন ইন করুন। এই হোস্টে একবার টার্মিনাল খুলুন, তারপর আবার চেষ্টা করুন।",
+        "theSignInAndThe": "সাইন ইন এবং সার্টিফিকেট সার্ভারে থাকে",
+        "theHasNoSshAgent": "{{deviceWord}}-এর কোনো SSH এজেন্ট নেই",
+        "needsATermixServerBecause": "{{title}}-এর জন্য একটি Termix সার্ভার প্রয়োজন কারণ {{why}}। একটি লিঙ্ক করুন এবং এর মাধ্যমে এই হোস্টের সাথে সংযোগ করুন।"
+      },
+      "chain": {
+        "aJumpHostOfThis": "এই হোস্টের একটি জাম্প হোস্ট আর বিদ্যমান নেই।"
+      },
+      "localShell": {
+        "theConnectionWasCut": "সংযোগটি কেটে গেছে",
+        "theShellChannelClosed": "শেল চ্যানেলটি বন্ধ হয়ে গেছে",
+        "jumpHost": "জাম্প হোস্ট {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "অবৈধ কোড, আবার চেষ্টা করুন:",
+        "authenticationFailed": "প্রমাণীকরণ ব্যর্থ হয়েছে: {{message}}",
+        "theHostKeyWasNot": "হোস্ট কীটি বিশ্বাসযোগ্য ছিল না।",
+        "loginCancelled": "লগইন বাতিল করা হয়েছে।",
+        "notConnected": "সংযুক্ত নয়"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "সংযোগটি কেটে গেছে"
+      },
+      "thisBuildHasNoSsh": "এই বিল্ডে কোনো SSH ইঞ্জিন নেই। স্টোর থেকে অ্যাপটি ব্যবহার করুন, অথবা সংযোগ করতে একটি Termix সার্ভার লিঙ্ক করুন।",
+      "theHostsOnThisAre": "এই {{deviceWord}}-এর হোস্টগুলো এখনও খোলা হয়নি।",
+      "thisServerSHostsAre": "এই সার্ভারের হোস্টগুলো এই {{deviceWord}}-এ নেই। {{deviceWord}} থেকে সংযোগ করতে সার্ভারে Sync প্লাগিন চালু করুন।"
+    },
+    "origin": {
+      "canTConnect": "সংযোগ করা যাচ্ছে না।",
+      "canTConnectFromThe": "এই {{deviceWord}} থেকে সংযোগ করা যাচ্ছে না।",
+      "canTReachTheServer": "সার্ভারের সাথে যোগাযোগ করা যাচ্ছে না।",
+      "theOnlyConnectsToSsh": "এই {{deviceWord}} শুধুমাত্র SSH এবং Telnet হোস্টের সাথে সংযোগ স্থাপন করে।",
+      "connectThisHostThroughThe": "এই হোস্টটি সার্ভারের মাধ্যমে সংযোগ করুন",
+      "connectThisHostFromThe": "{{deviceWord}} থেকে এই হোস্টের সাথে সংযোগ করুন",
+      "termixServer": "Termix সার্ভার",
+      "usesThisWhenItCan": "হোস্টের সাথে সংযোগ স্থাপন করতে পারলে এই {{deviceWord}} ব্যবহার করে, অন্যথায় সার্ভার ব্যবহার করে।",
+      "thisConnectsToTheHost": "এই {{deviceWord}} সরাসরি হোস্টের সাথে সংযোগ স্থাপন করে।",
+      "theTermixServerConnectsTo": "Termix সার্ভার আপনার形容 behalf এ হোস্টের সাথে সংযোগ স্থাপন করে।",
+      "anSshConnection": "একটি SSH সংযোগ",
+      "aTermixServer": "একটি Termix সার্ভার",
+      "aConnectionFromThe": "{{deviceWord}} থেকে একটি সংযোগ",
+      "isOffOnThisServer": "এই সার্ভারে {{title}} বন্ধ আছে। এটি ব্যবহার করতে {{how}}।",
+      "isOffOnThisServer2": "এই সার্ভারে {{title}} বন্ধ আছে।",
+      "anotherWayToConnect": "সংযোগের আরেকটি উপায়",
+      "needsToUseIt": "{{title}} এর জন্য {{what}} প্রয়োজন। এটি ব্যবহার করতে {{how}}।",
+      "needsWhichThisHostCan": "{{title}} এর জন্য {{what}} প্রয়োজন, যা এই হোস্ট বর্তমানে ব্যবহার করতে পারে না।",
+      "thisDevice": "এই {{deviceWord}}",
+      "automatic": "স্বয়ংক্রিয়"
+    },
+    "relay": {
+      "youAreSignedOutOf": "আপনি এই সার্ভার থেকে সাইন আউট করেছেন। এর মাধ্যমে সংযোগ করতে সাইন ইন করুন।",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "এই হোস্টে tmux ইনস্টল করা নেই। সাধারণ শেল ব্যবহার করা হচ্ছে।",
+        "tapRetryToBringIt": "এটি আবার এখানে আনতে পুনরায় চেষ্টা করুন ট্যাপ করুন।",
+        "thisSessionWasOpenedOn": "এই সেশনটি অন্য একটি ডিভাইসে খোলা হয়েছিল",
+        "noServerUrlFoundLink": "কোনো সার্ভার URL পাওয়া যায়নি। সার্ভারটি আবার লিংক করুন।",
+        "signedOutOfThisServer": "এই সার্ভার থেকে সাইন আউট করা হয়েছে। আবার লগ ইন করুন।",
+        "signInWithInYour": "আপনার ব্রাউজারে {{title}} দিয়ে সাইন ইন করুন। কাজ শেষ হলে এটি বন্ধ হয়ে যাবে।",
+        "theSocketClosedWhileThe": "অ্যাপটি ব্যাকগ্রাউন্ডে থাকাকালীন সকেট বন্ধ হয়ে গেছে",
+        "noWebsocketUrlAvailableServer": "কোনো WebSocket URL উপলব্ধ নেই - সার্ভার কনফিগার করা হয়নি",
+        "connectionTimeoutServerNotResponding": "সংযোগ টাইমআউট - সার্ভার সাড়া দিচ্ছে না",
+        "verificationCode": "যাচাইকরণ কোড:",
+        "hostKeyVerificationRequiredBut": "হোস্ট কী যাচাইকরণ প্রয়োজন কিন্তু কোনো হ্যান্ডলার নিবন্ধিত নেই",
+        "hostKeyChangedButNo": "হোস্ট কী পরিবর্তন হয়েছে কিন্তু কোনো হ্যান্ডলার নিবন্ধিত নেই",
+        "thisHostNeedsASign": "এই হোস্টের জন্য একটি সাইন-ইন প্রয়োজন যা শুধুমাত্র ওয়েব অ্যাপ সমর্থন করে",
+        "invalidCodeTryAgain": "অবৈধ কোড, আবার চেষ্টা করুন:",
+        "unknownError": "অজানা ত্রুটি",
+        "connectionClosed": "সংযোগ বন্ধ হয়েছে",
+        "connectionClosed2": "সংযোগ বন্ধ হয়েছে ({{code}})",
+        "theServerClosedTheConnection": "সার্ভার সংযোগ বন্ধ করেছে",
+        "theSocketClosed": "সকেট বন্ধ হয়েছে ({{code}})",
+        "signIn": "{{title}} সাইন ইন",
+        "signInFailed": "{{title}} সাইন ইন ব্যর্থ হয়েছে",
+        "isNotSetUpOn": "সার্ভারে {{title}} সেটআপ করা নেই",
+        "signInTimedOut": "{{title}} সাইন ইন টাইমআউট হয়েছে",
+        "authenticationFailed": "প্রমাণীকরণ ব্যর্থ হয়েছে: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "এটি পরীক্ষা করতে হোস্টটি সংরক্ষণ করুন এবং এর সাথে সংযোগ করুন।",
+      "loggedInAsOn": "{{host}} এ {{username}} হিসাবে লগ ইন করা হয়েছে",
+      "theHostAskedForMore": "হোস্টটি পাসওয়ার্ডের চেয়ে বেশি কিছু চেয়েছে, যেমন একটি কোড। লগ ইন সম্পন্ন করতে হোস্টটি সংরক্ষণ করুন এবং সংযোগ করুন।"
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "নেটওয়ার্কের জন্য অপেক্ষা করা হচ্ছে",
+      "couldNotOpenTheTunnel": "টানেল খোলা যায়নি",
+      "theConnectionDropped": "সংযোগ বিচ্ছিন্ন হয়েছে",
+      "iosStoppedThisTunnelWhile": "অ্যাপটি ব্যাকগ্রাউন্ডে থাকাকালীন iOS এই টানেল বন্ধ করে দিয়েছে। এটি আবার শুরু করুন।",
+      "connecting": "সংযোগ করা হচ্ছে",
+      "connected": "সংযুক্ত",
+      "retrying": "পুনরায় চেষ্টা করা হচ্ছে",
+      "waiting": "অপেক্ষা করা হচ্ছে",
+      "failed": "ব্যর্থ"
+    },
+    "gateways": {
+      "error": "ত্রুটি",
+      "gateways": "গেটওয়ে",
+      "gatewaysCanOnlyBeChanged": "গেটওয়ে শুধুমাত্র ওয়েবে Termix এ পরিবর্তন করা যায়।",
+      "noHandshake": "কোনো হ্যান্ডশেক নেই",
+      "rulesMissing": "নিয়ম অনুপস্থিত",
+      "up": "চালু",
+      "pending": "অপেক্ষমাণ",
+      "applying": "প্রয়োগ করা হচ্ছে",
+      "down": "বন্ধ",
+      "unreachable": "অপরিহার্য"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "এখনো কোনো টানেল নেই। এন্ডপয়েন্ট হোস্ট থেকে এই হোস্টে একটি পোর্ট ফরওয়ার্ড করতে একটি টানেল যোগ করুন।",
+      "tunnel": "টানেল {{value}}",
+      "removeTunnel": "টানেল {{value}} সরান",
+      "mode": "মোড",
+      "local": "স্থানীয়",
+      "remote": "রিমোট",
+      "dynamic": "ডায়নামিক",
+      "targetHost": "টার্গেট হোস্ট",
+      "onThisHostForTunnels": "এই হোস্টে, যেখানে টানেলগুলি {{deviceWord}} চালু করে",
+      "bindHost": "বাইন্ড হোস্ট",
+      "endpointHost": "এন্ডপয়েন্ট হোস্ট",
+      "addAnotherHostFirstTunnels": "প্রথমে অন্য একটি হোস্ট যোগ করুন। টানেলগুলি একটি সংরক্ষিত হোস্টের মাধ্যমে যায়।",
+      "sourcePort": "সোর্স পোর্ট",
+      "endpointPort": "এন্ডপয়েন্ট পোর্ট",
+      "maxRetries": "সর্বোচ্চ পুনরায় চেষ্টা",
+      "retryEveryS": "প্রতি (সেকেন্ড) পুনরায় চেষ্টা করুন",
+      "startOnItsOwn": "নিজে থেকে শুরু করুন",
+      "addTunnel": "টানেল যোগ করুন",
+      "tunnelNeedsPortsFrom1": "টানেল {{value}}-এর জন্য ১ থেকে ৬৫৫৩৫ পর্যন্ত পোর্ট প্রয়োজন"
+    },
+    "register": {
+      "tunnels": "টানেল",
+      "startAndStopSavedTunnels": "সংরক্ষিত টানেল শুরু এবং বন্ধ করুন",
+      "tunnel": "টানেল",
+      "tunnel2": "টানেল"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "স্থানীয় এন্ডপয়েন্ট কপি করা হয়েছে",
+      "tunnel": "টানেল | {{sourcePort}}",
+      "portMapping": "পোর্ট ম্যাপিং",
+      "connect": "সংযোগ করুন",
+      "disconnect": "সংযোগ বিচ্ছিন্ন করুন",
+      "cancel": "বাতিল করুন",
+      "connected": "সংযুক্ত",
+      "connecting": "সংযুক্ত হচ্ছে",
+      "disconnecting": "সংযোগ বিচ্ছিন্ন হচ্ছে",
+      "error": "ত্রুটি",
+      "retrying": "পুনরায় চেষ্টা করা হচ্ছে ({{value}}/{{value2}})",
+      "waitingS": "{{value}} সেকেন্ড অপেক্ষা করা হচ্ছে",
+      "waiting": "অপেক্ষা করা হচ্ছে",
+      "disconnected": "সংযোগ বিচ্ছিন্ন"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "পোর্ট {{sourcePort}}-এ টানেল শুরু করা হচ্ছে",
+      "connectingTunnelOnPort": "পোর্ট {{sourcePort}}-এ টানেল সংযুক্ত করা হচ্ছে",
+      "disconnectingPort": "পোর্ট {{sourcePort}} সংযোগ বিচ্ছিন্ন করা হচ্ছে",
+      "cancellingPort": "পোর্ট {{sourcePort}} বাতিল করা হচ্ছে",
+      "failedToTunnel": "{{action}} টানেল ব্যর্থ হয়েছে",
+      "tunnels": "টানেল | {{count}} | {{value}}",
+      "loadingTunnels": "টানেল লোড হচ্ছে…",
+      "noSshTunnelsConfiguredFor": "এই হোস্টের জন্য কোনো SSH টানেল কনফিগার করা নেই। হোস্ট ফর্ম থেকে টানেল যোগ করুন।",
+      "runOn": "চালু করুন",
+      "server": "সার্ভার",
+      "this": "এই {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "এই {{deviceWord}}-এ টানেলগুলি অ্যাপ বন্ধ হলে থেমে যায়। iOS-এ অ্যাপ ব্যাকগ্রাউন্ডে গেলেও তা শীঘ্রই থেমে যায়।",
+      "failedToFetchTunnelStatuses": "টানেল স্ট্যাটাস ফেচ করতে ব্যর্থ হয়েছে",
+      "thisBuildCanTOpen": "এই বিল্ডটি {{deviceWord}}-এ টানেল খুলতে পারে না।",
+      "sourceHostNotFound": "সোর্স হোস্ট পাওয়া যায়নি",
+      "endpointHostNotFound": "এন্ডপয়েন্ট হোস্ট পাওয়া যায়নি: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "টানেল",
+      "tunnelCount_one": "{{count}} টানেল",
+      "tunnelCount_other": "{{count}} টানেল",
+      "runningOnServer": "{{connected}} সার্ভারে চলমান"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "ক্রেডেনশিয়াল টুলস"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "এই হোস্টে Docker ইনস্টল করা নেই।",
+        "dockerDidNotAnswer": "Docker কোনো উত্তর দেয়নি",
+        "thatIsNotAValid": "এটি একটি বৈধ স্ট্যাক নাম নয়"
+      }
+    },
+    "containerDetail": {
+      "stop": "বন্ধ করুন",
+      "start": "শুরু করুন",
+      "restart": "পুনরায় চালু করুন",
+      "remove": "সরান",
+      "logs": "লগ",
+      "stats": "পরিসংখ্যান",
+      "console": "কনসোল",
+      "logsCopied": "লগ কপি করা হয়েছে",
+      "copy": "কপি",
+      "containerIsNotRunningNo": "কন্টেইনার চলছে না, কোনো লাইভ পরিসংখ্যান নেই।",
+      "cpu": "CPU",
+      "memory": "মেমোরি",
+      "networkIO": "নেটওয়ার্ক I/O",
+      "blockIO": "ব্লক I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "লগ লোড করা ব্যর্থ হয়েছে",
+      "failedToLoadStats": "পরিসংখ্যান লোড করা ব্যর্থ হয়েছে",
+      "noOutput": "(কোনো আউটপুট নেই)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Docker-এ সংযুক্ত হচ্ছে...",
+    "remove": "{{name}} সরান?",
+    "stop": "{{name}} বন্ধ করুন?",
+    "theContainerIsStoppedAnd": "কন্টেইনারটি বন্ধ এবং মুছে ফেলা হয়েছে। এর ভলিউমগুলো থেকে যাবে।",
+    "anythingRunningInItStops": "এটিতে চলমান যেকোনো কিছু বন্ধ হয়ে যাবে।",
+    "remove2": "সরান",
+    "stop2": "বন্ধ করুন",
+    "dockerThis": "Docker | এই {{deviceWord}}",
+    "lookingForDocker": "Docker খুঁজছে...",
+    "dockerIsNotAvailableOn": "এই হোস্টে Docker উপলব্ধ নয়।",
+    "noContainersFound": "কোনো কন্টেইনার পাওয়া যায়নি",
+    "noContainersMatchYourFilters": "আপনার ফিল্টারের সাথে কোনো কন্টেইনার মিলছে না",
+    "useSudo": "sudo ব্যবহার করুন",
+    "refresh": "রিফ্রেশ",
+    "containers": "কন্টেইনার",
+    "stacks": "স্ট্যাক",
+    "searchContainers": "কন্টেইনার খুঁজুন...",
+    "all": "সব",
+    "running": "চলমান",
+    "stopped": "বন্ধ",
+    "start": "শুরু করুন",
+    "restart": "পুনরায় চালু করুন",
+    "pause": "পজ",
+    "unpause": "আনপজ",
+    "moreActions": "আরও অ্যাকশন",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker কোনো উত্তর দেয়নি",
+      "docker": "Docker",
+      "noContainers": "কোনো কন্টেইনার নেই"
+    },
+    "dockerConsole": {
+      "attachingTo": "{{name}}-এ সংযুক্ত হচ্ছে...",
+      "consoleDisconnected": "কনসোল ডিসকানেক্ট হয়েছে",
+      "reconnect": "পুনরায় সংযুক্ত করুন",
+      "failedToLoadTheConsole": "কনসোল লোড করা ব্যর্থ হয়েছে",
+      "thisSessionHasNoServer": "এই সেশনের কোনো সার্ভার নেই"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "কন্টেইনার, লগ এবং পরিসংখ্যান"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "এই সার্ভারে স্ট্যাক বন্ধ আছে।",
+      "couldNotLoadStacks": "স্ট্যাক লোড করা যায়নি",
+      "noStacks": "কোনো স্ট্যাক নেই",
+      "composeProjectsOnThisHost": "এই হোস্টের কম্পোজ প্রজেক্টগুলো এখানে দেখা যাবে।",
+      "ofRunning": "{{total}} এর মধ্যে {{running}} চলছে",
+      "couldNotLoadTheStack": "স্ট্যাক লোড করা যায়নি",
+      "services": "সার্ভিস",
+      "nothingIsRunning": "কিছুই চলছে না।",
+      "composeFile": "কম্পোজ ফাইল",
+      "partlyUp": "আংশিক চালু",
+      "notDeployed": "ডেপ্লয় করা হয়নি",
+      "running": "চলছে",
+      "stopped": "বন্ধ",
+      "paused": "পজ করা"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "এটি একটি বৈধ কন্টেইনার আইডি নয়",
+      "consoleFailed": "কনসোল ব্যর্থ হয়েছে",
+      "notAuthenticated": "প্রমাণীকরণ করা হয়নি",
+      "consoleError": "কনসোল ত্রুটি",
+      "connectionFailed": "সংযোগ ব্যর্থ হয়েছে"
+    },
+    "dockerDidNotAnswer": "Docker কোনো উত্তর দেয়নি",
+    "failedToLoadContainers": "কন্টেইনার লোড করা যায়নি",
+    "failedTo": "{{action}} করা যায়নি"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "সার্ভার কোনো ফাইল পাঠায়নি",
+        "cancelled": "বাতিল করা হয়েছে",
+        "isGone": "{{path}} আর নেই",
+        "canTGoToThe": "{{name}} ট্র্যাশে পাঠানো যায়নি"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "অবৈধ ট্র্যাশ আইটেম আইডি",
+        "invalidTrashMetadata": "অবৈধ ট্র্যাশ মেটাডাটা",
+        "thisPathCanTBe": "এই পাথ ট্র্যাশে সরানো যায়নি",
+        "aFileAlreadyExistsAt": "মূল পাথে ইতিমধ্যে একটি ফাইল রয়েছে"
+      },
+      "sftp": {
+        "commandFailed": "কমান্ড ব্যর্থ হয়েছে: {{command}}",
+        "alreadyExists": "{{name}} ইতিমধ্যে রয়েছে",
+        "alreadyExistsThere": "{{path}} সেখানে ইতিমধ্যে রয়েছে",
+        "canTGoToThe": "{{name}} ট্র্যাশে পাঠানো যায়নি: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "টার্মিনাল আর খোলা নেই",
+      "clearHistory": "ইতিহাস মুছুন",
+      "stopFollowingTheTerminal": "টার্মিনাল অনুসরণ বন্ধ করুন",
+      "followTheTerminal": "টার্মিনাল অনুসরণ করুন",
+      "goToTheTerminalS": "টার্মিনালের ফোল্ডারে যান",
+      "cdTheTerminalHere": "টার্মিনাল এখানে cd করুন",
+      "folderHistory": "ফোল্ডার ইতিহাস",
+      "mostUsedFirstThenRecent": "সর্বাধিক ব্যবহৃত প্রথমে, তারপর সাম্প্রতিক",
+      "noFoldersYet": "এখনো কোনো ফোল্ডার নেই"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "সংযোগ করা যায়নি।",
+        "couldNotSaveHowThis": "এই হোস্টটি কীভাবে সংযোগ করে তা সংরক্ষণ করা যায়নি",
+        "thisWayCanTOpen": "এই পদ্ধতিতে ফাইল খোলা যায় না"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "এই ফোল্ডারটি খোলা যায়নি",
+      "cancel": "বাতিল",
+      "noFoldersHere": "এখানে কোনো ফোল্ডার নেই"
+    },
+    "couldNotOpenThisFolder": "এই ফোল্ডারটি খোলা যায়নি",
+    "couldNotSaveToThe": "ফোল্ডারে সংরক্ষণ করা যায়নি",
+    "failed": "{{label}} ব্যর্থ হয়েছে",
+    "uploading": "{{name}} আপলোড হচ্ছে",
+    "uploadingFiles": "{{count}} ফাইল আপলোড হচ্ছে",
+    "downloadingToFilesOnMy": "Files, On My iPhone, Termix এ ডাউনলোড হচ্ছে",
+    "downloading": "{{name}} ডাউনলোড হচ্ছে",
+    "downloadingFiles": "{{count}} ফাইল ডাউনলোড হচ্ছে",
+    "openALargeFile": "একটি বড় ফাইল খুলবেন?",
+    "isBigForAEditor": "{{name}} একটি {{deviceWord}} এডিটরের জন্য বড়। এটি ধীর হতে পারে।",
+    "open": "খুলুন",
+    "thisLooksLikeABinary": "এটি একটি বাইনারি ফাইলের মতো দেখাচ্ছে",
+    "openItInAnotherApp": "এটি অন্য কোনো অ্যাপে খুলবেন?",
+    "openWith": "এতে খুলুন",
+    "tooBigForTheEditor": "এডিটরের জন্য খুব বড়",
+    "isOver10MbDownload": "{{name}} ১০ এমবি-এর বেশি। এটি ডাউনলোড করবেন?",
+    "download": "ডাউনলোড",
+    "delete": "{{what}} মুছবেন?",
+    "moveToTheTrash": "{{what}} ট্র্যাশে সরাবেন?",
+    "thisCanTBeUndone": "এটি পূর্বাবস্থায় ফেরানো যাবে না।",
+    "youCanRestoreItFrom": "আপনি ট্র্যাশ থেকে এটি পুনরুদ্ধার করতে পারেন।",
+    "delete2": "মুছুন",
+    "moveToTrash": "ট্র্যাশে সরান",
+    "deleteForGood": "চিরতরে মুছবেন?",
+    "deleteItForGoodInstead": "{{message}}। এর পরিবর্তে চিরতরে মুছবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না।",
+    "deleteFailed": "মুছে ফেলতে ব্যর্থ হয়েছে",
+    "connectingThroughTheServer": "সার্ভারের মাধ্যমে সংযোগ স্থাপন করা হচ্ছে...",
+    "connectingFromThis": "এই {{deviceWord}} থেকে সংযোগ স্থাপন করা হচ্ছে...",
+    "connecting": "সংযোগ স্থাপন করা হচ্ছে...",
+    "edit": "সম্পাদনা",
+    "downloadFolder": "ফোল্ডার ডাউনলোড",
+    "share": "শেয়ার",
+    "rename": "নাম পরিবর্তন",
+    "copyTo": "এখানে কপি করুন",
+    "moveTo": "এখানে সরান",
+    "cut": "কাট",
+    "copy": "কপি",
+    "permissions": "অনুমতি",
+    "properties": "বৈশিষ্ট্য",
+    "makeALinkHere": "এখানে একটি লিংক তৈরি করুন",
+    "copyPath": "পথ কপি করুন",
+    "pathCopied": "পথ কপি হয়েছে",
+    "done": "সম্পন্ন",
+    "selectAll": "সব নির্বাচন করুন",
+    "filterByName": "নাম অনুযায়ী ফিল্টার করুন",
+    "closeSearch": "অনুসন্ধান বন্ধ করুন",
+    "search": "অনুসন্ধান",
+    "changeSort": "সাজানোর ক্রম পরিবর্তন করুন",
+    "paste": "{{count}} পেস্ট করুন",
+    "upload": "আপলোড",
+    "transfers2": "ট্রান্সফার",
+    "more": "আরও",
+    "nothingMatches": "কিছু মিলছে না",
+    "emptyFolder": "খালি ফোল্ডার",
+    "uploadFilesOrMakeA": "ফাইল আপলোড করুন অথবা নতুন তৈরি করুন।",
+    "newFolder": "নতুন ফোল্ডার",
+    "newFile": "নতুন ফাইল",
+    "select": "নির্বাচন",
+    "hideHiddenFiles": "লুকানো ফাইল লুকান",
+    "showHiddenFiles": "লুকানো ফাইল দেখান",
+    "trash": "ট্র্যাশ",
+    "folderProperties": "ফোল্ডার বৈশিষ্ট্য",
+    "refresh": "রিফ্রেশ",
+    "rename2": "{{name}} এর নাম পরিবর্তন",
+    "newLink": "নতুন লিংক",
+    "aLinkInThatPoints": "{{path}} এ একটি লিংক যা {{path2}} এর দিকে নির্দেশ করে",
+    "name": "নাম",
+    "create": "তৈরি করুন",
+    "copyHere": "এখানে কপি করুন",
+    "moveHere": "এখানে সরান",
+    "fileViewer": {
+      "saved": "{{name}} সংরক্ষিত হয়েছে",
+      "couldNotSaveTheFile": "ফাইলটি সংরক্ষণ করা যায়নি",
+      "discardChanges": "পরিবর্তন বাতিল করবেন?",
+      "hasChangesThatAreNot": "{{name}}-এর কিছু পরিবর্তন সংরক্ষণ করা হয়নি।",
+      "discard": "বাতিল করুন",
+      "readOnly": "{{path}} | শুধুমাত্র পঠনযোগ্য",
+      "find": "খুঁজুন",
+      "smallerText": "ছোট লেখা",
+      "biggerText": "বড় লেখা",
+      "turnOffLineWrap": "লাইন রাপ বন্ধ করুন",
+      "wrapLines": "লাইন রাপ করুন",
+      "save": "সংরক্ষণ করুন"
+    },
+    "hostSection": {
+      "startIn": "এখান থেকে শুরু করুন",
+      "theFolderTheFileManager": "ফাইল ম্যানেজার প্রথমবার যে ফোল্ডারটি খোলে",
+      "files": "ফাইল"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "{{path}}-এ যান"
+      },
+      "fileRow": {
+        "moreActions": "আরও অপশন",
+        "moreFor": "{{name}}-এর জন্য আরও"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "অনুমতি",
+      "cancel": "বাতিল",
+      "apply": "প্রয়োগ করুন ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "এটি খোলা যায়নি",
+      "openWith": "এর মাধ্যমে খুলুন",
+      "share": "শেয়ার করুন"
+    },
+    "propertiesView": {
+      "properties": "বৈশিষ্ট্য",
+      "path": "পথ",
+      "type": "ধরন",
+      "pointsTo": "নির্দেশ করে",
+      "size": "আকার",
+      "countFolderSize": "ফোল্ডারের আকার গণনা করুন",
+      "permissions": "অনুমতি",
+      "change": "পরিবর্তন করুন",
+      "owner": "মালিক",
+      "group": "গ্রুপ",
+      "modified": "সর্বশেষ পরিবর্তন",
+      "opened": "খোলা হয়েছে",
+      "linkToA": "{{value}}-এর লিংক",
+      "notShownForFolders": "ফোল্ডারের জন্য প্রদর্শিত হয় না",
+      "file": "ফাইল",
+      "folder": "ফোল্ডার",
+      "link": "লিংক"
+    },
+    "register": {
+      "fileManager": "ফাইল ম্যানেজার",
+      "files": "ফাইল",
+      "browseEditAndMoveFiles": "ফাইল ব্রাউজ, সম্পাদনা এবং সরান",
+      "files2": "ফাইল",
+      "fileManagerAndTransfers": "ফাইল ম্যানেজার এবং ট্রান্সফার"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "ট্রান্সফার ব্যর্থ হয়েছে"
+      },
+      "transfersPanel": {
+        "pause": "বিরতি নিন",
+        "resume": "পুনরায় শুরু করুন",
+        "tryAgain": "আবার চেষ্টা করুন",
+        "open": "খুলুন",
+        "cancel": "বাতিল",
+        "transfers": "ট্রান্সফার",
+        "goingOf": "{{active}} চলছে | {{total}}-এর মধ্যে {{done}} সম্পন্ন",
+        "clearFinished": "সম্পন্ন ট্রান্সফার মুছুন",
+        "cancelAll": "সব বাতিল করুন",
+        "noTransfersYet": "এখনো কোনো ট্রান্সফার নেই",
+        "waiting": "অপেক্ষমাণ",
+        "paused": "বিরতি নেওয়া হয়েছে",
+        "done": "সম্পন্ন",
+        "failed": "ব্যর্থ",
+        "cancelled": "বাতিল করা হয়েছে"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "ট্র্যাশ লোড করতে ব্যর্থ হয়েছে",
+      "restored": "Restored {{name}}",
+      "failedToRestore": "Restore করা যায়নি",
+      "failedToDelete": "মুছে ফেলা যায়নি",
+      "trashEmptied": "Trash খালি করা হয়েছে",
+      "failedToEmptyTrash": "Trash খালি করা যায়নি",
+      "trash": "Trash",
+      "itemsAreRemovedAfterDays": "আইটেমগুলো {{retentionDays}} দিন পর মুছে যাবে",
+      "close": "বন্ধ করুন",
+      "emptyTrash": "Trash খালি করুন",
+      "trashIsEmpty": "Trash খালি",
+      "restore": "{{name}} পুনরুদ্ধার করুন",
+      "deleteForGood": "{{name}} স্থায়ীভাবে মুছে ফেলুন"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "এইমাত্র"
+      }
+    },
+    "getting": "{{name}} লোড হচ্ছে",
+    "itemCount_one": "{{count}}টি আইটেম",
+    "itemCount_other": "{{count}}টি আইটেম",
+    "copiedWhat": "{{what}} কপি করা হয়েছে",
+    "movedWhat": "{{what}} সরানো হয়েছে",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}}-এর {{limit}}-এর বেশি ফাইল আছে। ছোট ফোল্ডার ডাউনলোড করুন।"
+    },
+    "downloadingToFilesOnMyIpad": "Files-এ ডাউনলোড হচ্ছে, On My iPad, Termix",
+    "size": "আকার",
+    "date": "তারিখ"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "সার্ভিস লিংক",
+      "openInHomepage": "Homepage-এ খুলুন",
+      "thisWidgetOnlyShowsOn": "এই উইজেটটি শুধুমাত্র পূর্ণ পৃষ্ঠায় দেখায়।"
+    },
+    "register": {
+      "serviceLinks": "সার্ভিস লিংক",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "কোনো ফিড সেট করা নেই।",
+        "couldNotLoadTheFeed": "ফিড লোড করা যায়নি।",
+        "theFeedIsEmpty": "ফিডটি খালি।",
+        "noLocationSet": "কোনো অবস্থান সেট করা নেই।",
+        "couldNotLoadTheWeather": "আবহাওয়া লোড করা যায়নি।",
+        "noUrlSet": "কোনো URL সেট করা নেই।",
+        "couldNotLoadTheData": "ডেটা লোড করা যায়নি।",
+        "noPictureSet": "কোনো ছবি সেট করা নেই।",
+        "badResponse": "ভুল রেসপন্স"
+      },
+      "services": "সার্ভিস",
+      "service": "সার্ভিস",
+      "serviceLinks": "সার্ভিস লিংক",
+      "bookmarks": "বুকমার্ক",
+      "links2": "লিংক",
+      "search": "খুঁজুন",
+      "clock": "ঘড়ি",
+      "countdown": "কাউন্টডাউন",
+      "calendar": "ক্যালেন্ডার",
+      "notes": "নোট",
+      "banner": "ব্যানার",
+      "ping": "পিং",
+      "host": "হোস্ট",
+      "hosts": "হোস্ট",
+      "quickConnect": "দ্রুত সংযোগ",
+      "feed": "ফিড",
+      "weather": "আবহাওয়া",
+      "customApi": "কাস্টম API",
+      "picture": "ছবি",
+      "widget": "উইজেট",
+      "links": {
+        "noServicesYet": "এখনো কোনো সার্ভিস নেই।",
+        "noLinkSet": "কোনো লিংক সেট করা নেই।",
+        "noLinksYet": "এখনো কোনো লিংক নেই।",
+        "noSearchEngineSet": "কোনো সার্চ ইঞ্জিন সেট করা নেই।",
+        "search": "খুঁজুন",
+        "noShortcutsYet": "এখনও কোনো শর্টকাট নেই।",
+        "search2": "{{label}} অনুসন্ধান করুন"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "লিংকটি খোলা যায়নি"
+      },
+      "status": {
+        "noUrlsYet": "এখনও কোনো URL নেই।",
+        "down": "ডাউন",
+        "noHostsPicked": "কোনো হোস্ট নির্বাচন করা হয়নি।"
+      },
+      "text": {
+        "noNotesYet": "এখনও কোনো নোট নেই।",
+        "noTextYet": "এখনও কোনো টেক্সট নেই।"
+      },
+      "time": {
+        "noDateSet": "কোনো তারিখ সেট করা হয়নি।",
+        "timeIsUp": "সময় শেষ"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "ডিফল্ট সেভ করা যায়নি",
+    "couldNotResetTheDefault": "ডিফল্ট রিসেট করা যায়নি",
+    "back": "পিছনে",
+    "hostDefaults": "হোস্ট ডিফল্ট",
+    "newHostsStartFromThese": "নতুন হোস্টগুলো এখান থেকে শুরু হয়",
+    "managedOnTheServer": "সার্ভারে পরিচালিত",
+    "defaultsForThisServerAre": "এই সার্ভারের জন্য ডিফল্টগুলো ওয়েব অ্যাপে সেট করা আছে।",
+    "level": "লেভেল",
+    "yourDefaultsOrOneFolder": "আপনার ডিফল্ট, অথবা একটি ফোল্ডারের",
+    "myDefaults": "আমার ডিফল্ট",
+    "theServerSets": " সার্ভারটি {{adminCount}} সেট করে।",
+    "aFolderWinsOverYour": "একটি ফোল্ডার আপনার ডিফল্টের চেয়ে অগ্রাধিকার পায়, এবং আপনার ডিফল্ট সার্ভারের ডিফল্টের চেয়ে অগ্রাধিকার পায়। আপনি নিজে যে মান সেট করেছেন, হোস্টটি তা বজায় রাখে।{{value}}",
+    "save": "সেভ করুন",
+    "authentication": "অথেন্টিকেশন",
+    "none": "কোনোটিই নয়",
+    "reset": "রিসেট",
+    "model": {
+      "username": "ইউজারনেম",
+      "sshPort": "SSH পোর্ট",
+      "authentication": "অথেন্টিকেশন",
+      "aSavedCredentialForNew": "নতুন হোস্টের জন্য একটি সেভ করা ক্রেডেনশিয়াল",
+      "forceKeyboardInteractive": "ফোর্স কিবোর্ড ইন্টারেক্টিভ",
+      "keepaliveInterval": "কিপঅ্যালাইভ ইন্টারভাল",
+      "seconds0TurnsItOff": "সেকেন্ড, 0 হলে এটি বন্ধ হয়ে যায়",
+      "keepaliveTries": "কিপঅ্যালাইভ ট্রাই",
+      "allowOldAlgorithms": "পুরানো অ্যালগরিদম অনুমতি দিন",
+      "agentForwarding": "এজেন্ট ফরওয়ার্ডিং",
+      "environmentVariables": "এনভায়রনমেন্ট ভেরিয়েবল",
+      "oneNameValuePerLine": "প্রতি লাইনে একটি NAME=value",
+      "checkIfTheHostIs": "হোস্টটি আপ আছে কিনা চেক করুন",
+      "checkInterval": "চেক ইন্টারভাল",
+      "secondsEmptyUsesTheServer": "সেকেন্ড, খালি থাকলে সার্ভারের ব্যবহার হবে",
+      "socks5Proxy": "SOCKS5 প্রক্সি",
+      "setInTheWebApp": "ওয়েব অ্যাপে সেট করা",
+      "jumpHosts": "জাম্প হোস্ট",
+      "portKnocking": "পোর্ট নকিং",
+      "notSet": "সেট করা হয়নি",
+      "fromTheServer": "সার্ভার থেকে",
+      "fromYourDefaults": "আপনার ডিফল্ট থেকে",
+      "builtIn": "বিল্ট-ইন"
+    },
+    "register": {
+      "hostDefaults": "হোস্ট ডিফল্ট",
+      "portUserAndOptionsFor": "নতুন হোস্টের জন্য পোর্ট, ইউজার এবং অপশন"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "এখনও কোনো ডেটা নেই",
+      "cpu": "CPU",
+      "memory": "মেমোরি",
+      "disk": "ডিস্ক",
+      "history": "ইতিহাস",
+      "loading": "লোড হচ্ছে..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "মেট্রিক্স পড়া যায়নি",
+      "metrics": "মেট্রিক্স",
+      "cpu": "CPU",
+      "memory": "মেমোরি",
+      "disk": "ডিস্ক",
+      "noRecentSampleOpenThe": "কোনো সাম্প্রতিক নমুনা নেই। একটি শুরু করতে হোস্টের মেট্রিক্স খুলুন।"
+    },
+    "register": {
+      "enableMetrics": "মেট্রিক্স সক্রিয় করুন",
+      "cpuMemoryDiskAndNetwork": "এসএসএইচ-এর মাধ্যমে সিপিইউ, মেমোরি, ডিস্ক এবং নেটওয়ার্ক",
+      "hostMetrics": "হোস্ট মেট্রিক্স",
+      "cpu": "সিপিইউ",
+      "ram": "র‍্যাম",
+      "metrics": "মেট্রিক্স",
+      "cpuMemoryDiskAndNetwork2": "সিপিইউ, মেমোরি, ডিস্ক এবং নেটওয়ার্ক"
+    },
+    "serverStats": {
+      "hostMetricsThis": "হোস্ট মেট্রিক্স | এই {{deviceWord}}",
+      "hostMetrics": "হোস্ট মেট্রিক্স",
+      "ran": "{{name}} চালানো হয়েছে",
+      "loadingMetrics": "মেট্রিক্স লোড হচ্ছে...",
+      "couldNotReadMetricsFrom": "এই হোস্ট থেকে মেট্রিক্স পড়া যায়নি",
+      "failedToLoadMetrics": "মেট্রিক্স লোড করতে ব্যর্থ হয়েছে",
+      "thisSessionHasNoServer": "এই সেশনে কোনো সার্ভার নেই",
+      "twoFactorRequiredForThis": "এই হোস্টের পরিসংখ্যানের জন্য দুই-ফ্যাক্টর প্রমাণীকরণ প্রয়োজন।",
+      "failedToStartMetrics": "মেট্রিক্স শুরু করতে ব্যর্থ হয়েছে",
+      "failedToRun": "{{name}} চালানো যায়নি"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "সিপিইউ",
+        "perCore": "প্রতি কোর: {{value}}",
+        "cores": "কোর",
+        "load": "লোড",
+        "user": "ইউজার",
+        "system": "সিস্টেম",
+        "ioWait": "আইও অপেক্ষা",
+        "steal": "স্টিয়াল"
+      },
+      "diskWidget": {
+        "disk": "ডিস্ক  {{mount}}",
+        "disk2": "ডিস্ক",
+        "used": "ব্যবহৃত",
+        "total": "মোট",
+        "free": "ফ্রি"
+      },
+      "firewallWidget": {
+        "firewall": "ফায়ারওয়াল",
+        "rules": "{{type}} | {{ruleCount}} নিয়ম",
+        "noFirewallDetected": "কোনো ফায়ারওয়াল পাওয়া যায়নি"
+      },
+      "gpuWidget": {
+        "gpus": "জিপিইউ ({{count}})",
+        "gpu": "জিপিইউ",
+        "memory": "মেমোরি",
+        "temp": "তাপমাত্রা",
+        "power": "পাওয়ার",
+        "fan": "ফ্যান"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "লগইন কার্যকলাপ",
+        "noLoginActivityRecorded": "কোনো লগইন কার্যকলাপ রেকর্ড করা হয়নি",
+        "logins": "লগইন",
+        "uniqueIps": "অনন্য আইপি",
+        "failed": "ব্যর্থ",
+        "recent": "সাম্প্রতিক"
+      },
+      "memoryWidget": {
+        "memory": "মেমোরি",
+        "used": "ব্যবহৃত",
+        "total": "মোট",
+        "cached": "ক্যাশেড",
+        "free": "ফ্রি"
+      },
+      "networkWidget": {
+        "network": "নেটওয়ার্ক",
+        "noInterfaces": "কোনো ইন্টারফেস নেই",
+        "up": "আপলোড",
+        "down": "ডাউনলোড"
+      },
+      "portsWidget": {
+        "listeningPorts": "লিসেনিং পোর্ট",
+        "noListeningPorts": "কোনো লিসেনিং পোর্ট নেই"
+      },
+      "processesWidget": {
+        "sortBy": "{{label}} অনুযায়ী সাজান",
+        "processes": "প্রসেস",
+        "running": "{{value}} চলছে | {{total}}",
+        "noProcessData": "কোনো প্রসেস ডেটা নেই",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "কমান্ড"
+      },
+      "systemWidget": {
+        "system": "সিস্টেম",
+        "hostname": "হোস্টনেম",
+        "os": "OS",
+        "kernel": "কর্নেল",
+        "arch": "আর্ক",
+        "noSystemInfo": "কোনো সিস্টেম তথ্য নেই"
+      },
+      "temperatureWidget": {
+        "temperature": "তাপমাত্রা"
+      },
+      "uptimeWidget": {
+        "uptime": "আপটাইম"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "পাসওয়ার্ড সহ কপি করা হয়েছে",
+      "copiedTheLink": "লিংক কপি করা হয়েছে",
+      "shareHost": "হোস্ট শেয়ার করুন",
+      "thatHostNoLongerExists": "সেই হোস্টটি আর বিদ্যমান নেই",
+      "scanThisInTermixOn": "আন্য {{deviceWord}}-এ Termix-এ ইমপোর্ট এবং এক্সপোর্ট বিভাগে এটি স্ক্যান করুন। কোডে ঠিকানা, পোর্ট এবং ব্যবহারকারী রয়েছে। এতে কোনো পাসওয়ার্ড বা কী নেই।",
+      "copyLink": "লিংক কপি করুন",
+      "copyLinkWithPassword": "পাসওয়ার্ড সহ লিংক কপি করুন"
+    },
+    "includePasswordsAndKeys": "পাসওয়ার্ড এবং কী অন্তর্ভুক্ত করবেন?",
+    "anyoneWhoGetsThisFile": "এই ফাইলটি যে কেউ পেলে এই হোস্টগুলিতে সাইন ইন করতে পারবে। এটি নিরাপদে রাখুন।",
+    "includeThem": "অন্তর্ভুক্ত করুন",
+    "pickAtLeastOneHost": "কমপক্ষে একটি হোস্ট নির্বাচন করুন",
+    "couldNotMakeTheFile": "ফাইল তৈরি করা যায়নি",
+    "copiedToTheClipboard": "ক্লিপবোর্ডে কপি করা হয়েছে",
+    "importAndExport": "ইমপোর্ট এবং এক্সপোর্ট",
+    "moveHostsInAndOut": "হোস্টগুলি আনা-নেওয়া করুন",
+    "import": "ইমপোর্ট",
+    "aTermixHostFileAn": "একটি Termix হোস্ট ফাইল, একটি SSH কনফিগ ফাইল, বা আন্য {{deviceWord}} থেকে একটি হোস্ট লিংক বা QR কোড।",
+    "export": "এক্সপোর্ট",
+    "allHosts": "সব হোস্ট",
+    "picked": "{{size}} নির্বাচিত",
+    "pickHosts": "হোস্ট নির্বাচন করুন",
+    "includePasswordsAndKeys2": "পাসওয়ার্ড এবং কী অন্তর্ভুক্ত করুন",
+    "offMakesAFileSafe": "বন্ধ রাখলে ফাইলটি শেয়ার করার জন্য নিরাপদ হয়। সংরক্ষিত ক্রেডেনশিয়াল ব্যবহার করা হোস্টগুলো নামের মাধ্যমে তা নির্দেশ করে",
+    "shareAFile": "একটি ফাইল শেয়ার করুন",
+    "copy": "কপি",
+    "importPanel": {
+      "couldNotReadThat": "এটি পড়া যায়নি",
+      "couldNotReadThatFile": "সেই ফাইলটি পড়া যায়নি",
+      "importFailed": "ইমপোর্ট ব্যর্থ হয়েছে",
+      "chooseAFile": "একটি ফাইল নির্বাচন করুন",
+      "paste": "পেস্ট",
+      "scanACode": "একটি কোড স্ক্যান করুন",
+      "couldNotBeRead": "{{count}} পড়া যায়নি",
+      "updateHostsThatExist": "যে হোস্টগুলো বিদ্যমান সেগুলো আপডেট করুন",
+      "sameAddressPortAndUser": "একই ঠিকানা, পোর্ট এবং ব্যবহারকারী। অন্যথায় সেগুলো বাদ দেওয়া হবে",
+      "cancel": "বাতিল",
+      "import": "ইমপোর্ট",
+      "andMore": "এবং আরও {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR কোড"
+    },
+    "register": {
+      "importAndExport": "ইমপোর্ট এবং এক্সপোর্ট",
+      "moveHostsInOrOut": "ফাইল বা QR কোড দিয়ে হোস্টগুলি আনা-নেওয়া করুন",
+      "shareHost": "হোস্ট শেয়ার করুন"
+    },
+    "scanSheet": {
+      "scanAHostCode": "একটি হোস্ট কোড স্ক্যান করুন",
+      "pointTheCameraAtA": "ক্যামেরাটি একটি Termix হোস্ট QR কোডের দিকে তাক করান।",
+      "termixNeedsTheCameraTo": "কোড স্ক্যান করতে Termix-এর ক্যামেরা প্রয়োজন। কিছুই রেকর্ড করা হয় না।",
+      "allowTheCamera": "ক্যামেরা অনুমতি দিন"
+    },
+    "read": {
+      "termixFile": "Termix ফাইল",
+      "sshConfig": "SSH কনফিগ",
+      "thereIsNothingToImport": "আমদানি করার মতো কিছু নেই",
+      "thatIsNotATermix": "এটি একটি Termix হোস্ট লিংক নয়",
+      "linkHost": "১টি হোস্ট: {{name}}",
+      "sourceHosts_one": "{{what}} সহ {{count}}টি হোস্ট",
+      "sourceHosts_other": "{{what}} সহ {{count}}টি হোস্ট"
+    },
+    "saveYourTermixHosts": "আপনার Termix হোস্টগুলো সংরক্ষণ করুন"
+  },
+  "operations": {
+    "approvals": {
+      "done": "সম্পন্ন",
+      "rejected": "প্রত্যাখ্যান করা হয়েছে",
+      "approvals": "অনুমোদন",
+      "nothingIsWaiting": "কিছুই অপেক্ষা করছে না",
+      "actionsARuleHoldsFor": "অনুমোদনের জন্য নিয়ম দ্বারা আটকে থাকা অ্যাকশনগুলো এখানে দেখা যাবে।",
+      "approveAndRun": "অনুমোদন এবং চালান",
+      "reject": "প্রত্যাখ্যান",
+      "couldNotLoadApprovals": "অনুমোদন লোড করা যায়নি",
+      "couldNotDecide": "সিদ্ধান্ত নেওয়া যায়নি"
+    },
+    "approvalsCard": {
+      "approved": "অনুমোদিত",
+      "rejected": "প্রত্যাখ্যান করা হয়েছে",
+      "waitingForApproval": "অনুমোদনের অপেক্ষায়",
+      "approve": "অনুমোদন",
+      "reject": "প্রত্যাখ্যান",
+      "couldNotDecide": "সিদ্ধান্ত নেওয়া যায়নি",
+      "seeAll": "সব দেখুন"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "এটি পূর্বাবস্থায় ফেরানো যাবে না। এটি চালান?",
+      "run": "চালান",
+      "sentForApproval": "অনুমোদনের জন্য পাঠানো হয়েছে",
+      "target": "টার্গেট",
+      "theItemOnTheHost": "হোস্টের আইটেম, যেমন একটি কন্টেইনার",
+      "dryRun": "ড্রাই রান",
+      "back": "পিছনে",
+      "actions": "অ্যাকশন",
+      "noActionsForThisHost": "এই হোস্টের জন্য কোনো অ্যাকশন নেই",
+      "turnOnAPluginLike": "সার্ভারে এই হোস্টের জন্য Docker বা Services-এর মতো একটি প্লাগইন চালু করুন।",
+      "destructive": "ধ্বংসাত্মক",
+      "changes": "পরিবর্তন",
+      "theActionCouldNotRun": "অ্যাকশনটি চালানো যায়নি",
+      "couldNotLoadActions": "অ্যাকশন লোড করা যায়নি"
+    },
+    "register": {
+      "actions": "অ্যাকশন",
+      "waitingForApproval": "অনুমোদনের অপেক্ষায়",
+      "approvals": "অনুমোদন",
+      "actionsWaitingForAPerson": "কোনো ব্যক্তি হ্যাঁ বলার অপেক্ষায় থাকা অ্যাকশন",
+      "runHistory": "চালানোর ইতিহাস",
+      "everyActionAnyoneRanFrom": "যেকোনো ডিভাইস থেকে যেকোনো ব্যক্তি যেসব অ্যাকশন চালিয়েছেন"
+    },
+    "runHistory": {
+      "cancelThisRun": "এই রানটি বাতিল করবেন?",
+      "cancelRun": "রান বাতিল করুন",
+      "keep": "রক্ষা করুন",
+      "undoThisRun": "এই রানটি পূর্বাবস্থায় ফেরাবেন?",
+      "thisRunsTheActionS": "এটি একই ইনপুট দিয়ে অ্যাকশনের পূর্বাবস্থায় ফেরানোর কাজটি চালায়।",
+      "undo": "পূর্বাবস্থায় ফেরান",
+      "cancelled": "বাতিল করা হয়েছে",
+      "itAlreadyFinished": "এটি ইতিমধ্যে সম্পন্ন হয়েছে",
+      "done": "সম্পন্ন",
+      "runHistory": "চালানোর ইতিহাস",
+      "nothingHasRunYet": "এখনো কিছু চালানো হয়নি",
+      "dryRun": "ড্রাই রান",
+      "cancel": "বাতিল",
+      "couldNotLoadHistory": "ইতিহাস লোড করা যায়নি",
+      "couldNotCancel": "বাতিল করা যায়নি",
+      "couldNotUndo": "পূর্বাবস্থায় ফেরানো যায়নি"
+    },
+    "api": {
+      "needsApproval": "অনুমোদন প্রয়োজন",
+      "needsSignIn": "সাইন ইন প্রয়োজন",
+      "done": "সম্পন্ন",
+      "failed": "ব্যর্থ",
+      "running": "চলমান",
+      "interrupted": "বিচ্ছিন্ন",
+      "rejected": "প্রত্যাখ্যান করা হয়েছে",
+      "cancelled": "বাতিল করা হয়েছে",
+      "expired": "মেয়াদোত্তীর্ণ"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "{{value}} চালু করুন",
+      "moreSettingsForThisAre": "এর আরও সেটিংস Termix ওয়েব অ্যাপে রয়েছে।",
+      "pluginHostSettings": "প্লাগিন হোস্ট সেটিংস"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} একটি সংখ্যা হতে হবে",
+      "mustBeAtLeast": "{{field}} কমপক্ষে {{min}} হতে হবে",
+      "mustBeAtMost": "{{field}} সর্বোচ্চ {{max}} হতে হবে"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "ব্যবহার করতে একটি সার্ভার লিংক করুন",
+      "runsOnYourTermixServer": "{{name}} আপনার Termix সার্ভারে চলে।"
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}} লোড করা যাচ্ছে না",
+      "theServerDidNotSend": "সার্ভার প্লাগিন পাঠায়নি। এটি চালু আছে কিনা তা পরীক্ষা করে আবার চেষ্টা করুন।",
+      "openThisLink": "এই লিংকটি খুলবেন?",
+      "open": "খুলুন",
+      "needsANewerVersionOf": "অ্যাপের নতুনতর সংস্করণ প্রয়োজন",
+      "usesPartsOfTermixThis": "{{name}} Termix-এর এমন অংশ ব্যবহার করে যা এই অ্যাপে এখনও নেই।",
+      "didNotStart": "{{name}} শুরু হয়নি",
+      "thisScreenIsNotIn": "এই স্ক্রিনটি সার্ভারে থাকা প্লাগিন সংস্করণে নেই।",
+      "thePluginHitAnError": "শুরু করার সময় প্লাগিনটি একটি ত্রুটির সম্মুখীন হয়েছে।",
+      "youReOffline": "আপনি অফলাইনে আছেন",
+      "runsOnYourServerSo": "{{name}} আপনার সার্ভারে চলে, তাই এটির জন্য সংযোগ প্রয়োজন। আপনি আবার অনলাইনে এলে এটি আবার খুলবে।",
+      "tryAgain": "আবার চেষ্টা করুন"
+    },
+    "shell": {
+      "thatHostIsNotOn": "এই {{deviceWord}}-এ এখনও সেই হোস্টটি নেই।",
+      "theAppCanTOpen": "অ্যাপটি এখান থেকে তা খুলতে পারছে না।",
+      "thatHostIsNotOn2": "এই {{deviceWord}}-এ এখনও সেই হোস্টটি নেই।"
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "পাসওয়ার্ড",
+      "unchangedIfBlank": "খালি থাকলে অপরিবর্তিত",
+      "port": "পোর্ট",
+      "domain": "ডোমেইন",
+      "displaySoundAndClipboardSettings": "ডিসপ্লে, সাউন্ড এবং ক্লিপবোর্ড সেটিংস Termix ওয়েব অ্যাপে রয়েছে।",
+      "portMustBeFrom1": "{{label}} পোর্ট ১ থেকে ৬৫৫৩৫ এর মধ্যে হতে হবে"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "রিমোট ডেস্কটপ সংযোগ বিচ্ছিন্ন হয়েছে",
+        "signIn": "{{label}} সাইন-ইন",
+        "itWillNotBeSaved": "{{error}} এটি সংরক্ষণ করা হবে না।",
+        "enterTheLoginForIt": "{{title}}-এর জন্য লগইন দিন। এটি সংরক্ষণ করা হবে না।",
+        "reconnecting": "{{label}} পুনরায় সংযুক্ত হচ্ছে",
+        "connecting": "{{label}} সংযুক্ত হচ্ছে",
+        "connectionFailed": "সংযোগ ব্যর্থ হয়েছে",
+        "disconnected": "সংযোগ বিচ্ছিন্ন",
+        "reconnect": "পুনরায় সংযুক্ত করুন",
+        "connectThroughTheServer": "সার্ভারের মাধ্যমে সংযুক্ত করুন",
+        "pasteToRemote": "রিমোটে পেস্ট করুন",
+        "typeClipboard": "ক্লিপবোর্ড টাইপ করুন",
+        "copyRemoteClipboard": "রিমোট ক্লিপবোর্ড কপি করুন",
+        "theComputerSCertificateWas": "কম্পিউটারের সার্টিফিকেটটি বিশ্বস্ত ছিল না।",
+        "thatLoginWasRefusedTry": "সেই লগইন প্রত্যাখ্যান করা হয়েছে। আবার চেষ্টা করুন।"
+      },
+      "target": {
+        "trustThisComputer": "এই কম্পিউটারটি বিশ্বাসযোগ্য?",
+        "theCanTCheckS": "{{deviceWord}} {{hostName}}-এর সার্টিফিকেট যাচাই করতে পারছে না। এগিয়ে যাওয়ার আগে নিশ্চিত করুন যে এই ফিঙ্গারপ্রিন্ট কম্পিউটারের সাথে মিলে যায়।\n\n{{fingerprint}}",
+        "trustAndConnect": "বিশ্বাস করুন এবং সংযুক্ত করুন",
+        "certificateChanged": "সার্টিফিকেট পরিবর্তন হয়েছে",
+        "showsAnotherCertificateThanLast": "{{hostName}} গতবারের চেয়ে ভিন্ন সার্টিফিকেট দেখাচ্ছে। এটি তখন ঘটে যখন কম্পিউটার একটি নতুন সার্টিফিকেট তৈরি করে, অথবা যখন কেউ মাঝখানে শুনছে।\n\nনতুন ফিঙ্গারপ্রিন্ট:\n{{fingerprint}}",
+        "trustTheNewOne": "নতুনটি বিশ্বাস করুন"
+      }
+    },
+    "register": {
+      "remoteDesktop": "রিমোট ডেস্কটপ",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "সম্পন্ন",
+      "keyboard": "কীবোর্ড",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "সেটিংস",
+      "remoteSettings": "রিমোট সেটিংস",
+      "mouseMode": "মাউস মোড",
+      "touch": "টাচ",
+      "trackpad": "ট্র্যাকপ্যাড",
+      "tapWhereYouWantTo": "ক্লিক করতে যেখানে চান সেখানে ট্যাপ করুন। রাইট ক্লিক করতে ধরে রাখুন, ড্র্যাগ করতে টেনে নিন।",
+      "dragToMoveThePointer": "পয়েন্টার সরানোর জন্য ড্র্যাগ করুন। ক্লিক করতে ট্যাপ করুন, রাইট ক্লিক করতে দুই আঙুলে ট্যাপ করুন, ড্র্যাগ করতে ট্যাপ করে টেনে নিন।",
+      "zoomXPinchAnywhereTo": "জুম: {{value}}x। জুম করতে যেকোনো জায়গায় পিনচ করুন",
+      "reset": "রিসেট",
+      "cancel": "বাতিল",
+      "connect": "কানেক্ট",
+      "username": "ইউজারনেম",
+      "domainOptional": "ডোমেইন (ঐচ্ছিক)",
+      "domain": "ডোমেইন",
+      "password": "পাসওয়ার্ড",
+      "leftArrow": "বাম তীর",
+      "upArrow": "উপরের তীর",
+      "downArrow": "নিচের তীর",
+      "rightArrow": "ডান তীর",
+      "rdpSignIn": "RDP সাইন-ইন"
+    },
+    "theRemoteDesktopDropped": "রিমোট ডেস্কটপ সংযোগ বিচ্ছিন্ন হয়েছে",
+    "theyWillNotBeSaved": "{{errorMessage}} এগুলো সেভ করা হবে না।",
+    "enterCredentialsForTheyWill": "{{title}} এর জন্য ক্রেডেনশিয়াল দিন। এগুলো সেভ করা হবে না।",
+    "connecting": "কানেক্ট হচ্ছে",
+    "connectionFailed": "সংযোগ ব্যর্থ হয়েছে",
+    "disconnected": "ডিসকানেক্টেড",
+    "reconnect": "আবার কানেক্ট করুন",
+    "route": {
+      "thisHostCanTOpen": "এই হোস্ট থেকে এখানে রিমোট ডেস্কটপ খোলা যায় না।"
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "অ্যাপ দ্বারা ব্লক করা হয়েছে"
+    },
+    "failedToStartRemoteSession": "রিমোট সেশন শুরু করতে ব্যর্থ হয়েছে",
+    "thatLoginWasRefusedTry": "লগইন প্রত্যাখ্যান করা হয়েছে। আবার চেষ্টা করুন।",
+    "theRemoteRefusedTheSaved": "রিমোট এন্ডপয়েন্ট সেভ করা লগইন প্রত্যাখ্যান করেছে। এই হোস্টে RDP লগইন চেক করুন।",
+    "remoteSessionFailed": "রিমোট সেশন ব্যর্থ হয়েছে",
+    "remoteSessionReturnedAnInvalid": "রিমোট সেশন থেকে অবৈধ মেসেজ এসেছে",
+    "failedToLoadTheRemote": "রিমোট ডেস্কটপ ক্লায়েন্ট লোড করতে ব্যর্থ হয়েছে"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "কোনো জার্নাল নেই",
+      "thisHostDoesNotKeep": "এই হোস্টে systemd জার্নাল রাখা হয় না।",
+      "all": "সব",
+      "warnings": "সতর্কতা",
+      "errors": "ত্রুটি",
+      "stop": "বন্ধ করুন",
+      "follow": "ফলো",
+      "nothingLogged": "কিছু লগ করা হয়নি",
+      "tryAnotherLevel": "অন্য লেভেল চেষ্টা করুন।",
+      "couldNotReadTheJournal": "জার্নাল পড়া যায়নি"
+    },
+    "register": {
+      "services": "সার্ভিস",
+      "startStopAndReadLogs": "শুরু করুন, থামান এবং লগ পড়ুন"
+    },
+    "readingServices": "সার্ভিসগুলো পড়া হচ্ছে...",
+    "thisHostHasNoSystemd": "এই হোস্টে কোনো systemd বা OpenRC নেই।",
+    "noServicesMatch": "কোনো সার্ভিস মিলছে না",
+    "noServicesFound": "কোনো সার্ভিস পাওয়া যায়নি",
+    "services": "সার্ভিস",
+    "journal": "জার্নাল",
+    "searchServices": "সার্ভিস খুঁজুন...",
+    "all": "সব",
+    "running": "চলমান",
+    "failed": "ব্যর্থ ({{failed}})",
+    "failed2": "ব্যর্থ",
+    "servicesCard": {
+      "services": "সার্ভিস",
+      "noSystemdOrOpenrc": "কোনো systemd বা OpenRC নেই",
+      "failed": "{{failed}} ব্যর্থ",
+      "allRunning": "সব চলমান",
+      "couldNotReadServices": "সার্ভিস পড়া যায়নি"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "এটি আবার শুরু না করা পর্যন্ত বা হোস্ট বুট না হওয়া পর্যন্ত থামে থাকে।",
+      "itStopsForAMoment": "এটি কিছুক্ষণের জন্য থামে এবং আবার শুরু হয়।",
+      "stop": "থামান",
+      "restart": "রিস্টার্ট",
+      "is": "{{name}} এর অবস্থা {{state}}",
+      "start": "শুরু করুন",
+      "journal": "জার্নাল",
+      "couldNotReadTheService": "সার্ভিসটি পড়া যায়নি",
+      "couldNot": "{{name}} {{action}} করা যায়নি",
+      "startsAtBoot": "বুটের সময় শুরু হয়",
+      "mainPid": "প্রধান PID",
+      "activeSince": "সক্রিয় থেকে",
+      "unitFile": "ইউনিট ফাইল",
+      "notSet": "[সেট করা হয়নি]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "সাইন ইন করা হয়নি",
+        "followFailed": "ফলো করা ব্যর্থ হয়েছে",
+        "connectionFailed": "কানেকশন ব্যর্থ হয়েছে"
+      }
+    },
+    "couldNotReadServices": "সার্ভিস পড়া যায়নি",
+    "services2": "সার্ভিস{{where}}",
+    "title": "সার্ভিস",
+    "failedCount": "{{count}} ব্যর্থ"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "সেশন শেয়ারিং",
+      "shareLink": "লিংক শেয়ার করুন"
+    },
+    "shareSessionView": {
+      "canWatch": "দেখতে পারবে",
+      "canType": "টাইপ করতে পারবে",
+      "n1Hour": "১ ঘণ্টা",
+      "n8Hours": "৮ ঘণ্টা",
+      "n1Day": "১ দিন",
+      "n7Days": "৭ দিন",
+      "never": "কখনোই নয়",
+      "shareSession": "সেশন শেয়ার করুন",
+      "anyoneWithTheLinkCan": "যেকোনো ব্যক্তি যার কাছে লিংক আছে, সে এটি চলমান থাকাকালীন এই টার্মিনাল খুলতে পারবে। আপনি Termix-এ লিংক বাতিল করতে পারেন।",
+      "peopleWithTheLink": "লিংক থাকা ব্যক্তিরা",
+      "expiresAfter": "এর পরে মেয়াদ শেষ হবে",
+      "link": "লিংক",
+      "copy": "কপি করুন",
+      "share": "শেয়ার করুন",
+      "makeLink": "লিংক তৈরি করুন",
+      "theServerGaveNoLink": "সার্ভার কোনো লিংক দেয়নি",
+      "couldNotMakeALink": "লিংক তৈরি করা যায়নি",
+      "linkCopied": "লিংক কপি হয়েছে"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "কোনো ফোল্ডার নেই"
+    },
+    "hostPicker": {
+      "selectNone": "কোনোটিই নির্বাচন করুন না",
+      "selectAll": "সব নির্বাচন করুন",
+      "done": "সম্পন্ন"
+    },
+    "register": {
+      "snippets": "স্নিপেট",
+      "snippets2": "স্নিপেট",
+      "savedCommandsToRunOn": "যেকোনো হোস্টে চালানোর জন্য সংরক্ষিত কমান্ড"
+    },
+    "runHosts": {
+      "noWayToReachThis": "এখান থেকে এই হোস্টে পৌঁছানোর কোনো উপায় নেই",
+      "exitedWith": "{{exitCode}} দিয়ে বের হয়েছেন",
+      "thisCanTRunIt": "এই {{deviceWord}} এটি চালাতে পারে না",
+      "noServerIsLinked": "কোনো সার্ভার লিংক করা নেই"
+    },
+    "runOnHostsSheet": {
+      "run": "চালাও",
+      "run2": "\"{{name}}\" চালাও",
+      "runsOverSshOnEach": "প্রতিটি হোস্টে SSH এর মাধ্যমে চলে। কোনো টার্মিনাল খোলে না।",
+      "close": "বন্ধ করুন",
+      "hosts": "হোস্ট",
+      "pickHosts": "হোস্ট নির্বাচন করুন",
+      "workedFailed": "{{value}} সফল হয়েছে, {{failed}} ব্যর্থ হয়েছে",
+      "runOn2": "এতে চালাও",
+      "runOn_one": "{{count}} হোস্টে {{name}} চালাবেন?",
+      "runOn_other": "{{count}} হোস্টে {{name}} চালাবেন?",
+      "hostsPicked_one": "{{count}} হোস্ট নির্বাচিত",
+      "hostsPicked_other": "{{count}} হোস্ট নির্বাচিত"
+    },
+    "snippetsBar": {
+      "searchSnippets": "স্নিপেট খুঁজুন",
+      "pastesTheNote": "নোটটি পেস্ট করে",
+      "runsTheSnippet": "স্নিপেটটি চালায়",
+      "noSnippetsMatch": "কোনো স্নিপেট মিলছে না",
+      "noSnippetsYet": "এখনো কোনো স্নিপেট নেই",
+      "addSnippetsInSettingsSnippets": "সেটিংস, স্নিপেট এ স্নিপেট যোগ করুন",
+      "run": "চালাও",
+      "insertWithoutRunning": "চালানো ছাড়াই ইনসার্ট করুন",
+      "copy": "কপি"
+    },
+    "snippetsCard": {
+      "snippets": "স্নিপেট",
+      "run": "{{name}} চালাও"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "এক্সপোর্ট করার মতো কোনো স্নিপেট নেই",
+      "couldNotMakeTheFile": "ফাইল তৈরি করা যায়নি",
+      "copiedToTheClipboard": "ক্লিপবোর্ডে কপি করা হয়েছে",
+      "couldNotImport": "ইম্পোর্ট করা যায়নি",
+      "couldNotReadThatFile": "সেই ফাইলটি পড়া যায়নি",
+      "importAndExport": "ইম্পোর্ট এবং এক্সপোর্ট",
+      "theSameFileTheWeb": "ওয়েব অ্যাপ যে ফাইলটি ব্যবহার করে, ঠিক সেই ফাইলটি।",
+      "export": "এক্সপোর্ট",
+      "shareAFile": "একটি ফাইল শেয়ার করুন",
+      "copy": "কপি",
+      "import": "ইম্পোর্ট",
+      "updateSnippetsThatExist": "যে স্নিপেটগুলো আছে সেগুলো আপডেট করুন",
+      "sameNameInTheSame": "একই ফোল্ডারে একই নাম। অন্যথায় সেগুলো বাদ দেওয়া হবে",
+      "chooseAFile": "একটি ফাইল নির্বাচন করুন",
+      "paste": "পেস্ট",
+      "saveYourSnippets": "আপনার স্নিপেট সংরক্ষণ করুন"
+    },
+    "useSnippetRunner": {
+      "run": "{{name}} চালাবেন?",
+      "run2": "চালাও",
+      "fillInTheValuesFor": "এই স্নিপেটের জন্য মানগুলো পূরণ করুন।",
+      "cancel": "বাতিল",
+      "insert": "ইনসার্ট",
+      "noTerminalIsOpen": "কোনো টার্মিনাল খোলা নেই"
+    },
+    "variables": {
+      "input": "ইনপুট {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "এটি একটি বৈধ JSON ফাইল নয়",
+      "theFileNeedsASnippets": "ফাইলটির একটি স্নিপেট বা ফোল্ডার তালিকা প্রয়োজন",
+      "snippetNameAndContentAre": "স্নিপেট {{value}}: নাম এবং কন্টেন্ট প্রয়োজন",
+      "folder": "ফোল্ডার {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale ডিভাইস লোড হচ্ছে…",
+      "searchTailscaleDevices": "Tailscale ডিভাইস খুঁজুন…",
+      "searchTailscaleDevices2": "Tailscale ডিভাইস খুঁজুন",
+      "clearDeviceSearch": "ডিভাইস সার্চ মুছুন",
+      "refreshTailscaleDevices": "Tailscale ডিভাইস রিফ্রেশ করুন",
+      "device": "ডিভাইস",
+      "noTailnetAddress": "কোনো tailnet ঠিকানা নেই",
+      "tailscaleDevice": "Tailscale ডিভাইস",
+      "tailscaleDevices": "Tailscale ডিভাইসসমূহ",
+      "addAHostThatConnects": "Tailscale SSH দিয়ে সংযোগ স্থাপনকারী একটি হোস্ট যোগ করুন।",
+      "username": "ব্যবহারকারীর নাম",
+      "sshUsernameFor": "{{value}} এর জন্য SSH ব্যবহারকারীর নাম",
+      "addHost": "হোস্ট যোগ করুন",
+      "noTailscaleDevicesMatchYour": "আপনার সার্চের সাথে কোনো Tailscale ডিভাইস মিলছে না।",
+      "noTailscaleDevicesFound": "কোনো Tailscale ডিভাইস পাওয়া যায়নি।",
+      "noTailscaleApiKeyIs": "এই সার্ভারে কোনো Tailscale API কী কনফিগার করা নেই। একজন প্রশাসককে একটি যোগ করতে বলুন।",
+      "youDoNotHavePermission": "আপনার Tailscale ডিভাইসের তালিকা দেখার অনুমতি নেই।",
+      "couldNotLoadTailscaleDevices": "Tailscale ডিভাইস লোড করা যায়নি। আবার চেষ্টা করতে রিফ্রেশ করুন।",
+      "tailscaleIsUnavailableOnThis": "এই সার্ভারে Tailscale অপ্রাপ্য।"
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "পুনরায় সংযোগ হচ্ছে | চেষ্টা {{attempt}}",
+      "reconnectingInSTry": "{{secs}} সেকেন্ডে পুনরায় সংযোগ হচ্ছে | চেষ্টা {{attempt}}",
+      "offlineWaitingForNetwork": "অফলাইন, নেটওয়ার্কের জন্য অপেক্ষা করছে",
+      "sendToTheNewShell": "{{what}} নতুন শেলে পাঠাবেন?",
+      "reconnectNow": "এখনই পুনরায় সংযোগ করুন",
+      "send": "পাঠান",
+      "discard": "বাতিল করুন",
+      "typedChars_one": "{{count}} টাইপ করা অক্ষর",
+      "typedChars_other": "{{count}} টাইপ করা অক্ষর",
+      "waiting": "{{what}} অপেক্ষমাণ"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "কানেকশন লগ কপি করা হয়েছে",
+      "connectionLog": "কানেকশন লগ",
+      "copyItIntoABug": "এটি একটি বাগ রিপোর্টে কপি করুন। ঠিকানা এবং ব্যবহারকারীর নাম বাদ দেওয়া হয়েছে।",
+      "copy": "কপি করুন"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "এই হোস্টের জন্য ইতিহাস মুছবেন?",
+        "clear": "মুছুন",
+        "searchHistory": "ইতিহাস খুঁজুন",
+        "typesTheCommandWithoutRunning": "চালু না করেই কমান্ড টাইপ করে",
+        "noCommandsMatch": "কোনো কমান্ড মিলছে না",
+        "noHistoryYet": "এখনো কোনো ইতিহাস নেই",
+        "commandsYouRunOnThis": "এই হোস্টে আপনি যে কমান্ডগুলো চালাচ্ছেন সেগুলো এখানে দেখা যাবে",
+        "run": "চালাও",
+        "typeWithoutRunning": "চালু না করেই টাইপ করুন",
+        "copy": "কপি করুন",
+        "delete": "মুছুন",
+        "historyCleared": "ইতিহাস মুছে ফেলা হয়েছে"
+      },
+      "suggestionStrip": {
+        "use": "{{command}} ব্যবহার করুন"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "অ্যাপ সেটিং",
+      "delete": "মুছুন (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "শেল থেকে ট্যাবের শিরোনাম",
+      "programsCanSetTheTab": "প্রোগ্রামগুলো ট্যাবের শিরোনাম সেট করতে পারে",
+      "openTmux": "tmux ওপেন করুন",
+      "attachToATmuxSession": "একটি tmux সেশনে সংযুক্ত হন, অথবা একটি শুরু করুন",
+      "reconnectOnDrop": "ড্রপ হলে পুনরায় সংযোগ করুন",
+      "keepTabOpenOnExit": "বের হওয়ার সময় ট্যাব খোলা রাখুন",
+      "pressEnterToConnectAgain": "আবার সংযোগ করতে Enter চাপুন",
+      "saveCommandHistory": "কমান্ড ইতিহাস সংরক্ষণ করুন",
+      "offerToFillPasswordPrompts": "পাসওয়ার্ড প্রম্পট পূরণ করার প্রস্তাব দিন",
+      "offerToFillSudoPrompts": "sudo প্রম্পট পূরণ করার প্রস্তাব দিন",
+      "usesTheSudoPasswordFrom": "SSH ট্যাব থেকে sudo পাসওয়ার্ড ব্যবহার করে",
+      "none": "কোনোটিই নয়",
+      "look": "দৃশ্য",
+      "theme": "থিম",
+      "font": "ফন্ট",
+      "cursor": "কার্সর",
+      "bell": "বেল",
+      "scrollbackLines": "স্ক্রলব্যাক লাইন",
+      "app": "অ্যাপ",
+      "behavior": "আচরণ",
+      "backspaceSends": "ব্যাকস্পেস পাঠায়",
+      "startupSnippet": "স্টার্টআপ স্নিপেট",
+      "runsOnceTheShellIs": "শেল প্রস্তুত হলে একবার চলে",
+      "fillWithoutAsking": "পুছন ছাড়াই পূরণ করুন",
+      "onThisOnlyOnceYou": "এই {{deviceWord}}-এ শুধুমাত্র, আপনি 'সর্বদা পূরণ করুন' নির্বাচন করার পর",
+      "connection": "কানেকশন",
+      "keepalive": "কিপঅ্যালাইভ",
+      "secondsBetweenPings0Turns": "পিংয়ের মধ্যে সেকেন্ড, 0 হলে বন্ধ হয়ে যায়",
+      "default": "ডিফল্ট",
+      "keepaliveSeconds": "কিপঅ্যালাইভ সেকেন্ড",
+      "missedPings": "মিসড পিং",
+      "dropTheConnectionAfterThis": "এতগুলো উত্তর না পেলে কানেকশন বন্ধ করুন",
+      "missedPingsBeforeDrop": "বন্ধ হওয়ার আগে মিসড পিং",
+      "environment": "এনভায়রনমেন্ট",
+      "removeVariable": "ভেরিয়েবল মুছুন",
+      "addVariable": "ভেরিয়েবল যোগ করুন"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "কিবোর্ড"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "সারি",
+        "keys": "কী",
+        "sendsAKeyCode": "একটি কী কোড পাঠায়",
+        "stickyModifier": "স্টিকি মডিফায়ার",
+        "appAction": "অ্যাপ অ্যাকশন",
+        "tmuxPrefixThen": "tmux প্রিফিক্স, তারপর {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "কী সারি",
+        "onlyFor": "শুধুমাত্র {{name}}-এর জন্য",
+        "usingTheAppSRows": "অ্যাপের সারি ব্যবহার করছে। এখানে পরিবর্তন শুধুমাত্র {{name}}-এর জন্য প্রযোজ্য",
+        "useTheAppSRows": "অ্যাপের সারি ব্যবহার করুন"
+      },
+      "keyButton": {
+        "locked": "লকড"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "বাতিল করুন",
+        "remove": "{{what}} মুছবেন?",
+        "remove2": "মুছুন",
+        "dragToReorder": "পুনর্বিন্যাস করতে ড্র্যাগ করুন",
+        "rowName": "সারির নাম",
+        "groupName": "গ্রুপের নাম",
+        "add": "যোগ করুন",
+        "addKey": "কী যোগ করুন",
+        "addRow": "সারি যোগ করুন",
+        "addGroup": "গ্রুপ যোগ করুন",
+        "tmuxPrefix": "tmux প্রিফিক্স",
+        "name": "নাম",
+        "rename": "নাম পরিবর্তন করুন",
+        "keys": "{{value}} কী",
+        "noKeys": "কোনো কী নেই",
+        "remove3": "{{label}} মুছুন",
+        "keys2": "কী",
+        "custom": "কাস্টম",
+        "add2": "{{label}} যোগ করুন",
+        "typeText": "টেক্সট টাইপ করুন",
+        "runCommand": "কমান্ড চালান",
+        "ctrlKey": "Ctrl কী",
+        "label": "লেবেল",
+        "optional": "ঐচ্ছিক",
+        "letter": "অক্ষর",
+        "command": "কমান্ড",
+        "text": "টেক্সট",
+        "resetToDefault": "ডিফল্টে রিসেট করুন"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "সেটিংস, কীবোর্ড থেকে কী পরিবর্তন করুন"
+      },
+      "keyRowBar": {
+        "keyRow": "কী সারি {{label}}",
+        "tapForTheNextRow": "পরবর্তী সারির জন্য ট্যাপ করুন, নির্বাচন করতে ধরে রাখুন",
+        "keyRows": "কী সারি"
+      },
+      "model": {
+        "clear": "মুছে ফেলুন",
+        "main": "মেইন",
+        "keys": "কী",
+        "arrows": "তীর চিহ্ন",
+        "symbols": "প্রতীক",
+        "actions": "অ্যাকশন",
+        "nav": "নেভ",
+        "move": "মুভ",
+        "function": "ফাংশন",
+        "brackets": "ব্র্যাকেট",
+        "punctuation": "বিভাজক চিহ্ন",
+        "ctrl": "Ctrl",
+        "control": "কন্ট্রোল",
+        "windows": "Windows",
+        "panes": "পেন",
+        "copy": "কপি",
+        "split": "স্প্লিট ─",
+        "split2": "স্প্লিট │",
+        "newWin": "নতুন উইন্ডো",
+        "prevWin": "পূর্ববর্তী উইন্ডো",
+        "nextWin": "পরবর্তী উইন্ডো",
+        "pane": "পেন ←",
+        "pane2": "পেন ↓",
+        "pane3": "পেন ↑",
+        "pane4": "পেন →",
+        "copyMode": "কপি মোড",
+        "pasteBuf": "পেস্ট বাফার",
+        "killPane": "পেন বন্ধ করুন"
+      }
+    },
+    "output": {
+      "openLink": "লিংক খুলবেন?",
+      "open": "খুলুন",
+      "pasteLines": "{{lines}} লাইন পেস্ট করবেন?",
+      "pasteThisText": "এই টেক্সট পেস্ট করবেন?",
+      "theShellMayRunIt": "শেল এটি সাথে সাথে চালিয়ে ফেলতে পারে।\n\n{{text}}",
+      "paste": "পেস্ট",
+      "letTheProgramReadYour": "প্রোগ্রামকে আপনার ক্লিপবোর্ড পড়তে দেবেন?",
+      "itAskedForWhatYou": "এটি আপনার শেষ কপি করা বিষয়টির জন্য জিজ্ঞাসা করেছে।",
+      "allow": "অনুমতি দিন",
+      "letTheProgramCopyTo": "প্রোগ্রামকে আপনার ক্লিপবোর্ডে কপি করতে দেবেন?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "সংরক্ষিত পাসওয়ার্ড পূরণ করবেন?",
+      "asksForTheSudoPassword": "{{hostName}} সুডো পাসওয়ার্ড চাইছে।",
+      "asksForAPassword": "{{hostName}} একটি পাসওয়ার্ড চাইছে।",
+      "fillPassword": "পাসওয়ার্ড পূরণ করুন",
+      "alwaysFillOnThisHost": "এই হোস্টে সবসময় পূরণ করুন",
+      "asksNoMoreOnThis": "এই {{deviceWord}}-এ আর জিজ্ঞাসা করা হবে না। হোস্টের টার্মিনাল ট্যাব থেকে এটি বন্ধ করুন।",
+      "notNow": "এখন নয়"
+    },
+    "register": {
+      "terminal": "টার্মিনাল",
+      "terminalAndKeepalive": "টার্মিনাল এবং কিপঅ্যালাইভ",
+      "history": "ইতিহাস",
+      "find": "খুঁজুন",
+      "tmuxWindows": "tmux উইন্ডো",
+      "connectionLog": "কানেকশন লগ",
+      "keyRowsForThisHost": "এই হোস্টের জন্য কী সারি"
+    },
+    "searchBar": {
+      "noResults": "কোনো ফলাফল নেই",
+      "matchCase": "কেস মিলান",
+      "wholeWord": "পুরো শব্দ",
+      "regularExpression": "নিয়মিত অভিব্যক্তি",
+      "find": "খুঁজুন",
+      "closeFind": "খোঁজ বন্ধ করুন"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "সিস্টেম",
+      "block": "ব্লক",
+      "bar": "বার",
+      "underline": "আন্ডারলাইন",
+      "off": "বন্ধ",
+      "sound": "শব্দ",
+      "flash": "ফ্ল্যাশ",
+      "both": "উভয়"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "এই হোস্টে নতুন ট্যাব",
+      "closeTab": "ট্যাব বন্ধ করুন",
+      "nextTab": "পরবর্তী ট্যাব",
+      "previousTab": "পূর্ববর্তী ট্যাব",
+      "goToTab": "ট্যাবে যান",
+      "find": "খুঁজুন",
+      "fontSize": "ফন্টের আকার",
+      "paste": "পেস্ট",
+      "escape": "এস্কেপ",
+      "copyAndPaste": "কপি এবং পেস্ট"
+    },
+    "reconnecting": "পুনরায় সংযোগ হচ্ছে...",
+    "waitingForNetwork": "নেটওয়ার্কের জন্য অপেক্ষা করছে...",
+    "waitingForYou": "আপনার জন্য অপেক্ষা করছে...",
+    "connecting": "সংযোগ হচ্ছে...",
+    "terminalView": {
+      "scrollToBottom": "নিচে স্ক্রল করুন",
+      "onlyWebLinksCanOpen": "শুধুমাত্র ওয়েব লিঙ্ক টার্মিনাল থেকে খোলা যেতে পারে",
+      "couldNotOpenLink": "লিঙ্ক খোলা যায়নি",
+      "copiedFromTheTerminal": "টার্মিনাল থেকে কপি করা হয়েছে"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "একটি tmux সেশন খুলুন",
+        "newSession": "নতুন সেশন",
+        "plainShell": "সাধারণ শেল",
+        "tmuxWindows": "tmux উইন্ডো",
+        "newWindow": "নতুন উইন্ডো",
+        "windowCount_one": "{{count}} উইন্ডো",
+        "windowCount_other": "{{count}} উইন্ডো",
+        "attached": "{{count}} সংযুক্ত",
+        "activeNow": "এখন সক্রিয়",
+        "activeMinAgo": "{{count}} মিনিট আগে সক্রিয়",
+        "activeHoursAgo": "{{count}} ঘণ্টা আগে সক্রিয়",
+        "activeDaysAgo_one": "{{count}} দিন আগে সক্রিয়",
+        "activeDaysAgo_other": "{{count}} দিন আগে সক্রিয়"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "কপি",
+        "selectAll": "সব নির্বাচন করুন",
+        "cancel": "বাতিল",
+        "scrollToBottom": "নিচে স্ক্রল করুন",
+        "couldNotCopy": "কপি করা যায়নি",
+        "webviewError": "WebView ত্রুটি: {{description}}",
+        "webviewHttpError": "WebView HTTP ত্রুটি: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "এই হোস্টের জন্য কোনো সংরক্ষিত পাসওয়ার্ড নেই",
+    "backInTmuxSession": "tmux সেশন {{tmuxName}}-এ ফিরে যাওয়া হচ্ছে",
+    "backInScreenSession": "screen সেশন {{name}}-এ ফিরে যাওয়া হচ্ছে",
+    "theServerSessionEndedThis": "সার্ভার সেশন শেষ হয়েছে। এটি একটি নতুন শেল।",
+    "termixWasClosedSoThe": "Termix বন্ধ ছিল, তাই পুরানো শেল শেষ হয়ে গেছে। এটি একটি নতুন শেল।",
+    "theConnectionDroppedAndThe": "সংযোগ বিচ্ছিন্ন হয়েছিল এবং পুরানো শেল শেষ হয়ে গেছে। এটি একটি নতুন শেল।",
+    "disconnectedFrom": "{{hostName}} থেকে সংযোগ বিচ্ছিন্ন"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "দুই-ফ্যাক্টর প্রমাণীকরণ",
+      "codesFromAnAuthenticatorApp": "আপনার সার্ভার অ্যাকাউন্টের জন্য অথেন্টিকেটর অ্যাপ থেকে কোড"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC ঠিকানা",
+      "neededToWakeThisHost": "Wake-on-LAN দিয়ে এই হোস্ট জাগানোর জন্য প্রয়োজন",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "00:1A:2B:3C:4D:5E এর মতো একটি MAC ঠিকানা ব্যবহার করুন"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "{{name}}-এ Wake-on-LAN পাঠানো হয়েছে",
+      "failedToSendWakeOn": "Wake-on-LAN প্যাকেট পাঠাতে ব্যর্থ হয়েছে",
+      "noServer": "কোনো সার্ভার নেই"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "{{value}} জাগান"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "অনন্যমিত ব্যবহার পরিসংখ্যান শেয়ার করবেন?",
+      "termixWouldSendAShort": "Termix প্রতিদিন একটি ছোট রিপোর্ট পাঠাবে। আপনি যেকোনো সময় সেটিংস থেকে এটি পরিবর্তন করতে পারেন।",
+      "noThanks": "না, ধন্যবাদ",
+      "share": "শেয়ার করুন",
+      "theReportHasTheApp": "রিপোর্টে অ্যাপের সংস্করণ, {{deviceWord}} টাইপ, হোস্ট এবং সেশনের আনুমানিক সংখ্যা, আপনি কোন ফিচার ব্যবহার করেন এবং সংযোগ কাজ করেছে কিনা তা থাকে। এতে কখনো হোস্টনেম, ব্যবহারকারীর নাম, ঠিকানা, পথ, কমান্ড বা সার্ভারের নাম থাকে না।",
+      "seeExactlyWhatIsSent": "কী পাঠানো হচ্ছে তা দেখুন"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "সংস্করণের তথ্য লোড হচ্ছে…",
+      "updateAvailable": "আপডেট উপলব্ধ",
+      "newVersionAvailable": "নতুন সংস্করণ উপলব্ধ",
+      "aNewerVersionOfThe": "মোবাইল অ্যাপের একটি নতুন সংস্করণ উপলব্ধ। আপডেট না করা পর্যন্ত কিছু ফিচার সঠিকভাবে কাজ নাও করতে পারে।",
+      "versionInformation": "সংস্করণের তথ্য",
+      "installed": "ইনস্টল করা",
+      "latest": "সর্বশেষ",
+      "unknown": "অজানা",
+      "tag": "ট্যাগ",
+      "continueAnyway": "তবেও চালিয়ে যান"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "কপি করা হয়েছে",
+      "copy": "কপি করুন",
+      "hostKeyChanged": "হোস্ট কী পরিবর্তন হয়েছে",
+      "verifyHostKey": "হোস্ট কী যাচাই করুন",
+      "cancel": "বাতিল করুন",
+      "acceptNewKey": "নতুন কী গ্রহণ করুন",
+      "connectAndTrust": "সংযোগ করুন এবং বিশ্বাস করুন",
+      "theHostSSshKey": "আপনার শেষ সংযোগের পর থেকে হোস্টের SSH কী পরিবর্তন হয়েছে। এর অর্থ হতে পারে কেউ সংযোগ আটকাচ্ছে।",
+      "youAreConnectingToThis": "আপনি প্রথমবারের মতো এই হোস্টে সংযোগ করছেন। এতে বিশ্বাস করার আগে ফিঙ্গারপ্রিন্ট পরীক্ষা করুন।",
+      "previousKey": "পূর্ববর্তী কী",
+      "newFingerprint": "নতুন ফিঙ্গারপ্রিন্ট",
+      "hostFingerprint": "হোস্ট ফিঙ্গারপ্রিন্ট"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "পাসফ্রেজ প্রয়োজন",
+      "enterThePassphraseForYour": "আপনার SSH কীর জন্য পাসফ্রেজ লিখুন।",
+      "cancel": "বাতিল করুন",
+      "connect": "সংযোগ করুন",
+      "keyPassphrase": "কীর পাসফ্রেজ"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH প্রমাণীকরণ প্রয়োজন",
+      "cancel": "বাতিল করুন",
+      "connect": "সংযোগ করুন",
+      "password": "পাসওয়ার্ড",
+      "sshKey": "SSH কী",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nআপনার প্রাইভেট কী এখানে পেস্ট করুন...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "কীর পাসফ্রেজ (ঐচ্ছিক)",
+      "keyboardInteractiveAuthIsNot": "কীবোর্ড-ইন্টারেক্টিভ প্রমাণীকরণ উপলব্ধ নয়। সরাসরি লগইন বিবরণ লিখুন।",
+      "authenticationFailedPleaseReEnter": "প্রমাণীকরণ ব্যর্থ হয়েছে। দয়া করে আপনার লগইন বিবরণ আবার লিখুন।",
+      "connectionTimedOutPleaseTry": "সংযোগের সময় শেষ হয়ে গেছে। দয়া করে আপনার লগইন বিবরণ দিয়ে আবার চেষ্টা করুন।"
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH যাচাই",
+      "completeTheTailscaleSshCheck": "চালিয়ে যাওয়ার জন্য আপনার ব্রাউজারে Tailscale SSH যাচাই সম্পন্ন করুন।",
+      "cancel": "বাতিল করুন",
+      "copyUrl": "URL কপি করুন",
+      "openBrowser": "ব্রাউজার খুলুন",
+      "urlCopied": "URL কপি করা হয়েছে",
+      "failedToCopy": "কপি করতে ব্যর্থ হয়েছে",
+      "couldNotOpenBrowser": "ব্রাউজার খোলা যায়নি"
+    },
+    "tOTPDialog": {
+      "cancel": "বাতিল",
+      "submit": "জমা দিন",
+      "verify": "যাচাই করুন",
+      "password": "পাসওয়ার্ড",
+      "pasteCode": "কোড পেস্ট করুন",
+      "passwordRequired": "পাসওয়ার্ড প্রয়োজন",
+      "twoFactorAuthentication": "দুই-ফ্যাক্টর প্রমাণীকরণ",
+      "enterYourPasswordToContinue": "চালিয়ে যেতে আপনার পাসওয়ার্ড লিখুন।",
+      "enterThe6DigitCode": "আপনার অথেন্টিকেটর অ্যাপ থেকে ৬ সংখ্যার কোডটি লিখুন।"
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate প্রমাণীকরণ",
+      "authenticateViaTheWarpgatePortal": "Warpgate পোর্টালের মাধ্যমে প্রমাণীকরণ করুন, তারপর চালিয়ে যান ট্যাপ করুন।",
+      "cancel": "বাতিল",
+      "openBrowser": "ব্রাউজার খুলুন",
+      "continue": "চালিয়ে যান",
+      "securityKey": "সিকিউরিটি কি",
+      "authUrl": "Auth URL",
+      "copied": "কপি হয়েছে",
+      "copy": "কপি",
+      "urlCopied": "URL কপি হয়েছে",
+      "failedToCopy": "কপি করতে ব্যর্থ হয়েছে",
+      "couldNotOpenBrowser": "ব্রাউজার খোলা যায়নি"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "এই {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "সাম্প্রতিক কার্যকলাপ",
+        "files": "ফাইল",
+        "terminal": "টার্মিনাল"
+      },
+      "alertsCard": {
+        "notifications": "বিজ্ঞপ্তি",
+        "seeAll": "সব দেখুন"
+      },
+      "server": "সার্ভার",
+      "openSessions": "খোলা সেশন",
+      "quickAccess": "দ্রুত অ্যাক্সেস",
+      "notifications": "বিজ্ঞপ্তি",
+      "pinnedHosts": "পিন করা হোস্ট",
+      "recentHosts": "সাম্প্রতিক হোস্ট",
+      "recentActivity": "সাম্প্রতিক কার্যকলাপ",
+      "pinnedCard": {
+        "addYourFirstHost": "আপনার প্রথম হোস্ট যোগ করুন",
+        "hostsYouOpenShowUp": "আপনি যে হোস্টগুলো খোলেন সেগুলো এখানে দেখা যাবে, এবং পিন করা হোস্টগুলোর লাইভ কার্ড দেখাবে।",
+        "addHost": "হোস্ট যোগ করুন",
+        "linkAServer": "একটি সার্ভার লিংক করুন",
+        "pinAHostToSee": "এখানে দেখতে একটি হোস্ট পিন করুন",
+        "pinnedHostsShowTheirMetrics": "পিন করা হোস্টগুলোর মেট্রিক্স, Docker এবং সার্ভিস এক নজরে দেখায়। হোস্টটি পিন করতে ধরে রাখুন।",
+        "goToHosts": "হোস্টে যান",
+        "pinned": "পিন করা",
+        "opensTheTerminalHoldFor": "টার্মিনাল খোলে। আরও অপশনের জন্য ধরে রাখুন।",
+        "turnOnDockerOrServices": "এই হোস্টের জন্য Docker বা সার্ভিস চালু করুন, অথবা সংযোগ করতে ট্যাপ করুন।",
+        "opens": "{{title}} খোলে"
+      },
+      "quickCard": {
+        "quickAccess": "দ্রুত অ্যাক্সেস",
+        "quickConnect": "দ্রুত সংযোগ",
+        "userHostPortWithoutSaving": "user@host:port, সংরক্ষণ ছাড়াই"
+      },
+      "recentCard": {
+        "recent": "সাম্প্রতিক"
+      },
+      "serverCard": {
+        "server": "সার্ভার",
+        "version": "ভার্সন",
+        "uptime": "আপটাইম",
+        "database": "ডেটাবেস",
+        "hosts": "হোস্ট",
+        "online": "অনলাইন",
+        "offline": "অফলাইন",
+        "logins": "লগইন"
+      },
+      "sessionsCard": {
+        "openSessions": "খোলা সেশন",
+        "connected": "সংযুক্ত"
+      }
+    },
+    "resetHome": "হোম রিসেট করবেন?",
+    "cardsGoBackToThe": "কার্ডগুলো ডিফল্ট ক্রম এবং প্রদর্শিত কার্ডে ফিরে যাবে।",
+    "reset": "রিসেট",
+    "doneEditingHome": "হোম সম্পাদনা সম্পন্ন",
+    "editHome": "হোম সম্পাদনা",
+    "dragToReorder": "ক্রম পরিবর্তন করতে {{title}} টেনে আনুন",
+    "show": "{{title}} দেখান",
+    "dragCardsToReorderThem": "ক্রম পরিবর্তন করতে কার্ডগুলো টেনে আনুন। কার্ডটি বন্ধ করে তা লুকান। দেখানোর কিছু না থাকলে কার্ডগুলো নিজে থেকেই লুকিয়ে থাকে।",
+    "resetToDefault": "ডিফল্টে রিসেট করুন",
+    "done": "সম্পন্ন",
+    "serverReachBanner": {
+      "stillCanTReachThe": "সার্ভারে এখনও পৌঁছানো যাচ্ছে না",
+      "canTReach": "{{account}}-এ পৌঁছানো যাচ্ছে না",
+      "youCanKeepWorkingWith": "আপনি এই {{deviceWord}}-এর কপি দিয়ে কাজ চালিয়ে যেতে পারেন। এটি ফিরে আসলে পরিবর্তনগুলো আপলোড হবে।",
+      "hostsSetToConnectFrom": "এই {{deviceWord}}-এর থেকে সংযোগ স্থাপনের জন্য সেট করা হোস্টগুলো এখনও কাজ করছে।",
+      "tryAgain": "আবার চেষ্টা করুন",
+      "noAnswer": "কোনো উত্তর নেই"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault প্রোফাইল",
+      "none": "কোনোটিই নয়",
+      "signsInWithInYour": "আপনার Termix সার্ভারের মাধ্যমে আপনার ব্রাউজারে {{title}} দিয়ে সাইন ইন করে। সার্ভারের মাধ্যমে এই হোস্টের সাথে সংযোগ করুন।",
+      "needsATermixServerLink": "{{title}}-এর জন্য একটি Termix সার্ভার প্রয়োজন। এই সাইন ইন ব্যবহার করতে একটি লিঙ্ক করুন।",
+      "isOffOnThisServer": "এই সার্ভারে {{title}} বন্ধ আছে। এই হোস্ট তার সাইন ইন সেটিংস বজায় রাখবে।"
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "ক্রেডেনশিয়াল লোড করা যায়নি",
+      "deleted": "\"{{name}}\" মুছে ফেলা হয়েছে",
+      "couldNotDeleteTheCredential": "ক্রেডেনশিয়াল মুছে ফেলা যায়নি",
+      "credentials": "ক্রেডেনশিয়াল",
+      "add": "যোগ করুন",
+      "searchCredentials": "ক্রেডেনশিয়াল খুঁজুন",
+      "clearSearch": "খোঁজা মুছুন",
+      "loadingCredentials": "ক্রেডেনশিয়াল লোড হচ্ছে...",
+      "noCredentialsMatchYourSearch": "আপনার খোঁজার সাথে কোনো ক্রেডেনশিয়াল মিলছে না",
+      "noCredentialsYet": "এখনো কোনো ক্রেডেনশিয়াল নেই",
+      "addCredential": "ক্রেডেনশিয়াল যোগ করুন",
+      "edit": "সম্পাদনা",
+      "delete": "মুছুন",
+      "deleteCredential": "ক্রেডেনশিয়াল মুছুন",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" স্থায়ীভাবে মুছে ফেলা হবে। এটি ব্যবহারকারী হোস্টগুলো তাদের সংরক্ষিত ক্রেডেনশিয়াল হারাবে।",
+      "cancel": "বাতিল",
+      "hostCount_one": "{{count}} হোস্ট",
+      "hostCount_other": "{{count}} হোস্ট",
+      "sshKey": "SSH কী"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "কী প্রতিস্থাপন করবেন?",
+        "theNewKeyTakesThe": "নতুন কীটি বর্তমানটির স্থান নেবে। শুধুমাত্র পুরানো কীকে বিশ্বাস করে এমন হোস্টগুলো এই ক্রেডেনশিয়াল গ্রহণ করা বন্ধ করে দেবে।",
+        "replace": "প্রতিস্থাপন",
+        "newKeyMadeCopyThe": "নতুন কী তৈরি হয়েছে। আপনার হোস্টগুলোতে পাবলিক কী কপি করুন।",
+        "couldNotMakeAKey": "কী তৈরি করা যায়নি",
+        "couldNotReadThatCertificate": "সেই সার্টিফিকেট ফাইল পড়া যায়নি",
+        "leaveWithoutSaving": "সংরক্ষণ না করেই বের হয়ে যাবেন?",
+        "yourChangesToThisCredential": "এই ক্রেডেনশিয়ালের আপনার পরিবর্তনগুলো হারিয়ে যাবে।",
+        "leave": "বের হোন",
+        "credentialSaved": "ক্রেডেনশিয়াল সংরক্ষিত হয়েছে",
+        "credentialAdded": "ক্রেডেনশিয়াল যোগ করা হয়েছে",
+        "couldNotSaveTheCredential": "ক্রেডেনশিয়াল সংরক্ষণ করা যায়নি",
+        "enterAHostToTest": "পরীক্ষার জন্য একটি হোস্ট লিখুন, যেমন 10.0.0.5 বা box:2222।",
+        "enterTheUsernameFirst": "প্রথমে ব্যবহারকারীর নাম লিখুন।",
+        "editCredential": "ক্রেডেনশিয়াল সম্পাদনা",
+        "newCredential": "নতুন ক্রেডেনশিয়াল",
+        "cancel": "বাতিল",
+        "save": "সংরক্ষণ করুন",
+        "credential": "ক্রেডেনশিয়াল",
+        "name": "নাম",
+        "productionKey": "প্রোডাকশন কী",
+        "username": "ইউজারনেম",
+        "signInWith": "এর মাধ্যমে সাইন ইন করুন",
+        "password": "পাসওয়ার্ড",
+        "sshKey": "SSH কী",
+        "unchangedIfBlank": "খালি থাকলে পরিবর্তন হবে না",
+        "key": "কী",
+        "fileOrPaste": "ফাইল বা পেস্ট করুন",
+        "makeANewKey": "নতুন কী তৈরি করুন",
+        "aKeyIsSavedChoose": "একটি কী সংরক্ষিত আছে। এটি প্রতিস্থাপন করতে একটি ফাইল নির্বাচন করুন অথবা পেস্ট করুন।",
+        "type": "টাইপ",
+        "ed25519AndEcdsaAreMade": "Ed25519 এবং ECDSA এই {{deviceWord}}-এ তৈরি হয়, আর RSA আপনার সার্ভারে।",
+        "madeOnThisEd25519Works": "এই {{deviceWord}}-এ তৈরি। Ed25519 প্রায় সব জায়গায় কাজ করে।",
+        "passphrase": "পাসফ্রেজ",
+        "optionalLocksTheNewKey": "ঐচ্ছিক। এটি নতুন কীটি এই {{deviceWord}}-এ এবং ডিস্কে লক করে রাখে।",
+        "makeKey": "কী তৈরি করুন",
+        "publicKey": "পাবলিক কী",
+        "addThisLineToSsh": "আপনার হোস্টগুলোর ~/.ssh/authorized_keys ফাইলে এই লাইনটি যোগ করুন",
+        "publicKeyCopied": "পাবলিক কী কপি করা হয়েছে",
+        "copyPublicKey": "পাবলিক কী কপি করুন",
+        "certificate": "সার্টিফিকেট",
+        "aCertificateYourCaSigned": "এই কীটির জন্য আপনার CA কর্তৃক স্বাক্ষরিত একটি সার্টিফিকেট, যা CA-কে বিশ্বাস করে এমন হোস্টগুলোর জন্য প্রযোজ্য।",
+        "chooseCertificateFile": "সার্টিফিকেট ফাইল নির্বাচন করুন",
+        "thisDoesNotLookLike": "এটি একটি OpenSSH সার্টিফিকেটের মতো দেখাচ্ছে না।",
+        "test": "টেস্ট",
+        "hostToTestOn": "টেস্ট করার জন্য হোস্ট",
+        "n10005Or": "10.0.0.5 অথবা box.lan:2222",
+        "pickASavedHost": "একটি সংরক্ষিত হোস্ট নির্বাচন করুন",
+        "details": "বিস্তারিত",
+        "description": "বিবরণ",
+        "whatThisCredentialIsFor": "এই ক্রেডেনশিয়ালটি কিসের জন্য",
+        "folder": "ফোল্ডার",
+        "serverKeys": "সার্ভার কী",
+        "testOnAHost": "একটি হোস্টে টেস্ট করুন",
+        "rsaKeysNeedALinked": "RSA কীগুলোর জন্য একটি লিঙ্ক করা সার্ভার প্রয়োজন।"
+      },
+      "model": {
+        "giveThisCredentialAName": "এই ক্রেডেনশিয়ালটির একটি নাম দিন",
+        "addAPrivateKeyOr": "একটি প্রাইভেট কী যোগ করুন, অথবা একটি নতুন তৈরি করুন"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "এটি একটি হোস্ট সার্টিফিকেট, ইউজার সার্টিফিকেট নয়।",
+        "thisCertificateIsNotValid": "এই সার্টিফিকেটটি এখনো বৈধ নয়।",
+        "thisCertificateHasExpired": "এই সার্টিফিকেটটির মেয়াদ শেষ হয়ে গেছে।",
+        "itIsForAKey": "এটি একটি {{keyType}} কীটির জন্য, কিন্তু এই কীটি {{keyType2}}।",
+        "forAnyUser": "যেকোনো ইউজারের জন্য",
+        "validFromNoEndDate": "{{validAfter}} থেকে বৈধ, কোনো শেষ তারিখ নেই",
+        "signedBy": "{{caSha256}} কর্তৃক স্বাক্ষরিত"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "ইউজারনেম",
+        "fromTheCredential": "ক্রেডেনশিয়াল থেকে: {{credentialUser}}",
+        "signInWith": "এর মাধ্যমে সাইন ইন করুন",
+        "password": "পাসওয়ার্ড",
+        "key": "কী",
+        "credential": "ক্রেডেনশিয়াল",
+        "none": "কোনোটিই নয়",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Tailscale SSH এর মাধ্যমে সংযোগ স্থাপন করে। কোনো পাসওয়ার্ড বা কী সংরক্ষিত থাকে না।",
+        "tailscaleIsNotOnFor": "{{value}}-এর জন্য Tailscale চালু নেই। এই হোস্টটি তার নিজস্ব Tailscale সাইন ইন ব্যবহার করে।",
+        "unchangedIfBlank": "খালি থাকলে পরিবর্তন হবে না",
+        "noCredentialsYetTapThe": "এখনো কোনো ক্রেডেনশিয়াল নেই। একটি যোগ করতে হোস্ট বিভাগে কী আইকনে ট্যাপ করুন।",
+        "useCredential": "ক্রেডেনশিয়াল {{name}} ব্যবহার করুন",
+        "sudoPassword": "সুডো পাসওয়ার্ড",
+        "typedIntoSudoPromptsWhen": "টার্মিনাল সেকশন যখন তা চালু করে তখন সুডো প্রম্পটে টাইপ করা হয়",
+        "notSet": "সেট করা হয়নি",
+        "thisServer": "এই সার্ভারটি"
+      },
+      "colorIconField": {
+        "color": "রং",
+        "noColor": "কোনো রং নেই",
+        "color2": "রং {{c}}",
+        "icon": "আইকন",
+        "noIcon": "কোনো আইকন নেই",
+        "none": "কোনোটিই নয়",
+        "icon2": "আইকন {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "সেভ না করেই বের হয়ে যাবেন?",
+        "yourChangesToThisHost": "এই হোস্টের আপনার পরিবর্তনগুলো হারিয়ে যাবে।",
+        "leave": "বের হোন",
+        "couldNotSaveHowThis": "এই হোস্টটি কীভাবে সংযোগ স্থাপন করে তা সেভ করা যায়নি",
+        "hostSaved": "হোস্ট সেভ হয়েছে",
+        "hostAdded": "হোস্ট যোগ করা হয়েছে",
+        "couldNotSaveTheHost": "হোস্টটি সেভ করা যায়নি",
+        "enterTheHostSAddress": "প্রথমে হোস্টের ঠিকানা দিন।",
+        "turnOnSshToTest": "লগইন পরীক্ষা করতে SSH চালু করুন।",
+        "pickACredentialFirst": "প্রথমে একটি ক্রেডেনশিয়াল বেছে নিন।",
+        "editHost": "হোস্ট সম্পাদনা করুন",
+        "newHost": "নতুন হোস্ট",
+        "cancel": "বাতিল করুন",
+        "save": "সেভ করুন",
+        "host": "হোস্ট",
+        "name": "নাম",
+        "myServer": "আমার সার্ভার",
+        "address": "ঠিকানা",
+        "port": "পোর্ট",
+        "portAndUsernameComeFrom": "আপনি যতক্ষণ না পরিবর্তন করেন, পোর্ট এবং ব্যবহারকারীর নাম আপনার হোস্টের ডিফল্ট সেটিংস থেকে নেওয়া হবে।",
+        "folder": "ফোল্ডার",
+        "production": "প্রোডাকশন",
+        "useAFolderInstead": "এর পরিবর্তে একটি ফোল্ডার ব্যবহার করুন",
+        "putItUnderAHost": "এর পরিবর্তে এটি একটি হোস্টের নিচে রাখুন",
+        "pinToTop": "উপরে পিন করুন",
+        "colorAndIcon": "রং এবং আইকন",
+        "notes": "নোট",
+        "anythingWorthRememberingAboutThis": "এই হোস্ট সম্পর্কে মনে রাখার মতো কিছু",
+        "protocols": "প্রোটোকল",
+        "terminalFilesAndMore": "টার্মিনাল, ফাইল এবং আরও অনেক কিছু",
+        "connectFrom": "সংযোগ করুন",
+        "features": "ফিচার",
+        "otherProtocols": "অন্যান্য প্রোটোকল",
+        "more": "আরও",
+        "theTestRunsFromThis": "পরীক্ষাটি এই {{deviceWord}} থেকে চালানো হয়। এই হোস্টটি সার্ভারের মাধ্যমে সংযোগ স্থাপন করে, তাই যখন {{deviceWord}} এটির সাথে সরাসরি সংযোগ স্থাপন করতে পারে না তখনও এটি কাজ করতে পারে।"
+      },
+      "jumpHostsField": {
+        "jumpHosts": "জাম্প হোস্ট",
+        "connectsThroughTheseInOrder": "এইগুলোর মাধ্যমে ক্রমানুসারে সংযোগ স্থাপন করে, তারপর এই হোস্টে",
+        "reachThisHostThroughOther": "প্রথমে অন্য হোস্টের মাধ্যমে এই হোস্টে পৌঁছান",
+        "moveUp": "উপরে সরান",
+        "moveDown": "নিচে সরান",
+        "removeJumpHost": "জাম্প হোস্ট সরান",
+        "addJumpHost": "জাম্প হোস্ট যোগ করুন",
+        "pickASavedHostTo": "সংযোগ স্থাপনের জন্য একটি সেভ করা হোস্ট বেছে নিন",
+        "searchHosts": "হোস্ট খুঁজুন",
+        "noOtherHostsToPick": "বেছে নেওয়ার জন্য অন্য কোনো হোস্ট নেই। একটি হোস্ট নিজেই বা এমন কোনো হোস্টের মাধ্যমে জাম্প করতে পারে না যা ইতিমধ্যে তার মাধ্যমে যায়।",
+        "missingHost": "হোস্ট #{{id}} অনুপস্থিত"
+      },
+      "model": {
+        "turnOnAtLeastOne": "কমপক্ষে একটি প্রোটোকল চালু করুন",
+        "pickACredential": "একটি ক্রেডেনশিয়াল বেছে নিন",
+        "enterTheHostSAddress": "হোস্টের ঠিকানা লিখুন",
+        "theAddressCanTHave": "ঠিকানায় স্পেস থাকতে পারবে না",
+        "portMustBeFrom1": "পোর্ট ১ থেকে ৬৫৫৩৫ এর মধ্যে হতে হবে",
+        "enterTheSshUsername": "SSH ব্যবহারকারীর নাম লিখুন"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "হোস্টটি আপনি যেটি বেছে নেবেন তার নিচে নেস্টেডভাবে দেখাবে",
+        "searchHosts": "হোস্ট খুঁজুন",
+        "noHostsToPickA": "কোনো হোস্ট নেই। একটি হোস্ট নিজের, নিজের সাব-হোস্ট বা শেয়ার করা হোস্টের নিচে থাকতে পারে না।",
+        "parentHost": "প্যারেন্ট হোস্ট",
+        "subHostsFollowTheFolder": "সাব-হোস্টগুলো তাদের প্যারেন্টের ফোল্ডার অনুসরণ করে",
+        "pickParentHost": "প্যারেন্ট হোস্ট বেছে নিন",
+        "missingHost": "হোস্ট #{{value}} অনুপস্থিত",
+        "pickAHost": "একটি হোস্ট বেছে নিন",
+        "clearParentHost": "প্যারেন্ট হোস্ট মুছুন"
+      },
+      "tagsField": {
+        "tags": "ট্যাগ",
+        "typeATagAndPress": "একটি ট্যাগ লিখুন এবং এন্টার চাপুন",
+        "removeTag": "ট্যাগ {{tag}} মুছুন",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "এই হোস্টটি কীভাবে সংযুক্ত হয় তা সংরক্ষণ করা যায়নি",
+      "addressCopied": "ঠিকানা কপি করা হয়েছে",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "সংযুক্ত করুন",
+      "dismiss": "বন্ধ করুন",
+      "unpin": "আনপিন করুন",
+      "pinToHome": "হোমে পিন করুন",
+      "select": "নির্বাচন করুন",
+      "editHost": "হোস্ট সম্পাদনা করুন",
+      "copyAddress": "ঠিকানা কপি করুন",
+      "addSubHost": "সাব-হোস্ট যোগ করুন",
+      "cloneHost": "হোস্ট ক্লোন করুন",
+      "deleteHost": "হোস্ট মুছুন",
+      "connectThroughTheServer": "সার্ভারের মাধ্যমে সংযুক্ত করুন",
+      "connectFromThis": "এই {{deviceWord}} থেকে সংযুক্ত করুন"
+    },
+    "defaultYourOrder": "ডিফল্ট (আপনার ক্রম)",
+    "nameAZ": "নাম (A-Z)",
+    "nameZA": "নাম (Z-A)",
+    "ipAscending": "IP (ক্রমবর্ধমান)",
+    "ipDescending": "IP (অধঃক্রম)",
+    "onlineFirst": "অনলাইন প্রথমে",
+    "offlineFirst": "অফলাইন প্রথমে",
+    "pinnedFirst": "পিন করা প্রথমে",
+    "status": "অবস্থা",
+    "online": "অনলাইন",
+    "offline": "অফলাইন",
+    "pinned": "পিন করা",
+    "protocol": "প্রোটোকল",
+    "features": "ফিচার",
+    "hostsCanOnlyMoveInside": "হোস্টগুলো শুধুমাত্র তাদের নিজস্ব ফোল্ডারের ভেতরে সরানো যায়",
+    "couldNotUpdateTheHosts": "হোস্টগুলো আপডেট করা যায়নি",
+    "sharedHostsCanTBe": "শেয়ার করা হোস্ট এখানে মুছে ফেলা যায় না",
+    "delete2": "মুছুন",
+    "noneOfTheseHostsOpen": "এই হোস্টগুলোর কোনোটিই টার্মিনাল খোলে না",
+    "couldNotPinTheHost": "হোস্ট পিন করা যায়নি",
+    "deleted": "{{name}} মুছে ফেলা হয়েছে",
+    "failedToDeleteHost": "হোস্ট মুছে ফেলতে ব্যর্থ হয়েছে",
+    "cloned": "{{name}} ক্লোন করা হয়েছে",
+    "failedToCloneHost": "হোস্ট ক্লোন করতে ব্যর্থ হয়েছে",
+    "reorderWorksWithTheDefault": "ক্রম পরিবর্তন ডিফল্ট সর্ট এবং কোনো অনুসন্ধান বা ফিল্টার ছাড়া কাজ করে",
+    "couldNotSaveTheOrder": "ক্রম সংরক্ষণ করা যায়নি",
+    "noHostsYet": "এখনো কোনো হোস্ট নেই",
+    "addAHostToConnect": "এক ট্যাপে সংযোগ করতে একটি হোস্ট যোগ করুন।",
+    "addHost": "হোস্ট যোগ করুন",
+    "quickConnect2": "দ্রুত সংযোগ",
+    "linkAServer": "একটি সার্ভার লিঙ্ক করুন",
+    "noHostsMatch": "কোনো হোস্ট মিলছে না",
+    "clearSearchAndFilters": "অনুসন্ধান এবং ফিল্টার মুছুন",
+    "more": "আরও",
+    "dragAHostByIts": "এটি ফোল্ডারের ভেতরে সরানোর জন্য হোস্টটির গ্রিপ ধরে টেনে আনুন।",
+    "done": "সম্পন্ন",
+    "filterHosts": "হোস্ট ফিল্টার করুন",
+    "clearFilterText": "ফিল্টার টেক্সট মুছুন",
+    "sortHosts": "হোস্ট সাজান",
+    "removeFilter": "ফিল্টার {{value}} সরান",
+    "loadingHosts": "হোস্ট লোড হচ্ছে…",
+    "moveUnderAHost": "একটি হোস্টের নিচে সরান",
+    "moveToFolder": "ফোল্ডারে সরান",
+    "leaveItEmptyToTake": "হোস্টগুলো ফোল্ডার থেকে বের করতে এটি খালি রাখুন।",
+    "folderLikeProdWeb": "ফোল্ডার, যেমন Prod / Web",
+    "move": "সরান",
+    "hosts": "হোস্ট",
+    "selectHosts": "হোস্ট নির্বাচন করুন",
+    "reorderHosts": "হোস্ট পুনরায় সাজান",
+    "customizeList": "তালিকা কাস্টমাইজ করুন",
+    "chooseWhatEachHostRow": "প্রতিটি হোস্ট সারিতে কী দেখানো হবে তা নির্বাচন করুন",
+    "credentials2": "ক্রেডেনশিয়াল",
+    "savedPasswordsAndKeys": "সংরক্ষিত পাসওয়ার্ড এবং কী",
+    "tailscaleDevices": "Tailscale ডিভাইস",
+    "refresh": "রিফ্রেশ",
+    "rowDensityFollowsSettingsAppearance": "সারির ঘনত্ব সেটিংস, অ্যাপিয়ারেন্স অনুসরণ করে।",
+    "clearAllFilters": "সব ফিল্টার মুছুন",
+    "tags": "ট্যাগ",
+    "stopSelecting": "নির্বাচন বন্ধ করুন",
+    "selected": "{{count}} নির্বাচিত",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "সেই কী ফাইলটি পড়া যায়নি",
+        "theClipboardIsEmpty": "ক্লিপবোর্ড খালি",
+        "privateKey": "প্রাইভেট কী",
+        "chooseFile": "ফাইল নির্বাচন করুন",
+        "paste": "পেস্ট",
+        "unchangedIfBlank": "খালি থাকলে অপরিবর্তিত",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "পাসফ্রেজ",
+        "onlyIfTheKeyHas": "শুধুমাত্র যদি কীতে একটি থাকে",
+        "theKeyIsCheckedWhen": "সংযোগ করার সময় কীটি যাচাই করা হয়।",
+        "thePastedKey": "পেস্ট করা কী"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "খুলুন",
+        "moreActions": "আরও অ্যাকশন",
+        "opensTheTerminalHoldFor": "টার্মিনাল খোলে। আরও পেতে ধরে রাখুন।",
+        "shared": "শেয়ার করা",
+        "drag": "{{name}} টেনে আনুন",
+        "showSubHosts_one": "{{name}} এর {{count}} সাব-হোস্ট দেখান",
+        "showSubHosts_other": "{{name}} এর {{count}} সাব-হোস্ট দেখান",
+        "hideSubHosts_one": "{{name}} এর {{count}} সাব-হোস্ট লুকান",
+        "hideSubHosts_other": "{{name}} এর {{count}} সাব-হোস্ট লুকান"
+      },
+      "hostList": {
+        "folderHosts": "ফোল্ডার {{name}}, {{total}} হোস্ট"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "হোস্ট এবং ইউজারনেম প্রয়োজন",
+      "hostSaved": "হোস্ট সংরক্ষিত",
+      "couldNotSaveTheHost": "হোস্ট সংরক্ষণ করা যায়নি",
+      "quickConnect": "দ্রুত সংযোগ",
+      "connectToAHostWithout": "সংরক্ষণ না করে একটি হোস্টে সংযোগ করুন।",
+      "hostIp": "হোস্ট / IP",
+      "port": "পোর্ট",
+      "username": "ইউজারনেম",
+      "password": "পাসওয়ার্ড",
+      "key": "কী",
+      "privateKey": "প্রাইভেট কী",
+      "saveToMyHosts": "আমার হোস্টে সংরক্ষণ করুন",
+      "keepThisHostAfterConnecting": "সংযোগ করার পর এই হোস্টটি রাখুন",
+      "cancel": "বাতিল",
+      "connect": "সংযোগ করুন"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "সার্ভার থেকে আপনার হোস্টগুলো নিয়ে আসা হচ্ছে",
+      "yourHostsStayOnThis": "{{message}} এর মধ্যেই আপনার হোস্টগুলো এই {{deviceWord}}-এ থাকবে।"
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "এই হোস্টের কী পরিবর্তন হয়েছে",
+      "trustThisHost": "এই হোস্টের ওপর বিশ্বাস রাখবেন?",
+      "trust": "বিশ্বাস করুন",
+      "stopTest": "টেস্ট বন্ধ করুন",
+      "testConnection": "সংযোগ পরীক্ষা করুন",
+      "connecting": "সংযোগ করা হচ্ছে..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "হোস্ট লোড করা যায়নি।"
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}। {{count}}টি শেয়ার করা হোস্টের কোনো পরিবর্তন করা হয়নি।",
+    "sharedLeftAsTheyAre_other": "{{done}}। {{count}}টি শেয়ার করা হোস্টের কোনো পরিবর্তন করা হয়নি।",
+    "deleteHosts_one": "{{count}}টি হোস্ট মুছে ফেলবেন?",
+    "deleteHosts_other": "{{count}}টি হোস্ট মুছে ফেলবেন?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "{{name}} নামে কোনো ফোল্ডার নেই"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "হোস্ট \"{{name}}\": ভুল পোর্ট",
+        "hostJumpIsNotIn": "হোস্ট \"{{name}}\": জাম্প {{value}} ফাইলে নেই, তাই এটি বাদ দেওয়া হয়েছে",
+        "credential": "ক্রেডেনশিয়াল {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH কনফিগ ফাইলে কোনো বৈধ হোস্ট এন্ট্রি পাওয়া যায়নি",
+        "credentialWasNotFound": "{{label}}: ক্রেডেনশিয়াল {{value}} পাওয়া যায়নি"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "হোস্ট {{value}}: ডুপ্লিকেট এক্সপোর্টেড হোস্ট আইডি {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: প্রয়োজনীয় ফিল্ড (ip, port) অনুপস্থিত",
+        "invalidAuthtypeMustBeOne": "{{label}}: অবৈধ authType। এটি {{value}} এর মধ্যে একটি হতে হবে",
+        "usernameRequiredForSshConnections": "{{label}}: SSH সংযোগের জন্য ব্যবহারকারীর নাম প্রয়োজন",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: ক্রেডেনশিয়াল প্রমাণীকরণের জন্য credentialAlias প্রয়োজন",
+        "thatIsNotAValid": "এটি একটি বৈধ JSON ফাইল নয়",
+        "hostsArrayIsRequiredAnd": "হোস্ট অ্যারে প্রয়োজন এবং এটি খালি হতে পারবে না",
+        "jumpHostCycle": "{{label}}: জাম্প হোস্ট চক্র",
+        "jumpHostIsNotIn": "{{label}}: জাম্প হোস্ট {{id}} ফাইলে নেই"
+      }
+    },
+    "movedTo": "{{value}}-এ সরানো হয়েছে",
+    "movedOutOfFolders": "ফোল্ডার থেকে সরানো হয়েছে",
+    "movedUnder": "{{value}}-এর নিচে সরানো হয়েছে",
+    "openTerminals": "খোলা টার্মিনাল",
+    "theHost": "হোস্টটি"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "পাসওয়ার্ড লুকান",
+      "showPassword": "পাসওয়ার্ড দেখান",
+      "enterAUsernameAndPassword": "একটি ব্যবহারকারীর নাম এবং পাসওয়ার্ড লিখুন",
+      "useAtLeast6Characters": "পাসওয়ার্ডের জন্য অন্তত ৬টি অক্ষর ব্যবহার করুন",
+      "thePasswordsDonTMatch": "পাসওয়ার্ড মিলছে না",
+      "makeTheAdminAccount": "অ্যাডমিন অ্যাকাউন্ট তৈরি করুন",
+      "makeAnAccount": "একটি অ্যাকাউন্ট তৈরি করুন",
+      "thisIsTheFirstAccount": "এটি সার্ভারে প্রথম অ্যাকাউন্ট, তাই এটি সার্ভার পরিচালনা করবে।",
+      "pickAUsernameAndPassword": "এই সার্ভারের জন্য একটি ব্যবহারকারীর নাম এবং পাসওয়ার্ড নির্বাচন করুন।",
+      "username": "ব্যবহারকারীর নাম",
+      "password": "পাসওয়ার্ড",
+      "passwordAgain": "পাসওয়ার্ড আবার",
+      "makeAccount": "অ্যাকাউন্ট তৈরি করুন",
+      "back": "পিছনে",
+      "haveAnAccountSignIn": "অ্যাকাউন্ট আছে? সাইন ইন করুন",
+      "resetCodeMadeItIs": "রিসেট কোড তৈরি হয়েছে। এটি সার্ভারের লগে আছে",
+      "enterYourUsername": "আপনার ব্যবহারকারীর নাম লিখুন",
+      "enterTheResetCode": "রিসেট কোড লিখুন",
+      "passwordChangedSignInWith": "পাসওয়ার্ড পরিবর্তন হয়েছে। এখন এটি দিয়ে সাইন ইন করুন",
+      "resetPassword": "পাসওয়ার্ড রিসেট করুন",
+      "enterYourUsernameTheServer": "আপনার ব্যবহারকারীর নাম লিখুন। সার্ভার তার লগে একটি রিসেট কোড লিখবে।",
+      "sendResetCode": "রিসেট কোড পাঠান",
+      "enterThe6DigitCode": "সার্ভার লগ থেকে ৬ সংখ্যার কোডটি লিখুন।",
+      "resetCode": "কোড রিসেট করুন",
+      "checkCode": "কোড যাচাই করুন",
+      "newPassword": "নতুন পাসওয়ার্ড",
+      "saveNewPassword": "নতুন পাসওয়ার্ড সংরক্ষণ করুন",
+      "backToSignIn": "সাইন ইনে ফিরে যান",
+      "couldNotMakeTheAccount": "অ্যাকাউন্ট তৈরি করা যায়নি",
+      "couldNotStartTheReset": "রিসেট শুরু করা যায়নি",
+      "thatCodeDidnTWork": "কোডটি কাজ করেনি",
+      "couldNotChangeThePassword": "পাসওয়ার্ড পরিবর্তন করা যায়নি"
+    },
+    "browserStep": {
+      "signInFailed": "সাইন ইন ব্যর্থ হয়েছে",
+      "signInCanceled": "সাইন ইন বাতিল করা হয়েছে",
+      "couldNotOpenTheSign": "সাইন ইন ব্রাউজার খোলা যায়নি",
+      "couldNotOpenTheSign2": "সাইন ইন পৃষ্ঠাটি খোলা যায়নি",
+      "certificateProblem": "সার্টিফিকেট সমস্যা",
+      "back": "ফিরে যান",
+      "signIn": "সাইন ইন",
+      "reload": "রিলোড করুন",
+      "finishSigningInInYour": "আপনার ব্রাউজারে সাইন ইন সম্পন্ন করুন",
+      "useAnySignInYour": "আপনার সার্ভারে যে কোনো সাইন ইন ব্যবহার করুন, যেমন পাসকি বা সিকিউরিটি কি। আপনি সাইন ইন করলে অ্যাপটি কাজ শুরু করবে।",
+      "theAppPicksUpOnce": "আপনার সাইন ইন প্রোভাইডার কাজ শেষ করলে অ্যাপটি কাজ শুরু করবে।",
+      "signingIn": "সাইন ইন হচ্ছে...",
+      "openBrowserAgain": "আবার ব্রাউজার খুলুন",
+      "theServerTurnedTheSession": "সার্ভার সেশনটি প্রত্যাখ্যান করেছে। আবার চেষ্টা করুন।",
+      "signedInButTheApp": "সাইন ইন হয়েছে, কিন্তু অ্যাপটি Termix-এ পৌঁছাতে পারছে না। কোনো প্রক্সি এটি বাধা দিচ্ছে।",
+      "thatSignInLinkIs": "সাইন ইন লিঙ্কটি আগের চেষ্টার। আবার সাইন ইন করুন।",
+      "signInAgain": "আবার সাইন ইন করুন।",
+      "openTheBrowserAgainWhen": "প্রস্তুত হলে আবার ব্রাউজার খুলুন।",
+      "theWebPageSignedIn": "ওয়েব পৃষ্ঠাটি সাইন ইন করেছে কিন্তু কোনো সেশন পাঠায়নি। সার্ভার আপডেট করুন এবং আবার চেষ্টা করুন।",
+      "theCanTCheckThis": "{{deviceWord}} এই সার্ভারের সার্টিফিকেট যাচাই করতে পারছে না। {{deviceWord}}-এ এর রুট CA ইনস্টল করুন। {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "পরবর্তীবার সাইন ইনের জন্য {{name}} ব্যবহার করবেন?",
+      "ifThisServerSignsYou": "যদি এই সার্ভার আপনাকে সাইন আউট করে, তাহলে পাসওয়ার্ড টাইপ না করে {{name}} দিয়ে আবার সাইন ইন করুন। পাসওয়ার্ডটি এই {{deviceWord}}-এই থাকবে।",
+      "use": "{{name}} ব্যবহার করুন",
+      "notNow": "এখন নয়",
+      "couldNotSaveTheLogin": "লগইন সংরক্ষণ করা যায়নি",
+      "thatSADifferentUser": "এটি অন্য ব্যবহারকারী",
+      "signedIn": "সাইন ইন হয়েছে",
+      "close": "বন্ধ করুন",
+      "linkYourTermixServer": "আপনার Termix সার্ভার লিঙ্ক করুন",
+      "yourHostsCredentialsSnippetsAnd": "আপনার হোস্ট, ক্রেডেনশিয়াল, স্নিপেট এবং সেটিংস এটির সাথে সিঙ্ক হবে, এবং আপনি এর প্লাগইন পাবেন। সার্ভার অনুপস্থিত থাকলেও এই {{deviceWord}}-এ সবকিছু কাজ চালিয়ে যাবে।",
+      "checking": "{{host}} যাচাই করা হচ্ছে...",
+      "proxyAndClientCertificate": "প্রক্সি এবং ক্লায়েন্ট সার্টিফিকেট",
+      "couldNotReachThatServer": "সেই সার্ভারে পৌঁছানো যায়নি। ঠিকানাটি চেক করুন, অথবা প্রক্সি বা ক্লায়েন্ট সার্টিফিকেট সেটআপ করুন।",
+      "couldNotReachThatServer2": "সেই সার্ভারে পৌঁছানো যায়নি",
+      "syncCouldNotStartYet": "সিঙ্ক এখনও শুরু হতে পারেনি। এটি নিজে থেকে আবার চেষ্টা করবে।",
+      "checkingTheServer": "সার্ভার যাচাই করা হচ্ছে",
+      "signIn": "সাইন ইন",
+      "makeAnAccount": "অ্যাকাউন্ট তৈরি করুন",
+      "resetPassword": "পাসওয়ার্ড রিসেট করুন",
+      "oneMoreStep": "আরেকটি ধাপ",
+      "almostDone": "প্রায় শেষ",
+      "linkAServer": "একটি সার্ভার লিঙ্ক করুন"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "সংরক্ষিত লগইন আর কাজ করছে না",
+      "enterYourUsernameAndPassword": "আপনার ব্যবহারকারীর নাম এবং পাসওয়ার্ড লিখুন",
+      "thisServerIsBehindA": "এই সার্ভারটি একটি লগইন প্রক্সির পেছনে আছে",
+      "signInWith": "{{saved}} দিয়ে সাইন ইন করুন",
+      "signInWith2": "দিয়ে সাইন ইন করুন",
+      "password": "পাসওয়ার্ড",
+      "username": "ব্যবহারকারীর নাম",
+      "signIn": "সাইন ইন",
+      "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?",
+      "makeAnAccount": "একটি অ্যাকাউন্ট তৈরি করুন",
+      "or": "অথবা",
+      "continueWith": "{{label}} দিয়ে চালিয়ে যান",
+      "signInWithAPasskey": "পাসকি বা সিকিউরিটি কি দিয়ে সাইন ইন করুন",
+      "opensYourServerAposS": "ব্রাউজারে আপনার সার্ভারের সাইন ইন পেজ খোলে। ফেস আইডি, ফিঙ্গারপ্রিন্ট, এনএফসি এবং ইউএসবি কি সেখানে কাজ করে। এর জন্য Termix 26.11.3 বা তার নতুন সংস্করণ প্রয়োজন।",
+      "signInInTheBrowser": "ব্রাউজারে সাইন ইন করুন",
+      "opensYourServerAposS2": "অ্যাপ যা করতে পারে না, তার জন্য আপনার সার্ভারের সাইন ইন পেজ খোলে। এর জন্য Termix 26.10.6 বা তার নতুন সংস্করণ প্রয়োজন।",
+      "thisServerHasNoSign": "এই সার্ভারে এমন কোনো সাইন ইন চালু নেই যা অ্যাপ ব্যবহার করতে পারে। যে এটি পরিচালনা করে তাকে জিজ্ঞাসা করুন, অথবা উপরের ব্রাউজার সাইন ইনটি চেষ্টা করুন।",
+      "signInWithYourPassword": "আপনার পাসওয়ার্ড দিয়ে সাইন ইন করুন।",
+      "signInFailed": "সাইন ইন ব্যর্থ হয়েছে",
+      "openingItsSignInPage": "সাইন ইন পেজ খোলা হচ্ছে।"
+    },
+    "smallSteps": {
+      "serverAddress": "সার্ভার ঠিকানা",
+      "likeTermixExampleComOr": "যেমন termix.example.com অথবা 192.168.1.20:30001",
+      "checking": "চেক করা হচ্ছে...",
+      "continue": "চালিয়ে যান",
+      "proxyAndClientCertificate": "প্রক্সি এবং ক্লায়েন্ট সার্টিফিকেট",
+      "aServerWithASelf": "সেলফ-সাইনড সার্টিফিকেট সহ সার্ভারের জন্য প্রথমে এই {{deviceWord}}-এ এর রুট সিএ ইনস্টল করতে হবে। আপনার নিজের নেটওয়ার্কে সাধারণ http কাজ করে।",
+      "enterTheCode": "কোড লিখুন",
+      "code": "কোড",
+      "the6DigitCodeFrom": "আপনার অথেন্টিকেটর অ্যাপ থেকে ৬ সংখ্যার কোড, অথবা একটি ব্যাকআপ কোড",
+      "checkCode": "কোড যাচাই করুন",
+      "thisAccountAsksForA": "এই অ্যাকাউন্টটি পাসওয়ার্ডের পরে একটি সিকিউরিটি কি চায়। এটি ব্যবহার করতে আপনার ব্রাউজারে সার্ভারের পেজে সাইন ইন করুন।",
+      "useASecurityKeyIn": "ব্রাউজারে সিকিউরিটি কি ব্যবহার করুন",
+      "backToSignIn": "সাইন ইনে ফিরে যান",
+      "bringThisAposSHosts": "এই {{deviceWord}}-এর হোস্টগুলো নিয়ে আসবেন?",
+      "thisHasTheyStayOn": "এই {{deviceWord}}-এ {{what}} আছে। যেকোনো ক্ষেত্রেই তারা এই ডিভাইসেই থাকবে।",
+      "merge": "মার্জ করুন",
+      "copyThemToTooSo": "সিঙ্ক করার জন্য এগুলো {{serverName}}-এও কপি করুন। সার্ভার হোস্টের মতো দেখতে হোস্টগুলো বাদ দেওয়া হবে।",
+      "replace": "বদলান",
+      "useOnlyWhatIsOn": "এই অ্যাকাউন্টের জন্য শুধুমাত্র {{serverName}}-এ যা আছে তা ব্যবহার করুন। কিছুই কপি করা হবে না।",
+      "thatCodeDidnTWork": "সেই কোডটি কাজ করেনি",
+      "hostsCredentialsOrSnippets": "হোস্ট, ক্রেডেনশিয়াল বা স্নিপেট"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "প্রথমে এই সার্ভারটি লিংক করুন",
+      "thatHostIsnTHere": "সেই হোস্টটি এখানে নেই",
+      "couldNotOpenThatHost": "সেই হোস্টটি খোলা যায়নি",
+      "noHostWithIdOn": "{{account}}-এ {{hostId}} আইডি সহ কোনো হোস্ট নেই।",
+      "isnTLinkedInThe": "{{value}} এখনও অ্যাপে লিংক করা হয়নি।"
+    }
+  },
+  "notifications": {
+    "notifications": "নোটিফিকেশন",
+    "markAllRead": "সব পড়া হিসেবে চিহ্নিত করুন",
+    "clearReadNotifications": "পড়া নোটিফিকেশন মুছে ফেলুন",
+    "unread2": "অপাঠিত",
+    "all": "সব",
+    "noUnreadNotifications": "কোনো অপাঠিত নোটিফিকেশন নেই",
+    "nothingHere": "এখানে কিছু নেই",
+    "markRead": "পড়া হিসেবে চিহ্নিত করুন",
+    "delete": "মুছে ফেলুন",
+    "couldNotLoadNotifications": "নোটিফিকেশন লোড করা যায়নি",
+    "couldNotMarkRead": "পড়া হিসেবে চিহ্নিত করা যায়নি",
+    "couldNotDelete": "মুছে ফেলা যায়নি",
+    "couldNotClear": "মুছে ফেলা যায়নি"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "ইমপোর্ট",
+      "hosts": "হোস্ট",
+      "aTermixHostFileYour": "একটি Termix হোস্ট ফাইল, আপনার ~/.ssh/config, অথবা অন্য কোনো {{deviceWord}} থেকে হোস্ট লিংক বা কোআর কোড। এগুলো এই {{deviceWord}}-এ সংরক্ষিত হয়।",
+      "backup": "ব্যাকআপ",
+      "aBackupThisAppMade": "এই অ্যাপ তৈরি করা একটি ব্যাকআপ, যা একটি পাসফ্রেজ দিয়ে লক করা। এটি হোস্ট, ক্রেডেনশিয়াল এবং স্নিপেট ফিরিয়ে আনে।",
+      "restoreABackup": "একটি ব্যাকআপ রিস্টোর করুন",
+      "done": "সম্পন্ন",
+      "skipForNow": "এখনের জন্য বাদ দিন",
+      "sshFilesAndRemoteDesktops": "আপনার {{deviceWord}} থেকে এসএসএইচ, ফাইল এবং রিমোট ডেস্কটপ। আপনি কীভাবে শুরু করতে চান?",
+      "useWithoutAServer": "সার্ভার ছাড়াই ব্যবহার করুন",
+      "hostsCredentialsAndSnippetsAre": "হোস্ট, ক্রেডেনশিয়াল এবং স্নিপেটগুলো এই {{deviceWord}} এ এনক্রিপ্টেড অবস্থায় রাখা হয়। আপনি যেকোনো সময় পরে একটি সার্ভার লিঙ্ক করতে পারেন।",
+      "linkATermixServer": "একটি Termix সার্ভার লিঙ্ক করুন",
+      "syncYourHostsCredentialsSnippets": "আপনার সার্ভারের সাথে আপনার হোস্ট, ক্রেডেনশিয়াল, স্নিপেট এবং সেটিংস সিঙ্ক করুন এবং এর প্লাগিনগুলো ব্যবহার করুন।",
+      "bringHostsFromATermix": "একটি Termix ফাইল, SSH কনফিগ, QR কোড বা ব্যাকআপ থেকে হোস্ট আনুন।",
+      "thisDevice": "এই ডিভাইসটি"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "হোস্ট, স্নিপেট, অ্যাকশন খুঁজুন",
+      "clearSearch": "সার্চ মুছুন",
+      "nothingMatches": "কিছুই মিলছে না",
+      "typeToSearch": "খুঁজতে টাইপ করুন",
+      "findAHostToConnect": "কানেক্ট করার জন্য একটি হোস্ট, একটি স্নিপেট, একটি সেটিংস বা একটি অ্যাকশন খুঁজুন।",
+      "suggested": "প্রস্তাবিত | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "{{title}} এ চালান",
+      "copiedRunItFromThe": "কপি করা হয়েছে। এর মানগুলো পূরণ করতে টার্মিনালের স্নিপেট থেকে এটি চালান।",
+      "copiedOpenATerminalTo": "কপি করা হয়েছে। স্নিপেট চালানোর জন্য একটি টার্মিনাল খুলুন।",
+      "addHost": "হোস্ট যোগ করুন",
+      "quickConnect": "দ্রুত কানেক্ট করুন",
+      "switchAccount": "অ্যাকাউন্ট পরিবর্তন করুন",
+      "linkAServer": "একটি সার্ভার লিঙ্ক করুন",
+      "fromYourServer": "আপনার সার্ভার থেকে",
+      "settings": "সেটিংস",
+      "accountsAppearanceSecurity": "অ্যাকাউন্ট, চেহারা, নিরাপত্তা"
+    },
+    "search": {
+      "hosts": "হোস্ট",
+      "snippets": "স্নিপেট",
+      "actions": "অ্যাকশন",
+      "settings": "সেটিংস"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "সেশন লোড করতে ব্যর্থ হয়েছে",
+      "sessionRevoked": "সেশন বাতিল করা হয়েছে",
+      "failedToRevokeSession": "সেশন বাতিল করতে ব্যর্থ হয়েছে",
+      "allSessionsRevoked": "সব সেশন বাতিল করা হয়েছে",
+      "failedToRevokeAllSessions": "সব সেশন বাতিল করতে ব্যর্থ হয়েছে",
+      "activeSessions": "সক্রিয় সেশন",
+      "signOutAllOtherSessions": "অন্য সব সেশন থেকে সাইন আউট করুন",
+      "loading": "লোড হচ্ছে…",
+      "noActiveSessionsFound": "কোনো সক্রিয় সেশন পাওয়া যায়নি।",
+      "unknownDevice": "অজানা ডিভাইস",
+      "lastActive": "সর্বশেষ সক্রিয় {{lastActiveAt}}",
+      "created": "তৈরি হয়েছে {{createdAt}}",
+      "revokeSession": "সেশন বাতিল করুন",
+      "revokeSession2": "সেশন বাতিল করবেন?",
+      "thisWillSignOutThat": "এটি সেই ডিভাইসটি থেকে সাইন আউট করবে।",
+      "revoke": "বাতিল করুন",
+      "revokeAllSessions": "সব সেশন বাতিল করবেন?",
+      "thisWillSignOutEvery": "এটি প্রতিটি ডিভাইস থেকে সাইন আউট করবে। এই ডিভাইসে আপনি সাইন ইন থাকবেন।",
+      "cancel": "বাতিল করুন",
+      "revokeAll": "সব বাতিল করুন"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API কী লোড করতে ব্যর্থ হয়েছে",
+      "failedToCreateApiKey": "API কী তৈরি করতে ব্যর্থ হয়েছে",
+      "deleteApiKey": "API কী মুছে ফেলবেন?",
+      "willStopWorkingRightAway": "\"{{name}}\" সাথে সাথে কাজ করা বন্ধ করে দেবে।",
+      "apiKeyDeleted": "API কী মুছে ফেলা হয়েছে",
+      "failedToDeleteApiKey": "API কী মুছে ফেলতে ব্যর্থ হয়েছে",
+      "apiKeys": "API কী",
+      "newApiKey": "নতুন API কী",
+      "loading": "লোড হচ্ছে…",
+      "apiKeysAllowProgrammaticAccess": "API কী Termix-এ প্রোগ্রাম্যাটিক অ্যাক্সেসের অনুমতি দেয়। গোপন কীটি শুধুমাত্র একবার দেখানো হয়, তাই এটি নিরাপদে সংরক্ষণ করুন।",
+      "noApiKeysYet": "এখনো কোনো API কী নেই",
+      "created": "তৈরি হয়েছে {{createdAt}}",
+      "lastUsed": "সর্বশেষ ব্যবহৃত {{lastUsedAt}}",
+      "expires": "মেয়াদ শেষ হবে {{expiresAt}}",
+      "delete": "Delete {{name}}",
+      "keyCreatedCopyItNow": "Key created. Copy it now",
+      "newApiKey2": "New API Key",
+      "thisTokenWonTBe": "This token won't be shown again.",
+      "apiKeyCopied": "API key copied",
+      "copy": "Copy",
+      "done": "Done",
+      "cancel": "Cancel",
+      "create": "Create",
+      "name": "Name *",
+      "eGCiPipeline": "e.g. CI Pipeline",
+      "user": "User *",
+      "noUsersAvailable": "No users available.",
+      "expiresAtOptional": "Expires At (optional)",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "Year / Month / Day"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Keep sessions running",
+      "showsANotificationWhileSessions": "Shows a notification while sessions are open, so Android keeps them going when you leave the app",
+      "batteryOptimization": "Battery optimization",
+      "termixIsNotRestrictedSo": "Termix is not restricted, so sessions can stay open with the screen off.",
+      "androidMayStillStopSessions": "Android may still stop sessions to save battery. Open the battery settings, find Termix and pick Not optimized or Unrestricted.",
+      "openBatterySettings": "Open battery settings",
+      "notificationsAreOff": "Notifications are off",
+      "sessionsStillRunButThe": "Sessions still run, but the list of open sessions and the Disconnect all button stay hidden.",
+      "openNotificationSettings": "Open notification settings",
+      "thisBuildCanTKeep": "This build can't keep sessions running in the background. They reconnect when you come back.",
+      "lowPowerMode": "Low Power Mode",
+      "batterySaver": "Battery saver",
+      "isOnTermixChecksConnections": "{{value}} is on. Termix checks connections less often and waits longer between reconnect tries.",
+      "backgroundSessions": "Background sessions",
+      "iosStopsAppsSoonAfter": "iOS stops apps soon after you leave them, so sessions can't run in the background. They reconnect when you come back, and tmux or screen picks up where you were."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Stopped",
+        "active": "Active",
+        "linkAServer": "Link a server",
+        "eachServerKeepsItsOwn": "Each server keeps its own copy of your hosts, credentials and settings on this {{deviceWord}}.",
+        "signedInAs": "Signed in as",
+        "role": "Role",
+        "administrator": "Administrator",
+        "user": "User",
+        "serverVersion": "Server version",
+        "signOut": "Sign out",
+        "youAreSignedOutOf": "You are signed out of this server.",
+        "signIn": "Sign in",
+        "passwordChanged": "Password changed",
+        "couldNotChangeThePassword": "Could not change the password",
+        "changePassword": "Change password",
+        "enterYourCurrentPasswordThen": "Enter your current password, then choose a new one.",
+        "cancel": "Cancel",
+        "change": "Change",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "accountDeleted": "Account deleted",
+        "couldNotDeleteTheAccount": "Could not delete the account",
+        "deleteServerAccount": "Delete server account",
+        "thisPermanentlyDeletesYourAccount": "This permanently deletes your account on the server and all of its data. It cannot be undone.",
+        "delete": "Delete",
+        "confirmYourPassword": "Confirm your password",
+        "worksWithoutAServer": "Works without a server",
+        "signedOut": "Signed out",
+        "readsLive": "Reads live",
+        "toReview": "পর্যালোচনার জন্য {{count}}",
+        "synced": "সমন্বয় করা হয়েছে",
+        "syncing": "সমন্বয় হচ্ছে",
+        "offline": "অফলাইন"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "অনামিক ব্যবহার পরিসংখ্যান শেয়ার করুন",
+        "aShortReportOnceA": "প্রতিদিন একটি সংক্ষিপ্ত রিপোর্ট। কোনো হোস্ট, নাম বা ঠিকানা নয়",
+        "nextReport": "পরবর্তী রিপোর্ট",
+        "seeExactlyWhatWouldBe": "ঠিক কী পাঠানো হবে তা দেখুন",
+        "couldNotBuildTheReport": "রিপোর্ট তৈরি করা যায়নি",
+        "preview": "পূর্বরূপ",
+        "thisIsExactlyWhatWould": "এটি ঠিক সেই তথ্য যা এখন পাঠানো হবে।",
+        "resetInstallId": "ইনস্টল আইডি রিসেট করুন",
+        "futureReportsWillLookLike": "ভবিষ্যতের রিপোর্টগুলো নতুন ইনস্টলের মতো দেখাবে",
+        "resetTheInstallId": "ইনস্টল আইডি রিসেট করবেন?",
+        "futureReportsWillLookLike2": "ভবিষ্যতের রিপোর্টগুলো নতুন ইনস্টলের মতো দেখাবে।",
+        "reset": "রিসেট",
+        "installIdReset": "ইনস্টল আইডি রিসেট হয়েছে"
+      },
+      "appearanceControls": {
+        "theme": "থিম",
+        "accentColor": "একসেন্ট রঙ",
+        "textSize": "টেক্সটের আকার",
+        "sizeOfTextAcrossThe": "অ্যাপ জুড়ে টেক্সটের আকার, টার্মিনাল নয়",
+        "density": "ঘনত্ব",
+        "howTallListRowsAnd": "তালিকা সারি এবং সেটিংস কতটা উঁচু হবে"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "হোস্ট, ক্রেডেনশিয়াল এবং স্নিপেট এই {{deviceWord}}-এ একটি এনক্রিপ্টেড ফাইলে রাখা হয়। নিচে চালু না করলে ব্যবহার পরিসংখ্যান বন্ধ থাকে। লিঙ্ক করা সার্ভার শুধু সেই তথ্য পায় যা আপনি সমন্বয়ের অনুমতি দেন।",
+        "recentHosts": "সাম্প্রতিক হোস্ট",
+        "forgetTheHostsYouOpened": "সব অ্যাকাউন্টে সাম্প্রতিকভাবে খোলা হোস্টগুলো ভুলে যান",
+        "recentHostsCleared": "সাম্প্রতিক হোস্ট মুছে ফেলা হয়েছে",
+        "clear": "মুছুন",
+        "couldNotCheckForUpdates": "আপডেট চেক করা যায়নি",
+        "versionIsOutUpdateFrom": "ভার্সন {{version}} এসেছে। আপনার স্টোর থেকে আপডেট করুন।",
+        "youHaveTheNewestVersion": "আপনার কাছে সর্বশেষ ভার্সন আছে",
+        "termixMobile": "Termix Mobile",
+        "updates": "আপডেট",
+        "check": "চেক করুন"
+      },
+      "pinSheet": {
+        "waitSeconds": "{{value}} সেকেন্ড অপেক্ষা করুন",
+        "digits": "{{PIN_LENGTH}} সংখ্যা"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "পিনগুলো মিলছে না",
+        "appLockIsOn": "অ্যাপ লক চালু আছে",
+        "turnOffAppLock": "অ্যাপ লক বন্ধ করুন",
+        "enterYourPinToConfirm": "নিশ্চিত করতে আপনার পিন দিন।",
+        "appLockIsOff": "অ্যাপ লক বন্ধ আছে",
+        "appLock": "অ্যাপ লক",
+        "askForFaceIdTouch": "অ্যাপ খোলার জন্য Face ID, Touch ID বা পিন চান",
+        "askForAPinTo": "অ্যাপ খোলার জন্য পিন চান",
+        "pinChanged": "পিন পরিবর্তন হয়েছে",
+        "couldNotChangeThePin": "পিন পরিবর্তন করা যায়নি",
+        "changePin": "পিন পরিবর্তন করুন",
+        "lockAfter": "এরপর লক করুন",
+        "howLongTheAppCan": "অ্যাপটি লক হওয়ার আগে কতক্ষণ দৃশ্যের বাইরে থাকতে পারে",
+        "hideInAppSwitcher": "অ্যাপ সুইচারে লুকান",
+        "showABlankScreenIn": "সাম্প্রতিক অ্যাপের তালিকায় একটি খালি স্ক্রিন দেখান",
+        "chooseA4DigitPin": "একটি ৪ সংখ্যার পিন বেছে নিন।",
+        "confirmPin": "পিন নিশ্চিত করুন",
+        "enterTheSamePinAgain": "একই পিনটি আবার দিন।",
+        "currentPin": "বর্তমান পিন",
+        "enterYourCurrentPin": "আপনার বর্তমান পিন দিন।",
+        "newPin": "নতুন পিন",
+        "chooseANew4Digit": "একটি নতুন ৪ সংখ্যার পিন বেছে নিন।",
+        "confirmNewPin": "নতুন পিন নিশ্চিত করুন",
+        "enterTheNewPinAgain": "নতুন পিনটি আবার দিন।"
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "হোম স্ক্রিন উইজেট",
+        "showYourHostsSnippetsAnd": "হোম স্ক্রিনে আপনার হোস্ট, স্নিপেট এবং পাওয়ার বাটন দেখান",
+        "showAddresses": "ঠিকানা দেখান",
+        "showUserHostUnderEach": "প্রতিটি সার্ভারের নামের নিচে user@host দেখান",
+        "includeOfflineHosts": "অফলাইন হোস্ট অন্তর্ভুক্ত করুন",
+        "offShowsOnlyServersThat": "বন্ধ থাকলে শুধুমাত্র অনলাইন সার্ভার দেখায়",
+        "pinnedHostsOnly": "শুধুমাত্র পিন করা হোস্ট",
+        "showOnlyTheHostsYou": "শুধুমাত্র আপনি যেসব হোস্ট পিন করেছেন সেগুলো দেখান",
+        "snippetsWidget": "স্নিপেট উইজেট",
+        "showSavedCommandsOnThe": "হোম স্ক্রিনে সংরক্ষিত কমান্ড দেখান",
+        "showCommandPreview": "কমান্ড প্রিভিউ দেখান",
+        "showTheFirstLineOf": "প্রতিটি কমান্ডের প্রথম লাইন দেখান"
+      }
+    },
+    "fileSettings": {
+      "files": "ফাইল",
+      "fileManagerOnThis": "এই {{deviceWord}}-এ ফাইল ম্যানেজার",
+      "browsing": "ব্রাউজিং",
+      "transfersAtOnce": "একসাথে ট্রান্সফার",
+      "downloadsAndUploadsThatRun": "একসাথে চলমান ডাউনলোড এবং আপলোড",
+      "editor": "এডিটর",
+      "textSize": "টেক্সটের আকার",
+      "filesBesideTheTerminal": "টার্মিনালের পাশে ফাইল",
+      "side": "পাশ",
+      "whereThePanelSitsOn": "ট্যাবলেটে প্যানেল কোথায় থাকবে",
+      "right": "ডান",
+      "left": "বাম",
+      "howOftenToCheck": "কত ঘনঘন চেক করবে",
+      "folderHistory": "ফোল্ডারের ইতিহাস",
+      "foldersKeptPerHost": "প্রতি হোস্টে রাখা ফোল্ডার",
+      "showHiddenFiles": "লুকানো ফাইল দেখান",
+      "filesAndFoldersThatStart": "ডট দিয়ে শুরু হওয়া ফাইল এবং ফোল্ডার",
+      "askBeforeMovingToThe": "ট্র্যাশে সরানোর আগে জিজ্ঞাসা করুন",
+      "deletingForGoodAlwaysAsks": "স্থায়ীভাবে মুছে ফেললে সবসময় জিজ্ঞাসা করে",
+      "wrapLongLines": "দীর্ঘ লাইন ভাঙুন",
+      "openWithNewTerminals": "নতুন টার্মিনাল দিয়ে খুলুন",
+      "onATabletShowThe": "ট্যাবলেটে, টার্মিনাল খোলার সময় ফাইল প্যানেল দেখান",
+      "followTheTerminal": "টার্মিনাল অনুসরণ করুন",
+      "openTheFolderTheTerminal": "আপনি cd করলে টার্মিনাল যে ফোল্ডারে থাকে সেটি খুলুন"
+    },
+    "keyboardCustomization": {
+      "small": "ছোট",
+      "medium": "মাঝারি",
+      "large": "বড়",
+      "ms": "{{v}} মি.সে.",
+      "keyboard": "কীবোর্ড",
+      "keyRowsAboveTheKeyboard": "কীবোর্ডের উপরে কী সারি",
+      "rows": "সারি",
+      "keys": "কী",
+      "aHostCanHaveIts": "একটি হোস্টের নিজস্ব সারি থাকতে পারে: একটি সেশনে এর খোলা ট্যাবে ট্যাপ করুন এবং এই হোস্টের জন্য কী সারি নির্বাচন করুন।",
+      "keySize": "কীর আকার",
+      "vibrateOnKeyPress": "কী চাপলে কম্পন হবে",
+      "repeatAfter": "পুনরাবৃত্তি শুরু হবে",
+      "howLongToHoldAn": "এরো বা ব্যাকস্পেস কতক্ষণ ধরে রাখতে হবে",
+      "repeatEvery": "প্রতি পুনরাবৃত্তি",
+      "hardwareKeyboard": "হার্ডওয়্যার কীবোর্ড",
+      "allShortcuts": "সব শর্টকাট",
+      "show": "দেখান"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "ব্যাকআপ তৈরি করা যায়নি",
+      "deleteLocalData": "স্থানীয় ডেটা মুছে ফেলবেন?",
+      "hostsCredentialsSnippetsAndHistory": "{{account}}-এর জন্য এই {{deviceWord}}-এ সংরক্ষিত হোস্ট, ক্রেডেনশিয়াল, স্নিপেট এবং ইতিহাস মুছে ফেলা হবে। এটি পূর্বাবস্থায় ফেরানো যাবে না। যদি আপনি এগুলো রাখতে চান, তবে আগে ব্যাকআপ নিন।",
+      "delete": "মুছুন",
+      "localDataDeleted": "স্থানীয় ডেটা মুছে ফেলা হয়েছে",
+      "couldNotDeleteLocalData": "স্থানীয় ডেটা মুছে ফেলা যায়নি",
+      "localData": "স্থানীয় ডেটা",
+      "localDataIsOnlySaved": "স্থানীয় ডেটা শুধুমাত্র {{deviceWord}} অ্যাপে সংরক্ষিত হয়।",
+      "savedOnThisForThe": "{{account}}-এর জন্য এই {{deviceWord}}-এ সংরক্ষিত। ফাইলটি একটি কী দিয়ে এনক্রিপ্ট করা, যা কখনোই এই {{deviceWord}}-এর বাইরে যায় না।",
+      "hosts": "হোস্ট",
+      "credentials": "ক্রেডেনশিয়াল",
+      "snippets": "স্নিপেট",
+      "size": "আকার",
+      "dataVersion": "ডেটার সংস্করণ",
+      "backup": "ব্যাকআপ",
+      "aBackupFileHoldsYour": "একটি ব্যাকআপ ফাইলে আপনার পাসওয়ার্ড এবং কী থাকে, যা আপনি বেছে নেওয়া একটি পাসফ্রেজ দিয়ে লক করা থাকে। সেই পাসফ্রেজ ছাড়া কেউ এটি খুলতে পারবে না।",
+      "exportBackup": "ব্যাকআপ রপ্তানি করুন",
+      "importBackup": "ব্যাকআপ আমদানি করুন",
+      "removesEverythingThisAccountSaved": "এই অ্যাকাউন্টটি এই {{deviceWord}}-এ সংরক্ষিত সবকিছু মুছে ফেলে। একটি লিঙ্ক করা সার্ভার তার নিজস্ব কপি বজায় রাখে।",
+      "deleteLocalData2": "স্থানীয় ডেটা মুছুন",
+      "backupPassphrase": "ব্যাকআপ পাসফ্রেজ",
+      "atLeast8CharactersYou": "কমপক্ষে ৮টি অক্ষর। ব্যাকআপ পুনরুদ্ধার করতে এটির প্রয়োজন হবে।",
+      "passphrase": "পাসফ্রেজ",
+      "next": "পরবর্তী",
+      "typeItAgain": "আবার টাইপ করুন",
+      "export": "রপ্তানি",
+      "saveYourTermixBackup": "আপনার Termix ব্যাকআপ সংরক্ষণ করুন"
+    },
+    "logs": {
+      "logs": "লগ",
+      "latestLinesFromThisRun": "এই রান থেকে সর্বশেষ লাইন। সার্ভার ঠিকানা, পাসওয়ার্ড এবং টোকেন লুকানো আছে।",
+      "logsCopied": "লগ কপি করা হয়েছে",
+      "copy": "কপি",
+      "share": "শেয়ার",
+      "clear": "পরিষ্কার করুন",
+      "noLogsYet": "এখনো কোনো লগ নেই",
+      "nothingHasBeenLogged": "কিছু লগ করা হয়নি।"
+    },
+    "plugins": {
+      "worksOnThis": "এই {{deviceWord}}-এ কাজ করে",
+      "needsTheServer": "সার্ভারের প্রয়োজন",
+      "notInTheApp": "অ্যাপে নেই",
+      "needsANewerVersionOf": "অ্যাপের নতুন সংস্করণের প্রয়োজন",
+      "updateThePluginOnThe": "সার্ভারে প্লাগইন আপডেট করুন",
+      "inTheApp": "অ্যাপে",
+      "onThisServer": "এই সার্ভারে",
+      "version": "সংস্করণ",
+      "needsPluginApi": "প্লাগইন API-এর প্রয়োজন",
+      "thisAppHas": "এই অ্যাপে আছে",
+      "note": "নোট",
+      "open": "খুলুন",
+      "openFromAHostS": "একটি হোস্টের মেনু থেকে {{name}} খুলুন।",
+      "plugins": "প্লাগইন",
+      "everything": "সবকিছু",
+      "thisDeviceWorksWithNo": "এই ডিভাইসটি কোনো সার্ভার ছাড়াই কাজ করে। যা সার্ভারের প্রয়োজন, তা যোগ করতে একটি সার্ভার লিঙ্ক করুন।",
+      "pluginsOnAndHowEach": "{{account}}-এর প্লাগইন এবং অ্যাপে প্রতিটি কীভাবে দেখায়। আবার চেক করতে নিচে টানুন।",
+      "whatRunsOnThisAnd": "এই {{deviceWord}}-এ কী চলে এবং কী {{account}}-এর মাধ্যমে যায়।",
+      "noPluginList": "কোনো প্লাগইন তালিকা নেই",
+      "theServerDidNotSend": "সার্ভার তার প্লাগইন পাঠায়নি। আবার চেষ্টা করতে নিচে টানুন।",
+      "serversOlderThan29": "২.৯-এর চেয়ে পুরনো সার্ভারে প্রতিটি ফিচার বিল্ট-ইন থাকে।",
+      "nothingToShow": "দেখানোর কিছু নেই",
+      "notSentByThisServer": "এই সার্ভার দ্বারা পাঠানো হয়নি"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "স্থানীয় ডেটা প্রতিস্থাপন করবেন?",
+      "everythingSavedOnThisFor": "{{accountName}}-এর জন্য এই {{deviceWord}}-এ সংরক্ষিত সবকিছু ব্যাকআপ দিয়ে প্রতিস্থাপিত হবে।",
+      "continue": "চালিয়ে যান",
+      "couldNotReadThatFile": "সেই ফাইলটি পড়া যায়নি",
+      "backupRestored": "ব্যাকআপ পুনরুদ্ধার করা হয়েছে",
+      "couldNotRestoreTheBackup": "ব্যাকআপ পুনরুদ্ধার করা যায়নি",
+      "backupPassphrase": "ব্যাকআপ পাসফ্রেজ",
+      "thePassphraseUsedWhenThe": "ব্যাকআপ তৈরি করার সময় ব্যবহৃত পাসফ্রেজ।",
+      "passphrase": "পাসফ্রেজ",
+      "restore": "পুনরুদ্ধার"
+    },
+    "schema": {
+      "items": {
+        "accounts": "অ্যাকাউন্ট",
+        "thisDeviceAndLinkedServers": "এই ডিভাইস এবং সংযুক্ত সার্ভার, তাদের সিঙ্ক অবস্থাসহ",
+        "syncAndProxy": "সিঙ্ক এবং প্রক্সি",
+        "whatSyncsConflictsProxyAnd": "কী সিঙ্ক হয়, সংঘর্ষ, প্রক্সি এবং আনলিঙ্ক",
+        "serverAccount": "সার্ভার অ্যাকাউন্ট",
+        "whoIsSignedInOn": "সক্রিয় সার্ভারে কে সাইন ইন আছে",
+        "activeSessions": "সক্রিয় সেশন",
+        "devicesSignedInToThe": "সার্ভারে সাইন ইন করা ডিভাইস",
+        "apiKeys": "API কী",
+        "keysForScriptsAndTools": "স্ক্রিপ্ট এবং টুলের জন্য কী",
+        "changePassword": "পাসওয়ার্ড পরিবর্তন করুন",
+        "passwordOfYourServerAccount": "আপনার সার্ভার অ্যাকাউন্টের পাসওয়ার্ড",
+        "deleteServerAccount": "সার্ভার অ্যাকাউন্ট মুছুন",
+        "removeYourAccountFromThe": "সার্ভার থেকে আপনার অ্যাকাউন্ট সরান",
+        "theme": "থিম",
+        "darkLightDraculaNordAnd": "ডার্ক, লাইট, ড্রাকুলা, নর্ড এবং আরও অনেক কিছু",
+        "accentColor": "একসেন্ট রঙ",
+        "textSize": "টেক্সটের আকার",
+        "sizeOfTextAcrossThe": "অ্যাপ জুড়ে টেক্সটের আকার",
+        "density": "ঘনত্ব",
+        "howTallListRowsAnd": "তালিকা সারি এবং সেটিংস কতটা উঁচু হবে",
+        "homeScreenWidgets": "হোম স্ক্রিন উইজেট",
+        "hostsAndSnippetsOnThe": "হোম স্ক্রিনে হোস্ট এবং স্নিপেট",
+        "terminal": "টার্মিনাল",
+        "fontThemeCursorScrollback": "ফন্ট, থিম, কার্সর, স্ক্রলব্যাক",
+        "keyboard": "কীবোর্ড",
+        "layoutKeysPresets": "লেআউট, কী, প্রিসেট",
+        "appLock": "অ্যাপ লক",
+        "askForFaceIdTouch": "অ্যাপ খোলার জন্য Face ID, Touch ID বা PIN চান",
+        "lockAfter": "লক করুন",
+        "howLongTheAppCan": "অ্যাপটি কতক্ষণ অদৃশ্য থাকলে তা লক হয়ে যাবে",
+        "hideInAppSwitcher": "অ্যাপ সুইচারে লুকান",
+        "showABlankScreenIn": "সাম্প্রতিক অ্যাপের তালিকায় একটি খালি স্ক্রিন দেখান",
+        "changePin": "PIN পরিবর্তন করুন",
+        "backgroundSessions": "ব্যাকগ্রাউন্ড সেশন",
+        "whatHappensToOpenSessions": "অ্যাপ থেকে বের হলে খোলা সেশনগুলোর কী হবে",
+        "serverAlerts": "সার্ভার অ্যালার্ট",
+        "alertsFromTheAlertsPlugin": "আপনার সার্ভারে Alerts প্লাগইন থেকে অ্যালার্ট",
+        "whatStaysOnThis": "এই {{deviceWord}}-এ কী থাকবে",
+        "hostsCredentialsAndSnippetsAre": "হোস্ট, ক্রেডেনশিয়াল এবং স্নিপেট এখানে এনক্রিপ্টেড অবস্থায় সংরক্ষিত থাকে",
+        "recentHosts": "সাম্প্রতিক হোস্ট",
+        "forgetTheHostsYouOpened": "সাম্প্রতিক খোলা হোস্টগুলো ভুলে যান",
+        "shareAnonymousUsageStatistics": "অনন্য ব্যবহার পরিসংখ্যান শেয়ার করুন",
+        "aShortReportOnceA": "প্রতিদিন একটি ছোট রিপোর্ট। কোনো হোস্ট, নাম বা ঠিকানা নয়",
+        "nextReport": "পরবর্তী রিপোর্ট",
+        "seeExactlyWhatWouldBe": "ঠিক কী পাঠানো হবে তা দেখুন",
+        "resetInstallId": "ইনস্টল আইডি রিসেট করুন",
+        "futureReportsWillLookLike": "ভবিষ্যতের রিপোর্ট নতুন ইনস্টলের মতো দেখাবে",
+        "serverUsageStatistics": "সার্ভার ব্যবহার পরিসংখ্যান",
+        "telemetrySettingsOnYourServer": "আপনার সার্ভারে টেলিমেট্রি সেটিংস",
+        "plugins": "প্লাগইন",
+        "whatTheServerAddsAnd": "সার্ভার কী যোগ করে এবং কোথায় চলে",
+        "localData": "স্থানীয় ডেটা",
+        "backupRestoreAndDeleteWhat": "এই {{deviceWord}}-এ সংরক্ষিত ডেটার ব্যাকআপ, পুনরুদ্ধার এবং মুছুন",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "ভার্সন এবং আপডেট",
+        "logs": "লগ",
+        "latestLinesFromThisRun": "বাগ রিপোর্টের জন্য এই রান থেকে সর্বশেষ লাইন"
+      },
+      "sections": {
+        "accountsAndSync": "অ্যাকাউন্ট এবং সিঙ্ক",
+        "thisDeviceLinkedServersAnd": "এই ডিভাইস, লিঙ্ক করা সার্ভার এবং কী সিঙ্ক হয়",
+        "appearance": "অ্যাপিয়ারেন্স",
+        "themeAccentTextSizeAnd": "ভাষা, থিম, অ্যাকসেন্ট, টেক্সট সাইজ এবং ডেনসিটি",
+        "terminal": "টার্মিনাল",
+        "fontColorsAndBackgroundSessions": "ফন্ট, রং এবং ব্যাকগ্রাউন্ড সেশন",
+        "keyboard": "কীবোর্ড",
+        "keyRowsAndShortcuts": "কি রো এবং শর্টকাট",
+        "security": "নিরাপত্তা",
+        "appLockFaceIdAnd": "অ্যাপ লক, ফেস আইডি এবং পিন",
+        "notifications": "নোটিফিকেশন",
+        "alertsFromYourServer": "আপনার সার্ভার থেকে অ্যালার্ট",
+        "privacyAndUsageStatistics": "গোপনীয়তা এবং ব্যবহার পরিসংখ্যান",
+        "whatStaysOnThis": "এই {{deviceWord}}-এ কী থাকে",
+        "plugins": "প্লাগইন",
+        "whatTheServerAddsTo": "সার্ভার অ্যাপে কী যোগ করে",
+        "backupAndData": "ব্যাকআপ এবং ডেটা",
+        "backUpRestoreImportAnd": "ব্যাকআপ, রিস্টোর, ইমপোর্ট এবং এক্সপোর্ট",
+        "aboutAndLogs": "সম্পর্কে এবং লগ",
+        "versionAndLogsForBug": "সংস্করণ এবং বাগ রিপোর্টের জন্য লগ"
+      }
+    },
+    "settings": "সেটিংস",
+    "searchSettings": "সেটিংস খুঁজুন",
+    "noSettingsMatch": "কোনো সেটিংস মিলছে না।",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "স্নিপেট লোড করা যায়নি",
+      "copied": "কপি করা হয়েছে: {{name}}",
+      "nameIsRequired": "নাম আবশ্যক",
+      "contentIsRequired": "কন্টেন্ট আবশ্যক",
+      "snippetUpdated": "স্নিপেট আপডেট করা হয়েছে",
+      "snippetCreated": "স্নিপেট তৈরি করা হয়েছে",
+      "failedToSaveSnippet": "স্নিপেট সেভ করা যায়নি",
+      "snippetDeleted": "স্নিপেট মুছে ফেলা হয়েছে",
+      "failedToDeleteSnippet": "স্নিপেট মুছে ফেলা যায়নি",
+      "folderNameIsRequired": "ফোল্ডারের নাম আবশ্যক",
+      "folderCreated": "ফোল্ডার তৈরি করা হয়েছে",
+      "failedToCreateFolder": "ফোল্ডার তৈরি করা যায়নি",
+      "folderDeleted": "ফোল্ডার মুছে ফেলা হয়েছে",
+      "failedToDeleteFolder": "ফোল্ডার মুছে ফেলা যায়নি",
+      "folderRenamed": "ফোল্ডারের নাম পরিবর্তন করা হয়েছে",
+      "failedToRenameFolder": "ফোল্ডারের নাম পরিবর্তন করা যায়নি",
+      "failedToSaveOrder": "ক্রম সেভ করা যায়নি",
+      "moveUp": "উপরে সরান",
+      "moveDown": "নিচে সরান",
+      "runOnHosts": "হোস্টে {{name}} চালান",
+      "copy": "{{name}} কপি করুন",
+      "delete": "{{name}} মুছুন",
+      "renameFolder": "ফোল্ডারের নাম পরিবর্তন করুন",
+      "deleteFolder": "ফোল্ডার মুছুন",
+      "noSnippetsInThisFolder": "এই ফোল্ডারে কোনো স্নিপেট নেই",
+      "snippets": "স্নিপেট",
+      "importAndExport": "ইমপোর্ট এবং এক্সপোর্ট",
+      "folder": "ফোল্ডার",
+      "new": "নতুন",
+      "loading": "লোড হচ্ছে…",
+      "couldNotLoadSnippets": "স্নিপেট লোড করা যায়নি",
+      "checkTheConnectionToYour": "আপনার সার্ভারের সাথে সংযোগ পরীক্ষা করুন এবং আবার চেষ্টা করুন।",
+      "tryAgain": "আবার চেষ্টা করুন",
+      "noSnippetsYet": "এখনো কোনো স্নিপেট নেই",
+      "createYourFirstSnippetOr": "আপনার প্রথম স্নিপেট তৈরি করুন, অথবা Termix ওয়েব বা ডেস্কটপ অ্যাপ থেকে স্নিপেট যোগ করুন।",
+      "createSnippet": "স্নিপেট তৈরি করুন",
+      "askBeforeRunning": "চালানোর আগে জিজ্ঞাসা করুন",
+      "confirmBeforeASnippetRuns": "টার্মিনালে স্নিপেট চালানোর আগে নিশ্চিত করুন",
+      "editSnippet": "স্নিপেট সম্পাদনা করুন",
+      "newSnippet": "নতুন স্নিপেট",
+      "cancel": "বাতিল",
+      "save": "সংরক্ষণ",
+      "create": "তৈরি করুন",
+      "name": "নাম",
+      "eGUpdatePackages": "যেমন: প্যাকেজ আপডেট করুন",
+      "content": "বিষয়বস্তু",
+      "descriptionOptional": "বিবরণ (ঐচ্ছিক)",
+      "shortDescription": "সংক্ষিপ্ত বিবরণ",
+      "folderOptional": "ফোল্ডার (ঐচ্ছিক)",
+      "selectFolder": "ফোল্ডার নির্বাচন করুন",
+      "noFolder": "কোনো ফোল্ডার নেই",
+      "targetHostsOptional": "টার্গেট হোস্ট (ঐচ্ছিক)",
+      "none": "কোনোটিই নয়",
+      "note": "নোট",
+      "pastedIntoTheTerminalWithout": "চালানো ছাড়াই টার্মিনালে পেস্ট করা হয়েছে",
+      "targetHosts": "টার্গেট হোস্ট",
+      "copy2": "কপি",
+      "edit": "সম্পাদনা",
+      "runOnHosts2": "হোস্টে চালান",
+      "delete2": "মুছে ফেলুন",
+      "deleteSnippet": "স্নিপেট মুছে ফেলুন",
+      "deleteThisCannotBeUndone": "\"{{name}}\" মুছে ফেলবেন? এটি পূর্বাবস্থায় ফেরানো যাবে না।",
+      "renameFolder2": "ফোল্ডারের নাম পরিবর্তন করুন",
+      "rename": "নাম পরিবর্তন",
+      "folderName": "ফোল্ডারের নাম",
+      "eGSystem": "যেমন: সিস্টেম",
+      "newFolder": "নতুন ফোল্ডার",
+      "deleteFolder2": "ফোল্ডার মুছে ফেলুন",
+      "deleteSnippetsInThisFolder": "\"{{name}}\" মুছে ফেলবেন? এই ফোল্ডারে থাকা স্নিপেটগুলো অন্তর্ভুক্ত না করা হবে।"
+    },
+    "sync": {
+      "notYet": "এখনও নয়",
+      "justNow": "এইমাত্র",
+      "stopped": "বন্ধ",
+      "signInToThisServer": "সিঙ্ক করার জন্য আবার এই সার্ভারে সাইন ইন করুন",
+      "couldNotChangeThat": "এটি পরিবর্তন করা যায়নি",
+      "sync": "সিঙ্ক",
+      "thisDeviceDoesNotSync": "এই ডিভাইসটি সিঙ্ক করে না। একাধিক ডিভাইসে আপনার হোস্ট রাখতে একটি Termix সার্ভার লিঙ্ক করুন।",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} এই {{deviceWord}}-এর সাথে হোস্ট, ক্রেডেনশিয়াল, স্নিপেট এবং সেটিংস সিঙ্ক রাখে। এই {{deviceWord}}-এ একটি কপি থাকে, তাই এটি অফলাইনেও কাজ করে।",
+      "lastSynced": "সর্বশেষ সিঙ্ক হয়েছে {{value}}",
+      "live": "লাইভ",
+      "syncNow": "এখনই সিঙ্ক করুন",
+      "fix": "সংশোধন",
+      "thisServerReadsLiveAnd": "এই সার্ভারটি লাইভ ডেটা পড়ে এবং {{deviceWord}}-এ কোনো কপি রাখে না।",
+      "turnOnTheSyncPlugin": "সার্ভারের প্লাগইন পেজে সিঙ্ক প্লাগইন চালু করুন, তারপর এই {{deviceWord}}-এ একটি কপি রাখতে এখানে আবার সাইন ইন করুন।",
+      "whatSyncs": "কী সিঙ্ক হয়",
+      "turnedOffThatDataStays": "বন্ধ আছে, সেই ডেটা শুধুমাত্র এই {{deviceWord}}-এ থাকে।",
+      "conflicts": "সংঘাত",
+      "changedHereAndOnThe": "এখানে এবং সার্ভারে একই সময়ে পরিবর্তন করা হয়েছে। সার্ভারের সংস্করণটি রাখা হয়েছে।",
+      "useServer": "সার্ভার ব্যবহার করুন",
+      "keepMine": "আমারটি রাখুন",
+      "notSavedOnTheServer": "সার্ভারে সংরক্ষিত নয়",
+      "theServerRefusedTheseChanges": "সার্ভার এই পরিবর্তনগুলো প্রত্যাখ্যান করেছে। এগুলো এই {{deviceWord}}-এই থাকবে।",
+      "tryAgain": "আবার চেষ্টা করুন",
+      "proxy": "প্রক্সি",
+      "onlyNeededWhenAReverse": "শুধুমাত্র সার্ভারের সামনে রিভার্স প্রক্সি থাকলে প্রয়োজন।",
+      "unlink": "আনলিঙ্ক",
+      "unlinkThisServer": "এই সার্ভার আনলিঙ্ক করুন",
+      "minAgo": "{{value}} মিনিট আগে",
+      "signedOut": "সাইন আউট করা হয়েছে",
+      "waitingToSync": "সিঙ্ক হওয়ার জন্য অপেক্ষা করছে",
+      "synced": "সিঙ্ক করা হয়েছে",
+      "syncing": "সিঙ্ক হচ্ছে",
+      "offline": "অফলাইন"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "ব্যাকগ্রাউন্ড",
+        "text": "টেক্সট",
+        "cursor": "কার্সর",
+        "textUnderCursor": "কার্সরের নিচের টেক্সট",
+        "selection": "সিলেকশন",
+        "black": "কালো",
+        "red": "লাল",
+        "green": "সবুজ",
+        "yellow": "হলুদ",
+        "blue": "নীল",
+        "magenta": "ম্যাজেন্টা",
+        "cyan": "সায়ান",
+        "white": "সাদা",
+        "brightBlack": "উজ্জ্বল কালো",
+        "brightRed": "উজ্জ্বল লাল",
+        "brightGreen": "উজ্জ্বল সবুজ",
+        "brightYellow": "উজ্জ্বল হলুদ",
+        "brightBlue": "উজ্জ্বল নীল",
+        "brightMagenta": "উজ্জ্বল ম্যাজেন্টা",
+        "brightCyan": "উজ্জ্বল সায়ান",
+        "brightWhite": "উজ্জ্বল সাদা",
+        "customTheme": "কাস্টম থিম",
+        "colorsAsHexLike1e1e2e": "রং হিসেবে হেক্স, যেমন #1e1e2e।",
+        "cancel": "বাতিল",
+        "save": "সংরক্ষণ",
+        "isNotAHexColor": "{{label}} কোনো হেক্স রং নয়"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "কমপ্যাক্ট",
+      "default": "ডিফল্ট",
+      "relaxed": "শিথিল",
+      "spacious": "খোলামেলা",
+      "none": "কোনোটিই নয়",
+      "couldNotSave": "সংরক্ষণ করা যায়নি",
+      "pickASizeFromTo": "{{MIN_FONT_SIZE}} থেকে {{MAX_FONT_SIZE}} এর মধ্যে একটি সাইজ নির্বাচন করুন",
+      "terminalSettingsReset": "টার্মিনাল সেটিংস রিসেট করা হয়েছে",
+      "terminal": "টার্মিনাল",
+      "aHostCanSetIts": "Termix-এ একটি হোস্ট নিজস্ব থিম এবং কার্সর সেট করতে পারে, যা এই সেটিংসের চেয়ে অগ্রাধিকার পায়।",
+      "theme": "থিম",
+      "custom": "কাস্টম",
+      "font": "ফন্ট",
+      "active": "সক্রিয়",
+      "sizeAndSpacing": "সাইজ এবং স্পেসিং",
+      "pinchTheTerminalToChange": "সাইজ পরিবর্তন করতে টার্মিনালটি পিঞ্চ করুন। আপনার {{deviceWord}} সেটিংসে বড় টেক্সট থাকলে এটি আরও বড় হয়ে যাবে।",
+      "custom2": "কাস্টম {{fontSize}}",
+      "lineHeight": "লাইন হাইট",
+      "letterSpacing": "অক্ষরের মধ্যবর্তী দূরত্ব",
+      "ligatures": "লিগেচার",
+      "cursor": "কার্সর",
+      "blink": "ব্লিঙ্ক",
+      "bell": "বেল",
+      "vibrate": "ভাইব্রেট",
+      "onTheBellAndWhen": "বেল বা দীর্ঘ চাপ দিয়ে সিলেক্ট করার সময়",
+      "scrollback": "স্ক্রলব্যাক",
+      "linesKeptAboveTheScreen": "স্ক্রিনের উপরে রাখা লাইন। এটি নতুন টার্মিনালে প্রযোজ্য।",
+      "linksAndKeys": "লিংক এবং কী",
+      "askBeforeOpeningLinks": "লিংক খোলার আগে জিজ্ঞাসা করুন",
+      "doubleTapSendsTab": "ডাবল ট্যাপ ট্যাব পাঠায়",
+      "longPressStillSelectsText": "লং প্রেস এখনও টেক্সট সিলেক্ট করে",
+      "optionSendsAlt": "অপশন অল্ট পাঠায়",
+      "onAHardwareKeyboardOff": "হার্ডওয়্যার কিবোর্ডে। বন্ধ থাকলে ম্যাকের মতো সিম্বল টাইপ হয়।",
+      "history": "ইতিহাস",
+      "suggestCommands": "কমান্ডের পরামর্শ দিন",
+      "showsPastCommandsThatStart": "আপনি যা টাইপ করছেন তার সাথে শুরু হওয়া পূর্ববর্তী কমান্ডগুলো দেখায়",
+      "resetToDefault": "ডিফল্টে রিসেট করুন",
+      "fontSize": "ফন্টের আকার",
+      "aSizeFromTo": "{{MIN_FONT_SIZE}} থেকে {{MAX_FONT_SIZE}} পর্যন্ত আকার।",
+      "cancel": "বাতিল করুন",
+      "apply": "প্রয়োগ করুন",
+      "resetTerminalSettings": "টার্মিনাল সেটিংস রিসেট করবেন?",
+      "themeFontSizeCursorBell": "থিম, ফন্ট, আকার, কার্সর, বেল এবং বাকি সব ডিফল্টে ফিরে যাবে।",
+      "reset": "রিসেট",
+      "followsAppTheme": "অ্যাপ থিম অনুসরণ করে"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "২এফএ সেটআপ শুরু করা যায়নি",
+      "twoFactorAuthenticationEnabled": "দুই-ফ্যাক্টর প্রমাণীকরণ সক্রিয়",
+      "invalidCodeTryAgain": "অবৈধ কোড, আবার চেষ্টা করুন",
+      "twoFactorAuthenticationDisabled": "দুই-ফ্যাক্টর প্রমাণীকরণ নিষ্ক্রিয়",
+      "failedToDisable2fa": "২এফএ নিষ্ক্রিয় করা যায়নি",
+      "failedToFetchBackupCodes": "ব্যাকআপ কোডগুলো আনা যায়নি",
+      "secretCopied": "সিক্রেট কপি করা হয়েছে",
+      "backupCodesCopied": "ব্যাকআপ কোডগুলো কপি করা হয়েছে",
+      "twoFactorAuthentication": "দুই-ফ্যাক্টর প্রমাণীকরণ",
+      "loading": "লোড হচ্ছে…",
+      "scanThisQrCodeWith": "আপনার অথেন্টিকেটর অ্যাপ দিয়ে এই কোআর কোড স্ক্যান করুন (Google Authenticator, Authy ইত্যাদি), তারপর নিশ্চিত করতে ৬ সংখ্যার কোডটি লিখুন।",
+      "verifyAmpEnable": "যাচাই করুন &amp; সক্রিয় করুন",
+      "cancel": "বাতিল করুন",
+      "saveYourBackupCodes": "আপনার ব্যাকআপ কোডগুলো সংরক্ষণ করুন",
+      "storeTheseSomewhereSafeEach": "এগুলো কোথাও নিরাপদে রাখুন। আপনার অথেন্টিকেটর অ্যাপের অ্যাক্সেস হারালে প্রতিটি কোড শুধুমাত্র একবার ব্যবহার করা যাবে।",
+      "copyAllCodes": "সব কোড কপি করুন",
+      "done": "সম্পন্ন",
+      "yourAccountIsProtectedWith": "আপনার অ্যাকাউন্ট একটি অথেন্টিকেটর অ্যাপ দিয়ে সুরক্ষিত।",
+      "addAnExtraLayerOf": "আপনার অ্যাকাউন্টে অতিরিক্ত সুরক্ষার স্তর যোগ করুন।",
+      "viewBackupCodes": "ব্যাকআপ কোড দেখুন",
+      "disable2fa": "২এফএ নিষ্ক্রিয় করুন",
+      "enable2fa": "২এফএ সক্রিয় করুন",
+      "disableTwoFactorAuthentication": "দুই-ফ্যাক্টর প্রমাণীকরণ নিষ্ক্রিয় করুন",
+      "enterACodeFromYour": "নিশ্চিত করতে আপনার অথেন্টিকেটর অ্যাপ থেকে একটি কোড লিখুন। আপনি যেকোনো সময় ২এফএ আবার সক্রিয় করতে পারেন।",
+      "enterYourPasswordToConfirm": "নিশ্চিত করতে আপনার পাসওয়ার্ড লিখুন। আপনি যেকোনো সময় ২এফএ আবার সক্রিয় করতে পারেন।",
+      "disable": "নিষ্ক্রিয় করুন",
+      "yourPassword": "আপনার পাসওয়ার্ড",
+      "n2faIsEnabled": "২এফএ সক্রিয়",
+      "n2faIsNotEnabled": "২এফএ সক্রিয় নয়"
+    },
+    "language": {
+      "label": "ভাষা",
+      "description": "সুইচ করতে অ্যাপটি রিলোড হবে",
+      "system": "ডিভাইসের মতোই"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "এখানে কোনো এসএসএইচ হোস্ট নেই",
+      "couldNotReadWhatWas": "শেয়ার করা বিষয়টি পড়া যায়নি",
+      "stopTheUploads": "আপলোড বন্ধ করবেন?",
+      "stopAndLeave": "বন্ধ করুন এবং বেরিয়ে যান",
+      "sendTo": "{{name}}-এ পাঠান",
+      "sendToAHost": "একটি হোস্টে পাঠান",
+      "nothingToSend": "পাঠানোর মতো কিছু নেই",
+      "close": "বন্ধ করুন",
+      "done": "সম্পন্ন",
+      "cancel": "বাতিল করুন",
+      "uploadHere": "এখানে আপলোড করুন",
+      "uploadsStillGoing_one": "{{count}}টি আপলোড এখনও চলছে। বের হলে তা বন্ধ হয়ে যাবে।",
+      "uploadsStillGoing_other": "{{count}}টি আপলোড এখনও চলছে। বের হলে সেগুলো বন্ধ হয়ে যাবে।",
+      "filesSize_one": "{{count}}টি ফাইল | {{size}}",
+      "filesSize_other": "{{count}}টি ফাইল | {{size}}",
+      "readingWhatWasShared": "শেয়ার করা বিষয়গুলো পড়া হচ্ছে"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "ত্রুটি",
+      "worksWithoutAServer": "সার্ভার ছাড়াই কাজ করে",
+      "accountSwitch": "অ্যাকাউন্ট {{account}}, পরিবর্তন করুন",
+      "search": "অনুসন্ধান",
+      "notificationsUnread": "বিজ্ঞপ্তি, {{unread}}টি পড়া হয়নি",
+      "notifications": "বিজ্ঞপ্তি",
+      "signedIn": "সাইন ইন করা হয়েছে",
+      "signedOut": "সাইন আউট করা হয়েছে",
+      "copyOnThis": "এই {{deviceWord}}-এ কপি করুন"
+    },
+    "bottomBar": {
+      "home": "হোম",
+      "hosts": "হোস্ট",
+      "sessions": "সেশন",
+      "tools": "টুলস",
+      "settings": "সেটিংস",
+      "open": "{{label}}, {{count}}টি খোলা আছে"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}}টি খোলা আছে"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "একটি হোস্ট নির্বাচন করুন",
+      "searchHosts": "হোস্ট অনুসন্ধান করুন",
+      "clearSearch": "অনুসন্ধান মুছুন",
+      "noHostsMatch": "কোনো হোস্ট মিলছে না",
+      "noHostsCanUseThis": "কোনো হোস্ট এটি ব্যবহার করতে পারে না",
+      "turnItOnForA": "হোস্ট এডিটরে একটি হোস্টের জন্য এটি চালু করুন।"
+    },
+    "noToolsHereYet": "এখানে এখনো কোনো টুল নেই",
+    "onAHost": "একটি হোস্টে",
+    "saved": "সংরক্ষিত",
+    "fromYourServer": "আপনার সার্ভার থেকে"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "বাতিল",
+      "delete": "মুছুন",
+      "confirm": "নিশ্চিত করুন"
+    },
+    "contextMenu": {
+      "closeMenu": "মেনু বন্ধ করুন"
+    },
+    "inlineView": {
+      "back": "পিছনে"
+    },
+    "listRow": {
+      "moreActions": "আরও অ্যাকশন"
+    },
+    "pinPad": {
+      "useBiometrics": "বায়োমেট্রিক্স ব্যবহার করুন",
+      "delete": "মুছুন"
+    },
+    "popover": {
+      "close": "বন্ধ করুন"
+    },
+    "promptSheet": {
+      "cancel": "বাতিল"
+    },
+    "sheet": {
+      "close": "বন্ধ করুন"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "এই কীটি লক করা আছে। এর পাসফ্রেজ দিন।",
+      "thatPassphraseDoesnTOpen": "এই পাসফ্রেজটি এই কীটি খোলে না।",
+      "thisDoesnTLookLike": "এটি একটি প্রাইভেট কী মনে হচ্ছে না।",
+      "loadedAndChangedItTo": "{{name}} লোড করা হয়েছে এবং এটি OpenSSH ফরম্যাটে পরিবর্তন করা হয়েছে",
+      "loadedItNeedsItsPassphrase": "{{name}} লোড করা হয়েছে। সংযোগ করতে এর পাসফ্রেজ প্রয়োজন"
+    },
+    "ago": {
+      "justNow": "এইমাত্র"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "আপনার হোস্টগুলো লোড করা যায়নি।",
+      "failedOn": "{{name2}}-এ {{name}} ব্যর্থ হয়েছে",
+      "on": "{{name2}}-এ {{name}}: {{value}}",
+      "ranOn": "{{name2}}-এ {{name}} চালানো হয়েছে",
+      "runOn": "এতে \"{{name}}\" চালান",
+      "runSnippet": "স্নিপেট চালান",
+      "loadingHosts": "হোস্ট লোড হচ্ছে…",
+      "noHostsAvailable": "কোনো হোস্ট উপলব্ধ নেই",
+      "addAHostInTermix": "আপনার হোম স্ক্রিন থেকে স্নিপেট চালানোর জন্য Termix-এ একটি হোস্ট যোগ করুন।",
+      "lastUsed": "সর্বশেষ ব্যবহৃত",
+      "failedToRunSnippet": "স্নিপেট চালানো ব্যর্থ হয়েছে"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "সেই স্নিপেটটি আর বিদ্যমান নেই।",
+      "couldNotOpenThatSnippet": "সেই স্নিপেটটি খোলা যায়নি।",
+      "thatHostNoLongerExists": "সেই হোস্টটি আর বিদ্যমান নেই।",
+      "couldNotOpenThatHost": "এই হোস্টটি খোলা যায়নি।"
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "হোম"
+      },
+      "hosts": {
+        "hosts": "হোস্টসমূহ"
+      },
+      "sessions": {
+        "sessions": "সেশনসমূহ",
+        "connectToATermixServer": "টার্মিনাল, টানেল এবং ফাইল সেশন খুলতে একটি Termix সার্ভারে সংযোগ করুন।"
+      }
+    },
+    "layout": {
+      "initializing": "প্রাথমিকীকরণ হচ্ছে…",
+      "cancel": "বাতিল"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "এই হোস্টের কোনো বৈধ MAC ঠিকানা নেই।",
+    "thisBuildCanTSend": "এই বিল্ডটি Wake-on-LAN প্যাকেট পাঠাতে পারে না।",
+    "couldNotSendThePacket": "প্যাকেট পাঠানো যায়নি। নিশ্চিত করুন যে Wi-Fi চালু আছে।"
+  },
+  "common": {
+    "hostCount_one": "{{count}} হোস্ট",
+    "hostCount_other": "{{count}} হোস্ট",
+    "device": {
+      "phone": "ফোন",
+      "tablet": "ট্যাবলেট"
+    },
+    "thisDeviceLower": "এই {{deviceWord}}টি"
+  },
+  "hostAccess": {
+    "title": "শেয়ারিং",
+    "action": "অন্যদের সাথে শেয়ার করুন",
+    "levels": {
+      "connect": "সংযোগ",
+      "view": "দেখুন",
+      "edit": "সম্পাদনা",
+      "manage": "ব্যবস্থাপনা"
+    },
+    "levelHints": {
+      "connect": "শুধুমাত্র সেশন খুলতে পারবে। হোস্টের সেটিংস লুকানো থাকবে।",
+      "view": "সংযোগ করতে পারবে এবং হোস্টের সেটিংস দেখতে পারবে। গোপন তথ্য কখনো দেখানো হবে না।",
+      "edit": "দেখতে পারবে এবং লগইন ছাড়া অন্য সেটিংস পরিবর্তন করতে পারবে।",
+      "manage": "সম্পাদনা করতে পারবে, হোস্টটি শেয়ার করতে পারবে এবং অ্যাক্সেস পরিবর্তন বা অপসারণ করতে পারবে।"
+    },
+    "until": "{{date}} পর্যন্ত",
+    "sharedBy": "{{name}} দ্বারা",
+    "couldNotLoad": "কে অ্যাক্সেস রাখে তা লোড করা যায়নি",
+    "shared": "হোস্ট শেয়ার করা হয়েছে",
+    "couldNotShare": "হোস্টটি শেয়ার করা যায়নি",
+    "updated": "অ্যাক্সেস পরিবর্তন করা হয়েছে",
+    "couldNotUpdate": "অ্যাক্সেস পরিবর্তন করা যায়নি",
+    "removeTitle": "{{name}} কে অপসারণ করবেন?",
+    "removeHint": "সে আর এই হোস্টটি ব্যবহার করতে পারবে না।",
+    "remove": "অপসারণ",
+    "removed": "অ্যাক্সেস অপসারণ করা হয়েছে",
+    "couldNotRemove": "অ্যাক্সেস অপসারণ করা যায়নি",
+    "whoHasAccess": "কে অ্যাক্সেস রাখে",
+    "loading": "লোড হচ্ছে...",
+    "nobodyYet": "শুধুমাত্র আপনি এই হোস্টটি ব্যবহার করতে পারেন।",
+    "changeAccessFor": "{{name}} এর জন্য অ্যাক্সেস পরিবর্তন করুন",
+    "shareWith": "শেয়ার করুন",
+    "users": "ব্যবহারকারী",
+    "roles": "ভূমিকা",
+    "searchUsers": "ব্যবহারকারী খুঁজুন",
+    "searchRoles": "ভূমিকা খুঁজুন",
+    "noUsers": "শেয়ার করার জন্য অন্য কোনো ব্যবহারকারী নেই।",
+    "noRoles": "শেয়ার করার জন্য কোনো ভূমিকা নেই।",
+    "options": "অ্যাক্সেস",
+    "level": "স্তর",
+    "expires": "সমাপ্তি",
+    "expiry": {
+      "never": "কখনোই নয়",
+      "1h": "১ ঘণ্টার মধ্যে",
+      "1d": "১ দিনের মধ্যে",
+      "7d": "৭ দিনের মধ্যে",
+      "30d": "৩০ দিনের মধ্যে"
+    },
+    "pickSomeone": "কাদের সাথে শেয়ার করবেন তা নির্বাচন করুন",
+    "shareCount_one": "{{count}} জনের সাথে শেয়ার করুন",
+    "shareCount_other": "{{count}} জনের সাথে শেয়ার করুন",
+    "removeAccess": "অ্যাক্সেস অপসারণ করুন"
+  }
+}

@@ -1,1 +1,3852 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Pieteikties",
+      "addServer": "Pievienot serveri",
+      "switchAccount": "Mainīt kontu",
+      "noServerConnected": "Nav savienots neviens servers",
+      "connectToATermixServer": "Savienojieties ar Termix serveri, lai pārvaldītu savus hostus, termināļus, failus un daudz ko citu."
+    },
+    "lockScreen": {
+      "cancel": "Atcelt",
+      "tooManyTriesWaitSeconds": "Pārāk daudz mēģinājumu. Pagaidiet {{value}} sekundes",
+      "termixLocked": "Termix ir aizslēgts",
+      "enterYourPinToContinue": "Ievadiet savu PIN kodu, lai turpinātu"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranža",
+      "blue": "Zila",
+      "green": "Zaļa",
+      "purple": "Violeta",
+      "pink": "Rozā",
+      "cyan": "Cian",
+      "red": "Sarkana",
+      "yellow": "Dzeltena",
+      "teal": "Tirkīza",
+      "indigo": "Indigo",
+      "rose": "Rožu",
+      "lime": "Laima",
+      "system": "Sistēmas",
+      "light": "Gaišs",
+      "dark": "Tumšs"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Izmantot PIN kodu",
+      "unlockTermix": "Atslēgt Termix",
+      "unlockTermixFirst": "Vispirms atslēdziet Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Šī funkcija serverī ir izslēgta.",
+      "aTabWasNotReopened": "Cilne netika atkārtoti atvērta, jo tās hosts vairs nepastāv",
+      "tabsWereNotReopenedBecause": "Nav atvērti {{count}} cilnes, jo to resursdatori vairs nav pieejami"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Savienojiet Termix serveri, lai to izmantotu",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Ievadiet sava servera adresi",
+        "theAddressCanTHave": "Adresē nevar būt atstarpes",
+        "useAnHttpOrHttps": "Izmantojiet http:// vai https:// adresi",
+        "thatDoesnTLookLike": "Šķiet, ka tas nav servera adrese",
+        "thePortMustBeFrom": "Portam jābūt no 1 līdz 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Atbildēja pieteikšanās proxys, nevis Termix. Vispirms pieteikieties proxy.",
+        "theServerDidNotSend": "Serveris nesūtīja tokeni.",
+        "theServerDidNotSend2": "Serveris nesūtīja sesiju.",
+        "theServerSentNoSign": "Serveris nesūtīja pieteikšanās adresi.",
+        "theSignInRanOut": "Pieteikšanās ir beigusies vai jau ir izmantota. Pieteikieties vēlreiz.",
+        "wrongUsernameOrPassword": "Nepareizs lietotājvārds vai parole",
+        "signInFailedHttp": "Pieteikšanās neizdevās (HTTP {{status}})",
+        "thePageSignedYouIn": "Lapa jūs pieteica, bet neatgrieza sesiju. Atjauniniet serveri uz Termix 26.11.3 vai jaunāku.",
+        "thisAccountIsnTAllowed": "Šim kontam nav atļauts pieteikties šeit.",
+        "noTermixAccountMatchesThat": "Nav Termix konta, kas atbilstu šim pieteikumam."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Šai sesijai nav servera"
+    },
+    "store": {
+      "noSuchAccount": "Šāds konts neeksistē",
+      "thisDeviceCanTBe": "Šo ierīci nevar noņemt",
+      "switchToAnotherAccountFirst": "Vispirms pārslēdzieties uz citu kontu"
+    },
+    "types": {
+      "thisDevice": "Šī ierīce"
+    },
+    "accountSwitcher": {
+      "error": "Kļūda",
+      "worksWithoutAServer": "Strādā bez servera",
+      "couldNotSwitchAccount": "Neizdevās mainīt kontu",
+      "accounts": "Konti",
+      "openTabsKeepRunningWhen": "Atvērtās cilnes turpina darboties, kad pārslēdzaties.",
+      "unlink": "Atsaistīt {{account}}",
+      "linkAServer": "Savienot serveri",
+      "eachServerKeepsItsOwn": "Katrs servers šajā {{deviceWord}} saglabā savus hostus, akreditācijas datus un iestatījumus.",
+      "signedIn": "Pieteicies",
+      "signedOut": "Izrakstīts",
+      "syncedCopy": "Sinhronizēta kopija"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Neizdevās saglabāt atslēgu",
+      "theServerSKeyMatches": "Servera atslēga sakrīt ar iestatīto atslēgu",
+      "theServerShowsAnotherKey": "Serveris parāda citu atslēgu",
+      "pinThisKey": "Iestatīt šo atslēgu?",
+      "pinThisKey2": "Iestatīt šo atslēgu",
+      "keyPinned": "Atslēga iestatīta",
+      "couldNotReadTheServer": "Neizdevās izlasīt servera atslēgu",
+      "thatIsNotAPin": "Tas nav derīga atslēga",
+      "keysPinned": "Atslēgas iestatītas",
+      "certificatePin": "Sertifikāta atslēga",
+      "trustThisServerOnlyBy": "Uzticieties šim serverim tikai pēc tā atslēgas. Izmantojiet to pašparakstītiem sertifikātiem vai lai noraidītu jebkuras citas atslēgas. Pirms maināt servera sertifikātu, pievienojiet nākamo atslēgu.",
+      "removePin": "Noņemt atslēgu {{pin}}",
+      "remove": "Noņemt",
+      "readTheKeyFromThe": "Izlasīt atslēgu no servera",
+      "orPasteAPin": "Vai ielīmēt atslēgu",
+      "pin": "Atslēga",
+      "add": "Pievienot",
+      "issuedTo": "Izsniegts: {{subject}}",
+      "issuedBy": "Izsniedzējs: {{issuer}}",
+      "validUntil": "Derīgs līdz: {{value}}",
+      "checkThatThisKeyMatches": "Pirms iestatāt atslēgu, pārliecinieties, ka tā sakrīt ar to, kas ir jūsu serverī.",
+      "pasteTheBase64Sha256Of": "Ielīmējiet servera publiskās atslēgas base64 sha256 vērtību, tādu, kādu to izdrukā openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Starpservera iestatījumi saglabāti",
+      "couldNotSaveTheProxy": "Neizdevās saglabāt starpservera iestatījumus",
+      "couldNotReadThatFile": "Neizdevās izlasīt šo failu",
+      "certificateSaved": "Sertifikāts saglabāts",
+      "theFileOrItsPassphrase": "Faila vai tā parolas vārds ir nepareizs",
+      "couldNotSaveTheCertificate": "Neizdevās saglabāt sertifikātu",
+      "headers": "Virsraksti",
+      "sentWithEveryRequestTo": "Nosūtīts ar katru pieprasījumu šim serverim, piemēram, Cloudflare pakalpojuma marķieri.",
+      "name": "Nosaukums",
+      "value": "Vērtība",
+      "removeHeader": "Noņemt virsrakstu",
+      "addHeader": "Pievienot virsrakstu",
+      "cloudflareServiceToken": "Cloudflare pakalpojuma marķieris",
+      "basicAuth": "Pamata autentifikācija",
+      "forAProxyThatAsks": "Starpservera autentifikācijai, kas prasa lietotājvārdu un paroli.",
+      "userName": "Lietotājvārds",
+      "password": "Parole",
+      "saveHeadersAndBasicAuth": "Saglabāt virsrakstus un pamata autentifikāciju",
+      "clientCertificate": "Klienta sertifikāts",
+      "forServersThatAskFor": "Serveriem, kas to pieprasa (mTLS). Atslēga tiek glabāta {{deviceWord}} drošajā krātuvē, un to nevar izlasīt atpakaļ.",
+      "certificate": "Sertifikāts",
+      "remove": "Noņemt",
+      "replaceCertificate": "Aizstāt sertifikātu",
+      "pickAP12OrPfx": "Izvēlieties .p12 vai .pfx failu",
+      "proxySignIn": "Starpservera pieteikšanās",
+      "thisIsSignedInTo": " Šis {{deviceWord}} ir pieslēgts starpserverim.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik un citiem starpservieriem ar savu pieteikšanās lapu.{{value}}",
+      "signInToTheProxy": "Pieslēgties starpserverim",
+      "forget": "Aizmirst",
+      "certificatePassphrase": "Sertifikāta paroles vārds",
+      "thePassphraseTheFileWas": "Paroles vārds, ar kuru faila tika saglabāts. Atstājiet tukšu, ja tāds nav.",
+      "passphrase": "Paroles vārds",
+      "save": "Saglabāt"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Pieslēgts starpserverim",
+      "couldNotSaveTheProxy": "Neizdevās saglabāt starpservera pieteikšanos",
+      "signInToTheProxy": "Pieslēgties starpserverim",
+      "thisBuildOfTheApp": "Šī lietotnes versija nevar saglabāt starpniekservera pieteikumu. Vietā tam izmantojiet pakalpojuma marķieri starpniekservera galvenes."
+    },
+    "savedLoginRow": {
+      "signIn": "Pieslēgties",
+      "signInWith": "Pieslēgties ar {{name}}",
+      "whenThisServerSignsYou": "Kad šis serveris jūs izrakstīs, pieslēdzieties vēlreiz, nerakstot paroli."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Atsaistīts. {{copied}} elementi tika saglabāti uz Šīs ierīces.",
+      "unlinked": "Atsaistīts",
+      "couldNotUnlinkTheServer": "Neizdevās atsaitēt serveri",
+      "unlink": "Atsaitīt {{value}}?",
+      "thisSignsOutOfThe": "Šī {{deviceWord}} izrakstās no servera. Nekas netiek dzēsts no servera.",
+      "keepACopyOnThis": "Saglabāt kopiju uz Šīs ierīces",
+      "yourOwnHostsCredentialsAnd": "Jūsu paša hosti, akreditācijas dati un fragmenti tiek pārvietoti uz Šo ierīci. Ar jums kopīgotie hosti netiek saglabāti.",
+      "deleteFromThis": "Dzēst no šīs {{deviceWord}}",
+      "everythingThisHasForThe": "Viss, kas šai {{deviceWord}} ir attiecībā uz serveri, tiek noņemts."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Mainiet to zemāk sadaļā Starpniekserveris",
+      "updateTermixMobileFromYour": "Atjauniniet Termix Mobile no savas lietotņu veikala"
+    },
+    "savedLogin": {
+      "signInToTermix": "Pieslēgties Termix",
+      "faceUnlock": "sejas atbloķēšana"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Šī versija nevar pārbaudīt šī servera piesprausto atslēgu vai nosūtīt tā sertifikātu."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Šis serveris neatbalsta šo funkciju",
+      "theProxyWantsYouTo": "Starpniekserveris prasa jums pieslēgties",
+      "endpointNotAvailableOnThis": "Bezpunkts nav pieejams šajā serverī",
+      "unknownError": "Nezināma kļūda"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Starpniekserveris priekšā šim serverim prasa jums pieslēgties vēlreiz.",
+      "authenticationRequiredPleaseLogIn": "Nepieciešama autentifikācija. Lūdzu, pieslēdzieties vēlreiz.",
+      "accessDeniedYouDoNot": "Piekļuve liegta. Jums nav atļaujas veikt šo darbību.",
+      "thisFeatureIsTurnedOff": "Šī funkcija serverī ir izslēgta.",
+      "thisServerDoesNotSupport": "Šis serveris neatbalsta šo funkciju.",
+      "resourceNotFoundTheRequested": "Resurss nav atrasts. Pieprasītais elements varētu būt dzēsts.",
+      "conflictTheResourceAlreadyExists": "Konflikts. Resurss jau eksistē vai tiek izmantots.",
+      "validationErrorPleaseCheckYour": "Validācijas kļūda. Lūdzu, pārbaudiet savu ievadi un mēģiniet vēlreiz.",
+      "serverErrorOccurredPleaseTry": "Radās servera kļūda. Lūdzu, mēģiniet vēlreiz vēlāk.",
+      "sslCertificateVerificationFailed": "SSL sertifikāta verifikācija neizdevās.",
+      "networkErrorPleaseCheckYour": "Tīkla kļūda. Lūdzu, pārbaudiet savu savienojumu un mēģiniet vēlreiz.",
+      "failedTo": "Neizdevās {{operation}}",
+      "unknownError": "Nezināma kļūda",
+      "unexpectedErrorDuring": "Negaidīta kļūda, veicot {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Lietotne nevarēja uzticēties HTTPS šai lokālajai IP. Piesprādzējiet servera atslēgu sadaļā Starpniekserveris un klienta sertifikāts, izmantojiet sertifikātu, kuram {{deviceWord}} uzticas, vai HTTP uzticamā lokālā vai VPN tīklā.",
+        "thisServerIsBehindA": "Šis serveris atrodas aiz pieteikšanās starpniekservera. Izmantojiet ārējo pieteikšanās opciju.",
+        "loginFailed": "Pieteikšanās neizdevās"
+      },
+      "files": {
+        "fileNotFound": "Fails nav atrasts",
+        "fileWriteOperationDidNot": "Faila rakstīšanas darbība neatgrieza veiksmes statusu",
+        "couldNot": "Neizdevās {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Hosts saglabāts, bet dažas iestatījumu saglabāšanas neizdevās: {{value}}",
+        "unexpectedHostResponseFrom": "Negaidīta hosta atbilde no {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Tiešā parauga ņemšana neizdevās"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Nav atbildes"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Šis serveris nerādīja atslēgu, pie kuras tas ir piesprausts, tāpēc lapa netika atvērta."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Šis {{what}} vairs neeksistē.",
+      "aHostCannotBeIts": "Hosts nevar būt pats par savu vecāku",
+      "parentHostNotFound": "Vecāka hosts nav atrasts",
+      "aHostCanTGo": "Hosts nevar atrasties zem viena no saviem apakšhostiem",
+      "thisIsSharedWithYou": "Šis {{what}} ir kopīgots ar jums. To var mainīt tikai tā īpašnieks.",
+      "nameIsRequired": "Vārds ir obligāts",
+      "nameAndCommandAreRequired": "Vārds un komanda ir obligāti",
+      "aFolderWithThatName": "Mapes ar šādu nosaukumu jau eksistē"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Šī ierīce nevar saglabāt {{what}} šeit."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Šis fragments ir kopīgots ar jums, un to nevar mainīt."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Izmantojiet paroli ar vismaz 8 rakstzīmēm.",
+      "thisIsNotATermix": "Šis nav Termix rezerves kopijas fails.",
+      "thisBackupIsFromA": "Šī rezerves kopija ir no jaunākas Termix versijas. Vispirms atjauniniet lietotni.",
+      "wrongPassphraseOrTheFile": "Nepareiza parolas frāze vai fails ir bojāts."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Šī versija nevar šifrēt vietējos datus."
+    },
+    "keys": {
+      "unlockTermixFirst": "Vispirms atbloķējiet Termix.",
+      "thatIsNotADatabase": "Tas nav datubāzes atslēga.",
+      "couldNotSaveTheDatabase": "Neizdevās saglabāt datubāzes atslēgu."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Šie dati tika saglabāti ar jaunāku Termix versiju. Atjauniniet lietotni, lai tos atvērtu."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Šī ierīce nesinhronizējas.",
+      "localDataIsNotAvailable": "Vietējie dati šeit nav pieejami.",
+      "unlockTermixFirst": "Vispirms atbloķējiet Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Nevar izveidot savienojumu.",
+      "thisWayCanTRun": "Šis veids nevar izpildīt komandas"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo parole",
+      "password": "Parole",
+      "run": "Izpildīt",
+      "thatPasswordWasWrong": "Šī parole bija nepareiza.",
+      "onNeedsRoot": "{{reason}} uz {{hostName}} prasa root tiesības.",
+      "needsRootForThis": "{{hostName}} šim darbībai prasa root tiesības.",
+      "itIsKeptUntilYou": "Tā tiek saglabāta, līdz aizverat lietotni."
+    },
+    "run": {
+      "theHostTookTooLong": "Hosts atbildēja pārāk ilgi",
+      "connectionLost": "Savienojums zaudēts"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Šim ir nepieciešamas root tiesības. Pierakstieties kā root, iestatiet sudo bez paroles vai saglabājiet sudo paroles hostam.",
+      "theSudoPasswordWasWrong": "Sudo parole bija nepareiza",
+      "commandFailed": "Komanda neizdevās"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet terminālī prasa savienojumu no {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funkcija {{id}} jau ir reģistrēta"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adrese",
+      "theIpOrHostName": "IP vai hosta nosaukums zem nosaukuma",
+      "username": "Lietotājvārds",
+      "theUserBeforeTheAddress": "Lietotājs pirms adreses",
+      "port": "Ports",
+      "thePortAfterTheAddress": "Ports pēc adreses",
+      "hostIcon": "Hosta ikona",
+      "theIconSetOnThe": "Hostam iestatītā ikona",
+      "pinIcon": "Piespraust ikonu",
+      "marksPinnedHosts": "Atzīmē piespraustos hostus",
+      "sharedBadge": "Koplietotais zīmolns",
+      "marksHostsSharedWithYou": "Atzīmē ar jums koplietotos hostus",
+      "protocolBadges": "Protokola zīmolni",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker un citi zīmolni",
+      "tags": "Birkas",
+      "theHostSTags": "Hosta birkas",
+      "cpuAndRam": "CPU un RAM",
+      "liveUsageBarsOnOnline": "Tiešraides izmantošanas joslas tiešsaistes hostiem",
+      "statusColors": "Statusa krāsas",
+      "greenBarWhenOnlineRed": "Zaļa josla, kad tiešsaistē, sarkana, kad bezsaistē"
+    },
+    "uiPrefs": {
+      "small": "Mazs",
+      "default": "Noklusējums",
+      "large": "Liels",
+      "comfortable": "Ērts",
+      "compact": "Kompakts"
+    },
+    "errors": {
+      "somethingWentWrong": "Kaut kas nogāja greizi"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Atslēgas aizslēgšana ar parolas frāzi prasa Termix lietotni, nevis tīmekļa priekšskatījumu."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Tūlīt",
+      "after15Seconds": "Pēc 15 sekundēm",
+      "after1Minute": "Pēc 1 minūtes",
+      "after5Minutes": "Pēc 5 minūtēm"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Ierīces noslēpums ir pazudis",
+      "noSealedKey": "Nav noslēgtas atslēgas",
+      "theSealedKeyIsDamaged": "Noslēgtā atslēga ir bojāta",
+      "wrongPin": "Nepareizs PIN kods",
+      "theSealedKeyDidNot": "Aizvēlētais atslēga neatvēries",
+      "biometricsCanTOpenThe": "Biometriskā autentifikācija nevar atvērt atslēgu"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Atjaunināt lietotni",
+      "onYourServerNeedsA": "Lai izmantotu {{name}} jūsu serverī, šajā {{deviceWord}} ir nepieciešama jaunāka Termix versija.",
+      "updateThePlugin": "Atjaunināt spraudni",
+      "onYourServerIsToo": "{{name}} jūsu serverī ir pārāk veca šai lietotnei. Lūdziet administratoru to atjaunināt sadaļā Spraudņi."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Bloķēts no lietotnes",
+      "theAppDoesNotLet": "Lietotne neļauj spraudņiem izmantot šo maršrutu.",
+      "thisBuildCanTReach": "Šī versija nevar droši sasniegt šo serveri."
+    },
+    "support": {
+      "needsANewerVersionOf": "Nepieciešama jaunāka lietotnes versija",
+      "updateThePluginOnThe": "Atjaunināt spraudni serverī",
+      "theAppHasItsOwn": "Lietotnei ir sava izskata tēma",
+      "notInTheAppYet": "Vēl nav lietotnē",
+      "linkAServerToUse": "Sasaistiet serveri, lai to izmantotu",
+      "opensInTheAppFrom": "Atveras lietotnē no servera",
+      "runsOnTheServer": "Darbojas serverī",
+      "throughTheServer": "Caur serveri",
+      "inTheApp": "Lietotnē",
+      "webView": "Tīmekļa skats",
+      "onTheServer": "Serverī",
+      "appLook": "Lietotnes izskats",
+      "notInTheApp": "Nav lietotnē",
+      "safeMode": "Drošais režīms",
+      "notRunning": "Nedarbojas",
+      "notInstalled": "Nav instalēts",
+      "notOnThisServer": "Nav šajā serverī",
+      "thePluginIsNotInstalled": "Spraudnis nav instalēts šajā serverī.",
+      "turnedOffOnTheServer": "Izslēgts serverī",
+      "itOpensHereAgainWhen": "Tas atkal atveras šeit, kad administrators to ieslēdz.",
+      "notRunningOnTheServer": "Nedarbojas serverī",
+      "theServerIsInSafe": "Serveris ir drošajā režīmā, tāpēc darbojas tikai izskata spraudņi.",
+      "thePluginDidNotStart": "Spraudnis netika palaists. Administrators to var pārbaudīt sadaļā Spraudņi.",
+      "thisPluginIsNotAvailable": "Šis spraudnis nav pieejams",
+      "itIsNotMadeFor": "Tas nav izstrādāts šai lietotnei.",
+      "offOnThisServer": "izslēgts šajā serverī",
+      "notRunningOnThisServer": "nedarbojas šajā serverī",
+      "notOnThisServer2": "nav šajā serverī",
+      "notInTheAppYet2": "Vēl nav lietotnē | šajā serverī",
+      "worksOnThis": "Strādā šajā {{deviceWord}}",
+      "andServer": "{{DeviceWord}} un serveris",
+      "deviceOnly": "Tikai {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Pārlādēt"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Atvienot visus",
+      "showOpenSessions": "Rādīt atvērtās sesijas",
+      "termixShowsANotificationWhile": "Termix rāda paziņojumu, kamēr sesijas ir atvērtas, lai Android turpinātu tās palaist fonā.",
+      "sessionsOpen_zero": "Nav atvērtu sesiju",
+      "sessionsOpen_one": "{{count}} atvērta sesija",
+      "sessionsOpen_other": "{{count}} atvērtas sesijas",
+      "tunnelsActive_zero": "Nav aktīvu tuneļu",
+      "tunnelsActive_one": "{{count}} aktīvs tuneļš",
+      "tunnelsActive_other": "{{count}} aktīvi tuneļi",
+      "notConnected": "Nav savienots",
+      "waitingForNetwork": "Gaida tīklu",
+      "connecting": "Savienojas",
+      "connected": "Savienots",
+      "reconnecting": "Atkārtoti savienojas",
+      "failed": "Neizdevās",
+      "closed": "Aizvērts"
+    },
+    "companionPane": {
+      "resizeThePanel": "Mainīt {{title}} panela izmēru"
+    },
+    "connectionsPanel": {
+      "close": "Aizvērt",
+      "closeAllTabs": "Aizvērt visas {{count}} cilnes?",
+      "everySessionEnds": "Visas sesijas tiek pabeigtas.",
+      "closeAll": "Aizvērt visas",
+      "noActiveConnections": "Nav aktīvu savienojumu",
+      "pickAHostFromThe": "Izvēlieties serveri no saraksta, lai sāktu sesiju. Šeit tiek rādītas arī cilnes, kuras atverat citās ierīcēs.",
+      "connectToAHostTo": "Savienojieties ar serveri, lai sāktu sesiju. Šeit tiek rādītas arī cilnes, kuras atverat citās ierīcēs.",
+      "open": "Atvērt",
+      "background": "Fona režīms",
+      "sessionsFromOtherDevicesOr": "Sesijas no citām ierīcēm vai fona režīmā esošās cilnes. Pieskarieties, lai atjaunotu.",
+      "liveTapToReconnect": "Aktīvs, pieskarieties, lai atkārtoti savienotos",
+      "tapToReopen": "Pieskarieties, lai atkārtoti atvērtu"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Šī funkcija serverī ir atspējota",
+      "comesBackHereWhenAn": "{{title}} atgriezīsies šeit, kad administrators atkal ieslēgs tā spraudni.",
+      "closeTab": "Aizvērt cilni"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Savienojumi",
+        "hideHostList": "Paslēpt serveru sarakstu",
+        "showHostList": "Rādīt serveru sarakstu",
+        "backToHosts": "Atpakaļ pie serveriem",
+        "showKeyboard": "Rādīt tastatūru",
+        "hideKeyboard": "Paslēpt tastatūru",
+        "hideKeysPanel": "Paslēpt atslēgu paneli",
+        "showKeysPanel": "Rādīt atslēgu paneli"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Pieskarieties, lai redzētu cilnes opcijas, turiet nospiestu, lai pārvietotu",
+        "holdToMove": "Turiet nospiestu, lai pārvietotu",
+        "close": "Aizvērt {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Gaida tīklu",
+        "connectionFailed": "Savienojums neizdevās",
+        "reconnecting": "Atkārtoti savienojas"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Pārdēvēt",
+      "newTabOnThisHost": "Jauna cilne šajā serverī",
+      "here": "{{title}} šeit",
+      "hidePanel": "Paslēpt {{title}} paneli",
+      "showPanel": "Rādīt {{title}} paneli",
+      "endSplitView": "Beigt sadalīto skatu",
+      "splitViewWith": "Sadalīts skats ar...",
+      "moveLeft": "Pārvietot pa kreisi",
+      "moveRight": "Pārvietot pa labi",
+      "closeTab": "Aizvērt cilni",
+      "closeAllTabs": "Aizvērt visas cilnes",
+      "closeAllTabs2": "Aizvērt visas {{count}} cilnes?",
+      "everySessionEnds": "Katras sesijas beigās.",
+      "closeAll": "Aizvērt visu",
+      "splitViewWith2": "Sadalīts skats ar",
+      "renameTab": "Pārdēvēt cilni",
+      "leaveItEmptyToUse": "Atstājiet tukšu, lai izmantotu servera nosaukumu."
+    },
+    "resizeHostList": "Mainīt serveru saraksta izmēru",
+    "resizeSplitView": "Mainīt sadalītā skata izmēru",
+    "connections": "Savienojumi",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Divu faktoru autentifikācija",
+        "enterThe6DigitCode": "Ievadiet 6 ciparu kodu no savas autentifikatora lietotnes.",
+        "cancel": "Atcelt",
+        "verify": "Verificēt",
+        "codeExpiresInSGet": "Kods beidzas pēc {{totpCountdown}} s, iegūt jaunu kodu",
+        "warpgateAuthentication": "Warpgate autentifikācija",
+        "confirmTheWarpgateAuthenticationUrl": "Apstipriniet Warpgate autentifikācijas URL un drošības atslēgu.",
+        "authenticate": "Autentificēties",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Drošības atslēga (neobligāti)",
+        "authenticationRequired": "Nepieciešama autentifikācija",
+        "thisHostNeedsCredentialsTo": "Lai savienotos ar šo serveri, ir nepieciešamas pieteikšanās dati.",
+        "connect": "Savienot",
+        "password": "Parole",
+        "sshKey": "SSH atslēga",
+        "pastePrivateKey": "Ielīmēt privāto atslēgu",
+        "keyPassphraseOptional": "Atslēgas parolē (neobligāti)"
+      },
+      "connectionError": {
+        "tryAgain": "Mēģināt vēlreiz",
+        "close": "Aizvērt",
+        "connectThroughTheServer": "Savienoties caur serveri",
+        "connectFromThis": "Savienoties no šī {{deviceWord}}",
+        "triedFromThis": "Mēģināts no šī {{deviceWord}}",
+        "triedThroughTheServer": "Mēģināts caur serveri"
+      },
+      "execGate": {
+        "connecting": "Notiek savienojums..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Kaut kas nogāja greizi",
+        "retry": "Mēģināt vēlreiz",
+        "refresh": "Atsvaidzināt",
+        "nothingToShow": "Nav ko parādīt"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Žurnāli nokopēti",
+        "connectionLog": "Savienojuma žurnāls ({{count}})",
+        "copyLog": "Kopēt žurnālu",
+        "waitingForConnection": "Gaida savienojumu…",
+        "noLogEntries": "Nav žurnāla ierakstu"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Neizdevās saglabāt šī hosta savienojuma informāciju"
+      },
+      "useSessionConnect": {
+        "connected": "Savienojums izveidots",
+        "connectingTo": "Notiek savienojums ar {{name}}…",
+        "connectionLost": "Savienojums zaudēts",
+        "failedToConnect": "Neizdevās izveidot savienojumu",
+        "invalidCode": "Nederīgs kods",
+        "warpgateAuthenticationFailed": "Warpgate autentifikācija neizdevās",
+        "authenticationCancelled": "Autentifikācija atcelta"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Meklēšana un komandas",
+    "addHost": "Pievienot hostu",
+    "keyboardShortcuts": "Tastatūras saīsinājumi",
+    "home": "Sākums",
+    "hosts": "Hosti",
+    "sessions": "Sesijas",
+    "tools": "Rīki",
+    "settings": "Iestatījumi",
+    "terminal": "Terminālis",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Tastatūras saīsinājumi"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hosti un mapes",
+      "yourHostsFoldersAndHosts": "Jūsu hosti, mapes un ar jums koplietotie hosti",
+      "credentials": "Piekļuves dati",
+      "savedPasswordsAndKeysAnd": "Saglabātās paroles un atslēgas, kā arī ar jums koplietotie piekļuves dati",
+      "snippets": "Koduma fragmenti",
+      "snippetsAndTheirFolders": "Koduma fragmenti un to mapes",
+      "hostDefaults": "Hosta noklusējuma vērtības",
+      "defaultSettingsForNewHosts": "Jauno hostu noklusējuma iestatījumi",
+      "preferences": "Priekšrocības",
+      "settingsThatFollowYouBetween": "Iestatījumi, kas seko līdzi jums starp ierīcēm"
+    },
+    "link": {
+      "noSuchServerAccount": "Šāda servera konts neeksistē",
+      "signInFirst": "Vispirms pieslēdzieties.",
+      "thisServerAccountBelongsTo": "Šis servera konts pieder {{value}}. Pieslēdzieties kā šis lietotājs vai pievienojiet serveri vēlreiz šim lietotājam."
+    },
+    "reasons": {
+      "signedOut": "Izrakstījies",
+      "thisSSignInTo": "Šī {{deviceWord}} pieslēgums serverim ir beidzies.",
+      "theServerEndedThisS": "Serveris ir beidzis šī {{deviceWord}} sesiju. Iespējams, no citas ierīces tika veikta izrakstīšanās.",
+      "proxySignInNeeded": "Nepieciešama proxy autentifikācija",
+      "theProxyInFrontOf": "Proxy priekšā šim serverim prasa vēlreiz pieslēgties.",
+      "proxyPasswordNeeded": "Nepieciešams proxy parole",
+      "theProxyInFrontOf2": "Proxy priekšā šim serverim pieprasīja tā paroli.",
+      "certificateRefused": "Sertifikāts noraidīts",
+      "theServerDidNotAccept": "Serveris nepieņēma šī {{deviceWord}} sertifikātu.",
+      "untrustedServer": "Nepiedāvāts serveris",
+      "theServerSCertificateIs": "Servera sertifikāts netiek uzticēts šim {{deviceWord}}.",
+      "serverKeyChanged": "Servera atslēga ir mainījusies",
+      "theServerShowsAnotherKey": "Serveris rāda citu atslēgu nekā tam piefiksētā. Ja esat mainījis tā sertifikātu, piefiksējiet jauno atslēgu.",
+      "offline": "Bezsaistē",
+      "canTReachTheServer": "Nevar sasniegt serveri. Sinhronizācija mēģinās vēlreiz drīz.",
+      "serverProblem": "Servera problēma",
+      "theServerHadAProblem": "Serverim radās problēma. Sinhronizācija mēģinās vēlreiz drīz.",
+      "updateNeeded": "Nepieciešams atjauninājums",
+      "thisServerUsesANewer": "Šis serveris izmanto jaunāku sinhronizācijas versiju. Atjauniniet lietotni.",
+      "notATermixServer": "Nav Termix serveris",
+      "theAddressDoesNotAnswer": "Šī adrese neatbild kā Termix serveris.",
+      "syncIsOff": "Sinhronizācija ir izslēgta",
+      "theSyncPluginIsOff": "Šajā serverī Sinhronizācijas spraudnis ir izslēgts. Lūdziet administratoru to ieslēgt sadaļā Spraudņi.",
+      "differentUser": "Cits lietotājs",
+      "youSignedInAsA": "Jūs esat pierakstījies kā cits lietotājs nekā tam, kam pieder šis servera konts.",
+      "syncStopped": "Sinhronizācija apstājusies",
+      "somethingWentWrong": "Kaut kas nogāja greizi.",
+      "signInAgain": "Pierakstieties vēlreiz",
+      "signInToTheProxy": "Pierakstieties proxy serverī",
+      "enterThePassword": "Ievadiet paroli",
+      "tryAgain": "Mēģiniet vēlreiz",
+      "checkThePin": "Pārbaudiet PIN kodu",
+      "checkForUpdates": "Pārbaudīt atjauninājumus",
+      "pickACertificate": "Izvēlieties sertifikātu"
+    },
+    "settings": {
+      "noSuchSetting": "Šāda iestatījuma nav",
+      "snippetFolder": "Kodumu mape",
+      "hostDefault": "Resursdatora noklusējums"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Serveris nepieņēma šī {{deviceWord}} sertifikātu.",
+      "theServerSCertificateIs": "Servera sertifikātam netic.",
+      "canTReachTheServer": "Nevar sasniegt serveri.",
+      "signedOut": "Izrakstījies",
+      "theProxyAskedForIts": "Proxy serveris pieprasīja tā paroli.",
+      "theProxyWantsYouTo": "Proxy serveris vēlas, lai jūs pierakstātos.",
+      "theSyncPluginIsOff": "Šajā serverī Sinhronizācijas spraudnis ir izslēgts.",
+      "serverError": "Servera kļūda {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Serveris rāda citu atslēgu nekā piefiksētā."
+    },
+    "remote": {
+      "thisIsNotATermix": "Šis nav Termix serveris.",
+      "theProxyWantsYouTo": "Proxy serveris vēlas, lai jūs pierakstātos.",
+      "thisServerUsesANewer": "Šis serveris izmanto jaunāku sinhronizācijas versiju. Atjauniniet lietotni."
+    },
+    "copy": {
+      "hostCount_zero": "{{count}} resursdatori",
+      "hostCount_one": "{{count}} resursdators",
+      "hostCount_other": "{{count}} resursdatori",
+      "credentialCount_zero": "{{count}} akreditācijas dati",
+      "credentialCount_one": "{{count}} akreditācijas dati",
+      "credentialCount_other": "{{count}} akreditācijas dati",
+      "snippetCount_zero": "{{count}} kodumi",
+      "snippetCount_one": "{{count}} kodums",
+      "snippetCount_other": "{{count}} kodumi",
+      "folderCount_zero": "{{count}} mapes",
+      "folderCount_one": "{{count}} mape",
+      "folderCount_other": "{{count}} mapes",
+      "nothingYet": "pagaidām nekas",
+      "listAnd": "{{list}} un {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Nevar izveidot savienojumu.",
+      "connectingToFromThis": "Izveido savienojumu ar {{name}} no šī {{deviceWord}}",
+      "connectingToThroughTheServer": "Izveido savienojumu ar {{name}} caur serveri",
+      "reconnectingTry": "Atkārtoti izveido savienojumu (mēģinājums {{retry}})",
+      "disconnected": "Savienojums pārtraukts",
+      "connected": "Savienojums izveidots",
+      "reconnectedToTheSameSession": "Atkārtoti izveidots savienojums ar to pašu sesiju",
+      "reconnectedWithANewShell": "Atkārtoti izveidots savienojums ar jaunu komandrindu",
+      "couldNotReachTheHost": "Nevarēja sasniegt resursdatoru no šī {{deviceWord}}, mēģina caur serveri",
+      "couldNotConnectThroughThe": "Nevarēja izveidot savienojumu caur serveri, mēģina no šī {{deviceWord}}",
+      "connectionLost": "Savienojums zaudēts: {{reason}}",
+      "offlineWaitingForTheNetwork": "Bezsaistē, gaida tīklu",
+      "nextTryInS": "Nākamais mēģinājums pēc {{value}} s",
+      "reconnectingTry2": "Atkārtoti izveido savienojumu (mēģinājums {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Resursdators vairs neatbild",
+      "networkLost": "Tīkls zaudēts",
+      "network": "Tīkls: {{type}}{{value}}",
+      "lowPowerModeOn": "Ieslēgts zemas jaudas režīms",
+      "lowPowerModeOff": "Izslēgts zemas jaudas režīms",
+      "droppedTypedCharacters": "Noraidīti {{count}} ievadīti rakstzīmes",
+      "youDidNotTrustThe": "Jūs neuzticējāt servera atslēgai.",
+      "checkTheKeyWithWhoever": "Pārbaudiet atslēgu ar servera administratoru un mēģiniet vēlreiz.",
+      "loginCancelled": "Pieteikšanās atcelta.",
+      "connectAgainWhenYouAre": "Savienojieties vēlreiz, kad esat gatavs.",
+      "typedInputIsOver64": "Ievadītais teksts pārsniedz 64 KB, vecākā daļa tika noraidīta",
+      "appInTheBackground": "Lietotne fona režīmā",
+      "appInTheForeground": "Lietotne priekšplānā",
+      "thisConnectionCanTRun": "Šis savienojums nevar izpildīt komandas"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Pārbaudiet adresi un portu, kā arī to, vai serveris var sasniegt mērķa serveri.",
+      "checkTheAddressAndPort2": "Pārbaudiet adresi un portu, kā arī to, vai šī {{deviceWord}} var sasniegt mērķa serveri.",
+      "checkTheProxySettingsOf": "Pārbaudiet šī servera proxy iestatījumus.",
+      "checkTheKeyWithWhoever": "Pirms uzticaties atslēgai, pārbaudiet to ar servera administratoru.",
+      "checkTheUsernameAndLogin": "Pārbaudiet lietotājvārdu un pieteikšanās datus servera redaktora.",
+      "checkThatTheServerIs": "Pārbaudiet, vai serveris ir palaists un vai joprojām esat pieteicies.",
+      "tryAgainIfItKeeps": "Mēģiniet vēlreiz. Ja savienojums turpina pārtrūkt, pārbaudiet tīklu.",
+      "connectAgainWhenYouAre": "Savienojieties vēlreiz, kad esat gatavs.",
+      "pickAnotherWayToConnect": "Izvēlieties citu veidu, kā savienot šo serveri.",
+      "connectThisHostThroughA": "Savienojieties ar šo serveri caur Termix serveri.",
+      "pickTheJumpHostsAgain": "Servera redaktorā vēlreiz izvēlieties starpniekserverus.",
+      "thisIsATailscaleAddress": "Šī ir Tailscale adrese. Pārbaudiet, vai Tailscale ir savienots šajā {{deviceWord}}.",
+      "theSavedKeyCanT": "Saglabāto atslēgu nevar izlasīt. Ielīmējiet to vēlreiz servera redaktorā.",
+      "signInToThisServer": "Pieteikties šajā serverī vēlreiz.",
+      "openThisHostInThe": "Atveriet šo serveri Termix tīmekļa lietotnē.",
+      "canTConnectThisWay": "Nevar savienot šādā veidā",
+      "couldNotReachTheHost": "Nevarēja sasniegt serveri",
+      "theProxyDidNotLet": "Proxy neļāva izveidot savienojumu",
+      "theHostKeyWasNot": "Servera atslēga netika uzticēta",
+      "theLoginWasRefused": "Pieteikšanās tika noraidīta",
+      "theTermixServerDidNot": "Termix serveris neatbildēja",
+      "theConnectionDropped": "Savienojums tika pārtraukts",
+      "loginCancelled": "Pieteikšanās atcelta"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH aģents",
+        "thisHostSignsInWith": "Šis serveris pieteicas ar \"{{authType}}\", kam nepieciešams Termix serveris. Savienojiet vienu, lai izveidotu savienojumu.",
+        "thisHostUsesA1password": "Šis serveris izmanto 1Password atsauces, kam nepieciešams Termix serveris ar Secret Sources. Savienojiet vienu un savienojieties ar šo serveri caur to.",
+        "signInWithFirstOpen": "Vispirms pieteikties ar {{title}}. Atveriet termināli šim serverim vienu reizi, pēc tam mēģiniet vēlreiz.",
+        "theSignInAndThe": "pieteikšanās un sertifikāts atrodas uz servera",
+        "theHasNoSshAgent": "šai {{deviceWord}} nav SSH aģenta",
+        "needsATermixServerBecause": "{{title}} nepieciešams Termix serveris, jo {{why}}. Savienojiet vienu un savienojieties ar šo serveri caur to."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Šī servera starpniekserveris vairs neeksistē."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Savienojums tika pārtraukts",
+        "theShellChannelClosed": "Shell kanāls tika aizvērts",
+        "jumpHost": "Starpniekserveris {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Nederīgs kods, mēģiniet vēlreiz:",
+        "authenticationFailed": "Autentifikācija neizdevās: {{message}}",
+        "theHostKeyWasNot": "Servera atslēga netika uzticēta.",
+        "loginCancelled": "Pieteikšanās atcelta.",
+        "notConnected": "Nav savienots"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Savienojums tika pārtraukts"
+      },
+      "thisBuildHasNoSsh": "Šajā versijā nav SSH dzinēja. Izmantojiet lietotni no veikala vai savienojiet Termix serveri, lai izveidotu savienojumu.",
+      "theHostsOnThisAre": "Serveri šajā {{deviceWord}} vēl nav atvērti.",
+      "thisServerSHostsAre": "Šī servera hosti nav šajā {{deviceWord}}. Ieslēdziet Sync spraudni serverī, lai savienotos no {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Nevar izveidot savienojumu.",
+      "canTConnectFromThe": "Nevar izveidot savienojumu no šīs {{deviceWord}}.",
+      "canTReachTheServer": "Nevar sasniegt serveri.",
+      "theOnlyConnectsToSsh": "Šī {{deviceWord}} savienojas tikai ar SSH un Telnet mezgliem.",
+      "connectThisHostThroughThe": "Savienot šo mezgli caur serveri",
+      "connectThisHostFromThe": "Savienot šo mezgli no {{deviceWord}}",
+      "termixServer": "Termix serveris",
+      "usesThisWhenItCan": "Izmanto šo {{deviceWord}}, ja var sasniegt mezglu, pretējā gadījumā serveri.",
+      "thisConnectsToTheHost": "Šī {{deviceWord}} savienojas ar pašu mezglu.",
+      "theTermixServerConnectsTo": "Termix serveris savienojas ar mezglu jūsu vārdā.",
+      "anSshConnection": "SSH savienojums",
+      "aTermixServer": "Termix serveris",
+      "aConnectionFromThe": "savienojums no {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} ir izslēgts šajā serverī. {{how}}, lai to izmantotu.",
+      "isOffOnThisServer2": "{{title}} ir izslēgts šajā serverī.",
+      "anotherWayToConnect": "cits veids, kā savienoties",
+      "needsToUseIt": "{{title}} nepieciešams {{what}}. {{how}}, lai to izmantotu.",
+      "needsWhichThisHostCan": "{{title}} nepieciešams {{what}}, ko šis mezgls pašlaik nevar izmantot.",
+      "thisDevice": "Šī {{deviceWord}}",
+      "automatic": "Automātiski"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Jūs esat izrakstījies no šī servera. Pierakstieties, lai savienotos caur to.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux nav instalēts šajā mezglā. Izmantojot parasto čaulu.",
+        "tapRetryToBringIt": "Pieskarieties Mēģināt vēlreiz, lai to atgrieztu šeit.",
+        "thisSessionWasOpenedOn": "Šī sesija tika atvērta citā ierīcē",
+        "noServerUrlFoundLink": "Servera URL nav atrasts. Atkal saistiet serveri.",
+        "signedOutOfThisServer": "Izrakstījies no šī servera. Pierakstieties vēlreiz.",
+        "signInWithInYour": "Pierakstieties ar {{title}} pārlūkprogrammā. Tas aizvērsies, kad būs pabeigts.",
+        "theSocketClosedWhileThe": "Ligzda aizvēries, kamēr lietotne bija prom",
+        "noWebsocketUrlAvailableServer": "WebSocket URL nav pieejams - serveris nav konfigurēts",
+        "connectionTimeoutServerNotResponding": "Savienojuma laika limits - serveris neatbild",
+        "verificationCode": "Verifikācijas kods:",
+        "hostKeyVerificationRequiredBut": "Nepieciešama mezgla atslēgas verifikācija, bet nav reģistrēta apstrādes funkcija",
+        "hostKeyChangedButNo": "Mezgla atslēga ir mainījusies, bet nav reģistrēta apstrādes funkcija",
+        "thisHostNeedsASign": "Šim mezglam nepieciešama pieteikšanās, ko atbalsta tikai tīmekļa lietotne",
+        "invalidCodeTryAgain": "Nederīgs kods, mēģiniet vēlreiz:",
+        "unknownError": "Nezināma kļūda",
+        "connectionClosed": "Savienojums aizvērts",
+        "connectionClosed2": "Savienojums aizvērts ({{code}})",
+        "theServerClosedTheConnection": "Serveris aizvēra savienojumu",
+        "theSocketClosed": "Ligzda aizvēries ({{code}})",
+        "signIn": "{{title}} pieteikšanās",
+        "signInFailed": "{{title}} pieteikšanās neizdevās",
+        "isNotSetUpOn": "{{title}} nav iestatīts serverī",
+        "signInTimedOut": "{{title}} pieteikšanās laika limits",
+        "authenticationFailed": "Autentifikācija neizdevās: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Saglabājiet mezglu un savienojieties ar to, lai to pārbaudītu.",
+      "loggedInAsOn": "Pierakstījies kā {{username}} uz {{host}}",
+      "theHostAskedForMore": "Mezgls pieprasīja vairāk nekā tikai paroli, piemēram, kodu. Saglabājiet mezglu un savienojieties, lai pabeigtu pieteikšanos."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Gaida tīklu",
+      "couldNotOpenTheTunnel": "Neizdevās atvērt tuneli",
+      "theConnectionDropped": "Savienojums tika pārtraukts",
+      "iosStoppedThisTunnelWhile": "iOS apturēja šo tuneli, kamēr lietotne bija fona režīmā. Palaidiet to vēlreiz, lai to atvērtu.",
+      "connecting": "Savienojas",
+      "connected": "Savienots",
+      "retrying": "Mēģina vēlreiz",
+      "waiting": "Gaida",
+      "failed": "Neizdevās"
+    },
+    "gateways": {
+      "error": "Kļūda",
+      "gateways": "Vārti",
+      "gatewaysCanOnlyBeChanged": "Vārtus var mainīt tikai Termix tīmeklī.",
+      "noHandshake": "Nav rokasspiediena",
+      "rulesMissing": "Noteikumi trūkst",
+      "up": "Aktīvs",
+      "pending": "Gaida",
+      "applying": "Lieto",
+      "down": "Nedarbojas",
+      "unreachable": "Nesasniedzams"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Vēl nav tuneļu. Pievienojiet vienu, lai pārvirzītu portu no galapunkta hosta uz šo hostu.",
+      "tunnel": "Tunelis {{value}}",
+      "removeTunnel": "Noņemt tuneli {{value}}",
+      "mode": "Režīms",
+      "local": "Lokāls",
+      "remote": "Tālvadības",
+      "dynamic": "Dinamisks",
+      "targetHost": "Mērķa hosts",
+      "onThisHostForTunnels": "Šajā hostā, tuneļiem, kurus palaiž {{deviceWord}}",
+      "bindHost": "Saistīšanas hosts",
+      "endpointHost": "Galapunkta hosts",
+      "addAnotherHostFirstTunnels": "Vispirms pievienojiet citu hostu. Tuneļi iet caur saglabātu hostu.",
+      "sourcePort": "Avota ports",
+      "endpointPort": "Galapunkta ports",
+      "maxRetries": "Maksimālais mēģinājumu skaits",
+      "retryEveryS": "Mēģināt katru (s)",
+      "startOnItsOwn": "Palaieties patstāvīgi",
+      "addTunnel": "Pievienot tuneli",
+      "tunnelNeedsPortsFrom1": "Tuneļim {{value}} nepieciešami porti no 1 līdz 65535"
+    },
+    "register": {
+      "tunnels": "Tuneļi",
+      "startAndStopSavedTunnels": "Palaiet un apturiet saglabātos tuneļus",
+      "tunnel": "TUNELIS",
+      "tunnel2": "Tunelis"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokālais galapunkts nokopēts",
+      "tunnel": "Tunelis | {{sourcePort}}",
+      "portMapping": "Portu kartēšana",
+      "connect": "Savienot",
+      "disconnect": "Atvienot",
+      "cancel": "Atcelt",
+      "connected": "Savienots",
+      "connecting": "Savieno",
+      "disconnecting": "Atvieno",
+      "error": "Kļūda",
+      "retrying": "Mēģina vēlreiz ({{value}}/{{value2}})",
+      "waitingS": "Gaida {{value}} s",
+      "waiting": "Gaida",
+      "disconnected": "Atvienots"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Sākas tunelis portā {{sourcePort}}",
+      "connectingTunnelOnPort": "Savieno tuneli portā {{sourcePort}}",
+      "disconnectingPort": "Atvieno portu {{sourcePort}}",
+      "cancellingPort": "Atceļ portu {{sourcePort}}",
+      "failedToTunnel": "Neizdevās {{action}} tuneli",
+      "tunnels": "Tuneļi | {{count}} | {{value}}",
+      "loadingTunnels": "Ielādē tuneļus…",
+      "noSshTunnelsConfiguredFor": "Šim hostam nav konfigurēti SSH tuneļi. Pievienojiet tuneļus no hosta formas.",
+      "runOn": "Palaiet uz",
+      "server": "Serveris",
+      "this": "Šis {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tuneļi šajā {{deviceWord}} apstājas, kad lietotne tiek aizvērta. iOS tie arī apstājas drīz pēc tam, kad lietotne nonāk fona režīmā.",
+      "failedToFetchTunnelStatuses": "Neizdevās iegūt tuneļu statusus",
+      "thisBuildCanTOpen": "Šī versija nevar atvērt tuneļus uz {{deviceWord}}.",
+      "sourceHostNotFound": "Avota hosts nav atrasts",
+      "endpointHostNotFound": "Galapunkta hosts nav atrasts: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tuneļi",
+      "tunnelCount_zero": "0 tuneļi",
+      "tunnelCount_one": "{{count}} tunelis",
+      "tunnelCount_other": "{{count}} tuneļi",
+      "runningOnServer": "{{connected}} darbojas serverī"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Akreditācijas datu rīki"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Šajā resursdatorā nav instalēts Docker.",
+        "dockerDidNotAnswer": "Docker neatbildēja",
+        "thatIsNotAValid": "Tas nav derīgs kaudzes nosaukums"
+      }
+    },
+    "containerDetail": {
+      "stop": "Apturēt",
+      "start": "Palaidt",
+      "restart": "Atsākt",
+      "remove": "Noņemt",
+      "logs": "Žurnāli",
+      "stats": "Statistika",
+      "console": "Konsole",
+      "logsCopied": "Žurnāli nokopēti",
+      "copy": "Kopēt",
+      "containerIsNotRunningNo": "Konteiners nedarbojas, nav reāllaika statistikas.",
+      "cpu": "CPU",
+      "memory": "Atmiņa",
+      "networkIO": "Tīkla I/O",
+      "blockIO": "Bloka I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Neizdevās ielādēt žurnālus",
+      "failedToLoadStats": "Neizdevās ielādēt statistiku",
+      "noOutput": "(nav izvades)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Notiek savienojums ar Docker...",
+    "remove": "Noņemt {{name}}?",
+    "stop": "Apturēt {{name}}?",
+    "theContainerIsStoppedAnd": "Konteiners ir apturēts un dzēsts. Tā sējumi saglabājas.",
+    "anythingRunningInItStops": "Visas tajā darbojošās darbības tiek apturētas.",
+    "remove2": "Noņemt",
+    "stop2": "Apturēt",
+    "dockerThis": "Docker | šis {{deviceWord}}",
+    "lookingForDocker": "Meklē Docker...",
+    "dockerIsNotAvailableOn": "Docker nav pieejams šajā resursdatorā.",
+    "noContainersFound": "Konteineri nav atrasti",
+    "noContainersMatchYourFilters": "Nav konteineru, kas atbilstu jūsu filtru iestatījumiem",
+    "useSudo": "Izmantot sudo",
+    "refresh": "Atsvaidzināt",
+    "containers": "Konteineri",
+    "stacks": "Kaudzes",
+    "searchContainers": "Meklēt konteinerus...",
+    "all": "Visi",
+    "running": "Darbojas",
+    "stopped": "Apturēts",
+    "start": "Palaidt",
+    "restart": "Atsākt",
+    "pause": "Pauzēt",
+    "unpause": "Atcelt pauzi",
+    "moreActions": "Vairāk darbību",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker neatbildēja",
+      "docker": "Docker",
+      "noContainers": "Nav konteineru"
+    },
+    "dockerConsole": {
+      "attachingTo": "Notiek pieslēgšanās pie {{name}}...",
+      "consoleDisconnected": "Konsole atvienota",
+      "reconnect": "Atkārtoti savienot",
+      "failedToLoadTheConsole": "Neizdevās ielādēt konsole",
+      "thisSessionHasNoServer": "Šai sesijai nav servera"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Konteineri, žurnāli un statistika"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Kaudzes ir atslēgtas šajā serverī.",
+      "couldNotLoadStacks": "Neizdevās ielādēt kaudzes",
+      "noStacks": "Nav steku",
+      "composeProjectsOnThisHost": "Šeit tiek parādīti šī hosta Compose projekti.",
+      "ofRunning": "{{running}} no {{total}} darbojas",
+      "couldNotLoadTheStack": "Neizdevās ielādēt steku",
+      "services": "Pakalpojumi",
+      "nothingIsRunning": "Nekas nedarbojas.",
+      "composeFile": "Compose fails",
+      "partlyUp": "daļēji palaists",
+      "notDeployed": "nav izvietots",
+      "running": "darbojas",
+      "stopped": "apturēts",
+      "paused": "pauzēts"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Tas nav derīgs konteinera ID",
+      "consoleFailed": "Konsole neizdevās",
+      "notAuthenticated": "Nav autentificēts",
+      "consoleError": "Konsoles kļūda",
+      "connectionFailed": "Savienojums neizdevās"
+    },
+    "dockerDidNotAnswer": "Docker neatbildēja",
+    "failedToLoadContainers": "Neizdevās ielādēt konteinerus",
+    "failedTo": "Neizdevās {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Serveris nesūtīja nevienu failu",
+        "cancelled": "Atcelts",
+        "isGone": "{{path}} vairs nepastāv",
+        "canTGoToThe": "{{name}} nevar tikt izdzēsts"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Nederīgs groza elementa ID",
+        "invalidTrashMetadata": "Nederīga groza metadatu informācija",
+        "thisPathCanTBe": "Šo ceļu nevar pārvietot grozā",
+        "aFileAlreadyExistsAt": "Failš jau eksistē sākotnējā ceļā"
+      },
+      "sftp": {
+        "commandFailed": "Komanda neizdevās: {{command}}",
+        "alreadyExists": "{{name}} jau eksistē",
+        "alreadyExistsThere": "{{path}} tur jau eksistē",
+        "canTGoToThe": "{{name}} nevar tikt izdzēsts: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Termināls vairs nav atvērts",
+      "clearHistory": "Notīrīt vēsturi",
+      "stopFollowingTheTerminal": "Pārtraukt termināla sekošanu",
+      "followTheTerminal": "Sekot terminālam",
+      "goToTheTerminalS": "Doties uz termināla mapi",
+      "cdTheTerminalHere": "Pārvietot terminālu šeit",
+      "folderHistory": "Mapju vēsture",
+      "mostUsedFirstThenRecent": "Visbiežāk lietotās pirmās, tad nesenās",
+      "noFoldersYet": "Vēl nav mapju"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Nevar izveidot savienojumu.",
+        "couldNotSaveHowThis": "Neizdevās saglabāt šī hosta savienojuma informāciju",
+        "thisWayCanTOpen": "Šis veids nevar atvērt failus"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Neizdevās atvērt šo mapi",
+      "cancel": "Atcelt",
+      "noFoldersHere": "Šeit nav mapju"
+    },
+    "couldNotOpenThisFolder": "Neizdevās atvērt šo mapi",
+    "couldNotSaveToThe": "Neizdevās saglabāt mapē",
+    "failed": "{{label}} neizdevās",
+    "uploading": "Augšupielādē {{name}}",
+    "uploadingFiles": "Augšupielādē {{count}} failus",
+    "downloadingToFilesOnMy": "Lejupielādē uz Failiem, Uz mana iPhone, Termix",
+    "downloading": "Lejupielādē {{name}}",
+    "downloadingFiles": "Lejupielādē {{count}} failus",
+    "openALargeFile": "Atvērt lielu failu?",
+    "isBigForAEditor": "{{name}} ir liels {{deviceWord}} redaktoram. Tas varētu būt lēns.",
+    "open": "Atvērt",
+    "thisLooksLikeABinary": "Šis izskatās kā binārais fails",
+    "openItInAnotherApp": "Vai vēlaties to atvērt citā lietotnē?",
+    "openWith": "Atvērt ar",
+    "tooBigForTheEditor": "Pārāk liels redaktoram",
+    "isOver10MbDownload": "{{name}} ir lielāks par 10 MB. Vai vēlaties to lejupielādēt?",
+    "download": "Lejupielādēt",
+    "delete": "Dzēst {{what}}?",
+    "moveToTheTrash": "Pārvietot {{what}} uz atkritni?",
+    "thisCanTBeUndone": "Šo darbību nevar atsaukt.",
+    "youCanRestoreItFrom": "To var atjaunot no atkritņa.",
+    "delete2": "Dzēst",
+    "moveToTrash": "Pārvietot uz atkritni",
+    "deleteForGood": "Dzēst neatgriezeniski?",
+    "deleteItForGoodInstead": "{{message}}. Vai vēlaties to dzēst neatgriezeniski? Šo darbību nevar atsaukt.",
+    "deleteFailed": "Dzēšana neizdevās",
+    "connectingThroughTheServer": "Savienojas caur serveri...",
+    "connectingFromThis": "Savienojas no šī {{deviceWord}}...",
+    "connecting": "Savienojas...",
+    "edit": "Rediģēt",
+    "downloadFolder": "Lejupielādēt mapi",
+    "share": "Kopīgot",
+    "rename": "Pārsaukt",
+    "copyTo": "Kopēt uz",
+    "moveTo": "Pārvietot uz",
+    "cut": "Izgriezt",
+    "copy": "Kopēt",
+    "permissions": "Tiesības",
+    "properties": "Īpašības",
+    "makeALinkHere": "Izveidot saiti šeit",
+    "copyPath": "Kopēt ceļu",
+    "pathCopied": "Ceļš nokopēts",
+    "done": "Gatavs",
+    "selectAll": "Atlasīt visu",
+    "filterByName": "Filtrēt pēc nosaukuma",
+    "closeSearch": "Aizvērt meklēšanu",
+    "search": "Meklēt",
+    "changeSort": "Mainīt kārtošanu",
+    "paste": "Ielīmēt {{count}}",
+    "upload": "Augšupielādēt",
+    "transfers2": "Pārnesumi",
+    "more": "Vairāk",
+    "nothingMatches": "Nav atbilstošu rezultātu",
+    "emptyFolder": "Tukša mape",
+    "uploadFilesOrMakeA": "Augšupielādējiet failus vai izveidojiet jaunu.",
+    "newFolder": "Jauna mape",
+    "newFile": "Jauns fails",
+    "select": "Atlasīt",
+    "hideHiddenFiles": "Paslēpt slēptos failus",
+    "showHiddenFiles": "Rādīt slēptos failus",
+    "trash": "Atkritnis",
+    "folderProperties": "Mapes īpašības",
+    "refresh": "Atsvaidzināt",
+    "rename2": "Pārsaukt {{name}}",
+    "newLink": "Jauna saite",
+    "aLinkInThatPoints": "Saite ceļā {{path}}, kas norāda uz {{path2}}",
+    "name": "Nosaukums",
+    "create": "Izveidot",
+    "copyHere": "Kopēt šeit",
+    "moveHere": "Pārvietot šeit",
+    "fileViewer": {
+      "saved": "Saglabāts {{name}}",
+      "couldNotSaveTheFile": "Neizdevās saglabāt failu",
+      "discardChanges": "Atmest izmaiņas?",
+      "hasChangesThatAreNot": "{{name}} satur nesaglabātas izmaiņas.",
+      "discard": "Atmest",
+      "readOnly": "{{path}} | tikai lasīšanai",
+      "find": "Meklēt",
+      "smallerText": "Mazāks teksts",
+      "biggerText": "Lielāks teksts",
+      "turnOffLineWrap": "Izslēgt rindu salaušanu",
+      "wrapLines": "Salauzt rindas",
+      "save": "Saglabāt"
+    },
+    "hostSection": {
+      "startIn": "Sākt mapē",
+      "theFolderTheFileManager": "Mapes, kuru atvēr failu pārvaldnieks vispirms",
+      "files": "Faili"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Doties uz {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Vairāk darbību",
+        "moreFor": "Vairāk par {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Atļaujas",
+      "cancel": "Atcelt",
+      "apply": "Piemērot ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Neizdevās to atvērt",
+      "openWith": "Atvērt ar",
+      "share": "Kopīgot"
+    },
+    "propertiesView": {
+      "properties": "Īpašības",
+      "path": "Ceļš",
+      "type": "Tips",
+      "pointsTo": "Norāda uz",
+      "size": "Izmērs",
+      "countFolderSize": "Aprēķināt mapes izmēru",
+      "permissions": "Atļaujas",
+      "change": "Mainīt",
+      "owner": "Īpašnieks",
+      "group": "Grupa",
+      "modified": "Mainīts",
+      "opened": "Atvērts",
+      "linkToA": "Saite uz {{value}}",
+      "notShownForFolders": "Nav rādāms mapēm",
+      "file": "Fails",
+      "folder": "Mape",
+      "link": "Saite"
+    },
+    "register": {
+      "fileManager": "Failu pārvaldnieks",
+      "files": "Faili",
+      "browseEditAndMoveFiles": "Pārlūkojiet, rediģējiet un pārvietojiet failus",
+      "files2": "FAILI",
+      "fileManagerAndTransfers": "Failu pārvaldnieks un pārraides"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Pārraide neizdevās"
+      },
+      "transfersPanel": {
+        "pause": "Pauze",
+        "resume": "Turpināt",
+        "tryAgain": "Mēģināt vēlreiz",
+        "open": "Atvērt",
+        "cancel": "Atcelt",
+        "transfers": "Pārraides",
+        "goingOf": "{{active}} notiek | {{done}} no {{total}}",
+        "clearFinished": "Notīrīt pabeigtos",
+        "cancelAll": "Atcelt visus",
+        "noTransfersYet": "Vēl nav pārraižu",
+        "waiting": "Gaida",
+        "paused": "Pārtraukts",
+        "done": "Pabeigts",
+        "failed": "Neizdevās",
+        "cancelled": "Atcelts"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Neizdevās ielādēt grozu",
+      "restored": "Atjaunots {{name}}",
+      "failedToRestore": "Neizdevās atjaunot",
+      "failedToDelete": "Neizdevās dzēst",
+      "trashEmptied": "Lauku grozs iztukšots",
+      "failedToEmptyTrash": "Neizdevās iztukšot lauku grozu",
+      "trash": "Lauku grozs",
+      "itemsAreRemovedAfterDays": "Elementi tiek dzēsti pēc {{retentionDays}} dienām",
+      "close": "Aizvērt",
+      "emptyTrash": "Iztukšot lauku grozu",
+      "trashIsEmpty": "Lauku grozs ir tukšs",
+      "restore": "Atjaunot {{name}}",
+      "deleteForGood": "Neatgriezeniski dzēst {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Tikko"
+      }
+    },
+    "getting": "Ielādē {{name}}",
+    "itemCount_zero": "0 elementi",
+    "itemCount_one": "{{count}} elements",
+    "itemCount_other": "{{count}} elementi",
+    "copiedWhat": "Kopēts {{what}}",
+    "movedWhat": "Pārvietots {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} satur vairāk nekā {{limit}} failus. Lejupielādējiet mazākas mapes."
+    },
+    "downloadingToFilesOnMyIpad": "Lejupielādē uz Failiem, Uz mana iPad, Termix",
+    "size": "Izmērs",
+    "date": "Datums"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Pakalpojumu saites",
+      "openInHomepage": "Atvērt mājas lapā",
+      "thisWidgetOnlyShowsOn": "Šis logrīks tiek rādīts tikai pilnā lapā."
+    },
+    "register": {
+      "serviceLinks": "Pakalpojumu saites",
+      "homepage": "Mājas lapa"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Plūsma nav iestatīta.",
+        "couldNotLoadTheFeed": "Neizdevās ielādēt plūsmu.",
+        "theFeedIsEmpty": "Plūsma ir tukša.",
+        "noLocationSet": "Atrašanās vieta nav iestatīta.",
+        "couldNotLoadTheWeather": "Neizdevās ielādēt laika apstākļus.",
+        "noUrlSet": "URL nav iestatīts.",
+        "couldNotLoadTheData": "Neizdevās ielādēt datus.",
+        "noPictureSet": "Attēls nav iestatīts.",
+        "badResponse": "kļūdains atbildes kods"
+      },
+      "services": "Pakalpojumi",
+      "service": "Pakalpojums",
+      "serviceLinks": "Pakalpojumu saites",
+      "bookmarks": "Grāmatzīmes",
+      "links2": "Saites",
+      "search": "Meklēt",
+      "clock": "Pulkstenis",
+      "countdown": "Atskaitīšana",
+      "calendar": "Kalendārs",
+      "notes": "Piezīmes",
+      "banner": "Karogs",
+      "ping": "Ping",
+      "host": "Resursdators",
+      "hosts": "Resursdatori",
+      "quickConnect": "Ātrā savienošana",
+      "feed": "Plūsma",
+      "weather": "Laika apstākļi",
+      "customApi": "Pielāgota API",
+      "picture": "Attēls",
+      "widget": "Logrīks",
+      "links": {
+        "noServicesYet": "Pakalpojumu vēl nav.",
+        "noLinkSet": "Saite nav iestatīta.",
+        "noLinksYet": "Saišu vēl nav.",
+        "noSearchEngineSet": "Meklētājprogramma nav iestatīta.",
+        "search": "Meklēt",
+        "noShortcutsYet": "Vēl nav saīsņu.",
+        "search2": "Meklēt {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Neizdevās atvērt saiti"
+      },
+      "status": {
+        "noUrlsYet": "Vēl nav URL.",
+        "down": "Nedarbojas",
+        "noHostsPicked": "Nav izvēlēti mezgli."
+      },
+      "text": {
+        "noNotesYet": "Vēl nav piezīmju.",
+        "noTextYet": "Vēl nav teksta."
+      },
+      "time": {
+        "noDateSet": "Datums nav iestatīts.",
+        "timeIsUp": "Laiks ir beidzies"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Neizdevās saglabāt noklusējumu",
+    "couldNotResetTheDefault": "Neizdevās atiestatīt noklusējumu",
+    "back": "Atpakaļ",
+    "hostDefaults": "Mezglu noklusējumi",
+    "newHostsStartFromThese": "Jauni mezgli sākas ar šiem",
+    "managedOnTheServer": "Pārvaldīts uz servera",
+    "defaultsForThisServerAre": "Šī servera noklusējumi ir iestatīti tīmekļa lietotnē.",
+    "level": "Līmenis",
+    "yourDefaultsOrOneFolder": "Jūsu noklusējumi vai vienas mapes",
+    "myDefaults": "Mani noklusējumi",
+    "theServerSets": " Serveris iestata {{adminCount}}.",
+    "aFolderWinsOverYour": "Mapes iestatījumi pārspēj jūsu noklusējumus, un jūsu noklusējumi pārspēj servera. Mezgls saglabā jebkuru vērtību, ko esat iestatījis pats.{{value}}",
+    "save": "Saglabāt",
+    "authentication": "Autentifikācija",
+    "none": "Nav",
+    "reset": "Atiestatīt",
+    "model": {
+      "username": "Lietotājvārds",
+      "sshPort": "SSH ports",
+      "authentication": "Autentifikācija",
+      "aSavedCredentialForNew": "Saglabāts pieteikšanās dati jauniem mezgliem",
+      "forceKeyboardInteractive": "Piespiedu tastatūras interaktīvais režīms",
+      "keepaliveInterval": "Keepalive intervāls",
+      "seconds0TurnsItOff": "Sekundes, 0 to izslēdz",
+      "keepaliveTries": "Keepalive mēģinājumi",
+      "allowOldAlgorithms": "Atļaut vecos algoritmus",
+      "agentForwarding": "Aģenta pārsūtīšana",
+      "environmentVariables": "Vides mainīgie",
+      "oneNameValuePerLine": "Viens NAME=vērtība katrā rindā",
+      "checkIfTheHostIs": "Pārbaudīt, vai mezgls darbojas",
+      "checkInterval": "Pārbaudes intervāls",
+      "secondsEmptyUsesTheServer": "Sekundes, tukšs izmanto servera",
+      "socks5Proxy": "SOCKS5 proxys",
+      "setInTheWebApp": "Iestatīts tīmekļa lietotnē",
+      "jumpHosts": "Jump mezgli",
+      "portKnocking": "Port knocking",
+      "notSet": "Nav iestatīts",
+      "fromTheServer": "No servera",
+      "fromYourDefaults": "No jūsu noklusējumiem",
+      "builtIn": "Iebūvēts"
+    },
+    "register": {
+      "hostDefaults": "Mezglu noklusējumi",
+      "portUserAndOptionsFor": "Ports, lietotājs un opcijas jauniem mezgliem"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Vēl nav datu",
+      "cpu": "CPU",
+      "memory": "Atmiņa",
+      "disk": "Diska",
+      "history": "Vēsture",
+      "loading": "Ielādē..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Neizdevās izlasīt metrikas",
+      "metrics": "Metrikas",
+      "cpu": "CPU",
+      "memory": "Atmiņa",
+      "disk": "Diska",
+      "noRecentSampleOpenThe": "Nav nesenā parauga. Atveriet hosta metrikas, lai to sāktu."
+    },
+    "register": {
+      "enableMetrics": "Iespējot metrikas",
+      "cpuMemoryDiskAndNetwork": "CPU, atmiņa, disks un tīkls caur SSH",
+      "hostMetrics": "Hosta metrikas",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrikas",
+      "cpuMemoryDiskAndNetwork2": "CPU, atmiņa, disks un tīkls"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Hosta metrikas | šis {{deviceWord}}",
+      "hostMetrics": "Hosta metrikas",
+      "ran": "Izpildīts {{name}}",
+      "loadingMetrics": "Metriku ielāde...",
+      "couldNotReadMetricsFrom": "Neizdevās izlasīt metrikas no šī hosta",
+      "failedToLoadMetrics": "Neizdevās ielādēt metrikas",
+      "thisSessionHasNoServer": "Šai sesijai nav servera",
+      "twoFactorRequiredForThis": "Šī hosta statistikai ir nepieciešama divu faktoru autentifikācija.",
+      "failedToStartMetrics": "Neizdevās palaist metrikas",
+      "failedToRun": "Neizdevās palaist {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Katram kodam: {{value}}",
+        "cores": "Kodi",
+        "load": "Aplūde",
+        "user": "Lietotājs",
+        "system": "Sistēma",
+        "ioWait": "IO gaidīšana",
+        "steal": "Aizgūšana"
+      },
+      "diskWidget": {
+        "disk": "Diska {{mount}}",
+        "disk2": "Diska",
+        "used": "Izmantots",
+        "total": "Kopā",
+        "free": "Brīvi"
+      },
+      "firewallWidget": {
+        "firewall": "Ugunsmūris",
+        "rules": "{{type}} | {{ruleCount}} noteikumi",
+        "noFirewallDetected": "Ugunsmūris nav noteikts"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Atmiņa",
+        "temp": "Temperatūra",
+        "power": "Jauda",
+        "fan": "Ventilators"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Pieteikšanās aktivitāte",
+        "noLoginActivityRecorded": "Nav reģistrētas pieteikšanās aktivitātes",
+        "logins": "Pieteikšanās",
+        "uniqueIps": "Unikālas IP adreses",
+        "failed": "Neizdevās",
+        "recent": "Nesen"
+      },
+      "memoryWidget": {
+        "memory": "Atmiņa",
+        "used": "Izmantots",
+        "total": "Kopā",
+        "cached": "Kešatmiņā",
+        "free": "Brīvi"
+      },
+      "networkWidget": {
+        "network": "Tīkls",
+        "noInterfaces": "Nav saskarņu",
+        "up": "Augšup",
+        "down": "Lejup"
+      },
+      "portsWidget": {
+        "listeningPorts": "Klausīšanās porti",
+        "noListeningPorts": "Nav klausīšanās portu"
+      },
+      "processesWidget": {
+        "sortBy": "Kārtot pēc {{label}}",
+        "processes": "Procesi",
+        "running": "{{value}} darbojas | {{total}}",
+        "noProcessData": "Nav procesu datu",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "KOMANDA"
+      },
+      "systemWidget": {
+        "system": "Sistēma",
+        "hostname": "Vērzvārds",
+        "os": "OS",
+        "kernel": "Pamatkodols",
+        "arch": "Arhitektūra",
+        "noSystemInfo": "Nav sistēmas informācijas"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatūra"
+      },
+      "uptimeWidget": {
+        "uptime": "Darba laiks"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Nokopēts ar paroli",
+      "copiedTheLink": "Saite nokopēta",
+      "shareHost": "Kopīgot vērzni",
+      "thatHostNoLongerExists": "Šis vērzis vairs neeksistē",
+      "scanThisInTermixOn": "Skenējiet šo Termix citā {{deviceWord}}, sadaļā Importēt un eksportēt. Kodā ir adrese, ports un lietotājs. Tajā nav paroles vai atslēgas.",
+      "copyLink": "Kopēt saiti",
+      "copyLinkWithPassword": "Kopēt saiti ar paroli"
+    },
+    "includePasswordsAndKeys": "Iekļaut paroles un atslēgas?",
+    "anyoneWhoGetsThisFile": "Jebkurš, kas iegūst šo failu, var pieteikties šajos vērzos. Glabājiet to droši.",
+    "includeThem": "Iekļaut tos",
+    "pickAtLeastOneHost": "Izvēlieties vismaz vienu vērzni",
+    "couldNotMakeTheFile": "Neizdevās izveidot failu",
+    "copiedToTheClipboard": "Nokopēts starpliktuvē",
+    "importAndExport": "Importēt un eksportēt",
+    "moveHostsInAndOut": "Pārvietot vērzus iekšā un ārā",
+    "import": "Importēt",
+    "aTermixHostFileAn": "Termix vērzis fails, SSH konfigurācijas fails vai vērzis saite vai QR kods no cita {{deviceWord}}.",
+    "export": "Eksportēt",
+    "allHosts": "Visi vērzis",
+    "picked": "{{size}} izvēlēti",
+    "pickHosts": "Izvēlieties vērzus",
+    "includePasswordsAndKeys2": "Iekļaut paroles un atslēgas",
+    "offMakesAFileSafe": "Izslēgts padara failu drošu kopīgošanai. Vērzis, kas izmanto saglabātu pieteikšanās informāciju, norāda uz to pēc nosaukuma",
+    "shareAFile": "Kopīgot failu",
+    "copy": "Kopēt",
+    "importPanel": {
+      "couldNotReadThat": "Neizdevās to izlasīt",
+      "couldNotReadThatFile": "Neizdevās izlasīt šo failu",
+      "importFailed": "Importēšana neizdevās",
+      "chooseAFile": "Izvēlieties failu",
+      "paste": "Ielīmēt",
+      "scanACode": "Skenēt kodu",
+      "couldNotBeRead": "{{count}} nevarēja izlasīt",
+      "updateHostsThatExist": "Atjaunināt esošos vērzus",
+      "sameAddressPortAndUser": "Vienāda adrese, ports un lietotājs. Pretējā gadījumā tie tiek izlaisti",
+      "cancel": "Atcelt",
+      "import": "Importēt",
+      "andMore": "un vēl {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR kods"
+    },
+    "register": {
+      "importAndExport": "Importēt un eksportēt",
+      "moveHostsInOrOut": "Pārvietot vērzus iekšā vai ārā ar failu vai QR kodu",
+      "shareHost": "Kopīgot vērzni"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skenēt vērzis kodu",
+      "pointTheCameraAtA": "Novirziet kameru uz Termix vērzis QR kodu.",
+      "termixNeedsTheCameraTo": "Termix nepieciešama kamera, lai skenētu kodu. Nekas netiek ierakstīts.",
+      "allowTheCamera": "Atļaut kameru"
+    },
+    "read": {
+      "termixFile": "Termix fails",
+      "sshConfig": "SSH konfigurācija",
+      "thereIsNothingToImport": "Nav nekas, ko importēt",
+      "thatIsNotATermix": "Tas nav Termix hosta saite",
+      "linkHost": "1 hosts: {{name}}",
+      "sourceHosts_zero": "{{what}} bez hostiem",
+      "sourceHosts_one": "{{what}} ar {{count}} hostu",
+      "sourceHosts_other": "{{what}} ar {{count}} hostiem"
+    },
+    "saveYourTermixHosts": "Saglabāt savus Termix hostus"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Pabeigts",
+      "rejected": "Noraidīts",
+      "approvals": "Apstiprinājumi",
+      "nothingIsWaiting": "Nekas negaida",
+      "actionsARuleHoldsFor": "Šeit parādās darbības, kurām noteikums prasa apstiprinājumu.",
+      "approveAndRun": "Apstiprināt un palaist",
+      "reject": "Noraidīt",
+      "couldNotLoadApprovals": "Neizdevās ielādēt apstiprinājumus",
+      "couldNotDecide": "Neizdevās pieņemt lēmumu"
+    },
+    "approvalsCard": {
+      "approved": "Apstiprināts",
+      "rejected": "Noraidīts",
+      "waitingForApproval": "Gaida apstiprinājumu",
+      "approve": "Apstiprināt",
+      "reject": "Noraidīt",
+      "couldNotDecide": "Neizdevās pieņemt lēmumu",
+      "seeAll": "Skatīt visu"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "To nevar atsaukt. Vai palaist?",
+      "run": "Palaist",
+      "sentForApproval": "Nosūtīts apstiprinājumam",
+      "target": "Mērķis",
+      "theItemOnTheHost": "Elements uz hosta, piemēram, konteineris",
+      "dryRun": "Testa palaidšana",
+      "back": "Atpakaļ",
+      "actions": "Darbības",
+      "noActionsForThisHost": "Šim hostam nav darbību",
+      "turnOnAPluginLike": "Ieslēdziet šim hostam serverī tādu spraudni kā Docker vai Services.",
+      "destructive": "Destruktīvs",
+      "changes": "Izmaiņas",
+      "theActionCouldNotRun": "Darbību neizdevās palaist",
+      "couldNotLoadActions": "Neizdevās ielādēt darbības"
+    },
+    "register": {
+      "actions": "Darbības",
+      "waitingForApproval": "Gaida apstiprinājumu",
+      "approvals": "Apstiprinājumi",
+      "actionsWaitingForAPerson": "Darbības, kas gaida cilvēka apstiprinājumu",
+      "runHistory": "Palaist vēsture",
+      "everyActionAnyoneRanFrom": "Katra darbība, ko ir palaidis jebkurš no jebkuras ierīces"
+    },
+    "runHistory": {
+      "cancelThisRun": "Atcelt šo palaisti?",
+      "cancelRun": "Atcelt palaisti",
+      "keep": "Atstāt",
+      "undoThisRun": "Atsaukt šo palaisti?",
+      "thisRunsTheActionS": "Tas palaiž darbības atsaukšanu ar tiem pašiem ievades datiem.",
+      "undo": "Atsaukt",
+      "cancelled": "Atcelts",
+      "itAlreadyFinished": "Tas jau ir pabeigts",
+      "done": "Pabeigts",
+      "runHistory": "Palaist vēsture",
+      "nothingHasRunYet": "Vēl nekas nav palaists",
+      "dryRun": "Testa palaidšana",
+      "cancel": "Atcelt",
+      "couldNotLoadHistory": "Neizdevās ielādēt vēsturi",
+      "couldNotCancel": "Neizdevās atcelt",
+      "couldNotUndo": "Neizdevās atsaukt"
+    },
+    "api": {
+      "needsApproval": "Nepieciešams apstiprinājums",
+      "needsSignIn": "Nepieciešama pieteikšanās",
+      "done": "Pabeigts",
+      "failed": "Neizdevās",
+      "running": "Notiek",
+      "interrupted": "Pārtraukts",
+      "rejected": "Noraidīts",
+      "cancelled": "Atcelts",
+      "expired": "Beidzies derīgums"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Ieslēgt {{value}}",
+      "moreSettingsForThisAre": "Papildu iestatījumi ir pieejami Termix tīmekļa lietotnē.",
+      "pluginHostSettings": "Spraudņa servera iestatījumi"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} ir jābūt skaitlim",
+      "mustBeAtLeast": "{{field}} ir jābūt vismaz {{min}}",
+      "mustBeAtMost": "{{field}} ir jābūt ne vairāk kā {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Lai to izmantotu, piesaistiet serveri",
+      "runsOnYourTermixServer": "{{name}} darbojas jūsu Termix serverī."
+    },
+    "pluginWebView": {
+      "canTLoad": "Neizdodas ielādēt {{name}}",
+      "theServerDidNotSend": "Serveris nesūtīja spraudni. Pārbaudiet, vai tas ir ieslēgts, un mēģiniet vēlreiz.",
+      "openThisLink": "Atvērt šo saiti?",
+      "open": "Atvērt",
+      "needsANewerVersionOf": "Nepieciešama jaunāka lietotnes versija",
+      "usesPartsOfTermixThis": "{{name}} izmanto Termix daļas, kuras šajā lietotnē vēl nav.",
+      "didNotStart": "{{name}} netika palaists",
+      "thisScreenIsNotIn": "Šī ekrāna nav serverī esošajā spraudņa versijā.",
+      "thePluginHitAnError": "Spraudnim sākumā radās kļūda.",
+      "youReOffline": "Jūs esat bezsaistē",
+      "runsOnYourServerSo": "{{name}} darbojas jūsu serverī, tāpēc tam nepieciešama savienojuma. Tas atkal atvērsies, kad atgriezīsieties tiešsaistē.",
+      "tryAgain": "Mēģināt vēlreiz"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Šis resursdators vēl nav šajā {{deviceWord}}.",
+      "theAppCanTOpen": "Lietotne nevar to atvērt no šejienes.",
+      "thatHostIsNotOn2": "Šis resursdators vēl nav šajā {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Parole",
+      "unchangedIfBlank": "Ja tukšs, netiek mainīts",
+      "port": "Ports",
+      "domain": "Domaīns",
+      "displaySoundAndClipboardSettings": "Displeja, skaņas un starpliktuvja iestatījumi ir Termix tīmekļa lietotnē.",
+      "portMustBeFrom1": "{{label}} portam ir jābūt no 1 līdz 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Tālvadības darbvirsma tika pārtraukta",
+        "signIn": "{{label}} pieteikšanās",
+        "itWillNotBeSaved": "{{error}} Tas netiks saglabāts.",
+        "enterTheLoginForIt": "Ievadiet pieteikšanās datus priekš {{title}}. Tie netiks saglabāti.",
+        "reconnecting": "Atkārtoti savienojas ar {{label}}",
+        "connecting": "Savienojas ar {{label}}",
+        "connectionFailed": "Savienojums neizdevās",
+        "disconnected": "Atvienots",
+        "reconnect": "Atkārtoti savienot",
+        "connectThroughTheServer": "Savienot caur serveri",
+        "pasteToRemote": "Ielīmēt tālvadības ierīcē",
+        "typeClipboard": "Ierakstīt no starpliktuvja",
+        "copyRemoteClipboard": "Kopēt tālvadības ierīces starpliktuvi",
+        "theComputerSCertificateWas": "Datora sertifikāts netika uzticēts.",
+        "thatLoginWasRefusedTry": "Šis pieteikums tika noraidīts. Mēģiniet vēlreiz."
+      },
+      "target": {
+        "trustThisComputer": "Uzticēties šim datoram?",
+        "theCanTCheckS": "{{deviceWord}} nevar pārbaudīt {{hostName}} sertifikātu. Pirms turpināt, pārliecinieties, ka šis pirkstu nospiedums sakrīt ar to datorā.\n\n{{fingerprint}}",
+        "trustAndConnect": "Uzticēties un savienot",
+        "certificateChanged": "Sertifikāts ir mainījies",
+        "showsAnotherCertificateThanLast": "{{hostName}} rāda citu sertifikātu nekā iepriekš. Tas notiek, kad dators izveido jaunu sertifikātu, vai arī, ja starpā klausās kāds cits.\n\nJaunais pirkstu nospiedums:\n{{fingerprint}}",
+        "trustTheNewOne": "Uzticēties jaunajam"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Tālvadības darbvirsma",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Gatavs",
+      "keyboard": "Tastatūra",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Iestatījumi",
+      "remoteSettings": "Tālinostatījumi",
+      "mouseMode": "Peles režīms",
+      "touch": "Pieskāriens",
+      "trackpad": "Skārienpaliktnis",
+      "tapWhereYouWantTo": "Pieskarieties tur, kur vēlaties noklikšķināt. Turiet nospiestu, lai veiktu labo klikšķi, velciet, lai vilktu.",
+      "dragToMoveThePointer": "Velciet, lai pārvietotu kursoru. Pieskarieties, lai noklikšķinātu, pieskarieties ar diviem pirkstiem, lai veiktu labo klikšķi, pieskarieties un velciet, lai vilktu.",
+      "zoomXPinchAnywhereTo": "Tuvinājums: {{value}}x. Pieskarieties jebkur, lai tuvinātu",
+      "reset": "Atiestatīt",
+      "cancel": "Atcelt",
+      "connect": "Savienot",
+      "username": "Lietotājvārds",
+      "domainOptional": "Domēns (neobligāti)",
+      "domain": "Domēns",
+      "password": "Parole",
+      "leftArrow": "Bulta pa kreisi",
+      "upArrow": "Bulta uz augšu",
+      "downArrow": "Bulta uz leju",
+      "rightArrow": "Bulta pa labi",
+      "rdpSignIn": "RDP pieteikšanās"
+    },
+    "theRemoteDesktopDropped": "Tālinādarbības sesija tika pārtraukta",
+    "theyWillNotBeSaved": "{{errorMessage}} Tie netiks saglabāti.",
+    "enterCredentialsForTheyWill": "Ievadiet pieteikšanās datus priekš {{title}}. Tie netiks saglabāti.",
+    "connecting": "Notiek savienošana",
+    "connectionFailed": "Savienojums neizdevās",
+    "disconnected": "Atvienots",
+    "reconnect": "Atkārtoti savienot",
+    "route": {
+      "thisHostCanTOpen": "Šis resursdators nevar atvērt tālinādarbību no šejienes."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Bloķēts lietotnes"
+    },
+    "failedToStartRemoteSession": "Neizdevās uzsākt tālinādarbības sesiju",
+    "thatLoginWasRefusedTry": "Pieteikšanās tika noraidīta. Mēģiniet vēlreiz.",
+    "theRemoteRefusedTheSaved": "Tālinādarbība noraidīja saglabātos pieteikšanās datus. Pārbaudiet RDP pieteikšanos šajā resursdatorā.",
+    "remoteSessionFailed": "Tālinādarbības sesija neizdevās",
+    "remoteSessionReturnedAnInvalid": "Tālinādarbības sesija atgrieza nederīgu ziņojumu",
+    "failedToLoadTheRemote": "Neizdevās ielādēt tālinādarbības klientu"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Nav žurnāla",
+      "thisHostDoesNotKeep": "Šis resursdators neuztur systemd žurnālu.",
+      "all": "Visi",
+      "warnings": "Brīdinājumi",
+      "errors": "Kļūdas",
+      "stop": "Apturēt",
+      "follow": "Sekot",
+      "nothingLogged": "Nekas nav reģistrēts",
+      "tryAnotherLevel": "Mēģiniet citu līmeni.",
+      "couldNotReadTheJournal": "Neizdevās izlasīt žurnālu"
+    },
+    "register": {
+      "services": "Pakalpojumi",
+      "startStopAndReadLogs": "Sākt, apturēt un lasīt žurnālus"
+    },
+    "readingServices": "Notiek pakalpojumu lasīšana...",
+    "thisHostHasNoSystemd": "Šim resursam nav systemd vai OpenRC.",
+    "noServicesMatch": "Nav atbilstošu pakalpojumu",
+    "noServicesFound": "Pakalpojumi nav atrasti",
+    "services": "Pakalpojumi",
+    "journal": "Žurnāls",
+    "searchServices": "Meklēt pakalpojumus...",
+    "all": "Visi",
+    "running": "Darbojas",
+    "failed": "Neizdevās ({{failed}})",
+    "failed2": "Neizdevās",
+    "servicesCard": {
+      "services": "Pakalpojumi",
+      "noSystemdOrOpenrc": "Nav systemd vai OpenRC",
+      "failed": "{{failed}} neizdevās",
+      "allRunning": "Visi darbojas",
+      "couldNotReadServices": "Neizdevās izlasīt pakalpojumus"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Tas paliek apturēts, līdz to atkal sāk vai tiek palaists resurss.",
+      "itStopsForAMoment": "Tas uz brīdi apstājas un atkal sākas.",
+      "stop": "Apturēt",
+      "restart": "Atsākt",
+      "is": "{{name}} ir {{state}}",
+      "start": "Sākt",
+      "journal": "Žurnāls",
+      "couldNotReadTheService": "Neizdevās izlasīt pakalpojumu",
+      "couldNot": "Neizdevās {{action}} {{name}}",
+      "startsAtBoot": "Sākas pie palašanas",
+      "mainPid": "Galvenais PID",
+      "activeSince": "Aktīvs kopš",
+      "unitFile": "Vienības fails",
+      "notSet": "[nav iestatīts]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Nav pierakstījies",
+        "followFailed": "Sekojšana neizdevās",
+        "connectionFailed": "Savienojums neizdevās"
+      }
+    },
+    "couldNotReadServices": "Neizdevās izlasīt pakalpojumus",
+    "services2": "Pakalpojumi{{where}}",
+    "title": "Pakalpojumi",
+    "failedCount": "{{count}} neizdevās"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sesiju koplietošana",
+      "shareLink": "Koplietot saiti"
+    },
+    "shareSessionView": {
+      "canWatch": "Var skatīties",
+      "canType": "Var rakstīt",
+      "n1Hour": "1 stunda",
+      "n8Hours": "8 stundas",
+      "n1Day": "1 diena",
+      "n7Days": "7 dienas",
+      "never": "Nekad",
+      "shareSession": "Koplietot sesiju",
+      "anyoneWithTheLinkCan": "Jebkurš, kam ir saite, var atvērt šo terminālu, kamēr tas darbojas. Termix var atcelt saišu derīgumu.",
+      "peopleWithTheLink": "Cilvēki ar saiti",
+      "expiresAfter": "Beidz derēt pēc",
+      "link": "Saite",
+      "copy": "Kopēt",
+      "share": "Koplietot",
+      "makeLink": "Izveidot saiti",
+      "theServerGaveNoLink": "Serveris nesniedza saiti",
+      "couldNotMakeALink": "Neizdevās izveidot saiti",
+      "linkCopied": "Saite nokopēta"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Nav mapes"
+    },
+    "hostPicker": {
+      "selectNone": "Atcelt atlasi",
+      "selectAll": "Izvēlēties visu",
+      "done": "Gatavs"
+    },
+    "register": {
+      "snippets": "Koda fragmenti",
+      "snippets2": "KODA FRAGMENTI",
+      "savedCommandsToRunOn": "Saglabātas komandas, kas jāizpilda jebkurā mezglā"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Nav veida, kā no šejienes sasniegt šo mezglu",
+      "exitedWith": "Izbeigts ar kodu {{exitCode}}",
+      "thisCanTRunIt": "Šis {{deviceWord}} nevar to izpildīt",
+      "noServerIsLinked": "Nav saistītu serveru"
+    },
+    "runOnHostsSheet": {
+      "run": "Izpildīt",
+      "run2": "Izpildīt \"{{name}}\"",
+      "runsOverSshOnEach": "Izpilda caur SSH katrā mezglā. Termināls netiek atvērts.",
+      "close": "Aizvērt",
+      "hosts": "Mezgli",
+      "pickHosts": "Izvēlēties mezglus",
+      "workedFailed": "{{value}} izdevās, {{failed}} neizdevās",
+      "runOn2": "Izpildīt uz",
+      "runOn_zero": "Izpildīt {{name}} uz {{count}} mezgliem?",
+      "runOn_one": "Izpildīt {{name}} uz {{count}} mezgla?",
+      "runOn_other": "Izpildīt {{name}} uz {{count}} mezgliem?",
+      "hostsPicked_zero": "Izvēlēti {{count}} mezgli",
+      "hostsPicked_one": "Izvēlēts {{count}} mezgls",
+      "hostsPicked_other": "Izvēlēti {{count}} mezgli"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Meklēt koda fragmentus",
+      "pastesTheNote": "Ielīmē piezīmi",
+      "runsTheSnippet": "Izpilda koda fragmentu",
+      "noSnippetsMatch": "Nav atbilstošu koda fragmentu",
+      "noSnippetsYet": "Vēl nav koda fragmentu",
+      "addSnippetsInSettingsSnippets": "Pievienojiet koda fragmentus Iestatījumos, sadaļā Koda fragmenti",
+      "run": "Izpildīt",
+      "insertWithoutRunning": "Ievietot, neizpildot",
+      "copy": "Kopēt"
+    },
+    "snippetsCard": {
+      "snippets": "Koda fragmenti",
+      "run": "Izpildīt {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Nav koda fragmentu, ko eksportēt",
+      "couldNotMakeTheFile": "Neizdevās izveidot failu",
+      "copiedToTheClipboard": "Kopēts starpliktuvē",
+      "couldNotImport": "Neizdevās importēt",
+      "couldNotReadThatFile": "Neizdevās izlasīt šo failu",
+      "importAndExport": "Importēt un eksportēt",
+      "theSameFileTheWeb": "Tas pats fails, ko izmanto tīmekļa lietotne.",
+      "export": "Eksportēt",
+      "shareAFile": "Kopīgot failu",
+      "copy": "Kopēt",
+      "import": "Importēt",
+      "updateSnippetsThatExist": "Atjaunināt esošos koda fragmentus",
+      "sameNameInTheSame": "Ar tādu pašu nosaukumu tajā pašā mapē. Pretējā gadījumā tie tiek izlaisti",
+      "chooseAFile": "Izvēlieties failu",
+      "paste": "Ielīmēt",
+      "saveYourSnippets": "Saglabājiet savus koda fragmentus"
+    },
+    "useSnippetRunner": {
+      "run": "Izpildīt {{name}}?",
+      "run2": "Izpildīt",
+      "fillInTheValuesFor": "Aizpildiet šī koda fragmenta vērtības.",
+      "cancel": "Atcelt",
+      "insert": "Ievietot",
+      "noTerminalIsOpen": "Nav atvērts termināls"
+    },
+    "variables": {
+      "input": "Ievade {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Tas nav derīgs JSON fails",
+      "theFileNeedsASnippets": "Failam ir nepieciešams koda fragmentu vai mapju saraksts",
+      "snippetNameAndContentAre": "Koda fragments {{value}}: nosaukums un saturs ir obligāti",
+      "folder": "Mape {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Notiek Tailscale ierīču ielāde…",
+      "searchTailscaleDevices": "Meklēt Tailscale ierīces…",
+      "searchTailscaleDevices2": "Meklēt Tailscale ierīces",
+      "clearDeviceSearch": "Notīrīt ierīču meklēšanu",
+      "refreshTailscaleDevices": "Atsvaidzināt Tailscale ierīces",
+      "device": "Ierīce",
+      "noTailnetAddress": "Nav tailnet adreses",
+      "tailscaleDevice": "Tailscale ierīce",
+      "tailscaleDevices": "Tailscale ierīces",
+      "addAHostThatConnects": "Pievienot resursdatoru, kas savienojas ar Tailscale SSH.",
+      "username": "Lietotājvārds",
+      "sshUsernameFor": "SSH lietotājvārds priekš {{value}}",
+      "addHost": "Pievienot resursdatoru",
+      "noTailscaleDevicesMatchYour": "Nav Tailscale ierīču, kas atbilstu jūsu meklējumam.",
+      "noTailscaleDevicesFound": "Nav atrasta neviena Tailscale ierīce.",
+      "noTailscaleApiKeyIs": "Šajā serverī nav konfigurēts Tailscale API atslēga. Lūdziet administratoru to pievienot.",
+      "youDoNotHavePermission": "Jums nav atļaujas skatīt Tailscale ierīču sarakstu.",
+      "couldNotLoadTailscaleDevices": "Neizdevās ielādēt Tailscale ierīces. Mēģiniet vēlreiz, atsvaidzinot.",
+      "tailscaleIsUnavailableOnThis": "Tailscale šajā serverī nav pieejams."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Atkārtoti savienojas | mēģinājums {{attempt}}",
+      "reconnectingInSTry": "Atkārtoti savienojas pēc {{secs}} s | mēģinājums {{attempt}}",
+      "offlineWaitingForNetwork": "Bezsaistē, gaida tīklu",
+      "sendToTheNewShell": "Nosūtīt {{what}} jaunajam čaulas procesam?",
+      "reconnectNow": "Savienot tagad",
+      "send": "Nosūtīt",
+      "discard": "Atmest",
+      "typedChars_zero": "0 ievadīti simboli",
+      "typedChars_one": "{{count}} ievadīts simbols",
+      "typedChars_other": "{{count}} ievadīti simboli",
+      "waiting": "{{what}} gaida"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Savienojuma žurnāls nokopēts",
+      "connectionLog": "Savienojuma žurnāls",
+      "copyItIntoABug": "Nokopējiet to kļūdas ziņojumā. Adreses un lietotājvārdi netiek iekļauti.",
+      "copy": "Kopēt"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Notīrīt šī resursdatora vēsturi?",
+        "clear": "Notīrīt",
+        "searchHistory": "Meklēt vēsturē",
+        "typesTheCommandWithoutRunning": "Ieraksta komandu, bet to nepalaiž",
+        "noCommandsMatch": "Nav atbilstošu komandu",
+        "noHistoryYet": "Vēsture vēl nav pieejama",
+        "commandsYouRunOnThis": "Šeit tiek parādītas komandas, kuras izpildāt šajā resursdatorā",
+        "run": "Palaid",
+        "typeWithoutRunning": "Ierakstīt, nepalaidot",
+        "copy": "Kopēt",
+        "delete": "Dzēst",
+        "historyCleared": "Vēsture notīrīta"
+      },
+      "suggestionStrip": {
+        "use": "Izmantot {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Programmas iestatījums",
+      "delete": "Dzēst (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Cilnes nosaukums no čaulas",
+      "programsCanSetTheTab": "Programmas var iestatīt cilnes nosaukumu",
+      "openTmux": "Atvērt tmux",
+      "attachToATmuxSession": "Pievienoties tmux sesijai vai sākt jaunu",
+      "reconnectOnDrop": "Atkārtoti savienot, ja savienojums tiek pārtraukts",
+      "keepTabOpenOnExit": "Atstāt cilni atvērtu pēc iziešanas",
+      "pressEnterToConnectAgain": "Nospiediet Enter, lai savienotos vēlreiz",
+      "saveCommandHistory": "Saglabāt komandu vēsturi",
+      "offerToFillPasswordPrompts": "Piedāvāt aizpildīt paroles vaicājumus",
+      "offerToFillSudoPrompts": "Piedāvāt aizpildīt sudo vaicājumus",
+      "usesTheSudoPasswordFrom": "Izmanto sudo paroli no SSH cilnes",
+      "none": "Nav",
+      "look": "Izskats",
+      "theme": "Tēma",
+      "font": "Fonts",
+      "cursor": "Kursors",
+      "bell": "Zvans",
+      "scrollbackLines": "Ritināšanas rindas",
+      "app": "Lietotne",
+      "behavior": "Uzvedība",
+      "backspaceSends": "Atkāpes taustiņš sūta",
+      "startupSnippet": "Sākuma fragmentu",
+      "runsOnceTheShellIs": "Izpilda, kad čaula ir gatava",
+      "fillWithoutAsking": "Aizpildīt bez jautāšanas",
+      "onThisOnlyOnceYou": "Tikai uz šī {{deviceWord}}, pēc tam, kad izvēlēsieties „Aizpildīt vienmēr”",
+      "connection": "Savienojums",
+      "keepalive": "Savienojuma uzturēšana",
+      "secondsBetweenPings0Turns": "Sekundes starp pingiem, 0 izslēdz šo funkciju",
+      "default": "Noklusējums",
+      "keepaliveSeconds": "Savienojuma uzturēšanas sekundes",
+      "missedPings": "Nokavētie pingi",
+      "dropTheConnectionAfterThis": "Pārtraukt savienojumu, ja tik daudz pingiem nav atbilžu",
+      "missedPingsBeforeDrop": "Nokavētie pingi pirms pārtraukšanas",
+      "environment": "Vide",
+      "removeVariable": "Noņemt mainīgo",
+      "addVariable": "Pievienot mainīgo"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TASTATŪRA"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rinda",
+        "keys": "Taustiņi",
+        "sendsAKeyCode": "Nosūta taustiņa kodu",
+        "stickyModifier": "Līpīgs modifikators",
+        "appAction": "Lietotnes darbība",
+        "tmuxPrefixThen": "tmux prefikss, tad {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Taustiņu rindas",
+        "onlyFor": "Tikai priekš {{name}}",
+        "usingTheAppSRows": "Izmanto lietotnes rindas. Šeit veiktās izmaiņas attiecas tikai uz {{name}}",
+        "useTheAppSRows": "Izmantot lietotnes rindas"
+      },
+      "keyButton": {
+        "locked": "Aizslēgts"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Atcelt",
+        "remove": "Noņemt {{what}}?",
+        "remove2": "Noņemt",
+        "dragToReorder": "Velciet, lai pārkārtotu",
+        "rowName": "Rindas nosaukums",
+        "groupName": "Grupas nosaukums",
+        "add": "Pievienot",
+        "addKey": "Pievienot taustiņu",
+        "addRow": "Pievienot rindu",
+        "addGroup": "Pievienot grupu",
+        "tmuxPrefix": "tmux prefikss",
+        "name": "Nosaukums",
+        "rename": "Pārsaukt",
+        "keys": "{{value}} taustiņi",
+        "noKeys": "Nav taustiņu",
+        "remove3": "Noņemt {{label}}",
+        "keys2": "Taustiņi",
+        "custom": "Pielāgots",
+        "add2": "Pievienot {{label}}",
+        "typeText": "Ievadīt tekstu",
+        "runCommand": "Izpildīt komandu",
+        "ctrlKey": "Ctrl taustiņš",
+        "label": "Etiķete",
+        "optional": "Neobligāts",
+        "letter": "Burtu",
+        "command": "Komanda",
+        "text": "Teksts",
+        "resetToDefault": "Atjaunot noklusējumu"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Mainīt taustiņus Iestatījumos, Taustiņu panelī"
+      },
+      "keyRowBar": {
+        "keyRow": "Taustiņu rinda {{label}}",
+        "tapForTheNextRow": "Pieskarieties, lai pārietu uz nākamo rindu, turiet, lai izvēlētos vienu",
+        "keyRows": "Taustiņu rindas"
+      },
+      "model": {
+        "clear": "Notīrīt",
+        "main": "Galvenais",
+        "keys": "Taustiņi",
+        "arrows": "Pipetes",
+        "symbols": "Simboli",
+        "actions": "Darbības",
+        "nav": "Navigācija",
+        "move": "Pārvietot",
+        "function": "Funkcija",
+        "brackets": "Iekavas",
+        "punctuation": "Punktuācija",
+        "ctrl": "Ctrl",
+        "control": "Kontrole",
+        "windows": "Logi",
+        "panes": "Paneļi",
+        "copy": "Kopēt",
+        "split": "Sadalīt ─",
+        "split2": "Sadalīt │",
+        "newWin": "Jauns logs",
+        "prevWin": "Iepriekš. logs",
+        "nextWin": "Nākamais logs",
+        "pane": "Panels ←",
+        "pane2": "Panels ↓",
+        "pane3": "Panels ↑",
+        "pane4": "Panels →",
+        "copyMode": "Kopēšanas režīms",
+        "pasteBuf": "Ielīmēt buferi",
+        "killPane": "Aizvērt paneli"
+      }
+    },
+    "output": {
+      "openLink": "Atvērt saiti?",
+      "open": "Atvērt",
+      "pasteLines": "Ielīmēt {{lines}} rindas?",
+      "pasteThisText": "Ielīmēt šo tekstu?",
+      "theShellMayRunIt": "Komandrinda var to izpildīt uzreiz.\n\n{{text}}",
+      "paste": "Ielīmēt",
+      "letTheProgramReadYour": "Ļaut programmai izlasīt jūsu starpliktuvi?",
+      "itAskedForWhatYou": "Tā pieprasīja to, ko pēdējo reizi kopējāt.",
+      "allow": "Atļaut",
+      "letTheProgramCopyTo": "Ļaut programmai kopēt uz jūsu starpliktuvi?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Aizpildīt saglabāto paroli?",
+      "asksForTheSudoPassword": "{{hostName}} pieprasa sudo paroli.",
+      "asksForAPassword": "{{hostName}} pieprasa paroli.",
+      "fillPassword": "Aizpildīt paroli",
+      "alwaysFillOnThisHost": "Vienmēr aizpildīt šajā serverī",
+      "asksNoMoreOnThis": "Vairs nepieprasīs šajā {{deviceWord}}. To var atslēgt servera Termināļa cilnē.",
+      "notNow": "Ne tagad"
+    },
+    "register": {
+      "terminal": "Terminālis",
+      "terminalAndKeepalive": "Terminālis un savienojuma uzturēšana",
+      "history": "VĒSTURE",
+      "find": "Meklēt",
+      "tmuxWindows": "tmux logi",
+      "connectionLog": "Savienojuma žurnāls",
+      "keyRowsForThisHost": "Taustiņu rindas šim serverim"
+    },
+    "searchBar": {
+      "noResults": "Nav rezultātu",
+      "matchCase": "Reģistratūra",
+      "wholeWord": "Vēlams vārds",
+      "regularExpression": "Regulārais izteiksmes",
+      "find": "Atrast",
+      "closeFind": "Aizvērt meklēšanu"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistēma",
+      "block": "Bloks",
+      "bar": "Stienis",
+      "underline": "Pasvītrojums",
+      "off": "Izslēgts",
+      "sound": "Skaņa",
+      "flash": "Zibsnis",
+      "both": "Abi"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Jauna cilne šajā serverī",
+      "closeTab": "Aizvērt cilni",
+      "nextTab": "Nākamā cilne",
+      "previousTab": "Iepriekšējā cilne",
+      "goToTab": "Pāriet uz cilni",
+      "find": "Atrast",
+      "fontSize": "Fonta izmērs",
+      "paste": "Ielīmēt",
+      "escape": "Escape",
+      "copyAndPaste": "Kopēt un ielīmēt"
+    },
+    "reconnecting": "Atkārtoti savienojas...",
+    "waitingForNetwork": "Gaida tīklu...",
+    "waitingForYou": "Gaida jūs...",
+    "connecting": "Savienojas...",
+    "terminalView": {
+      "scrollToBottom": "Ritināt uz leju",
+      "onlyWebLinksCanOpen": "No termināļa var atvērt tikai tīmekļa saites",
+      "couldNotOpenLink": "Neizdevās atvērt saiti",
+      "copiedFromTheTerminal": "Nokopēts no termināļa"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Atvērt tmux sesiju",
+        "newSession": "Jauna sesija",
+        "plainShell": "Parasts čauls",
+        "tmuxWindows": "tmux logi",
+        "newWindow": "Jauns logs",
+        "windowCount_zero": "{{count}} logi",
+        "windowCount_one": "{{count}} logs",
+        "windowCount_other": "{{count}} logi",
+        "attached": "{{count}} pieslēgti",
+        "activeNow": "aktīvi tagad",
+        "activeMinAgo": "aktīvi pirms {{count}} min",
+        "activeHoursAgo": "aktīvi pirms {{count}} st",
+        "activeDaysAgo_zero": "aktīvi pirms {{count}} dienām",
+        "activeDaysAgo_one": "aktīvi pirms {{count}} dienas",
+        "activeDaysAgo_other": "aktīvi pirms {{count}} dienām"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopēt",
+        "selectAll": "Atlasīt visu",
+        "cancel": "Atcelt",
+        "scrollToBottom": "Ritināt uz leju",
+        "couldNotCopy": "Neizdevās kopēt",
+        "webviewError": "WebView kļūda: {{description}}",
+        "webviewHttpError": "WebView HTTP kļūda: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Šim serverim nav saglabāta parole",
+    "backInTmuxSession": "Atpakaļ tmux sesijā {{tmuxName}}",
+    "backInScreenSession": "Atpakaļ screen sesijā {{name}}",
+    "theServerSessionEndedThis": "Servera sesija beidzās. Šis ir jauns čauls.",
+    "termixWasClosedSoThe": "Termix tika aizvērts, tāpēc vecais čauls beidzās. Šis ir jauns čauls.",
+    "theConnectionDroppedAndThe": "Savienojums tika pārtraukts un vecais čauls beidzās. Šis ir jauns čauls.",
+    "disconnectedFrom": "Atvienots no {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Divu faktoru autentifikācija",
+      "codesFromAnAuthenticatorApp": "Kodi no autentifikatora lietotnes jūsu servera kontam"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC adrese",
+      "neededToWakeThisHost": "Nepieciešams, lai pamodinātu šo hostu ar Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Izmantojiet MAC adresi, piemēram, 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN nosūtīts uz {{name}}",
+      "failedToSendWakeOn": "Neizdevās nosūtīt Wake-on-LAN paketi",
+      "noServer": "Nav servera"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Pamodināt {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Vai dalīties ar anonīmu lietošanas statistiku?",
+      "termixWouldSendAShort": "Termix reizi dienā nosūtīs īsu ziņojumu. Šo iestatījumu varat mainīt jebkurā laikā Iestatījumos.",
+      "noThanks": "Nē, paldies",
+      "share": "Dalīties",
+      "theReportHasTheApp": "Ziņojumā ir lietotnes versija, {{deviceWord}} tips, aptuvenais hostu un sesiju skaits, kuras funkcijas jūs izmantojat, un vai savienojums izdevās. Tajā nekad nav hostu nosaukumu, lietotāju vārdu, adresu, ceļu, komandu vai serveru nosaukumu.",
+      "seeExactlyWhatIsSent": "Apskatīt precīzi, kas tiek nosūtīts"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Ielādē versijas informāciju…",
+      "updateAvailable": "Pieejams atjauninājums",
+      "newVersionAvailable": "Pieejama jauna versija",
+      "aNewerVersionOfThe": "Ir pieejama jaunāka mobilās lietotnes versija. Dažas funkcijas var nestrādāt pareizi, līdz veicat atjauninājumu.",
+      "versionInformation": "Versijas informācija",
+      "installed": "Instalēta",
+      "latest": "Jaunākā",
+      "unknown": "Nezināma",
+      "tag": "Birkas",
+      "continueAnyway": "Turpināt tomēr"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopēts",
+      "copy": "Kopēt",
+      "hostKeyChanged": "Hosta atslēga ir mainījusies",
+      "verifyHostKey": "Pārbaudīt hosta atslēgu",
+      "cancel": "Atcelt",
+      "acceptNewKey": "Pieņemt jauno atslēgu",
+      "connectAndTrust": "Savienot un uzticēties",
+      "theHostSSshKey": "Hosta SSH atslēga ir mainījusies kopš jūsu pēdējā savienojuma. Tas var nozīmēt, ka kāds noķer savienojumu.",
+      "youAreConnectingToThis": "Jūs pirmo reizi savienojaties ar šo hostu. Pirms uzticaties tam, pārbaudiet pirkstu nospiedumu.",
+      "previousKey": "Iepriekšējā atslēga",
+      "newFingerprint": "Jauns pirkstu nospiedums",
+      "hostFingerprint": "Hosta pirkstu nospiedums"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Nepieciešama paroles frāze",
+      "enterThePassphraseForYour": "Ievadiet savu SSH atslēgas paroles frāzi.",
+      "cancel": "Atcelt",
+      "connect": "Savienot",
+      "keyPassphrase": "Atslēgas paroles frāze"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Nepieciešama SSH autentifikācija",
+      "cancel": "Atcelt",
+      "connect": "Savienot",
+      "password": "Parole",
+      "sshKey": "SSH atslēga",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nIelīmējiet savu privāto atslēgu šeit...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Atslēgas paroles frāze (neobligāta)",
+      "keyboardInteractiveAuthIsNot": "Tastatūras interaktīvā autentifikācija nav pieejama. Ievadiet pieteikšanās datus tieši.",
+      "authenticationFailedPleaseReEnter": "Autentifikācija neizdevās. Lūdzu, vēlreiz ievadiet savus pieteikšanās datus.",
+      "connectionTimedOutPleaseTry": "Savienojuma laiks beidzās. Lūdzu, mēģiniet vēlreiz ar saviem pieteikšanās datiem."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH pārbaude",
+      "completeTheTailscaleSshCheck": "Lai turpinātu, pabeidziet Tailscale SSH pārbaudi savā pārlūkprogrammā.",
+      "cancel": "Atcelt",
+      "copyUrl": "Kopēt URL",
+      "openBrowser": "Atvērt pārlūkprogrammu",
+      "urlCopied": "URL nokopēts",
+      "failedToCopy": "Neizdevās kopēt",
+      "couldNotOpenBrowser": "Neizdevās atvērt pārlūkprogrammu"
+    },
+    "tOTPDialog": {
+      "cancel": "Atcelt",
+      "submit": "Iesniegt",
+      "verify": "Verificēt",
+      "password": "Parole",
+      "pasteCode": "Ielīmēt kodu",
+      "passwordRequired": "Nepieciešama parole",
+      "twoFactorAuthentication": "Divu faktoru autentifikācija",
+      "enterYourPasswordToContinue": "Lai turpinātu, ievadiet savu paroli.",
+      "enterThe6DigitCode": "Ievadiet 6 ciparu kodu no savas autentifikatora lietotnes."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate autentifikācija",
+      "authenticateViaTheWarpgatePortal": "Autentificējieties Warpgate portālā, pēc tam pieskarieties pogai Turpināt.",
+      "cancel": "Atcelt",
+      "openBrowser": "Atvērt pārlūkprogrammu",
+      "continue": "Turpināt",
+      "securityKey": "Drošības atslēga",
+      "authUrl": "Autentifikācijas URL",
+      "copied": "Kopēts",
+      "copy": "Kopēt",
+      "urlCopied": "URL nokopēts",
+      "failedToCopy": "Neizdevās kopēt",
+      "couldNotOpenBrowser": "Neizdevās atvērt pārlūkprogrammu"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "šis {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Nesenā aktivitāte",
+        "files": "Faili",
+        "terminal": "Terminālis"
+      },
+      "alertsCard": {
+        "notifications": "Paziņojumi",
+        "seeAll": "Skatīt visus"
+      },
+      "server": "Serveris",
+      "openSessions": "Atvērtās sesijas",
+      "quickAccess": "Ātra piekļuve",
+      "notifications": "Paziņojumi",
+      "pinnedHosts": "Piespraustie mezgli",
+      "recentHosts": "Nesenie mezgli",
+      "recentActivity": "Nesenā aktivitāte",
+      "pinnedCard": {
+        "addYourFirstHost": "Pievienot savu pirmo mezglu",
+        "hostsYouOpenShowUp": "Šeit tiek rādīti mezgli, kurus atverat, bet piespraustie mezgli rāda tiešraides kartes.",
+        "addHost": "Pievienot mezglu",
+        "linkAServer": "Sasaistīt serveri",
+        "pinAHostToSee": "Piespraudiet mezglu, lai to redzētu šeit",
+        "pinnedHostsShowTheirMetrics": "Piespraustie mezgli uzreiz rāda to metrikas, Docker un pakalpojumus. Lai piesprāustu mezglu, turiet to nospiestu.",
+        "goToHosts": "Doties uz mezgliem",
+        "pinned": "Piesprausti",
+        "opensTheTerminalHoldFor": "Atver termināli. Turiet nospiestu, lai redzētu vairāk.",
+        "turnOnDockerOrServices": "Ieslēdziet Docker vai Pakalpojumus šim mezglam, vai pieskarieties tam, lai izveidotu savienojumu.",
+        "opens": "Atver {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Ātra piekļuve",
+        "quickConnect": "Ātra savienojuma izveide",
+        "userHostPortWithoutSaving": "lietotājs@mezgls:ports, nesaglabājot"
+      },
+      "recentCard": {
+        "recent": "Nesenie"
+      },
+      "serverCard": {
+        "server": "Serveris",
+        "version": "Versija",
+        "uptime": "Darba laiks",
+        "database": "Datubāze",
+        "hosts": "Mezgli",
+        "online": "Tiešsaistē",
+        "offline": "Bezsaistē",
+        "logins": "Pieteikšanās"
+      },
+      "sessionsCard": {
+        "openSessions": "Atvērtās sesijas",
+        "connected": "Savienots"
+      }
+    },
+    "resetHome": "Atiestatīt sākumlapu?",
+    "cardsGoBackToThe": "Kartiņas tiek atgrieztas noklusējuma secībā un rādāmajās kartiņās.",
+    "reset": "Atiestatīt",
+    "doneEditingHome": "Sākumlapas rediģēšana pabeigta",
+    "editHome": "Rediģēt sākumlapu",
+    "dragToReorder": "Velciet {{title}}, lai pārkārtotu",
+    "show": "Rādīt {{title}}",
+    "dragCardsToReorderThem": "Velciet kartiņas, lai pārkārtotu tās. Izslēdziet kartiņu, lai to paslēptu. Kartiņas, kurām nav ko rādīt, paliek paslēptas automātiski.",
+    "resetToDefault": "Atiestatīt uz noklusējumu",
+    "done": "Gatavs",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Tīmekļa serveri joprojām nevar sasniegt",
+      "canTReach": "Nevar sasniegt {{account}}",
+      "youCanKeepWorkingWith": "Varat turpināt darbu ar šī {{deviceWord}} kopiju. Izmaiņas tiks sinhronizētas, kad savienojums atjaunosies.",
+      "hostsSetToConnectFrom": "Māzini, kas iestatīti savienošanai no šī {{deviceWord}}, joprojām strādā.",
+      "tryAgain": "Mēģināt vēlreiz",
+      "noAnswer": "nav atbildes"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault profils",
+      "none": "Nav",
+      "signsInWithInYour": "Piesakās ar {{title}} pārlūkprogrammā caur jūsu Termix serveri. Savienojiet šo māzini caur serveri.",
+      "needsATermixServerLink": "{{title}} nepieciešams Termix serveris. Savienojiet vienu, lai izmantotu šo pieteikšanos.",
+      "isOffOnThisServer": "{{title}} ir izslēgts šajā serverī. Šī māzine saglabā savu pieteikšanās iestatījumu."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Neizdevās ielādēt akreditācijas datus",
+      "deleted": "Dzēsts \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Neizdevās dzēst akreditācijas datus",
+      "credentials": "Akreditācijas dati",
+      "add": "Pievienot",
+      "searchCredentials": "Meklēt akreditācijas datus",
+      "clearSearch": "Notīrīt meklēšanu",
+      "loadingCredentials": "Ielādē akreditācijas datus...",
+      "noCredentialsMatchYourSearch": "Nav akreditācijas datu, kas atbilstu jūsu meklējumam",
+      "noCredentialsYet": "Vēl nav akreditācijas datu",
+      "addCredential": "Pievienot akreditācijas datus",
+      "edit": "Rediģēt",
+      "delete": "Dzēst",
+      "deleteCredential": "Dzēst akreditācijas datus",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" tiks neatgriezeniski dzēsts. Māzinām, kas to izmanto, tiks zaudēti saglabātie akreditācijas dati.",
+      "cancel": "Atcelt",
+      "hostCount_zero": "{{count}} māzini",
+      "hostCount_one": "{{count}} māzine",
+      "hostCount_other": "{{count}} māzini",
+      "sshKey": "SSH atslēga"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Aizstāt atslēgu?",
+        "theNewKeyTakesThe": "Jaunā atslēga aizstāj pašreizējo. Māzinām, kas uzticas tikai vecajai atslēgai, vairs nepieņems šos akreditācijas datus.",
+        "replace": "Aizstāt",
+        "newKeyMadeCopyThe": "Jaunā atslēga izveidota. Kopējiet publisko atslēgu uz savām māzinām.",
+        "couldNotMakeAKey": "Neizdevās izveidot atslēgu",
+        "couldNotReadThatCertificate": "Neizdevās izlasīt šo sertifikāta failu",
+        "leaveWithoutSaving": "Aiziet bez saglabāšanas?",
+        "yourChangesToThisCredential": "Jūsu izmaiņas šajos akreditācijas datos tiks zaudētas.",
+        "leave": "Aiziet",
+        "credentialSaved": "Akreditācijas dati saglabāti",
+        "credentialAdded": "Akreditācijas dati pievienoti",
+        "couldNotSaveTheCredential": "Neizdevās saglabāt akreditācijas datus",
+        "enterAHostToTest": "Ievadiet māzini testēšanai, piemēram, 10.0.0.5 vai box:2222.",
+        "enterTheUsernameFirst": "Vispirms ievadiet lietotājvārdu.",
+        "editCredential": "Rediģēt akreditācijas datus",
+        "newCredential": "Jauni akreditācijas dati",
+        "cancel": "Atcelt",
+        "save": "Saglabāt",
+        "credential": "Akreditācijas dati",
+        "name": "Nosaukums",
+        "productionKey": "Produktīvas vides atslēga",
+        "username": "Lietotājvārds",
+        "signInWith": "Pieteikties ar",
+        "password": "Parole",
+        "sshKey": "SSH atslēga",
+        "unchangedIfBlank": "Ja lauks ir tukšs, netiek mainīts",
+        "key": "Atslēga",
+        "fileOrPaste": "Fails vai ielīmēt",
+        "makeANewKey": "Izveidot jaunu atslēgu",
+        "aKeyIsSavedChoose": "Atslēga ir saglabāta. Izvēlieties failu vai ielīmējiet, lai to aizvietotu.",
+        "type": "Tips",
+        "ed25519AndEcdsaAreMade": "Ed25519 un ECDSA tiek ģenerēti šajā {{deviceWord}}, RSA — jūsu serverī.",
+        "madeOnThisEd25519Works": "Ģenerēts šajā {{deviceWord}}. Ed25519 strādā gandrīz visur.",
+        "passphrase": "Paroles frāze",
+        "optionalLocksTheNewKey": "Neobligāts. Aizsargā jauno atslēgu šajā {{deviceWord}} un uz diska.",
+        "makeKey": "Izveidot atslēgu",
+        "publicKey": "Publiskā atslēga",
+        "addThisLineToSsh": "Pievienojiet šo rindu failā ~/.ssh/authorized_keys savos hostos",
+        "publicKeyCopied": "Publiskā atslēga nokopēta",
+        "copyPublicKey": "Kopēt publisko atslēgu",
+        "certificate": "Sertifikāts",
+        "aCertificateYourCaSigned": "Sertifikāts, ko jūsu CA ir parakstījis šai atslēgai, hostiem, kas uzticas CA.",
+        "chooseCertificateFile": "Izvēlieties sertifikāta failu",
+        "thisDoesNotLookLike": "Šis neizskatās kā OpenSSH sertifikāts.",
+        "test": "Testēt",
+        "hostToTestOn": "Hosts testēšanai",
+        "n10005Or": "10.0.0.5 vai box.lan:2222",
+        "pickASavedHost": "Izvēlieties saglabātu hostu",
+        "details": "Detalizēti",
+        "description": "Apraksts",
+        "whatThisCredentialIsFor": "Kādam mērķim šie akreditācijas dati ir paredzēti",
+        "folder": "Mapes",
+        "serverKeys": "Servera atslēgas",
+        "testOnAHost": "Testēt uz hosta",
+        "rsaKeysNeedALinked": "RSA atslēgām ir nepieciešams saistīts servers."
+      },
+      "model": {
+        "giveThisCredentialAName": "Dodiet šiem akreditācijas datiem nosaukumu",
+        "addAPrivateKeyOr": "Pievienojiet privāto atslēgu vai izveidojiet jaunu"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Šis ir hosta sertifikāts, nevis lietotāja.",
+        "thisCertificateIsNotValid": "Šis sertifikāts vēl nav derīgs.",
+        "thisCertificateHasExpired": "Šī sertifikāta derīguma termiņš ir beidzies.",
+        "itIsForAKey": "Tas ir paredzēts {{keyType}} tipa atslēgai, bet šī atslēga ir {{keyType2}}.",
+        "forAnyUser": "Jebkuram lietotājam",
+        "validFromNoEndDate": "Derīgs no {{validAfter}}, beigu datums nav norādīts",
+        "signedBy": "Parakstīts ar {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Lietotājvārds",
+        "fromTheCredential": "No akreditācijas datiem: {{credentialUser}}",
+        "signInWith": "Pieteikties ar",
+        "password": "Parole",
+        "key": "Atslēga",
+        "credential": "Akreditācijas dati",
+        "none": "Nav",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Savienojas ar Tailscale SSH. Parole vai atslēga netiek saglabāta.",
+        "tailscaleIsNotOnFor": "Tailscale nav ieslēgts priekš {{value}}. Šis hosts saglabā savus Tailscale pieteikšanās datus.",
+        "unchangedIfBlank": "Ja lauks ir tukšs, netiek mainīts",
+        "noCredentialsYetTapThe": "Vēl nav akreditācijas datu. Noklikšķiniet uz atslēgas ikonas sadaļā Hosti, lai pievienotu.",
+        "useCredential": "Izmantot akreditācijas datus {{name}}",
+        "sudoPassword": "Sudo parole",
+        "typedIntoSudoPromptsWhen": "Tiek ievadīta sudo aicinājumos, kad Termināļa sadaļa to ieslēdz",
+        "notSet": "Nav iestatīts",
+        "thisServer": "šim serverim"
+      },
+      "colorIconField": {
+        "color": "Krāsa",
+        "noColor": "Bez krāsas",
+        "color2": "Krāsa {{c}}",
+        "icon": "Ikona",
+        "noIcon": "Bez ikonas",
+        "none": "Nav",
+        "icon2": "Ikona {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Aiziet bez saglabāšanas?",
+        "yourChangesToThisHost": "Jūsu izmaiņas šajā hostā tiks zaudētas.",
+        "leave": "Aiziet",
+        "couldNotSaveHowThis": "Neizdevās saglabāt šī hosta savienojuma informāciju",
+        "hostSaved": "Hosts saglabāts",
+        "hostAdded": "Hosts pievienots",
+        "couldNotSaveTheHost": "Neizdevās saglabāt hostu",
+        "enterTheHostSAddress": "Vispirms ievadiet hosta adresi.",
+        "turnOnSshToTest": "Ieslēdziet SSH, lai pārbaudītu pieteikšanos.",
+        "pickACredentialFirst": "Vispirms izvēlieties akreditācijas datus.",
+        "editHost": "Rediģēt hostu",
+        "newHost": "Jauns hosts",
+        "cancel": "Atcelt",
+        "save": "Saglabāt",
+        "host": "Hosts",
+        "name": "Nosaukums",
+        "myServer": "Manis servers",
+        "address": "Adrese",
+        "port": "Ports",
+        "portAndUsernameComeFrom": "Ports un lietotājvārds nāk no jūsu hosta noklusējuma iestatījumiem, līdz jūs tos maināt.",
+        "folder": "Mapes",
+        "production": "Produkcija",
+        "useAFolderInstead": "Izmantojiet mapes vietā",
+        "putItUnderAHost": "Novietojiet to zem hosta vietā",
+        "pinToTop": "Piespraust augšā",
+        "colorAndIcon": "Krāsa un ikona",
+        "notes": "Piezīmes",
+        "anythingWorthRememberingAboutThis": "Viss, kas vērts atcerēties par šo hostu",
+        "protocols": "Protokoli",
+        "terminalFilesAndMore": "Terminālis, faili un vairāk",
+        "connectFrom": "Savienot no",
+        "features": "Funkcijas",
+        "otherProtocols": "Citi protokoli",
+        "more": "Vairāk",
+        "theTestRunsFromThis": "Tests tiek palaists no šī {{deviceWord}}. Šis hosts savienojas caur serveri, tāpēc tas joprojām var strādāt, kad {{deviceWord}} nevar to sasniegt."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Jump hosti",
+        "connectsThroughTheseInOrder": "Savienojas caur šiem secībā, tad uz šo hostu",
+        "reachThisHostThroughOther": "Sasniegt šo hostu vispirms caur citiem hostiem",
+        "moveUp": "Pārvietot augšup",
+        "moveDown": "Pārvietot lejup",
+        "removeJumpHost": "Noņemt jump hostu",
+        "addJumpHost": "Pievienot jump hostu",
+        "pickASavedHostTo": "Izvēlieties saglabātu hostu, lai savienotos caur to",
+        "searchHosts": "Meklēt hostus",
+        "noOtherHostsToPick": "Nav citu hostu, ko izvēlēties. Hosts nevar izmantot sevi vai hostu, kas jau iet caur to.",
+        "missingHost": "Trūkst hosts #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Ieslēdziet vismaz vienu protokolu",
+        "pickACredential": "Izvēlieties akreditācijas datus",
+        "enterTheHostSAddress": "Ievadiet resursdatora adresi",
+        "theAddressCanTHave": "Adresē nevar būt atstarpes",
+        "portMustBeFrom1": "Portam jābūt no 1 līdz 65535",
+        "enterTheSshUsername": "Ievadiet SSH lietotājvārdu"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Resursdators tiks rādīts iekļauts zem izvēlētā",
+        "searchHosts": "Meklēt resursdatorus",
+        "noHostsToPickA": "Nav resursdatoru, ko izvēlēties. Resursdators nevar atrasties zem sevi, sava apakšresursdatora vai koplietota resursdatora.",
+        "parentHost": "Vecāka resursdators",
+        "subHostsFollowTheFolder": "Apakšresursdatori ievēro sava vecāka mapi",
+        "pickParentHost": "Izvēlieties vecāka resursdatoru",
+        "missingHost": "Trūkst resursdators #{{value}}",
+        "pickAHost": "Izvēlieties resursdatoru",
+        "clearParentHost": "Notīrīt vecāka resursdatoru"
+      },
+      "tagsField": {
+        "tags": "Birkas",
+        "typeATagAndPress": "Ierakstiet birku un nospiediet Enter",
+        "removeTag": "Noņemt birku {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Neizdevās saglabāt šī resursdatora savienojuma datus",
+      "addressCopied": "Adrese nokopēta",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Savienot no",
+      "dismiss": "Aizvērt",
+      "unpin": "Atķērt",
+      "pinToHome": "Piespraust sākumlapā",
+      "select": "Izvēlēties",
+      "editHost": "Rediģēt resursdatoru",
+      "copyAddress": "Kopēt adresi",
+      "addSubHost": "Pievienot apakšresursdatoru",
+      "cloneHost": "Klonēt resursdatoru",
+      "deleteHost": "Dzēst resursdatoru",
+      "connectThroughTheServer": "Savienot caur serveri",
+      "connectFromThis": "Savienot no šī {{deviceWord}}"
+    },
+    "defaultYourOrder": "Noklusējums (jūsu secība)",
+    "nameAZ": "Nosaukums (A-Z)",
+    "nameZA": "Nosaukums (Z-A)",
+    "ipAscending": "IP (augošā secībā)",
+    "ipDescending": "IP (dilstošā secībā)",
+    "onlineFirst": "Vispirms tiešsaistē",
+    "offlineFirst": "Vispirms bezsaistē",
+    "pinnedFirst": "Vispirmt piespraustie",
+    "status": "Statuss",
+    "online": "Tiešsaistē",
+    "offline": "Bezsaistē",
+    "pinned": "Piesprausts",
+    "protocol": "Protokols",
+    "features": "Funkcijas",
+    "hostsCanOnlyMoveInside": "Resursdatorus var pārvietot tikai savas mapes ietvaros",
+    "couldNotUpdateTheHosts": "Neizdevās atjaunināt resursdatorus",
+    "sharedHostsCanTBe": "Koplietotus resursdatorus šeit nevar dzēst",
+    "delete2": "Dzēst",
+    "noneOfTheseHostsOpen": "Neviens no šiem resursdatoriem neatver termināli",
+    "couldNotPinTheHost": "Neizdevās piespraust resursdatoru",
+    "deleted": "Dzēsts {{name}}",
+    "failedToDeleteHost": "Neizdevās dzēst resursdatoru",
+    "cloned": "Klonēts {{name}}",
+    "failedToCloneHost": "Neizdevās klonēt resursdatoru",
+    "reorderWorksWithTheDefault": "Pārkārtošana darbojas ar noklusējuma kārtošanu un bez meklēšanas vai filtra",
+    "couldNotSaveTheOrder": "Neizdevās saglabāt secību",
+    "noHostsYet": "Vēl nav resursdatoru",
+    "addAHostToConnect": "Pievienojiet hostu, lai piekļūtu tam ar vienu pieskārienu.",
+    "addHost": "Pievienot hostu",
+    "quickConnect2": "Ātrā savienošana",
+    "linkAServer": "Sasaistīt serveri",
+    "noHostsMatch": "Nav atrasts neviens hostu",
+    "clearSearchAndFilters": "Notīrīt meklēšanu un filtrus",
+    "more": "Vairāk",
+    "dragAHostByIts": "Velciet hostu aiz roktura, lai pārvietotu to mapē.",
+    "done": "Gatavs",
+    "filterHosts": "Filtrēt hostus",
+    "clearFilterText": "Notīrīt filtra tekstu",
+    "sortHosts": "Kārtot hostus",
+    "removeFilter": "Noņemt filtru {{value}}",
+    "loadingHosts": "Ielādē hostus…",
+    "moveUnderAHost": "Pārvietot zem hosta",
+    "moveToFolder": "Pārvietot uz mapi",
+    "leaveItEmptyToTake": "Atstājiet tukšu, lai izņemtu hostus no mapēm.",
+    "folderLikeProdWeb": "Mapes nosaukums, piemēram, Prod / Web",
+    "move": "Pārvietot",
+    "hosts": "Hosti",
+    "selectHosts": "Atlasīt hostus",
+    "reorderHosts": "Pārkārtot hostus",
+    "customizeList": "Pielāgot sarakstu",
+    "chooseWhatEachHostRow": "Izvēlieties, ko rāda katrs hosta rindkopa",
+    "credentials2": "Piekļuves dati",
+    "savedPasswordsAndKeys": "Saglabātie paroles un atslēgas",
+    "tailscaleDevices": "Tailscale ierīces",
+    "refresh": "Atsvaidzināt",
+    "rowDensityFollowsSettingsAppearance": "Rindu blīvums atbilst Iestatījumiem, Izskats.",
+    "clearAllFilters": "Notīrīt visus filtrus",
+    "tags": "Birkas",
+    "stopSelecting": "Pārtraukt atlasi",
+    "selected": "Atlasīts {{count}}",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Neizdevās izlasīt šo atslēgas failu",
+        "theClipboardIsEmpty": "Starpliktuve ir tukša",
+        "privateKey": "Privātā atslēga",
+        "chooseFile": "Izvēlieties failu",
+        "paste": "Ielīmēt",
+        "unchangedIfBlank": "Nemainās, ja tukšs",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Paroles frāze",
+        "onlyIfTheKeyHas": "Tikai ja atslēgai tāda ir",
+        "theKeyIsCheckedWhen": "Atslēga tiek pārbaudīta, kad izveidojat savienojumu.",
+        "thePastedKey": "ielīmētā atslēga"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Atvērt",
+        "moreActions": "Vairāk darbību",
+        "opensTheTerminalHoldFor": "Atver termināli. Turiet nospiestu, lai redzētu vairāk.",
+        "shared": "Koplietots",
+        "drag": "Velciet {{name}}",
+        "showSubHosts_zero": "Rādīt {{count}} apakšhostus no {{name}}",
+        "showSubHosts_one": "Rādīt {{count}} apakšhostu no {{name}}",
+        "showSubHosts_other": "Rādīt {{count}} apakšhostus no {{name}}",
+        "hideSubHosts_zero": "Paslēpt {{count}} apakšhostus no {{name}}",
+        "hideSubHosts_one": "Paslēpt {{count}} apakšhostu no {{name}}",
+        "hideSubHosts_other": "Paslēpt {{count}} apakšhostus no {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Mapes {{name}}, {{total}} hosti"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Hosts un lietotājvārds ir obligāti",
+      "hostSaved": "Hosts saglabāts",
+      "couldNotSaveTheHost": "Neizdevās saglabāt hostu",
+      "quickConnect": "Ātrā savienošana",
+      "connectToAHostWithout": "Savienojieties ar hostu, to nesaglabājot.",
+      "hostIp": "Hosts / IP",
+      "port": "Ports",
+      "username": "Lietotājvārds",
+      "password": "Parole",
+      "key": "Atslēga",
+      "privateKey": "Privātā atslēga",
+      "saveToMyHosts": "Saglabāt savos resursdatoros",
+      "keepThisHostAfterConnecting": "Paturēt šo resursdatoru pēc savienojuma izveides",
+      "cancel": "Atcelt",
+      "connect": "Savienot"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Ielādē jūsu resursdatorus no servera",
+      "yourHostsStayOnThis": "{{message}} Tikmēr jūsu resursdatori paliek šajā {{deviceWord}}."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Šī resursdatora atslēga ir mainījusies",
+      "trustThisHost": "Uzticēties šim resursdatoram?",
+      "trust": "Uzticēties",
+      "stopTest": "Apturēt testu",
+      "testConnection": "Testēt savienojumu",
+      "connecting": "Notiek savienojuma izveide..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Neizdevās ielādēt resursdatorus."
+    },
+    "sharedLeftAsTheyAre_zero": "{{done}}. {{count}} koplietoti resursdatori tika atstāti nemainīti.",
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} koplietots resursdators tika atstāts nemainīts.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} koplietoti resursdatori tika atstāti nemainīti.",
+    "deleteHosts_zero": "Dzēst {{count}} resursdatorus?",
+    "deleteHosts_one": "Dzēst {{count}} resursdatoru?",
+    "deleteHosts_other": "Dzēst {{count}} resursdatorus?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Nav mapes ar nosaukumu {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Resursdators \"{{name}}\": nederīga porta numurs",
+        "hostJumpIsNotIn": "Resursdators \"{{name}}\": starpniekresursdators {{value}} nav failā, tāpēc tas tika izlaists",
+        "credential": "Pieteikšanās dati {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH konfigurācijas failā nav atrasts neviens derīgs Host ieraksts",
+        "credentialWasNotFound": "{{label}}: pieteikšanās dati {{value}} netika atrasti"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Resursdators {{value}}: dubultots eksportētais resursdatora ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Trūkst obligāto lauku (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Nederīgs authType. Tam ir jābūt vienam no {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: SSH savienojumiem ir nepieciešams lietotājvārds",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: autentifikācijai ar pieteikšanās datiem ir nepieciešams credentialAlias",
+        "thatIsNotAValid": "Tas nav derīgs JSON fails",
+        "hostsArrayIsRequiredAnd": "Ir nepieciešams resursdatoru masīvs, un tam nedrīkst būt tukšs",
+        "jumpHostCycle": "{{label}}: starpniekresursdatora cikls",
+        "jumpHostIsNotIn": "{{label}}: starpniekresursdators {{id}} nav failā"
+      }
+    },
+    "movedTo": "Pārvietots uz {{value}}",
+    "movedOutOfFolders": "Pārvietots ārā no mapēm",
+    "movedUnder": "Pārvietots zem {{value}}",
+    "openTerminals": "Atvērti termināļi",
+    "theHost": "resursdators"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Paslēpt paroli",
+      "showPassword": "Rādīt paroli",
+      "enterAUsernameAndPassword": "Ievadiet lietotājvārdu un paroli",
+      "useAtLeast6Characters": "Parolei izmantojiet vismaz 6 rakstzīmes",
+      "thePasswordsDonTMatch": "Paroles nesakrīt",
+      "makeTheAdminAccount": "Izveidot administratora kontu",
+      "makeAnAccount": "Izveidot kontu",
+      "thisIsTheFirstAccount": "Tas ir pirmais konts serverī, tāpēc tas pārvalda serveri.",
+      "pickAUsernameAndPassword": "Izvēlieties lietotājvārdu un paroli šim serverim.",
+      "username": "Lietotājvārds",
+      "password": "Parole",
+      "passwordAgain": "Parole vēlreiz",
+      "makeAccount": "Izveidot kontu",
+      "back": "Atpakaļ",
+      "haveAnAccountSignIn": "Vai jums jau ir konts? Pierakstīties",
+      "resetCodeMadeItIs": "Atiestatīšanas kods izveidots. Tas atrodas servera žurnālos",
+      "enterYourUsername": "Ievadiet savu lietotājvārdu",
+      "enterTheResetCode": "Ievadiet atiestatīšanas kodu",
+      "passwordChangedSignInWith": "Parole mainīta. Tagad pierakstīties ar to",
+      "resetPassword": "Atiestatīt paroli",
+      "enterYourUsernameTheServer": "Ievadiet savu lietotājvārdu. Serveris raksta atiestatīšanas kodu savos žurnālos.",
+      "sendResetCode": "Sūtīt atiestatīšanas kodu",
+      "enterThe6DigitCode": "Ievadiet 6 ciparu kodu no servera žurnāliem.",
+      "resetCode": "Atiestatīt kodu",
+      "checkCode": "Pārbaudīt kodu",
+      "newPassword": "Jaunais parole",
+      "saveNewPassword": "Saglabāt jauno paroli",
+      "backToSignIn": "Atpakaļ pie pieteikšanās",
+      "couldNotMakeTheAccount": "Neizdevās izveidot kontu",
+      "couldNotStartTheReset": "Neizdevās sākt atiestatīšanu",
+      "thatCodeDidnTWork": "Šis kods nestrādāja",
+      "couldNotChangeThePassword": "Neizdevās mainīt paroli"
+    },
+    "browserStep": {
+      "signInFailed": "Pieteikšanās neizdevās",
+      "signInCanceled": "Pieteikšanās atcelta",
+      "couldNotOpenTheSign": "Neizdevās atvērt pieteikšanās pārlūkprogrammu",
+      "couldNotOpenTheSign2": "Neizdevās atvērt pieteikšanās lapu",
+      "certificateProblem": "Sertifikāta problēma",
+      "back": "Atpakaļ",
+      "signIn": "Pieteikties",
+      "reload": "Pārlādēt",
+      "finishSigningInInYour": "Pabeidziet pieteikšanos savā pārlūkprogrammā",
+      "useAnySignInYour": "Izmantojiet jebkuru pieteikšanās metodi, kas ir jūsu serverī, piemēram, piekļuves atslēgu vai drošības atslēgu. Lietotne turpinās darbu, tiklīdz esat pieteicies.",
+      "theAppPicksUpOnce": "Lietotne turpinās darbu, tiklīdz jūsu pieteikšanās pakalpojums ir pabeidzis savu darbu.",
+      "signingIn": "Pieteikšanās...",
+      "openBrowserAgain": "Atvērt pārlūkprogrammu vēlreiz",
+      "theServerTurnedTheSession": "Serveris noraidīja sesiju. Mēģiniet vēlreiz.",
+      "signedInButTheApp": "Pieteicies, bet lietotne nevar sasniegt Termix. To var bloķēt starpniekserveris.",
+      "thatSignInLinkIs": "Šī pieteikšanās saite ir no vecāka mēģinājuma. Pieteicieties vēlreiz.",
+      "signInAgain": "Pieteikties vēlreiz.",
+      "openTheBrowserAgainWhen": "Atveriet pārlūkprogrammu vēlreiz, kad esat gatavs.",
+      "theWebPageSignedIn": "Tīmekļa lapa pieteicās, bet nesūtīja nevienu sesiju. Atjauniniet serveri un mēģiniet vēlreiz.",
+      "theCanTCheckThis": "{{deviceWord}} nevar pārbaudīt šī servera sertifikātu. Uzstādiet tā saknes CA uz {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Izmantot {{name}} nākamreiz pieteikšanās?",
+      "ifThisServerSignsYou": "Ja šis serveris jūs izrakstīs, nākamreiz pieteicieties ar {{name}}, nevis ierakstot paroli. Parole paliks šajā {{deviceWord}}.",
+      "use": "Izmantot {{name}}",
+      "notNow": "Ne tagad",
+      "couldNotSaveTheLogin": "Neizdevās saglabāt pieteikšanās datus",
+      "thatSADifferentUser": "Tas ir cits lietotājs",
+      "signedIn": "Pieteicies",
+      "close": "Aizvērt",
+      "linkYourTermixServer": "Sasaistīt savu Termix serveri",
+      "yourHostsCredentialsSnippetsAnd": "Jūsu hosti, akreditācijas dati, fragmenti un iestatījumi sinhronizējas ar to, un jūs saņemat tā spraudņus. Viss turpina darboties šajā {{deviceWord}}, kad serveris nav pieejams.",
+      "checking": "Pārbauda {{host}}...",
+      "proxyAndClientCertificate": "Starpniekserveris un klienta sertifikāts",
+      "couldNotReachThatServer": "Neizdevās sasniegt šo serveri. Pārbaudiet adresi vai iestatiet starpniekserveri vai klienta sertifikātu.",
+      "couldNotReachThatServer2": "Neizdevās sasniegt šo serveri",
+      "syncCouldNotStartYet": "Sinhronizācija vēl nevarēja sākties. Tā mēģinās vēlreiz automātiski.",
+      "checkingTheServer": "Pārbauda serveri",
+      "signIn": "Pieteikties",
+      "makeAnAccount": "Izveidot kontu",
+      "resetPassword": "Atiestatīt paroli",
+      "oneMoreStep": "Vēl viens solis",
+      "almostDone": "Gandrīz pabeigts",
+      "linkAServer": "Sasaistīt serveri"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Saglabātie pieteikšanās dati vairs nestrādā",
+      "enterYourUsernameAndPassword": "Ievadiet savu lietotājvārdu un paroli",
+      "thisServerIsBehindA": "Šis serveris ir aiz pieteikšanās starpniekservera",
+      "signInWith": "Pieteikties ar {{saved}}",
+      "signInWith2": "Pieteikties ar",
+      "password": "Parole",
+      "username": "Lietotājvārds",
+      "signIn": "Pieteikties",
+      "forgotPassword": "Aizmirsāt paroli?",
+      "makeAnAccount": "Izveidot kontu",
+      "or": "VAI",
+      "continueWith": "Turpināt ar {{label}}",
+      "signInWithAPasskey": "Pieslēgties, izmantojot piekļuves atslēgu vai drošības atslēgu",
+      "opensYourServerAposS": "Atver jūsu servera pieslēgšanās lapu pārlūkprogrammā. Tur darbojas Face ID, pirkstu nospiedumi, NFC un USB atslēgas. Nepieciešama Termix versija 26.11.3 vai jaunāka.",
+      "signInInTheBrowser": "Pieslēgties pārlūkprogrammā",
+      "opensYourServerAposS2": "Atver jūsu servera pieslēgšanās lapu gadījumiem, kad lietotne to nevar izdarīt šeit. Nepieciešama Termix versija 26.10.6 vai jaunāka.",
+      "thisServerHasNoSign": "Šim serverim nav iespējots pieslēgšanās veids, ko lietotne varētu izmantot. Jautājiet servera administratoram vai mēģiniet pieslēgties caur pārlūkprogrammu iepriekš.",
+      "signInWithYourPassword": "Pieslēgties, izmantojot savu paroli.",
+      "signInFailed": "Pieslēgšanās neizdevās",
+      "openingItsSignInPage": "Tiek atvērta tā pieslēgšanās lapa."
+    },
+    "smallSteps": {
+      "serverAddress": "Servera adrese",
+      "likeTermixExampleComOr": "Piemēram, termix.example.com vai 192.168.1.20:30001",
+      "checking": "Notiek pārbaude...",
+      "continue": "Turpināt",
+      "proxyAndClientCertificate": "Proxy un klienta sertifikāts",
+      "aServerWithASelf": "Serverim ar pašparakstītu sertifikātu vispirms ir jābūt instalētam sakņu CA šajā {{deviceWord}}. Parasts http darbojas jūsu tīklā.",
+      "enterTheCode": "Ievadiet kodu",
+      "code": "Kods",
+      "the6DigitCodeFrom": "6 ciparu kods no jūsu autentifikatora lietotnes vai rezerves kods",
+      "checkCode": "Pārbaudīt kodu",
+      "thisAccountAsksForA": "Šis konts pēc paroles prasa drošības atslēgu. Lai to izmantotu, pieslēdzieties servera lapā savā pārlūkprogrammā.",
+      "useASecurityKeyIn": "Izmantot drošības atslēgu pārlūkprogrammā",
+      "backToSignIn": "Atpakaļ uz pieslēgšanos",
+      "bringThisAposSHosts": "Vai vēlaties līdzi ņemt šī {{deviceWord}} resorus?",
+      "thisHasTheyStayOn": "Šajā {{deviceWord}} ir {{what}}. Tie paliek šajā ierīcē jebkurā gadījumā.",
+      "merge": "Apvienot",
+      "copyThemToTooSo": "Kopējiet tos arī uz {{serverName}}, lai sinhronizētu. Tie, kas izskatās tāpat kā servera resursi, tiek izlaisti.",
+      "replace": "Aizstāt",
+      "useOnlyWhatIsOn": "Izmantot tikai to, kas ir uz {{serverName}} šim kontam. Nekas netiek kopēts.",
+      "thatCodeDidnTWork": "Šis kods nestrādāja",
+      "hostsCredentialsOrSnippets": "resorus, akreditācijas datus vai fragmentus"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Vispirms saistiet šo serveri",
+      "thatHostIsnTHere": "Šis resurss nav šeit",
+      "couldNotOpenThatHost": "Neizdevās atvērt šo resursu",
+      "noHostWithIdOn": "Nav resursa ar ID {{hostId}} uz {{account}}.",
+      "isnTLinkedInThe": "{{value}} vēl nav saistīts lietotnē."
+    }
+  },
+  "notifications": {
+    "notifications": "Paziņojumi",
+    "markAllRead": "Atzīmēt visus kā izlasītus",
+    "clearReadNotifications": "Notīrīt izlasītos paziņojumus",
+    "unread2": "Neizlasītie",
+    "all": "Visi",
+    "noUnreadNotifications": "Nav neizlasītu paziņojumu",
+    "nothingHere": "Šeit nekas nav",
+    "markRead": "Atzīmēt kā izlasītu",
+    "delete": "Dzēst",
+    "couldNotLoadNotifications": "Neizdevās ielādēt paziņojumus",
+    "couldNotMarkRead": "Neizdevās atzīmēt kā izlasītu",
+    "couldNotDelete": "Neizdevās dzēst",
+    "couldNotClear": "Neizdevās notīrīt"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importēt",
+      "hosts": "Resursi",
+      "aTermixHostFileYour": "Termix resursu fails, jūsu ~/.ssh/config vai resursa saite vai QR kods no citas {{deviceWord}}. Tie tiek saglabāti šajā {{deviceWord}}.",
+      "backup": "Rezerves kopija",
+      "aBackupThisAppMade": "Rezerves kopija, ko izveidoja šī lietotne, aizslēgta ar paroli. Tā atjauno resorus, akreditācijas datus un fragmentus.",
+      "restoreABackup": "Atjaunot no rezerves kopijas",
+      "done": "Gatavs",
+      "skipForNow": "Izlaist pagaidām",
+      "sshFilesAndRemoteDesktops": "SSH, faili un attālinātie darbvirsas no jūsu {{deviceWord}}. Kā vēlaties sākt?",
+      "useWithoutAServer": "Izmantot bez servera",
+      "hostsCredentialsAndSnippetsAre": "Māzini, pieteikšanās dati un fragmenti tiek glabāti šifrētā veidā šajā {{deviceWord}}. Jūs varat pieslēgt serveri jebkurā laikā vēlāk.",
+      "linkATermixServer": "Pieslēgt Termix serveri",
+      "syncYourHostsCredentialsSnippets": "Sinhronizējiet savus māzīnus, pieteikšanās datus, fragmentus un iestatījumus ar savu serveri un izmantojiet tā spraudņus.",
+      "bringHostsFromATermix": "Importējiet māzīnus no Termix faila, SSH konfigurācijas, QR koda vai rezerves kopijas.",
+      "thisDevice": "Šī ierīce"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Meklēt māzīnus, fragmentus, darbības",
+      "clearSearch": "Notīrīt meklēšanu",
+      "nothingMatches": "Nekas neatbilst",
+      "typeToSearch": "Rakstīt, lai meklētu",
+      "findAHostToConnect": "Atrast māzinu, kam pieslēgties, fragmentu, iestatījumu vai darbību.",
+      "suggested": "Ieteikts | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Palaist {{title}}",
+      "copiedRunItFromThe": "Nokopēts. Palaidiet to no termināļa fragmentiem, lai aizpildītu tā vērtības.",
+      "copiedOpenATerminalTo": "Nokopēts. Atveriet termināli, lai palaistu fragmentus.",
+      "addHost": "Pievienot māzinu",
+      "quickConnect": "Ātra pieslēgšanās",
+      "switchAccount": "Mainīt kontu",
+      "linkAServer": "Pieslēgt serveri",
+      "fromYourServer": "No jūsu servera",
+      "settings": "Iestatījumi",
+      "accountsAppearanceSecurity": "Konti, izskats, drošība"
+    },
+    "search": {
+      "hosts": "Māzini",
+      "snippets": "Fragmenti",
+      "actions": "Darbības",
+      "settings": "Iestatījumi"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Neizdevās ielādēt sesijas",
+      "sessionRevoked": "Sesija atsaukta",
+      "failedToRevokeSession": "Neizdevās atsaukt sesiju",
+      "allSessionsRevoked": "Visas sesijas atsauktas",
+      "failedToRevokeAllSessions": "Neizdevās atsaukt visas sesijas",
+      "activeSessions": "Aktīvās sesijas",
+      "signOutAllOtherSessions": "Izrakstīties no visām pārējām sesijām",
+      "loading": "Ielādē…",
+      "noActiveSessionsFound": "Nav atrasta neviena aktīva sesija.",
+      "unknownDevice": "Nezināma ierīce",
+      "lastActive": "Pēdējoreiz aktīva {{lastActiveAt}}",
+      "created": "Izveidota {{createdAt}}",
+      "revokeSession": "Atsaukt sesiju",
+      "revokeSession2": "Atsaukt sesiju?",
+      "thisWillSignOutThat": "Tādējādi tiks izrakstīta šī ierīce.",
+      "revoke": "Atsaukt",
+      "revokeAllSessions": "Atsaukt visas sesijas?",
+      "thisWillSignOutEvery": "Tādējādi tiks izrakstītas visas ierīces. Jūs paliksiet pieteikts šajā ierīcē.",
+      "cancel": "Atcelt",
+      "revokeAll": "Atsaukt visas"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Neizdevās ielādēt API atslēgas",
+      "failedToCreateApiKey": "Neizdevās izveidot API atslēgu",
+      "deleteApiKey": "Dzēst API atslēgu?",
+      "willStopWorkingRightAway": "\"{{name}}\" vairs nestrādās nekavējoties.",
+      "apiKeyDeleted": "API atslēga dzēsta",
+      "failedToDeleteApiKey": "Neizdevās dzēst API atslēgu",
+      "apiKeys": "API atslēgas",
+      "newApiKey": "Jauna API atslēga",
+      "loading": "Ielādē…",
+      "apiKeysAllowProgrammaticAccess": "API atslēgas ļauj programmiski piekļūt Termix. Noslēpums tiek rādīts tikai vienu reizi, tāpēc uzglabājiet to droši.",
+      "noApiKeysYet": "Vēl nav API atslēgu",
+      "created": "Izveidota {{createdAt}}",
+      "lastUsed": "Pēdējoreiz izmantota {{lastUsedAt}}",
+      "expires": "Beidz derēt {{expiresAt}}",
+      "delete": "Dzēst {{name}}",
+      "keyCreatedCopyItNow": "Atslēga izveidota. Nokopējiet to tagad",
+      "newApiKey2": "Jauna API atslēga",
+      "thisTokenWonTBe": "Šis tokens vairs netiks parādīts.",
+      "apiKeyCopied": "API atslēga nokopēta",
+      "copy": "Kopēt",
+      "done": "Gatavs",
+      "cancel": "Atcelt",
+      "create": "Izveidot",
+      "name": "Nosaukums *",
+      "eGCiPipeline": "piem., CI Pipeline",
+      "user": "Lietotājs *",
+      "noUsersAvailable": "Nav pieejamu lietotāju.",
+      "expiresAtOptional": "Beidz derēt (neobligāti)",
+      "yyyyMmDd": "GGGG/MM/DD",
+      "yearMonthDay": "Gads / Mēnesis / Diena"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Turpināt sesijas darbību",
+      "showsANotificationWhileSessions": "Rāda paziņojumu, kamēr sesijas ir atvērtas, lai Android turpinātu tās darbināt, kad atstājat lietotni",
+      "batteryOptimization": "Akumulatora optimizācija",
+      "termixIsNotRestrictedSo": "Termix nav ierobežots, tāpēc sesijas var palikt atvērtas, pat izslēdzot ekrānu.",
+      "androidMayStillStopSessions": "Android joprojām var apturēt sesijas, lai ietaupītu akumulatoru. Atveriet akumulatora iestatījumus, atradiet Termix un izvēlieties Neoptimizēts vai Neierobežots.",
+      "openBatterySettings": "Atvērt akumulatora iestatījumus",
+      "notificationsAreOff": "Paziņojumi ir izslēgti",
+      "sessionsStillRunButThe": "Sesijas joprojām darbojas, taču atvērto sesiju saraksts un poga Atslēgt visas paliek slēpti.",
+      "openNotificationSettings": "Atvērt paziņojumu iestatījumus",
+      "thisBuildCanTKeep": "Šī versija nevar turpināt sesijas darbību fonā. Tās atkārtoti savienojas, kad atgriežaties.",
+      "lowPowerMode": "Zemas jaudas režīms",
+      "batterySaver": "Akumulatora taupīšana",
+      "isOnTermixChecksConnections": "{{value}} ir ieslēgts. Termix retāk pārbauda savienojumus un ilgāk gaida starp atkārtota savienojuma mēģinājumiem.",
+      "backgroundSessions": "Fona sesijas",
+      "iosStopsAppsSoonAfter": "iOS drīz pēc tam, kad tās atstājat, aptur lietotnes, tāpēc sesijas nevar darboties fonā. Tās atkārtoti savienojas, kad atgriežaties, un tmux vai screen turpina tur, kur apstājāties."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Apturēts",
+        "active": "Aktīvs",
+        "linkAServer": "Sasaistīt serveri",
+        "eachServerKeepsItsOwn": "Katrs serveris šajā {{deviceWord}} saglabā savu jūsu hostu, pieteikšanās datu un iestatījumu kopiju.",
+        "signedInAs": "Pieteicies kā",
+        "role": "Loma",
+        "administrator": "Administrators",
+        "user": "Lietotājs",
+        "serverVersion": "Servera versija",
+        "signOut": "Izrakstīties",
+        "youAreSignedOutOf": "Jūs esat izrakstījies no šī servera.",
+        "signIn": "Pieslēgties",
+        "passwordChanged": "Parole mainīta",
+        "couldNotChangeThePassword": "Neizdevās mainīt paroli",
+        "changePassword": "Mainīt paroli",
+        "enterYourCurrentPasswordThen": "Ievadiet savu pašreizējo paroli, pēc tam izvēlieties jaunu.",
+        "cancel": "Atcelt",
+        "change": "Mainīt",
+        "currentPassword": "Pašreizējā parole",
+        "newPassword": "Jaunā parole",
+        "accountDeleted": "Konts dzēsts",
+        "couldNotDeleteTheAccount": "Neizdevās dzēst kontu",
+        "deleteServerAccount": "Dzēst servera kontu",
+        "thisPermanentlyDeletesYourAccount": "Tas neatgriezeniski dzēsīs jūsu kontu serverī un visu tā datu. To nevar atsaukt.",
+        "delete": "Dzēst",
+        "confirmYourPassword": "Apstipriniet savu paroli",
+        "worksWithoutAServer": "Strādā bez servera",
+        "signedOut": "Izrakstījies",
+        "readsLive": "Lasīšana tiešraidē",
+        "toReview": "Jāpārbauda {{count}}",
+        "synced": "Sinhronizēts",
+        "syncing": "Notiek sinhronizācija",
+        "offline": "Bezsaistē"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Kopīgot anonīmus lietošanas statistikas datus",
+        "aShortReportOnceA": "Īss ziņojums reizi dienā. Nav hostu, vārdu vai adreses",
+        "nextReport": "Nākamais ziņojums",
+        "seeExactlyWhatWouldBe": "Apskatīt, kas tieši tiks nosūtīts",
+        "couldNotBuildTheReport": "Neizdevās izveidot ziņojumu",
+        "preview": "Priekšskatījums",
+        "thisIsExactlyWhatWould": "Tieši šie dati tiktu nosūtīti šobrīd.",
+        "resetInstallId": "Atiestatīt instalācijas ID",
+        "futureReportsWillLookLike": "Nākamie ziņojumi izskatīsies kā jauna instalācija",
+        "resetTheInstallId": "Vai atiestatīt instalācijas ID?",
+        "futureReportsWillLookLike2": "Nākamie ziņojumi izskatīsies kā jauna instalācija.",
+        "reset": "Atiestatīt",
+        "installIdReset": "Instalācijas ID atiestatīts"
+      },
+      "appearanceControls": {
+        "theme": "Tēma",
+        "accentColor": "Akcenta krāsa",
+        "textSize": "Teksta izmērs",
+        "sizeOfTextAcrossThe": "Teksta izmērs visā lietotnē, nevis terminālī",
+        "density": "Blīvums",
+        "howTallListRowsAnd": "Saraksta rindu un iestatījumu augstums"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hosti, akreditācijas dati un fragmenti tiek glabāti šifrētā failā šajā {{deviceWord}}. Lietošanas statistika ir izslēgta, ja vien to nepieslēdzat zemāk. Savienotais serveris saņem tikai to, ko atļaujat sinhronizēt.",
+        "recentHosts": "Nesenie hosti",
+        "forgetTheHostsYouOpened": "Aizmirst nesen atvērtos hostus visos kontos",
+        "recentHostsCleared": "Nesenie hosti notīrīti",
+        "clear": "Notīrīt",
+        "couldNotCheckForUpdates": "Neizdevās pārbaudīt atjauninājumus",
+        "versionIsOutUpdateFrom": "Ir pieejama versija {{version}}. Atjauniniet no veikala.",
+        "youHaveTheNewestVersion": "Jums ir jaunākā versija",
+        "termixMobile": "Termix Mobile",
+        "updates": "Atjauninājumi",
+        "check": "Pārbaudīt"
+      },
+      "pinSheet": {
+        "waitSeconds": "Gaidīt {{value}} sekundes",
+        "digits": "{{PIN_LENGTH}} cipari"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN kodi nesakrīt",
+        "appLockIsOn": "Lietotnes bloķēšana ir ieslēgta",
+        "turnOffAppLock": "Izslēgt lietotnes bloķēšanu",
+        "enterYourPinToConfirm": "Ievadiet savu PIN kodu, lai apstiprinātu.",
+        "appLockIsOff": "Lietotnes bloķēšana ir izslēgta",
+        "appLock": "Lietotnes bloķēšana",
+        "askForFaceIdTouch": "Prasīt Face ID, Touch ID vai PIN kodu, lai atvērtu lietotni",
+        "askForAPinTo": "Prasīt PIN kodu, lai atvērtu lietotni",
+        "pinChanged": "PIN kods mainīts",
+        "couldNotChangeThePin": "Neizdevās mainīt PIN kodu",
+        "changePin": "Mainīt PIN kodu",
+        "lockAfter": "Bloķēt pēc",
+        "howLongTheAppCan": "Cik ilgi lietotne var būt ārpus redzes lauka, pirms tā tiek bloķēta",
+        "hideInAppSwitcher": "Paslēpt lietotņu slēdzējā",
+        "showABlankScreenIn": "Rādīt tukšu ekrānu nesen izmantoto lietotņu sarakstā",
+        "chooseA4DigitPin": "Izvēlieties 4 ciparu PIN kodu.",
+        "confirmPin": "Apstiprināt PIN kodu",
+        "enterTheSamePinAgain": "Vēlreiz ievadiet to pašu PIN kodu.",
+        "currentPin": "Pašreizējais PIN kods",
+        "enterYourCurrentPin": "Ievadiet savu pašreizējo PIN kodu.",
+        "newPin": "Jaunais PIN kods",
+        "chooseANew4Digit": "Izvēlieties jaunu 4 ciparu PIN kodu.",
+        "confirmNewPin": "Apstiprināt jauno PIN kodu",
+        "enterTheNewPinAgain": "Vēlreiz ievadiet jauno PIN kodu."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Sākuma ekrana logrīki",
+        "showYourHostsSnippetsAnd": "Rādīt sākuma ekrānā jūsu hostus, fragmentus un barošanas pogas",
+        "showAddresses": "Rādīt adreses",
+        "showUserHostUnderEach": "Rādīt lietotāju@hostu zem katra servera nosaukuma",
+        "includeOfflineHosts": "Iekļaut bezsaistes hostus",
+        "offShowsOnlyServersThat": "Izslēdzot tiek rādīti tikai tie serveri, kas ir tiešsaistē",
+        "pinnedHostsOnly": "Tikai piespraustie hosti",
+        "showOnlyTheHostsYou": "Rādīt tikai tos hostus, kurus esat piesprāvuši",
+        "snippetsWidget": "Fragmentu logrīks",
+        "showSavedCommandsOnThe": "Rādīt saglabātās komandas sākuma ekrānā",
+        "showCommandPreview": "Rādīt komandas priekšskatījumu",
+        "showTheFirstLineOf": "Rādīt katras komandas pirmo rindu"
+      }
+    },
+    "fileSettings": {
+      "files": "Faili",
+      "fileManagerOnThis": "Failu pārvaldnieks šajā {{deviceWord}}",
+      "browsing": "Pārlūkošana",
+      "transfersAtOnce": "Pārnesumi vienlaicīgi",
+      "downloadsAndUploadsThatRun": "Lejupielādes un augšupielādes, kas notiek vienlaicīgi",
+      "editor": "Redaktors",
+      "textSize": "Teksta izmērs",
+      "filesBesideTheTerminal": "Faili blakus terminālim",
+      "side": "Puse",
+      "whereThePanelSitsOn": "Kur panelis atrodas planšetdatorā",
+      "right": "Labajā pusē",
+      "left": "Kreisajā pusē",
+      "howOftenToCheck": "Pārbaudes biežums",
+      "folderHistory": "Mapju vēsture",
+      "foldersKeptPerHost": "Saglabātās mapes vienam hostam",
+      "showHiddenFiles": "Rādīt slēptos failus",
+      "filesAndFoldersThatStart": "Faili un mapes, kas sākas ar punktu",
+      "askBeforeMovingToThe": "Jautāt pirms pārvietošanas uz atkritni",
+      "deletingForGoodAlwaysAsks": "Neatgriezeniska dzēšana vienmēr prasa apstiprinājumu",
+      "wrapLongLines": "Izlauzt garas rindas",
+      "openWithNewTerminals": "Atvērt ar jauniem termināļiem",
+      "onATabletShowThe": "Planšetdatorā rādīt failu paneli, kad tiek atvērts terminālis",
+      "followTheTerminal": "Sekot terminālim",
+      "openTheFolderTheTerminal": "Atvērt mapi, kurā atrodas terminālis, kad izmantojat cd komandu"
+    },
+    "keyboardCustomization": {
+      "small": "Mazs",
+      "medium": "Vidējs",
+      "large": "Liels",
+      "ms": "{{v}} ms",
+      "keyboard": "Tastatūra",
+      "keyRowsAboveTheKeyboard": "Atslēgu rindas virs tastatūras",
+      "rows": "Rindas",
+      "keys": "Atslēgas",
+      "aHostCanHaveIts": "Hostam var būt savas rindas: pieskarieties tā atvērtajai cilnei sesijā un izvēlieties Atslēgu rindas šim hostam.",
+      "keySize": "Atslēgu izmērs",
+      "vibrateOnKeyPress": "Vibrēt, nospiežot atslēgu",
+      "repeatAfter": "Atkārtot pēc",
+      "howLongToHoldAn": "Cik ilgi turēt bultiņu vai Backspace",
+      "repeatEvery": "Atkārtot katru",
+      "hardwareKeyboard": "Aprīkojuma tastatūra",
+      "allShortcuts": "Visas saīsnes",
+      "show": "Rādīt"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Neizdevās veikt dublējumu",
+      "deleteLocalData": "Dzēst vietējos datus?",
+      "hostsCredentialsSnippetsAndHistory": "Šajā {{deviceWord}} saglabātie hosti, akreditācijas dati, fragmenti un vēsture kontam {{account}} tiks dzēsti. Šo darbību nevar atsaukt. Vispirms veiciet dublējumu, ja vēlaties tos saglabāt.",
+      "delete": "Dzēst",
+      "localDataDeleted": "Vietējie dati dzēsti",
+      "couldNotDeleteLocalData": "Neizdevās dzēst vietējos datus",
+      "localData": "Vietējie dati",
+      "localDataIsOnlySaved": "Vietējā dati tiek saglabāti tikai {{deviceWord}} lietotnē.",
+      "savedOnThisForThe": "Saglabāts šajā {{deviceWord}} kontam {{account}}. Datne ir šifrēta ar atslēgu, kas nekad neiziet ārpus šī {{deviceWord}}.",
+      "hosts": "Resursdatori",
+      "credentials": "Piekļuves dati",
+      "snippets": "Koda fragmenti",
+      "size": "Izmērs",
+      "dataVersion": "Datu versija",
+      "backup": "Rezerves kopija",
+      "aBackupFileHoldsYour": "Rezerves kopijas datne satur jūsu paroles un atslēgas, kas aizslēgtas ar jūsu izvēlētu paroli. Neviens nevar to atvērt bez šīs paroles.",
+      "exportBackup": "Eksportēt rezerves kopiju",
+      "importBackup": "Importēt rezerves kopiju",
+      "removesEverythingThisAccountSaved": "Dzēš visu, ko šis konts ir saglabājis šajā {{deviceWord}}. Savienotais serveris saglabā savu kopiju.",
+      "deleteLocalData2": "Dzēst vietējos datus",
+      "backupPassphrase": "Rezerves kopijas parole",
+      "atLeast8CharactersYou": "Vismaz 8 rakstzīmes. Tā būs nepieciešama, lai atjaunotu rezerves kopiju.",
+      "passphrase": "Parole",
+      "next": "Tālāk",
+      "typeItAgain": "Ievadiet vēlreiz",
+      "export": "Eksportēt",
+      "saveYourTermixBackup": "Saglabājiet savu Termix rezerves kopiju"
+    },
+    "logs": {
+      "logs": "Žurnāli",
+      "latestLinesFromThisRun": "Jaunākās rindas no šīs sesijas. Serveru adreses, paroles un žetoni ir slēpti.",
+      "logsCopied": "Žurnāli nokopēti",
+      "copy": "Kopēt",
+      "share": "Kopīgot",
+      "clear": "Notīrīt",
+      "noLogsYet": "Vēl nav žurnālu",
+      "nothingHasBeenLogged": "Nekas nav reģistrēts."
+    },
+    "plugins": {
+      "worksOnThis": "Strādā šajā {{deviceWord}}",
+      "needsTheServer": "Nepieciešams serveris",
+      "notInTheApp": "Nav lietotnē",
+      "needsANewerVersionOf": "Nepieciešama jaunāka lietotnes versija",
+      "updateThePluginOnThe": "Atjauniniet spraudni serverī",
+      "inTheApp": "Lietotnē",
+      "onThisServer": "Šajā serverī",
+      "version": "Versija",
+      "needsPluginApi": "Nepieciešama spraudņu API",
+      "thisAppHas": "Šai lietotnei ir",
+      "note": "Piezīme",
+      "open": "Atvērt",
+      "openFromAHostS": "Atveriet {{name}} no resursdatora izvēlnes.",
+      "plugins": "Spraudņi",
+      "everything": "Viss",
+      "thisDeviceWorksWithNo": "Šī ierīce strādā bez servera. Savienojiet serveri, lai pievienotu funkcijas, kurām tas nepieciešams.",
+      "pluginsOnAndHowEach": "Spraudņi kontam {{account}} un kā katrs no tiem tiek parādīts lietotnē. Velciet uz leju, lai pārbaudītu vēlreiz.",
+      "whatRunsOnThisAnd": "Kas darbojas šajā {{deviceWord}} un kas tiek pārraidīts caur {{account}}.",
+      "noPluginList": "Nav spraudņu saraksta",
+      "theServerDidNotSend": "Serveris nesūtīja savus spraudņus. Velciet uz leju, lai mēģinātu vēlreiz.",
+      "serversOlderThan29": "Serveriem, kas vecāki par 2.9, visas funkcijas ir iebūvētas.",
+      "nothingToShow": "Nav ko parādīt",
+      "notSentByThisServer": "Nesūtīts no šī servera"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Aizstāt vietējos datus?",
+      "everythingSavedOnThisFor": "Viss, kas saglabāts šajā {{deviceWord}} kontam {{accountName}}, tiks aizstāts ar rezerves kopiju.",
+      "continue": "Turpināt",
+      "couldNotReadThatFile": "Neizdevās izlasīt šo datni",
+      "backupRestored": "Rezerves kopija atjaunota",
+      "couldNotRestoreTheBackup": "Neizdevās atjaunot rezerves kopiju",
+      "backupPassphrase": "Rezerves kopijas parole",
+      "thePassphraseUsedWhenThe": "Parole, kas tika izmantota, kad tika izveidota rezerves kopija.",
+      "passphrase": "Parole",
+      "restore": "Atjaunot"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Konti",
+        "thisDeviceAndLinkedServers": "Šī ierīce un saistītie serveri ar to sinhronizācijas stāvokli",
+        "syncAndProxy": "Sinhronizācija un starpniekserveris",
+        "whatSyncsConflictsProxyAnd": "Ko sinhronizēt, konflikti, starpniekserveris un atsaistīšana",
+        "serverAccount": "Servera konts",
+        "whoIsSignedInOn": "Kurš ir pierakstījies aktīvajā serverī",
+        "activeSessions": "Aktīvās sesijas",
+        "devicesSignedInToThe": "Ierīces, kas pierakstījušās serverī",
+        "apiKeys": "API atslēgas",
+        "keysForScriptsAndTools": "Atslēgas skriptiem un rīkiem",
+        "changePassword": "Mainīt paroli",
+        "passwordOfYourServerAccount": "Jūsu servera konta parole",
+        "deleteServerAccount": "Dzēst servera kontu",
+        "removeYourAccountFromThe": "Noņemt savu kontu no servera",
+        "theme": "Tēma",
+        "darkLightDraculaNordAnd": "Tumšā, gaišā, Dracula, Nord un citas",
+        "accentColor": "Akcenta krāsa",
+        "textSize": "Teksta izmērs",
+        "sizeOfTextAcrossThe": "Teksta izmērs visā lietotnē",
+        "density": "Blīvums",
+        "howTallListRowsAnd": "Saraksta rindu un iestatījumu augstums",
+        "homeScreenWidgets": "Sākuma ekrāna logrīki",
+        "hostsAndSnippetsOnThe": "Māzini un fragmenti sākuma ekrānā",
+        "terminal": "Terminālis",
+        "fontThemeCursorScrollback": "Fonts, tēma, kursors, ritināšanas vēsture",
+        "keyboard": "Tastatūra",
+        "layoutKeysPresets": "Izkārtojums, taustiņi, sagataves",
+        "appLock": "Lietotnes bloķēšana",
+        "askForFaceIdTouch": "Prasīt Face ID, Touch ID vai PIN kodu, lai atvērtu lietotni",
+        "lockAfter": "Bloķēt pēc",
+        "howLongTheAppCan": "Cik ilgi lietotne var būt ārpus redzes lauka, pirms tā tiek bloķēta",
+        "hideInAppSwitcher": "Paslēpt lietotņu slēdzējā",
+        "showABlankScreenIn": "Rādīt tukšu ekrānu nesen izmantoto lietotņu sarakstā",
+        "changePin": "Mainīt PIN kodu",
+        "backgroundSessions": "Fona sesijas",
+        "whatHappensToOpenSessions": "Kas notiek ar atvērtajām sesijām, kad atstājat lietotni",
+        "serverAlerts": "Servera brīdinājumi",
+        "alertsFromTheAlertsPlugin": "Brīdinājumi no Alerts spraudņa jūsu serverī",
+        "whatStaysOnThis": "Kas paliek šajā {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Māzini, akreditācijas dati un fragmenti tiek glabāti šifrētā veidā šeit",
+        "recentHosts": "Nesenie māzini",
+        "forgetTheHostsYouOpened": "Aizmirst māzinus, kurus nesen atvēra",
+        "shareAnonymousUsageStatistics": "Dalīties ar anonīmiem lietošanas statistikas datiem",
+        "aShortReportOnceA": "Īss ziņojums reizi dienā. Nav māzinu, vārdu vai adreses",
+        "nextReport": "Nākamais ziņojums",
+        "seeExactlyWhatWouldBe": "Redzēt tieši, kas tiktu nosūtīts",
+        "resetInstallId": "Atiestatīt instalācijas ID",
+        "futureReportsWillLookLike": "Nākamie ziņojumi izskatīsies kā jauna instalācija",
+        "serverUsageStatistics": "Servera lietošanas statistika",
+        "telemetrySettingsOnYourServer": "Telemetrijas iestatījumi jūsu serverī",
+        "plugins": "Spraudņi",
+        "whatTheServerAddsAnd": "Ko serveris pievieno un kur tas darbojas",
+        "localData": "Vietējie dati",
+        "backupRestoreAndDeleteWhat": "Rezerves kopija, atjaunošana un dzēšana tam, kas saglabāts šajā {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versija un atjauninājumi",
+        "logs": "Žurnāli",
+        "latestLinesFromThisRun": "Jaunākās rindas no šīs darbības, kļūdu ziņojumiem"
+      },
+      "sections": {
+        "accountsAndSync": "Konti un sinhronizācija",
+        "thisDeviceLinkedServersAnd": "Šī ierīce, saistītie serveri un sinhronizācijas dati",
+        "appearance": "Izskats",
+        "themeAccentTextSizeAnd": "Valoda, tēma, akcenta krāsa, teksta izmērs un blīvums",
+        "terminal": "Terminālis",
+        "fontColorsAndBackgroundSessions": "Fonts, krāsas un fona sesijas",
+        "keyboard": "Tastatūra",
+        "keyRowsAndShortcuts": "Atslēgu rindas un saīsinājumi",
+        "security": "Drošība",
+        "appLockFaceIdAnd": "Lietotnes bloķēšana, Face ID un PIN kods",
+        "notifications": "Paziņojumi",
+        "alertsFromYourServer": "Brīdinājumi no jūsu servera",
+        "privacyAndUsageStatistics": "Privātums un lietošanas statistika",
+        "whatStaysOnThis": "Kas paliek šajā {{deviceWord}}",
+        "plugins": "Spraudņi",
+        "whatTheServerAddsTo": "Ko serveris pievieno lietotnei",
+        "backupAndData": "Rezerves kopijas un dati",
+        "backUpRestoreImportAnd": "Rezerves kopiju izveide, atjaunošana, importēšana un eksportēšana",
+        "aboutAndLogs": "Par lietotni un žurnāli",
+        "versionAndLogsForBug": "Versija un žurnāli kļūdu ziņojumiem"
+      }
+    },
+    "settings": "Iestatījumi",
+    "searchSettings": "Meklēt iestatījumos",
+    "noSettingsMatch": "Nav atbilstošu iestatījumu.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Neizdevās ielādēt fragmentus",
+      "copied": "Kopēts: {{name}}",
+      "nameIsRequired": "Vārds ir obligāts",
+      "contentIsRequired": "Saturs ir obligāts",
+      "snippetUpdated": "Fragmenta atjaunināts",
+      "snippetCreated": "Fragmenta izveidots",
+      "failedToSaveSnippet": "Neizdevās saglabāt fragmentu",
+      "snippetDeleted": "Fragmenta dzēsts",
+      "failedToDeleteSnippet": "Neizdevās dzēst fragmentu",
+      "folderNameIsRequired": "Mapes nosaukums ir obligāts",
+      "folderCreated": "Mapes izveidota",
+      "failedToCreateFolder": "Neizdevās izveidot mapi",
+      "folderDeleted": "Mapes dzēsta",
+      "failedToDeleteFolder": "Neizdevās dzēst mapi",
+      "folderRenamed": "Mapes pārsaukta",
+      "failedToRenameFolder": "Neizdevās pārsaukt mapi",
+      "failedToSaveOrder": "Neizdevās saglabāt secību",
+      "moveUp": "Pārvietot uz augšu",
+      "moveDown": "Pārvietot uz leju",
+      "runOnHosts": "Izpildīt {{name}} uz serveriem",
+      "copy": "Kopēt {{name}}",
+      "delete": "Dzēst {{name}}",
+      "renameFolder": "Pārsaukt mapi",
+      "deleteFolder": "Dzēst mapi",
+      "noSnippetsInThisFolder": "Šajā mapē nav fragmentu",
+      "snippets": "Fragmenti",
+      "importAndExport": "Importēt un eksportēt",
+      "folder": "Mape",
+      "new": "Jauns",
+      "loading": "Ielādē…",
+      "couldNotLoadSnippets": "Neizdevās ielādēt fragmentus",
+      "checkTheConnectionToYour": "Pārbaudiet savienojumu ar serveri un mēģiniet vēlreiz.",
+      "tryAgain": "Mēģināt vēlreiz",
+      "noSnippetsYet": "Vēl nav fragmentu",
+      "createYourFirstSnippetOr": "Izveidojiet savu pirmo fragmentu vai pievienojiet fragmentus no Termix tīmekļa vai darbvirsmas lietotnes.",
+      "createSnippet": "Izveidot fragmentu",
+      "askBeforeRunning": "Jautāt pirms izpildes",
+      "confirmBeforeASnippetRuns": "Apstiprināt pirms fragmenta izpildes terminālī",
+      "editSnippet": "Rediģēt fragmentu",
+      "newSnippet": "Jauns fragments",
+      "cancel": "Atcelt",
+      "save": "Saglabāt",
+      "create": "Izveidot",
+      "name": "Nosaukums",
+      "eGUpdatePackages": "piem., Atjaunināt pakotnes",
+      "content": "Saturs",
+      "descriptionOptional": "Apraksts (neobligāts)",
+      "shortDescription": "Īss apraksts",
+      "folderOptional": "Mapes (neobligāts)",
+      "selectFolder": "Izvēlēties mapi",
+      "noFolder": "Nav mapes",
+      "targetHostsOptional": "Mērķa mezgli (neobligāts)",
+      "none": "Nav",
+      "note": "Piezīme",
+      "pastedIntoTheTerminalWithout": "Ielīmēts terminālī bez izpildes",
+      "targetHosts": "Mērķa mezgli",
+      "copy2": "Kopēt",
+      "edit": "Rediģēt",
+      "runOnHosts2": "Izpildīt uz mezgliem",
+      "delete2": "Dzēst",
+      "deleteSnippet": "Dzēst fragmentu",
+      "deleteThisCannotBeUndone": "Dzēst „{{name}}”? To nevar atsaukt.",
+      "renameFolder2": "Pārsaukt mapi",
+      "rename": "Pārsaukt",
+      "folderName": "Mapes nosaukums",
+      "eGSystem": "piem., Sistēma",
+      "newFolder": "Jauna mape",
+      "deleteFolder2": "Dzēst mapi",
+      "deleteSnippetsInThisFolder": "Dzēst „{{name}}”? Šajā mapē esošie fragmenti kļūs par neklasificētiem."
+    },
+    "sync": {
+      "notYet": "Vēl ne",
+      "justNow": "Tikko",
+      "stopped": "Apturēts",
+      "signInToThisServer": "Pieslēdzieties šim serverim vēlreiz, lai sinhronizētu",
+      "couldNotChangeThat": "Neizdevās to mainīt",
+      "sync": "Sinhronizācija",
+      "thisDeviceDoesNotSync": "Šī ierīce nesinhronizē. Savienojiet Termix serveri, lai saglabātu savus mezglus vairākās ierīcēs.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} sinhronizē mezglus, pieteikšanās datus, fragmentus un iestatījumus ar šo {{deviceWord}}. Kopija paliek šajā {{deviceWord}}, tāpēc tas strādā arī bezsaistē.",
+      "lastSynced": "Pēdējā sinhronizācija: {{value}}",
+      "live": "Tiešraide",
+      "syncNow": "Sinhronizēt tagad",
+      "fix": "Labot",
+      "thisServerReadsLiveAnd": "Šis serveris lasa tiešraidē un šajā {{deviceWord}} nesaglabā kopiju.",
+      "turnOnTheSyncPlugin": "Ieslēdziet Sinhronizācijas spraudni servera Spraudņu lapā, pēc tam atkārtoti pieslēdzieties šeit, lai saglabātu kopiju šajā {{deviceWord}}.",
+      "whatSyncs": "Ko sinhronizēt",
+      "turnedOffThatDataStays": "Izslēgts, šie dati paliek tikai šajā {{deviceWord}}.",
+      "conflicts": "Konflikti",
+      "changedHereAndOnThe": "Mainīts gan šeit, gan serverī vienlaicīgi. Tika saglabāta servera versija.",
+      "useServer": "Izmantot serveri",
+      "keepMine": "Saglabāt manu",
+      "notSavedOnTheServer": "Nav saglabāts serverī",
+      "theServerRefusedTheseChanges": "Serveris noraidīja šīs izmaiņas. Tās paliek šajā {{deviceWord}}.",
+      "tryAgain": "Mēģināt vēlreiz",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Nepieciešams tikai tad, ja servera priekšā ir apgrieztais proxy.",
+      "unlink": "Atsaistīt",
+      "unlinkThisServer": "Atsaistīt šo serveri",
+      "minAgo": "pirms {{value}} min.",
+      "signedOut": "Izrakstīts",
+      "waitingToSync": "Gaida sinhronizāciju",
+      "synced": "Sinhronizēts",
+      "syncing": "Sinhronizē",
+      "offline": "Bezsaistē"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Fons",
+        "text": "Teksts",
+        "cursor": "Kursors",
+        "textUnderCursor": "Teksts zem kursora",
+        "selection": "Izvēle",
+        "black": "Melns",
+        "red": "Sarkans",
+        "green": "Zaļš",
+        "yellow": "Dzeltens",
+        "blue": "Zils",
+        "magenta": "Magenta",
+        "cyan": "Cians",
+        "white": "Balts",
+        "brightBlack": "Spilgts melns",
+        "brightRed": "Spilgts sarkans",
+        "brightGreen": "Spilgts zaļš",
+        "brightYellow": "Spilgts dzeltens",
+        "brightBlue": "Spilgts zils",
+        "brightMagenta": "Spilgta magenta",
+        "brightCyan": "Spilgts cians",
+        "brightWhite": "Spilgts balts",
+        "customTheme": "Pielāgots temats",
+        "colorsAsHexLike1e1e2e": "Krāsas heksadecimālā formātā, piemēram, #1e1e2e.",
+        "cancel": "Atcelt",
+        "save": "Saglabāt",
+        "isNotAHexColor": "{{label}} nav heksadecimālā krāsa"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakts",
+      "default": "Noklusējums",
+      "relaxed": "Atvieglināts",
+      "spacious": "Plašs",
+      "none": "Nav",
+      "couldNotSave": "Neizdevās saglabāt",
+      "pickASizeFromTo": "Izvēlieties izmēru no {{MIN_FONT_SIZE}} līdz {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Termināļa iestatījumi ir atiestatīti",
+      "terminal": "Terminālis",
+      "aHostCanSetIts": "Termix lietotājs var iestatīt savu tematu un kursoru, kas pārspēj šos iestatījumus.",
+      "theme": "Temats",
+      "custom": "Pielāgots",
+      "font": "Fonts",
+      "active": "Aktīvs",
+      "sizeAndSpacing": "Izmērs un atstarpes",
+      "pinchTheTerminalToChange": "Lai mainītu izmēru, izmantojiet pirkstu žestu terminālī. Lielais teksts jūsu {{deviceWord}}iestatījumos to padara lielāku.",
+      "custom2": "Pielāgots {{fontSize}}",
+      "lineHeight": "Rindas augstums",
+      "letterSpacing": "Burtu atstarpe",
+      "ligatures": "Ligatūras",
+      "cursor": "Kursors",
+      "blink": "Mirgošana",
+      "bell": "Zvana signāls",
+      "vibrate": "Vibrācija",
+      "onTheBellAndWhen": "Pieskaries zvana signālam un ilgi nospiediet, lai atlasītu",
+      "scrollback": "Ritināšana atpakaļ",
+      "linesKeptAboveTheScreen": "Rindas, kas saglabātas virs ekrāna. Attiecas uz jaunajiem termināļiem.",
+      "linksAndKeys": "Saites un atslēgas",
+      "askBeforeOpeningLinks": "Jautāt pirms saites atvēršanas",
+      "doubleTapSendsTab": "Divkāršs pieskārienis nosūta Tab",
+      "longPressStillSelectsText": "Ilgs nospiedums joprojām atlasa tekstu",
+      "optionSendsAlt": "Option nosūta Alt",
+      "onAHardwareKeyboardOff": "Izmantojot aparatūras tastatūru. Izslēdzot, simboli tiek ievadīti tāpat kā Mac datorā.",
+      "history": "Vēsture",
+      "suggestCommands": "Ieteikt komandas",
+      "showsPastCommandsThatStart": "Rāda iepriekšējās komandas, kas sākas ar to, ko ierakstāt",
+      "resetToDefault": "Atiestatīt uz noklusējumu",
+      "fontSize": "Fonta izmērs",
+      "aSizeFromTo": "Izmērs no {{MIN_FONT_SIZE}} līdz {{MAX_FONT_SIZE}}.",
+      "cancel": "Atcelt",
+      "apply": "Piemērot",
+      "resetTerminalSettings": "Atiestatīt termināļa iestatījumus?",
+      "themeFontSizeCursorBell": "Tēma, fonts, izmērs, kursors, zvans un pārējie tiek atgriezti uz noklusējuma vērtībām.",
+      "reset": "Atiestatīt",
+      "followsAppTheme": "Sekot lietotnes tēmai"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Neizdevās sākt 2FA iestatīšanu",
+      "twoFactorAuthenticationEnabled": "Divu faktoru autentifikācija ir iespējota",
+      "invalidCodeTryAgain": "Nederīgs kods, mēģiniet vēlreiz",
+      "twoFactorAuthenticationDisabled": "Divu faktoru autentifikācija ir atspējota",
+      "failedToDisable2fa": "Neizdevās atspējot 2FA",
+      "failedToFetchBackupCodes": "Neizdevās iegūt rezerves kodus",
+      "secretCopied": "Noslēpums nokopēts",
+      "backupCodesCopied": "Rezerves kodi nokopēti",
+      "twoFactorAuthentication": "Divu faktoru autentifikācija",
+      "loading": "Ielādē…",
+      "scanThisQrCodeWith": "Skenējiet šo QR kodu ar savu autentifikatora lietotni (Google Authenticator, Authy utt.), pēc tam ievadiet 6 ciparu kodu, lai apstiprinātu.",
+      "verifyAmpEnable": "Apstiprināt &amp; Iespējot",
+      "cancel": "Atcelt",
+      "saveYourBackupCodes": "Saglabājiet savus rezerves kodus",
+      "storeTheseSomewhereSafeEach": "Saglabājiet tos drošā vietā. Katru kodu var izmantot tikai vienu reizi, ja zaudējat piekļuvi savam autentifikatoram.",
+      "copyAllCodes": "Kopēt visus kodus",
+      "done": "Gatavs",
+      "yourAccountIsProtectedWith": "Jūsu konts ir aizsargāts ar autentifikatora lietotni.",
+      "addAnExtraLayerOf": "Pievienojiet papildu drošības slāni savam kontam.",
+      "viewBackupCodes": "Apskatīt rezerves kodus",
+      "disable2fa": "Atspējot 2FA",
+      "enable2fa": "Iespējot 2FA",
+      "disableTwoFactorAuthentication": "Atspējot divu faktoru autentifikāciju",
+      "enterACodeFromYour": "Ievadiet kodu no savas autentifikatora lietotnes, lai apstiprinātu. Jūs varat atkārtoti iespējot 2FA jebkurā laikā.",
+      "enterYourPasswordToConfirm": "Ievadiet savu paroli, lai apstiprinātu. Jūs varat atkārtoti iespējot 2FA jebkurā laikā.",
+      "disable": "Atspējot",
+      "yourPassword": "Jūsu parole",
+      "n2faIsEnabled": "2FA ir iespējots",
+      "n2faIsNotEnabled": "2FA nav iespējots"
+    },
+    "language": {
+      "label": "Valoda",
+      "description": "Lai pārslēgtos, lietotne tiek pārlādēta",
+      "system": "Tāda pati kā ierīcē"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Šeit nav SSH mezglu",
+      "couldNotReadWhatWas": "Neizdevās izlasīt kopīgoto saturu",
+      "stopTheUploads": "Apturēt augšupielādi?",
+      "stopAndLeave": "Apturēt un atstāt",
+      "sendTo": "Sūtīt uz {{name}}",
+      "sendToAHost": "Sūtīt uz mezglu",
+      "nothingToSend": "Nav nekas, ko sūtīt",
+      "close": "Aizvērt",
+      "done": "Gatavs",
+      "cancel": "Atcelt",
+      "uploadHere": "Augšupielādēt šeit",
+      "uploadsStillGoing_zero": "Augšupielādes joprojām notiek. Aizejot tās tiks apturētas.",
+      "uploadsStillGoing_one": "{{count}} augšupielāde joprojām notiek. Aizejot tā tiks apturēta.",
+      "uploadsStillGoing_other": "{{count}} augšupielādes joprojām notiek. Aizejot tās tiks apturētas.",
+      "filesSize_zero": "0 faili | {{size}}",
+      "filesSize_one": "{{count}} fails | {{size}}",
+      "filesSize_other": "{{count}} faili | {{size}}",
+      "readingWhatWasShared": "Lasīti kopīgotie dati"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Kļūda",
+      "worksWithoutAServer": "Strādā bez servera",
+      "accountSwitch": "Konts {{account}}, pārslēgt",
+      "search": "Meklēt",
+      "notificationsUnread": "Paziņojumi, {{unread}} nolasīti",
+      "notifications": "Paziņojumi",
+      "signedIn": "Pieslēdzies",
+      "signedOut": "Atslēdzies",
+      "copyOnThis": "Kopēt uz šo {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Sākums",
+      "hosts": "Resursdatori",
+      "sessions": "Sesijas",
+      "tools": "Rīki",
+      "settings": "Iestatījumi",
+      "open": "{{label}}, {{count}} atvērts"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} atvērts"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Izvēlieties resursdatoru",
+      "searchHosts": "Meklēt resursdatorus",
+      "clearSearch": "Notīrīt meklēšanu",
+      "noHostsMatch": "Nav atbilstošu resursdatoru",
+      "noHostsCanUseThis": "Nav resursdatoru, kas varētu to izmantot",
+      "turnItOnForA": "Ieslēdziet to resursdatoram resursdatora redaktora izvēlnē."
+    },
+    "noToolsHereYet": "Šeit vēl nav rīku",
+    "onAHost": "Uz resursdatora",
+    "saved": "Saglabāts",
+    "fromYourServer": "No jūsu servera"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Atcelt",
+      "delete": "Dzēst",
+      "confirm": "Apstiprināt"
+    },
+    "contextMenu": {
+      "closeMenu": "Aizvērt izvēlni"
+    },
+    "inlineView": {
+      "back": "Atpakaļ"
+    },
+    "listRow": {
+      "moreActions": "Vairāk darbību"
+    },
+    "pinPad": {
+      "useBiometrics": "Izmantot biometriskos datus",
+      "delete": "Dzēst"
+    },
+    "popover": {
+      "close": "Aizvērt"
+    },
+    "promptSheet": {
+      "cancel": "Atcelt"
+    },
+    "sheet": {
+      "close": "Aizvērt"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Šī atslēga ir aizslēgta. Ievadiet tās paroli.",
+      "thatPassphraseDoesnTOpen": "Šī parole neatbloķē šo atslēgu.",
+      "thisDoesnTLookLike": "Šis neizskatās kā privātā atslēga.",
+      "loadedAndChangedItTo": "Ielādēts {{name}} un pārvērsts OpenSSH formātā",
+      "loadedItNeedsItsPassphrase": "Ielādēts {{name}}. Savienojumam nepieciešama tā parolas frāze"
+    },
+    "ago": {
+      "justNow": "tikko"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Neizdevās ielādēt jūsu resursdatorus.",
+      "failedOn": "{{name}} neizdevās izpildīt uz {{name2}}",
+      "on": "{{name}} uz {{name2}}: {{value}}",
+      "ranOn": "Izpildīts {{name}} uz {{name2}}",
+      "runOn": "Izpildīt \"{{name}}\" uz",
+      "runSnippet": "Izpildīt fragmentu",
+      "loadingHosts": "Lādē resursdatorus…",
+      "noHostsAvailable": "Nav pieejamu resursdatoru",
+      "addAHostInTermix": "Lai izpildītu fragmentus no sākuma ekrāna, pievienojiet resursdatoru Termix.",
+      "lastUsed": "Pēdējā izmantošana",
+      "failedToRunSnippet": "Neizdevās izpildīt fragmentu"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Šis fragments vairs neeksistē.",
+      "couldNotOpenThatSnippet": "Neizdevās atvērt šo fragmentu.",
+      "thatHostNoLongerExists": "Šis resursdators vairs neeksistē.",
+      "couldNotOpenThatHost": "Neizdevās atvērt šo mezglu."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Sākums"
+      },
+      "hosts": {
+        "hosts": "Mezgli"
+      },
+      "sessions": {
+        "sessions": "Sesijas",
+        "connectToATermixServer": "Lai atvērtu termināļus, tuneļus un failu sesijas, pieslēdzieties Termix serverim."
+      }
+    },
+    "layout": {
+      "initializing": "Inicializēšana…",
+      "cancel": "Atcelt"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Šim mezglam nav derīga MAC adreses.",
+    "thisBuildCanTSend": "Šī versija nevar nosūtīt Wake-on-LAN paketes.",
+    "couldNotSendThePacket": "Neizdevās nosūtīt paketi. Pārbaudiet, vai Wi-Fi ir ieslēgts."
+  },
+  "common": {
+    "hostCount_zero": "{{count}} mezgli",
+    "hostCount_one": "{{count}} mezgls",
+    "hostCount_other": "{{count}} mezgli",
+    "device": {
+      "phone": "tālrunis",
+      "tablet": "planšetdators"
+    },
+    "thisDeviceLower": "šis {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Koplietošana",
+    "action": "Koplietot ar cilvēkiem",
+    "levels": {
+      "connect": "Pieslēgties",
+      "view": "Apskatīt",
+      "edit": "Rediģēt",
+      "manage": "Pārvaldīt"
+    },
+    "levelHints": {
+      "connect": "Tikai atvērt sesijas. Mezgla iestatījumi paliek slēpti",
+      "view": "Pieslēgties, kā arī apskatīt mezgla iestatījumus. Noslēpumi nekad netiek rādīti",
+      "edit": "Apskatīt, kā arī mainīt iestatījumus, izņemot pieteikšanās datus",
+      "manage": "Rediģēt, kā arī koplietot mezglu un mainīt vai noņemt piekļuvi"
+    },
+    "until": "līdz {{date}}",
+    "sharedBy": "no {{name}}",
+    "couldNotLoad": "Neizdevās ielādēt informāciju par to, kam ir piekļuve",
+    "shared": "Mezgls ir koplietots",
+    "couldNotShare": "Neizdevās koplietot mezglu",
+    "updated": "Piekļuve ir mainīta",
+    "couldNotUpdate": "Neizdevās mainīt piekļuvi",
+    "removeTitle": "Noņemt {{name}}?",
+    "removeHint": "Viņi vairs nevarēs izmantot šo mezglu.",
+    "remove": "Noņemt",
+    "removed": "Piekļuve ir noņemta",
+    "couldNotRemove": "Neizdevās noņemt piekļuvi",
+    "whoHasAccess": "Kam ir piekļuve",
+    "loading": "Ielādē...",
+    "nobodyYet": "Šo mezglu var izmantot tikai jūs.",
+    "changeAccessFor": "Mainīt piekļuvi lietotājam {{name}}",
+    "shareWith": "Koplietot ar",
+    "users": "Lietotāji",
+    "roles": "Lomas",
+    "searchUsers": "Meklēt lietotājus",
+    "searchRoles": "Meklēt lomas",
+    "noUsers": "Nav citu lietotāju, ar kuriem koplietot.",
+    "noRoles": "Nav lomu, ar kurām koplietot.",
+    "options": "Piekļuve",
+    "level": "Līmenis",
+    "expires": "Beidzas",
+    "expiry": {
+      "never": "Nekad",
+      "1h": "Pēc 1 stundas",
+      "1d": "Pēc 1 dienas",
+      "7d": "Pēc 7 dienām",
+      "30d": "Pēc 30 dienām"
+    },
+    "pickSomeone": "Izvēlieties, ar ko koplietot",
+    "shareCount_zero": "Koplietot ar {{count}}",
+    "shareCount_one": "Koplietot ar {{count}}",
+    "shareCount_other": "Koplietot ar {{count}}",
+    "removeAccess": "Noņemt piekļuvi"
+  }
+}

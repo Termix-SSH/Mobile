@@ -1,1 +1,3921 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "تسجيل الدخول",
+      "addServer": "إضافة خادم",
+      "switchAccount": "تبديل الحساب",
+      "noServerConnected": "لا يوجد خادم متصل",
+      "connectToATermixServer": "قم بالاتصال بخادم Termix لإدارة مضيفيك، ومحطاتك الطرفية، وملفاتك والمزيد."
+    },
+    "lockScreen": {
+      "cancel": "إلغاء",
+      "tooManyTriesWaitSeconds": "محاولات كثيرة جداً. انتظر {{value}} ثانية",
+      "termixLocked": "Termix مقفل",
+      "enterYourPinToContinue": "أدخل رمز PIN للمتابعة"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "برتقالي",
+      "blue": "أزرق",
+      "green": "أخضر",
+      "purple": "بنفسجي",
+      "pink": "وردي",
+      "cyan": "سماوي",
+      "red": "أحمر",
+      "yellow": "أصفر",
+      "teal": "أزرق مخضر",
+      "indigo": "نيلي",
+      "rose": "وردي غامق",
+      "lime": "ليموني",
+      "system": "النظام",
+      "light": "فاتح",
+      "dark": "داكن"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "استخدام رمز PIN",
+      "unlockTermix": "فتح قفل Termix",
+      "unlockTermixFirst": "قم بفتح قفل Termix أولاً."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "هذه الميزة معطلة على الخادم.",
+      "aTabWasNotReopened": "لم يتم إعادة فتح علامة تبويب لأن مضيفها مفقود",
+      "tabsWereNotReopenedBecause": "لم يتم إعادة فتح {{count}} علامات تبويب لأن مضيفيها لم يعدوا موجودين"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "اربط خادم Termix لاستخدام هذا",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "أدخل عنوان خادمك",
+        "theAddressCanTHave": "لا يمكن أن يحتوي العنوان على مسافات",
+        "useAnHttpOrHttps": "استخدم عنوان http:// أو https://",
+        "thatDoesnTLookLike": "هذا لا يشبه عنوان خادم",
+        "thePortMustBeFrom": "يجب أن يكون المنفذ بين 1 و 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "أجاب وكيل تسجيل الدخول بدلاً من Termix. قم بتسجيل الدخول إلى الوكيل أولاً.",
+        "theServerDidNotSend": "لم يرسل الخادم رمزاً.",
+        "theServerDidNotSend2": "لم يرسل الخادم جلسة.",
+        "theServerSentNoSign": "لم يرسل الخادم عنوان تسجيل دخول.",
+        "theSignInRanOut": "انتهت صلاحية تسجيل الدخول أو تم استخدامه بالفعل. قم بتسجيل الدخول مرة أخرى.",
+        "wrongUsernameOrPassword": "اسم المستخدم أو كلمة المرور غير صحيحة",
+        "signInFailedHttp": "فشل تسجيل الدخول (HTTP {{status}})",
+        "thePageSignedYouIn": "قامت الصفحة بتسجيل دخولك لكنها لم ترسل جلسة مرة أخرى. قم بتحديث الخادم إلى Termix 26.11.3 أو أحدث.",
+        "thisAccountIsnTAllowed": "هذا الحساب غير مسموح له بتسجيل الدخول هنا.",
+        "noTermixAccountMatchesThat": "لا يوجد حساب Termix يطابق هذا تسجيل الدخول."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "هذه الجلسة ليس لها خادم"
+    },
+    "store": {
+      "noSuchAccount": "لا يوجد مثل هذا الحساب",
+      "thisDeviceCanTBe": "لا يمكن إزالة هذا الجهاز",
+      "switchToAnotherAccountFirst": "قم بالتبديل إلى حساب آخر أولاً"
+    },
+    "types": {
+      "thisDevice": "هذا الجهاز"
+    },
+    "accountSwitcher": {
+      "error": "خطأ",
+      "worksWithoutAServer": "يعمل بدون خادم",
+      "couldNotSwitchAccount": "تعذر التبديل إلى الحساب",
+      "accounts": "الحسابات",
+      "openTabsKeepRunningWhen": "تستمر علامات التبويب المفتوحة في العمل عند التبديل.",
+      "unlink": "فك ارتباط {{account}}",
+      "linkAServer": "ربط خادم",
+      "eachServerKeepsItsOwn": "يحافظ كل خادم على مضيفيه، وبيانات الاعتماد، والإعدادات الخاصة به على هذا{{deviceWord}}.",
+      "signedIn": "تم تسجيل الدخول",
+      "signedOut": "تم تسجيل الخروج",
+      "syncedCopy": "نسخة متزامنة"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "تعذر حفظ الرمز",
+      "theServerSKeyMatches": "مفتاح الخادم يطابق الرمز",
+      "theServerShowsAnotherKey": "يظهر الخادم مفتاحًا آخر",
+      "pinThisKey": "تثبيت هذا المفتاح؟",
+      "pinThisKey2": "تثبيت هذا المفتاح",
+      "keyPinned": "تم تثبيت المفتاح",
+      "couldNotReadTheServer": "تعذر قراءة مفتاح الخادم",
+      "thatIsNotAPin": "هذا ليس رمزًا",
+      "keysPinned": "تم تثبيت المفاتيح",
+      "certificatePin": "تثبيت الشهادة",
+      "trustThisServerOnlyBy": "ثق بهذا الخادم بناءً على مفتاحه فقط. استخدمه لشهادة موقعة ذاتيًا، أو لرفض أي مفتاح آخر. أضف المفتاح التالي قبل تغيير شهادة الخادم.",
+      "removePin": "إزالة الرمز {{pin}}",
+      "remove": "إزالة",
+      "readTheKeyFromThe": "قراءة المفتاح من الخادم",
+      "orPasteAPin": "أو لصق رمز",
+      "pin": "تثبيت",
+      "add": "إضافة",
+      "issuedTo": "مصدرة لـ: {{subject}}",
+      "issuedBy": "مصدرة من: {{issuer}}",
+      "validUntil": "صالحة حتى: {{value}}",
+      "checkThatThisKeyMatches": "تحقق من أن هذا المفتاح يطابق الموجود على خادمك قبل تثبيته.",
+      "pasteTheBase64Sha256Of": "الصق قيمة base64 sha256 للمفتاح العام للخادم، كما يطبعها openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "تم حفظ إعدادات الوكيل",
+      "couldNotSaveTheProxy": "تعذر حفظ إعدادات الوكيل",
+      "couldNotReadThatFile": "تعذر قراءة هذا الملف",
+      "certificateSaved": "تم حفظ الشهادة",
+      "theFileOrItsPassphrase": "الملف أو عبارة المرور الخاصة به غير صحيحة",
+      "couldNotSaveTheCertificate": "تعذر حفظ الشهادة",
+      "headers": "الترويسات",
+      "sentWithEveryRequestTo": "تُرسل مع كل طلب إلى هذا الخادم، مثل رمز خدمة Cloudflare.",
+      "name": "الاسم",
+      "value": "القيمة",
+      "removeHeader": "إزالة الترويسة",
+      "addHeader": "إضافة ترويسة",
+      "cloudflareServiceToken": "رمز خدمة Cloudflare",
+      "basicAuth": "المصادقة الأساسية",
+      "forAProxyThatAsks": "لوكيل يطلب اسم مستخدم وكلمة مرور.",
+      "userName": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "saveHeadersAndBasicAuth": "حفظ الترويسات والمصادقة الأساسية",
+      "clientCertificate": "شهادة العميل",
+      "forServersThatAskFor": "للخوادم التي تطلب واحدة (mTLS). يُحفظ المفتاح في التخزين الآمن لـ {{deviceWord}} ولا يمكن قراءته مرة أخرى.",
+      "certificate": "الشهادة",
+      "remove": "إزالة",
+      "replaceCertificate": "استبدال الشهادة",
+      "pickAP12OrPfx": "اختر ملفًا بصيغة .p12 أو .pfx",
+      "proxySignIn": "تسجيل الدخول عبر الوكيل",
+      "thisIsSignedInTo": " هذا {{deviceWord}} مسجل الدخول إلى الوكيل.",
+      "forCloudflareAccessAutheliaAuthentik": "لـ Cloudflare Access و Authelia و Authentik والوكلاء الآخرين الذين لديهم صفحة تسجيل دخول خاصة بهم.{{value}}",
+      "signInToTheProxy": "تسجيل الدخول إلى الوكيل",
+      "forget": "نسيان",
+      "certificatePassphrase": "عبارة مرور الشهادة",
+      "thePassphraseTheFileWas": "عبارة المرور التي حُفظ بها الملف. اتركه فارغًا إذا لم يكن لديه.",
+      "passphrase": "عبارة المرور",
+      "save": "حفظ"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "تم تسجيل الدخول إلى الوكيل",
+      "couldNotSaveTheProxy": "تعذر حفظ تسجيل الدخول عبر الوكيل",
+      "signInToTheProxy": "تسجيل الدخول إلى الوكيل",
+      "thisBuildOfTheApp": "لا يمكن لهذا الإصدار من التطبيق الحفاظ على تسجيل الدخول عبر الوكيل. استخدم رمز خدمة في رؤوس الوكيل بدلاً من ذلك."
+    },
+    "savedLoginRow": {
+      "signIn": "تسجيل الدخول",
+      "signInWith": "تسجيل الدخول باستخدام {{name}}",
+      "whenThisServerSignsYou": "عندما يقوم هذا الخادم بتسجيل خروجك، سجّل الدخول مرة أخرى دون كتابة كلمة المرور."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "تم فك الارتباط. تم الاحتفاظ بـ {{copied}} عنصر على هذا الجهاز.",
+      "unlinked": "تم فك الارتباط",
+      "couldNotUnlinkTheServer": "تعذر فك ارتباط الخادم",
+      "unlink": "فك ارتباط {{value}}؟",
+      "thisSignsOutOfThe": "سيقوم هذا {{deviceWord}} بتسجيل الخروج من الخادم. لن يتم حذف أي شيء على الخادم.",
+      "keepACopyOnThis": "الاحتفاظ بنسخة على هذا الجهاز",
+      "yourOwnHostsCredentialsAnd": "سيتم نقل مضيفيك، بيانات الاعتماد والمقتطفات الخاصة بك إلى هذا الجهاز. لن يتم الاحتفاظ بالمضيفين الذين تم مشاركتهم معك.",
+      "deleteFromThis": "حذف من هذا {{deviceWord}}",
+      "everythingThisHasForThe": "سيتم إزالة كل ما يمتلكه هذا {{deviceWord}} للخادم."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "تغييره تحت الوكيل أدناه",
+      "updateTermixMobileFromYour": "قم بتحديث Termix Mobile من متجر التطبيقات الخاص بك"
+    },
+    "savedLogin": {
+      "signInToTermix": "تسجيل الدخول إلى Termix",
+      "faceUnlock": "فتح القفل بالوجه"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "لا يمكن لهذا الإصدار التحقق من المفتاح المثبت لهذا الخادم أو إرسال شهادته."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "هذا الخادم لا يدعم هذه الميزة",
+      "theProxyWantsYouTo": "يريد الوكيل منك تسجيل الدخول",
+      "endpointNotAvailableOnThis": "نقطة النهاية غير متوفرة على هذا الخادم",
+      "unknownError": "خطأ غير معروف"
+    },
+    "errors": {
+      "theProxyInFrontOf": "يريد الوكيل أمام هذا الخادم منك تسجيل الدخول مرة أخرى.",
+      "authenticationRequiredPleaseLogIn": "المصادقة مطلوبة. يرجى تسجيل الدخول مرة أخرى.",
+      "accessDeniedYouDoNot": "تم رفض الوصول. ليس لديك إذن لتنفيذ هذا الإجراء.",
+      "thisFeatureIsTurnedOff": "هذه الميزة معطلة على الخادم.",
+      "thisServerDoesNotSupport": "هذا الخادم لا يدعم هذه الميزة.",
+      "resourceNotFoundTheRequested": "المورد غير موجود. قد يكون العنصر المطلوب قد تم حذفه.",
+      "conflictTheResourceAlreadyExists": "تعارض. المورد موجود بالفعل أو قيد الاستخدام.",
+      "validationErrorPleaseCheckYour": "خطأ في التحقق. يرجى التحقق من إدخالك والمحاولة مرة أخرى.",
+      "serverErrorOccurredPleaseTry": "حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً.",
+      "sslCertificateVerificationFailed": "فشل التحقق من شهادة SSL.",
+      "networkErrorPleaseCheckYour": "خطأ في الشبكة. يرجى التحقق من اتصالك والمحاولة مرة أخرى.",
+      "failedTo": "فشل في {{operation}}",
+      "unknownError": "خطأ غير معروف",
+      "unexpectedErrorDuring": "خطأ غير متوقع أثناء {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "لم يتمكن التطبيق من الثقة بـ HTTPS لهذا العنوان المحلي. ثبت مفتاح الخادم تحت الوكيل وشهادة العميل، استخدم شهادة يثق بها {{deviceWord}}، أو استخدم HTTP على شبكة محلية أو VPN موثوقة.",
+        "thisServerIsBehindA": "هذا الخادم خلف وكيل تسجيل دخول. استخدم خيار تسجيل الدخول الخارجي بدلاً من ذلك.",
+        "loginFailed": "فشل تسجيل الدخول"
+      },
+      "files": {
+        "fileNotFound": "الملف غير موجود",
+        "fileWriteOperationDidNot": "عملية كتابة الملف لم تعد بحالة نجاح",
+        "couldNot": "تعذر {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "تم حفظ المضيف، لكن بعض الإعدادات فشلت: {{value}}",
+        "unexpectedHostResponseFrom": "استجابة غير متوقعة من المضيف من {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "فشل العينة المباشرة"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "لا إجابة"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "لم يعرض هذا الخادم المفتاح المثبت له، لذا لم يتم فتح الصفحة."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "هذا {{what}} لم يعد موجوداً.",
+      "aHostCannotBeIts": "لا يمكن أن يكون المضيف أباً لنفسه",
+      "parentHostNotFound": "لم يتم العثور على المضيف الأب",
+      "aHostCanTGo": "لا يمكن أن ينتقل المضيف تحت أحد المضيفين الفرعيين الخاصين به",
+      "thisIsSharedWithYou": "هذا {{what}} مشارك معك. فقط مالكه يمكنه تغييره.",
+      "nameIsRequired": "الاسم مطلوب",
+      "nameAndCommandAreRequired": "الاسم والأمر مطلوبان",
+      "aFolderWithThatName": "يوجد مجلد بهذا الاسم"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "لا يمكن لهذا الجهاز حفظ {{what}} هنا."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "هذا المقتطف مشارك معك ولا يمكن تغييره."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "استخدم عبارة مرور تتكون من 8 أحرف على الأقل.",
+      "thisIsNotATermix": "هذا ليس ملف نسخ احتياطي لـ Termix.",
+      "thisBackupIsFromA": "هذا النسخة الاحتياطية من إصدار أحدث من Termix. قم بتحديث التطبيق أولاً.",
+      "wrongPassphraseOrTheFile": "عبارة المرور غير صحيحة، أو أن الملف تالف."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "لا يمكن لهذا الإصدار تشفير البيانات المحلية."
+    },
+    "keys": {
+      "unlockTermixFirst": "قم بإلغاء قفل Termix أولاً.",
+      "thatIsNotADatabase": "هذا ليس مفتاح قاعدة بيانات.",
+      "couldNotSaveTheDatabase": "تعذر حفظ مفتاح قاعدة البيانات."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "تم حفظ هذه البيانات بواسطة إصدار أحدث من Termix. قم بتحديث التطبيق لفتحها."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "هذا الجهاز لا يقوم بالمزامنة.",
+      "localDataIsNotAvailable": "البيانات المحلية غير متاحة هنا.",
+      "unlockTermixFirst": "قم بإلغاء قفل Termix أولاً."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "تعذر الاتصال.",
+      "thisWayCanTRun": "هذه الطريقة لا يمكنها تشغيل الأوامر"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "كلمة مرور Sudo",
+      "password": "كلمة المرور",
+      "run": "تشغيل",
+      "thatPasswordWasWrong": "كانت كلمة المرور تلك غير صحيحة.",
+      "onNeedsRoot": "{{reason}} على {{hostName}} يتطلب صلاحيات root.",
+      "needsRootForThis": "{{hostName}} يتطلب صلاحيات root لهذا.",
+      "itIsKeptUntilYou": "يتم الاحتفاظ بها حتى تقوم بإغلاق التطبيق."
+    },
+    "run": {
+      "theHostTookTooLong": "استغرق المضيف وقتاً طويلاً للرد",
+      "connectionLost": "فقدان الاتصال"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "هذا يتطلب صلاحيات root. قم بتسجيل الدخول كـ root، أو اضبط sudo بدون كلمة مرور، أو احفظ كلمة مرور sudo للمضيف.",
+      "theSudoPasswordWasWrong": "كانت كلمة مرور sudo غير صحيحة",
+      "commandFailed": "فشل الأمر"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "يتطلب Telnet في المحطة اتصالاً من {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "الميزة {{id}} مسجلة بالفعل"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "العنوان",
+      "theIpOrHostName": "عنوان IP أو اسم المضيف تحت الاسم",
+      "username": "اسم المستخدم",
+      "theUserBeforeTheAddress": "المستخدم قبل العنوان",
+      "port": "المنفذ",
+      "thePortAfterTheAddress": "المنفذ بعد العنوان",
+      "hostIcon": "أيقونة المضيف",
+      "theIconSetOnThe": "الأيقونة المحددة على المضيف",
+      "pinIcon": "تثبيت الأيقونة",
+      "marksPinnedHosts": "يحدد المضيفين المثبتين",
+      "sharedBadge": "شارة المشاركة",
+      "marksHostsSharedWithYou": "يحدد المضيفين المشتركين معك",
+      "protocolBadges": "شارات البروتوكول",
+      "sshRdpDockerAndOther": "شارات SSH و RDP و Docker وغيرها",
+      "tags": "الوسوم",
+      "theHostSTags": "وسوم المضيف",
+      "cpuAndRam": "وحدة المعالجة المركزية والذاكرة العشوائية",
+      "liveUsageBarsOnOnline": "أشرطة الاستخدام المباشرة على المضيفين المتصلين",
+      "statusColors": "ألوان الحالة",
+      "greenBarWhenOnlineRed": "شريط أخضر عند الاتصال، وأحمر عند الانقطاع"
+    },
+    "uiPrefs": {
+      "small": "صغير",
+      "default": "افتراضي",
+      "large": "كبير",
+      "comfortable": "مريح",
+      "compact": "مضغوط"
+    },
+    "errors": {
+      "somethingWentWrong": "حدث خطأ ما"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "تتطلب قفل المفتاح بعبارة مرور تطبيق Termix، وليس معاينة الويب."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "على الفور",
+      "after15Seconds": "بعد 15 ثانية",
+      "after1Minute": "بعد دقيقة واحدة",
+      "after5Minutes": "بعد 5 دقائق"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "اختفى سر الجهاز",
+      "noSealedKey": "لا يوجد مفتاح مختوم",
+      "theSealedKeyIsDamaged": "المفتاح المختوم تالف",
+      "wrongPin": "رمز PIN خاطئ",
+      "theSealedKeyDidNot": "لم يتم فتح المفتاح المغلق",
+      "biometricsCanTOpenThe": "لا يمكن للبيومتريك فتح المفتاح"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "تحديث التطبيق",
+      "onYourServerNeedsA": "يحتاج {{name}} على خادمك إلى إصدار أحدث من Termix على هذا {{deviceWord}}.",
+      "updateThePlugin": "تحديث الإضافة",
+      "onYourServerIsToo": "{{name}} على خادمك قديم جداً لهذا التطبيق. اطلب من المسؤول تحديثه في الإضافات."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "محظور بواسطة التطبيق",
+      "theAppDoesNotLet": "لا يسمح التطبيق للإضافات باستخدام هذا المسار.",
+      "thisBuildCanTReach": "لا يمكن لهذا الإصدار الوصول إلى هذا الخادم بأمان."
+    },
+    "support": {
+      "needsANewerVersionOf": "يحتاج إلى إصدار أحدث من التطبيق",
+      "updateThePluginOnThe": "تحديث الإضافة على الخادم",
+      "theAppHasItsOwn": "للتطبيق مظهره الخاص",
+      "notInTheAppYet": "غير متوفر في التطبيق بعد",
+      "linkAServerToUse": "اربط بخادم لاستخدامه",
+      "opensInTheAppFrom": "يفتح في التطبيق من الخادم",
+      "runsOnTheServer": "يعمل على الخادم",
+      "throughTheServer": "عبر الخادم",
+      "inTheApp": "في التطبيق",
+      "webView": "عرض ويب",
+      "onTheServer": "على الخادم",
+      "appLook": "مظهر التطبيق",
+      "notInTheApp": "غير متوفر في التطبيق",
+      "safeMode": "الوضع الآمن",
+      "notRunning": "غير نشط",
+      "notInstalled": "غير مثبت",
+      "notOnThisServer": "غير موجود على هذا الخادم",
+      "thePluginIsNotInstalled": "الإضافة غير مثبتة على هذا الخادم.",
+      "turnedOffOnTheServer": "معطّل على الخادم",
+      "itOpensHereAgainWhen": "سيُفتح هنا مرة أخرى عندما يقوم المسؤول بتفعيله.",
+      "notRunningOnTheServer": "غير نشط على الخادم",
+      "theServerIsInSafe": "الخادم في الوضع الآمن، لذا تعمل فقط الإضافات ذات المظهر.",
+      "thePluginDidNotStart": "لم تبدأ الإضافة. يمكن للمسؤول التحقق منها في الإضافات.",
+      "thisPluginIsNotAvailable": "هذه الإضافة غير متوفرة",
+      "itIsNotMadeFor": "لم يتم إنشاؤها للتطبيق.",
+      "offOnThisServer": "معطّل على هذا الخادم",
+      "notRunningOnThisServer": "غير نشط على هذا الخادم",
+      "notOnThisServer2": "غير موجود على هذا الخادم",
+      "notInTheAppYet2": "غير متوفر في التطبيق بعد | على هذا الخادم",
+      "worksOnThis": "يعمل على هذا {{deviceWord}}",
+      "andServer": "{{DeviceWord}} والخادم",
+      "deviceOnly": "{{DeviceWord}} فقط | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "إعادة تحميل"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "قطع الاتصال الكل",
+      "showOpenSessions": "إظهار الجلسات المفتوحة",
+      "termixShowsANotificationWhile": "يعرض Termix إشعاراً أثناء بقاء الجلسات مفتوحة، حتى يحافظ Android على تشغيلها في الخلفية.",
+      "sessionsOpen_zero": "لا توجد جلسات مفتوحة",
+      "sessionsOpen_one": "جلسة واحدة مفتوحة",
+      "sessionsOpen_two": "جلستان مفتوحتان",
+      "sessionsOpen_few": "{{count}} جلسات مفتوحة",
+      "sessionsOpen_many": "{{count}} جلسة مفتوحة",
+      "sessionsOpen_other": "{{count}} جلسة مفتوحة",
+      "tunnelsActive_zero": "لا توجد أنفاق نشطة",
+      "tunnelsActive_one": "نفق واحد نشط",
+      "tunnelsActive_two": "نفقان نشطان",
+      "tunnelsActive_few": "{{count}} أنفاق نشطة",
+      "tunnelsActive_many": "{{count}} نفق نشط",
+      "tunnelsActive_other": "{{count}} نفق نشط",
+      "notConnected": "غير متصل",
+      "waitingForNetwork": "في انتظار الشبكة",
+      "connecting": "جاري الاتصال",
+      "connected": "متصل",
+      "reconnecting": "جاري إعادة الاتصال",
+      "failed": "فشل",
+      "closed": "مغلق"
+    },
+    "companionPane": {
+      "resizeThePanel": "تغيير حجم لوحة {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "إغلاق",
+      "closeAllTabs": "إغلاق جميع {{count}} علامات التبويب؟",
+      "everySessionEnds": "تنتهي كل جلسة.",
+      "closeAll": "إغلاق الكل",
+      "noActiveConnections": "لا توجد اتصالات نشطة",
+      "pickAHostFromThe": "اختر مضيفاً من القائمة لبدء جلسة. ستظهر هنا أيضاً علامات التبويب التي تفتحها على أجهزة أخرى.",
+      "connectToAHostTo": "اتصل بمضيف لبدء جلسة. ستظهر هنا أيضاً علامات التبويب التي تفتحها على أجهزة أخرى.",
+      "open": "فتح",
+      "background": "الخلفية",
+      "sessionsFromOtherDevicesOr": "جلسات من أجهزة أخرى أو علامات تبويب في الخلفية. اضغط لإعادتها.",
+      "liveTapToReconnect": "مباشر، اضغط لإعادة الاتصال",
+      "tapToReopen": "اضغط لإعادة الفتح"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "تم تعطيل هذا على الخادم",
+      "comesBackHereWhenAn": "سيعود {{title}} إلى هنا عندما يعيد المسؤول تشغيل الإضافة الخاصة به.",
+      "closeTab": "إغلاق علامة التبويب"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "الاتصالات",
+        "hideHostList": "إخفاء قائمة المضيفين",
+        "showHostList": "إظهار قائمة المضيفين",
+        "backToHosts": "العودة إلى المضيفين",
+        "showKeyboard": "إظهار لوحة المفاتيح",
+        "hideKeyboard": "إخفاء لوحة المفاتيح",
+        "hideKeysPanel": "إخفاء لوحة المفاتيح",
+        "showKeysPanel": "إظهار لوحة المفاتيح"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "اضغط لخيارات علامة التبويب، اضغط مطولاً للنقل",
+        "holdToMove": "اضغط مطولاً للنقل",
+        "close": "إغلاق {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "في انتظار الشبكة",
+        "connectionFailed": "فشل الاتصال",
+        "reconnecting": "جارٍ إعادة الاتصال"
+      }
+    },
+    "sessionMenu": {
+      "rename": "إعادة تسمية",
+      "newTabOnThisHost": "علامة تبويب جديدة على هذا المضيف",
+      "here": "{{title}} هنا",
+      "hidePanel": "إخفاء لوحة {{title}}",
+      "showPanel": "إظهار لوحة {{title}}",
+      "endSplitView": "إنهاء العرض المنقسم",
+      "splitViewWith": "عرض منقسم مع...",
+      "moveLeft": "نقل لليسار",
+      "moveRight": "نقل لليمين",
+      "closeTab": "إغلاق علامة التبويب",
+      "closeAllTabs": "إغلاق جميع علامات التبويب",
+      "closeAllTabs2": "إغلاق جميع علامات التبويب الـ {{count}}؟",
+      "everySessionEnds": "تنتهي كل جلسة.",
+      "closeAll": "إغلاق الكل",
+      "splitViewWith2": "عرض منقسم مع",
+      "renameTab": "إعادة تسمية علامة التبويب",
+      "leaveItEmptyToUse": "اتركه فارغاً لاستخدام اسم المضيف."
+    },
+    "resizeHostList": "تغيير حجم قائمة المضيفين",
+    "resizeSplitView": "تغيير حجم العرض المنقسم",
+    "connections": "الاتصالات",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "المصادقة الثنائية",
+        "enterThe6DigitCode": "أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة الخاص بك.",
+        "cancel": "إلغاء",
+        "verify": "تحقق",
+        "codeExpiresInSGet": "ينتهي صلاحية الرمز خلال {{totpCountdown}} ثانية، احصل على رمز جديد",
+        "warpgateAuthentication": "مصادقة Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "أكد عنوان URL الخاص بمصادقة Warpgate ومفتاح الأمان.",
+        "authenticate": "مصادقة",
+        "warpgateUrl": "عنوان URL الخاص بـ Warpgate",
+        "securityKeyOptional": "مفتاح الأمان (اختياري)",
+        "authenticationRequired": "المصادقة مطلوبة",
+        "thisHostNeedsCredentialsTo": "يحتاج هذا المضيف إلى بيانات اعتماد للاتصال.",
+        "connect": "اتصال",
+        "password": "كلمة المرور",
+        "sshKey": "مفتاح SSH",
+        "pastePrivateKey": "لصق المفتاح الخاص",
+        "keyPassphraseOptional": "عبارة مرور المفتاح (اختياري)"
+      },
+      "connectionError": {
+        "tryAgain": "حاول مرة أخرى",
+        "close": "إغلاق",
+        "connectThroughTheServer": "الاتصال عبر الخادم",
+        "connectFromThis": "الاتصال من هذا {{deviceWord}}",
+        "triedFromThis": "تمت المحاولة من هذا {{deviceWord}}",
+        "triedThroughTheServer": "تمت المحاولة عبر الخادم"
+      },
+      "execGate": {
+        "connecting": "جارٍ الاتصال..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "حدث خطأ ما",
+        "retry": "إعادة المحاولة",
+        "refresh": "تحديث",
+        "nothingToShow": "لا يوجد شيء للعرض"
+      },
+      "useConnectionLog": {
+        "logsCopied": "تم نسخ السجلات",
+        "connectionLog": "سجل الاتصال ({{count}})",
+        "copyLog": "نسخ السجل",
+        "waitingForConnection": "في انتظار الاتصال…",
+        "noLogEntries": "لا توجد إدخالات في السجل"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "تعذر حفظ طريقة اتصال هذا المضيف"
+      },
+      "useSessionConnect": {
+        "connected": "متصل",
+        "connectingTo": "جارٍ الاتصال بـ {{name}}…",
+        "connectionLost": "فقد الاتصال",
+        "failedToConnect": "فشل الاتصال",
+        "invalidCode": "رمز غير صالح",
+        "warpgateAuthenticationFailed": "فشل مصادقة Warpgate",
+        "authenticationCancelled": "تم إلغاء المصادقة"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "البحث والأوامر",
+    "addHost": "إضافة مضيف",
+    "keyboardShortcuts": "اختصارات لوحة المفاتيح",
+    "home": "الرئيسية",
+    "hosts": "المضيفين",
+    "sessions": "الجلسات",
+    "tools": "الأدوات",
+    "settings": "الإعدادات",
+    "terminal": "الطرفية",
+    "shortcutSheet": {
+      "keyboardShortcuts": "اختصارات لوحة المفاتيح"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "المضيفين والمجلدات",
+      "yourHostsFoldersAndHosts": "مضيفيك والمجلدات والمضيفين الذين تم مشاركتهم معك",
+      "credentials": "بيانات الاعتماد",
+      "savedPasswordsAndKeysAnd": "كلمات المرور والمفاتيح المحفوظة، وبيانات الاعتماد المشتركة معك",
+      "snippets": "المقتطفات",
+      "snippetsAndTheirFolders": "المقتطفات ومجلداتها",
+      "hostDefaults": "الإعدادات الافتراضية للمضيف",
+      "defaultSettingsForNewHosts": "الإعدادات الافتراضية للمضيفين الجدد",
+      "preferences": "التفضيلات",
+      "settingsThatFollowYouBetween": "الإعدادات التي تتبعك بين الأجهزة"
+    },
+    "link": {
+      "noSuchServerAccount": "لا يوجد حساب خادم بهذا الاسم",
+      "signInFirst": "قم بتسجيل الدخول أولاً.",
+      "thisServerAccountBelongsTo": "هذا حساب الخادم مملوك لـ {{value}}. قم بتسجيل الدخول باسمه، أو أضف الخادم مرة أخرى لهذا المستخدم."
+    },
+    "reasons": {
+      "signedOut": "تم تسجيل الخروج",
+      "thisSSignInTo": "انتهت صلاحية تسجيل الدخول لهذا {{deviceWord}} إلى الخادم.",
+      "theServerEndedThisS": "أنهى الخادم جلسة هذا {{deviceWord}}. ربما تم تسجيل الخروج من جهاز آخر.",
+      "proxySignInNeeded": "مطلوب تسجيل الدخول للوكيل",
+      "theProxyInFrontOf": "الوكيل أمام هذا الخادم يطلب منك تسجيل الدخول مرة أخرى.",
+      "proxyPasswordNeeded": "مطلوب كلمة مرور الوكيل",
+      "theProxyInFrontOf2": "طلب الوكيل أمام هذا الخادم كلمة مروره.",
+      "certificateRefused": "تم رفض الشهادة",
+      "theServerDidNotAccept": "لم يقبل الخادم شهادة هذا {{deviceWord}}.",
+      "untrustedServer": "خادم غير موثوق",
+      "theServerSCertificateIs": "شهادة الخادم غير موثوقة من قبل هذا {{deviceWord}}.",
+      "serverKeyChanged": "تغيّر مفتاح الخادم",
+      "theServerShowsAnotherKey": "يظهر الخادم مفتاحاً مختلفاً عن المثبّت له. إذا قمت بتغيير شهادته، قم بتثبيت المفتاح الجديد.",
+      "offline": "غير متصل",
+      "canTReachTheServer": "تعذّر الوصول إلى الخادم. سيعيد المزامنة المحاولة قريباً.",
+      "serverProblem": "مشكلة في الخادم",
+      "theServerHadAProblem": "حدثت مشكلة في الخادم. سيعيد المزامنة المحاولة قريباً.",
+      "updateNeeded": "مطلوب تحديث",
+      "thisServerUsesANewer": "يستخدم هذا الخادم إصداراً أحدث من المزامنة. قم بتحديث التطبيق.",
+      "notATermixServer": "ليس خادم Termix",
+      "theAddressDoesNotAnswer": "العنوان لا يستجيب كما يفعل خادم Termix.",
+      "syncIsOff": "المزامنة معطلة",
+      "theSyncPluginIsOff": "إضافة المزامنة معطلة على هذا الخادم. اطلب من المسؤول تفعيلها في الإضافات.",
+      "differentUser": "مستخدم مختلف",
+      "youSignedInAsA": "لقد قمت بتسجيل الدخول كمستخدم مختلف عن المستخدم الذي ينتمي إليه حساب هذا الخادم.",
+      "syncStopped": "توقفت المزامنة",
+      "somethingWentWrong": "حدث خطأ ما.",
+      "signInAgain": "سجّل الدخول مرة أخرى",
+      "signInToTheProxy": "سجّل الدخول إلى الوكيل",
+      "enterThePassword": "أدخل كلمة المرور",
+      "tryAgain": "حاول مرة أخرى",
+      "checkThePin": "تحقق من الرمز",
+      "checkForUpdates": "تحقق من وجود تحديثات",
+      "pickACertificate": "اختر شهادة"
+    },
+    "settings": {
+      "noSuchSetting": "لا يوجد إعداد بهذا الاسم",
+      "snippetFolder": "مجلد المقاطع",
+      "hostDefault": "الافتراضي للمضيف"
+    },
+    "errors": {
+      "theServerDidNotAccept": "لم يقبل الخادم شهادة هذا {{deviceWord}}.",
+      "theServerSCertificateIs": "شهادة الخادم غير موثوقة.",
+      "canTReachTheServer": "تعذّر الوصول إلى الخادم.",
+      "signedOut": "تم تسجيل الخروج",
+      "theProxyAskedForIts": "طلب الوكيل كلمة مروره.",
+      "theProxyWantsYouTo": "يريد الوكيل منك تسجيل الدخول.",
+      "theSyncPluginIsOff": "إضافة المزامنة معطلة على هذا الخادم.",
+      "serverError": "خطأ في الخادم {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "يظهر الخادم مفتاحاً مختلفاً عن المثبّت."
+    },
+    "remote": {
+      "thisIsNotATermix": "هذا ليس خادم Termix.",
+      "theProxyWantsYouTo": "يريد الوكيل منك تسجيل الدخول.",
+      "thisServerUsesANewer": "يستخدم هذا الخادم إصداراً أحدث من المزامنة. قم بتحديث التطبيق."
+    },
+    "copy": {
+      "hostCount_zero": "لا يوجد مضيفون",
+      "hostCount_one": "مضيف واحد",
+      "hostCount_two": "مضيفان",
+      "hostCount_few": "{{count}} مضيفين",
+      "hostCount_many": "{{count}} مضيفاً",
+      "hostCount_other": "{{count}} مضيف",
+      "credentialCount_zero": "لا توجد بيانات اعتماد",
+      "credentialCount_one": "بيانات اعتماد واحدة",
+      "credentialCount_two": "بيانتا اعتماد",
+      "credentialCount_few": "{{count}} بيانات اعتماد",
+      "credentialCount_many": "{{count}} بيانات اعتماداً",
+      "credentialCount_other": "{{count}} بيانات اعتماد",
+      "snippetCount_zero": "لا توجد مقاطع",
+      "snippetCount_one": "مقطع واحد",
+      "snippetCount_two": "مقطعان",
+      "snippetCount_few": "{{count}} مقاطع",
+      "snippetCount_many": "{{count}} مقطعاً",
+      "snippetCount_other": "{{count}} مقطع",
+      "folderCount_zero": "لا توجد مجلدات",
+      "folderCount_one": "مجلد واحد",
+      "folderCount_two": "مجلدان",
+      "folderCount_few": "{{count}} مجلدات",
+      "folderCount_many": "{{count}} مجلداً",
+      "folderCount_other": "{{count}} مجلد",
+      "nothingYet": "لا شيء بعد",
+      "listAnd": "{{list}} و{{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "تعذّر الاتصال.",
+      "connectingToFromThis": "جاري الاتصال بـ{{name}} من هذا {{deviceWord}}",
+      "connectingToThroughTheServer": "جاري الاتصال بـ{{name}} عبر الخادم",
+      "reconnectingTry": "جاري إعادة الاتصال (المحاولة {{retry}})",
+      "disconnected": "تم قطع الاتصال",
+      "connected": "متصل",
+      "reconnectedToTheSameSession": "تم إعادة الاتصال بنفس الجلسة",
+      "reconnectedWithANewShell": "تم إعادة الاتصال بشل جديد",
+      "couldNotReachTheHost": "تعذّر الوصول إلى المضيف من هذا {{deviceWord}}، جاري المحاولة عبر الخادم",
+      "couldNotConnectThroughThe": "تعذّر الاتصال عبر الخادم، جاري المحاولة من هذا {{deviceWord}}",
+      "connectionLost": "فقدان الاتصال: {{reason}}",
+      "offlineWaitingForTheNetwork": "غير متصل، في انتظار الشبكة",
+      "nextTryInS": "المحاولة التالية بعد {{value}} ثانية",
+      "reconnectingTry2": "جاري إعادة الاتصال (المحاولة {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "توقف المضيف عن الاستجابة",
+      "networkLost": "فقدان الشبكة",
+      "network": "الشبكة: {{type}}{{value}}",
+      "lowPowerModeOn": "وضع توفير الطاقة مفعّل",
+      "lowPowerModeOff": "وضع توفير الطاقة معطّل",
+      "droppedTypedCharacters": "تم تجاهل {{count}} حرفًا مكتوبًا",
+      "youDidNotTrustThe": "لم تقم بالموافقة على مفتاح المضيف.",
+      "checkTheKeyWithWhoever": "تحقق من المفتاح مع المسؤول عن المضيف، ثم حاول مرة أخرى.",
+      "loginCancelled": "تم إلغاء تسجيل الدخول.",
+      "connectAgainWhenYouAre": "أعد الاتصال عندما تكون جاهزاً.",
+      "typedInputIsOver64": "إدخال النص المكتوب يتجاوز 64 كيلوبايت، تم تجاهل الأقدم",
+      "appInTheBackground": "التطبيق في الخلفية",
+      "appInTheForeground": "التطبيق في المقدمة",
+      "thisConnectionCanTRun": "لا يمكن لهذا الاتصال تشغيل الأوامر"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "تحقق من العنوان والمنفذ، وتأكد من أن الخادم يمكنه الوصول إلى المضيف.",
+      "checkTheAddressAndPort2": "تحقق من العنوان والمنفذ، وتأكد من أن هذا {{deviceWord}} يمكنه الوصول إلى المضيف.",
+      "checkTheProxySettingsOf": "تحقق من إعدادات الوكيل لهذا المضيف.",
+      "checkTheKeyWithWhoever": "تحقق من المفتاح مع المسؤول عن المضيف قبل الوثوق به.",
+      "checkTheUsernameAndLogin": "تحقق من اسم المستخدم وتسجيل الدخول في محرر المضيف.",
+      "checkThatTheServerIs": "تحقق من أن الخادم يعمل وأنك لا تزال مسجلاً الدخول.",
+      "tryAgainIfItKeeps": "حاول مرة أخرى. إذا استمر الانقطاع، تحقق من الشبكة.",
+      "connectAgainWhenYouAre": "أعد الاتصال عندما تكون جاهزاً.",
+      "pickAnotherWayToConnect": "اختر طريقة أخرى للاتصال بهذا المضيف.",
+      "connectThisHostThroughA": "اتصل بهذا المضيف عبر خادم Termix.",
+      "pickTheJumpHostsAgain": "أعد اختيار مضيفي القفز في محرر المضيف.",
+      "thisIsATailscaleAddress": "هذا عنوان Tailscale. تحقق من أن Tailscale متصل على هذا {{deviceWord}}.",
+      "theSavedKeyCanT": "لا يمكن قراءة المفتاح المحفوظ. الصقه مرة أخرى في محرر المضيف.",
+      "signInToThisServer": "سجّل الدخول إلى هذا الخادم مرة أخرى.",
+      "openThisHostInThe": "افتح هذا المضيف في تطبيق Termix على الويب.",
+      "canTConnectThisWay": "لا يمكن الاتصال بهذه الطريقة",
+      "couldNotReachTheHost": "تعذر الوصول إلى المضيف",
+      "theProxyDidNotLet": "لم يسمح الوكيل بالاتصال بالمرور",
+      "theHostKeyWasNot": "لم يتم الوثوق بمفتاح المضيف",
+      "theLoginWasRefused": "تم رفض تسجيل الدخول",
+      "theTermixServerDidNot": "لم يجب خادم Termix",
+      "theConnectionDropped": "انقطع الاتصال",
+      "loginCancelled": "تم إلغاء تسجيل الدخول"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "وكيل SSH",
+        "thisHostSignsInWith": "يسجل هذا المضيف الدخول باستخدام \"{{authType}}\"، مما يتطلب خادم Termix. اربط واحداً للاتصال.",
+        "thisHostUsesA1password": "يستخدم هذا المضيف مرجع 1Password، مما يتطلب خادم Termix مع مصادر الأسرار. اربط واحداً واتصل بهذا المضيف من خلاله.",
+        "signInWithFirstOpen": "سجّل الدخول باستخدام {{title}} أولاً. افتح طرفية لهذا المضيف مرة واحدة، ثم حاول مرة أخرى.",
+        "theSignInAndThe": "تسجيل الدخول والشهادة موجودان على الخادم",
+        "theHasNoSshAgent": "لا يحتوي {{deviceWord}} على وكيل SSH",
+        "needsATermixServerBecause": "يحتاج {{title}} إلى خادم Termix لأن {{why}}. اربط واحداً واتصل بهذا المضيف من خلاله."
+      },
+      "chain": {
+        "aJumpHostOfThis": "مضيف القفز لهذا المضيف لم يعد موجوداً."
+      },
+      "localShell": {
+        "theConnectionWasCut": "تم قطع الاتصال",
+        "theShellChannelClosed": "تم إغلاق قناة shell",
+        "jumpHost": "مضيف القفز {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "رمز غير صالح، حاول مرة أخرى:",
+        "authenticationFailed": "فشل المصادقة: {{message}}",
+        "theHostKeyWasNot": "لم يتم الوثوق بمفتاح المضيف.",
+        "loginCancelled": "تم إلغاء تسجيل الدخول.",
+        "notConnected": "غير متصل"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "تم قطع الاتصال"
+      },
+      "thisBuildHasNoSsh": "هذا الإصدار لا يحتوي على محرك SSH. استخدم التطبيق من المتجر، أو اربط خادم Termix للاتصال.",
+      "theHostsOnThisAre": "المضيفون على هذا {{deviceWord}} غير متاحين بعد.",
+      "thisServerSHostsAre": "مضيفو هذا الخادم غير موجودين على هذا {{deviceWord}}. فعّل إضافة المزامنة على الخادم للاتصال من {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "لا يمكن الاتصال.",
+      "canTConnectFromThe": "لا يمكن الاتصال من هذا {{deviceWord}}.",
+      "canTReachTheServer": "لا يمكن الوصول إلى الخادم.",
+      "theOnlyConnectsToSsh": "لا يتصل {{deviceWord}} إلا بمضيفي SSH وTelnet.",
+      "connectThisHostThroughThe": "اتصل بهذا المضيف عبر الخادم",
+      "connectThisHostFromThe": "اتصل بهذا المضيف من {{deviceWord}}",
+      "termixServer": "خادم Termix",
+      "usesThisWhenItCan": "يستخدم هذا {{deviceWord}} عندما يتمكن من الوصول إلى المضيف، وإلا يستخدم الخادم.",
+      "thisConnectsToTheHost": "يتصل هذا {{deviceWord}} بالمضيف مباشرةً.",
+      "theTermixServerConnectsTo": "يتصل خادم Termix بالمضيف نيابةً عنك.",
+      "anSshConnection": "اتصال SSH",
+      "aTermixServer": "خادم Termix",
+      "aConnectionFromThe": "اتصال من {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} معطل على هذا الخادم. {{how}} لاستخدامه.",
+      "isOffOnThisServer2": "{{title}} معطل على هذا الخادم.",
+      "anotherWayToConnect": "طريقة أخرى للاتصال",
+      "needsToUseIt": "يحتاج {{title}} إلى {{what}}. {{how}} لاستخدامه.",
+      "needsWhichThisHostCan": "يحتاج {{title}} إلى {{what}}، وهو ما لا يمكن لهذا المضيف استخدامه حالياً.",
+      "thisDevice": "هذا {{deviceWord}}",
+      "automatic": "تلقائي"
+    },
+    "relay": {
+      "youAreSignedOutOf": "لقد تم تسجيل خروجك من هذا الخادم. سجّل الدخول للاتصال عبره.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "لم يتم تثبيت tmux على هذا المضيف. يتم استخدام shell العادي.",
+        "tapRetryToBringIt": "انقر على إعادة المحاولة لإعادة إظهاره هنا.",
+        "thisSessionWasOpenedOn": "تم فتح هذه الجلسة على جهاز آخر",
+        "noServerUrlFoundLink": "لم يتم العثور على عنوان URL للخادم. أعد ربط الخادم.",
+        "signedOutOfThisServer": "تم تسجيل الخروج من هذا الخادم. سجّل الدخول مرة أخرى.",
+        "signInWithInYour": "سجّل الدخول باستخدام {{title}} في متصفحك. سيتم إغلاق هذه النافذة عند الانتهاء.",
+        "theSocketClosedWhileThe": "تم إغلاق المقبس (socket) بينما كان التطبيق في الخلفية",
+        "noWebsocketUrlAvailableServer": "لا يوجد عنوان WebSocket متاح - الخادم غير مُعدّ",
+        "connectionTimeoutServerNotResponding": "انتهت مهلة الاتصال - الخادم لا يستجيب",
+        "verificationCode": "رمز التحقق:",
+        "hostKeyVerificationRequiredBut": "مطلوب التحقق من مفتاح المضيف ولكن لا يوجد معالج مسجّل",
+        "hostKeyChangedButNo": "تغيّر مفتاح المضيف ولكن لا يوجد معالج مسجّل",
+        "thisHostNeedsASign": "يحتاج هذا المضيف إلى تسجيل دخول يدعمه تطبيق الويب فقط",
+        "invalidCodeTryAgain": "رمز غير صالح، حاول مرة أخرى:",
+        "unknownError": "خطأ غير معروف",
+        "connectionClosed": "تم إغلاق الاتصال",
+        "connectionClosed2": "تم إغلاق الاتصال ({{code}})",
+        "theServerClosedTheConnection": "أغلق الخادم الاتصال",
+        "theSocketClosed": "تم إغلاق المقبس ({{code}})",
+        "signIn": "تسجيل الدخول إلى {{title}}",
+        "signInFailed": "فشل تسجيل الدخول إلى {{title}}",
+        "isNotSetUpOn": "لم يتم إعداد {{title}} على الخادم",
+        "signInTimedOut": "انتهت مهلة تسجيل الدخول إلى {{title}}",
+        "authenticationFailed": "فشل المصادقة: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "احفظ المضيف واتصل به للتحقق منه.",
+      "loggedInAsOn": "تم تسجيل الدخول باسم {{username}} على {{host}}",
+      "theHostAskedForMore": "طلب المضيف أكثر من كلمة مرور، مثل رمز. احفظ المضيف واتصل به لإكمال تسجيل الدخول."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "في انتظار الشبكة",
+      "couldNotOpenTheTunnel": "تعذر فتح النفق",
+      "theConnectionDropped": "انقطع الاتصال",
+      "iosStoppedThisTunnelWhile": "أوقف iOS هذا النفق بينما كان التطبيق في الخلفية. ابدأه مرة أخرى لفتحه.",
+      "connecting": "جاري الاتصال",
+      "connected": "متصل",
+      "retrying": "جاري إعادة المحاولة",
+      "waiting": "في الانتظار",
+      "failed": "فشل"
+    },
+    "gateways": {
+      "error": "خطأ",
+      "gateways": "البوابات",
+      "gatewaysCanOnlyBeChanged": "يمكن تغيير البوابات فقط في Termix على الويب.",
+      "noHandshake": "لا يوجد مصافحة",
+      "rulesMissing": "القواعد مفقودة",
+      "up": "نشط",
+      "pending": "قيد الانتظار",
+      "applying": "جارٍ التطبيق",
+      "down": "متوقف",
+      "unreachable": "غير متاح"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "لا توجد أنفاق بعد. أضف نفقًا لتوجيه منفذ من مضيف النهاية إلى هذا المضيف.",
+      "tunnel": "نفق {{value}}",
+      "removeTunnel": "إزالة النفق {{value}}",
+      "mode": "الوضع",
+      "local": "محلي",
+      "remote": "عن بُعد",
+      "dynamic": "ديناميكي",
+      "targetHost": "المضيف المستهدف",
+      "onThisHostForTunnels": "على هذا المضيف، للأنفاق التي يشغلها {{deviceWord}}",
+      "bindHost": "مضيف الربط",
+      "endpointHost": "مضيف النهاية",
+      "addAnotherHostFirstTunnels": "أضف مضيفًا آخر أولاً. تمر الأنفاق عبر مضيف محفوظ.",
+      "sourcePort": "منفذ المصدر",
+      "endpointPort": "منفذ النهاية",
+      "maxRetries": "الحد الأقصى للمحاولات",
+      "retryEveryS": "إعادة المحاولة كل (ثانية)",
+      "startOnItsOwn": "ابدأ تلقائيًا",
+      "addTunnel": "إضافة نفق",
+      "tunnelNeedsPortsFrom1": "يتطلب النفق {{value}} منافذ من 1 إلى 65535"
+    },
+    "register": {
+      "tunnels": "الأنفاق",
+      "startAndStopSavedTunnels": "بدء وإيقاف الأنفاق المحفوظة",
+      "tunnel": "نفق",
+      "tunnel2": "نفق"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "تم نسخ نقطة النهاية المحلية",
+      "tunnel": "نفق | {{sourcePort}}",
+      "portMapping": "تعيين المنافذ",
+      "connect": "اتصال",
+      "disconnect": "قطع الاتصال",
+      "cancel": "إلغاء",
+      "connected": "متصل",
+      "connecting": "جارٍ الاتصال",
+      "disconnecting": "جارٍ قطع الاتصال",
+      "error": "خطأ",
+      "retrying": "جارٍ إعادة المحاولة ({{value}}/{{value2}})",
+      "waitingS": "انتظار {{value}} ثانية",
+      "waiting": "انتظار",
+      "disconnected": "غير متصل"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "جارٍ بدء النفق على المنفذ {{sourcePort}}",
+      "connectingTunnelOnPort": "جارٍ توصيل النفق على المنفذ {{sourcePort}}",
+      "disconnectingPort": "جارٍ قطع الاتصال عن المنفذ {{sourcePort}}",
+      "cancellingPort": "جارٍ إلغاء المنفذ {{sourcePort}}",
+      "failedToTunnel": "فشل في {{action}} النفق",
+      "tunnels": "الأنفاق | {{count}} | {{value}}",
+      "loadingTunnels": "جارٍ تحميل الأنفاق…",
+      "noSshTunnelsConfiguredFor": "لم يتم تكوين أي أنفاق SSH لهذا المضيف. أضف الأنفاق من نموذج المضيف.",
+      "runOn": "تشغيل على",
+      "server": "الخادم",
+      "this": "هذا {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "تتوقف الأنفاق على هذا {{deviceWord}} عند إغلاق التطبيق. على iOS، تتوقف أيضًا بعد فترة وجيزة من انتقال التطبيق إلى الخلفية.",
+      "failedToFetchTunnelStatuses": "فشل في جلب حالات الأنفاق",
+      "thisBuildCanTOpen": "لا يمكن لهذا الإصدار فتح أنفاق على {{deviceWord}}.",
+      "sourceHostNotFound": "لم يتم العثور على مضيف المصدر",
+      "endpointHostNotFound": "لم يتم العثور على مضيف النهاية: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "الأنفاق",
+      "tunnelCount_zero": "لا توجد أنفاق",
+      "tunnelCount_one": "نفق واحد",
+      "tunnelCount_two": "نفقان",
+      "tunnelCount_few": "{{count}} أنفاق",
+      "tunnelCount_many": "{{count}} نفقًا",
+      "tunnelCount_other": "{{count}} نفق",
+      "runningOnServer": "{{connected}} قيد التشغيل على الخادم"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "أدوات بيانات الاعتماد"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "لم يتم تثبيت Docker على هذا المضيف.",
+        "dockerDidNotAnswer": "لم يستجب Docker",
+        "thatIsNotAValid": "هذا ليس اسمًا صالحًا للـ Stack"
+      }
+    },
+    "containerDetail": {
+      "stop": "إيقاف",
+      "start": "تشغيل",
+      "restart": "إعادة تشغيل",
+      "remove": "إزالة",
+      "logs": "السجلات",
+      "stats": "الإحصائيات",
+      "console": "وحدة التحكم",
+      "logsCopied": "تم نسخ السجلات",
+      "copy": "نسخ",
+      "containerIsNotRunningNo": "الحاوية لا تعمل، لا توجد إحصائيات حية.",
+      "cpu": "المعالج",
+      "memory": "الذاكرة",
+      "networkIO": "إدخال/إخراج الشبكة",
+      "blockIO": "إدخال/إخراج الكتلي",
+      "pids": "معرفات العمليات",
+      "failedToLoadLogs": "فشل في تحميل السجلات",
+      "failedToLoadStats": "فشل في تحميل الإحصائيات",
+      "noOutput": "(لا يوجد إخراج)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "جارٍ الاتصال بـ Docker...",
+    "remove": "إزالة {{name}}؟",
+    "stop": "إيقاف {{name}}؟",
+    "theContainerIsStoppedAnd": "تم إيقاف الحاوية وحذفها. ستبقى وحدات التخزين الخاصة بها.",
+    "anythingRunningInItStops": "سيتم إيقاف أي شيء يعمل داخلها.",
+    "remove2": "إزالة",
+    "stop2": "إيقاف",
+    "dockerThis": "Docker | هذا {{deviceWord}}",
+    "lookingForDocker": "جارٍ البحث عن Docker...",
+    "dockerIsNotAvailableOn": "Docker غير متاح على هذا المضيف.",
+    "noContainersFound": "لم يتم العثور على حاويات",
+    "noContainersMatchYourFilters": "لا توجد حاويات تطابق عوامل التصفية الخاصة بك",
+    "useSudo": "استخدام sudo",
+    "refresh": "تحديث",
+    "containers": "الحاويات",
+    "stacks": "الـ Stacks",
+    "searchContainers": "البحث في الحاويات...",
+    "all": "الكل",
+    "running": "يعمل",
+    "stopped": "متوقف",
+    "start": "تشغيل",
+    "restart": "إعادة تشغيل",
+    "pause": "إيقاف مؤقت",
+    "unpause": "استئناف",
+    "moreActions": "إجراءات أخرى",
+    "dockerCard": {
+      "dockerDidNotAnswer": "لم يستجب Docker",
+      "docker": "Docker",
+      "noContainers": "لا توجد حاويات"
+    },
+    "dockerConsole": {
+      "attachingTo": "جارٍ الاتصال بـ {{name}}...",
+      "consoleDisconnected": "تم قطع الاتصال بوحدة التحكم",
+      "reconnect": "إعادة الاتصال",
+      "failedToLoadTheConsole": "فشل في تحميل وحدة التحكم",
+      "thisSessionHasNoServer": "لا يوجد خادم لهذه الجلسة"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "الحاويات والسجلات والإحصائيات"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "الـ Stacks معطلة على هذا الخادم.",
+      "couldNotLoadStacks": "تعذر تحميل الـ Stacks",
+      "noStacks": "لا توجد مجموعات",
+      "composeProjectsOnThisHost": "تظهر مشاريع Compose على هذا المضيف هنا.",
+      "ofRunning": "{{running}} من أصل {{total}} قيد التشغيل",
+      "couldNotLoadTheStack": "تعذر تحميل المجموعة",
+      "services": "الخدمات",
+      "nothingIsRunning": "لا يوجد شيء قيد التشغيل.",
+      "composeFile": "ملف Compose",
+      "partlyUp": "قيد التشغيل جزئياً",
+      "notDeployed": "لم يتم النشر",
+      "running": "قيد التشغيل",
+      "stopped": "متوقف",
+      "paused": "متوقف مؤقتاً"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "هذه ليست معرف حاوية صالح",
+      "consoleFailed": "فشل وحدة التحكم",
+      "notAuthenticated": "غير مصادق عليه",
+      "consoleError": "خطأ في وحدة التحكم",
+      "connectionFailed": "فشل الاتصال"
+    },
+    "dockerDidNotAnswer": "لم يستجب Docker",
+    "failedToLoadContainers": "فشل في تحميل الحاويات",
+    "failedTo": "فشل في {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "لم يرسل الخادم أي ملف",
+        "cancelled": "تم الإلغاء",
+        "isGone": "{{path}} لم يعد موجوداً",
+        "canTGoToThe": "لا يمكن نقل {{name}} إلى سلة المهملات"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "معرف عنصر سلة المهملات غير صالح",
+        "invalidTrashMetadata": "بيانات وصفية لسلة المهملات غير صالحة",
+        "thisPathCanTBe": "لا يمكن نقل هذا المسار إلى سلة المهملات",
+        "aFileAlreadyExistsAt": "يوجد ملف بالفعل في المسار الأصلي"
+      },
+      "sftp": {
+        "commandFailed": "فشل الأمر: {{command}}",
+        "alreadyExists": "{{name}} موجود بالفعل",
+        "alreadyExistsThere": "{{path}} موجود بالفعل هناك",
+        "canTGoToThe": "لا يمكن نقل {{name}} إلى سلة المهملات: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "لم يعد المحطة مفتوحة",
+      "clearHistory": "مسح السجل",
+      "stopFollowingTheTerminal": "توقف عن متابعة المحطة",
+      "followTheTerminal": "متابعة المحطة",
+      "goToTheTerminalS": "الانتقال إلى مجلد المحطة",
+      "cdTheTerminalHere": "تغيير مسار المحطة إلى هنا",
+      "folderHistory": "سجل المجلدات",
+      "mostUsedFirstThenRecent": "الأكثر استخداماً أولاً، ثم الأحدث",
+      "noFoldersYet": "لا توجد مجلدات بعد"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "تعذر الاتصال.",
+        "couldNotSaveHowThis": "تعذر حفظ كيفية اتصال هذا المضيف",
+        "thisWayCanTOpen": "هذه الطريقة لا يمكنها فتح الملفات"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "تعذر فتح هذا المجلد",
+      "cancel": "إلغاء",
+      "noFoldersHere": "لا توجد مجلدات هنا"
+    },
+    "couldNotOpenThisFolder": "تعذر فتح هذا المجلد",
+    "couldNotSaveToThe": "تعذر الحفظ في المجلد",
+    "failed": "فشل {{label}}",
+    "uploading": "جارٍ رفع {{name}}",
+    "uploadingFiles": "جارٍ رفع {{count}} ملفات",
+    "downloadingToFilesOnMy": "جارٍ التحميل إلى الملفات، على أجهزتي، Termix",
+    "downloading": "جارٍ تنزيل {{name}}",
+    "downloadingFiles": "جارٍ تنزيل {{count}} ملفات",
+    "openALargeFile": "فتح ملف كبير؟",
+    "isBigForAEditor": "{{name}} كبير لمحرر {{deviceWord}}. قد يكون بطيئاً.",
+    "open": "فتح",
+    "thisLooksLikeABinary": "يبدو أن هذا ملف ثنائي",
+    "openItInAnotherApp": "هل تريد فتحه في تطبيق آخر بدلاً من ذلك؟",
+    "openWith": "فتح باستخدام",
+    "tooBigForTheEditor": "كبير جداً للمحرر",
+    "isOver10MbDownload": "{{name}} أكبر من 10 ميجابايت. هل تريد تنزيله بدلاً من ذلك؟",
+    "download": "تنزيل",
+    "delete": "حذف {{what}}؟",
+    "moveToTheTrash": "نقل {{what}} إلى سلة المهملات؟",
+    "thisCanTBeUndone": "لا يمكن التراجع عن هذا الإجراء.",
+    "youCanRestoreItFrom": "يمكنك استعادته من سلة المهملات.",
+    "delete2": "حذف",
+    "moveToTrash": "نقل إلى سلة المهملات",
+    "deleteForGood": "حذف نهائياً؟",
+    "deleteItForGoodInstead": "{{message}}. هل تريد حذفه نهائياً بدلاً من ذلك؟ لا يمكن التراجع عن هذا الإجراء.",
+    "deleteFailed": "فشل الحذف",
+    "connectingThroughTheServer": "جارٍ الاتصال عبر الخادم...",
+    "connectingFromThis": "جارٍ الاتصال من هذا {{deviceWord}}...",
+    "connecting": "جارٍ الاتصال...",
+    "edit": "تعديل",
+    "downloadFolder": "تنزيل المجلد",
+    "share": "مشاركة",
+    "rename": "إعادة تسمية",
+    "copyTo": "نسخ إلى",
+    "moveTo": "نقل إلى",
+    "cut": "قص",
+    "copy": "نسخ",
+    "permissions": "الصلاحيات",
+    "properties": "الخصائص",
+    "makeALinkHere": "إنشاء رابط هنا",
+    "copyPath": "نسخ المسار",
+    "pathCopied": "تم نسخ المسار",
+    "done": "تم",
+    "selectAll": "تحديد الكل",
+    "filterByName": "تصفية حسب الاسم",
+    "closeSearch": "إغلاق البحث",
+    "search": "بحث",
+    "changeSort": "تغيير الترتيب",
+    "paste": "لصق {{count}}",
+    "upload": "رفع",
+    "transfers2": "النقلات",
+    "more": "المزيد",
+    "nothingMatches": "لا توجد نتائج مطابقة",
+    "emptyFolder": "مجلد فارغ",
+    "uploadFilesOrMakeA": "ارفع الملفات أو أنشئ ملفاً جديداً.",
+    "newFolder": "مجلد جديد",
+    "newFile": "ملف جديد",
+    "select": "تحديد",
+    "hideHiddenFiles": "إخفاء الملفات المخفية",
+    "showHiddenFiles": "إظهار الملفات المخفية",
+    "trash": "سلة المهملات",
+    "folderProperties": "خصائص المجلد",
+    "refresh": "تحديث",
+    "rename2": "إعادة تسمية {{name}}",
+    "newLink": "رابط جديد",
+    "aLinkInThatPoints": "رابط في {{path}} يشير إلى {{path2}}",
+    "name": "الاسم",
+    "create": "إنشاء",
+    "copyHere": "نسخ هنا",
+    "moveHere": "نقل هنا",
+    "fileViewer": {
+      "saved": "تم حفظ {{name}}",
+      "couldNotSaveTheFile": "تعذر حفظ الملف",
+      "discardChanges": "تجاهل التغييرات؟",
+      "hasChangesThatAreNot": "{{name}} يحتوي على تغييرات غير محفوظة.",
+      "discard": "تجاهل",
+      "readOnly": "{{path}} | للقراءة فقط",
+      "find": "بحث",
+      "smallerText": "تصغير النص",
+      "biggerText": "تكبير النص",
+      "turnOffLineWrap": "إيقاف التفاف الأسطر",
+      "wrapLines": "تفاف الأسطر",
+      "save": "حفظ"
+    },
+    "hostSection": {
+      "startIn": "ابدأ في",
+      "theFolderTheFileManager": "المجلد الذي يفتح فيه مدير الملفات أولاً",
+      "files": "الملفات"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "الانتقال إلى {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "إجراءات أخرى",
+        "moreFor": "المزيد لـ {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "الصلاحيات",
+      "cancel": "إلغاء",
+      "apply": "تطبيق ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "تعذر فتحه",
+      "openWith": "فتح بـ",
+      "share": "مشاركة"
+    },
+    "propertiesView": {
+      "properties": "الخصائص",
+      "path": "المسار",
+      "type": "النوع",
+      "pointsTo": "يشير إلى",
+      "size": "الحجم",
+      "countFolderSize": "حساب حجم المجلد",
+      "permissions": "الصلاحيات",
+      "change": "تغيير",
+      "owner": "المالك",
+      "group": "المجموعة",
+      "modified": "تم التعديل",
+      "opened": "تم الفتح",
+      "linkToA": "رابط إلى {{value}}",
+      "notShownForFolders": "غير معروض للمجلدات",
+      "file": "ملف",
+      "folder": "مجلد",
+      "link": "رابط"
+    },
+    "register": {
+      "fileManager": "مدير الملفات",
+      "files": "الملفات",
+      "browseEditAndMoveFiles": "تصفح، تعديل ونقل الملفات",
+      "files2": "الملفات",
+      "fileManagerAndTransfers": "مدير الملفات والنقل"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "فشل النقل"
+      },
+      "transfersPanel": {
+        "pause": "إيقاف مؤقت",
+        "resume": "استئناف",
+        "tryAgain": "حاول مرة أخرى",
+        "open": "فتح",
+        "cancel": "إلغاء",
+        "transfers": "عمليات النقل",
+        "goingOf": "{{active}} جارية | {{done}} من {{total}}",
+        "clearFinished": "مسح المكتملة",
+        "cancelAll": "إلغاء الكل",
+        "noTransfersYet": "لا توجد عمليات نقل بعد",
+        "waiting": "في الانتظار",
+        "paused": "متوقفة مؤقتاً",
+        "done": "مكتملة",
+        "failed": "فشل",
+        "cancelled": "ملغاة"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "فشل تحميل سلة المحذوفات",
+      "restored": "تمت استعادة {{name}}",
+      "failedToRestore": "فشل في الاستعادة",
+      "failedToDelete": "فشل في الحذف",
+      "trashEmptied": "تم إفراغ سلة المهملات",
+      "failedToEmptyTrash": "فشل في إفراغ سلة المهملات",
+      "trash": "سلة المهملات",
+      "itemsAreRemovedAfterDays": "يتم حذف العناصر بعد {{retentionDays}} يومًا",
+      "close": "إغلاق",
+      "emptyTrash": "إفراغ سلة المهملات",
+      "trashIsEmpty": "سلة المهملات فارغة",
+      "restore": "استعادة {{name}}",
+      "deleteForGood": "حذف {{name}} نهائيًا"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "الآن"
+      }
+    },
+    "getting": "جاري جلب {{name}}",
+    "itemCount_zero": "لا توجد عناصر",
+    "itemCount_one": "عنصر واحد",
+    "itemCount_two": "عنصران",
+    "itemCount_few": "{{count}} عناصر",
+    "itemCount_many": "{{count}} عنصرًا",
+    "itemCount_other": "{{count}} عنصر",
+    "copiedWhat": "تم نسخ {{what}}",
+    "movedWhat": "تم نقل {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "يحتوي {{name}} على أكثر من {{limit}} ملفًا. قم بتنزيل المجلدات الأصغر حجمًا."
+    },
+    "downloadingToFilesOnMyIpad": "جاري التنزيل إلى الملفات، على iPad الخاص بي، Termix",
+    "size": "الحجم",
+    "date": "التاريخ"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "روابط الخدمات",
+      "openInHomepage": "فتح في الصفحة الرئيسية",
+      "thisWidgetOnlyShowsOn": "يظهر هذا المربع فقط في الصفحة الكاملة."
+    },
+    "register": {
+      "serviceLinks": "روابط الخدمات",
+      "homepage": "الصفحة الرئيسية"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "لم يتم تعيين أي مصدر.",
+        "couldNotLoadTheFeed": "تعذر تحميل المصدر.",
+        "theFeedIsEmpty": "المصدر فارغ.",
+        "noLocationSet": "لم يتم تعيين أي موقع.",
+        "couldNotLoadTheWeather": "تعذر تحميل حالة الطقس.",
+        "noUrlSet": "لم يتم تعيين أي عنوان URL.",
+        "couldNotLoadTheData": "تعذر تحميل البيانات.",
+        "noPictureSet": "لم يتم تعيين أي صورة.",
+        "badResponse": "استجابة غير صحيحة"
+      },
+      "services": "الخدمات",
+      "service": "خدمة",
+      "serviceLinks": "روابط الخدمات",
+      "bookmarks": "الإشارات المرجعية",
+      "links2": "الروابط",
+      "search": "بحث",
+      "clock": "الساعة",
+      "countdown": "العد التنازلي",
+      "calendar": "التقويم",
+      "notes": "الملاحظات",
+      "banner": "اللافتة",
+      "ping": "Ping",
+      "host": "المضيف",
+      "hosts": "المضيفين",
+      "quickConnect": "الاتصال السريع",
+      "feed": "المصدر",
+      "weather": "الطقس",
+      "customApi": "واجهة برمجة التطبيقات المخصصة",
+      "picture": "الصورة",
+      "widget": "المربع",
+      "links": {
+        "noServicesYet": "لا توجد خدمات بعد.",
+        "noLinkSet": "لم يتم تعيين أي رابط.",
+        "noLinksYet": "لا توجد روابط بعد.",
+        "noSearchEngineSet": "لم يتم تعيين أي محرك بحث.",
+        "search": "بحث",
+        "noShortcutsYet": "لا توجد اختصارات بعد.",
+        "search2": "البحث في {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "تعذر فتح الرابط"
+      },
+      "status": {
+        "noUrlsYet": "لا توجد عناوين URL بعد.",
+        "down": "متوقف",
+        "noHostsPicked": "لم يتم اختيار أي مضيفين."
+      },
+      "text": {
+        "noNotesYet": "لا توجد ملاحظات بعد.",
+        "noTextYet": "لا يوجد نص بعد."
+      },
+      "time": {
+        "noDateSet": "لم يتم تعيين تاريخ.",
+        "timeIsUp": "انتهى الوقت"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "تعذر حفظ الإعدادات الافتراضية",
+    "couldNotResetTheDefault": "تعذر إعادة تعيين الإعدادات الافتراضية",
+    "back": "رجوع",
+    "hostDefaults": "الإعدادات الافتراضية للمضيفين",
+    "newHostsStartFromThese": "تبدأ المضيفين الجدد من هذه الإعدادات",
+    "managedOnTheServer": "يتم إدارتها على الخادم",
+    "defaultsForThisServerAre": "الإعدادات الافتراضية لهذا الخادم محددة في تطبيق الويب.",
+    "level": "المستوى",
+    "yourDefaultsOrOneFolder": "إعداداتك الافتراضية، أو إعدادات مجلد واحد",
+    "myDefaults": "إعداداتي الافتراضية",
+    "theServerSets": " يحدد الخادم {{adminCount}}.",
+    "aFolderWinsOverYour": "تتفوق إعدادات المجلد على إعداداتك الافتراضية، وتتفوق إعداداتك الافتراضية على إعدادات الخادم. يحتفظ المضيف بأي قيمة قمت بتعيينها عليه بنفسك.{{value}}",
+    "save": "حفظ",
+    "authentication": "المصادقة",
+    "none": "لا شيء",
+    "reset": "إعادة تعيين",
+    "model": {
+      "username": "اسم المستخدم",
+      "sshPort": "منفذ SSH",
+      "authentication": "المصادقة",
+      "aSavedCredentialForNew": "بيانات اعتماد محفوظة للمضيفين الجدد",
+      "forceKeyboardInteractive": "فرض التفاعل عبر لوحة المفاتيح",
+      "keepaliveInterval": "فترة الحفاظ على الاتصال",
+      "seconds0TurnsItOff": "ثوانٍ، 0 لإيقافها",
+      "keepaliveTries": "محاولات الحفاظ على الاتصال",
+      "allowOldAlgorithms": "السماح بالخوارزميات القديمة",
+      "agentForwarding": "توجيه الوكيل",
+      "environmentVariables": "متغيرات البيئة",
+      "oneNameValuePerLine": "اسم=قيمة واحد لكل سطر",
+      "checkIfTheHostIs": "التحقق مما إذا كان المضيف قيد التشغيل",
+      "checkInterval": "فترة التحقق",
+      "secondsEmptyUsesTheServer": "ثوانٍ، فارغ يستخدم إعداد الخادم",
+      "socks5Proxy": "وكيل SOCKS5",
+      "setInTheWebApp": "محدد في تطبيق الويب",
+      "jumpHosts": "مضيفين القفز",
+      "portKnocking": "نقر المنافذ",
+      "notSet": "غير محدد",
+      "fromTheServer": "من الخادم",
+      "fromYourDefaults": "من إعداداتك الافتراضية",
+      "builtIn": "مدمج"
+    },
+    "register": {
+      "hostDefaults": "الإعدادات الافتراضية للمضيفين",
+      "portUserAndOptionsFor": "المنفذ والمستخدم والخيارات للمضيفين الجدد"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "لا توجد بيانات بعد",
+      "cpu": "المعالج",
+      "memory": "الذاكرة",
+      "disk": "القرص",
+      "history": "السجل",
+      "loading": "جارٍ التحميل..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "تعذر قراءة المقاييس",
+      "metrics": "المقاييس",
+      "cpu": "المعالج",
+      "memory": "الذاكرة",
+      "disk": "القرص",
+      "noRecentSampleOpenThe": "لا توجد عينة حديثة. افتح مقاييس المضيف لبدء أخذ عينة."
+    },
+    "register": {
+      "enableMetrics": "تفعيل المقاييس",
+      "cpuMemoryDiskAndNetwork": "وحدة المعالجة المركزية، والذاكرة، والقرص، والشبكة عبر SSH",
+      "hostMetrics": "مقاييس المضيف",
+      "cpu": "وحدة المعالجة المركزية",
+      "ram": "الذاكرة العشوائية",
+      "metrics": "المقاييس",
+      "cpuMemoryDiskAndNetwork2": "وحدة المعالجة المركزية، والذاكرة، والقرص، والشبكة"
+    },
+    "serverStats": {
+      "hostMetricsThis": "مقاييس المضيف | هذا {{deviceWord}}",
+      "hostMetrics": "مقاييس المضيف",
+      "ran": "تم تشغيل {{name}}",
+      "loadingMetrics": "جارٍ تحميل المقاييس...",
+      "couldNotReadMetricsFrom": "تعذر قراءة المقاييس من هذا المضيف",
+      "failedToLoadMetrics": "فشل في تحميل المقاييس",
+      "thisSessionHasNoServer": "لا يحتوي هذا الجلسة على خادم",
+      "twoFactorRequiredForThis": "يتطلب إحصائيات هذا المصادقة الثنائية.",
+      "failedToStartMetrics": "فشل في بدء المقاييس",
+      "failedToRun": "فشل في تشغيل {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "وحدة المعالجة المركزية",
+        "perCore": "لكل نواة: {{value}}",
+        "cores": "النوى",
+        "load": "الحمل",
+        "user": "المستخدم",
+        "system": "النظام",
+        "ioWait": "انتظار الإدخال/الإخراج",
+        "steal": "مستولى"
+      },
+      "diskWidget": {
+        "disk": "القرص {{mount}}",
+        "disk2": "القرص",
+        "used": "مستخدم",
+        "total": "الإجمالي",
+        "free": "متاح"
+      },
+      "firewallWidget": {
+        "firewall": "جدار الحماية",
+        "rules": "{{type}} | {{ruleCount}} قواعد",
+        "noFirewallDetected": "لم يتم اكتشاف جدار حماية"
+      },
+      "gpuWidget": {
+        "gpus": "وحدات معالجة الرسومات ({{count}})",
+        "gpu": "وحدة معالجة الرسومات",
+        "memory": "الذاكرة",
+        "temp": "درجة الحرارة",
+        "power": "الطاقة",
+        "fan": "المروحة"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "نشاط تسجيل الدخول",
+        "noLoginActivityRecorded": "لم يتم تسجيل أي نشاط لتسجيل الدخول",
+        "logins": "عمليات تسجيل الدخول",
+        "uniqueIps": "عناوين IP الفريدة",
+        "failed": "فشل",
+        "recent": "حديث"
+      },
+      "memoryWidget": {
+        "memory": "الذاكرة",
+        "used": "مستخدم",
+        "total": "الإجمالي",
+        "cached": "مخزنة مؤقتاً",
+        "free": "متاح"
+      },
+      "networkWidget": {
+        "network": "الشبكة",
+        "noInterfaces": "لا توجد واجهات",
+        "up": "صاعد",
+        "down": "هابط"
+      },
+      "portsWidget": {
+        "listeningPorts": "المنافذ المستمعة",
+        "noListeningPorts": "لا توجد منافذ مستمعة"
+      },
+      "processesWidget": {
+        "sortBy": "ترتيب حسب {{label}}",
+        "processes": "العمليات",
+        "running": "{{value}} قيد التشغيل | {{total}}",
+        "noProcessData": "لا توجد بيانات عن العمليات",
+        "cpu": "% وحدة المعالجة المركزية",
+        "mem": "% الذاكرة",
+        "command": "الأمر"
+      },
+      "systemWidget": {
+        "system": "النظام",
+        "hostname": "اسم المضيف",
+        "os": "نظام التشغيل",
+        "kernel": "النواة",
+        "arch": "البنية",
+        "noSystemInfo": "لا توجد معلومات عن النظام"
+      },
+      "temperatureWidget": {
+        "temperature": "درجة الحرارة"
+      },
+      "uptimeWidget": {
+        "uptime": "وقت التشغيل"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "تم النسخ مع كلمة المرور",
+      "copiedTheLink": "تم نسخ الرابط",
+      "shareHost": "مشاركة المضيف",
+      "thatHostNoLongerExists": "هذا المضيف لم يعد موجوداً",
+      "scanThisInTermixOn": "امسح هذا في Termix على {{deviceWord}} آخر، تحت الاستيراد والتصدير. يحتوي الرمز على العنوان والمنفذ والمستخدم. لا يحتوي على كلمة مرور أو مفتاح.",
+      "copyLink": "نسخ الرابط",
+      "copyLinkWithPassword": "نسخ الرابط مع كلمة المرور"
+    },
+    "includePasswordsAndKeys": "تضمين كلمات المرور والمفاتيح؟",
+    "anyoneWhoGetsThisFile": "يمكن لأي شخص يحصل على هذا الملف تسجيل الدخول إلى هذه المضيفات. احتفظ به بأمان.",
+    "includeThem": "تضمينها",
+    "pickAtLeastOneHost": "اختر مضيفاً واحداً على الأقل",
+    "couldNotMakeTheFile": "تعذر إنشاء الملف",
+    "copiedToTheClipboard": "تم النسخ إلى الحافظة",
+    "importAndExport": "الاستيراد والتصدير",
+    "moveHostsInAndOut": "نقل المضيفات داخلاً وخارجاً",
+    "import": "استيراد",
+    "aTermixHostFileAn": "ملف مضيف Termix، أو ملف تكوين SSH، أو رابط مضيف أو رمز QR من {{deviceWord}} آخر.",
+    "export": "تصدير",
+    "allHosts": "جميع المضيفات",
+    "picked": "تم اختيار {{size}}",
+    "pickHosts": "اختر المضيفات",
+    "includePasswordsAndKeys2": "تضمين كلمات المرور والمفاتيح",
+    "offMakesAFileSafe": "الإيقاف يجعل الملف آمناً للمشاركة. المضيفات التي تستخدم بيانات اعتماد محفوظة تشير إليها بالاسم",
+    "shareAFile": "مشاركة ملف",
+    "copy": "نسخ",
+    "importPanel": {
+      "couldNotReadThat": "تعذر قراءة ذلك",
+      "couldNotReadThatFile": "تعذر قراءة ذلك الملف",
+      "importFailed": "فشل الاستيراد",
+      "chooseAFile": "اختر ملفاً",
+      "paste": "لصق",
+      "scanACode": "مسح رمز",
+      "couldNotBeRead": "تعذر قراءة {{count}}",
+      "updateHostsThatExist": "تحديث المضيفات الموجودة",
+      "sameAddressPortAndUser": "نفس العنوان والمنفذ والمستخدم. وإلا سيتم تخطيها",
+      "cancel": "إلغاء",
+      "import": "استيراد",
+      "andMore": "و{{value}} أخرى"
+    },
+    "qrCode": {
+      "qrCode": "رمز QR"
+    },
+    "register": {
+      "importAndExport": "الاستيراد والتصدير",
+      "moveHostsInOrOut": "نقل المضيفات داخلاً أو خارجاً باستخدام ملف أو رمز QR",
+      "shareHost": "مشاركة المضيف"
+    },
+    "scanSheet": {
+      "scanAHostCode": "مسح رمز المضيف",
+      "pointTheCameraAtA": "وجّه الكاميرا نحو رمز QR لمضيف Termix.",
+      "termixNeedsTheCameraTo": "يحتاج Termix إلى الكاميرا لمسح الرمز. لا يتم تسجيل أي شيء.",
+      "allowTheCamera": "السماح بالكاميرا"
+    },
+    "read": {
+      "termixFile": "ملف Termix",
+      "sshConfig": "تكوين SSH",
+      "thereIsNothingToImport": "لا يوجد شيء للاستيراد",
+      "thatIsNotATermix": "هذا ليس رابط مضيف Termix",
+      "linkHost": "مضيف واحد: {{name}}",
+      "sourceHosts_zero": "{{what}} بدون مضيفين",
+      "sourceHosts_one": "{{what}} بمضيف واحد",
+      "sourceHosts_two": "{{what}} بمضيفين",
+      "sourceHosts_few": "{{what}} بـ {{count}} مضيفين",
+      "sourceHosts_many": "{{what}} بـ {{count}} مضيفًا",
+      "sourceHosts_other": "{{what}} بـ {{count}} مضيف"
+    },
+    "saveYourTermixHosts": "احفظ مضيفي Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "تم",
+      "rejected": "مرفوض",
+      "approvals": "الموافقات",
+      "nothingIsWaiting": "لا يوجد شيء في الانتظار",
+      "actionsARuleHoldsFor": "تظهر هنا الإجراءات التي تتطلب موافقة وفقًا للقواعد.",
+      "approveAndRun": "وافق ونفّذ",
+      "reject": "رفض",
+      "couldNotLoadApprovals": "تعذر تحميل الموافقات",
+      "couldNotDecide": "تعذر اتخاذ القرار"
+    },
+    "approvalsCard": {
+      "approved": "تمت الموافقة",
+      "rejected": "مرفوض",
+      "waitingForApproval": "في انتظار الموافقة",
+      "approve": "موافقة",
+      "reject": "رفض",
+      "couldNotDecide": "تعذر اتخاذ القرار",
+      "seeAll": "عرض الكل"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "لا يمكن التراجع عن هذا. هل تريد تنفيذه؟",
+      "run": "تنفيذ",
+      "sentForApproval": "تم الإرسال للموافقة",
+      "target": "الهدف",
+      "theItemOnTheHost": "العنصر على المضيف، مثل حاوية",
+      "dryRun": "تشغيل تجريبي",
+      "back": "رجوع",
+      "actions": "الإجراءات",
+      "noActionsForThisHost": "لا توجد إجراءات لهذا المضيف",
+      "turnOnAPluginLike": "فعّل إضافة مثل Docker أو Services لهذا المضيف على الخادم.",
+      "destructive": "تدميري",
+      "changes": "التغييرات",
+      "theActionCouldNotRun": "تعذر تنفيذ الإجراء",
+      "couldNotLoadActions": "تعذر تحميل الإجراءات"
+    },
+    "register": {
+      "actions": "الإجراءات",
+      "waitingForApproval": "في انتظار الموافقة",
+      "approvals": "الموافقات",
+      "actionsWaitingForAPerson": "إجراءات في انتظار موافقة شخص",
+      "runHistory": "سجل التنفيذ",
+      "everyActionAnyoneRanFrom": "كل إجراء نفذه أي شخص، من أي جهاز"
+    },
+    "runHistory": {
+      "cancelThisRun": "هل تريد إلغاء هذا التنفيذ؟",
+      "cancelRun": "إلغاء التنفيذ",
+      "keep": "إبقاء",
+      "undoThisRun": "هل تريد التراجع عن هذا التنفيذ؟",
+      "thisRunsTheActionS": "هذا ينفذ التراجع عن الإجراء بنفس المدخلات.",
+      "undo": "تراجع",
+      "cancelled": "ملغي",
+      "itAlreadyFinished": "لقد انتهى بالفعل",
+      "done": "تم",
+      "runHistory": "سجل التنفيذ",
+      "nothingHasRunYet": "لم يتم تنفيذ أي شيء بعد",
+      "dryRun": "تشغيل تجريبي",
+      "cancel": "إلغاء",
+      "couldNotLoadHistory": "تعذر تحميل السجل",
+      "couldNotCancel": "تعذر الإلغاء",
+      "couldNotUndo": "تعذر التراجع"
+    },
+    "api": {
+      "needsApproval": "يتطلب موافقة",
+      "needsSignIn": "يتطلب تسجيل الدخول",
+      "done": "تم",
+      "failed": "فشل",
+      "running": "جارٍ التشغيل",
+      "interrupted": "تم الإيقاف",
+      "rejected": "مرفوض",
+      "cancelled": "ملغي",
+      "expired": "منتهي الصلاحية"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "تفعيل {{value}}",
+      "moreSettingsForThisAre": "توجد المزيد من الإعدادات الخاصة بذلك في تطبيق Termix على الويب.",
+      "pluginHostSettings": "إعدادات مضيف الإضافة"
+    },
+    "fields": {
+      "mustBeANumber": "يجب أن يكون {{field}} رقماً",
+      "mustBeAtLeast": "يجب أن يكون {{field}} على الأقل {{min}}",
+      "mustBeAtMost": "يجب أن يكون {{field}} على الأكثر {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "اربط بخادم لاستخدامه",
+      "runsOnYourTermixServer": "يعمل {{name}} على خادم Termix الخاص بك."
+    },
+    "pluginWebView": {
+      "canTLoad": "تعذر تحميل {{name}}",
+      "theServerDidNotSend": "لم يرسل الخادم الإضافة. تأكد من أنه يعمل ثم حاول مرة أخرى.",
+      "openThisLink": "فتح هذا الرابط؟",
+      "open": "فتح",
+      "needsANewerVersionOf": "يتطلب إصداراً أحدث من التطبيق",
+      "usesPartsOfTermixThis": "تستخدم {{name}} أجزاءً من Termix غير متوفرة في هذا التطبيق بعد.",
+      "didNotStart": "لم يبدأ {{name}}",
+      "thisScreenIsNotIn": "هذه الشاشة غير موجودة في إصدار الإضافة الموجود على الخادم.",
+      "thePluginHitAnError": "واجهت الإضافة خطأً أثناء البدء.",
+      "youReOffline": "أنت غير متصل بالإنترنت",
+      "runsOnYourServerSo": "يعمل {{name}} على خادمك، لذا يحتاج إلى اتصال. سيعود للفتح عند استعادة اتصالك بالإنترنت.",
+      "tryAgain": "حاول مرة أخرى"
+    },
+    "shell": {
+      "thatHostIsNotOn": "هذا المضيف غير موجود على هذا {{deviceWord}} بعد.",
+      "theAppCanTOpen": "لا يمكن للتطبيق فتح ذلك من هنا.",
+      "thatHostIsNotOn2": "هذا المضيف غير موجود على هذا {{deviceWord}} بعد."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "كلمة المرور",
+      "unchangedIfBlank": "يبقى دون تغيير إذا كان فارغاً",
+      "port": "المنفذ",
+      "domain": "النطاق",
+      "displaySoundAndClipboardSettings": "إعدادات العرض والصوت ولوحة القصاصات موجودة في تطبيق Termix على الويب.",
+      "portMustBeFrom1": "يجب أن يكون منفذ {{label}} بين 1 و 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "انقطع اتصال سطح المكتب البعيد",
+        "signIn": "تسجيل الدخول إلى {{label}}",
+        "itWillNotBeSaved": "{{error}} لن يتم الحفظ.",
+        "enterTheLoginForIt": "أدخل بيانات تسجيل الدخول لـ {{title}}. لن يتم حفظها.",
+        "reconnecting": "جارٍ إعادة الاتصال بـ {{label}}",
+        "connecting": "جارٍ الاتصال بـ {{label}}",
+        "connectionFailed": "فشل الاتصال",
+        "disconnected": "غير متصل",
+        "reconnect": "إعادة الاتصال",
+        "connectThroughTheServer": "الاتصال عبر الخادم",
+        "pasteToRemote": "لصق في الجهاز البعيد",
+        "typeClipboard": "نسخ النص من لوحة القصاصات",
+        "copyRemoteClipboard": "نسخ من لوحة قصاصات الجهاز البعيد",
+        "theComputerSCertificateWas": "لم يتم الوثوق بشهادة الكمبيوتر.",
+        "thatLoginWasRefusedTry": "تم رفض تسجيل الدخول هذا. حاول مرة أخرى."
+      },
+      "target": {
+        "trustThisComputer": "الوثوق بهذا الكمبيوتر؟",
+        "theCanTCheckS": "لا يمكن لـ {{deviceWord}} التحقق من شهادة {{hostName}}. تأكد من تطابق بصمة الإصبع هذه مع تلك الموجودة على الكمبيوتر قبل المتابعة.\n\n{{fingerprint}}",
+        "trustAndConnect": "الوثوق والاتصال",
+        "certificateChanged": "تغيرت الشهادة",
+        "showsAnotherCertificateThanLast": "يظهر {{hostName}} شهادة مختلفة عن المرة الأخيرة. يحدث ذلك بعد إنشاء الكمبيوتر لشهادة جديدة، أو عندما يقوم شخص ما بالاستماع في المنتصف.\n\nبصمة الإصبع الجديدة:\n{{fingerprint}}",
+        "trustTheNewOne": "الوثوق بالجديدة"
+      }
+    },
+    "register": {
+      "remoteDesktop": "سطح المكتب البعيد",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "تم",
+      "keyboard": "لوحة المفاتيح",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "الإعدادات",
+      "remoteSettings": "إعدادات عن بُعد",
+      "mouseMode": "وضع الماوس",
+      "touch": "اللمس",
+      "trackpad": "لوحة التتبع",
+      "tapWhereYouWantTo": "انقر حيث تريد النقر. اضغط مطولاً للنقر بزر الماوس الأيمن، واسحب للسحب.",
+      "dragToMoveThePointer": "اسحب لتحريك المؤشر. انقر للنقر، وانقر بإصبعين للنقر بزر الماوس الأيمن، وانقر ثم اسحب للسحب.",
+      "zoomXPinchAnywhereTo": "التكبير: {{value}}x. اضغط بإصبعين للتكبير في أي مكان",
+      "reset": "إعادة تعيين",
+      "cancel": "إلغاء",
+      "connect": "اتصال",
+      "username": "اسم المستخدم",
+      "domainOptional": "النطاق (اختياري)",
+      "domain": "النطاق",
+      "password": "كلمة المرور",
+      "leftArrow": "سهم يسار",
+      "upArrow": "سهم فوق",
+      "downArrow": "سهم تحت",
+      "rightArrow": "سهم يمين",
+      "rdpSignIn": "تسجيل الدخول عبر RDP"
+    },
+    "theRemoteDesktopDropped": "انقطع اتصال سطح المكتب عن بُعد",
+    "theyWillNotBeSaved": "{{errorMessage}} لن يتم حفظها.",
+    "enterCredentialsForTheyWill": "أدخل بيانات الاعتماد لـ {{title}}. لن يتم حفظها.",
+    "connecting": "جاري الاتصال",
+    "connectionFailed": "فشل الاتصال",
+    "disconnected": "غير متصل",
+    "reconnect": "إعادة الاتصال",
+    "route": {
+      "thisHostCanTOpen": "لا يمكن لهذا المضيف فتح سطح مكتب عن بُعد من هنا."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "تم الحظر بواسطة التطبيق"
+    },
+    "failedToStartRemoteSession": "فشل بدء الجلسة عن بُعد",
+    "thatLoginWasRefusedTry": "تم رفض تسجيل الدخول. حاول مرة أخرى.",
+    "theRemoteRefusedTheSaved": "رفض الطرف البعيد بيانات تسجيل الدخول المحفوظة. تحقق من تسجيل الدخول عبر RDP على هذا المضيف.",
+    "remoteSessionFailed": "فشلت الجلسة عن بُعد",
+    "remoteSessionReturnedAnInvalid": "أرجعت الجلسة عن بُعد رسالة غير صالحة",
+    "failedToLoadTheRemote": "فشل تحميل عميل سطح المكتب عن بُعد"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "لا يوجد سجل",
+      "thisHostDoesNotKeep": "لا يحتفظ هذا المضيف بسجل systemd.",
+      "all": "الكل",
+      "warnings": "تحذيرات",
+      "errors": "أخطاء",
+      "stop": "إيقاف",
+      "follow": "متابعة",
+      "nothingLogged": "لم يتم تسجيل أي شيء",
+      "tryAnotherLevel": "جرب مستوى آخر.",
+      "couldNotReadTheJournal": "تعذر قراءة السجل"
+    },
+    "register": {
+      "services": "الخدمات",
+      "startStopAndReadLogs": "بدء، إيقاف، وقراءة السجلات"
+    },
+    "readingServices": "قراءة الخدمات...",
+    "thisHostHasNoSystemd": "لا يحتوي هذا المضيف على systemd أو OpenRC.",
+    "noServicesMatch": "لا توجد خدمات مطابقة",
+    "noServicesFound": "لم يتم العثور على خدمات",
+    "services": "الخدمات",
+    "journal": "السجل",
+    "searchServices": "البحث في الخدمات...",
+    "all": "الكل",
+    "running": "يعمل",
+    "failed": "فشل ({{failed}})",
+    "failed2": "فشل",
+    "servicesCard": {
+      "services": "الخدمات",
+      "noSystemdOrOpenrc": "لا يوجد systemd أو OpenRC",
+      "failed": "{{failed}} فشلت",
+      "allRunning": "الكل يعمل",
+      "couldNotReadServices": "تعذر قراءة الخدمات"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "يبقى متوقفاً حتى يتم تشغيله مرة أخرى أو إعادة تشغيل المضيف.",
+      "itStopsForAMoment": "يتوقف للحظة ثم يعمل مرة أخرى.",
+      "stop": "إيقاف",
+      "restart": "إعادة تشغيل",
+      "is": "{{name}} في حالة {{state}}",
+      "start": "تشغيل",
+      "journal": "السجل",
+      "couldNotReadTheService": "تعذر قراءة الخدمة",
+      "couldNot": "تعذر {{action}} {{name}}",
+      "startsAtBoot": "يبدأ عند الإقلاع",
+      "mainPid": "معرف العملية الرئيسي",
+      "activeSince": "نشط منذ",
+      "unitFile": "ملف الوحدة",
+      "notSet": "[غير مضبوط]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "غير مسجل الدخول",
+        "followFailed": "فشل المتابعة",
+        "connectionFailed": "فشل الاتصال"
+      }
+    },
+    "couldNotReadServices": "تعذر قراءة الخدمات",
+    "services2": "الخدمات{{where}}",
+    "title": "الخدمات",
+    "failedCount": "{{count}} فشلت"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "مشاركة الجلسة",
+      "shareLink": "رابط المشاركة"
+    },
+    "shareSessionView": {
+      "canWatch": "يمكن المشاهدة",
+      "canType": "يمكن الكتابة",
+      "n1Hour": "ساعة واحدة",
+      "n8Hours": "8 ساعات",
+      "n1Day": "يوم واحد",
+      "n7Days": "7 أيام",
+      "never": "أبداً",
+      "shareSession": "مشاركة الجلسة",
+      "anyoneWithTheLinkCan": "يمكن لأي شخص لديه الرابط فتح هذا الطرفي أثناء تشغيله. يمكنك إلغاء الروابط في Termix.",
+      "peopleWithTheLink": "الأشخاص الذين لديهم الرابط",
+      "expiresAfter": "تنتهي صلاحيتها بعد",
+      "link": "الرابط",
+      "copy": "نسخ",
+      "share": "مشاركة",
+      "makeLink": "إنشاء رابط",
+      "theServerGaveNoLink": "لم يقدم الخادم أي رابط",
+      "couldNotMakeALink": "تعذر إنشاء رابط",
+      "linkCopied": "تم نسخ الرابط"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "بدون مجلد"
+    },
+    "hostPicker": {
+      "selectNone": "عدم تحديد أي",
+      "selectAll": "تحديد الكل",
+      "done": "تم"
+    },
+    "register": {
+      "snippets": "المقتطفات",
+      "snippets2": "المقتطفات",
+      "savedCommandsToRunOn": "أوامر محفوظة للتشغيل على أي مضيف"
+    },
+    "runHosts": {
+      "noWayToReachThis": "لا توجد طريقة للوصول إلى هذا المضيف من هنا",
+      "exitedWith": "انتهى برمز الخروج {{exitCode}}",
+      "thisCanTRunIt": "لا يمكن لهذا {{deviceWord}} تشغيله",
+      "noServerIsLinked": "لا يوجد خادم مرتبط"
+    },
+    "runOnHostsSheet": {
+      "run": "تشغيل",
+      "run2": "تشغيل \"{{name}}\"",
+      "runsOverSshOnEach": "يتم التشغيل عبر SSH على كل مضيف. لن يتم فتح أي طرفية.",
+      "close": "إغلاق",
+      "hosts": "المضيفات",
+      "pickHosts": "اختر المضيفات",
+      "workedFailed": "{{value}} نجح، {{failed}} فشل",
+      "runOn2": "تشغيل على",
+      "runOn_zero": "تشغيل {{name}} على {{count}} مضيف؟",
+      "runOn_one": "تشغيل {{name}} على مضيف واحد؟",
+      "runOn_two": "تشغيل {{name}} على {{count}} مضيفين؟",
+      "runOn_few": "تشغيل {{name}} على {{count}} مضيفات؟",
+      "runOn_many": "تشغيل {{name}} على {{count}} مضيفاً؟",
+      "runOn_other": "تشغيل {{name}} على {{count}} مضيف؟",
+      "hostsPicked_zero": "تم اختيار {{count}} مضيف",
+      "hostsPicked_one": "تم اختيار مضيف واحد",
+      "hostsPicked_two": "تم اختيار {{count}} مضيفين",
+      "hostsPicked_few": "تم اختيار {{count}} مضيفات",
+      "hostsPicked_many": "تم اختيار {{count}} مضيفاً",
+      "hostsPicked_other": "تم اختيار {{count}} مضيف"
+    },
+    "snippetsBar": {
+      "searchSnippets": "البحث في المقتطفات",
+      "pastesTheNote": "يلصق الملاحظة",
+      "runsTheSnippet": "يشغل المقتطف",
+      "noSnippetsMatch": "لا توجد مقتطفات مطابقة",
+      "noSnippetsYet": "لا توجد مقتطفات بعد",
+      "addSnippetsInSettingsSnippets": "أضف مقتطفات في الإعدادات، المقتطفات",
+      "run": "تشغيل",
+      "insertWithoutRunning": "إدراج دون تشغيل",
+      "copy": "نسخ"
+    },
+    "snippetsCard": {
+      "snippets": "المقتطفات",
+      "run": "تشغيل {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "لا توجد مقتطفات للتصدير",
+      "couldNotMakeTheFile": "تعذر إنشاء الملف",
+      "copiedToTheClipboard": "تم النسخ إلى الحافظة",
+      "couldNotImport": "تعذر الاستيراد",
+      "couldNotReadThatFile": "تعذر قراءة ذلك الملف",
+      "importAndExport": "الاستيراد والتصدير",
+      "theSameFileTheWeb": "نفس الملف الذي تستخدمه تطبيق الويب.",
+      "export": "تصدير",
+      "shareAFile": "مشاركة ملف",
+      "copy": "نسخ",
+      "import": "استيراد",
+      "updateSnippetsThatExist": "تحديث المقتطفات الموجودة",
+      "sameNameInTheSame": "نفس الاسم في نفس المجلد. وإلا سيتم تخطيها",
+      "chooseAFile": "اختر ملفاً",
+      "paste": "لصق",
+      "saveYourSnippets": "احفظ مقتطفاتك"
+    },
+    "useSnippetRunner": {
+      "run": "تشغيل {{name}}؟",
+      "run2": "تشغيل",
+      "fillInTheValuesFor": "املأ القيم لهذا المقتطف.",
+      "cancel": "إلغاء",
+      "insert": "إدراج",
+      "noTerminalIsOpen": "لا توجد طرفية مفتوحة"
+    },
+    "variables": {
+      "input": "إدخال {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "هذا ليس ملف JSON صالح",
+      "theFileNeedsASnippets": "يحتاج الملف إلى قائمة بالمقتطفات أو المجلدات",
+      "snippetNameAndContentAre": "المقتطف {{value}}: الاسم والمحتوى مطلوبان",
+      "folder": "المجلد {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "جاري تحميل أجهزة Tailscale…",
+      "searchTailscaleDevices": "البحث في أجهزة Tailscale…",
+      "searchTailscaleDevices2": "البحث عن أجهزة Tailscale",
+      "clearDeviceSearch": "مسح بحث الأجهزة",
+      "refreshTailscaleDevices": "تحديث أجهزة Tailscale",
+      "device": "الجهاز",
+      "noTailnetAddress": "لا يوجد عنوان tailnet",
+      "tailscaleDevice": "جهاز Tailscale",
+      "tailscaleDevices": "أجهزة Tailscale",
+      "addAHostThatConnects": "أضف مضيفًا يتصل عبر Tailscale SSH.",
+      "username": "اسم المستخدم",
+      "sshUsernameFor": "اسم مستخدم SSH لـ {{value}}",
+      "addHost": "إضافة مضيف",
+      "noTailscaleDevicesMatchYour": "لا توجد أجهزة Tailscale تطابق بحثك.",
+      "noTailscaleDevicesFound": "لم يتم العثور على أجهزة Tailscale.",
+      "noTailscaleApiKeyIs": "لم يتم تكوين مفتاح API لـ Tailscale على هذا الخادم. اطلب من المسؤول إضافته.",
+      "youDoNotHavePermission": "ليس لديك إذن لعرض قائمة أجهزة Tailscale.",
+      "couldNotLoadTailscaleDevices": "تعذر تحميل أجهزة Tailscale. أعد التحميل للمحاولة مرة أخرى.",
+      "tailscaleIsUnavailableOnThis": "Tailscale غير متاح على هذا الخادم."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "جارٍ إعادة الاتصال | المحاولة {{attempt}}",
+      "reconnectingInSTry": "جارٍ إعادة الاتصال خلال {{secs}} ثانية | المحاولة {{attempt}}",
+      "offlineWaitingForNetwork": "غير متصل، في انتظار الشبكة",
+      "sendToTheNewShell": "إرسال {{what}} إلى shell الجديد؟",
+      "reconnectNow": "إعادة الاتصال الآن",
+      "send": "إرسال",
+      "discard": "تجاهل",
+      "typedChars_zero": "لا توجد أحرف مكتوبة",
+      "typedChars_one": "حرف واحد مكتوب",
+      "typedChars_two": "حرفان مكتوبان",
+      "typedChars_few": "{{count}} أحرف مكتوبة",
+      "typedChars_many": "{{count}} حرفًا مكتوبًا",
+      "typedChars_other": "{{count}} حرف مكتوب",
+      "waiting": "{{what}} في الانتظار"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "تم نسخ سجل الاتصال",
+      "connectionLog": "سجل الاتصال",
+      "copyItIntoABug": "انسخه إلى تقرير خطأ. يتم استبعاد العناوين وأسماء المستخدمين.",
+      "copy": "نسخ"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "مسح السجل لهذا المضيف؟",
+        "clear": "مسح",
+        "searchHistory": "البحث في السجل",
+        "typesTheCommandWithoutRunning": "يكتب الأمر دون تنفيذه",
+        "noCommandsMatch": "لا توجد أوامر مطابقة",
+        "noHistoryYet": "لا يوجد سجل بعد",
+        "commandsYouRunOnThis": "تظهر هنا الأوامر التي تنفذها على هذا المضيف",
+        "run": "تنفيذ",
+        "typeWithoutRunning": "الكتابة دون التنفيذ",
+        "copy": "نسخ",
+        "delete": "حذف",
+        "historyCleared": "تم مسح السجل"
+      },
+      "suggestionStrip": {
+        "use": "استخدام {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "إعداد التطبيق",
+      "delete": "حذف (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "عنوان التبويب من shell",
+      "programsCanSetTheTab": "يمكن للبرامج تعيين عنوان التبويب",
+      "openTmux": "فتح tmux",
+      "attachToATmuxSession": "الارتباط بجلسة tmux، أو بدء جلسة جديدة",
+      "reconnectOnDrop": "إعادة الاتصال عند الانقطاع",
+      "keepTabOpenOnExit": "إبقاء التبويب مفتوحًا عند الخروج",
+      "pressEnterToConnectAgain": "اضغط Enter للاتصال مرة أخرى",
+      "saveCommandHistory": "حفظ سجل الأوامر",
+      "offerToFillPasswordPrompts": "اقتراح ملء مطالبات كلمة المرور",
+      "offerToFillSudoPrompts": "اقتراح ملء مطالبات sudo",
+      "usesTheSudoPasswordFrom": "يستخدم كلمة مرور sudo من تبويب SSH",
+      "none": "لا شيء",
+      "look": "المظهر",
+      "theme": "السمة",
+      "font": "الخط",
+      "cursor": "المؤشر",
+      "bell": "جرس التنبيه",
+      "scrollbackLines": "أسطر التمرير",
+      "app": "التطبيق",
+      "behavior": "السلوك",
+      "backspaceSends": "ما يرسله زر المسح",
+      "startupSnippet": "مقتطف عند البدء",
+      "runsOnceTheShellIs": "يُنفَّذ بمجرد جاهزية shell",
+      "fillWithoutAsking": "الملء تلقائياً",
+      "onThisOnlyOnceYou": "على هذا {{deviceWord}} فقط، بعد اختيار «الملء دائماً»",
+      "connection": "الاتصال",
+      "keepalive": "الحفاظ على الاتصال",
+      "secondsBetweenPings0Turns": "الثواني بين الإشارات، و0 لإيقافه",
+      "default": "افتراضي",
+      "keepaliveSeconds": "ثواني الحفاظ على الاتصال",
+      "missedPings": "الإشارات المفقودة",
+      "dropTheConnectionAfterThis": "قطع الاتصال بعد هذا العدد من الإشارات غير المجابة",
+      "missedPingsBeforeDrop": "الإشارات المفقودة قبل القطع",
+      "environment": "البيئة",
+      "removeVariable": "إزالة المتغير",
+      "addVariable": "إضافة متغير"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "لوحة المفاتيح"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "الصف",
+        "keys": "المفاتيح",
+        "sendsAKeyCode": "إرسال رمز مفتاح",
+        "stickyModifier": "معدّل لاصق",
+        "appAction": "إجراء التطبيق",
+        "tmuxPrefixThen": "بادئة tmux، ثم {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "صفوف المفاتيح",
+        "onlyFor": "لـ {{name}} فقط",
+        "usingTheAppSRows": "يستخدم صفوف التطبيق. التغييرات هنا خاصة بـ {{name}} فقط",
+        "useTheAppSRows": "استخدام صفوف التطبيق"
+      },
+      "keyButton": {
+        "locked": "مقفل"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "إلغاء",
+        "remove": "إزالة {{what}}؟",
+        "remove2": "إزالة",
+        "dragToReorder": "اسحب لإعادة الترتيب",
+        "rowName": "اسم الصف",
+        "groupName": "اسم المجموعة",
+        "add": "إضافة",
+        "addKey": "إضافة مفتاح",
+        "addRow": "إضافة صف",
+        "addGroup": "إضافة مجموعة",
+        "tmuxPrefix": "بادئة tmux",
+        "name": "الاسم",
+        "rename": "إعادة التسمية",
+        "keys": "{{value}} مفاتيح",
+        "noKeys": "لا توجد مفاتيح",
+        "remove3": "إزالة {{label}}",
+        "keys2": "المفاتيح",
+        "custom": "مخصص",
+        "add2": "إضافة {{label}}",
+        "typeText": "نص الكتابة",
+        "runCommand": "تنفيذ الأمر",
+        "ctrlKey": "مفتاح Ctrl",
+        "label": "التسمية",
+        "optional": "اختياري",
+        "letter": "حرف",
+        "command": "أمر",
+        "text": "نص",
+        "resetToDefault": "إعادة التعيين إلى الافتراضي"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "تغيير المفاتيح في الإعدادات، لوحة المفاتيح"
+      },
+      "keyRowBar": {
+        "keyRow": "صف المفاتيح {{label}}",
+        "tapForTheNextRow": "انقر للانتقال إلى الصف التالي، اضغط مطولاً للاختيار",
+        "keyRows": "صفوف المفاتيح"
+      },
+      "model": {
+        "clear": "مسح",
+        "main": "الرئيسي",
+        "keys": "المفاتيح",
+        "arrows": "الأسهم",
+        "symbols": "الرموز",
+        "actions": "الإجراءات",
+        "nav": "التنقل",
+        "move": "تحريك",
+        "function": "دالة",
+        "brackets": "الأقواس",
+        "punctuation": "علامات الترقيم",
+        "ctrl": "Ctrl",
+        "control": "التحكم",
+        "windows": "Windows",
+        "panes": "الأقسام",
+        "copy": "نسخ",
+        "split": "تقسيم ─",
+        "split2": "تقسيم │",
+        "newWin": "نافذة جديدة",
+        "prevWin": "النافذة السابقة",
+        "nextWin": "النافذة التالية",
+        "pane": "قسم ←",
+        "pane2": "قسم ↓",
+        "pane3": "قسم ↑",
+        "pane4": "قسم →",
+        "copyMode": "وضع النسخ",
+        "pasteBuf": "لصق المخزن",
+        "killPane": "إغلاق القسم"
+      }
+    },
+    "output": {
+      "openLink": "فتح الرابط؟",
+      "open": "فتح",
+      "pasteLines": "لصق {{lines}} سطور؟",
+      "pasteThisText": "لصق هذا النص؟",
+      "theShellMayRunIt": "قد يقوم shell بتشغيله فوراً.\n\n{{text}}",
+      "paste": "لصق",
+      "letTheProgramReadYour": "السماح للبرنامج بقراءة الحافظة؟",
+      "itAskedForWhatYou": "طلب ما نسخته آخر مرة.",
+      "allow": "سماح",
+      "letTheProgramCopyTo": "السماح للبرنامج بالنسخ إلى الحافظة؟"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "ملء كلمة المرور المحفوظة؟",
+      "asksForTheSudoPassword": "{{hostName}} يطلب كلمة مرور sudo.",
+      "asksForAPassword": "{{hostName}} يطلب كلمة مرور.",
+      "fillPassword": "ملء كلمة المرور",
+      "alwaysFillOnThisHost": "الملء دائماً على هذا المضيف",
+      "asksNoMoreOnThis": "لن يسأل مرة أخرى على هذا {{deviceWord}}. يمكنك إيقافه في علامة تبويب Terminal الخاصة بالمضيف.",
+      "notNow": "ليس الآن"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal والحفاظ على الاتصال",
+      "history": "السجل",
+      "find": "بحث",
+      "tmuxWindows": "نوافذ tmux",
+      "connectionLog": "سجل الاتصال",
+      "keyRowsForThisHost": "صفوف المفاتيح لهذا المضيف"
+    },
+    "searchBar": {
+      "noResults": "لا توجد نتائج",
+      "matchCase": "تطابق حالة الأحرف",
+      "wholeWord": "كلمة كاملة",
+      "regularExpression": "تعبير نمطي",
+      "find": "بحث",
+      "closeFind": "إغلاق البحث"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "النظام",
+      "block": "كتلة",
+      "bar": "شريط",
+      "underline": "تحته خط",
+      "off": "إيقاف",
+      "sound": "صوت",
+      "flash": "وميض",
+      "both": "كلاهما"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "علامة تبويب جديدة على هذا المضيف",
+      "closeTab": "إغلاق علامة التبويب",
+      "nextTab": "علامة التبويب التالية",
+      "previousTab": "علامة التبويب السابقة",
+      "goToTab": "الانتقال إلى علامة تبويب",
+      "find": "بحث",
+      "fontSize": "حجم الخط",
+      "paste": "لصق",
+      "escape": "هروب",
+      "copyAndPaste": "نسخ ولصق"
+    },
+    "reconnecting": "جارٍ إعادة الاتصال...",
+    "waitingForNetwork": "في انتظار الشبكة...",
+    "waitingForYou": "في انتظارك...",
+    "connecting": "جارٍ الاتصال...",
+    "terminalView": {
+      "scrollToBottom": "التمرير إلى الأسفل",
+      "onlyWebLinksCanOpen": "يمكن فتح روابط الويب فقط من المحطة الطرفية",
+      "couldNotOpenLink": "تعذر فتح الرابط",
+      "copiedFromTheTerminal": "تم النسخ من المحطة الطرفية"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "فتح جلسة tmux",
+        "newSession": "جلسة جديدة",
+        "plainShell": "موجه أوامر عادي",
+        "tmuxWindows": "نوافذ tmux",
+        "newWindow": "نافذة جديدة",
+        "windowCount_zero": "لا توجد نوافذ",
+        "windowCount_one": "نافذة واحدة",
+        "windowCount_two": "نوافذتان",
+        "windowCount_few": "{{count}} نوافذ",
+        "windowCount_many": "{{count}} نافذة",
+        "windowCount_other": "{{count}} نافذة",
+        "attached": "{{count}} متصل",
+        "activeNow": "نشط الآن",
+        "activeMinAgo": "نشط منذ {{count}} دقيقة",
+        "activeHoursAgo": "نشط منذ {{count}} ساعة",
+        "activeDaysAgo_zero": "نشط منذ 0 أيام",
+        "activeDaysAgo_one": "نشط منذ يوم واحد",
+        "activeDaysAgo_two": "نشط منذ يومين",
+        "activeDaysAgo_few": "نشط منذ {{count}} أيام",
+        "activeDaysAgo_many": "نشط منذ {{count}} يوماً",
+        "activeDaysAgo_other": "نشط منذ {{count}} يوماً"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "نسخ",
+        "selectAll": "تحديد الكل",
+        "cancel": "إلغاء",
+        "scrollToBottom": "التمرير إلى الأسفل",
+        "couldNotCopy": "تعذر النسخ",
+        "webviewError": "خطأ في WebView: {{description}}",
+        "webviewHttpError": "خطأ HTTP في WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "لا توجد كلمة مرور محفوظة لهذا المضيف",
+    "backInTmuxSession": "العودة إلى جلسة tmux {{tmuxName}}",
+    "backInScreenSession": "العودة إلى جلسة screen {{name}}",
+    "theServerSessionEndedThis": "انتهت جلسة الخادم. هذا موجه أوامر جديد.",
+    "termixWasClosedSoThe": "تم إغلاق Termix، لذا انتهت الجلسة القديمة. هذا موجه أوامر جديد.",
+    "theConnectionDroppedAndThe": "انقطع الاتصال وانتهت الجلسة القديمة. هذا موجه أوامر جديد.",
+    "disconnectedFrom": "تم قطع الاتصال من {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "المصادقة الثنائية",
+      "codesFromAnAuthenticatorApp": "رموز من تطبيق المصادقة لحساب الخادم الخاص بك"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "عنوان MAC",
+      "neededToWakeThisHost": "مطلوب لإيقاظ هذا الخادم باستخدام Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "استخدم عنوان MAC مثل 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "تم إرسال Wake-on-LAN إلى {{name}}",
+      "failedToSendWakeOn": "فشل في إرسال حزمة Wake-on-LAN",
+      "noServer": "لا يوجد خادم"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "إيقاظ {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "مشاركة إحصائيات الاستخدام المجهولة؟",
+      "termixWouldSendAShort": "سيرسل Termix تقريراً قصيراً مرة واحدة يومياً. يمكنك تغيير ذلك في أي وقت من الإعدادات.",
+      "noThanks": "لا، شكراً",
+      "share": "مشاركة",
+      "theReportHasTheApp": "يحتوي التقرير على إصدار التطبيق، نوع {{deviceWord}}، أعداد تقريبية من الخوادم والجلسات، الميزات التي تستخدمها، وما إذا كان الاتصال ناجحاً. لا يحتوي أبداً على أسماء المضيفين، أسماء المستخدمين، العناوين، المسارات، الأوامر أو أسماء الخوادم.",
+      "seeExactlyWhatIsSent": "عرض ما يتم إرساله بالضبط"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "جارٍ تحميل معلومات الإصدار…",
+      "updateAvailable": "تحديث متاح",
+      "newVersionAvailable": "إصدار جديد متاح",
+      "aNewerVersionOfThe": "إصدار أحدث من تطبيق الهاتف متاح. قد لا تعمل بعض الميزات بشكل صحيح حتى تقوم بالتحديث.",
+      "versionInformation": "معلومات الإصدار",
+      "installed": "مثبت",
+      "latest": "الأحدث",
+      "unknown": "غير معروف",
+      "tag": "علامة",
+      "continueAnyway": "متابعة على أي حال"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "تم النسخ",
+      "copy": "نسخ",
+      "hostKeyChanged": "تغير مفتاح المضيف",
+      "verifyHostKey": "التحقق من مفتاح المضيف",
+      "cancel": "إلغاء",
+      "acceptNewKey": "قبول المفتاح الجديد",
+      "connectAndTrust": "الاتصال والثقة",
+      "theHostSSshKey": "تغير مفتاح SSH الخاص بالمضيف منذ اتصالك الأخير. قد يعني ذلك أن أحداً يحاول اعتراض الاتصال.",
+      "youAreConnectingToThis": "أنت تتصل بهذا المضيف لأول مرة. تحقق من البصمة قبل الوثوق به.",
+      "previousKey": "المفتاح السابق",
+      "newFingerprint": "البصمة الجديدة",
+      "hostFingerprint": "بصمة المضيف"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "مطلوب عبارة المرور",
+      "enterThePassphraseForYour": "أدخل عبارة المرور لمفتاح SSH الخاص بك.",
+      "cancel": "إلغاء",
+      "connect": "اتصال",
+      "keyPassphrase": "عبارة مرور المفتاح"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "مطلوب مصادقة SSH",
+      "cancel": "إلغاء",
+      "connect": "اتصال",
+      "password": "كلمة المرور",
+      "sshKey": "مفتاح SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nالصق مفتاحك الخاص هنا...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "عبارة مرور المفتاح (اختياري)",
+      "keyboardInteractiveAuthIsNot": "مصادقة لوحة المفاتيح التفاعلية غير متاحة. أدخل بيانات الاعتماد مباشرة.",
+      "authenticationFailedPleaseReEnter": "فشل المصادقة. يرجى إعادة إدخال بيانات الاعتماد الخاصة بك.",
+      "connectionTimedOutPleaseTry": "انتهت مهلة الاتصال. يرجى المحاولة مرة أخرى باستخدام بيانات الاعتماد الخاصة بك."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "فحص SSH الخاص بـ Tailscale",
+      "completeTheTailscaleSshCheck": "أكمل فحص SSH الخاص بـ Tailscale في متصفحك للمتابعة.",
+      "cancel": "إلغاء",
+      "copyUrl": "نسخ الرابط",
+      "openBrowser": "فتح المتصفح",
+      "urlCopied": "تم نسخ الرابط",
+      "failedToCopy": "فشل النسخ",
+      "couldNotOpenBrowser": "تعذر فتح المتصفح"
+    },
+    "tOTPDialog": {
+      "cancel": "إلغاء",
+      "submit": "إرسال",
+      "verify": "تحقق",
+      "password": "كلمة المرور",
+      "pasteCode": "لصق الرمز",
+      "passwordRequired": "كلمة المرور مطلوبة",
+      "twoFactorAuthentication": "المصادقة الثنائية",
+      "enterYourPasswordToContinue": "أدخل كلمة المرور للمتابعة.",
+      "enterThe6DigitCode": "أدخل الرمز المكوّن من 6 أرقام من تطبيق المصادقة الخاص بك."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "مصادقة Warpgate",
+      "authenticateViaTheWarpgatePortal": "قم بالمصادقة عبر بوابة Warpgate، ثم انقر على متابعة.",
+      "cancel": "إلغاء",
+      "openBrowser": "فتح المتصفح",
+      "continue": "متابعة",
+      "securityKey": "مفتاح الأمان",
+      "authUrl": "رابط المصادقة",
+      "copied": "تم النسخ",
+      "copy": "نسخ",
+      "urlCopied": "تم نسخ الرابط",
+      "failedToCopy": "فشل النسخ",
+      "couldNotOpenBrowser": "تعذر فتح المتصفح"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "هذا {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "النشاط الأخير",
+        "files": "الملفات",
+        "terminal": "الطرفية"
+      },
+      "alertsCard": {
+        "notifications": "الإشعارات",
+        "seeAll": "عرض الكل"
+      },
+      "server": "الخادم",
+      "openSessions": "الجلسات المفتوحة",
+      "quickAccess": "الوصول السريع",
+      "notifications": "الإشعارات",
+      "pinnedHosts": "المضيفين المثبتين",
+      "recentHosts": "المضيفين الأخيرين",
+      "recentActivity": "النشاط الأخير",
+      "pinnedCard": {
+        "addYourFirstHost": "أضف مضيفك الأول",
+        "hostsYouOpenShowUp": "تظهر هنا المضيفين الذين تفتحهم، وتعرض المضيفين المثبتين بطاقات حية.",
+        "addHost": "إضافة مضيف",
+        "linkAServer": "ربط خادم",
+        "pinAHostToSee": "ثبّت مضيفًا لرؤيته هنا",
+        "pinnedHostsShowTheirMetrics": "تعرض المضيفين المثبتين مقاييسهم وDocker والخدمات بنظرة سريعة. اضغط مطولاً على مضيف لتثبيته.",
+        "goToHosts": "الانتقال إلى المضيفين",
+        "pinned": "مثبت",
+        "opensTheTerminalHoldFor": "يفتح الطرفية. اضغط مطولاً للمزيد.",
+        "turnOnDockerOrServices": "فعّل Docker أو الخدمات لهذا المضيف، أو انقر عليه للاتصال.",
+        "opens": "يفتح {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "الوصول السريع",
+        "quickConnect": "اتصال سريع",
+        "userHostPortWithoutSaving": "user@host:port، دون الحفظ"
+      },
+      "recentCard": {
+        "recent": "الأخير"
+      },
+      "serverCard": {
+        "server": "الخادم",
+        "version": "الإصدار",
+        "uptime": "وقت التشغيل",
+        "database": "قاعدة البيانات",
+        "hosts": "المضيفين",
+        "online": "متصل",
+        "offline": "غير متصل",
+        "logins": "عمليات تسجيل الدخول"
+      },
+      "sessionsCard": {
+        "openSessions": "الجلسات المفتوحة",
+        "connected": "متصل"
+      }
+    },
+    "resetHome": "إعادة تعيين الصفحة الرئيسية؟",
+    "cardsGoBackToThe": "ستعود البطاقات إلى الترتيب الافتراضي والبطاقات المعروضة.",
+    "reset": "إعادة تعيين",
+    "doneEditingHome": "تم تعديل الصفحة الرئيسية",
+    "editHome": "تعديل الصفحة الرئيسية",
+    "dragToReorder": "اسحب {{title}} لإعادة الترتيب",
+    "show": "إظهار {{title}}",
+    "dragCardsToReorderThem": "اسحب البطاقات لإعادة ترتيبها. أوقف تشغيل بطاقة لإخفائها. تظل البطاقات التي لا تحتوي على شيء للإظهار مخفية تلقائيًا.",
+    "resetToDefault": "إعادة التعيين إلى الافتراضي",
+    "done": "تم",
+    "serverReachBanner": {
+      "stillCanTReachThe": "لا يزال لا يمكن الوصول إلى الخادم",
+      "canTReach": "لا يمكن الوصول إلى {{account}}",
+      "youCanKeepWorkingWith": "يمكنك الاستمرار في العمل مع النسخة الموجودة على هذا {{deviceWord}}. سيتم رفع التغييرات عندما يعود الاتصال.",
+      "hostsSetToConnectFrom": "تظل المضيفين الذين تم تعيينهم للاتصال من هذا {{deviceWord}} يعملون.",
+      "tryAgain": "حاول مرة أخرى",
+      "noAnswer": "لا يوجد رد"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "ملف Vault الشخصي",
+      "none": "لا شيء",
+      "signsInWithInYour": "يسجل الدخول باستخدام {{title}} في متصفحك عبر خادم Termix الخاص بك. اتصل بهذا المضيف عبر الخادم.",
+      "needsATermixServerLink": "{{title}} يحتاج إلى خادم Termix. اربط واحدًا لاستخدام هذا تسجيل الدخول.",
+      "isOffOnThisServer": "{{title}} معطل على هذا الخادم. يحتفظ هذا المضيف بإعداد تسجيل الدخول الخاص به."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "تعذر تحميل بيانات الاعتماد",
+      "deleted": "تم حذف \"{{name}}\"",
+      "couldNotDeleteTheCredential": "تعذر حذف بيانات الاعتماد",
+      "credentials": "بيانات الاعتماد",
+      "add": "إضافة",
+      "searchCredentials": "البحث في بيانات الاعتماد",
+      "clearSearch": "مسح البحث",
+      "loadingCredentials": "جارٍ تحميل بيانات الاعتماد...",
+      "noCredentialsMatchYourSearch": "لا توجد بيانات اعتماد تطابق بحثك",
+      "noCredentialsYet": "لا توجد بيانات اعتماد بعد",
+      "addCredential": "إضافة بيانات اعتماد",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "deleteCredential": "حذف بيانات الاعتماد",
+      "willBePermanentlyDeletedHosts": "سيتم حذف \"{{name}}\" نهائيًا. ستفقد المضيفين الذين يستخدمونها بيانات الاعتماد المحفوظة.",
+      "cancel": "إلغاء",
+      "hostCount_zero": "لا يوجد مضيف",
+      "hostCount_one": "مضيف واحد",
+      "hostCount_two": "مضيفان",
+      "hostCount_few": "{{count}} مضيفين",
+      "hostCount_many": "{{count}} مضيفًا",
+      "hostCount_other": "{{count}} مضيف",
+      "sshKey": "مفتاح SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "استبدال المفتاح؟",
+        "theNewKeyTakesThe": "يحل المفتاح الجديد محل المفتاح الحالي. ستتوقف المضيفين التي تثق فقط بالمفتاح القديم عن قبول بيانات الاعتماد هذه.",
+        "replace": "استبدال",
+        "newKeyMadeCopyThe": "تم إنشاء مفتاح جديد. انسخ المفتاح العام إلى مضيفيك.",
+        "couldNotMakeAKey": "تعذر إنشاء مفتاح",
+        "couldNotReadThatCertificate": "تعذر قراءة ملف الشهادة",
+        "leaveWithoutSaving": "المغادرة دون حفظ؟",
+        "yourChangesToThisCredential": "ستفقد التغييرات التي أجريتها على بيانات الاعتماد هذه.",
+        "leave": "مغادرة",
+        "credentialSaved": "تم حفظ بيانات الاعتماد",
+        "credentialAdded": "تمت إضافة بيانات الاعتماد",
+        "couldNotSaveTheCredential": "تعذر حفظ بيانات الاعتماد",
+        "enterAHostToTest": "أدخل مضيفًا للاختبار عليه، مثل 10.0.0.5 أو box:2222.",
+        "enterTheUsernameFirst": "أدخل اسم المستخدم أولاً.",
+        "editCredential": "تعديل بيانات الاعتماد",
+        "newCredential": "بيانات اعتماد جديدة",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "credential": "بيانات الاعتماد",
+        "name": "الاسم",
+        "productionKey": "مفتاح الإنتاج",
+        "username": "اسم المستخدم",
+        "signInWith": "تسجيل الدخول باستخدام",
+        "password": "كلمة المرور",
+        "sshKey": "مفتاح SSH",
+        "unchangedIfBlank": "يظل دون تغيير إذا كان فارغاً",
+        "key": "المفتاح",
+        "fileOrPaste": "ملف أو لصق",
+        "makeANewKey": "إنشاء مفتاح جديد",
+        "aKeyIsSavedChoose": "تم حفظ مفتاح. اختر ملفاً أو الصق لاستبداله.",
+        "type": "النوع",
+        "ed25519AndEcdsaAreMade": "يتم إنشاء Ed25519 و ECDSA على هذا {{deviceWord}}، و RSA على خادمك.",
+        "madeOnThisEd25519Works": "تم إنشاؤه على هذا {{deviceWord}}. يعمل Ed25519 في معظم الأماكن.",
+        "passphrase": "عبارة المرور",
+        "optionalLocksTheNewKey": "اختياري. يقفل المفتاح الجديد على هذا {{deviceWord}} وعلى القرص.",
+        "makeKey": "إنشاء المفتاح",
+        "publicKey": "المفتاح العام",
+        "addThisLineToSsh": "أضف هذا السطر إلى ~/.ssh/authorized_keys على مضيفيك",
+        "publicKeyCopied": "تم نسخ المفتاح العام",
+        "copyPublicKey": "نسخ المفتاح العام",
+        "certificate": "الشهادة",
+        "aCertificateYourCaSigned": "شهادة وقّعها مركز الشهادات (CA) الخاص بك لهذا المفتاح، للمضيفين الذين يثقون بمركز الشهادات.",
+        "chooseCertificateFile": "اختر ملف الشهادة",
+        "thisDoesNotLookLike": "هذا لا يبدو كشهادة OpenSSH.",
+        "test": "اختبار",
+        "hostToTestOn": "المضيف للاختبار عليه",
+        "n10005Or": "10.0.0.5 أو box.lan:2222",
+        "pickASavedHost": "اختر مضيفاً محفوظاً",
+        "details": "التفاصيل",
+        "description": "الوصف",
+        "whatThisCredentialIsFor": "ما الغرض من بيانات الاعتماد هذه",
+        "folder": "المجلد",
+        "serverKeys": "مفاتيح الخادم",
+        "testOnAHost": "اختبار على مضيف",
+        "rsaKeysNeedALinked": "تحتاج مفاتيح RSA إلى خادم مرتبط."
+      },
+      "model": {
+        "giveThisCredentialAName": "أعطِ بيانات الاعتماد هذه اسماً",
+        "addAPrivateKeyOr": "أضف مفتاحاً خاصاً، أو أنشئ واحداً جديداً"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "هذه شهادة مضيف، وليست شهادة مستخدم.",
+        "thisCertificateIsNotValid": "هذه الشهادة غير صالحة بعد.",
+        "thisCertificateHasExpired": "انتهت صلاحية هذه الشهادة.",
+        "itIsForAKey": "هي لمفتاح {{keyType}}، لكن هذا المفتاح هو {{keyType2}}.",
+        "forAnyUser": "لأي مستخدم",
+        "validFromNoEndDate": "صالحة من {{validAfter}}، بدون تاريخ انتهاء",
+        "signedBy": "وقّعها {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "اسم المستخدم",
+        "fromTheCredential": "من بيانات الاعتماد: {{credentialUser}}",
+        "signInWith": "تسجيل الدخول باستخدام",
+        "password": "كلمة المرور",
+        "key": "المفتاح",
+        "credential": "بيانات الاعتماد",
+        "none": "لا شيء",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "يتصل عبر Tailscale SSH. لا يتم الاحتفاظ بكلمة مرور أو مفتاح.",
+        "tailscaleIsNotOnFor": "Tailscale غير مفعّل لـ {{value}}. يحتفظ هذا المضيف بتسجيل الدخول الخاص بـ Tailscale.",
+        "unchangedIfBlank": "يظل دون تغيير إذا كان فارغاً",
+        "noCredentialsYetTapThe": "لا توجد بيانات اعتماد بعد. انقر على أيقونة المفتاح في المضيفين لإضافة واحدة.",
+        "useCredential": "استخدام بيانات الاعتماد {{name}}",
+        "sudoPassword": "كلمة مرور sudo",
+        "typedIntoSudoPromptsWhen": "يتم إدخالها في مطالبات sudo عندما يقوم قسم المحطة الطرفية بتفعيل ذلك",
+        "notSet": "لم يتم التعيين",
+        "thisServer": "هذا الخادم"
+      },
+      "colorIconField": {
+        "color": "اللون",
+        "noColor": "بدون لون",
+        "color2": "اللون {{c}}",
+        "icon": "الأيقونة",
+        "noIcon": "بدون أيقونة",
+        "none": "لا شيء",
+        "icon2": "الأيقونة {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "هل تريد المغادرة دون حفظ؟",
+        "yourChangesToThisHost": "ستفقد التغييرات التي أجريتها على هذا المضيف.",
+        "leave": "مغادرة",
+        "couldNotSaveHowThis": "تعذر حفظ طريقة اتصال هذا المضيف",
+        "hostSaved": "تم حفظ المضيف",
+        "hostAdded": "تمت إضافة المضيف",
+        "couldNotSaveTheHost": "تعذر حفظ المضيف",
+        "enterTheHostSAddress": "أدخل عنوان المضيف أولاً.",
+        "turnOnSshToTest": "فعّل SSH لاختبار تسجيل الدخول.",
+        "pickACredentialFirst": "اختر بيانات اعتماد أولاً.",
+        "editHost": "تعديل المضيف",
+        "newHost": "مضيف جديد",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "host": "المضيف",
+        "name": "الاسم",
+        "myServer": "خادمي",
+        "address": "العنوان",
+        "port": "المنفذ",
+        "portAndUsernameComeFrom": "المنفذ واسم المستخدم يأتيان من الإعدادات الافتراضية للمضيف حتى تقوم بتغييرهما.",
+        "folder": "المجلد",
+        "production": "الإنتاج",
+        "useAFolderInstead": "استخدم مجلداً بدلاً من ذلك",
+        "putItUnderAHost": "ضعه تحت مضيف بدلاً من ذلك",
+        "pinToTop": "تثبيت في الأعلى",
+        "colorAndIcon": "اللون والأيقونة",
+        "notes": "ملاحظات",
+        "anythingWorthRememberingAboutThis": "أي شيء يستحق التذكر حول هذا المضيف",
+        "protocols": "البروتوكولات",
+        "terminalFilesAndMore": "المحطة الطرفية، الملفات والمزيد",
+        "connectFrom": "الاتصال من",
+        "features": "الميزات",
+        "otherProtocols": "بروتوكولات أخرى",
+        "more": "المزيد",
+        "theTestRunsFromThis": "يتم تشغيل الاختبار من هذا {{deviceWord}}. يتصل هذا المضيف عبر الخادم، لذا يمكنه الاستمرار في العمل عندما لا يتمكن {{deviceWord}} من الوصول إليه."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "مضيفي القفز",
+        "connectsThroughTheseInOrder": "يتصل عبر هذه المضيفين بالترتيب، ثم إلى هذا المضيف",
+        "reachThisHostThroughOther": "الوصول إلى هذا المضيف عبر مضيفين آخرين أولاً",
+        "moveUp": "تحريك للأعلى",
+        "moveDown": "تحريك للأسفل",
+        "removeJumpHost": "إزالة مضيف القفز",
+        "addJumpHost": "إضافة مضيف قفز",
+        "pickASavedHostTo": "اختر مضيفاً محفوظاً للاتصال عبره",
+        "searchHosts": "البحث في المضيفين",
+        "noOtherHostsToPick": "لا توجد مضيفين آخرين للاختيار. لا يمكن للمضيف القفز عبر نفسه أو عبر مضيف يمر عبره بالفعل.",
+        "missingHost": "المضيف المفقود #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "فعّل بروتوكولاً واحداً على الأقل",
+        "pickACredential": "اختر بيانات اعتماد",
+        "enterTheHostSAddress": "أدخل عنوان المضيف",
+        "theAddressCanTHave": "لا يمكن أن يحتوي العنوان على مسافات",
+        "portMustBeFrom1": "يجب أن يكون المنفذ بين 1 و 65535",
+        "enterTheSshUsername": "أدخل اسم المستخدم لـ SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "سيظهر المضيف متداخلًا تحت المضيف الذي تختاره",
+        "searchHosts": "البحث عن المضيفين",
+        "noHostsToPickA": "لا توجد مضيفين للاختيار. لا يمكن أن يكون المضيف تحت نفسه، أو أحد مضيفيه الفرعيين، أو مضيف مشترك.",
+        "parentHost": "المضيف الرئيسي",
+        "subHostsFollowTheFolder": "تتبع المضيفين الفرعيين مجلد المضيف الرئيسي",
+        "pickParentHost": "اختر المضيف الرئيسي",
+        "missingHost": "المضيف المفقود #{{value}}",
+        "pickAHost": "اختر مضيفًا",
+        "clearParentHost": "إلغاء تحديد المضيف الرئيسي"
+      },
+      "tagsField": {
+        "tags": "الوسوم",
+        "typeATagAndPress": "اكتب وسمًا واضغط على Enter",
+        "removeTag": "إزالة الوسم {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "تعذر حفظ كيفية اتصال هذا المضيف",
+      "addressCopied": "تم نسخ العنوان",
+      "cpu": "وحدة المعالجة المركزية {{value}}%",
+      "ram": "الذاكرة العشوائية {{value}}%",
+      "connectFrom": "الاتصال من",
+      "dismiss": "إغلاق",
+      "unpin": "إلغاء التثبيت",
+      "pinToHome": "تثبيت في الصفحة الرئيسية",
+      "select": "تحديد",
+      "editHost": "تعديل المضيف",
+      "copyAddress": "نسخ العنوان",
+      "addSubHost": "إضافة مضيف فرعي",
+      "cloneHost": "استنساخ المضيف",
+      "deleteHost": "حذف المضيف",
+      "connectThroughTheServer": "الاتصال عبر الخادم",
+      "connectFromThis": "الاتصال من هذا {{deviceWord}}"
+    },
+    "defaultYourOrder": "افتراضي (ترتيبك)",
+    "nameAZ": "الاسم (أ-ي)",
+    "nameZA": "الاسم (ي-أ)",
+    "ipAscending": "عنوان IP (تصاعدي)",
+    "ipDescending": "عنوان IP (تنازلي)",
+    "onlineFirst": "متصل أولاً",
+    "offlineFirst": "غير متصل أولاً",
+    "pinnedFirst": "مثبت أولاً",
+    "status": "الحالة",
+    "online": "متصل",
+    "offline": "غير متصل",
+    "pinned": "مثبت",
+    "protocol": "البروتوكول",
+    "features": "الميزات",
+    "hostsCanOnlyMoveInside": "يمكن تحريك المضيفين داخل مجلداتهم فقط",
+    "couldNotUpdateTheHosts": "تعذر تحديث المضيفين",
+    "sharedHostsCanTBe": "لا يمكن حذف المضيفين المشتركين هنا",
+    "delete2": "حذف",
+    "noneOfTheseHostsOpen": "لا يفتح أي من هذه المضيفين نافذة طرفية",
+    "couldNotPinTheHost": "تعذر تثبيت المضيف",
+    "deleted": "تم حذف {{name}}",
+    "failedToDeleteHost": "فشل في حذف المضيف",
+    "cloned": "تم استنساخ {{name}}",
+    "failedToCloneHost": "فشل في استنساخ المضيف",
+    "reorderWorksWithTheDefault": "يعمل إعادة الترتيب مع الترتيب الافتراضي وبدون بحث أو تصفية",
+    "couldNotSaveTheOrder": "تعذر حفظ الترتيب",
+    "noHostsYet": "لا توجد مضيفين بعد",
+    "addAHostToConnect": "أضف مضيفًا للاتصال به بنقرة واحدة.",
+    "addHost": "إضافة مضيف",
+    "quickConnect2": "اتصال سريع",
+    "linkAServer": "ربط خادم",
+    "noHostsMatch": "لا توجد مضيفات مطابقة",
+    "clearSearchAndFilters": "مسح البحث والفلاتر",
+    "more": "المزيد",
+    "dragAHostByIts": "اسحب المضيف من مقبضه لتحريكه داخل مجلده.",
+    "done": "تم",
+    "filterHosts": "تصفية المضيفين",
+    "clearFilterText": "مسح نص التصفية",
+    "sortHosts": "ترتيب المضيفين",
+    "removeFilter": "إزالة فلتر {{value}}",
+    "loadingHosts": "جارٍ تحميل المضيفين…",
+    "moveUnderAHost": "النقل تحت مضيف",
+    "moveToFolder": "النقل إلى مجلد",
+    "leaveItEmptyToTake": "اتركه فارغًا لإخراج المضيفين من المجلدات.",
+    "folderLikeProdWeb": "مجلد، مثل Prod / Web",
+    "move": "نقل",
+    "hosts": "المضيفون",
+    "selectHosts": "تحديد المضيفين",
+    "reorderHosts": "إعادة ترتيب المضيفين",
+    "customizeList": "تخصيص القائمة",
+    "chooseWhatEachHostRow": "اختر ما تعرضه كل صف للمضيف",
+    "credentials2": "بيانات الاعتماد",
+    "savedPasswordsAndKeys": "كلمات المرور والمفاتيح المحفوظة",
+    "tailscaleDevices": "أجهزة Tailscale",
+    "refresh": "تحديث",
+    "rowDensityFollowsSettingsAppearance": "تتبع كثافة الصفوف إعدادات المظهر.",
+    "clearAllFilters": "مسح جميع الفلاتر",
+    "tags": "الوسوم",
+    "stopSelecting": "إيقاف التحديد",
+    "selected": "{{count}} محدد",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "تعذر قراءة ملف المفتاح هذا",
+        "theClipboardIsEmpty": "الحافظة فارغة",
+        "privateKey": "مفتاح خاص",
+        "chooseFile": "اختر ملفًا",
+        "paste": "لصق",
+        "unchangedIfBlank": "يبقى كما هو إذا كان فارغًا",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "عبارة المرور",
+        "onlyIfTheKeyHas": "فقط إذا كان للمفتاح واحدة",
+        "theKeyIsCheckedWhen": "يتم التحقق من المفتاح عند الاتصال.",
+        "thePastedKey": "المفتاح الملصق"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "فتح",
+        "moreActions": "إجراءات أخرى",
+        "opensTheTerminalHoldFor": "يفتح الطرفية. اضغط مطولاً للمزيد.",
+        "shared": "مشترك",
+        "drag": "اسحب {{name}}",
+        "showSubHosts_zero": "إظهار {{count}} مضيف فرعي من {{name}}",
+        "showSubHosts_one": "إظهار {{count}} مضيف فرعي من {{name}}",
+        "showSubHosts_two": "إظهار {{count}} مضيفين فرعيين من {{name}}",
+        "showSubHosts_few": "إظهار {{count}} مضيفين فرعيين من {{name}}",
+        "showSubHosts_many": "إظهار {{count}} مضيفًا فرعيًا من {{name}}",
+        "showSubHosts_other": "إظهار {{count}} مضيف فرعي من {{name}}",
+        "hideSubHosts_zero": "إخفاء {{count}} مضيف فرعي من {{name}}",
+        "hideSubHosts_one": "إخفاء {{count}} مضيف فرعي من {{name}}",
+        "hideSubHosts_two": "إخفاء {{count}} مضيفين فرعيين من {{name}}",
+        "hideSubHosts_few": "إخفاء {{count}} مضيفين فرعيين من {{name}}",
+        "hideSubHosts_many": "إخفاء {{count}} مضيفًا فرعيًا من {{name}}",
+        "hideSubHosts_other": "إخفاء {{count}} مضيف فرعي من {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "مجلد {{name}}، {{total}} مضيف"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "المضيف واسم المستخدم مطلوبان",
+      "hostSaved": "تم حفظ المضيف",
+      "couldNotSaveTheHost": "تعذر حفظ المضيف",
+      "quickConnect": "اتصال سريع",
+      "connectToAHostWithout": "الاتصال بمضيف دون حفظه.",
+      "hostIp": "المضيف / IP",
+      "port": "المنفذ",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "key": "المفتاح",
+      "privateKey": "المفتاح الخاص",
+      "saveToMyHosts": "حفظ في مضيفي",
+      "keepThisHostAfterConnecting": "إبقاء هذا المضيف بعد الاتصال",
+      "cancel": "إلغاء",
+      "connect": "اتصال"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "جاري جلب المضيفين من الخادم",
+      "yourHostsStayOnThis": "{{message}} تظل المضيفين على هذا {{deviceWord}} في هذه الأثناء."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "تغير مفتاح هذا المضيف",
+      "trustThisHost": "هل تثق بهذا المضيف؟",
+      "trust": "ثقة",
+      "stopTest": "إيقاف الاختبار",
+      "testConnection": "اختبار الاتصال",
+      "connecting": "جاري الاتصال..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "فشل في تحميل المضيفين."
+    },
+    "sharedLeftAsTheyAre_zero": "{{done}}. تم ترك 0 مضيفين مشاركون كما هم.",
+    "sharedLeftAsTheyAre_one": "{{done}}. تم ترك مضيف مشارك واحد كما هو.",
+    "sharedLeftAsTheyAre_two": "{{done}}. تم ترك مضيفين مشاركين كما هما.",
+    "sharedLeftAsTheyAre_few": "{{done}}. تم ترك {{count}} مضيفين مشاركين كما هم.",
+    "sharedLeftAsTheyAre_many": "{{done}}. تم ترك {{count}} مضيفًا مشاركًا كما هم.",
+    "sharedLeftAsTheyAre_other": "{{done}}. تم ترك {{count}} مضيف مشارك كما هو.",
+    "deleteHosts_zero": "حذف 0 مضيف؟",
+    "deleteHosts_one": "حذف مضيف واحد؟",
+    "deleteHosts_two": "حذف مضيفين؟",
+    "deleteHosts_few": "حذف {{count}} مضيفين؟",
+    "deleteHosts_many": "حذف {{count}} مضيفًا؟",
+    "deleteHosts_other": "حذف {{count}} مضيف؟",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "لا يوجد مجلد باسم {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "المضيف \"{{name}}\": منفذ غير صالح",
+        "hostJumpIsNotIn": "المضيف \"{{name}}\": القفزة {{value}} غير موجودة في الملف، لذا تم استبعادها",
+        "credential": "البيانات الاعتمادية {{name}}: {{error}}",
+        "noValidHostEntriesFound": "لم يتم العثور على إدخالات مضيف صالحة في ملف تكوين SSH",
+        "credentialWasNotFound": "{{label}}: لم يتم العثور على البيانات الاعتمادية {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "المضيف {{value}}: معرف مضيف مُصدّر مكرر {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: الحقول المطلوبة مفقودة (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: نوع المصادقة غير صالح. يجب أن يكون واحدًا من {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: اسم المستخدم مطلوب لاتصالات SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias مطلوب لمصادقة البيانات الاعتمادية",
+        "thatIsNotAValid": "هذا ليس ملف JSON صالح",
+        "hostsArrayIsRequiredAnd": "مصفوفة المضيفين مطلوبة ولا يجب أن تكون فارغة",
+        "jumpHostCycle": "{{label}}: دورة مضيف القفز",
+        "jumpHostIsNotIn": "{{label}}: مضيف القفز {{id}} غير موجود في الملف"
+      }
+    },
+    "movedTo": "تم النقل إلى {{value}}",
+    "movedOutOfFolders": "تم النقل خارج المجلدات",
+    "movedUnder": "تم النقل تحت {{value}}",
+    "openTerminals": "المحطات المفتوحة",
+    "theHost": "المضيف"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "إخفاء كلمة المرور",
+      "showPassword": "إظهار كلمة المرور",
+      "enterAUsernameAndPassword": "أدخل اسم المستخدم وكلمة المرور",
+      "useAtLeast6Characters": "استخدم 6 أحرف على الأقل لكلمة المرور",
+      "thePasswordsDonTMatch": "كلمات المرور غير متطابقة",
+      "makeTheAdminAccount": "إنشاء حساب المسؤول",
+      "makeAnAccount": "إنشاء حساب",
+      "thisIsTheFirstAccount": "هذا هو الحساب الأول على الخادم، لذا فهو يشغل الخادم.",
+      "pickAUsernameAndPassword": "اختر اسم مستخدم وكلمة مرور لهذا الخادم.",
+      "username": "اسم المستخدم",
+      "password": "كلمة المرور",
+      "passwordAgain": "كلمة المرور مرة أخرى",
+      "makeAccount": "إنشاء الحساب",
+      "back": "رجوع",
+      "haveAnAccountSignIn": "لديك حساب؟ تسجيل الدخول",
+      "resetCodeMadeItIs": "تم إنشاء رمز إعادة التعيين. إنه موجود في سجلات الخادم",
+      "enterYourUsername": "أدخل اسم المستخدم الخاص بك",
+      "enterTheResetCode": "أدخل رمز إعادة التعيين",
+      "passwordChangedSignInWith": "تم تغيير كلمة المرور. قم بتسجيل الدخول بها الآن",
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "enterYourUsernameTheServer": "أدخل اسم المستخدم الخاص بك. يكتب الخادم رمز إعادة التعيين إلى سجلاته.",
+      "sendResetCode": "إرسال رمز إعادة التعيين",
+      "enterThe6DigitCode": "أدخل الرمز المكوّن من 6 أرقام من سجلات الخادم.",
+      "resetCode": "إعادة تعيين الرمز",
+      "checkCode": "تحقق من الرمز",
+      "newPassword": "كلمة المرور الجديدة",
+      "saveNewPassword": "حفظ كلمة المرور الجديدة",
+      "backToSignIn": "العودة إلى تسجيل الدخول",
+      "couldNotMakeTheAccount": "تعذر إنشاء الحساب",
+      "couldNotStartTheReset": "تعذر بدء عملية إعادة التعيين",
+      "thatCodeDidnTWork": "هذا الرمز لم يعمل",
+      "couldNotChangeThePassword": "تعذر تغيير كلمة المرور"
+    },
+    "browserStep": {
+      "signInFailed": "فشل تسجيل الدخول",
+      "signInCanceled": "تم إلغاء تسجيل الدخول",
+      "couldNotOpenTheSign": "تعذر فتح متصفح تسجيل الدخول",
+      "couldNotOpenTheSign2": "تعذر فتح صفحة تسجيل الدخول",
+      "certificateProblem": "مشكلة في الشهادة",
+      "back": "رجوع",
+      "signIn": "تسجيل الدخول",
+      "reload": "إعادة تحميل",
+      "finishSigningInInYour": "أكمل تسجيل الدخول في متصفحك",
+      "useAnySignInYour": "استخدم أي طريقة تسجيل دخول متوفرة على خادمك، مثل مفتاح المرور أو مفتاح الأمان. سيقوم التطبيق بالمتابعة بمجرد دخولك.",
+      "theAppPicksUpOnce": "سيقوم التطبيق بالمتابعة بمجرد انتهاء مزود تسجيل الدخول.",
+      "signingIn": "جارٍ تسجيل الدخول...",
+      "openBrowserAgain": "فتح المتصفح مرة أخرى",
+      "theServerTurnedTheSession": "رفض الخادم الجلسة. حاول مرة أخرى.",
+      "signedInButTheApp": "تم تسجيل الدخول، لكن التطبيق لا يمكنه الوصول إلى Termix. قد يكون هناك وكيل (Proxy) يحظر الوصول.",
+      "thatSignInLinkIs": "رابط تسجيل الدخول هذا من محاولة سابقة. سجّل الدخول مرة أخرى.",
+      "signInAgain": "سجّل الدخول مرة أخرى.",
+      "openTheBrowserAgainWhen": "افتح المتصفح مرة أخرى عندما تكون مستعدًا.",
+      "theWebPageSignedIn": "قامت صفحة الويب بتسجيل الدخول لكنها لم ترسل أي جلسة. قم بتحديث الخادم وحاول مرة أخرى.",
+      "theCanTCheckThis": "لا يمكن لـ {{deviceWord}} التحقق من شهادة هذا الخادم. قم بتثبيت شهادة CA الجذر الخاصة به على {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "هل تريد استخدام {{name}} لتسجيل الدخول في المرة القادمة؟",
+      "ifThisServerSignsYou": "إذا قام هذا الخادم بتسجيل خروجك، سجّل الدخول مرة أخرى باستخدام {{name}} بدلاً من كتابة كلمة المرور. ستبقى كلمة المرور محفوظة على هذا {{deviceWord}}.",
+      "use": "استخدام {{name}}",
+      "notNow": "ليس الآن",
+      "couldNotSaveTheLogin": "تعذر حفظ بيانات تسجيل الدخول",
+      "thatSADifferentUser": "هذا مستخدم مختلف",
+      "signedIn": "تم تسجيل الدخول",
+      "close": "إغلاق",
+      "linkYourTermixServer": "ربط خادم Termix الخاص بك",
+      "yourHostsCredentialsSnippetsAnd": "سيتم مزامنة مضيفيك، وبيانات الاعتماد، والمقتطفات، والإعدادات معه، وستحصل على إضافاته. سيستمر كل شيء في العمل على هذا {{deviceWord}} عندما يكون الخادم غير متصل.",
+      "checking": "جارٍ التحقق من {{host}}...",
+      "proxyAndClientCertificate": "الوكيل وشهادة العميل",
+      "couldNotReachThatServer": "تعذر الوصول إلى ذلك الخادم. تحقق من العنوان، أو قم بإعداد الوكيل أو شهادة العميل.",
+      "couldNotReachThatServer2": "تعذر الوصول إلى ذلك الخادم",
+      "syncCouldNotStartYet": "لم تتمكن المزامنة من البدء بعد. ستحاول مرة أخرى تلقائيًا.",
+      "checkingTheServer": "جارٍ التحقق من الخادم",
+      "signIn": "تسجيل الدخول",
+      "makeAnAccount": "إنشاء حساب",
+      "resetPassword": "إعادة تعيين كلمة المرور",
+      "oneMoreStep": "خطوة واحدة فقط",
+      "almostDone": "اكتمل تقريبًا",
+      "linkAServer": "ربط خادم"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "لم تعد بيانات تسجيل الدخول المحفوظة تعمل",
+      "enterYourUsernameAndPassword": "أدخل اسم المستخدم وكلمة المرور",
+      "thisServerIsBehindA": "هذا الخادم خلف وكيل تسجيل الدخول",
+      "signInWith": "تسجيل الدخول باستخدام {{saved}}",
+      "signInWith2": "تسجيل الدخول باستخدام",
+      "password": "كلمة المرور",
+      "username": "اسم المستخدم",
+      "signIn": "تسجيل الدخول",
+      "forgotPassword": "نسيت كلمة المرور؟",
+      "makeAnAccount": "إنشاء حساب",
+      "or": "أو",
+      "continueWith": "متابعة باستخدام {{label}}",
+      "signInWithAPasskey": "تسجيل الدخول باستخدام مفتاح مرور أو مفتاح أمان",
+      "opensYourServerAposS": "يفتح صفحة تسجيل الدخول الخاصة بخادمك في المتصفح. تعمل Face ID، وبصمة الإصبع، و NFC، ومفاتيح USB هناك. يتطلب Termix 26.11.3 أو أحدث.",
+      "signInInTheBrowser": "تسجيل الدخول في المتصفح",
+      "opensYourServerAposS2": "يفتح صفحة تسجيل الدخول الخاصة بخادمك، لأي شيء لا يمكن للتطبيق القيام به هنا. يتطلب Termix 26.10.6 أو أحدث.",
+      "thisServerHasNoSign": "هذا الخادم لا يحتوي على تسجيل دخول مفعّل يمكن للتطبيق استخدامه. اسأل من يديره، أو جرب تسجيل الدخول عبر المتصفح أعلاه.",
+      "signInWithYourPassword": "تسجيل الدخول باستخدام كلمة المرور الخاصة بك.",
+      "signInFailed": "فشل تسجيل الدخول",
+      "openingItsSignInPage": "جارٍ فتح صفحة تسجيل الدخول."
+    },
+    "smallSteps": {
+      "serverAddress": "عنوان الخادم",
+      "likeTermixExampleComOr": "مثل termix.example.com أو 192.168.1.20:30001",
+      "checking": "جارٍ التحقق...",
+      "continue": "متابعة",
+      "proxyAndClientCertificate": "الوكيل وشهادة العميل",
+      "aServerWithASelf": "يتطلب الخادم ذو الشهادة الموقعة ذاتيًا تثبيت شهادة CA الجذر أولاً على هذا {{deviceWord}}. يعمل http العادي على شبكتك الخاصة.",
+      "enterTheCode": "أدخل الرمز",
+      "code": "الرمز",
+      "the6DigitCodeFrom": "الرمز المكوّن من 6 أرقام من تطبيق المصادقة الخاص بك، أو رمز احتياطي",
+      "checkCode": "تحقق من الرمز",
+      "thisAccountAsksForA": "يطلب هذا الحساب مفتاح أمان بعد كلمة المرور. سجّل الدخول على صفحة الخادم في متصفحك لاستخدامه.",
+      "useASecurityKeyIn": "استخدام مفتاح أمان في المتصفح",
+      "backToSignIn": "العودة إلى تسجيل الدخول",
+      "bringThisAposSHosts": "هل تريد إحضار مضيفي هذا {{deviceWord}} أيضًا؟",
+      "thisHasTheyStayOn": "يحتوي هذا {{deviceWord}} على {{what}}. تظل على هذا الجهاز في كلتا الحالتين.",
+      "merge": "دمج",
+      "copyThemToTooSo": "انسخها إلى {{serverName}} أيضًا حتى تتم مزامنتها. يتم تخطي تلك التي تبدو مشابهة لمضيف الخادم.",
+      "replace": "استبدال",
+      "useOnlyWhatIsOn": "استخدم فقط ما هو موجود على {{serverName}} لهذا الحساب. لن يتم نسخ أي شيء.",
+      "thatCodeDidnTWork": "لم يعمل ذلك الرمز",
+      "hostsCredentialsOrSnippets": "المضيفين، بيانات الاعتماد أو المقاطع"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "اربط هذا الخادم أولاً",
+      "thatHostIsnTHere": "هذا المضيف غير موجود هنا",
+      "couldNotOpenThatHost": "تعذر فتح ذلك المضيف",
+      "noHostWithIdOn": "لا يوجد مضيف بالمعرّف {{hostId}} على {{account}}.",
+      "isnTLinkedInThe": "{{value}} غير مرتبط في التطبيق بعد."
+    }
+  },
+  "notifications": {
+    "notifications": "الإشعارات",
+    "markAllRead": "تحديد الكل كمقروء",
+    "clearReadNotifications": "مسح الإشعارات المقروءة",
+    "unread2": "غير مقروءة",
+    "all": "الكل",
+    "noUnreadNotifications": "لا توجد إشعارات غير مقروءة",
+    "nothingHere": "لا شيء هنا",
+    "markRead": "تحديد كمقروء",
+    "delete": "حذف",
+    "couldNotLoadNotifications": "تعذر تحميل الإشعارات",
+    "couldNotMarkRead": "تعذر التحديد كمقروء",
+    "couldNotDelete": "تعذر الحذف",
+    "couldNotClear": "تعذر المسح"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "استيراد",
+      "hosts": "المضيفين",
+      "aTermixHostFileYour": "ملف مضيف Termix، أو ~/.ssh/config الخاص بك، أو رابط مضيف أو رمز QR من {{deviceWord}} آخر. يتم حفظها على هذا {{deviceWord}}.",
+      "backup": "نسخة احتياطية",
+      "aBackupThisAppMade": "نسخة احتياطية أنشأها هذا التطبيق، ومقفلة بعبارة مرور. تعيد المضيفين وبيانات الاعتماد والمقاطع.",
+      "restoreABackup": "استعادة نسخة احتياطية",
+      "done": "تم",
+      "skipForNow": "تخطي الآن",
+      "sshFilesAndRemoteDesktops": "SSH والملفات وسطح المكتب عن بُعد من {{deviceWord}} الخاص بك. كيف تريد البدء؟",
+      "useWithoutAServer": "استخدام بدون خادم",
+      "hostsCredentialsAndSnippetsAre": "يتم حفظ المضيفين، بيانات الاعتماد والمقتطفات مشفرة على هذا {{deviceWord}}. يمكنك ربط خادم في أي وقت لاحق.",
+      "linkATermixServer": "ربط خادم Termix",
+      "syncYourHostsCredentialsSnippets": "مزامنة المضيفين، بيانات الاعتماد، المقتطفات والإعدادات مع خادمك واستخدام إضافاته.",
+      "bringHostsFromATermix": "استيراد المضيفين من ملف Termix، تكوين SSH، رمز QR أو نسخة احتياطية.",
+      "thisDevice": "هذا الجهاز"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "البحث عن المضيفين، المقتطفات والإجراءات",
+      "clearSearch": "مسح البحث",
+      "nothingMatches": "لا توجد نتائج مطابقة",
+      "typeToSearch": "اكتب للبحث",
+      "findAHostToConnect": "ابحث عن مضيف للاتصال، مقتطف، إعداد أو إجراء.",
+      "suggested": "مقترح | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "تشغيل في {{title}}",
+      "copiedRunItFromThe": "تم النسخ. شغّله من مقتطفات الطرفية لملء قيمه.",
+      "copiedOpenATerminalTo": "تم النسخ. افتح طرفية لتشغيل المقتطفات.",
+      "addHost": "إضافة مضيف",
+      "quickConnect": "اتصال سريع",
+      "switchAccount": "تبديل الحساب",
+      "linkAServer": "ربط خادم",
+      "fromYourServer": "من خادمك",
+      "settings": "الإعدادات",
+      "accountsAppearanceSecurity": "الحسابات، المظهر، الأمان"
+    },
+    "search": {
+      "hosts": "المضيفون",
+      "snippets": "المقتطفات",
+      "actions": "الإجراءات",
+      "settings": "الإعدادات"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "فشل تحميل الجلسات",
+      "sessionRevoked": "تم إلغاء الجلسة",
+      "failedToRevokeSession": "فشل إلغاء الجلسة",
+      "allSessionsRevoked": "تم إلغاء جميع الجلسات",
+      "failedToRevokeAllSessions": "فشل إلغاء جميع الجلسات",
+      "activeSessions": "الجلسات النشطة",
+      "signOutAllOtherSessions": "تسجيل الخروج من جميع الجلسات الأخرى",
+      "loading": "جارٍ التحميل…",
+      "noActiveSessionsFound": "لم يتم العثور على جلسات نشطة.",
+      "unknownDevice": "جهاز غير معروف",
+      "lastActive": "آخر نشاط {{lastActiveAt}}",
+      "created": "تم الإنشاء {{createdAt}}",
+      "revokeSession": "إلغاء الجلسة",
+      "revokeSession2": "إلغاء الجلسة؟",
+      "thisWillSignOutThat": "سيؤدي هذا إلى تسجيل الخروج من ذلك الجهاز.",
+      "revoke": "إلغاء",
+      "revokeAllSessions": "إلغاء جميع الجلسات؟",
+      "thisWillSignOutEvery": "سيؤدي هذا إلى تسجيل الخروج من كل الأجهزة. ستبقى مسجلاً الدخول على هذا الجهاز.",
+      "cancel": "إلغاء",
+      "revokeAll": "إلغاء الكل"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "فشل تحميل مفاتيح API",
+      "failedToCreateApiKey": "فشل إنشاء مفتاح API",
+      "deleteApiKey": "حذف مفتاح API؟",
+      "willStopWorkingRightAway": "سيتم إيقاف \"{{name}}\" عن العمل فوراً.",
+      "apiKeyDeleted": "تم حذف مفتاح API",
+      "failedToDeleteApiKey": "فشل حذف مفتاح API",
+      "apiKeys": "مفاتيح API",
+      "newApiKey": "مفتاح API جديد",
+      "loading": "جارٍ التحميل…",
+      "apiKeysAllowProgrammaticAccess": "تسمح مفاتيح API بالوصول البرمجي إلى Termix. يتم عرض السرية مرة واحدة فقط لذا احفظها بأمان.",
+      "noApiKeysYet": "لا توجد مفاتيح API بعد",
+      "created": "تم الإنشاء {{createdAt}}",
+      "lastUsed": "آخر استخدام {{lastUsedAt}}",
+      "expires": "تنتهي صلاحيته {{expiresAt}}",
+      "delete": "حذف {{name}}",
+      "keyCreatedCopyItNow": "تم إنشاء المفتاح. انسخه الآن",
+      "newApiKey2": "مفتاح API جديد",
+      "thisTokenWonTBe": "لن يظهر هذا الرمز مرة أخرى.",
+      "apiKeyCopied": "تم نسخ مفتاح API",
+      "copy": "نسخ",
+      "done": "تم",
+      "cancel": "إلغاء",
+      "create": "إنشاء",
+      "name": "الاسم *",
+      "eGCiPipeline": "مثال: خط أنابيب CI",
+      "user": "المستخدم *",
+      "noUsersAvailable": "لا يوجد مستخدمون متاحون.",
+      "expiresAtOptional": "تاريخ الانتهاء (اختياري)",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "السنة / الشهر / اليوم"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "إبقاء الجلسات تعمل",
+      "showsANotificationWhileSessions": "يعرض إشعارًا أثناء بقاء الجلسات مفتوحة، بحيث يحافظ Android عليها عند مغادرة التطبيق",
+      "batteryOptimization": "تحسين البطارية",
+      "termixIsNotRestrictedSo": "Termix غير مقيد، لذا يمكن للجلسات أن تبقى مفتوحة حتى مع إيقاف الشاشة.",
+      "androidMayStillStopSessions": "قد يوقف Android الجلسات لاقتصاد البطارية. افتح إعدادات البطارية، ابحث عن Termix واختر غير محسّن أو غير مقيد.",
+      "openBatterySettings": "فتح إعدادات البطارية",
+      "notificationsAreOff": "الإشعارات معطلة",
+      "sessionsStillRunButThe": "تستمر الجلسات في العمل، لكن قائمة الجلسات المفتوحة وزر قطع الاتصال الكل تبقى مخفية.",
+      "openNotificationSettings": "فتح إعدادات الإشعارات",
+      "thisBuildCanTKeep": "لا يمكن لهذا الإصدار إبقاء الجلسات تعمل في الخلفية. ستعيد الاتصال عند عودتك.",
+      "lowPowerMode": "وضع توفير الطاقة",
+      "batterySaver": "موفر البطارية",
+      "isOnTermixChecksConnections": "{{value}} مفعّل. يتحقق Termix من الاتصالات بشكل أقل تكرارًا وينتظر لفترة أطول بين محاولات إعادة الاتصال.",
+      "backgroundSessions": "الجلسات في الخلفية",
+      "iosStopsAppsSoonAfter": "يوقف iOS التطبيقات بعد مغادرتها بوقت قصير، لذا لا يمكن للجلسات أن تعمل في الخلفية. ستعيد الاتصال عند عودتك، وسيستأنف tmux أو screen من حيث توقفت."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "متوقف",
+        "active": "نشط",
+        "linkAServer": "ربط خادم",
+        "eachServerKeepsItsOwn": "يحفظ كل خادم نسخته الخاصة من مضيفيك، بيانات الاعتماد والإعدادات على هذا {{deviceWord}}.",
+        "signedInAs": "تم تسجيل الدخول باسم",
+        "role": "الدور",
+        "administrator": "مدير",
+        "user": "مستخدم",
+        "serverVersion": "إصدار الخادم",
+        "signOut": "تسجيل الخروج",
+        "youAreSignedOutOf": "لقد قمت بتسجيل الخروج من هذا الخادم.",
+        "signIn": "تسجيل الدخول",
+        "passwordChanged": "تم تغيير كلمة المرور",
+        "couldNotChangeThePassword": "تعذر تغيير كلمة المرور",
+        "changePassword": "تغيير كلمة المرور",
+        "enterYourCurrentPasswordThen": "أدخل كلمة المرور الحالية، ثم اختر كلمة مرور جديدة.",
+        "cancel": "إلغاء",
+        "change": "تغيير",
+        "currentPassword": "كلمة المرور الحالية",
+        "newPassword": "كلمة المرور الجديدة",
+        "accountDeleted": "تم حذف الحساب",
+        "couldNotDeleteTheAccount": "تعذر حذف الحساب",
+        "deleteServerAccount": "حذف حساب الخادم",
+        "thisPermanentlyDeletesYourAccount": "سيؤدي هذا إلى حذف حسابك على الخادم وجميع بياناته نهائيًا. لا يمكن التراجع عن هذا الإجراء.",
+        "delete": "حذف",
+        "confirmYourPassword": "تأكيد كلمة المرور",
+        "worksWithoutAServer": "يعمل بدون خادم",
+        "signedOut": "تم تسجيل الخروج",
+        "readsLive": "يقرأ مباشر",
+        "toReview": "{{count}} للمراجعة",
+        "synced": "تم المزامنة",
+        "syncing": "جارٍ المزامنة",
+        "offline": "غير متصل"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "مشاركة إحصائيات الاستخدام المجهولة",
+        "aShortReportOnceA": "تقرير قصير مرة واحدة يومياً. بدون مضيفين أو أسماء أو عناوين",
+        "nextReport": "التقرير التالي",
+        "seeExactlyWhatWouldBe": "عرض ما سيتم إرساله بالضبط",
+        "couldNotBuildTheReport": "تعذر إنشاء التقرير",
+        "preview": "معاينة",
+        "thisIsExactlyWhatWould": "هذا هو ما سيتم إرساله الآن بالضبط.",
+        "resetInstallId": "إعادة تعيين معرف التثبيت",
+        "futureReportsWillLookLike": "ستبدو التقارير المستقبلية كتثبيت جديد",
+        "resetTheInstallId": "هل تريد إعادة تعيين معرف التثبيت؟",
+        "futureReportsWillLookLike2": "ستبدو التقارير المستقبلية كتثبيت جديد.",
+        "reset": "إعادة تعيين",
+        "installIdReset": "تم إعادة تعيين معرف التثبيت"
+      },
+      "appearanceControls": {
+        "theme": "السمة",
+        "accentColor": "لون التمييز",
+        "textSize": "حجم النص",
+        "sizeOfTextAcrossThe": "حجم النص في جميع أنحاء التطبيق، وليس في الطرفية",
+        "density": "الكثافة",
+        "howTallListRowsAnd": "ارتفاع صفوف القوائم والإعدادات"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "يتم حفظ المضيفين، بيانات الاعتماد، والمقتطفات في ملف مشفر على هذا{{deviceWord}}. إحصائيات الاستخدام معطلة ما لم تقم بتفعيلها أدناه. الخادم المرتبط يحصل فقط على ما تسمح له بمزامنته.",
+        "recentHosts": "المضيفون الحديثون",
+        "forgetTheHostsYouOpened": "نسيان المضيفين الذين فتحتهم مؤخراً في جميع الحسابات",
+        "recentHostsCleared": "تم مسح المضيفين الحديثين",
+        "clear": "مسح",
+        "couldNotCheckForUpdates": "تعذر التحقق من وجود تحديثات",
+        "versionIsOutUpdateFrom": "الإصدار {{version}} متاح. قم بالتحديث من متجرك.",
+        "youHaveTheNewestVersion": "لديك أحدث إصدار",
+        "termixMobile": "Termix Mobile",
+        "updates": "التحديثات",
+        "check": "تحقق"
+      },
+      "pinSheet": {
+        "waitSeconds": "انتظر {{value}} ثانية",
+        "digits": "{{PIN_LENGTH}} أرقام"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "رموز PIN غير متطابقة",
+        "appLockIsOn": "قفل التطبيق مفعّل",
+        "turnOffAppLock": "إيقاف قفل التطبيق",
+        "enterYourPinToConfirm": "أدخل رمز PIN للتأكيد.",
+        "appLockIsOff": "قفل التطبيق معطّل",
+        "appLock": "قفل التطبيق",
+        "askForFaceIdTouch": "طلب Face ID، Touch ID أو رمز PIN لفتح التطبيق",
+        "askForAPinTo": "طلب رمز PIN لفتح التطبيق",
+        "pinChanged": "تم تغيير رمز PIN",
+        "couldNotChangeThePin": "تعذر تغيير رمز PIN",
+        "changePin": "تغيير رمز PIN",
+        "lockAfter": "القفل بعد",
+        "howLongTheAppCan": "مدى بقاء التطبيق بعيداً عن الأنظار قبل أن يقفل",
+        "hideInAppSwitcher": "إخفاء في مبدّل التطبيقات",
+        "showABlankScreenIn": "عرض شاشة فارغة في قائمة التطبيقات الحديثة",
+        "chooseA4DigitPin": "اختر رمز PIN مكون من 4 أرقام.",
+        "confirmPin": "تأكيد رمز PIN",
+        "enterTheSamePinAgain": "أدخل نفس رمز PIN مرة أخرى.",
+        "currentPin": "رمز PIN الحالي",
+        "enterYourCurrentPin": "أدخل رمز PIN الحالي.",
+        "newPin": "رمز PIN جديد",
+        "chooseANew4Digit": "اختر رمز PIN جديد مكون من 4 أرقام.",
+        "confirmNewPin": "تأكيد رمز PIN الجديد",
+        "enterTheNewPinAgain": "أدخل رمز PIN الجديد مرة أخرى."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "أدوات الشاشة الرئيسية",
+        "showYourHostsSnippetsAnd": "إظهار الخوادم، والكودات، وأزرار الطاقة على الشاشة الرئيسية",
+        "showAddresses": "إظهار العناوين",
+        "showUserHostUnderEach": "إظهار user@host أسفل كل اسم خادم",
+        "includeOfflineHosts": "تضمين الخوادم غير المتصلة",
+        "offShowsOnlyServersThat": "الإيقاف يعرض فقط الخوادم المتصلة بالإنترنت",
+        "pinnedHostsOnly": "الخوادم المثبتة فقط",
+        "showOnlyTheHostsYou": "إظهار الخوادم التي قمت بتثبيتها فقط",
+        "snippetsWidget": "أداة الكودات",
+        "showSavedCommandsOnThe": "إظهار الأوامر المحفوظة على الشاشة الرئيسية",
+        "showCommandPreview": "إظهار معاينة الأمر",
+        "showTheFirstLineOf": "إظهار السطر الأول من كل أمر"
+      }
+    },
+    "fileSettings": {
+      "files": "الملفات",
+      "fileManagerOnThis": "مدير الملفات على هذا {{deviceWord}}",
+      "browsing": "التصفح",
+      "transfersAtOnce": "النقل في وقت واحد",
+      "downloadsAndUploadsThatRun": "التحميلات والرفع التي تعمل معًا",
+      "editor": "المحرر",
+      "textSize": "حجم النص",
+      "filesBesideTheTerminal": "الملفات بجانب المحطة الطرفية",
+      "side": "الجانب",
+      "whereThePanelSitsOn": "مكان لوحة الملفات على الجهاز اللوحي",
+      "right": "يمين",
+      "left": "يسار",
+      "howOftenToCheck": "تكرار التحقق",
+      "folderHistory": "سجل المجلدات",
+      "foldersKeptPerHost": "المجلدات المحفوظة لكل خادم",
+      "showHiddenFiles": "إظهار الملفات المخفية",
+      "filesAndFoldersThatStart": "الملفات والمجلدات التي تبدأ بنقطة",
+      "askBeforeMovingToThe": "السؤال قبل النقل إلى سلة المهملات",
+      "deletingForGoodAlwaysAsks": "الحذف النهائي يطلب دائمًا تأكيدًا",
+      "wrapLongLines": "التفاف الأسطر الطويلة",
+      "openWithNewTerminals": "الفتح بمحطات طرفية جديدة",
+      "onATabletShowThe": "على الجهاز اللوحي، إظهار لوحة الملفات عند فتح محطة طرفية",
+      "followTheTerminal": "متابعة المحطة الطرفية",
+      "openTheFolderTheTerminal": "فتح المجلد الذي توجد فيه المحطة الطرفية أثناء استخدام أمر cd"
+    },
+    "keyboardCustomization": {
+      "small": "صغير",
+      "medium": "متوسط",
+      "large": "كبير",
+      "ms": "{{v}} مللي ثانية",
+      "keyboard": "لوحة المفاتيح",
+      "keyRowsAboveTheKeyboard": "صفوف المفاتيح فوق لوحة المفاتيح",
+      "rows": "الصفوف",
+      "keys": "المفاتيح",
+      "aHostCanHaveIts": "يمكن للخادم أن يكون له صفوفه الخاصة: انقر على علامة التبويب المفتوحة له في الجلسة واختر صفوف المفاتيح لهذا الخادم.",
+      "keySize": "حجم المفتاح",
+      "vibrateOnKeyPress": "الاهتزاز عند الضغط على المفتاح",
+      "repeatAfter": "التكرار بعد",
+      "howLongToHoldAn": "مدة الضغط على سهم أو Backspace",
+      "repeatEvery": "التكرار كل",
+      "hardwareKeyboard": "لوحة المفاتيح المادية",
+      "allShortcuts": "جميع الاختصارات",
+      "show": "إظهار"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "تعذر إنشاء النسخة الاحتياطية",
+      "deleteLocalData": "حذف البيانات المحلية؟",
+      "hostsCredentialsSnippetsAndHistory": "سيتم حذف الخوادم، والبيانات الاعتمادية، والكودات، والسجل المحفوظ على هذا {{deviceWord}} لـ {{account}}. لا يمكن التراجع عن هذا الإجراء. قم بإنشاء نسخة احتياطية أولاً إذا كنت تريد الاحتفاظ بها.",
+      "delete": "حذف",
+      "localDataDeleted": "تم حذف البيانات المحلية",
+      "couldNotDeleteLocalData": "تعذر حذف البيانات المحلية",
+      "localData": "البيانات المحلية",
+      "localDataIsOnlySaved": "يتم حفظ البيانات المحلية في تطبيق {{deviceWord}} فقط.",
+      "savedOnThisForThe": "محفوظ على هذا {{deviceWord}} لحساب {{account}}. الملف مشفر بمفتاح لا يغادر هذا {{deviceWord}} أبداً.",
+      "hosts": "المضيفين",
+      "credentials": "بيانات الاعتماد",
+      "snippets": "المقتطفات",
+      "size": "الحجم",
+      "dataVersion": "إصدار البيانات",
+      "backup": "النسخ الاحتياطي",
+      "aBackupFileHoldsYour": "يحتوي ملف النسخ الاحتياطي على كلمات المرور والمفاتيح الخاصة بك، مقفل بعبارتك السرية التي تختارها. لا يمكن لأحد فتحه بدون تلك العبارة السرية.",
+      "exportBackup": "تصدير النسخ الاحتياطي",
+      "importBackup": "استيراد النسخ الاحتياطي",
+      "removesEverythingThisAccountSaved": "يحذف كل ما حفظه هذا الحساب على هذا {{deviceWord}}. يحافظ الخادم المرتبط على نسخته الخاصة.",
+      "deleteLocalData2": "حذف البيانات المحلية",
+      "backupPassphrase": "عبارة النسخ الاحتياطي السرية",
+      "atLeast8CharactersYou": "8 أحرف على الأقل. ستحتاجها لاستعادة النسخ الاحتياطي.",
+      "passphrase": "العبارة السرية",
+      "next": "التالي",
+      "typeItAgain": "أعد كتابتها",
+      "export": "تصدير",
+      "saveYourTermixBackup": "احفظ نسخة Termix الاحتياطية"
+    },
+    "logs": {
+      "logs": "السجلات",
+      "latestLinesFromThisRun": "آخر الأسطر من هذه الجلسة. عناوين الخوادم وكلمات المرور والرموز مخفية.",
+      "logsCopied": "تم نسخ السجلات",
+      "copy": "نسخ",
+      "share": "مشاركة",
+      "clear": "مسح",
+      "noLogsYet": "لا توجد سجلات بعد",
+      "nothingHasBeenLogged": "لم يتم تسجيل أي شيء."
+    },
+    "plugins": {
+      "worksOnThis": "يعمل على هذا {{deviceWord}}",
+      "needsTheServer": "يتطلب الخادم",
+      "notInTheApp": "غير موجود في التطبيق",
+      "needsANewerVersionOf": "يتطلب إصداراً أحدث من التطبيق",
+      "updateThePluginOnThe": "تحديث الإضافة على الخادم",
+      "inTheApp": "في التطبيق",
+      "onThisServer": "على هذا الخادم",
+      "version": "الإصدار",
+      "needsPluginApi": "يتطلب واجهة برمجة التطبيقات للإضافات",
+      "thisAppHas": "يحتوي هذا التطبيق على",
+      "note": "ملاحظة",
+      "open": "فتح",
+      "openFromAHostS": "افتح {{name}} من قائمة المضيف.",
+      "plugins": "الإضافات",
+      "everything": "الكل",
+      "thisDeviceWorksWithNo": "يعمل هذا الجهاز بدون خادم. اربط بخادم لإضافة ما يحتاج إلى واحد.",
+      "pluginsOnAndHowEach": "الإضافات على {{account}} وكيف تظهر كل منها في التطبيق. اسحب للأسفل للتحقق مرة أخرى.",
+      "whatRunsOnThisAnd": "ما يعمل على هذا {{deviceWord}} وما يمر عبر {{account}}.",
+      "noPluginList": "لا توجد قائمة إضافات",
+      "theServerDidNotSend": "لم يرسل الخادم إضافاته. اسحب للأسفل للمحاولة مرة أخرى.",
+      "serversOlderThan29": "تحتوي الخوادم الأقدم من 2.9 على كل ميزة مدمجة.",
+      "nothingToShow": "لا يوجد شيء للعرض",
+      "notSentByThisServer": "لم يتم إرساله من قبل هذا الخادم"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "هل تريد استبدال البيانات المحلية؟",
+      "everythingSavedOnThisFor": "سيتم استبدال كل ما هو محفوظ على هذا {{deviceWord}} لحساب {{accountName}} بالنسخة الاحتياطية.",
+      "continue": "متابعة",
+      "couldNotReadThatFile": "تعذر قراءة ذلك الملف",
+      "backupRestored": "تمت استعادة النسخ الاحتياطي",
+      "couldNotRestoreTheBackup": "تعذر استعادة النسخ الاحتياطي",
+      "backupPassphrase": "عبارة النسخ الاحتياطي السرية",
+      "thePassphraseUsedWhenThe": "العبارة السرية المستخدمة عند إنشاء النسخ الاحتياطي.",
+      "passphrase": "العبارة السرية",
+      "restore": "استعادة"
+    },
+    "schema": {
+      "items": {
+        "accounts": "الحسابات",
+        "thisDeviceAndLinkedServers": "هذا الجهاز والخوادم المرتبطة، مع حالة المزامنة الخاصة بها",
+        "syncAndProxy": "المزامنة والوكيل",
+        "whatSyncsConflictsProxyAnd": "ما يتم مزامنته، والصراعات، والوكيل، وفك الارتباط",
+        "serverAccount": "حساب الخادم",
+        "whoIsSignedInOn": "من قام بتسجيل الدخول على الخادم النشط",
+        "activeSessions": "الجلسات النشطة",
+        "devicesSignedInToThe": "الأجهزة المسجلة دخولها إلى الخادم",
+        "apiKeys": "مفاتيح API",
+        "keysForScriptsAndTools": "مفاتيح للبرامج النصية والأدوات",
+        "changePassword": "تغيير كلمة المرور",
+        "passwordOfYourServerAccount": "كلمة مرور حساب الخادم الخاص بك",
+        "deleteServerAccount": "حذف حساب الخادم",
+        "removeYourAccountFromThe": "إزالة حسابك من الخادم",
+        "theme": "السمة",
+        "darkLightDraculaNordAnd": "داكن، فاتح، دراكولا، نورد والمزيد",
+        "accentColor": "لون التمييز",
+        "textSize": "حجم النص",
+        "sizeOfTextAcrossThe": "حجم النص عبر التطبيق",
+        "density": "الكثافة",
+        "howTallListRowsAnd": "ارتفاع صفوف القوائم والإعدادات",
+        "homeScreenWidgets": "أدوات الشاشة الرئيسية",
+        "hostsAndSnippetsOnThe": "المضيفات والمقتطفات على الشاشة الرئيسية",
+        "terminal": "الطرفية",
+        "fontThemeCursorScrollback": "الخط، السمة، المؤشر، التمرير للخلف",
+        "keyboard": "لوحة المفاتيح",
+        "layoutKeysPresets": "التخطيط، المفاتيح، الإعدادات المسبقة",
+        "appLock": "قفل التطبيق",
+        "askForFaceIdTouch": "طلب Face ID أو Touch ID أو رمز PIN لفتح التطبيق",
+        "lockAfter": "القفل بعد",
+        "howLongTheAppCan": "مدى بقاء التطبيق خارج الرؤية قبل أن يُقفل",
+        "hideInAppSwitcher": "إخفاء في مبدل التطبيقات",
+        "showABlankScreenIn": "إظهار شاشة فارغة في قائمة التطبيقات الأخيرة",
+        "changePin": "تغيير رمز PIN",
+        "backgroundSessions": "الجلسات في الخلفية",
+        "whatHappensToOpenSessions": "ماذا يحدث للجلسات المفتوحة عند مغادرة التطبيق",
+        "serverAlerts": "تنبيهات الخادم",
+        "alertsFromTheAlertsPlugin": "تنبيهات من إضافة التنبيهات على خادمك",
+        "whatStaysOnThis": "ما يبقى على هذا {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "يتم تخزين المضيفات، بيانات الاعتماد والمقتطفات مشفرة هنا",
+        "recentHosts": "المضيفات الأخيرة",
+        "forgetTheHostsYouOpened": "نسيان المضيفات التي فتحتها مؤخراً",
+        "shareAnonymousUsageStatistics": "مشاركة إحصائيات الاستخدام المجهولة",
+        "aShortReportOnceA": "تقرير قصير مرة واحدة يومياً. بدون مضيفين، أسماء أو عناوين",
+        "nextReport": "التقرير التالي",
+        "seeExactlyWhatWouldBe": "رؤية ما سيتم إرساله بالضبط",
+        "resetInstallId": "إعادة تعيين معرف التثبيت",
+        "futureReportsWillLookLike": "ستبدو التقارير المستقبلية كتثبيت جديد",
+        "serverUsageStatistics": "إحصائيات استخدام الخادم",
+        "telemetrySettingsOnYourServer": "إعدادات القياس عن بعد على خادمك",
+        "plugins": "الإضافات",
+        "whatTheServerAddsAnd": "ما يضيفه الخادم وأين يتم تشغيله",
+        "localData": "البيانات المحلية",
+        "backupRestoreAndDeleteWhat": "النسخ الاحتياطي، الاستعادة وحذف ما هو محفوظ على هذا {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "الإصدار والتحديثات",
+        "logs": "السجلات",
+        "latestLinesFromThisRun": "أحدث الأسطر من هذه الجلسة، لتقارير الأخطاء"
+      },
+      "sections": {
+        "accountsAndSync": "الحسابات والمزامنة",
+        "thisDeviceLinkedServersAnd": "هذا الجهاز، والخوادم المرتبطة، وما يتم مزامنته",
+        "appearance": "المظهر",
+        "themeAccentTextSizeAnd": "اللغة، والسمة، واللون المميز، وحجم النص والكثافة",
+        "terminal": "الطرفية",
+        "fontColorsAndBackgroundSessions": "الخط، والألوان، وجلسات الخلفية",
+        "keyboard": "لوحة المفاتيح",
+        "keyRowsAndShortcuts": "صفوف المفاتيح والاختصارات",
+        "security": "الأمان",
+        "appLockFaceIdAnd": "قفل التطبيق، والتعرف على الوجه، ورمز PIN",
+        "notifications": "الإشعارات",
+        "alertsFromYourServer": "التنبيهات من خادمك",
+        "privacyAndUsageStatistics": "الخصوصية وإحصائيات الاستخدام",
+        "whatStaysOnThis": "ما يبقى على هذا {{deviceWord}}",
+        "plugins": "الإضافات",
+        "whatTheServerAddsTo": "ما يضيفه الخادم إلى التطبيق",
+        "backupAndData": "النسخ الاحتياطي والبيانات",
+        "backUpRestoreImportAnd": "النسخ الاحتياطي، والاستعادة، والاستيراد، والتصدير",
+        "aboutAndLogs": "حول التطبيق والسجلات",
+        "versionAndLogsForBug": "الإصدار والسجلات لتقارير الأخطاء"
+      }
+    },
+    "settings": "الإعدادات",
+    "searchSettings": "البحث في الإعدادات",
+    "noSettingsMatch": "لا توجد إعدادات مطابقة.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "فشل في تحميل المقاطع",
+      "copied": "تم النسخ: {{name}}",
+      "nameIsRequired": "الاسم مطلوب",
+      "contentIsRequired": "المحتوى مطلوب",
+      "snippetUpdated": "تم تحديث المقطع",
+      "snippetCreated": "تم إنشاء المقطع",
+      "failedToSaveSnippet": "فشل في حفظ المقطع",
+      "snippetDeleted": "تم حذف المقطع",
+      "failedToDeleteSnippet": "فشل في حذف المقطع",
+      "folderNameIsRequired": "اسم المجلد مطلوب",
+      "folderCreated": "تم إنشاء المجلد",
+      "failedToCreateFolder": "فشل في إنشاء المجلد",
+      "folderDeleted": "تم حذف المجلد",
+      "failedToDeleteFolder": "فشل في حذف المجلد",
+      "folderRenamed": "تم إعادة تسمية المجلد",
+      "failedToRenameFolder": "فشل في إعادة تسمية المجلد",
+      "failedToSaveOrder": "فشل في حفظ الترتيب",
+      "moveUp": "تحريك لأعلى",
+      "moveDown": "تحريك لأسفل",
+      "runOnHosts": "تشغيل {{name}} على الخوادم",
+      "copy": "نسخ {{name}}",
+      "delete": "حذف {{name}}",
+      "renameFolder": "إعادة تسمية المجلد",
+      "deleteFolder": "حذف المجلد",
+      "noSnippetsInThisFolder": "لا توجد مقاطع في هذا المجلد",
+      "snippets": "المقاطع",
+      "importAndExport": "الاستيراد والتصدير",
+      "folder": "مجلد",
+      "new": "جديد",
+      "loading": "جارٍ التحميل…",
+      "couldNotLoadSnippets": "تعذر تحميل المقاطع",
+      "checkTheConnectionToYour": "تحقق من الاتصال بخادمك وحاول مرة أخرى.",
+      "tryAgain": "حاول مرة أخرى",
+      "noSnippetsYet": "لا توجد مقاطع بعد",
+      "createYourFirstSnippetOr": "أنشئ مقطعك الأول، أو أضف مقاطع من تطبيق Termix على الويب أو سطح المكتب.",
+      "createSnippet": "إنشاء مقطع",
+      "askBeforeRunning": "اسأل قبل التشغيل",
+      "confirmBeforeASnippetRuns": "تأكيد قبل تشغيل المقطع في الطرفية",
+      "editSnippet": "تعديل المقطع",
+      "newSnippet": "مقطع جديد",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "create": "إنشاء",
+      "name": "الاسم",
+      "eGUpdatePackages": "مثال: تحديث الحزم",
+      "content": "المحتوى",
+      "descriptionOptional": "الوصف (اختياري)",
+      "shortDescription": "وصف مختصر",
+      "folderOptional": "المجلد (اختياري)",
+      "selectFolder": "اختر مجلداً",
+      "noFolder": "بدون مجلد",
+      "targetHostsOptional": "المضيفون المستهدفون (اختياري)",
+      "none": "لا شيء",
+      "note": "ملاحظة",
+      "pastedIntoTheTerminalWithout": "تم لصقه في الطرفية دون تشغيله",
+      "targetHosts": "المضيفون المستهدفون",
+      "copy2": "نسخ",
+      "edit": "تعديل",
+      "runOnHosts2": "تشغيل على المضيفين",
+      "delete2": "حذف",
+      "deleteSnippet": "حذف المقطع",
+      "deleteThisCannotBeUndone": "حذف \"{{name}}\"؟ لا يمكن التراجع عن هذا الإجراء.",
+      "renameFolder2": "إعادة تسمية المجلد",
+      "rename": "إعادة تسمية",
+      "folderName": "اسم المجلد",
+      "eGSystem": "مثال: النظام",
+      "newFolder": "مجلد جديد",
+      "deleteFolder2": "حذف المجلد",
+      "deleteSnippetsInThisFolder": "حذف \"{{name}}\"؟ ستصبح المقاطع في هذا المجلد غير مصنفة."
+    },
+    "sync": {
+      "notYet": "لم يتم بعد",
+      "justNow": "الآن",
+      "stopped": "متوقف",
+      "signInToThisServer": "سجّل الدخول إلى هذا الخادم مرة أخرى للمزامنة",
+      "couldNotChangeThat": "تعذر تغيير ذلك",
+      "sync": "مزامنة",
+      "thisDeviceDoesNotSync": "لا تتم المزامنة على هذا الجهاز. اربط خادم Termix للحفاظ على مضيفيك على أكثر من جهاز واحد.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} يحافظ على المضيفين، بيانات الاعتماد، المقاطع والإعدادات متزامنة مع هذا {{deviceWord}}. يبقى نسخة على هذا {{deviceWord}}، لذا يعمل أيضاً دون اتصال.",
+      "lastSynced": "آخر مزامنة {{value}}",
+      "live": "مباشر",
+      "syncNow": "مزامنة الآن",
+      "fix": "إصلاح",
+      "thisServerReadsLiveAnd": "يقرأ هذا الخادم البيانات مباشرة ولا يحتفظ بنسخة على {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "فعّل إضافة المزامنة في صفحة الإضافات الخاصة بالخادم، ثم سجّل الدخول مرة أخرى هنا للحفاظ على نسخة على هذا {{deviceWord}}.",
+      "whatSyncs": "ما الذي يتم مزامنته",
+      "turnedOffThatDataStays": "عند الإيقاف، تبقى تلك البيانات على هذا {{deviceWord}} فقط.",
+      "conflicts": "التعارضات",
+      "changedHereAndOnThe": "تم التغيير هنا وعلى الخادم في نفس الوقت. تم الاحتفاظ بنسخة الخادم.",
+      "useServer": "استخدم نسخة الخادم",
+      "keepMine": "احتفظ بنسختي",
+      "notSavedOnTheServer": "لم يتم الحفظ على الخادم",
+      "theServerRefusedTheseChanges": "رفض الخادم هذه التغييرات. تبقى على هذا {{deviceWord}}.",
+      "tryAgain": "حاول مرة أخرى",
+      "proxy": "الوكيل",
+      "onlyNeededWhenAReverse": "مطلوب فقط عند وجود وكيل عكسي أمام الخادم.",
+      "unlink": "فك الارتباط",
+      "unlinkThisServer": "فك ارتباط هذا الخادم",
+      "minAgo": "منذ {{value}} دقيقة",
+      "signedOut": "تم تسجيل الخروج",
+      "waitingToSync": "في انتظار المزامنة",
+      "synced": "تمت المزامنة",
+      "syncing": "جارٍ المزامنة",
+      "offline": "غير متصل"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "الخلفية",
+        "text": "النص",
+        "cursor": "مؤشر الماوس",
+        "textUnderCursor": "النص تحت المؤشر",
+        "selection": "الاختيار",
+        "black": "أسود",
+        "red": "أحمر",
+        "green": "أخضر",
+        "yellow": "أصفر",
+        "blue": "أزرق",
+        "magenta": "أرجواني",
+        "cyan": "سماوي",
+        "white": "أبيض",
+        "brightBlack": "أسود ساطع",
+        "brightRed": "أحمر ساطع",
+        "brightGreen": "أخضر ساطع",
+        "brightYellow": "أصفر ساطع",
+        "brightBlue": "أزرق ساطع",
+        "brightMagenta": "أرجواني ساطع",
+        "brightCyan": "سماوي ساطع",
+        "brightWhite": "أبيض ساطع",
+        "customTheme": "سمة مخصصة",
+        "colorsAsHexLike1e1e2e": "الألوان بصيغة سداسية عشرية، مثل #1e1e2e.",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "isNotAHexColor": "{{label}} ليس لوناً سداسياً عشرياً"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "مضغوط",
+      "default": "افتراضي",
+      "relaxed": "مريح",
+      "spacious": "واسع",
+      "none": "لا شيء",
+      "couldNotSave": "تعذر الحفظ",
+      "pickASizeFromTo": "اختر حجماً بين {{MIN_FONT_SIZE}} و{{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "تمت إعادة تعيين إعدادات الطرفية",
+      "terminal": "الطرفية",
+      "aHostCanSetIts": "يمكن للمضيف تعيين سمة ومؤشر خاصين به في Termix، وسيُعطى الأولوية عليهما.",
+      "theme": "السمة",
+      "custom": "مخصص",
+      "font": "الخط",
+      "active": "نشط",
+      "sizeAndSpacing": "الحجم والتباعد",
+      "pinchTheTerminalToChange": "يمكنك أيضاً تغيير الحجم عن طريق التقريب أو التباعد في الطرفية. سيؤدي استخدام نص كبير في إعدادات {{deviceWord}} إلى تكبيره أيضاً.",
+      "custom2": "مخصص {{fontSize}}",
+      "lineHeight": "ارتفاع السطر",
+      "letterSpacing": "تباعد الحروف",
+      "ligatures": "الروابط الخطية",
+      "cursor": "المؤشر",
+      "blink": "وميض",
+      "bell": "جرس",
+      "vibrate": "اهتزاز",
+      "onTheBellAndWhen": "عند الجرس وعند الضغط المطول للاختيار",
+      "scrollback": "التمرير الخلفي",
+      "linesKeptAboveTheScreen": "الأسطر المحفوظة فوق الشاشة. ينطبق على الطرفيات الجديدة.",
+      "linksAndKeys": "الروابط والمفاتيح",
+      "askBeforeOpeningLinks": "اسأل قبل فتح الروابط",
+      "doubleTapSendsTab": "النقر المزدوج يرسل Tab",
+      "longPressStillSelectsText": "الضغط المطول لا يزال يحدد النص",
+      "optionSendsAlt": "Option يرسل Alt",
+      "onAHardwareKeyboardOff": "على لوحة المفاتيح المادية. عند الإيقاف، تُكتب الرموز كما في Mac.",
+      "history": "السجل",
+      "suggestCommands": "اقتراح الأوامر",
+      "showsPastCommandsThatStart": "يعرض الأوامر السابقة التي تبدأ بما تكتبه",
+      "resetToDefault": "إعادة تعيين إلى الافتراضي",
+      "fontSize": "حجم الخط",
+      "aSizeFromTo": "حجم من {{MIN_FONT_SIZE}} إلى {{MAX_FONT_SIZE}}.",
+      "cancel": "إلغاء",
+      "apply": "تطبيق",
+      "resetTerminalSettings": "إعادة تعيين إعدادات الطرفية؟",
+      "themeFontSizeCursorBell": "سيتم إعادة السمة، والخط، والحجم، والمؤشر، والتنبيه، والباقي إلى الإعدادات الافتراضية.",
+      "reset": "إعادة تعيين",
+      "followsAppTheme": "يتبع سمة التطبيق"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "فشل بدء إعداد المصادقة الثنائية",
+      "twoFactorAuthenticationEnabled": "تم تمكين المصادقة الثنائية",
+      "invalidCodeTryAgain": "رمز غير صالح، حاول مرة أخرى",
+      "twoFactorAuthenticationDisabled": "تم تعطيل المصادقة الثنائية",
+      "failedToDisable2fa": "فشل تعطيل المصادقة الثنائية",
+      "failedToFetchBackupCodes": "فشل جلب رموز النسخ الاحتياطي",
+      "secretCopied": "تم نسخ السر",
+      "backupCodesCopied": "تم نسخ رموز النسخ الاحتياطي",
+      "twoFactorAuthentication": "المصادقة الثنائية",
+      "loading": "جارٍ التحميل…",
+      "scanThisQrCodeWith": "امسح رمز QR هذا باستخدام تطبيق المصادقة الخاص بك (Google Authenticator، Authy، إلخ)، ثم أدخل الرمز المكوّن من 6 أرقام للتأكيد.",
+      "verifyAmpEnable": "التحقق &amp; التفعيل",
+      "cancel": "إلغاء",
+      "saveYourBackupCodes": "احفظ رموز النسخ الاحتياطي الخاصة بك",
+      "storeTheseSomewhereSafeEach": "احفظ هذه في مكان آمن. يمكن استخدام كل رمز مرة واحدة فقط إذا فقدت الوصول إلى تطبيق المصادقة الخاص بك.",
+      "copyAllCodes": "نسخ جميع الرموز",
+      "done": "تم",
+      "yourAccountIsProtectedWith": "حسابك محمي بتطبيق مصادقة.",
+      "addAnExtraLayerOf": "أضف طبقة أمان إضافية إلى حسابك.",
+      "viewBackupCodes": "عرض رموز النسخ الاحتياطي",
+      "disable2fa": "تعطيل المصادقة الثنائية",
+      "enable2fa": "تفعيل المصادقة الثنائية",
+      "disableTwoFactorAuthentication": "تعطيل المصادقة الثنائية",
+      "enterACodeFromYour": "أدخل رمزاً من تطبيق المصادقة الخاص بك للتأكيد. يمكنك إعادة تفعيل المصادقة الثنائية في أي وقت.",
+      "enterYourPasswordToConfirm": "أدخل كلمة المرور الخاصة بك للتأكيد. يمكنك إعادة تفعيل المصادقة الثنائية في أي وقت.",
+      "disable": "تعطيل",
+      "yourPassword": "كلمة المرور الخاصة بك",
+      "n2faIsEnabled": "المصادقة الثنائية مفعّلة",
+      "n2faIsNotEnabled": "المصادقة الثنائية غير مفعّلة"
+    },
+    "language": {
+      "label": "اللغة",
+      "description": "سيتم إعادة تحميل التطبيق للتبديل",
+      "system": "نفس الجهاز"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "لا توجد مضيفات SSH هنا",
+      "couldNotReadWhatWas": "تعذر قراءة ما تم مشاركته",
+      "stopTheUploads": "إيقاف عمليات الرفع؟",
+      "stopAndLeave": "إيقاف والخروج",
+      "sendTo": "إرسال إلى {{name}}",
+      "sendToAHost": "إرسال إلى مضيف",
+      "nothingToSend": "لا يوجد شيء للإرسال",
+      "close": "إغلاق",
+      "done": "تم",
+      "cancel": "إلغاء",
+      "uploadHere": "رفع هنا",
+      "uploadsStillGoing_zero": "لا توجد عمليات رفع. المغادرة لا توقف شيئًا.",
+      "uploadsStillGoing_one": "عملية رفع واحدة لا تزال جارية. المغادرة ستوقفها.",
+      "uploadsStillGoing_two": "عملتا رفع لا تزالان جاريتين. المغادرة ستوقفهما.",
+      "uploadsStillGoing_few": "{{count}} عمليات رفع لا تزال جارية. المغادرة ستوقفها.",
+      "uploadsStillGoing_many": "{{count}} عملية رفع لا تزال جارية. المغادرة ستوقفها.",
+      "uploadsStillGoing_other": "{{count}} عمليات رفع لا تزال جارية. المغادرة ستوقفها.",
+      "filesSize_zero": "لا توجد ملفات | {{size}}",
+      "filesSize_one": "ملف واحد | {{size}}",
+      "filesSize_two": "ملفان | {{size}}",
+      "filesSize_few": "{{count}} ملفات | {{size}}",
+      "filesSize_many": "{{count}} ملفًا | {{size}}",
+      "filesSize_other": "{{count}} ملفات | {{size}}",
+      "readingWhatWasShared": "قراءة ما تم مشاركته"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "خطأ",
+      "worksWithoutAServer": "يعمل بدون خادم",
+      "accountSwitch": "الحساب {{account}}، التبديل",
+      "search": "بحث",
+      "notificationsUnread": "الإشعارات، {{unread}} غير مقروءة",
+      "notifications": "الإشعارات",
+      "signedIn": "تم تسجيل الدخول",
+      "signedOut": "تم تسجيل الخروج",
+      "copyOnThis": "النسخ على هذا {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "الرئيسية",
+      "hosts": "الخوادم",
+      "sessions": "الجلسات",
+      "tools": "الأدوات",
+      "settings": "الإعدادات",
+      "open": "{{label}}، {{count}} مفتوح"
+    },
+    "sideBar": {
+      "open": "{{label}}، {{count}} مفتوح"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "اختر خادمًا",
+      "searchHosts": "البحث في الخوادم",
+      "clearSearch": "مسح البحث",
+      "noHostsMatch": "لا توجد خوادم مطابقة",
+      "noHostsCanUseThis": "لا يمكن لأي خادم استخدام هذا",
+      "turnItOnForA": "قم بتفعيله لخادم في محرر الخوادم."
+    },
+    "noToolsHereYet": "لا توجد أدوات هنا بعد",
+    "onAHost": "على خادم",
+    "saved": "تم الحفظ",
+    "fromYourServer": "من خادمك"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "confirm": "تأكيد"
+    },
+    "contextMenu": {
+      "closeMenu": "إغلاق القائمة"
+    },
+    "inlineView": {
+      "back": "رجوع"
+    },
+    "listRow": {
+      "moreActions": "المزيد من الإجراءات"
+    },
+    "pinPad": {
+      "useBiometrics": "استخدام البصمة",
+      "delete": "حذف"
+    },
+    "popover": {
+      "close": "إغلاق"
+    },
+    "promptSheet": {
+      "cancel": "إلغاء"
+    },
+    "sheet": {
+      "close": "إغلاق"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "هذا المفتوح مقفل. أدخل عبارة المرور الخاصة به.",
+      "thatPassphraseDoesnTOpen": "هذه العبارة لا تفتح هذا المفتاح.",
+      "thisDoesnTLookLike": "هذا لا يبدو كمفتاح خاص.",
+      "loadedAndChangedItTo": "تم تحميل {{name}} وتغييره إلى تنسيق OpenSSH",
+      "loadedItNeedsItsPassphrase": "تم تحميل {{name}}. يحتاج إلى عبارة المرور للاتصال"
+    },
+    "ago": {
+      "justNow": "الآن"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "تعذر تحميل خوادمك.",
+      "failedOn": "فشل {{name}} على {{name2}}",
+      "on": "{{name}} على {{name2}}: {{value}}",
+      "ranOn": "تم تشغيل {{name}} على {{name2}}",
+      "runOn": "تشغيل \"{{name}}\" على",
+      "runSnippet": "تشغيل المقطع",
+      "loadingHosts": "جاري تحميل الخوادم…",
+      "noHostsAvailable": "لا توجد خوادم متاحة",
+      "addAHostInTermix": "أضف خادمًا في Termix لتشغيل المقاطع من الشاشة الرئيسية.",
+      "lastUsed": "آخر استخدام",
+      "failedToRunSnippet": "فشل في تشغيل المقطع"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "هذا المقطع لم يعد موجودًا.",
+      "couldNotOpenThatSnippet": "تعذر فتح هذا المقطع.",
+      "thatHostNoLongerExists": "هذا الخادم لم يعد موجودًا.",
+      "couldNotOpenThatHost": "تعذر فتح هذا المضيف."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "الرئيسية"
+      },
+      "hosts": {
+        "hosts": "المضيفين"
+      },
+      "sessions": {
+        "sessions": "الجلسات",
+        "connectToATermixServer": "اتصل بخادم Termix لفتح الجلسات الطرفية والأنفاق وملفات الجلسات."
+      }
+    },
+    "layout": {
+      "initializing": "جارٍ التهيئة…",
+      "cancel": "إلغاء"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "لا يحتوي هذا المضيف على عنوان MAC صالح.",
+    "thisBuildCanTSend": "لا يمكن لهذا الإصدار إرسال حزم Wake-on-LAN.",
+    "couldNotSendThePacket": "تعذر إرسال الحزمة. تأكد من أن Wi-Fi مفعّل."
+  },
+  "common": {
+    "hostCount_zero": "لا يوجد مضيف",
+    "hostCount_one": "مضيف واحد",
+    "hostCount_two": "مضيفان",
+    "hostCount_few": "{{count}} مضيفين",
+    "hostCount_many": "{{count}} مضيفاً",
+    "hostCount_other": "{{count}} مضيف",
+    "device": {
+      "phone": "هاتف",
+      "tablet": "جهاز لوحي"
+    },
+    "thisDeviceLower": "هذا الـ{{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "المشاركة",
+    "action": "مشاركة مع أشخاص",
+    "levels": {
+      "connect": "اتصال",
+      "view": "عرض",
+      "edit": "تعديل",
+      "manage": "إدارة"
+    },
+    "levelHints": {
+      "connect": "فتح الجلسات فقط. تظل إعدادات المضيف مخفية",
+      "view": "الاتصال، بالإضافة إلى عرض إعدادات المضيف. لا يتم عرض الأسرار أبداً",
+      "edit": "العرض، بالإضافة إلى تغيير الإعدادات باستثناء تسجيل الدخول",
+      "manage": "التعديل، بالإضافة إلى مشاركة المضيف وتغيير أو إزالة الوصول"
+    },
+    "until": "حتى {{date}}",
+    "sharedBy": "بواسطة {{name}}",
+    "couldNotLoad": "تعذر تحميل من لديه صلاحية الوصول",
+    "shared": "تمت مشاركة المضيف",
+    "couldNotShare": "تعذر مشاركة المضيف",
+    "updated": "تم تغيير الوصول",
+    "couldNotUpdate": "تعذر تغيير الوصول",
+    "removeTitle": "إزالة {{name}}؟",
+    "removeHint": "لن يتمكنوا بعد الآن من استخدام هذا المضيف.",
+    "remove": "إزالة",
+    "removed": "تمت إزالة الوصول",
+    "couldNotRemove": "تعذر إزالة الوصول",
+    "whoHasAccess": "من لديه صلاحية الوصول",
+    "loading": "جارٍ التحميل...",
+    "nobodyYet": "أنت فقط من يمكنه استخدام هذا المضيف.",
+    "changeAccessFor": "تغيير الوصول لـ{{name}}",
+    "shareWith": "مشاركة مع",
+    "users": "المستخدمين",
+    "roles": "الأدوار",
+    "searchUsers": "البحث عن المستخدمين",
+    "searchRoles": "البحث عن الأدوار",
+    "noUsers": "لا يوجد مستخدمون آخرون للمشاركة معهم.",
+    "noRoles": "لا توجد أدوار للمشاركة معها.",
+    "options": "الوصول",
+    "level": "المستوى",
+    "expires": "ينتهي",
+    "expiry": {
+      "never": "أبداً",
+      "1h": "بعد ساعة واحدة",
+      "1d": "بعد يوم واحد",
+      "7d": "بعد 7 أيام",
+      "30d": "بعد 30 يوماً"
+    },
+    "pickSomeone": "اختر من تريد المشاركة معه",
+    "shareCount_zero": "مشاركة مع {{count}}",
+    "shareCount_one": "مشاركة مع {{count}}",
+    "shareCount_two": "مشاركة مع {{count}}",
+    "shareCount_few": "مشاركة مع {{count}}",
+    "shareCount_many": "مشاركة مع {{count}}",
+    "shareCount_other": "مشاركة مع {{count}}",
+    "removeAccess": "إزالة الوصول"
+  }
+}

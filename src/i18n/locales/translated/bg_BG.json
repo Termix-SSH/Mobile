@@ -1,1 +1,3828 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Вписване",
+      "addServer": "Добавяне на сървър",
+      "switchAccount": "Смяна на акаунт",
+      "noServerConnected": "Няма свързан сървър",
+      "connectToATermixServer": "Свържете се със сървър на Termix, за да управлявате хостовете си, терминалите, файловете и още много други."
+    },
+    "lockScreen": {
+      "cancel": "Отказ",
+      "tooManyTriesWaitSeconds": "Твърде много опити. Изчакайте {{value}} секунди",
+      "termixLocked": "Termix е заключен",
+      "enterYourPinToContinue": "Въведете PIN кода си, за да продължите"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Оранжев",
+      "blue": "Син",
+      "green": "Зелен",
+      "purple": "Лилав",
+      "pink": "Розов",
+      "cyan": "Циан",
+      "red": "Червен",
+      "yellow": "Жълт",
+      "teal": "Тюркоазен",
+      "indigo": "Индиго",
+      "rose": "Розово-червен",
+      "lime": "Лимоненозелен",
+      "system": "Система",
+      "light": "Светла",
+      "dark": "Тъмна"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Използване на PIN",
+      "unlockTermix": "Отключване на Termix",
+      "unlockTermixFirst": "Първо отключете Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Тази функция е изключена на сървъра.",
+      "aTabWasNotReopened": "Една карта не беше отворена отново, тъй като нейният хост липсва",
+      "tabsWereNotReopenedBecause": "{{count}} таба не бяха отворени отново, защото техните хостове липсват"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "forms",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Връзка със сървър на Termix за използване на това",
+        "theAddressCanTHave": "Въведете адреса на вашия сървър",
+        "useAnHttpOrHttps": "Адресът не може да съдържа интервали",
+        "thatDoesnTLookLike": "Използвайте адрес, започващ с http:// или https://",
+        "thePortMustBeFrom": "Това не изглежда като адрес на сървър"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Портът трябва да бъде между 1 и 65535",
+        "theServerDidNotSend": "Логин прокси отговори вместо Termix. Впишете се в прокси сървъра първо.",
+        "theServerDidNotSend2": "Сървърът не изпрати токен.",
+        "theServerSentNoSign": "Сървърът не изпрати сесия.",
+        "theSignInRanOut": "Сървърът не изпрати адрес за вписване.",
+        "wrongUsernameOrPassword": "Вписването изтече или вече е използвано. Опитайте отново.",
+        "signInFailedHttp": "Вписването не бе успешно (HTTP {{status}})",
+        "thePageSignedYouIn": "Страницата ви вписа, но не върна сесия. Актуализирайте сървъра до Termix 26.11.3 или по-нова версия.",
+        "thisAccountIsnTAllowed": "Страницата ви вписа, но не върна сесия. Актуализирайте сървъра до Termix 26.11.3 или по-нова версия.",
+        "noTermixAccountMatchesThat": "Този акаунт не е разрешен за вписване тук."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Няма акаунт на Termix, който да съвпада с това вписване."
+    },
+    "store": {
+      "noSuchAccount": "Тази сесия няма сървър",
+      "thisDeviceCanTBe": "Такъв акаунт не съществува",
+      "switchToAnotherAccountFirst": "Това устройство не може да бъде премахнато"
+    },
+    "types": {
+      "thisDevice": "Първо преминете към друг акаунт"
+    },
+    "accountSwitcher": {
+      "error": "Това устройство",
+      "worksWithoutAServer": "Грешка",
+      "couldNotSwitchAccount": "Работи без сървър",
+      "accounts": "Не можа да се смени акаунтът",
+      "openTabsKeepRunningWhen": "Акаунти",
+      "unlink": "Премахни връзката с {{account}}",
+      "linkAServer": "Връзка със сървър",
+      "eachServerKeepsItsOwn": "Всеки сървър пази собствените си хостове, идентификационни данни и настройки на това {{deviceWord}}.",
+      "signedIn": "Вписан",
+      "signedOut": "Излязъл от профила",
+      "syncedCopy": "Синхронизирано копие"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Неуспешно запазване на пина",
+      "theServerSKeyMatches": "Ключът на сървъра съвпада с пина",
+      "theServerShowsAnotherKey": "Сървърът показва друг ключ",
+      "pinThisKey": "Да се фиксира ли този ключ?",
+      "pinThisKey2": "Фиксиране на този ключ",
+      "keyPinned": "Ключът е фиксиран",
+      "couldNotReadTheServer": "Неуспешно четене на ключа на сървъра",
+      "thatIsNotAPin": "Това не е валиден пин",
+      "keysPinned": "Ключовете са фиксирани",
+      "certificatePin": "Фиксиране на сертификат",
+      "trustThisServerOnlyBy": "Доверявайте се на този сървър само по неговия ключ. Използвайте го за самоподписан сертификат или за да откажете всеки друг ключ. Добавете следващия ключ, преди да промените сертификата на сървъра.",
+      "removePin": "Премахване на пина {{pin}}",
+      "remove": "Премахване",
+      "readTheKeyFromThe": "Четене на ключа от сървъра",
+      "orPasteAPin": "Или поставете пин",
+      "pin": "Пин",
+      "add": "Добавяне",
+      "issuedTo": "Издаден на: {{subject}}",
+      "issuedBy": "Издаден от: {{issuer}}",
+      "validUntil": "Валиден до: {{value}}",
+      "checkThatThisKeyMatches": "Проверете дали този ключ съвпада с този на вашия сървър, преди да го фиксирате.",
+      "pasteTheBase64Sha256Of": "Поставете base64 sha256 стойността на публичния ключ на сървъра, както я отпечатва openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Настройките на прокси са запазени",
+      "couldNotSaveTheProxy": "Неуспешно запазване на настройките на прокси",
+      "couldNotReadThatFile": "Неуспешно четене на този файл",
+      "certificateSaved": "Сертификатът е запазен",
+      "theFileOrItsPassphrase": "Файлът или неговата парока са неправилни",
+      "couldNotSaveTheCertificate": "Неуспешно запазване на сертификата",
+      "headers": "Заглавки",
+      "sentWithEveryRequestTo": "Изпращат се с всяко заявка към този сървър, например Cloudflare service token.",
+      "name": "Име",
+      "value": "Стойност",
+      "removeHeader": "Премахване на заглавка",
+      "addHeader": "Добавяне на заглавка",
+      "cloudflareServiceToken": "Cloudflare service token",
+      "basicAuth": "Основна автентикация",
+      "forAProxyThatAsks": "За прокси, който изисква потребителско име и парола.",
+      "userName": "Потребителско име",
+      "password": "Парола",
+      "saveHeadersAndBasicAuth": "Запазване на заглавки и основна автентикация",
+      "clientCertificate": "Клиентски сертификат",
+      "forServersThatAskFor": "За сървъри, които изискват такъв (mTLS). Ключът се съхранява в сигурното хранилище на {{deviceWord}} и не може да бъде прочетен обратно.",
+      "certificate": "Сертификат",
+      "remove": "Премахване",
+      "replaceCertificate": "Замяна на сертификат",
+      "pickAP12OrPfx": "Изберете .p12 или .pfx файл",
+      "proxySignIn": "Вписване в прокси",
+      "forCloudflareAccessAutheliaAuthentik": "За Cloudflare Access, Authelia, Authentik и други прокси със собствена страница за вписване.{{value}}",
+      "signInToTheProxy": "Вписване в прокси",
+      "forget": "Забравяне",
+      "certificatePassphrase": "Парола на сертификата",
+      "thePassphraseTheFileWas": "Паролата, с която е запазен файлът. Оставете празно, ако няма такава.",
+      "passphrase": "Парола",
+      "save": "Запазване"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Вписан в прокси",
+      "couldNotSaveTheProxy": "Неуспешно запазване на вписването в прокси",
+      "signInToTheProxy": "Вписване в прокси",
+      "thisBuildOfTheApp": "Тази версия на приложението не може да запази влизане чрез прокси. Използвайте service token в заглавията на прокси вместо това."
+    },
+    "savedLoginRow": {
+      "signIn": "Вписване",
+      "signInWith": "Вписване с {{name}}",
+      "whenThisServerSignsYou": "Когато този сървър ви изведе, влезте отново без да въвеждате паролата си."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Развързано. {{copied}} елемента бяха запазени на Това устройство.",
+      "unlinked": "Развързано",
+      "couldNotUnlinkTheServer": "Неуспешно развързване на сървъра",
+      "unlink": "Да се развърже {{value}}?",
+      "thisSignsOutOfThe": "Това {{deviceWord}} се изписва от сървъра. Нищо не се изтрива на сървъра.",
+      "keepACopyOnThis": "Запази копие на Това устройство",
+      "yourOwnHostsCredentialsAnd": "Вашите собствени хостове, идентификационни данни и фрагменти се преместват на Това устройство. Споделените с вас хостове не се запазват.",
+      "deleteFromThis": "Изтрий от това {{deviceWord}}",
+      "everythingThisHasForThe": "Всичко, което това {{deviceWord}} има за сървъра, се премахва."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Променете го под Прокси по-долу",
+      "updateTermixMobileFromYour": "Актуализирайте Termix Mobile от магазина за приложения"
+    },
+    "savedLogin": {
+      "signInToTermix": "Вписване в Termix",
+      "faceUnlock": "отключване с лице"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Тази версия не може да провери закрепения ключ на този сървър или да изпрати неговия сертификат."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Този сървър не поддържа тази функция",
+      "theProxyWantsYouTo": "Прокси изисква вписване",
+      "endpointNotAvailableOnThis": "Краят на точката не е наличен на този сървър",
+      "unknownError": "Неизвестна грешка"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Прокси пред този сървър иска да се впишете отново.",
+      "authenticationRequiredPleaseLogIn": "Изисква се удостоверяване. Моля, впишете се отново.",
+      "accessDeniedYouDoNot": "Достъпът е отказан. Нямате разрешение за извършване на това действие.",
+      "thisFeatureIsTurnedOff": "Тази функция е изключена на сървъра.",
+      "thisServerDoesNotSupport": "Този сървър не поддържа тази функция.",
+      "resourceNotFoundTheRequested": "Ресурсът не е намерен. Заявеният елемент може да е изтрит.",
+      "conflictTheResourceAlreadyExists": "Конфликт. Ресурсът вече съществува или се използва.",
+      "validationErrorPleaseCheckYour": "Грешка при валидирането. Моля, проверете въведените данни и опитайте отново.",
+      "serverErrorOccurredPleaseTry": "Възникна грешка на сървъра. Моля, опитайте отново по-късно.",
+      "sslCertificateVerificationFailed": "Неуспешна проверка на SSL сертификата.",
+      "networkErrorPleaseCheckYour": "Мрежова грешка. Моля, проверете връзката си и опитайте отново.",
+      "failedTo": "Неуспешно извършване на {{operation}}",
+      "unknownError": "Неизвестна грешка",
+      "unexpectedErrorDuring": "Неочаквана грешка по време на {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Приложението не може да довери на HTTPS за този локален IP. Закрепете ключа на сървъра под Прокси и клиентски сертификат, използвайте сертификат, на който {{deviceWord}} доверява, или HTTP на доверена локална или VPN мрежа.",
+        "thisServerIsBehindA": "Този сървър е зад прокси за вписване. Използвайте външната опция за вписване вместо това.",
+        "loginFailed": "Неуспешно вписване"
+      },
+      "files": {
+        "fileNotFound": "Файлът не е намерен",
+        "fileWriteOperationDidNot": "Операцията за запис на файл не върна статус за успех",
+        "couldNot": "Неуспешно {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Хостът е запазен, но някои настройки не успяха: {{value}}",
+        "unexpectedHostResponseFrom": "Неочакван отговор от хоста от {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Неуспешно получаване на жив пример"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Няма отговор"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Този сървър не показа ключа, към който е закрепен, така че страницата не беше отворена."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Това {{what}} вече не съществува.",
+      "aHostCannotBeIts": "Хост не може да бъде свой собствен родител",
+      "parentHostNotFound": "Родителският хост не е намерен",
+      "aHostCanTGo": "Хост не може да отиде под един от собствените си под-хостове",
+      "thisIsSharedWithYou": "Това {{what}} е споделено с вас. Само собственикът му може да го промени.",
+      "nameIsRequired": "Името е задължително",
+      "nameAndCommandAreRequired": "Името и командата са задължителни",
+      "aFolderWithThatName": "Папка с това име вече съществува"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Това устройство не може да запази {{what}} тук."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Този фрагмент е споделен с вас и не може да бъде променен."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Използвайте парола с поне 8 символа.",
+      "thisIsNotATermix": "Това не е файл за резервно копие на Termix.",
+      "thisBackupIsFromA": "Това резервно копие е от по-нова версия на Termix. Първо актуализирайте приложението.",
+      "wrongPassphraseOrTheFile": "Грешна парола или файлът е повреден."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Тази версия не може да криптира локални данни."
+    },
+    "keys": {
+      "unlockTermixFirst": "Първо отключете Termix.",
+      "thatIsNotADatabase": "Това не е ключ за база данни.",
+      "couldNotSaveTheDatabase": "Ключът за база данни не може да бъде запазен."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Тези данни са запазени от по-нова версия на Termix. Актуализирайте приложението, за да ги отворите."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Това устройство не синхронизира данни.",
+      "localDataIsNotAvailable": "Локалните данни не са налични тук.",
+      "unlockTermixFirst": "Първо отключете Termix."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Не може да се свърже.",
+      "thisWayCanTRun": "По този начин не могат да се изпълняват команди"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Парола за sudo",
+      "password": "Парола",
+      "run": "Изпълни",
+      "thatPasswordWasWrong": "Тази парола е грешна.",
+      "onNeedsRoot": "{{reason}} на {{hostName}} изисква root достъп.",
+      "needsRootForThis": "{{hostName}} изисква root достъп за това.",
+      "itIsKeptUntilYou": "Тя се запазва, докато не затворите приложението."
+    },
+    "run": {
+      "theHostTookTooLong": "Хостът отне твърде много време, за да отговори",
+      "connectionLost": "Връзката е прекъсната"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Това изисква root достъп. Влезте като root, настройте sudo без парола или запазете sudo парола за хоста.",
+      "theSudoPasswordWasWrong": "Паролата за sudo е грешна",
+      "commandFailed": "Командата не успя"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet в терминала изисква връзка от {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Функцията {{id}} вече е регистрирана"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Адрес",
+      "theIpOrHostName": "IP адресът или името на хоста под името",
+      "username": "Потребителско име",
+      "theUserBeforeTheAddress": "Потребителят преди адреса",
+      "port": "Порт",
+      "thePortAfterTheAddress": "Портът след адреса",
+      "hostIcon": "Икона на хоста",
+      "theIconSetOnThe": "Иконата, зададена на хоста",
+      "pinIcon": "Икона за закачане",
+      "marksPinnedHosts": "Маркира закачените хостове",
+      "sharedBadge": "Етикет за споделяне",
+      "marksHostsSharedWithYou": "Маркира хостовете, споделяни с вас",
+      "protocolBadges": "Етикети за протокол",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker и други етикети",
+      "tags": "Тагове",
+      "theHostSTags": "Таговете на хоста",
+      "cpuAndRam": "CPU и RAM",
+      "liveUsageBarsOnOnline": "Лентове за използване в реално време за онлайн хостове",
+      "statusColors": "Цветове на статуса",
+      "greenBarWhenOnlineRed": "Зелена лента при онлайн, червена при офлайн"
+    },
+    "uiPrefs": {
+      "small": "Малък",
+      "default": "По подразбиране",
+      "large": "Голям",
+      "comfortable": "Комфортен",
+      "compact": "Компактен"
+    },
+    "errors": {
+      "somethingWentWrong": "Нещо се обърка"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Заключването на ключ с парола изисква приложението Termix, а не уеб преглед."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Незабавно",
+      "after15Seconds": "След 15 секунди",
+      "after1Minute": "След 1 минута",
+      "after5Minutes": "След 5 минути"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Тайната на устройството е изчезнала",
+      "noSealedKey": "Няма запечатан ключ",
+      "theSealedKeyIsDamaged": "Запечатаният ключ е повреден",
+      "wrongPin": "Грешен PIN",
+      "theSealedKeyDidNot": "Запечатаният ключ не се отвори",
+      "biometricsCanTOpenThe": "Биометричните данни не могат да отворят ключа"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Актуализирайте приложението",
+      "onYourServerNeedsA": "{{name}} на вашия сървър изисква по-нова версия на Termix на това {{deviceWord}}.",
+      "updateThePlugin": "Актуализирайте плъгина",
+      "onYourServerIsToo": "{{name}} на вашия сървър е твърде стара за това приложение. Попитайте администратор да я актуализира в Плъгини."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Блокирано от приложението",
+      "theAppDoesNotLet": "Приложението не позволява на плъгините да използват този маршрут.",
+      "thisBuildCanTReach": "Тази версия не може да достигне до този сървър безопасно."
+    },
+    "support": {
+      "needsANewerVersionOf": "Изисква по-нова версия на приложението",
+      "updateThePluginOnThe": "Актуализирайте плъгина на сървъра",
+      "theAppHasItsOwn": "Приложението има собствен външен вид",
+      "notInTheAppYet": "Още не е в приложението",
+      "linkAServerToUse": "Свържете сървър, за да го използвате",
+      "opensInTheAppFrom": "Отваря се в приложението от сървъра",
+      "runsOnTheServer": "Работи на сървъра",
+      "throughTheServer": "Чрез сървъра",
+      "inTheApp": "В приложението",
+      "webView": "Уеб изглед",
+      "onTheServer": "На сървъра",
+      "appLook": "Изглед на приложението",
+      "notInTheApp": "Не е в приложението",
+      "safeMode": "Безопасен режим",
+      "notRunning": "Не работи",
+      "notInstalled": "Не е инсталиран",
+      "notOnThisServer": "Не е на този сървър",
+      "thePluginIsNotInstalled": "Плъгинът не е инсталиран на този сървър.",
+      "turnedOffOnTheServer": "Изключен на сървъра",
+      "itOpensHereAgainWhen": "Ще се отвори отново тук, когато администратор го включи.",
+      "notRunningOnTheServer": "Не работи на сървъра",
+      "theServerIsInSafe": "Сървърът е в безопасен режим, затова работят само плъгини за изглед.",
+      "thePluginDidNotStart": "Плъгинът не стартира. Администратор може да го провери в Плъгини.",
+      "thisPluginIsNotAvailable": "Този плъгин не е наличен",
+      "itIsNotMadeFor": "Не е създаден за приложението.",
+      "offOnThisServer": "изключен на този сървър",
+      "notRunningOnThisServer": "не работи на този сървър",
+      "notOnThisServer2": "не е на този сървър",
+      "notInTheAppYet2": "Още не е в приложението | на този сървър",
+      "worksOnThis": "Работи на това {{deviceWord}}",
+      "andServer": "{{DeviceWord}} и сървър",
+      "deviceOnly": "Само {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Презареждане"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Прекъсни всички връзки",
+      "showOpenSessions": "Покажи отворените сесии",
+      "termixShowsANotificationWhile": "Termix показва известие, докато сесиите са отворени, за да ги поддържа Android да работят във фонов режим.",
+      "sessionsOpen_one": "{{count}} отворена сесия",
+      "sessionsOpen_other": "{{count}} отворени сесии",
+      "tunnelsActive_one": "{{count}} активен тунел",
+      "tunnelsActive_other": "{{count}} активни тунела",
+      "notConnected": "Не е свързан",
+      "waitingForNetwork": "Изчакване на мрежа",
+      "connecting": "Свързване",
+      "connected": "Свързан",
+      "reconnecting": "Повторно свързване",
+      "failed": "Неуспешно",
+      "closed": "Затворен"
+    },
+    "companionPane": {
+      "resizeThePanel": "Промяна на размера на панела {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Затвори",
+      "closeAllTabs": "Да се затворят всички {{count}} таба?",
+      "everySessionEnds": "Всяка сесия приключва.",
+      "closeAll": "Затвори всички",
+      "noActiveConnections": "Няма активни връзки",
+      "pickAHostFromThe": "Изберете хост от списъка, за да започнете сесия. Разделите, които отворите на други устройства, също се показват тук.",
+      "connectToAHostTo": "Свържете се с хост, за да започнете сесия. Разделите, които отворите на други устройства, също се показват тук.",
+      "open": "Отвори",
+      "background": "Фон",
+      "sessionsFromOtherDevicesOr": "Сесии от други устройства или разделите във фон. Докоснете, за да възстановите.",
+      "liveTapToReconnect": "Активна, докоснете за повторно свързване",
+      "tapToReopen": "Докоснете, за да отворите отново"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Това е изключено на сървъра",
+      "comesBackHereWhenAn": "{{title}} ще се появи отново тук, когато администраторът включи плъгина му.",
+      "closeTab": "Затвори раздела"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Връзки",
+        "hideHostList": "Скрий списъка с хостове",
+        "showHostList": "Покажи списъка с хостове",
+        "backToHosts": "Назад към хостовете",
+        "showKeyboard": "Покажи клавиатурата",
+        "hideKeyboard": "Скрий клавиатурата",
+        "hideKeysPanel": "Скрий панела с ключове",
+        "showKeysPanel": "Покажи панела с ключове"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Докоснете за опции на раздела, задръжте за преместване",
+        "holdToMove": "Задръжте за преместване",
+        "close": "Затвори {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Изчакване на мрежата",
+        "connectionFailed": "Връзката не успя",
+        "reconnecting": "Повторно свързване"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Преименувай",
+      "newTabOnThisHost": "Нов раздел на този хост",
+      "here": "{{title}} тук",
+      "hidePanel": "Скрий панела {{title}}",
+      "showPanel": "Покажи панела {{title}}",
+      "endSplitView": "Завърши разделен изглед",
+      "splitViewWith": "Разделен изглед с...",
+      "moveLeft": "Премести наляво",
+      "moveRight": "Премести надясно",
+      "closeTab": "Затвори раздела",
+      "closeAllTabs": "Затвори всички раздели",
+      "closeAllTabs2": "Затваряне на всички {{count}} раздела?",
+      "everySessionEnds": "Всяка сесия приключва.",
+      "closeAll": "Затвори всички",
+      "splitViewWith2": "Разделен изглед с",
+      "renameTab": "Преименувай раздела",
+      "leaveItEmptyToUse": "Оставете празно, за да използвате името на хоста."
+    },
+    "resizeHostList": "Промяна на размера на списъка с хостове",
+    "resizeSplitView": "Промяна на размера на разделен изглед",
+    "connections": "Връзки",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Двустепенна автентикация",
+        "enterThe6DigitCode": "Въведете 6-цифрения код от вашето приложение за автентикация.",
+        "cancel": "Отказ",
+        "verify": "Провери",
+        "codeExpiresInSGet": "Кодът изтича след {{totpCountdown}} сек., вземете нов код",
+        "warpgateAuthentication": "Автентикация чрез Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Потвърдете URL адреса за автентикация на Warpgate и сигурния ключ.",
+        "authenticate": "Автентикация",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Сигурен ключ (по избор)",
+        "authenticationRequired": "Изисква се автентикация",
+        "thisHostNeedsCredentialsTo": "Този хост изисква данни за вход за свързване.",
+        "connect": "Свържи",
+        "password": "Парола",
+        "sshKey": "SSH ключ",
+        "pastePrivateKey": "Поставяне на частен ключ",
+        "keyPassphraseOptional": "Парола за ключа (по избор)"
+      },
+      "connectionError": {
+        "tryAgain": "Опитайте отново",
+        "close": "Затваряне",
+        "connectThroughTheServer": "Свързване през сървъра",
+        "connectFromThis": "Свързване от това {{deviceWord}}",
+        "triedFromThis": "Опитано от това {{deviceWord}}",
+        "triedThroughTheServer": "Опитано през сървъра"
+      },
+      "execGate": {
+        "connecting": "Свързване..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Възникна грешка",
+        "retry": "Повторен опит",
+        "refresh": "Опресняване",
+        "nothingToShow": "Няма какво да се покаже"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Логовете са копирани",
+        "connectionLog": "Дневник на връзката ({{count}})",
+        "copyLog": "Копиране на дневника",
+        "waitingForConnection": "Изчакване на връзка…",
+        "noLogEntries": "Няма записи в дневника"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Не може да се запази начинът, по който този хост се свързва"
+      },
+      "useSessionConnect": {
+        "connected": "Свързан",
+        "connectingTo": "Свързване с {{name}}…",
+        "connectionLost": "Връзката е прекъсната",
+        "failedToConnect": "Неуспешно свързване",
+        "invalidCode": "Невалиден код",
+        "warpgateAuthenticationFailed": "Неуспешна автентикация чрез Warpgate",
+        "authenticationCancelled": "Автентикацията е отменена"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Търсене и команди",
+    "addHost": "Добавяне на хост",
+    "keyboardShortcuts": "Клавишни комбинации",
+    "home": "Начало",
+    "hosts": "Хостове",
+    "sessions": "Сесии",
+    "tools": "Инструменти",
+    "settings": "Настройки",
+    "terminal": "Терминал",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Клавишни комбинации"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Хостове и папки",
+      "yourHostsFoldersAndHosts": "Вашите хостове, папки и споделени с вас хостове",
+      "credentials": "Удостоверения",
+      "savedPasswordsAndKeysAnd": "Запазени пароли и ключове, както и удостоверения, споделени с вас",
+      "snippets": "Фрагменти",
+      "snippetsAndTheirFolders": "Фрагменти и техните папки",
+      "hostDefaults": "Стандартни настройки за хостове",
+      "defaultSettingsForNewHosts": "Стандартни настройки за нови хостове",
+      "preferences": "Предпочитания",
+      "settingsThatFollowYouBetween": "Настройки, които ви следват между устройствата"
+    },
+    "link": {
+      "noSuchServerAccount": "Такъв сървър акаунт не съществува",
+      "signInFirst": "Първо влезте в системата.",
+      "thisServerAccountBelongsTo": "Този сървър акаунт принадлежи на {{value}}. Влезте като него или добавете сървъра отново за този потребител."
+    },
+    "reasons": {
+      "signedOut": "Излязъл от системата",
+      "thisSSignInTo": "Времето за вход на това {{deviceWord}} към сървъра е изтекло.",
+      "theServerEndedThisS": "Сървърът прекрати сесията на това {{deviceWord}}. Възможно е да сте излезли от друго устройство.",
+      "proxySignInNeeded": "Необходим е вход през прокси",
+      "theProxyInFrontOf": "Прокси сървърът пред този сървър иска да влезете отново.",
+      "proxyPasswordNeeded": "Необходима е парола за прокси",
+      "theProxyInFrontOf2": "Прокси сървърът пред този сървър поиска паролата си.",
+      "certificateRefused": "Сертификатът е отхвърлен",
+      "theServerDidNotAccept": "Сървърът не прие сертификата на това {{deviceWord}}.",
+      "untrustedServer": "Недоверен сървър",
+      "theServerSCertificateIs": "Сертификатът на сървъра не е доверен от това {{deviceWord}}.",
+      "serverKeyChanged": "Ключът на сървъра се промени",
+      "theServerShowsAnotherKey": "Сървърът показва различен ключ от този, който е фиксиран за него. Ако сте променили сертификата му, фиксирайте новия ключ.",
+      "offline": "Извън линия",
+      "canTReachTheServer": "Не може да се достигне до сървъра. Синхронизацията ще опита отново скоро.",
+      "serverProblem": "Проблем със сървъра",
+      "theServerHadAProblem": "Възникна проблем със сървъра. Синхронизацията ще опита отново скоро.",
+      "updateNeeded": "Изисква се актуализация",
+      "thisServerUsesANewer": "Този сървър използва по-нова версия на синхронизацията. Актуализирайте приложението.",
+      "notATermixServer": "Не е Termix сървър",
+      "theAddressDoesNotAnswer": "Адресът не отговаря като Termix сървър.",
+      "syncIsOff": "Синхронизацията е изключена",
+      "theSyncPluginIsOff": "Плъгинът за синхронизация е изключен на този сървър. Попитайте администратор да го включи в Плъгини.",
+      "differentUser": "Различен потребител",
+      "youSignedInAsA": "Влязохте като различен потребител от този, на който принадлежи акаунтът на този сървър.",
+      "syncStopped": "Синхронизацията е спряна",
+      "somethingWentWrong": "Нещо се обърка.",
+      "signInAgain": "Влезте отново",
+      "signInToTheProxy": "Влезте в прокси сървъра",
+      "enterThePassword": "Въведете паролата",
+      "tryAgain": "Опитайте отново",
+      "checkThePin": "Проверете фиксирането",
+      "checkForUpdates": "Проверка за актуализации",
+      "pickACertificate": "Изберете сертификат"
+    },
+    "settings": {
+      "noSuchSetting": "Няма такава настройка",
+      "snippetFolder": "Папка със фрагменти",
+      "hostDefault": "Стандартна стойност за хост"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Сървърът не прие сертификата на това {{deviceWord}}.",
+      "theServerSCertificateIs": "Сертификатът на сървъра не е доверен.",
+      "canTReachTheServer": "Не може да се достигне до сървъра.",
+      "signedOut": "Излязохте",
+      "theProxyAskedForIts": "Прокси сървърът поиска паролата си.",
+      "theProxyWantsYouTo": "Прокси сървърът иска да влезете.",
+      "theSyncPluginIsOff": "Плъгинът за синхронизация е изключен на този сървър.",
+      "serverError": "Грешка на сървъра {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Сървърът показва различен ключ от фиксираното."
+    },
+    "remote": {
+      "thisIsNotATermix": "Това не е Termix сървър.",
+      "theProxyWantsYouTo": "Прокси сървърът иска да влезете.",
+      "thisServerUsesANewer": "Този сървър използва по-нова версия на синхронизацията. Актуализирайте приложението."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} хост",
+      "hostCount_other": "{{count}} хоста",
+      "credentialCount_one": "{{count}} идентификационни данни",
+      "credentialCount_other": "{{count}} идентификационни данни",
+      "snippetCount_one": "{{count}} фрагмент",
+      "snippetCount_other": "{{count}} фрагмента",
+      "folderCount_one": "{{count}} папка",
+      "folderCount_other": "{{count}} папки",
+      "nothingYet": "все още нищо",
+      "listAnd": "{{list}} и {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Не може да се свърже.",
+      "connectingToFromThis": "Свързване с {{name}} от това {{deviceWord}}",
+      "connectingToThroughTheServer": "Свързване с {{name}} през сървъра",
+      "reconnectingTry": "Повторно свързване (опит {{retry}})",
+      "disconnected": "Разделено",
+      "connected": "Свързано",
+      "reconnectedToTheSameSession": "Повторно свързване към същата сесия",
+      "reconnectedWithANewShell": "Повторно свързване с нова обвивка",
+      "couldNotReachTheHost": "Не може да се достигне до хоста от това {{deviceWord}}, опитва се през сървъра",
+      "couldNotConnectThroughThe": "Не може да се свърже през сървъра, опитва се от това {{deviceWord}}",
+      "connectionLost": "Връзката е загубена: {{reason}}",
+      "offlineWaitingForTheNetwork": "Извън линия, изчакване на мрежата",
+      "nextTryInS": "Следващ опит след {{value}}с",
+      "reconnectingTry2": "Повторно свързване (опит {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Хостът спря да отговаря",
+      "networkLost": "Мрежата е загубена",
+      "network": "Мрежа: {{type}}{{value}}",
+      "lowPowerModeOn": "Режим на ниска консумация е включен",
+      "lowPowerModeOff": "Режим на ниска консумация е изключен",
+      "droppedTypedCharacters": "Пропуснати {{count}} въведени символа",
+      "youDidNotTrustThe": "Не доверихте на ключа на хоста.",
+      "checkTheKeyWithWhoever": "Проверете ключа с човека, който управлява хоста, и опитайте отново.",
+      "loginCancelled": "Вписването е отменено.",
+      "connectAgainWhenYouAre": "Свържете се отново, когато сте готови.",
+      "typedInputIsOver64": "Въведеният текст е над 64 KB, най-старата част беше изпусната",
+      "appInTheBackground": "Приложението е във фонов режим",
+      "appInTheForeground": "Приложението е в преден план",
+      "thisConnectionCanTRun": "Тази връзка не може да изпълнява команди"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Проверете адреса и порта, както и дали сървърът може да достигне до хоста.",
+      "checkTheAddressAndPort2": "Проверете адреса и порта, както и дали това {{deviceWord}} може да достигне до хоста.",
+      "checkTheProxySettingsOf": "Проверете настройките на прокси сървъра за този хост.",
+      "checkTheKeyWithWhoever": "Проверете ключа с човека, който управлява хоста, преди да му се доверите.",
+      "checkTheUsernameAndLogin": "Проверете потребителското име и данните за вход в редактора на хоста.",
+      "checkThatTheServerIs": "Проверете дали сървърът работи и дали все още сте влезли в системата.",
+      "tryAgainIfItKeeps": "Опитайте отново. Ако връзката продължава да се прекъсва, проверете мрежата.",
+      "connectAgainWhenYouAre": "Свържете се отново, когато сте готови.",
+      "pickAnotherWayToConnect": "Изберете друг начин за свързване с този хост.",
+      "connectThisHostThroughA": "Свържете този хост чрез Termix сървър.",
+      "pickTheJumpHostsAgain": "Изберете отново междинните хостове в редактора на хоста.",
+      "thisIsATailscaleAddress": "Това е Tailscale адрес. Проверете дали Tailscale е свързан на това {{deviceWord}}.",
+      "theSavedKeyCanT": "Запазеният ключ не може да бъде прочетен. Поставете го отново в редактора на хоста.",
+      "signInToThisServer": "Влезте в този сървър отново.",
+      "openThisHostInThe": "Отворете този хост в уеб приложението на Termix.",
+      "canTConnectThisWay": "Не може да се свърже по този начин",
+      "couldNotReachTheHost": "Не може да се достигне до хоста",
+      "theProxyDidNotLet": "Прокси сървърът не позволи връзката",
+      "theHostKeyWasNot": "Ключът на хоста не беше доверен",
+      "theLoginWasRefused": "Вписването беше отказано",
+      "theTermixServerDidNot": "Termix сървърът не отговори",
+      "theConnectionDropped": "Връзката беше прекъсната",
+      "loginCancelled": "Вписването е отменено"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH агент",
+        "thisHostSignsInWith": "Този хост се вписва с \"{{authType}}\", което изисква Termix сървър. Свържете такъв, за да се свържете.",
+        "thisHostUsesA1password": "Този хост използва препратка към 1Password, което изисква Termix сървър с Secret Sources. Свържете такъв и свържете този хост чрез него.",
+        "signInWithFirstOpen": "Първо се впишете с {{title}}. Отворете терминал към този хост веднъж, след което опитайте отново.",
+        "theSignInAndThe": "вписването и сертификатът се намират на сървъра",
+        "theHasNoSshAgent": "{{deviceWord}} няма SSH агент",
+        "needsATermixServerBecause": "{{title}} изисква Termix сървър, защото {{why}}. Свържете такъв и свържете този хост чрез него."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Междинният хост на този хост вече не съществува."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Връзката беше прекъсната",
+        "theShellChannelClosed": "Каналът на обвивката беше затворен",
+        "jumpHost": "Междинен хост {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Невалиден код, опитайте отново:",
+        "authenticationFailed": "Удостоверяването неуспешно: {{message}}",
+        "theHostKeyWasNot": "Ключът на хоста не беше доверен.",
+        "loginCancelled": "Вписването е отменено.",
+        "notConnected": "Не е свързан"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Връзката беше прекъсната"
+      },
+      "thisBuildHasNoSsh": "Тази версия няма SSH двигател. Използвайте приложението от магазина или свържете Termix сървър, за да се свържете.",
+      "theHostsOnThisAre": "Хостовете на това {{deviceWord}} все още не са отворени.",
+      "thisServerSHostsAre": "Хостовете на този сървър не са на това {{deviceWord}}. Включете плъгина Sync на сървъра, за да се свързвате от {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Не може да се свърже.",
+      "canTConnectFromThe": "Не може да се свърже от това {{deviceWord}}.",
+      "canTReachTheServer": "Не може да се достигне до сървъра.",
+      "theOnlyConnectsToSsh": "Това {{deviceWord}} се свързва само със SSH и Telnet хостове.",
+      "connectThisHostThroughThe": "Свържете този хост през сървъра",
+      "connectThisHostFromThe": "Свържете този хост от {{deviceWord}}",
+      "termixServer": "Termix сървър",
+      "usesThisWhenItCan": "Използва това {{deviceWord}}, когато може да достигне хоста, в противен случай сървъра.",
+      "thisConnectsToTheHost": "Това {{deviceWord}} се свързва директно с хоста.",
+      "theTermixServerConnectsTo": "Termix сървърът се свързва с хоста вместо вас.",
+      "anSshConnection": "SSH връзка",
+      "aTermixServer": "Termix сървър",
+      "aConnectionFromThe": "връзка от {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} е изключен на този сървър. {{how}}, за да го използвате.",
+      "isOffOnThisServer2": "{{title}} е изключен на този сървър.",
+      "anotherWayToConnect": "друг начин за свързване",
+      "needsToUseIt": "{{title}} изисква {{what}}. {{how}}, за да го използвате.",
+      "needsWhichThisHostCan": "{{title}} изисква {{what}}, което този хост не може да използва в момента.",
+      "thisDevice": "Това {{deviceWord}}",
+      "automatic": "Автоматично"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Излезли сте от този сървър. Влезте, за да се свързвате през него.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux не е инсталиран на този хост. Използва се обикновен shell.",
+        "tapRetryToBringIt": "Натиснете Опитайте отново, за да го върнете тук.",
+        "thisSessionWasOpenedOn": "Тази сесия е отворена на друго устройство",
+        "noServerUrlFoundLink": "Не е намерен URL адрес на сървъра. Връзката със сървъра трябва да бъде възстановена.",
+        "signedOutOfThisServer": "Излезли сте от този сървър. Влезте отново.",
+        "signInWithInYour": "Влезте с {{title}} в браузъра си. Това прозорче ще се затвори, когато приключи.",
+        "theSocketClosedWhileThe": "Сокетът се затвори, докато приложението беше в фонов режим",
+        "noWebsocketUrlAvailableServer": "Няма наличен WebSocket URL - сървърът не е конфигуриран",
+        "connectionTimeoutServerNotResponding": "Времето за връзка изтече - сървърът не отговаря",
+        "verificationCode": "Код за потвърждение:",
+        "hostKeyVerificationRequiredBut": "Изисква се проверка на ключа на хоста, но няма регистриран обработчик",
+        "hostKeyChangedButNo": "Ключът на хоста се е променил, но няма регистриран обработчик",
+        "thisHostNeedsASign": "Този хост изисква вход, който се поддържа само от уеб приложението",
+        "invalidCodeTryAgain": "Невалиден код, опитайте отново:",
+        "unknownError": "Неизвестна грешка",
+        "connectionClosed": "Връзката е затворена",
+        "connectionClosed2": "Връзката е затворена ({{code}})",
+        "theServerClosedTheConnection": "Сървърът затвори връзката",
+        "theSocketClosed": "Сокетът се затвори ({{code}})",
+        "signIn": "Вход с {{title}}",
+        "signInFailed": "Входът с {{title}} неуспешен",
+        "isNotSetUpOn": "{{title}} не е настроен на сървъра",
+        "signInTimedOut": "Времето за вход с {{title}} изтече",
+        "authenticationFailed": "Неуспешна автентикация: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Запазете хоста и се свържете с него, за да го проверите.",
+      "loggedInAsOn": "Влезли сте като {{username}} на {{host}}",
+      "theHostAskedForMore": "Хостът поиска повече от парола, например код. Запазете хоста и се свържете, за да завършите входа."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Изчакване на мрежата",
+      "couldNotOpenTheTunnel": "Не може да се отвори тунелът",
+      "theConnectionDropped": "Връзката прекъсна",
+      "iosStoppedThisTunnelWhile": "iOS спря този тунел, докато приложението беше в фонов режим. Стартирайте го отново, за да го отворите.",
+      "connecting": "Свързване",
+      "connected": "Свързан",
+      "retrying": "Повторен опит",
+      "waiting": "Изчакване",
+      "failed": "Неуспешно"
+    },
+    "gateways": {
+      "error": "Грешка",
+      "gateways": "Шлюзове",
+      "gatewaysCanOnlyBeChanged": "Шлюзовете могат да се променят само в Termix в уеб версията.",
+      "noHandshake": "Без ръкостискане",
+      "rulesMissing": "Липсват правила",
+      "up": "Активен",
+      "pending": "Изчаква",
+      "applying": "Прилага се",
+      "down": "Спрен",
+      "unreachable": "Недостъпен"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Все още няма тунели. Добавете такъв, за да пренасочите порт от крайния хост към този хост.",
+      "tunnel": "Тунел {{value}}",
+      "removeTunnel": "Премахване на тунел {{value}}",
+      "mode": "Режим",
+      "local": "Локален",
+      "remote": "Отдалечен",
+      "dynamic": "Динамичен",
+      "targetHost": "Целеви хост",
+      "onThisHostForTunnels": "На този хост, за тунелите, които работи {{deviceWord}}",
+      "bindHost": "Хост за свързване",
+      "endpointHost": "Краен хост",
+      "addAnotherHostFirstTunnels": "Първо добавете друг хост. Тунелите минават през запазен хост.",
+      "sourcePort": "Изходен порт",
+      "endpointPort": "Краен порт",
+      "maxRetries": "Макс. опити",
+      "retryEveryS": "Опит на всеки (с)",
+      "startOnItsOwn": "Стартирай самостоятелно",
+      "addTunnel": "Добави тунел",
+      "tunnelNeedsPortsFrom1": "Тунел {{value}} изисква портове от 1 до 65535"
+    },
+    "register": {
+      "tunnels": "Тунели",
+      "startAndStopSavedTunnels": "Стартиране и спиране на запазени тунели",
+      "tunnel": "ТУНЕЛ",
+      "tunnel2": "Тунел"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Локалният крайен пункт е копиран",
+      "tunnel": "Тунел | {{sourcePort}}",
+      "portMapping": "Мапиране на портове",
+      "connect": "Свържи",
+      "disconnect": "Разкачи",
+      "cancel": "Отказ",
+      "connected": "Свързан",
+      "connecting": "Свързване",
+      "disconnecting": "Разкачане",
+      "error": "Грешка",
+      "retrying": "Повторен опит ({{value}}/{{value2}})",
+      "waitingS": "Изчакване {{value}}с",
+      "waiting": "Изчакване",
+      "disconnected": "Разкачен"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Стартиране на тунел на порт {{sourcePort}}",
+      "connectingTunnelOnPort": "Свързване на тунел на порт {{sourcePort}}",
+      "disconnectingPort": "Разкачане на порт {{sourcePort}}",
+      "cancellingPort": "Отмяна на порт {{sourcePort}}",
+      "failedToTunnel": "Неуспешно {{action}} на тунел",
+      "tunnels": "Тунели | {{count}} | {{value}}",
+      "loadingTunnels": "Зареждане на тунели…",
+      "noSshTunnelsConfiguredFor": "Няма конфигурирани SSH тунели за този хост. Добавете тунели от формата на хоста.",
+      "runOn": "Изпълни на",
+      "server": "Сървър",
+      "this": "Този {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Тунелите на този {{deviceWord}} спрат, когато приложението се затвори. На iOS те също спрат скоро след като приложението премине във фонов режим.",
+      "failedToFetchTunnelStatuses": "Неуспешно извличане на статусите на тунелите",
+      "thisBuildCanTOpen": "Тази версия не може да отваря тунели на {{deviceWord}}.",
+      "sourceHostNotFound": "Изходният хост не е намерен",
+      "endpointHostNotFound": "Краен хост не е намерен: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Тунели",
+      "tunnelCount_one": "{{count}} тунел",
+      "tunnelCount_other": "{{count}} тунела",
+      "runningOnServer": "{{connected}} работят на сървъра"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Инструменти за идентификация"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker не е инсталиран на този хост.",
+        "dockerDidNotAnswer": "Docker не отговаря",
+        "thatIsNotAValid": "Това не е валидно име на стак"
+      }
+    },
+    "containerDetail": {
+      "stop": "Спри",
+      "start": "Стартирай",
+      "restart": "Рестартирай",
+      "remove": "Премахни",
+      "logs": "Логове",
+      "stats": "Статистика",
+      "console": "Конзола",
+      "logsCopied": "Логовете са копирани",
+      "copy": "Копирай",
+      "containerIsNotRunningNo": "Контейнерът не работи, няма актуална статистика.",
+      "cpu": "CPU",
+      "memory": "Памет",
+      "networkIO": "Мрежов I/O",
+      "blockIO": "Блоков I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Грешка при зареждане на логовете",
+      "failedToLoadStats": "Грешка при зареждане на статистиката",
+      "noOutput": "(няма изход)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Свързване с Docker...",
+    "remove": "Премахване на {{name}}?",
+    "stop": "Спиране на {{name}}?",
+    "theContainerIsStoppedAnd": "Контейнерът е спрян и изтрит. Неговите томове остават.",
+    "anythingRunningInItStops": "Всичко, което работи в него, се спира.",
+    "remove2": "Премахни",
+    "stop2": "Спри",
+    "dockerThis": "Docker | този {{deviceWord}}",
+    "lookingForDocker": "Търсене на Docker...",
+    "dockerIsNotAvailableOn": "Docker не е наличен на този хост.",
+    "noContainersFound": "Не са намерени контейнери",
+    "noContainersMatchYourFilters": "Няма контейнери, които да съвпадат с филтрите ви",
+    "useSudo": "Използвай sudo",
+    "refresh": "Опресни",
+    "containers": "Контейнери",
+    "stacks": "Стакове",
+    "searchContainers": "Търсене на контейнери...",
+    "all": "Всички",
+    "running": "Работещи",
+    "stopped": "Спрени",
+    "start": "Стартирай",
+    "restart": "Рестартирай",
+    "pause": "Пауза",
+    "unpause": "Продължи",
+    "moreActions": "Още действия",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker не отговаря",
+      "docker": "Docker",
+      "noContainers": "Няма контейнери"
+    },
+    "dockerConsole": {
+      "attachingTo": "Свързване с {{name}}...",
+      "consoleDisconnected": "Конзолата е прекъсната",
+      "reconnect": "Повторно свързване",
+      "failedToLoadTheConsole": "Грешка при зареждане на конзолата",
+      "thisSessionHasNoServer": "Тази сесия няма сървър"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Контейнери, логове и статистика"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Стаковете са изключени на този сървър.",
+      "couldNotLoadStacks": "Не може да се заредят стаковете",
+      "noStacks": "Няма стекове",
+      "composeProjectsOnThisHost": "Проектите за Compose на този хост се показват тук.",
+      "ofRunning": "{{running}} от {{total}} работят",
+      "couldNotLoadTheStack": "Не може да се зареди стекът",
+      "services": "Услуги",
+      "nothingIsRunning": "Нищо не работи.",
+      "composeFile": "Файл за Compose",
+      "partlyUp": "частично активен",
+      "notDeployed": "не е разположен",
+      "running": "работи",
+      "stopped": "спрян",
+      "paused": "паузиран"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Това не е валиден идентификатор на контейнер",
+      "consoleFailed": "Конзолата се провали",
+      "notAuthenticated": "Не е автентикиран",
+      "consoleError": "Грешка в конзолата",
+      "connectionFailed": "Свързването се провали"
+    },
+    "dockerDidNotAnswer": "Docker не отговаря",
+    "failedToLoadContainers": "Неуспешно зареждане на контейнерите",
+    "failedTo": "Неуспешно извършване на {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Сървърът не изпрати файл",
+        "cancelled": "Отменено",
+        "isGone": "{{path}} липсва",
+        "canTGoToThe": "{{name}} не може да бъде преместен в кошчето"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Невалиден идентификатор на елемент в кошчето",
+        "invalidTrashMetadata": "Невалидни метаданни на кошчето",
+        "thisPathCanTBe": "Този път не може да бъде преместен в кошчето",
+        "aFileAlreadyExistsAt": "Вече съществува файл по оригиналния път"
+      },
+      "sftp": {
+        "commandFailed": "Командата се провали: {{command}}",
+        "alreadyExists": "{{name}} вече съществува",
+        "alreadyExistsThere": "{{path}} вече съществува там",
+        "canTGoToThe": "{{name}} не може да бъде преместен в кошчето: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Терминалът вече не е отворен",
+      "clearHistory": "Изчистване на историята",
+      "stopFollowingTheTerminal": "Спри следенето на терминала",
+      "followTheTerminal": "Следи терминала",
+      "goToTheTerminalS": "Отиди в папката на терминала",
+      "cdTheTerminalHere": "Премести терминала тук",
+      "folderHistory": "История на папките",
+      "mostUsedFirstThenRecent": "Първо най-често използваните, после последните",
+      "noFoldersYet": "Все още няма папки"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Не може да се свърже.",
+        "couldNotSaveHowThis": "Не може да се запази начинът, по който този хост се свързва",
+        "thisWayCanTOpen": "По този начин не може да се отварят файлове"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Не може да се отвори тази папка",
+      "cancel": "Отказ",
+      "noFoldersHere": "Няма папки тук"
+    },
+    "couldNotOpenThisFolder": "Не може да се отвори тази папка",
+    "couldNotSaveToThe": "Не може да се запази в папката",
+    "failed": "{{label}} се провали",
+    "uploading": "Качване на {{name}}",
+    "uploadingFiles": "Качване на {{count}} файла",
+    "downloadingToFilesOnMy": "Изтегляне в Файлове, На моя iPhone, Termix",
+    "downloading": "Изтегляне на {{name}}",
+    "downloadingFiles": "Изтегляне на {{count}} файла",
+    "openALargeFile": "Да отворите голям файл?",
+    "isBigForAEditor": "{{name}} е голям за редактор на {{deviceWord}}. Може да е бавен.",
+    "open": "Отвори",
+    "thisLooksLikeABinary": "Това изглежда като двоичен файл",
+    "openItInAnotherApp": "Да го отворите в друго приложение?",
+    "openWith": "Отвори с",
+    "tooBigForTheEditor": "Твърде голям за редактора",
+    "isOver10MbDownload": "{{name}} е над 10 MB. Да го изтеглиш вместо това?",
+    "download": "Изтегли",
+    "delete": "Изтриване на {{what}}?",
+    "moveToTheTrash": "Преместване на {{what}} в кошчето?",
+    "thisCanTBeUndone": "Това не може да се върне.",
+    "youCanRestoreItFrom": "Можеш да го възстановиш от кошчето.",
+    "delete2": "Изтрий",
+    "moveToTrash": "Премести в кошчето",
+    "deleteForGood": "Да се изтрие завинаги?",
+    "deleteItForGoodInstead": "{{message}}. Да се изтрие завинаги вместо това? Това не може да се върне.",
+    "deleteFailed": "Изтриването не успя",
+    "connectingThroughTheServer": "Свързване през сървъра...",
+    "connectingFromThis": "Свързване от това {{deviceWord}}...",
+    "connecting": "Свързване...",
+    "edit": "Редактирай",
+    "downloadFolder": "Изтегли папка",
+    "share": "Сподели",
+    "rename": "Преименувай",
+    "copyTo": "Копирай в",
+    "moveTo": "Премести в",
+    "cut": "Изрежи",
+    "copy": "Копирай",
+    "permissions": "Права",
+    "properties": "Свойства",
+    "makeALinkHere": "Създай връзка тук",
+    "copyPath": "Копирай път",
+    "pathCopied": "Пътят е копиран",
+    "done": "Готово",
+    "selectAll": "Избери всички",
+    "filterByName": "Филтрирай по име",
+    "closeSearch": "Затвори търсенето",
+    "search": "Търсене",
+    "changeSort": "Промени подреждането",
+    "paste": "Постави {{count}}",
+    "upload": "Качи",
+    "transfers2": "Прехвърляния",
+    "more": "Още",
+    "nothingMatches": "Няма съвпадения",
+    "emptyFolder": "Празна папка",
+    "uploadFilesOrMakeA": "Качи файлове или създай нов.",
+    "newFolder": "Нова папка",
+    "newFile": "Нов файл",
+    "select": "Избери",
+    "hideHiddenFiles": "Скрий скритите файлове",
+    "showHiddenFiles": "Покажи скритите файлове",
+    "trash": "Кошче",
+    "folderProperties": "Свойства на папката",
+    "refresh": "Опресни",
+    "rename2": "Преименувай {{name}}",
+    "newLink": "Нова връзка",
+    "aLinkInThatPoints": "Връзка в {{path}}, която сочи към {{path2}}",
+    "name": "Име",
+    "create": "Създай",
+    "copyHere": "Копирай тук",
+    "moveHere": "Премести тук",
+    "fileViewer": {
+      "saved": "Запазен {{name}}",
+      "couldNotSaveTheFile": "Файлът не може да бъде запазен",
+      "discardChanges": "Да се отхвърлят промените?",
+      "hasChangesThatAreNot": "{{name}} има промени, които не са запазени.",
+      "discard": "Отхвърли",
+      "readOnly": "{{path}} | само за четене",
+      "find": "Търси",
+      "smallerText": "По-малък текст",
+      "biggerText": "По-голям текст",
+      "turnOffLineWrap": "Изключи пренасяне на редове",
+      "wrapLines": "Пренасяне на редове",
+      "save": "Запази"
+    },
+    "hostSection": {
+      "startIn": "Стартирай в",
+      "theFolderTheFileManager": "Папката, в която файловият мениджър се отваря първо",
+      "files": "Файлове"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Отиди на {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Още действия",
+        "moreFor": "Още за {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Права",
+      "cancel": "Отказ",
+      "apply": "Приложи ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Не може да се отвори",
+      "openWith": "Отвори с",
+      "share": "Сподели"
+    },
+    "propertiesView": {
+      "properties": "Свойства",
+      "path": "Път",
+      "type": "Тип",
+      "pointsTo": "Соци към",
+      "size": "Размер",
+      "countFolderSize": "Изчисли размера на папката",
+      "permissions": "Права",
+      "change": "Промени",
+      "owner": "Собственик",
+      "group": "Група",
+      "modified": "Променен",
+      "opened": "Отворен",
+      "linkToA": "Връзка към {{value}}",
+      "notShownForFolders": "Не се показва за папки",
+      "file": "Файл",
+      "folder": "Папка",
+      "link": "Връзка"
+    },
+    "register": {
+      "fileManager": "Файлов мениджър",
+      "files": "Файлове",
+      "browseEditAndMoveFiles": "Преглеждай, редактирай и премествай файлове",
+      "files2": "ФАЙЛОВЕ",
+      "fileManagerAndTransfers": "Файлов мениджър и трансфери"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Трансферът е неуспешен"
+      },
+      "transfersPanel": {
+        "pause": "Пауза",
+        "resume": "Възобнови",
+        "tryAgain": "Опитай отново",
+        "open": "Отвори",
+        "cancel": "Отказ",
+        "transfers": "Трансфери",
+        "goingOf": "{{active}} активни | {{done}} от {{total}}",
+        "clearFinished": "Изчисти завършените",
+        "cancelAll": "Отмени всички",
+        "noTransfersYet": "Все още няма трансфери",
+        "waiting": "Изчаква",
+        "paused": "На пауза",
+        "done": "Завършен",
+        "failed": "Неуспешен",
+        "cancelled": "Отменен"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Неуспешно зареждане на кошчето",
+      "restored": "Възстановен {{name}}",
+      "failedToRestore": "Грешка при възстановяване",
+      "failedToDelete": "Грешка при изтриване",
+      "trashEmptied": "Кофата за боклук е изчистена",
+      "failedToEmptyTrash": "Грешка при изчистване на кофата за боклук",
+      "trash": "Кофа за боклук",
+      "itemsAreRemovedAfterDays": "Елементите се премахват след {{retentionDays}} дни",
+      "close": "Затвори",
+      "emptyTrash": "Изчисти кофата",
+      "trashIsEmpty": "Кофата за боклук е празна",
+      "restore": "Възстанови {{name}}",
+      "deleteForGood": "Изтрий {{name}} завинаги"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Току-що"
+      }
+    },
+    "getting": "Зареждане на {{name}}",
+    "itemCount_one": "{{count}} елемент",
+    "itemCount_other": "{{count}} елемента",
+    "copiedWhat": "Копирано {{what}}",
+    "movedWhat": "Преместено {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} съдържа повече от {{limit}} файла. Изтеглете по-малки папки."
+    },
+    "downloadingToFilesOnMyIpad": "Изтегляне в Files, На моя iPad, Termix",
+    "size": "Размер",
+    "date": "Дата"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Връзки към услуги",
+      "openInHomepage": "Отвори в Homepage",
+      "thisWidgetOnlyShowsOn": "Този уиджет се показва само на пълната страница."
+    },
+    "register": {
+      "serviceLinks": "Връзки към услуги",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Няма зададен фийд.",
+        "couldNotLoadTheFeed": "Фийдът не може да бъде зареден.",
+        "theFeedIsEmpty": "Фийдът е празен.",
+        "noLocationSet": "Няма зададено местоположение.",
+        "couldNotLoadTheWeather": "Времето не може да бъде заредено.",
+        "noUrlSet": "Няма зададен URL адрес.",
+        "couldNotLoadTheData": "Данните не могат да бъдат заредени.",
+        "noPictureSet": "Няма зададена снимка.",
+        "badResponse": "грешен отговор"
+      },
+      "services": "Услуги",
+      "service": "Услуга",
+      "serviceLinks": "Връзки към услуги",
+      "bookmarks": "Отметки",
+      "links2": "Връзки",
+      "search": "Търсене",
+      "clock": "Часовник",
+      "countdown": "Обратен отброяване",
+      "calendar": "Календар",
+      "notes": "Бележки",
+      "banner": "Банер",
+      "ping": "Пинг",
+      "host": "Хост",
+      "hosts": "Хостове",
+      "quickConnect": "Бързо свързване",
+      "feed": "Фийд",
+      "weather": "Време",
+      "customApi": "Персонализиран API",
+      "picture": "Снимка",
+      "widget": "Уиджет",
+      "links": {
+        "noServicesYet": "Все още няма услуги.",
+        "noLinkSet": "Няма зададена връзка.",
+        "noLinksYet": "Все още няма връзки.",
+        "noSearchEngineSet": "Няма зададен търсач.",
+        "search": "Търсене",
+        "noShortcutsYet": "Все още няма ярлыци.",
+        "search2": "Търсене в {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Връзката не може да бъде отворена"
+      },
+      "status": {
+        "noUrlsYet": "Все още няма URL адреси.",
+        "down": "Изключен",
+        "noHostsPicked": "Няма избрани хостове."
+      },
+      "text": {
+        "noNotesYet": "Все още няма бележки.",
+        "noTextYet": "Все още няма текст."
+      },
+      "time": {
+        "noDateSet": "Няма зададена дата.",
+        "timeIsUp": "Времето изтече"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Стандартните настройки не могат да бъдат запазени",
+    "couldNotResetTheDefault": "Стандартните настройки не могат да бъдат нулирани",
+    "back": "Назад",
+    "hostDefaults": "Стандартни настройки за хостове",
+    "newHostsStartFromThese": "Новите хостове започват с тези",
+    "managedOnTheServer": "Управлява се от сървъра",
+    "defaultsForThisServerAre": "Стандартните настройки за този сървър се задават в уеб приложението.",
+    "level": "Ниво",
+    "yourDefaultsOrOneFolder": "Вашите настройки или тези на една папка",
+    "myDefaults": "Моите настройки",
+    "theServerSets": " Сървърът задава {{adminCount}}.",
+    "aFolderWinsOverYour": "Настройките на папката имат предимство пред вашите, а вашите – пред тези на сървъра. Хостът запазва всяка стойност, която сте задали ръчно.{{value}}",
+    "save": "Запази",
+    "authentication": "Удостоверяване",
+    "none": "Няма",
+    "reset": "Нулиране",
+    "model": {
+      "username": "Потребителско име",
+      "sshPort": "SSH порт",
+      "authentication": "Удостоверяване",
+      "aSavedCredentialForNew": "Запазени данни за вход за нови хостове",
+      "forceKeyboardInteractive": "Принудително интерактивно въвеждане от клавиатура",
+      "keepaliveInterval": "Интервал за поддържане на връзка",
+      "seconds0TurnsItOff": "Секунди, 0 изключва функцията",
+      "keepaliveTries": "Опити за поддържане на връзка",
+      "allowOldAlgorithms": "Позволяване на стари алгоритми",
+      "agentForwarding": "Пренасочване на агент",
+      "environmentVariables": "Променливи на средата",
+      "oneNameValuePerLine": "Едно ИМЕ=стойност на ред",
+      "checkIfTheHostIs": "Проверка дали хостът е достъпен",
+      "checkInterval": "Интервал за проверка",
+      "secondsEmptyUsesTheServer": "Секунди, празно ползва настройките на сървъра",
+      "socks5Proxy": "SOCKS5 прокси",
+      "setInTheWebApp": "Зададено в уеб приложението",
+      "jumpHosts": "Промежътъчни хостове",
+      "portKnocking": "Порт кнокинг",
+      "notSet": "Не е зададено",
+      "fromTheServer": "От сървъра",
+      "fromYourDefaults": "От вашите настройки",
+      "builtIn": "Вградено"
+    },
+    "register": {
+      "hostDefaults": "Стандартни настройки за хостове",
+      "portUserAndOptionsFor": "Порт, потребител и опции за нови хостове"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Все още няма данни",
+      "cpu": "Процесор",
+      "memory": "Памет",
+      "disk": "Диск",
+      "history": "История",
+      "loading": "Зареждане..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Метриките не могат да бъдат прочетени",
+      "metrics": "Метрики",
+      "cpu": "Процесор",
+      "memory": "Памет",
+      "disk": "Диск",
+      "noRecentSampleOpenThe": "Няма скорошни данни. Отворете метриките на хоста, за да започнете събиране."
+    },
+    "register": {
+      "enableMetrics": "Активиране на метрики",
+      "cpuMemoryDiskAndNetwork": "CPU, памет, диск и мрежа чрез SSH",
+      "hostMetrics": "Метрики на хоста",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Метрики",
+      "cpuMemoryDiskAndNetwork2": "CPU, памет, диск и мрежа"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Метрики на хоста | този {{deviceWord}}",
+      "hostMetrics": "Метрики на хоста",
+      "ran": "Изпълнен {{name}}",
+      "loadingMetrics": "Зареждане на метриките...",
+      "couldNotReadMetricsFrom": "Не може да се прочетат метриките от този хост",
+      "failedToLoadMetrics": "Грешка при зареждане на метриките",
+      "thisSessionHasNoServer": "Тази сесия няма сървър",
+      "twoFactorRequiredForThis": "Изисква се двуфакторна автентикация за статистиката на този хост.",
+      "failedToStartMetrics": "Грешка при стартиране на метриките",
+      "failedToRun": "Грешка при изпълнение на {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "За ядро: {{value}}",
+        "cores": "Ядра",
+        "load": "Натоварване",
+        "user": "Потребител",
+        "system": "Система",
+        "ioWait": "IO изчакване",
+        "steal": "Заето"
+      },
+      "diskWidget": {
+        "disk": "Диск {{mount}}",
+        "disk2": "Диск",
+        "used": "Използвано",
+        "total": "Общо",
+        "free": "Свободно"
+      },
+      "firewallWidget": {
+        "firewall": "Файрвол",
+        "rules": "{{type}} | {{ruleCount}} правила",
+        "noFirewallDetected": "Не е открит файрвол"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Памет",
+        "temp": "Температура",
+        "power": "Захранване",
+        "fan": "Вентилатор"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Активност при влизане",
+        "noLoginActivityRecorded": "Няма записана активност при влизане",
+        "logins": "Влизания",
+        "uniqueIps": "Уникални IP адреси",
+        "failed": "Неуспешни",
+        "recent": "Скорошни"
+      },
+      "memoryWidget": {
+        "memory": "Памет",
+        "used": "Използвано",
+        "total": "Общо",
+        "cached": "Кеширано",
+        "free": "Свободно"
+      },
+      "networkWidget": {
+        "network": "Мрежа",
+        "noInterfaces": "Няма интерфейси",
+        "up": "Нагоре",
+        "down": "Надолу"
+      },
+      "portsWidget": {
+        "listeningPorts": "Порти в изчакване",
+        "noListeningPorts": "Няма портове в изчакване"
+      },
+      "processesWidget": {
+        "sortBy": "Сортиране по {{label}}",
+        "processes": "Процеси",
+        "running": "{{value}} работещ | {{total}}",
+        "noProcessData": "Няма данни за процесите",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "КОМАНДА"
+      },
+      "systemWidget": {
+        "system": "Система",
+        "hostname": "Име на хоста",
+        "os": "ОС",
+        "kernel": "Ядро",
+        "arch": "Архитектура",
+        "noSystemInfo": "Няма системна информация"
+      },
+      "temperatureWidget": {
+        "temperature": "Температура"
+      },
+      "uptimeWidget": {
+        "uptime": "Време на работа"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Копирано с паролата",
+      "copiedTheLink": "Копиран е линкът",
+      "shareHost": "Сподели хост",
+      "thatHostNoLongerExists": "Този хост вече не съществува",
+      "scanThisInTermixOn": "Сканирайте това в Termix на друго {{deviceWord}}, под Импорт и експорт. Кодът съдържа адреса, порта и потребителя. Не съдържа парола или ключ.",
+      "copyLink": "Копирай линк",
+      "copyLinkWithPassword": "Копирай линк с парола"
+    },
+    "includePasswordsAndKeys": "Да се включат ли пароли и ключове?",
+    "anyoneWhoGetsThisFile": "Всеки, който получи този файл, може да се регистрира в тези хостове. Пазете го безопасно.",
+    "includeThem": "Включи ги",
+    "pickAtLeastOneHost": "Изберете поне един хост",
+    "couldNotMakeTheFile": "Не може да се създаде файлът",
+    "copiedToTheClipboard": "Копирано в клипборда",
+    "importAndExport": "Импорт и експорт",
+    "moveHostsInAndOut": "Преместване на хостове навътре и навън",
+    "import": "Импорт",
+    "aTermixHostFileAn": "Файл с хостове на Termix, SSH конфигурационен файл или линк/QR код за хост от друго {{deviceWord}}.",
+    "export": "Експорт",
+    "allHosts": "Всички хостове",
+    "picked": "{{size}} избрани",
+    "pickHosts": "Избери хостове",
+    "includePasswordsAndKeys2": "Включи пароли и ключове",
+    "offMakesAFileSafe": "Изключването прави файла безопасен за споделяне. Хостовете, които използват запазени данни за вход, сочат към тях по име",
+    "shareAFile": "Сподели файл",
+    "copy": "Копирай",
+    "importPanel": {
+      "couldNotReadThat": "Не може да се прочете това",
+      "couldNotReadThatFile": "Не може да се прочете този файл",
+      "importFailed": "Импортът неуспешен",
+      "chooseAFile": "Избери файл",
+      "paste": "Постави",
+      "scanACode": "Сканирай код",
+      "couldNotBeRead": "{{count}} не може да се прочете",
+      "updateHostsThatExist": "Актуализирай съществуващи хостове",
+      "sameAddressPortAndUser": "Същият адрес, порт и потребител. В противен случай те се пропуска",
+      "cancel": "Отказ",
+      "import": "Импорт",
+      "andMore": "и още {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "QR код"
+    },
+    "register": {
+      "importAndExport": "Импорт и експорт",
+      "moveHostsInOrOut": "Преместване на хостове навътре или навън с файл или QR код",
+      "shareHost": "Сподели хост"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Сканирай код за хост",
+      "pointTheCameraAtA": "Насочете камерата към QR код за хост на Termix.",
+      "termixNeedsTheCameraTo": "Termix се нуждае от камерата, за да сканира код. Нищо не се записва.",
+      "allowTheCamera": "Разреши камерата"
+    },
+    "read": {
+      "termixFile": "Файл на Termix",
+      "sshConfig": "SSH конфигурация",
+      "thereIsNothingToImport": "Няма нищо за импортиране",
+      "thatIsNotATermix": "Това не е връзка към Termix хост",
+      "linkHost": "1 хост: {{name}}",
+      "sourceHosts_one": "{{what}} с {{count}} хост",
+      "sourceHosts_other": "{{what}} с {{count}} хоста"
+    },
+    "saveYourTermixHosts": "Запазете вашите Termix хостове"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Завършено",
+      "rejected": "Отхвърлено",
+      "approvals": "Одобрения",
+      "nothingIsWaiting": "Няма нищо в очакване",
+      "actionsARuleHoldsFor": "Действията, за които правилото изисква одобрение, се показват тук.",
+      "approveAndRun": "Одобри и стартирай",
+      "reject": "Отхвърли",
+      "couldNotLoadApprovals": "Не може да се заредят одобренията",
+      "couldNotDecide": "Не може да се вземе решение"
+    },
+    "approvalsCard": {
+      "approved": "Одобрено",
+      "rejected": "Отхвърлено",
+      "waitingForApproval": "В очакване на одобрение",
+      "approve": "Одобри",
+      "reject": "Отхвърли",
+      "couldNotDecide": "Не може да се вземе решение",
+      "seeAll": "Виж всички"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Това не може да бъде отменено. Да се стартира ли?",
+      "run": "Стартирай",
+      "sentForApproval": "Изпратено за одобрение",
+      "target": "Цел",
+      "theItemOnTheHost": "Елементът на хоста, например контейнер",
+      "dryRun": "Тестване",
+      "back": "Назад",
+      "actions": "Действия",
+      "noActionsForThisHost": "Няма действия за този хост",
+      "turnOnAPluginLike": "Активирайте плъгин като Docker или Services за този хост на сървъра.",
+      "destructive": "Деструктивно",
+      "changes": "Промени",
+      "theActionCouldNotRun": "Действието не може да се изпълни",
+      "couldNotLoadActions": "Не може да се заредят действията"
+    },
+    "register": {
+      "actions": "Действия",
+      "waitingForApproval": "В очакване на одобрение",
+      "approvals": "Одобрения",
+      "actionsWaitingForAPerson": "Действия, които чакат човек да каже „да“",
+      "runHistory": "История на изпълненията",
+      "everyActionAnyoneRanFrom": "Всяко действие, изпълнено от всеки, от всяко устройство"
+    },
+    "runHistory": {
+      "cancelThisRun": "Да се отмени ли това изпълнение?",
+      "cancelRun": "Отмени изпълнението",
+      "keep": "Запази",
+      "undoThisRun": "Да се отмени ли това изпълнение?",
+      "thisRunsTheActionS": "Това изпълнява отмяната на действието със същия вход.",
+      "undo": "Отмени",
+      "cancelled": "Отменено",
+      "itAlreadyFinished": "Вече е приключило",
+      "done": "Завършено",
+      "runHistory": "История на изпълненията",
+      "nothingHasRunYet": "Все още нищо не е изпълнено",
+      "dryRun": "Тестване",
+      "cancel": "Отмени",
+      "couldNotLoadHistory": "Не може да се зареди историята",
+      "couldNotCancel": "Не може да се отмени",
+      "couldNotUndo": "Не може да се отмени"
+    },
+    "api": {
+      "needsApproval": "Изисква одобрение",
+      "needsSignIn": "Изисква вписване",
+      "done": "Готово",
+      "failed": "Неуспешно",
+      "running": "Изпълнява се",
+      "interrupted": "Прекъснато",
+      "rejected": "Отхвърлено",
+      "cancelled": "Отменено",
+      "expired": "Изтекло"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Включи {{value}}",
+      "moreSettingsForThisAre": "Още настройки за това има в уеб приложението на Termix.",
+      "pluginHostSettings": "Настройки на хоста на плъгина"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} трябва да е число",
+      "mustBeAtLeast": "{{field}} трябва да е поне {{min}}",
+      "mustBeAtMost": "{{field}} трябва да е най-много {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Свържете сървър, за да го използвате",
+      "runsOnYourTermixServer": "{{name}} работи на вашия Termix сървър."
+    },
+    "pluginWebView": {
+      "canTLoad": "Не може да се зареди {{name}}",
+      "theServerDidNotSend": "Сървърът не изпрати плъгина. Проверете дали е включен и опитайте отново.",
+      "openThisLink": "Да отворите тази връзка?",
+      "open": "Отвори",
+      "needsANewerVersionOf": "Изисква по-нова версия на приложението",
+      "usesPartsOfTermixThis": "{{name}} използва части от Termix, които това приложение все още няма.",
+      "didNotStart": "{{name}} не стартира",
+      "thisScreenIsNotIn": "Този екран не е в версията на плъгина на сървъра.",
+      "thePluginHitAnError": "Плъгинът срещна грешка при стартиране.",
+      "youReOffline": "Нямате интернет връзка",
+      "runsOnYourServerSo": "{{name}} работи на вашия сървър, затова му е нужна връзка. Ще се отвори отново, когато имате интернет.",
+      "tryAgain": "Опитайте отново"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Този хост все още не е на това {{deviceWord}}.",
+      "theAppCanTOpen": "Приложението не може да отвори това от тук.",
+      "thatHostIsNotOn2": "Този хост все още не е на това {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Парола",
+      "unchangedIfBlank": "Не се променя, ако е празно",
+      "port": "Порт",
+      "domain": "Домейн",
+      "displaySoundAndClipboardSettings": "Настройките за дисплей, звук и клипборд са в уеб приложението на Termix.",
+      "portMustBeFrom1": "Портът за {{label}} трябва да е между 1 и 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Връзката с отдалечения десктоп прекъсна",
+        "signIn": "Вход за {{label}}",
+        "itWillNotBeSaved": "{{error}} Няма да се запази.",
+        "enterTheLoginForIt": "Въведете данните за вход за {{title}}. Те няма да се запазят.",
+        "reconnecting": "Повторно свързване на {{label}}",
+        "connecting": "Свързване на {{label}}",
+        "connectionFailed": "Връзката неуспешна",
+        "disconnected": "Прекъснато",
+        "reconnect": "Повторно свързване",
+        "connectThroughTheServer": "Свържи през сървъра",
+        "pasteToRemote": "Постави в отдалечения клипборд",
+        "typeClipboard": "Напиши от клипборда",
+        "copyRemoteClipboard": "Копирай отдалечения клипборд",
+        "theComputerSCertificateWas": "Сертификатът на компютъра не е доверен.",
+        "thatLoginWasRefusedTry": "Този вход беше отказан. Опитайте отново."
+      },
+      "target": {
+        "trustThisComputer": "Да доверите на този компютър?",
+        "theCanTCheckS": "{{deviceWord}} не може да провери сертификата на {{hostName}}. Уверете се, че този отпечатък съвпада с този на компютъра, преди да продължите.\n\n{{fingerprint}}",
+        "trustAndConnect": "Довери и свържи",
+        "certificateChanged": "Сертификатът се промени",
+        "showsAnotherCertificateThanLast": "{{hostName}} показва друг сертификат от последния път. Това се случва, когато компютърът генерира нов такъв, или когато някой подслушва връзката.\n\nНов отпечатък:\n{{fingerprint}}",
+        "trustTheNewOne": "Довери новия"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Отдалечен десктоп",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Готово",
+      "keyboard": "Клавиатура",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Настройки",
+      "remoteSettings": "Отдалени настройки",
+      "mouseMode": "Режим на мишката",
+      "touch": "Докосване",
+      "trackpad": "Тачпад",
+      "tapWhereYouWantTo": "Докоснете там, където искате да кликнете. Задръжте за десен клик, плъзнете за влачене.",
+      "dragToMoveThePointer": "Плъзнете, за да преместите курсора. Докоснете за клик, докоснете с два пръста за десен клик, докоснете и плъзнете за влачене.",
+      "zoomXPinchAnywhereTo": "Мащабиране: {{value}}x. Щипнете навсякъде за мащабиране",
+      "reset": "Нулиране",
+      "cancel": "Отказ",
+      "connect": "Свързване",
+      "username": "Потребителско име",
+      "domainOptional": "Домейн (по избор)",
+      "domain": "Домейн",
+      "password": "Парола",
+      "leftArrow": "Стрелка наляво",
+      "upArrow": "Стрелка нагоре",
+      "downArrow": "Стрелка надолу",
+      "rightArrow": "Стрелка надясно",
+      "rdpSignIn": "Вписване в RDP"
+    },
+    "theRemoteDesktopDropped": "Отдалеченият работен плот е прекъснат",
+    "theyWillNotBeSaved": "{{errorMessage}} Те няма да бъдат запазени.",
+    "enterCredentialsForTheyWill": "Въведете данни за вход за {{title}}. Те няма да бъдат запазени.",
+    "connecting": "Свързване",
+    "connectionFailed": "Връзката е неуспешна",
+    "disconnected": "Прекъсната връзка",
+    "reconnect": "Повторно свързване",
+    "route": {
+      "thisHostCanTOpen": "Този хост не може да отвори отдалечен работен плот от тук."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Блокирано от приложението"
+    },
+    "failedToStartRemoteSession": "Неуспешно стартиране на отдалечена сесия",
+    "thatLoginWasRefusedTry": "Този вход беше отказан. Опитайте отново.",
+    "theRemoteRefusedTheSaved": "Отдалеченият сървър отказа запазените данни за вход. Проверете RDP входа на този хост.",
+    "remoteSessionFailed": "Отдалечената сесия е неуспешна",
+    "remoteSessionReturnedAnInvalid": "Отдалечената сесия върна невалидно съобщение",
+    "failedToLoadTheRemote": "Неуспешно зареждане на клиента за отдалечен работен плот"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Няма журнал",
+      "thisHostDoesNotKeep": "Този хост не поддържа systemd журнал.",
+      "all": "Всички",
+      "warnings": "Предупреждения",
+      "errors": "Грешки",
+      "stop": "Спри",
+      "follow": "Следване",
+      "nothingLogged": "Нищо не е записано",
+      "tryAnotherLevel": "Опитайте друго ниво.",
+      "couldNotReadTheJournal": "Не може да се прочете журналът"
+    },
+    "register": {
+      "services": "Услуги",
+      "startStopAndReadLogs": "Стартиране, спиране и преглед на логове"
+    },
+    "readingServices": "Зареждане на услугите...",
+    "thisHostHasNoSystemd": "Този хост няма systemd или OpenRC.",
+    "noServicesMatch": "Няма съвпадащи услуги",
+    "noServicesFound": "Няма намерени услуги",
+    "services": "Услуги",
+    "journal": "Журнал",
+    "searchServices": "Търсене на услуги...",
+    "all": "Всички",
+    "running": "Активни",
+    "failed": "Провалени ({{failed}})",
+    "failed2": "Провалени",
+    "servicesCard": {
+      "services": "Услуги",
+      "noSystemdOrOpenrc": "Няма systemd или OpenRC",
+      "failed": "{{failed}} провалени",
+      "allRunning": "Всички активни",
+      "couldNotReadServices": "Не може да се заредят услугите"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Остава спряна, докато не бъде стартирана отново или хостът не се рестартира.",
+      "itStopsForAMoment": "Спира се за момент и се стартира отново.",
+      "stop": "Спри",
+      "restart": "Рестартирай",
+      "is": "{{name}} е {{state}}",
+      "start": "Стартирай",
+      "journal": "Журнал",
+      "couldNotReadTheService": "Не може да се зареди услугата",
+      "couldNot": "Не може да се {{action}} {{name}}",
+      "startsAtBoot": "Стартира при зареждане",
+      "mainPid": "Основен PID",
+      "activeSince": "Активна от",
+      "unitFile": "Файл на единицата",
+      "notSet": "[не е зададено]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Не сте влезли",
+        "followFailed": "Следенето се провали",
+        "connectionFailed": "Свързването се провали"
+      }
+    },
+    "couldNotReadServices": "Не може да се заредят услугите",
+    "services2": "Услуги{{where}}",
+    "title": "Услуги",
+    "failedCount": "{{count}} провалени"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Споделяне на сесия",
+      "shareLink": "Сподели връзка"
+    },
+    "shareSessionView": {
+      "canWatch": "Може да гледа",
+      "canType": "Може да въвежда",
+      "n1Hour": "1 час",
+      "n8Hours": "8 часа",
+      "n1Day": "1 ден",
+      "n7Days": "7 дни",
+      "never": "Никога",
+      "shareSession": "Сподели сесия",
+      "anyoneWithTheLinkCan": "Всеки, който има връзката, може да отвори този терминал, докато сесията е активна. Можете да отмените връзките в Termix.",
+      "peopleWithTheLink": "Хора с връзката",
+      "expiresAfter": "Изтича след",
+      "link": "Връзка",
+      "copy": "Копирай",
+      "share": "Сподели",
+      "makeLink": "Създай връзка",
+      "theServerGaveNoLink": "Сървърът не предостави връзка",
+      "couldNotMakeALink": "Не може да се създаде връзка",
+      "linkCopied": "Връзката е копирана"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Без папка"
+    },
+    "hostPicker": {
+      "selectNone": "Премахни избора",
+      "selectAll": "Избери всички",
+      "done": "Готово"
+    },
+    "register": {
+      "snippets": "Снипети",
+      "snippets2": "СНИПЕТИ",
+      "savedCommandsToRunOn": "Запазени команди за изпълнение на всеки хост"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Няма начин да се достигне до този хост от тук",
+      "exitedWith": "Излезе с код {{exitCode}}",
+      "thisCanTRunIt": "Това {{deviceWord}} не може да го изпълни",
+      "noServerIsLinked": "Няма свързан сървър"
+    },
+    "runOnHostsSheet": {
+      "run": "Изпълни",
+      "run2": "Изпълни \"{{name}}\"",
+      "runsOverSshOnEach": "Изпълнява се чрез SSH на всеки хост. Няма да се отвори терминал.",
+      "close": "Затвори",
+      "hosts": "Хостове",
+      "pickHosts": "Избери хостове",
+      "workedFailed": "{{value}} успя, {{failed}} неуспешни",
+      "runOn2": "Изпълни на",
+      "runOn_one": "Да се изпълни {{name}} на {{count}} хост?",
+      "runOn_other": "Да се изпълни {{name}} на {{count}} хоста?",
+      "hostsPicked_one": "{{count}} хост избран",
+      "hostsPicked_other": "{{count}} хоста избрани"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Търси снипети",
+      "pastesTheNote": "Поставя бележката",
+      "runsTheSnippet": "Изпълнява снипета",
+      "noSnippetsMatch": "Няма съвпадащи снипети",
+      "noSnippetsYet": "Все още няма снипети",
+      "addSnippetsInSettingsSnippets": "Добавете снипети в Настройки, Снипети",
+      "run": "Изпълни",
+      "insertWithoutRunning": "Вмъкни без изпълнение",
+      "copy": "Копирай"
+    },
+    "snippetsCard": {
+      "snippets": "Снипети",
+      "run": "Изпълни {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Няма снипети за експортиране",
+      "couldNotMakeTheFile": "Не може да се създаде файлът",
+      "copiedToTheClipboard": "Копирано в клипборда",
+      "couldNotImport": "Не може да се импортира",
+      "couldNotReadThatFile": "Не може да се прочете този файл",
+      "importAndExport": "Импортиране и експортиране",
+      "theSameFileTheWeb": "Същият файл, който използва уеб приложението.",
+      "export": "Експортирай",
+      "shareAFile": "Сподели файл",
+      "copy": "Копирай",
+      "import": "Импортирай",
+      "updateSnippetsThatExist": "Актуализирай съществуващите снипети",
+      "sameNameInTheSame": "Същото име в една и съща папка. В противен случай се пропуска",
+      "chooseAFile": "Избери файл",
+      "paste": "Постави",
+      "saveYourSnippets": "Запази снипетите си"
+    },
+    "useSnippetRunner": {
+      "run": "Да се изпълни {{name}}?",
+      "run2": "Изпълни",
+      "fillInTheValuesFor": "Попълнете стойностите за този снипет.",
+      "cancel": "Отмени",
+      "insert": "Вмъкни",
+      "noTerminalIsOpen": "Няма отворен терминал"
+    },
+    "variables": {
+      "input": "Вход {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Това не е валиден JSON файл",
+      "theFileNeedsASnippets": "Файлът трябва да съдържа списък със снипети или папки",
+      "snippetNameAndContentAre": "Снипет {{value}}: името и съдържанието са задължителни",
+      "folder": "Папка {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Зареждане на Tailscale устройства…",
+      "searchTailscaleDevices": "Търсене на Tailscale устройства…",
+      "searchTailscaleDevices2": "Търсене на устройства в Tailscale",
+      "clearDeviceSearch": "Изчистване на търсенето на устройства",
+      "refreshTailscaleDevices": "Опресняване на устройствата в Tailscale",
+      "device": "Устройство",
+      "noTailnetAddress": "Няма tailnet адрес",
+      "tailscaleDevice": "Устройство в Tailscale",
+      "tailscaleDevices": "Устройства в Tailscale",
+      "addAHostThatConnects": "Добавете хост, който се свързва чрез Tailscale SSH.",
+      "username": "Потребителско име",
+      "sshUsernameFor": "SSH потребителско име за {{value}}",
+      "addHost": "Добавяне на хост",
+      "noTailscaleDevicesMatchYour": "Няма устройства в Tailscale, които да съвпадат с търсенето ви.",
+      "noTailscaleDevicesFound": "Не са намерени устройства в Tailscale.",
+      "noTailscaleApiKeyIs": "На този сървър не е конфигуриран API ключ за Tailscale. Попитайте администратор да добави такъв.",
+      "youDoNotHavePermission": "Нямате разрешение за извличане на списък с устройства в Tailscale.",
+      "couldNotLoadTailscaleDevices": "Не може да се заредят устройствата в Tailscale. Опреснете, за да опитате отново.",
+      "tailscaleIsUnavailableOnThis": "Tailscale не е наличен на този сървър."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Повторно свързване | опит {{attempt}}",
+      "reconnectingInSTry": "Повторно свързване след {{secs}} сек. | опит {{attempt}}",
+      "offlineWaitingForNetwork": "Извън мрежата, изчакване на връзка",
+      "sendToTheNewShell": "Да се изпрати {{what}} към новата обвивка?",
+      "reconnectNow": "Повторно свързване сега",
+      "send": "Изпращане",
+      "discard": "Отхвърляне",
+      "typedChars_one": "{{count}} въведен символ",
+      "typedChars_other": "{{count}} въведени символа",
+      "waiting": "{{what}} изчаква"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Журналът на връзката е копиран",
+      "connectionLog": "Журнал на връзката",
+      "copyItIntoABug": "Копирайте го в доклад за грешка. Адресите и потребителските имена са изключени.",
+      "copy": "Копиране"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Да се изчисти историята за този хост?",
+        "clear": "Изчистване",
+        "searchHistory": "Търсене в историята",
+        "typesTheCommandWithoutRunning": "Въвежда командата, без да я изпълнява",
+        "noCommandsMatch": "Няма съвпадащи команди",
+        "noHistoryYet": "Все още няма история",
+        "commandsYouRunOnThis": "Командите, които изпълнявате на този хост, се показват тук",
+        "run": "Изпълнение",
+        "typeWithoutRunning": "Въвеждане без изпълнение",
+        "copy": "Копиране",
+        "delete": "Изтриване",
+        "historyCleared": "Историята е изчистена"
+      },
+      "suggestionStrip": {
+        "use": "Използване на {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Настройка на приложението",
+      "delete": "Изтриване (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Заглавие на раздела от обвивката",
+      "programsCanSetTheTab": "Програмите могат да зададат заглавието на раздела",
+      "openTmux": "Отваряне на tmux",
+      "attachToATmuxSession": "Свързване към сесия на tmux или стартиране на нова",
+      "reconnectOnDrop": "Повторно свързване при прекъсване",
+      "keepTabOpenOnExit": "Запазване на отворения раздел при изход",
+      "pressEnterToConnectAgain": "Натиснете Enter, за да се свържете отново",
+      "saveCommandHistory": "Запазване на историята на командите",
+      "offerToFillPasswordPrompts": "Предлагане на попълване на заявки за парола",
+      "offerToFillSudoPrompts": "Предлагане на попълване на заявки за sudo",
+      "usesTheSudoPasswordFrom": "Използва паролата за sudo от SSH раздела",
+      "none": "Няма",
+      "look": "Изглед",
+      "theme": "Тема",
+      "font": "Шрифт",
+      "cursor": "Курсор",
+      "bell": "Звънец",
+      "scrollbackLines": "Редове за скролване",
+      "app": "Приложение",
+      "behavior": "Поведение",
+      "backspaceSends": "Backspace изпраща",
+      "startupSnippet": "Стартов фрагмент",
+      "runsOnceTheShellIs": "Изпълнява се, когато shell-ът е готов",
+      "fillWithoutAsking": "Попълване без питане",
+      "onThisOnlyOnceYou": "Само за това {{deviceWord}}, след като изберете „Винаги попълвай“",
+      "connection": "Връзка",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Секунди между пингове, 0 изключва функцията",
+      "default": "По подразбиране",
+      "keepaliveSeconds": "Секунди за keepalive",
+      "missedPings": "Пропуснати пингове",
+      "dropTheConnectionAfterThis": "Прекъсване на връзката след толкова много без отговор",
+      "missedPingsBeforeDrop": "Пропуснати пингове преди прекъсване",
+      "environment": "Околна среда",
+      "removeVariable": "Премахване на променлива",
+      "addVariable": "Добавяне на променлива"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "КЛАВИАТУРА"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Ред",
+        "keys": "Клавиши",
+        "sendsAKeyCode": "Изпраща код на клавиш",
+        "stickyModifier": "Лепкав модификатор",
+        "appAction": "Действие на приложението",
+        "tmuxPrefixThen": "tmux префикс, след това {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Редове с клавиши",
+        "onlyFor": "Само за {{name}}",
+        "usingTheAppSRows": "Използват се редовете на приложението. Промените тук са само за {{name}}",
+        "useTheAppSRows": "Използвай редовете на приложението"
+      },
+      "keyButton": {
+        "locked": "Заключен"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Отказ",
+        "remove": "Премахване на {{what}}?",
+        "remove2": "Премахване",
+        "dragToReorder": "Плъзнете за преподреждане",
+        "rowName": "Име на реда",
+        "groupName": "Име на групата",
+        "add": "Добавяне",
+        "addKey": "Добавяне на клавиш",
+        "addRow": "Добавяне на ред",
+        "addGroup": "Добавяне на група",
+        "tmuxPrefix": "tmux префикс",
+        "name": "Име",
+        "rename": "Преименуване",
+        "keys": "{{value}} клавиша",
+        "noKeys": "Няма клавиши",
+        "remove3": "Премахване на {{label}}",
+        "keys2": "Клавиши",
+        "custom": "Персонализиран",
+        "add2": "Добавяне на {{label}}",
+        "typeText": "Въвеждане на текст",
+        "runCommand": "Изпълнение на команда",
+        "ctrlKey": "Ctrl клавиш",
+        "label": "Етикет",
+        "optional": "По избор",
+        "letter": "Буква",
+        "command": "Команда",
+        "text": "Текст",
+        "resetToDefault": "Възстановяване на стойностите по подразбиране"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Променете клавишите в Настройки, Клавиатура"
+      },
+      "keyRowBar": {
+        "keyRow": "Ред с клавиши {{label}}",
+        "tapForTheNextRow": "Докоснете за следващия ред, задръжте за избор",
+        "keyRows": "Редове с клавиши"
+      },
+      "model": {
+        "clear": "Изчистване",
+        "main": "Основни",
+        "keys": "Клавиши",
+        "arrows": "Стрелки",
+        "symbols": "Символи",
+        "actions": "Действия",
+        "nav": "Навигация",
+        "move": "Преместване",
+        "function": "Функционални",
+        "brackets": "Скоби",
+        "punctuation": "Интерпункция",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Панели",
+        "copy": "Копиране",
+        "split": "Разделяне ─",
+        "split2": "Разделяне │",
+        "newWin": "Нов прозорец",
+        "prevWin": "Предишен прозорец",
+        "nextWin": "Следващ прозорец",
+        "pane": "Панел ←",
+        "pane2": "Панел ↓",
+        "pane3": "Панел ↑",
+        "pane4": "Панел →",
+        "copyMode": "Режим на копиране",
+        "pasteBuf": "Поставяне от буфер",
+        "killPane": "Затваряне на панел"
+      }
+    },
+    "output": {
+      "openLink": "Да се отвори връзката?",
+      "open": "Отваряне",
+      "pasteLines": "Да се поставят {{lines}} реда?",
+      "pasteThisText": "Да се постави този текст?",
+      "theShellMayRunIt": "Обвивката може да го изпълни веднага.\n\n{{text}}",
+      "paste": "Поставяне",
+      "letTheProgramReadYour": "Да се позволи на програмата да прочете буфера за обмен?",
+      "itAskedForWhatYou": "Тя поиска последното копирано от вас.",
+      "allow": "Разрешаване",
+      "letTheProgramCopyTo": "Да се позволи на програмата да копира в буфера за обмен?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Да се попълни запазената парола?",
+      "asksForTheSudoPassword": "{{hostName}} изисква sudo парола.",
+      "asksForAPassword": "{{hostName}} изисква парола.",
+      "fillPassword": "Попълване на парола",
+      "alwaysFillOnThisHost": "Винаги да се попълва за този хост",
+      "asksNoMoreOnThis": "Вече няма да пита за това на това {{deviceWord}}. Можете да го изключите в раздела Терминал на хоста.",
+      "notNow": "Не сега"
+    },
+    "register": {
+      "terminal": "Терминал",
+      "terminalAndKeepalive": "Терминал и keepalive",
+      "history": "ИСТОРИЯ",
+      "find": "Търсене",
+      "tmuxWindows": "tmux прозорци",
+      "connectionLog": "Журнал на връзката",
+      "keyRowsForThisHost": "Редове с клавиши за този хост"
+    },
+    "searchBar": {
+      "noResults": "Няма резултати",
+      "matchCase": "Съвпадение на регистъра",
+      "wholeWord": "Цяла дума",
+      "regularExpression": "Регулярен израз",
+      "find": "Търсене",
+      "closeFind": "Затвори търсенето"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Системна",
+      "block": "Блок",
+      "bar": "Линия",
+      "underline": "Подчертаване",
+      "off": "Изключено",
+      "sound": "Звук",
+      "flash": "Блинкане",
+      "both": "И двете"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Нов раздел на този хост",
+      "closeTab": "Затвори раздела",
+      "nextTab": "Следващ раздел",
+      "previousTab": "Предишен раздел",
+      "goToTab": "Отиди на раздел",
+      "find": "Търсене",
+      "fontSize": "Размер на шрифта",
+      "paste": "Поставяне",
+      "escape": "Escape",
+      "copyAndPaste": "Копиране и поставяне"
+    },
+    "reconnecting": "Повторно свързване...",
+    "waitingForNetwork": "Изчакване на мрежата...",
+    "waitingForYou": "Изчакване за вас...",
+    "connecting": "Свързване...",
+    "terminalView": {
+      "scrollToBottom": "Превъртане до края",
+      "onlyWebLinksCanOpen": "Само уеб връзки могат да се отварят от терминала",
+      "couldNotOpenLink": "Връзката не може да бъде отворена",
+      "copiedFromTheTerminal": "Копирано от терминала"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Отвори tmux сесия",
+        "newSession": "Нова сесия",
+        "plainShell": "Обикновен шел",
+        "tmuxWindows": "tmux прозорци",
+        "newWindow": "Нов прозорец",
+        "windowCount_one": "{{count}} прозорец",
+        "windowCount_other": "{{count}} прозореца",
+        "attached": "{{count}} свързани",
+        "activeNow": "активна сега",
+        "activeMinAgo": "активна преди {{count}} мин.",
+        "activeHoursAgo": "активна преди {{count}} ч.",
+        "activeDaysAgo_one": "активна преди {{count}} ден",
+        "activeDaysAgo_other": "активна преди {{count}} дни"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Копиране",
+        "selectAll": "Избери всичко",
+        "cancel": "Отказ",
+        "scrollToBottom": "Превъртане до края",
+        "couldNotCopy": "Не може да се копира",
+        "webviewError": "Грешка в WebView: {{description}}",
+        "webviewHttpError": "HTTP грешка в WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Няма запазена парола за този хост",
+    "backInTmuxSession": "Назад в tmux сесия {{tmuxName}}",
+    "backInScreenSession": "Назад в screen сесия {{name}}",
+    "theServerSessionEndedThis": "Сесията на сървъра приключи. Това е нов шел.",
+    "termixWasClosedSoThe": "Termix беше затворен, така че старият шел приключи. Това е нов шел.",
+    "theConnectionDroppedAndThe": "Връзката прекъсна и старият шел приключи. Това е нов шел.",
+    "disconnectedFrom": "Прекъсната връзка с {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Двуфакторна автентикация",
+      "codesFromAnAuthenticatorApp": "Кодове от приложение за автентикация за акаунта ви на сървъра"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC адрес",
+      "neededToWakeThisHost": "Необходимо за събуждане на този хост чрез Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Използвайте MAC адрес като 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN изпратен до {{name}}",
+      "failedToSendWakeOn": "Грешка при изпращане на Wake-on-LAN пакет",
+      "noServer": "Няма сървър"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Събуди {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Да споделите анонимна статистика за използването?",
+      "termixWouldSendAShort": "Termix ще изпраща кратък доклад веднъж дневно. Можете да промените това по всяко време в Настройките.",
+      "noThanks": "Не, благодаря",
+      "share": "Сподели",
+      "theReportHasTheApp": "Докладът съдържа версията на приложението, типа на {{deviceWord}}, приблизителен брой хостове и сесии, кои функции използвате и дали свързването е успешно. Никога не съдържа имена на хостове, потребителски имена, адреси, пътища, команди или имена на сървъри.",
+      "seeExactlyWhatIsSent": "Вижте точно какво се изпраща"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Зареждане на информация за версията…",
+      "updateAvailable": "Налична актуализация",
+      "newVersionAvailable": "Налична е нова версия",
+      "aNewerVersionOfThe": "Налична е по-нова версия на мобилното приложение. Някои функции може да не работят правилно, докато не актуализирате.",
+      "versionInformation": "Информация за версията",
+      "installed": "Инсталирана",
+      "latest": "Последна",
+      "unknown": "Неизвестна",
+      "tag": "Етикет",
+      "continueAnyway": "Продължи въпреки това"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Копирано",
+      "copy": "Копирай",
+      "hostKeyChanged": "Ключът на хоста е променен",
+      "verifyHostKey": "Проверка на ключа на хоста",
+      "cancel": "Отказ",
+      "acceptNewKey": "Приеми новия ключ",
+      "connectAndTrust": "Свържи и довери се",
+      "theHostSSshKey": "SSH ключът на хоста се е променил от последната ви връзка. Това може да означава, че някой прехваща връзката.",
+      "youAreConnectingToThis": "Свързвате се с този хост за първи път. Проверете отпечатъка, преди да му се доверите.",
+      "previousKey": "Предишен ключ",
+      "newFingerprint": "Нов отпечатък",
+      "hostFingerprint": "Отпечатък на хоста"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Изисква се парола",
+      "enterThePassphraseForYour": "Въведете паролата за вашия SSH ключ.",
+      "cancel": "Отказ",
+      "connect": "Свържи",
+      "keyPassphrase": "Парола за ключа"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Изисква се SSH автентикация",
+      "cancel": "Отказ",
+      "connect": "Свържи",
+      "password": "Парола",
+      "sshKey": "SSH ключ",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nПоставете вашия частен ключ тук...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Парола за ключа (по избор)",
+      "keyboardInteractiveAuthIsNot": "Интерактивната автентикация чрез клавиатура не е налична. Въведете данните за вход директно.",
+      "authenticationFailedPleaseReEnter": "Автентикацията неуспешна. Моля, въведете отново данните си за вход.",
+      "connectionTimedOutPleaseTry": "Връзката изтече. Моля, опитайте отново с вашите данни за вход."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Проверка на Tailscale SSH",
+      "completeTheTailscaleSshCheck": "Завършете проверката на Tailscale SSH в браузъра си, за да продължите.",
+      "cancel": "Отказ",
+      "copyUrl": "Копирай URL",
+      "openBrowser": "Отвори браузър",
+      "urlCopied": "URL копиран",
+      "failedToCopy": "Грешка при копиране",
+      "couldNotOpenBrowser": "Не може да се отвори браузърът"
+    },
+    "tOTPDialog": {
+      "cancel": "Отказ",
+      "submit": "Изпрати",
+      "verify": "Провери",
+      "password": "Парола",
+      "pasteCode": "Постави код",
+      "passwordRequired": "Задължителна е парола",
+      "twoFactorAuthentication": "Двустепенна автентикация",
+      "enterYourPasswordToContinue": "Въведете паролата си, за да продължите.",
+      "enterThe6DigitCode": "Въведете 6-цифрения код от приложението за автентикация."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Автентикация чрез Warpgate",
+      "authenticateViaTheWarpgatePortal": "Автентикирайте се през портала на Warpgate, след което натиснете Продължи.",
+      "cancel": "Отказ",
+      "openBrowser": "Отвори браузър",
+      "continue": "Продължи",
+      "securityKey": "Сигурностен ключ",
+      "authUrl": "URL за автентикация",
+      "copied": "Копирано",
+      "copy": "Копирай",
+      "urlCopied": "URL адресът е копиран",
+      "failedToCopy": "Грешка при копиране",
+      "couldNotOpenBrowser": "Не може да се отвори браузърът"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "този {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Последна активност",
+        "files": "Файлове",
+        "terminal": "Терминал"
+      },
+      "alertsCard": {
+        "notifications": "Известия",
+        "seeAll": "Виж всички"
+      },
+      "server": "Сървър",
+      "openSessions": "Отворени сесии",
+      "quickAccess": "Бърз достъп",
+      "notifications": "Известия",
+      "pinnedHosts": "Закрепени хостове",
+      "recentHosts": "Последни хостове",
+      "recentActivity": "Последна активност",
+      "pinnedCard": {
+        "addYourFirstHost": "Добавете първия си хост",
+        "hostsYouOpenShowUp": "Хостовете, които отваряте, се появяват тук, а закрепените хостове показват актуални карти.",
+        "addHost": "Добави хост",
+        "linkAServer": "Връзка със сървър",
+        "pinAHostToSee": "Закрепете хост, за да го видите тук",
+        "pinnedHostsShowTheirMetrics": "Закрепените хостове показват техните метрики, Docker и услуги на пръв поглед. Дръжте натиснат хост, за да го закрепите.",
+        "goToHosts": "Отиди на хостовете",
+        "pinned": "Закрепени",
+        "opensTheTerminalHoldFor": "Отваря терминала. Дръжте за повече.",
+        "turnOnDockerOrServices": "Включете Docker или Услуги за този хост, или натиснете, за да се свържете.",
+        "opens": "Отваря {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Бърз достъп",
+        "quickConnect": "Бързо свързване",
+        "userHostPortWithoutSaving": "потребител@хост:порт, без запазване"
+      },
+      "recentCard": {
+        "recent": "Последни"
+      },
+      "serverCard": {
+        "server": "Сървър",
+        "version": "Версия",
+        "uptime": "Време на работа",
+        "database": "База данни",
+        "hosts": "Хостове",
+        "online": "Онлайн",
+        "offline": "Офлайн",
+        "logins": "Влизания"
+      },
+      "sessionsCard": {
+        "openSessions": "Отворени сесии",
+        "connected": "Свързан"
+      }
+    },
+    "resetHome": "Нулиране на началния екран?",
+    "cardsGoBackToThe": "Картите се връщат към стандартния ред и показаните карти.",
+    "reset": "Нулиране",
+    "doneEditingHome": "Завършено редактиране на началния екран",
+    "editHome": "Редактиране на началния екран",
+    "dragToReorder": "Плъзнете {{title}}, за да промените реда",
+    "show": "Показване на {{title}}",
+    "dragCardsToReorderThem": "Плъзнете картите, за да промените реда им. Изключете карта, за да я скриете. Картите без съдържание остават скрити автоматично.",
+    "resetToDefault": "Връщане към стандартните настройки",
+    "done": "Готово",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Все още не може да се свърже със сървъра",
+      "canTReach": "Не може да се свърже с {{account}}",
+      "youCanKeepWorkingWith": "Можете да продължите да работите с копирания файл на това {{deviceWord}}. Промените се синхронизират, когато връзката се възстанови.",
+      "hostsSetToConnectFrom": "Хостове, настроени да се свързват от това {{deviceWord}}, продължават да работят.",
+      "tryAgain": "Опитайте отново",
+      "noAnswer": "няма отговор"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault профил",
+      "none": "Няма",
+      "signsInWithInYour": "Вписва се с {{title}} в браузъра ви през Termix сървъра. Свържете този хост през сървъра.",
+      "needsATermixServerLink": "{{title}} изисква Termix сървър. Свържете такъв, за да използвате това вписване.",
+      "isOffOnThisServer": "{{title}} е изключен на този сървър. Този хост запазва настройката си за вписване."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Не може да се заредят идентификационните данни",
+      "deleted": "Изтрито е „{{name}}“",
+      "couldNotDeleteTheCredential": "Не може да се изтрият идентификационните данни",
+      "credentials": "Идентификационни данни",
+      "add": "Добавяне",
+      "searchCredentials": "Търсене на идентификационни данни",
+      "clearSearch": "Изчистване на търсенето",
+      "loadingCredentials": "Зареждане на идентификационни данни...",
+      "noCredentialsMatchYourSearch": "Няма идентификационни данни, съвпадащи с търсенето",
+      "noCredentialsYet": "Все още няма идентификационни данни",
+      "addCredential": "Добавяне на идентификационни данни",
+      "edit": "Редактиране",
+      "delete": "Изтриване",
+      "deleteCredential": "Изтриване на идентификационни данни",
+      "willBePermanentlyDeletedHosts": "„{{name}}“ ще бъде изтрито завинаги. Хостовете, които го използват, ще загубят запазените си идентификационни данни.",
+      "cancel": "Отказ",
+      "hostCount_one": "{{count}} хост",
+      "hostCount_other": "{{count}} хоста",
+      "sshKey": "SSH ключ"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Замяна на ключа?",
+        "theNewKeyTakesThe": "Новият ключ заема мястото на текущия. Хостовете, които доверяват само на стария ключ, ще спрат да приемат тези идентификационни данни.",
+        "replace": "Замяна",
+        "newKeyMadeCopyThe": "Създаден е нов ключ. Копирайте публичния ключ към хостовете си.",
+        "couldNotMakeAKey": "Не може да се създаде ключ",
+        "couldNotReadThatCertificate": "Не може да се прочете този сертификатен файл",
+        "leaveWithoutSaving": "Напускане без запазване?",
+        "yourChangesToThisCredential": "Промените ви в тези идентификационни данни ще бъдат загубени.",
+        "leave": "Напускане",
+        "credentialSaved": "Идентификационните данни са запазени",
+        "credentialAdded": "Идентификационните данни са добавени",
+        "couldNotSaveTheCredential": "Не може да се запазят идентификационните данни",
+        "enterAHostToTest": "Въведете хост за тестване, например 10.0.0.5 или box:2222.",
+        "enterTheUsernameFirst": "Първо въведете потребителското име.",
+        "editCredential": "Редактиране на идентификационни данни",
+        "newCredential": "Нови идентификационни данни",
+        "cancel": "Отказ",
+        "save": "Запазване",
+        "credential": "Удостоверение",
+        "name": "Име",
+        "productionKey": "Производствен ключ",
+        "username": "Потребителско име",
+        "signInWith": "Вписване с",
+        "password": "Парола",
+        "sshKey": "SSH ключ",
+        "unchangedIfBlank": "Не се променя, ако е празно",
+        "key": "Ключ",
+        "fileOrPaste": "Файл или поставяне",
+        "makeANewKey": "Създаване на нов ключ",
+        "aKeyIsSavedChoose": "Запазен е ключ. Изберете файл или поставете нов, за да го замените.",
+        "type": "Тип",
+        "ed25519AndEcdsaAreMade": "Ed25519 и ECDSA се генерират на това {{deviceWord}}, RSA – на вашия сървър.",
+        "madeOnThisEd25519Works": "Генерирано на това {{deviceWord}}. Ed25519 работи почти навсякъде.",
+        "passphrase": "Парола за достъп",
+        "optionalLocksTheNewKey": "По желание. Заключва новия ключ на това {{deviceWord}} и на диска.",
+        "makeKey": "Създаване на ключ",
+        "publicKey": "Отворен ключ",
+        "addThisLineToSsh": "Добавете този ред в ~/.ssh/authorized_keys на вашите хостове",
+        "publicKeyCopied": "Отвореният ключ е копиран",
+        "copyPublicKey": "Копиране на отворения ключ",
+        "certificate": "Сертификат",
+        "aCertificateYourCaSigned": "Сертификат, подписан от вашия CA за този ключ, за хостове, които доверяват на CA.",
+        "chooseCertificateFile": "Избор на файл със сертификат",
+        "thisDoesNotLookLike": "Това не изглежда като OpenSSH сертификат.",
+        "test": "Тест",
+        "hostToTestOn": "Хост за тестване",
+        "n10005Or": "10.0.0.5 или box.lan:2222",
+        "pickASavedHost": "Изберете запазен хост",
+        "details": "Подробности",
+        "description": "Описание",
+        "whatThisCredentialIsFor": "За какво е това удостоверение",
+        "folder": "Папка",
+        "serverKeys": "Сървърни ключове",
+        "testOnAHost": "Тест на хост",
+        "rsaKeysNeedALinked": "RSA ключовете изискват свързан сървър."
+      },
+      "model": {
+        "giveThisCredentialAName": "Дайте име на това удостоверение",
+        "addAPrivateKeyOr": "Добавете частен ключ или създайте нов"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Това е сертификат за хост, а не за потребител.",
+        "thisCertificateIsNotValid": "Този сертификат все още не е валиден.",
+        "thisCertificateHasExpired": "Този сертификат е изтекъл.",
+        "itIsForAKey": "Той е за {{keyType}} ключ, но този ключ е {{keyType2}}.",
+        "forAnyUser": "За всеки потребител",
+        "validFromNoEndDate": "Валиден от {{validAfter}}, без крайна дата",
+        "signedBy": "Подписан от {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Потребителско име",
+        "fromTheCredential": "От удостоверението: {{credentialUser}}",
+        "signInWith": "Вписване с",
+        "password": "Парола",
+        "key": "Ключ",
+        "credential": "Удостоверение",
+        "none": "Няма",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Свързва се чрез Tailscale SSH. Не се запазва парола или ключ.",
+        "tailscaleIsNotOnFor": "Tailscale не е активиран за {{value}}. Този хост запазва своите Tailscale данни за вписване.",
+        "unchangedIfBlank": "Не се променя, ако е празно",
+        "noCredentialsYetTapThe": "Все още няма удостоверения. Натиснете иконата с ключ в Хостове, за да добавите.",
+        "useCredential": "Използвай идентификационните данни {{name}}",
+        "sudoPassword": "Парола за sudo",
+        "typedIntoSudoPromptsWhen": "Въвежда се в промптите за sudo, когато секцията „Терминал“ е активирана",
+        "notSet": "Не е зададено",
+        "thisServer": "този сървър"
+      },
+      "colorIconField": {
+        "color": "Цвят",
+        "noColor": "Без цвят",
+        "color2": "Цвят {{c}}",
+        "icon": "Икона",
+        "noIcon": "Без икона",
+        "none": "Няма",
+        "icon2": "Икона {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Да напуснете без запазване?",
+        "yourChangesToThisHost": "Промените ви за този хост ще бъдат загубени.",
+        "leave": "Напусни",
+        "couldNotSaveHowThis": "Не можа да се запази начинът, по който този хост се свързва",
+        "hostSaved": "Хостът е запазен",
+        "hostAdded": "Хостът е добавен",
+        "couldNotSaveTheHost": "Не можа да се запази хостът",
+        "enterTheHostSAddress": "Първо въведете адреса на хоста.",
+        "turnOnSshToTest": "Активирайте SSH, за да тествате влизането.",
+        "pickACredentialFirst": "Първо изберете идентификационни данни.",
+        "editHost": "Редактиране на хост",
+        "newHost": "Нов хост",
+        "cancel": "Отказ",
+        "save": "Запази",
+        "host": "Хост",
+        "name": "Име",
+        "myServer": "Моят сървър",
+        "address": "Адрес",
+        "port": "Порт",
+        "portAndUsernameComeFrom": "Портът и потребителското име идват от стандартните настройки на хоста, докато не ги промените.",
+        "folder": "Папка",
+        "production": "Производство",
+        "useAFolderInstead": "Използвайте папка вместо това",
+        "putItUnderAHost": "Поставете го под хост вместо това",
+        "pinToTop": "Закачи отгоре",
+        "colorAndIcon": "Цвят и икона",
+        "notes": "Бележки",
+        "anythingWorthRememberingAboutThis": "Всичко, което си струва да запомните за този хост",
+        "protocols": "Протоколи",
+        "terminalFilesAndMore": "Терминал, файлове и още",
+        "connectFrom": "Свържи от",
+        "features": "Функции",
+        "otherProtocols": "Други протоколи",
+        "more": "Още",
+        "theTestRunsFromThis": "Тестът се изпълнява от това {{deviceWord}}. Този хост се свързва през сървъра, така че все още може да работи, когато {{deviceWord}} не може да го достигне."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Промежътни хостове",
+        "connectsThroughTheseInOrder": "Свързва се през тях по ред, след това към този хост",
+        "reachThisHostThroughOther": "Достигнете този хост първо през други хостове",
+        "moveUp": "Премести нагоре",
+        "moveDown": "Премести надолу",
+        "removeJumpHost": "Премахни промеждутъчен хост",
+        "addJumpHost": "Добави промеждутъчен хост",
+        "pickASavedHostTo": "Изберете запазен хост, през който да се свържете",
+        "searchHosts": "Търсене на хостове",
+        "noOtherHostsToPick": "Няма други хостове за избор. Хостът не може да скача през себе си или през хост, който вече минава през него.",
+        "missingHost": "Липсващ хост #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Активирайте поне един протокол",
+        "pickACredential": "Изберете идентификационни данни",
+        "enterTheHostSAddress": "Въведете адреса на хоста",
+        "theAddressCanTHave": "Адресът не може да съдържа интервали",
+        "portMustBeFrom1": "Портът трябва да бъде между 1 и 65535",
+        "enterTheSshUsername": "Въведете потребителското име за SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Хостът ще се показва вгнезден под избрания от вас",
+        "searchHosts": "Търсене на хостове",
+        "noHostsToPickA": "Няма хостове за избор. Хостът не може да бъде под себе си, под един от собствените си под-хостове или под споделен хост.",
+        "parentHost": "Родителски хост",
+        "subHostsFollowTheFolder": "Под-хостовете следват папката на родителския си хост",
+        "pickParentHost": "Изберете родителски хост",
+        "missingHost": "Липсващ хост #{{value}}",
+        "pickAHost": "Изберете хост",
+        "clearParentHost": "Изчистване на родителския хост"
+      },
+      "tagsField": {
+        "tags": "Етикети",
+        "typeATagAndPress": "Напишете етикет и натиснете Enter",
+        "removeTag": "Премахване на етикет {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Неуспешно запазване на настройките за свързване на този хост",
+      "addressCopied": "Адресът е копиран",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Свързване от",
+      "dismiss": "Отхвърляне",
+      "unpin": "Откачване",
+      "pinToHome": "Закачане към началния екран",
+      "select": "Избор",
+      "editHost": "Редактиране на хост",
+      "copyAddress": "Копиране на адрес",
+      "addSubHost": "Добавяне на под-хост",
+      "cloneHost": "Клониране на хост",
+      "deleteHost": "Изтриване на хост",
+      "connectThroughTheServer": "Свързване през сървъра",
+      "connectFromThis": "Свързване от това {{deviceWord}}"
+    },
+    "defaultYourOrder": "По подразбиране (ваш ред)",
+    "nameAZ": "Име (А-Я)",
+    "nameZA": "Име (Я-А)",
+    "ipAscending": "IP (възходящ)",
+    "ipDescending": "IP (низходящ)",
+    "onlineFirst": "Онлайн първи",
+    "offlineFirst": "Офлайн първи",
+    "pinnedFirst": "Закачени първи",
+    "status": "Статус",
+    "online": "Онлайн",
+    "offline": "Офлайн",
+    "pinned": "Закачени",
+    "protocol": "Протокол",
+    "features": "Функции",
+    "hostsCanOnlyMoveInside": "Хостовете могат да се местят само в рамките на собствената си папка",
+    "couldNotUpdateTheHosts": "Неуспешно обновяване на хостовете",
+    "sharedHostsCanTBe": "Споделените хостове не могат да бъдат изтрити тук",
+    "delete2": "Изтриване",
+    "noneOfTheseHostsOpen": "Нито един от тези хостове не отваря терминал",
+    "couldNotPinTheHost": "Неуспешно закачане на хоста",
+    "deleted": "Изтрит {{name}}",
+    "failedToDeleteHost": "Неуспешно изтриване на хост",
+    "cloned": "Клониран {{name}}",
+    "failedToCloneHost": "Неуспешно клониране на хост",
+    "reorderWorksWithTheDefault": "Преподреждането работи само при сортиране по подразбиране и без търсене или филтър",
+    "couldNotSaveTheOrder": "Неуспешно запазване на реда",
+    "noHostsYet": "Все още няма хостове",
+    "addAHostToConnect": "Добавете хост, за да се свързвате с него с едно докосване.",
+    "addHost": "Добавяне на хост",
+    "quickConnect2": "Бързо свързване",
+    "linkAServer": "Връзка със сървър",
+    "noHostsMatch": "Няма съвпадащи хостове",
+    "clearSearchAndFilters": "Изчистване на търсенето и филтрите",
+    "more": "Още",
+    "dragAHostByIts": "Плъзнете хоста за маркера, за да го преместите в папката му.",
+    "done": "Готово",
+    "filterHosts": "Филтриране на хостовете",
+    "clearFilterText": "Изчистване на текста на филтъра",
+    "sortHosts": "Сортиране на хостовете",
+    "removeFilter": "Премахване на филтъра {{value}}",
+    "loadingHosts": "Зареждане на хостовете…",
+    "moveUnderAHost": "Преместване под хост",
+    "moveToFolder": "Преместване в папка",
+    "leaveItEmptyToTake": "Оставете празно, за да извадите хостовете от папките.",
+    "folderLikeProdWeb": "Папка, например Prod / Web",
+    "move": "Преместване",
+    "hosts": "Хостове",
+    "selectHosts": "Избор на хостове",
+    "reorderHosts": "Преподреждане на хостовете",
+    "customizeList": "Персонализиране на списъка",
+    "chooseWhatEachHostRow": "Изберете какво да показва всеки ред с хост",
+    "credentials2": "Удостоверения",
+    "savedPasswordsAndKeys": "Запазени пароли и ключове",
+    "tailscaleDevices": "Tailscale устройства",
+    "refresh": "Опресняване",
+    "rowDensityFollowsSettingsAppearance": "Плътността на редовете следва настройките за външен вид.",
+    "clearAllFilters": "Изчистване на всички филтри",
+    "tags": "Етикети",
+    "stopSelecting": "Спиране на избора",
+    "selected": "{{count}} избрани",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Не може да се прочете този файл с ключ",
+        "theClipboardIsEmpty": "Буферът за обмен е празен",
+        "privateKey": "Частен ключ",
+        "chooseFile": "Избор на файл",
+        "paste": "Поставяне",
+        "unchangedIfBlank": "Без промяна, ако е празно",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Парола",
+        "onlyIfTheKeyHas": "Само ако ключът има такава",
+        "theKeyIsCheckedWhen": "Ключът се проверява при свързване.",
+        "thePastedKey": "поставеният ключ"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Отваряне",
+        "moreActions": "Още действия",
+        "opensTheTerminalHoldFor": "Отваря терминала. Дръжте за повече.",
+        "shared": "Споделен",
+        "drag": "Плъзгане на {{name}}",
+        "showSubHosts_one": "Показване на {{count}} подхост на {{name}}",
+        "showSubHosts_other": "Показване на {{count}} подхоста на {{name}}",
+        "hideSubHosts_one": "Скриване на {{count}} подхост на {{name}}",
+        "hideSubHosts_other": "Скриване на {{count}} подхоста на {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Папка {{name}}, {{total}} хоста"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Хост и потребителско име са задължителни",
+      "hostSaved": "Хостът е запазен",
+      "couldNotSaveTheHost": "Не може да се запази хостът",
+      "quickConnect": "Бързо свързване",
+      "connectToAHostWithout": "Свързване с хост без да го запазвате.",
+      "hostIp": "Хост / IP",
+      "port": "Порт",
+      "username": "Потребителско име",
+      "password": "Парола",
+      "key": "Ключ",
+      "privateKey": "Частен ключ",
+      "saveToMyHosts": "Запази в моите хостове",
+      "keepThisHostAfterConnecting": "Запази този хост след свързване",
+      "cancel": "Отказ",
+      "connect": "Свържи"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Зареждане на хостовете от сървъра",
+      "yourHostsStayOnThis": "{{message}} Хостовете ви остават на това {{deviceWord}} през това време."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Ключът на този хост се е променил",
+      "trustThisHost": "Да се довери на този хост?",
+      "trust": "Довери",
+      "stopTest": "Спри теста",
+      "testConnection": "Тествай връзката",
+      "connecting": "Свързване..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Грешка при зареждане на хостовете."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} споделен хост е оставен непроменен.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} споделени хоста са оставени непроменени.",
+    "deleteHosts_one": "Изтриване на {{count}} хост?",
+    "deleteHosts_other": "Изтриване на {{count}} хоста?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Няма папка с име {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Хост \"{{name}}\": невалиден порт",
+        "hostJumpIsNotIn": "Хост \"{{name}}\": скокът {{value}} не е в файла, затова е пропуснат",
+        "credential": "Удостоверение {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Не са намерени валидни записи за хостове в конфигурационния файл на SSH",
+        "credentialWasNotFound": "{{label}}: удостоверението {{value}} не е намерено"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Хост {{value}}: дублиращ се изнесен идентификатор на хост {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Липсват задължителни полета (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Невалиден authType. Трябва да бъде едно от {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Потребителското име е задължително за SSH връзки",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias е задължително за удостоверяване с удостоверение",
+        "thatIsNotAValid": "Това не е валиден JSON файл",
+        "hostsArrayIsRequiredAnd": "Масивът с хостове е задължителен и не трябва да е празен",
+        "jumpHostCycle": "{{label}}: цикъл на скоков хост",
+        "jumpHostIsNotIn": "{{label}}: скоковият хост {{id}} не е в файла"
+      }
+    },
+    "movedTo": "Преместен в {{value}}",
+    "movedOutOfFolders": "Преместен извън папките",
+    "movedUnder": "Преместен под {{value}}",
+    "openTerminals": "Отворени терминали",
+    "theHost": "хостът"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Скрий паролата",
+      "showPassword": "Покажи паролата",
+      "enterAUsernameAndPassword": "Въведете потребителско име и парола",
+      "useAtLeast6Characters": "Използвайте поне 6 символа за паролата",
+      "thePasswordsDonTMatch": "Паролите не съвпадат",
+      "makeTheAdminAccount": "Създаване на администраторски акаунт",
+      "makeAnAccount": "Създаване на акаунт",
+      "thisIsTheFirstAccount": "Това е първият акаунт на сървъра, затова той управлява сървъра.",
+      "pickAUsernameAndPassword": "Изберете потребителско име и парола за този сървър.",
+      "username": "Потребителско име",
+      "password": "Парола",
+      "passwordAgain": "Парола отново",
+      "makeAccount": "Създай акаунт",
+      "back": "Назад",
+      "haveAnAccountSignIn": "Имате акаунт? Влезте",
+      "resetCodeMadeItIs": "Кодът за нулиране е генериран. Намира се в логовете на сървъра",
+      "enterYourUsername": "Въведете потребителското си име",
+      "enterTheResetCode": "Въведете кода за нулиране",
+      "passwordChangedSignInWith": "Паролата е променена. Влезте с нея сега",
+      "resetPassword": "Нулиране на паролата",
+      "enterYourUsernameTheServer": "Въведете потребителското си име. Сървърът записва код за нулиране в своите логове.",
+      "sendResetCode": "Изпрати код за нулиране",
+      "enterThe6DigitCode": "Въведете 6-цифрения код от логовете на сървъра.",
+      "resetCode": "Нулиране на кода",
+      "checkCode": "Проверка на кода",
+      "newPassword": "Нова парола",
+      "saveNewPassword": "Запазване на новата парола",
+      "backToSignIn": "Назад към влизане",
+      "couldNotMakeTheAccount": "Не можа да се създаде акаунтът",
+      "couldNotStartTheReset": "Не можа да се стартира нулирането",
+      "thatCodeDidnTWork": "Този код не работи",
+      "couldNotChangeThePassword": "Не можа да се промени паролата"
+    },
+    "browserStep": {
+      "signInFailed": "Влизането не бе успешно",
+      "signInCanceled": "Влизането бе отменено",
+      "couldNotOpenTheSign": "Не можа да се отвори браузърът за влизане",
+      "couldNotOpenTheSign2": "Не можа да се отвори страницата за влизане",
+      "certificateProblem": "Проблем със сертификата",
+      "back": "Назад",
+      "signIn": "Влизане",
+      "reload": "Презареждане",
+      "finishSigningInInYour": "Завършете влизането в браузъра си",
+      "useAnySignInYour": "Използвайте каквото и средство за влизане да има сървърът ви, като passkey или сигурностен ключ. Приложението ще поеме след като влезете.",
+      "theAppPicksUpOnce": "Приложението ще поеме, след като доставчикът за влизане приключи.",
+      "signingIn": "Влизане...",
+      "openBrowserAgain": "Отваряне на браузъра отново",
+      "theServerTurnedTheSession": "Сървърът отказа сесията. Опитайте отново.",
+      "signedInButTheApp": "Влязохте, но приложението не може да достигне до Termix. Възможно е прокси да блокира достъпа.",
+      "thatSignInLinkIs": "Тази връзка за влизане е от предишен опит. Влезте отново.",
+      "signInAgain": "Влезте отново.",
+      "openTheBrowserAgainWhen": "Отворете браузъра отново, когато сте готови.",
+      "theWebPageSignedIn": "Уеб страницата осъществи влизане, но не изпрати сесия. Актуализирайте сървъра и опитайте отново.",
+      "theCanTCheckThis": "{{deviceWord}} не може да провери сертификата на този сървър. Инсталирайте коренния CA на {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Да се използва {{name}} за влизане следващия път?",
+      "ifThisServerSignsYou": "Ако този сървър ви изведе, влезте отново с {{name}}, вместо да въвеждате паролата си. Паролата остава на този {{deviceWord}}.",
+      "use": "Използване на {{name}}",
+      "notNow": "Не сега",
+      "couldNotSaveTheLogin": "Не можа да се запази влизането",
+      "thatSADifferentUser": "Това е различен потребител",
+      "signedIn": "Влязохте",
+      "close": "Затваряне",
+      "linkYourTermixServer": "Връзка с вашия Termix сървър",
+      "yourHostsCredentialsSnippetsAnd": "Хостовете, идентификационните данни, фрагментите и настройките ви се синхронизират с него и получавате плъгините му. Всичко продължава да работи на този {{deviceWord}}, когато сървърът е недостъпен.",
+      "checking": "Проверка на {{host}}...",
+      "proxyAndClientCertificate": "Прокси и клиентски сертификат",
+      "couldNotReachThatServer": "Не можа да се достигне до този сървър. Проверете адреса или настройте прокси или клиентски сертификат.",
+      "couldNotReachThatServer2": "Не можа да се достигне до този сървър",
+      "syncCouldNotStartYet": "Синхронизацията все още не може да започне. Ще се опита отново автоматично.",
+      "checkingTheServer": "Проверка на сървъра",
+      "signIn": "Влизане",
+      "makeAnAccount": "Създаване на акаунт",
+      "resetPassword": "Нулиране на паролата",
+      "oneMoreStep": "Една последна стъпка",
+      "almostDone": "Почти готово",
+      "linkAServer": "Връзка със сървър"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Запазеното влизане вече не работи",
+      "enterYourUsernameAndPassword": "Въведете потребителското име и паролата си",
+      "thisServerIsBehindA": "Този сървър е зад прокси за влизане",
+      "signInWith": "Влизане с {{saved}}",
+      "signInWith2": "Влизане с",
+      "password": "Парола",
+      "username": "Потребителско име",
+      "signIn": "Влизане",
+      "forgotPassword": "Забравена парола?",
+      "makeAnAccount": "Създаване на акаунт",
+      "or": "ИЛИ",
+      "continueWith": "Продължи с {{label}}",
+      "signInWithAPasskey": "Влез с passkey или сигурностен ключ",
+      "opensYourServerAposS": "Отваря страницата за вход на сървъра ви в браузъра. Face ID, отпечатък от пръст, NFC и USB ключове работят там. Изисква Termix 26.11.3 или по-нова версия.",
+      "signInInTheBrowser": "Влез през браузъра",
+      "opensYourServerAposS2": "Отваря страницата за вход на сървъра, за всичко, което приложението не може да направи тук. Изисква Termix 26.10.6 или по-нова версия.",
+      "thisServerHasNoSign": "Този сървър няма активиран вход, който приложението да използва. Попитайте администратора му или опитайте входа през браузъра по-горе.",
+      "signInWithYourPassword": "Влезте с вашата парола.",
+      "signInFailed": "Входът неуспешен",
+      "openingItsSignInPage": "Отваряне на страницата за вход."
+    },
+    "smallSteps": {
+      "serverAddress": "Адрес на сървъра",
+      "likeTermixExampleComOr": "Например termix.example.com или 192.168.1.20:30001",
+      "checking": "Проверка...",
+      "continue": "Продължи",
+      "proxyAndClientCertificate": "Прокси и клиентски сертификат",
+      "aServerWithASelf": "Сървър със самоподписан сертификат първо трябва да има инсталиран коренен CA на това {{deviceWord}}. Обикновеният http работи във вашата мрежа.",
+      "enterTheCode": "Въведете кода",
+      "code": "Код",
+      "the6DigitCodeFrom": "6-цифреният код от вашето приложение за автентикация или резервен код",
+      "checkCode": "Провери кода",
+      "thisAccountAsksForA": "Този акаунт изисква сигурностен ключ след паролата. Влезте на страницата на сървъра в браузъра си, за да го използвате.",
+      "useASecurityKeyIn": "Използвай сигурностен ключ в браузъра",
+      "backToSignIn": "Назад към входа",
+      "bringThisAposSHosts": "Да се пренесат ли хостовете на това {{deviceWord}}?",
+      "thisHasTheyStayOn": "Това {{deviceWord}} има {{what}}. Те остават на това устройство във всеки случай.",
+      "merge": "Обедини",
+      "copyThemToTooSo": "Копирай ги и на {{serverName}}, за да се синхронизират. Тези, които изглеждат като хостове на сървъра, се пропускаат.",
+      "replace": "Замени",
+      "useOnlyWhatIsOn": "Използвай само това, което е на {{serverName}} за този акаунт. Нищо не се копира.",
+      "thatCodeDidnTWork": "Този код не работи",
+      "hostsCredentialsOrSnippets": "хостове, идентификационни данни или фрагменти"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Първо свържете този сървър",
+      "thatHostIsnTHere": "Този хост не е тук",
+      "couldNotOpenThatHost": "Не може да се отвори този хост",
+      "noHostWithIdOn": "Няма хост с id {{hostId}} на {{account}}.",
+      "isnTLinkedInThe": "{{value}} все още не е свързан в приложението."
+    }
+  },
+  "notifications": {
+    "notifications": "Известия",
+    "markAllRead": "Маркирай всички за прочетени",
+    "clearReadNotifications": "Изчисти прочетените известия",
+    "unread2": "Непрочетени",
+    "all": "Всички",
+    "noUnreadNotifications": "Няма непрочетени известия",
+    "nothingHere": "Нищо тук",
+    "markRead": "Маркирай за прочетено",
+    "delete": "Изтрий",
+    "couldNotLoadNotifications": "Не може да се заредят известията",
+    "couldNotMarkRead": "Не може да се маркира за прочетено",
+    "couldNotDelete": "Не може да се изтрие",
+    "couldNotClear": "Не може да се изчисти"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Импортиране",
+      "hosts": "Хостове",
+      "aTermixHostFileYour": "Файл с хостове на Termix, вашия ~/.ssh/config или връзка/QR код за хост от друго {{deviceWord}}. Те се запазват на това {{deviceWord}}.",
+      "backup": "Резервно копие",
+      "aBackupThisAppMade": "Резервно копие, създадено от това приложение, заключено с парола. То възстановява хостове, идентификационни данни и фрагменти.",
+      "restoreABackup": "Възстанови резервно копие",
+      "done": "Готово",
+      "skipForNow": "Пропусни за сега",
+      "sshFilesAndRemoteDesktops": "SSH, файлове и отдалечени работни среди от вашето {{deviceWord}}. Как искате да започнете?",
+      "useWithoutAServer": "Използване без сървър",
+      "hostsCredentialsAndSnippetsAre": "Хостове, идентификационни данни и фрагменти се съхраняват криптирани на това {{deviceWord}}. Можете да свържете сървър по-късно.",
+      "linkATermixServer": "Свързване на Termix сървър",
+      "syncYourHostsCredentialsSnippets": "Синхронизирайте хостовете, идентификационните данни, фрагментите и настройките си със сървъра и използвайте плъгините му.",
+      "bringHostsFromATermix": "Импортирайте хостове от Termix файл, SSH конфигурация, QR код или резервно копие.",
+      "thisDevice": "Това устройство"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Търсене на хостове, фрагменти, действия",
+      "clearSearch": "Изчистване на търсенето",
+      "nothingMatches": "Няма съвпадения",
+      "typeToSearch": "Въведете за търсене",
+      "findAHostToConnect": "Намерете хост за свързване, фрагмент, настройка или действие.",
+      "suggested": "Препоръчано | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Изпълни в {{title}}",
+      "copiedRunItFromThe": "Копирано. Изпълнете го от фрагментите на терминала, за да попълните стойностите му.",
+      "copiedOpenATerminalTo": "Копирано. Отворете терминал, за да изпълните фрагменти.",
+      "addHost": "Добавяне на хост",
+      "quickConnect": "Бързо свързване",
+      "switchAccount": "Смяна на акаунт",
+      "linkAServer": "Свързване на сървър",
+      "fromYourServer": "От вашия сървър",
+      "settings": "Настройки",
+      "accountsAppearanceSecurity": "Акаунти, външен вид, сигурност"
+    },
+    "search": {
+      "hosts": "Хостове",
+      "snippets": "Фрагменти",
+      "actions": "Действия",
+      "settings": "Настройки"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Грешка при зареждане на сесиите",
+      "sessionRevoked": "Сесията е отменена",
+      "failedToRevokeSession": "Грешка при отмяна на сесията",
+      "allSessionsRevoked": "Всички сесии са отменени",
+      "failedToRevokeAllSessions": "Грешка при отмяна на всички сесии",
+      "activeSessions": "Активни сесии",
+      "signOutAllOtherSessions": "Изход от всички други сесии",
+      "loading": "Зареждане…",
+      "noActiveSessionsFound": "Няма намерени активни сесии.",
+      "unknownDevice": "Непознато устройство",
+      "lastActive": "Последна активност {{lastActiveAt}}",
+      "created": "Създадено {{createdAt}}",
+      "revokeSession": "Отмяна на сесия",
+      "revokeSession2": "Отмяна на сесия?",
+      "thisWillSignOutThat": "Това ще излезе от това устройство.",
+      "revoke": "Отмяна",
+      "revokeAllSessions": "Отмяна на всички сесии?",
+      "thisWillSignOutEvery": "Това ще излезе от всяко устройство. Ще останете влезли в това устройство.",
+      "cancel": "Отказ",
+      "revokeAll": "Отмяна на всички"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Грешка при зареждане на API ключове",
+      "failedToCreateApiKey": "Грешка при създаване на API ключ",
+      "deleteApiKey": "Изтриване на API ключ?",
+      "willStopWorkingRightAway": "\"{{name}}\" ще спре да работи веднага.",
+      "apiKeyDeleted": "API ключът е изтрит",
+      "failedToDeleteApiKey": "Грешка при изтриване на API ключ",
+      "apiKeys": "API ключове",
+      "newApiKey": "Нов API ключ",
+      "loading": "Зареждане…",
+      "apiKeysAllowProgrammaticAccess": "API ключовете позволяват програмно достъп до Termix. Тайната се показва само веднъж, така че я съхранявайте безопасно.",
+      "noApiKeysYet": "Все още няма API ключове",
+      "created": "Създадено {{createdAt}}",
+      "lastUsed": "Последно използвано {{lastUsedAt}}",
+      "expires": "Изтича {{expiresAt}}",
+      "delete": "Изтриване на {{name}}",
+      "keyCreatedCopyItNow": "Ключът е създаден. Копирайте го сега",
+      "newApiKey2": "Нов API ключ",
+      "thisTokenWonTBe": "Този токен няма да бъде показан отново.",
+      "apiKeyCopied": "API ключът е копиран",
+      "copy": "Копиране",
+      "done": "Готово",
+      "cancel": "Отказ",
+      "create": "Създаване",
+      "name": "Име *",
+      "eGCiPipeline": "напр. CI Pipeline",
+      "user": "Потребител *",
+      "noUsersAvailable": "Няма налични потребители.",
+      "expiresAtOptional": "Изтича на (по избор)",
+      "yyyyMmDd": "ГГГГ/ММ/ДД",
+      "yearMonthDay": "Година / Месец / Ден"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Поддържане на сесиите активни",
+      "showsANotificationWhileSessions": "Показва известие, докато сесиите са отворени, за да ги поддържа Android, когато напуснете приложението",
+      "batteryOptimization": "Оптимизация на батерията",
+      "termixIsNotRestrictedSo": "Termix не е ограничен, така че сесиите могат да останат отворени с изключен екран.",
+      "androidMayStillStopSessions": "Android все още може да спре сесиите, за да пести батерия. Отворете настройките за батерия, намерете Termix и изберете Не оптимизирано или Без ограничения.",
+      "openBatterySettings": "Отваряне на настройките за батерия",
+      "notificationsAreOff": "Известията са изключени",
+      "sessionsStillRunButThe": "Сесиите продължават да работят, но списъкът с отворени сесии и бутонът за прекъсване на всички връзки остават скрити.",
+      "openNotificationSettings": "Отваряне на настройките за известия",
+      "thisBuildCanTKeep": "Тази версия не може да поддържа сесиите в заден план. Те се свързват отново, когато се върнете.",
+      "lowPowerMode": "Режим на ниска консумация",
+      "batterySaver": "Пестене на батерия",
+      "isOnTermixChecksConnections": "{{value}} е включено. Termix проверява връзките по-рядко и чака по-дълго между опитите за повторно свързване.",
+      "backgroundSessions": "Сесии в заден план",
+      "iosStopsAppsSoonAfter": "iOS спира приложенията скоро след като ги напуснете, така че сесиите не могат да работят в заден план. Те се свързват отново, когато се върнете, а tmux или screen продължават откъдето сте спрели."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Спрян",
+        "active": "Активен",
+        "linkAServer": "Връзка със сървър",
+        "eachServerKeepsItsOwn": "Всеки сървър пази своя копие на вашите хостове, идентификационни данни и настройки на това {{deviceWord}}.",
+        "signedInAs": "Влезли сте като",
+        "role": "Роля",
+        "administrator": "Администратор",
+        "user": "Потребител",
+        "serverVersion": "Версия на сървъра",
+        "signOut": "Изход",
+        "youAreSignedOutOf": "Излезли сте от този сървър.",
+        "signIn": "Вход",
+        "passwordChanged": "Паролата е променена",
+        "couldNotChangeThePassword": "Не може да се промени паролата",
+        "changePassword": "Промяна на паролата",
+        "enterYourCurrentPasswordThen": "Въведете текущата си парола, след което изберете нова.",
+        "cancel": "Отказ",
+        "change": "Промяна",
+        "currentPassword": "Текуща парола",
+        "newPassword": "Нова парола",
+        "accountDeleted": "Акаунтът е изтрит",
+        "couldNotDeleteTheAccount": "Не може да се изтрие акаунтът",
+        "deleteServerAccount": "Изтриване на сървърния акаунт",
+        "thisPermanentlyDeletesYourAccount": "Това трайно изтрива вашия акаунт на сървъра и всички данни в него. Действието не може да бъде отменено.",
+        "delete": "Изтриване",
+        "confirmYourPassword": "Потвърдете паролата си",
+        "worksWithoutAServer": "Работи без сървър",
+        "signedOut": "Излязъл",
+        "readsLive": "Чете в реално време",
+        "toReview": "за преглед: {{count}}",
+        "synced": "Синхронизирано",
+        "syncing": "Синхронизиране",
+        "offline": "Извън линия"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Споделяне на анонимна статистика за използване",
+        "aShortReportOnceA": "Кратък доклад веднъж на ден. Без хостове, имена или адреси",
+        "nextReport": "Следващ доклад",
+        "seeExactlyWhatWouldBe": "Вижте точно какво ще бъде изпратено",
+        "couldNotBuildTheReport": "Не може да се генерира докладът",
+        "preview": "Преглед",
+        "thisIsExactlyWhatWould": "Това е точно това, което ще бъде изпратено в момента.",
+        "resetInstallId": "Нулиране на идентификатора на инсталацията",
+        "futureReportsWillLookLike": "Бъдещите доклади ще изглеждат като нова инсталация",
+        "resetTheInstallId": "Нулиране на идентификатора на инсталацията?",
+        "futureReportsWillLookLike2": "Бъдещите доклади ще изглеждат като нова инсталация.",
+        "reset": "Нулиране",
+        "installIdReset": "Идентификаторът на инсталацията е нулиран"
+      },
+      "appearanceControls": {
+        "theme": "Тема",
+        "accentColor": "Акцентен цвят",
+        "textSize": "Размер на текста",
+        "sizeOfTextAcrossThe": "Размер на текста в цялото приложение, не в терминала",
+        "density": "Плътност",
+        "howTallListRowsAnd": "Височина на редовете в списъците и настройките"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Хостовете, идентификационните данни и фрагментите се съхраняват в криптиран файл на това {{deviceWord}}. Статистиката за използване е изключена, освен ако не я включите по-долу. Свързаният сървър получава само това, което разрешите да се синхронизира.",
+        "recentHosts": "Последни хостове",
+        "forgetTheHostsYouOpened": "Забравяне на хостовете, които сте отваряли наскоро във всеки акаунт",
+        "recentHostsCleared": "Последните хостове са изчистени",
+        "clear": "Изчистване",
+        "couldNotCheckForUpdates": "Не може да се провери за актуализации",
+        "versionIsOutUpdateFrom": "Версия {{version}} е налична. Актуализирайте от магазина си.",
+        "youHaveTheNewestVersion": "Имате най-новата версия",
+        "termixMobile": "Termix Mobile",
+        "updates": "Актуализации",
+        "check": "Проверка"
+      },
+      "pinSheet": {
+        "waitSeconds": "Изчакайте {{value}} секунди",
+        "digits": "{{PIN_LENGTH}} цифри"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN кодовете не съвпадат",
+        "appLockIsOn": "Блокирането на приложението е включено",
+        "turnOffAppLock": "Изключване на блокирането на приложението",
+        "enterYourPinToConfirm": "Въведете вашия PIN код за потвърждение.",
+        "appLockIsOff": "Блокирането на приложението е изключено",
+        "appLock": "Блокиране на приложението",
+        "askForFaceIdTouch": "Заявяване на Face ID, Touch ID или PIN код за отваряне на приложението",
+        "askForAPinTo": "Заявяване на PIN код за отваряне на приложението",
+        "pinChanged": "PIN кодът е променен",
+        "couldNotChangeThePin": "Не може да се промени PIN кодът",
+        "changePin": "Промяна на PIN код",
+        "lockAfter": "Блокиране след",
+        "howLongTheAppCan": "Колко дълго приложението може да е извън видимост, преди да се заключи",
+        "hideInAppSwitcher": "Скриване в превключвателя на приложения",
+        "showABlankScreenIn": "Показване на празен екран в списъка с последни приложения",
+        "chooseA4DigitPin": "Изберете 4-цифрен PIN код.",
+        "confirmPin": "Потвърждаване на PIN код",
+        "enterTheSamePinAgain": "Въведете същия PIN код отново.",
+        "currentPin": "Текущ PIN код",
+        "enterYourCurrentPin": "Въведете текущия си PIN код.",
+        "newPin": "Нов PIN код",
+        "chooseANew4Digit": "Изберете нов 4-цифрен PIN код.",
+        "confirmNewPin": "Потвърждаване на новия PIN код",
+        "enterTheNewPinAgain": "Въведете новия PIN код отново."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Виджети на началния екран",
+        "showYourHostsSnippetsAnd": "Показване на хостовете, фрагментите и бутоните за захранване на началния екран",
+        "showAddresses": "Показване на адресите",
+        "showUserHostUnderEach": "Показване на потребител@хост под всяко име на сървър",
+        "includeOfflineHosts": "Включване на офлайн хостове",
+        "offShowsOnlyServersThat": "При изключване се показват само сървърите, които са онлайн",
+        "pinnedHostsOnly": "Само закрепени хостове",
+        "showOnlyTheHostsYou": "Показване само на закрепените от вас хостове",
+        "snippetsWidget": "Виджет за фрагменти",
+        "showSavedCommandsOnThe": "Показване на запазените команди на началния екран",
+        "showCommandPreview": "Показване на преглед на командата",
+        "showTheFirstLineOf": "Показване на първия ред от всяка команда"
+      }
+    },
+    "fileSettings": {
+      "files": "Файлове",
+      "fileManagerOnThis": "Файлов мениджър на това {{deviceWord}}",
+      "browsing": "Разглеждане",
+      "transfersAtOnce": "Прехвърляния едновременно",
+      "downloadsAndUploadsThatRun": "Изтегляния и качвания, които се изпълняват едновременно",
+      "editor": "Редактор",
+      "textSize": "Размер на текста",
+      "filesBesideTheTerminal": "Файлове до терминала",
+      "side": "Страна",
+      "whereThePanelSitsOn": "Къде се намира панелът на таблет",
+      "right": "Дясно",
+      "left": "Ляво",
+      "howOftenToCheck": "Честота на проверка",
+      "folderHistory": "История на папките",
+      "foldersKeptPerHost": "Запазени папки за всеки хост",
+      "showHiddenFiles": "Показване на скритите файлове",
+      "filesAndFoldersThatStart": "Файлове и папки, започващи с точка",
+      "askBeforeMovingToThe": "Потвърждение преди изтриване",
+      "deletingForGoodAlwaysAsks": "Постоянното изтриване винаги изисква потвърждение",
+      "wrapLongLines": "Пренасяне на дълги редове",
+      "openWithNewTerminals": "Отваряне с нови терминали",
+      "onATabletShowThe": "На таблет показвайте файловия панел, когато се отвори терминал",
+      "followTheTerminal": "Следване на терминала",
+      "openTheFolderTheTerminal": "Отваряне на папката, в която се намира терминалът, при използване на cd"
+    },
+    "keyboardCustomization": {
+      "small": "Малък",
+      "medium": "Среден",
+      "large": "Голям",
+      "ms": "{{v}} мс",
+      "keyboard": "Клавиатура",
+      "keyRowsAboveTheKeyboard": "Редове с клавиши над клавиатурата",
+      "rows": "Редове",
+      "keys": "Клавиши",
+      "aHostCanHaveIts": "Хостът може да има свои собствени редове: докоснете отворения му таб в сесията и изберете Редове с клавиши за този хост.",
+      "keySize": "Размер на клавишите",
+      "vibrateOnKeyPress": "Вибрация при натискане на клавиш",
+      "repeatAfter": "Повторение след",
+      "howLongToHoldAn": "Колко дълго да се задържи стрелка или Backspace",
+      "repeatEvery": "Повторение на всеки",
+      "hardwareKeyboard": "Физическа клавиатура",
+      "allShortcuts": "Всички комбинации",
+      "show": "Показване"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Не може да се създаде резервно копие",
+      "deleteLocalData": "Изтриване на локалните данни?",
+      "hostsCredentialsSnippetsAndHistory": "Хостовете, идентификационните данни, фрагментите и историята, запазени на това {{deviceWord}} за {{account}}, ще бъдат изтрити. Това действие е необратимо. Направете резервно копие, ако искате да ги запазите.",
+      "delete": "Изтриване",
+      "localDataDeleted": "Локалните данни са изтрити",
+      "couldNotDeleteLocalData": "Не може да се изтрият локалните данни",
+      "localData": "Локални данни",
+      "localDataIsOnlySaved": "Местните данни се съхраняват само в приложението {{deviceWord}}.",
+      "savedOnThisForThe": "Съхранено на това {{deviceWord}} за {{account}}. Файлът е криптиран с ключ, който никога не напуска това {{deviceWord}}.",
+      "hosts": "Хостове",
+      "credentials": "Удостоверения",
+      "snippets": "Снипети",
+      "size": "Размер",
+      "dataVersion": "Версия на данните",
+      "backup": "Архив",
+      "aBackupFileHoldsYour": "Файлът за архив съдържа вашите пароли и ключове, заключени с парола, която вие избирате. Никой не може да го отвори без тази парола.",
+      "exportBackup": "Експортиране на архив",
+      "importBackup": "Импортиране на архив",
+      "removesEverythingThisAccountSaved": "Премахва всичко, което този акаунт е съхранил на това {{deviceWord}}. Свързаният сървър запазва собствената си копия.",
+      "deleteLocalData2": "Изтриване на местни данни",
+      "backupPassphrase": "Парола за архив",
+      "atLeast8CharactersYou": "Поне 8 символа. Ще ви потрябва за възстановяване на архива.",
+      "passphrase": "Парола",
+      "next": "Напред",
+      "typeItAgain": "Въведете я отново",
+      "export": "Експортиране",
+      "saveYourTermixBackup": "Запазете архива си на Termix"
+    },
+    "logs": {
+      "logs": "Логове",
+      "latestLinesFromThisRun": "Последни редове от текущото изпълнение. Адресите на сървъри, паролите и токените са скрити.",
+      "logsCopied": "Логовете са копирани",
+      "copy": "Копиране",
+      "share": "Споделяне",
+      "clear": "Изчистване",
+      "noLogsYet": "Все още няма логове",
+      "nothingHasBeenLogged": "Нищо не е записано в логовете."
+    },
+    "plugins": {
+      "worksOnThis": "Работи на това {{deviceWord}}",
+      "needsTheServer": "Изисква сървър",
+      "notInTheApp": "Не е в приложението",
+      "needsANewerVersionOf": "Изисква по-нова версия на приложението",
+      "updateThePluginOnThe": "Актуализирайте плъгина на сървъра",
+      "inTheApp": "В приложението",
+      "onThisServer": "На този сървър",
+      "version": "Версия",
+      "needsPluginApi": "Изисква API за плъгини",
+      "thisAppHas": "Това приложение има",
+      "note": "Забележка",
+      "open": "Отваряне",
+      "openFromAHostS": "Отворете {{name}} от менюто на хоста.",
+      "plugins": "Плъгини",
+      "everything": "Всичко",
+      "thisDeviceWorksWithNo": "Това устройство работи без сървър. Свържете сървър, за да добавите функциите, които изискват такъв.",
+      "pluginsOnAndHowEach": "Плъгини за {{account}} и как всеки от тях се показва в приложението. Повлечете надолу, за да проверите отново.",
+      "whatRunsOnThisAnd": "Какво работи на това {{deviceWord}} и какво минава през {{account}}.",
+      "noPluginList": "Няма списък с плъгини",
+      "theServerDidNotSend": "Сървърът не изпрати плъгините си. Повлечете надолу, за да опитате отново.",
+      "serversOlderThan29": "Сървърите, по-стари от 2.9, имат всички функции вградени.",
+      "nothingToShow": "Няма какво да се покаже",
+      "notSentByThisServer": "Не е изпратен от този сървър"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Да се заменят местните данни?",
+      "everythingSavedOnThisFor": "Всичко, съхранено на това {{deviceWord}} за {{accountName}}, ще бъде заменено с архива.",
+      "continue": "Продължи",
+      "couldNotReadThatFile": "Не може да се прочете този файл",
+      "backupRestored": "Архивът е възстановен",
+      "couldNotRestoreTheBackup": "Не може да се възстанови архивът",
+      "backupPassphrase": "Парола за архив",
+      "thePassphraseUsedWhenThe": "Паролата, използвана при създаването на архива.",
+      "passphrase": "Парола",
+      "restore": "Възстановяване"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Акаунти",
+        "thisDeviceAndLinkedServers": "Това устройство и свързаните сървъри, заедно със състоянието на синхронизация",
+        "syncAndProxy": "Синхронизация и прокси",
+        "whatSyncsConflictsProxyAnd": "Какво се синхронизира, конфликти, прокси и прекъсване на връзката",
+        "serverAccount": "Сървърен акаунт",
+        "whoIsSignedInOn": "Кой е вписан в активния сървър",
+        "activeSessions": "Активни сесии",
+        "devicesSignedInToThe": "Устройства, вписани в сървъра",
+        "apiKeys": "API ключове",
+        "keysForScriptsAndTools": "Ключове за скриптове и инструменти",
+        "changePassword": "Промяна на паролата",
+        "passwordOfYourServerAccount": "Парола на вашия сървърен акаунт",
+        "deleteServerAccount": "Изтриване на сървърен акаунт",
+        "removeYourAccountFromThe": "Премахване на вашия акаунт от сървъра",
+        "theme": "Тема",
+        "darkLightDraculaNordAnd": "Тъмна, светла, Dracula, Nord и други",
+        "accentColor": "Акцентен цвят",
+        "textSize": "Размер на текста",
+        "sizeOfTextAcrossThe": "Размер на текста в цялото приложение",
+        "density": "Плътност",
+        "howTallListRowsAnd": "Височина на редовете в списъците и настройките",
+        "homeScreenWidgets": "Виджети на началния екран",
+        "hostsAndSnippetsOnThe": "Хостове и фрагменти на началния екран",
+        "terminal": "Терминал",
+        "fontThemeCursorScrollback": "Шрифт, тема, курсор, история на скролването",
+        "keyboard": "Клавиатура",
+        "layoutKeysPresets": "Подредба, клавиши, предварителни настройки",
+        "appLock": "Заключване на приложението",
+        "askForFaceIdTouch": "Изискване на Face ID, Touch ID или PIN код за отваряне на приложението",
+        "lockAfter": "Заключване след",
+        "howLongTheAppCan": "Колко време приложението може да е извън видимост, преди да се заключи",
+        "hideInAppSwitcher": "Скриване в превключвателя на приложения",
+        "showABlankScreenIn": "Показване на празен екран в списъка с последни приложения",
+        "changePin": "Промяна на PIN кода",
+        "backgroundSessions": "Сесии във фонов режим",
+        "whatHappensToOpenSessions": "Какво се случва с отворените сесии, когато напуснете приложението",
+        "serverAlerts": "Сървърни известия",
+        "alertsFromTheAlertsPlugin": "Известия от плъгина Alerts на вашия сървър",
+        "whatStaysOnThis": "Какво остава на това {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Хостовете, идентификационните данни и фрагментите се съхраняват тук в криптиран вид",
+        "recentHosts": "Последни хостове",
+        "forgetTheHostsYouOpened": "Забравяне на хостовете, които сте отваряли наскоро",
+        "shareAnonymousUsageStatistics": "Споделяне на анонимна статистика за използване",
+        "aShortReportOnceA": "Кратък доклад веднъж дневно. Без хостове, имена или адреси",
+        "nextReport": "Следващ доклад",
+        "seeExactlyWhatWouldBe": "Вижте точно какво ще бъде изпратено",
+        "resetInstallId": "Нулиране на идентификатора на инсталацията",
+        "futureReportsWillLookLike": "Бъдещите доклади ще изглеждат като нова инсталация",
+        "serverUsageStatistics": "Статистика за използване на сървъра",
+        "telemetrySettingsOnYourServer": "Настройки за телеметрия на вашия сървър",
+        "plugins": "Плъгини",
+        "whatTheServerAddsAnd": "Какво добавя сървърът и къде се изпълнява",
+        "localData": "Локални данни",
+        "backupRestoreAndDeleteWhat": "Архивиране, възстановяване и изтриване на това, което е запазено на това {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Версия и актуализации",
+        "logs": "Журнали",
+        "latestLinesFromThisRun": "Последни редове от текущото изпълнение, за съобщения за грешки"
+      },
+      "sections": {
+        "accountsAndSync": "Акаунти и синхронизация",
+        "thisDeviceLinkedServersAnd": "Това устройство, свързани сървъри и какво се синхронизира",
+        "appearance": "Изглед",
+        "themeAccentTextSizeAnd": "Език, тема, акцент, размер на текста и плътност",
+        "terminal": "Терминал",
+        "fontColorsAndBackgroundSessions": "Шрифт, цветове и фонові сесии",
+        "keyboard": "Клавиатура",
+        "keyRowsAndShortcuts": "Редове с клавиши и комбинации",
+        "security": "Сигурност",
+        "appLockFaceIdAnd": "Заключване на приложението, Face ID и PIN",
+        "notifications": "Известия",
+        "alertsFromYourServer": "Аларми от вашия сървър",
+        "privacyAndUsageStatistics": "Поверителност и статистика за използване",
+        "whatStaysOnThis": "Какво остава на това {{deviceWord}}",
+        "plugins": "Добавки",
+        "whatTheServerAddsTo": "Какво сървърът добавя към приложението",
+        "backupAndData": "Архив и данни",
+        "backUpRestoreImportAnd": "Архивиране, възстановяване, импортиране и експортиране",
+        "aboutAndLogs": "Относно и логове",
+        "versionAndLogsForBug": "Версия и логове за съобщения за грешки"
+      }
+    },
+    "settings": "Настройки",
+    "searchSettings": "Търсене в настройките",
+    "noSettingsMatch": "Няма съвпадащи настройки.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Неуспешно зареждане на фрагменти",
+      "copied": "Копирано: {{name}}",
+      "nameIsRequired": "Името е задължително",
+      "contentIsRequired": "Съдържанието е задължително",
+      "snippetUpdated": "Фрагментът е актуализиран",
+      "snippetCreated": "Фрагментът е създаден",
+      "failedToSaveSnippet": "Неуспешно запазване на фрагмент",
+      "snippetDeleted": "Фрагментът е изтрит",
+      "failedToDeleteSnippet": "Неуспешно изтриване на фрагмент",
+      "folderNameIsRequired": "Името на папката е задължително",
+      "folderCreated": "Папката е създадена",
+      "failedToCreateFolder": "Неуспешно създаване на папка",
+      "folderDeleted": "Папката е изтрита",
+      "failedToDeleteFolder": "Неуспешно изтриване на папка",
+      "folderRenamed": "Папката е преименувана",
+      "failedToRenameFolder": "Неуспешно преименуване на папка",
+      "failedToSaveOrder": "Неуспешно запазване на реда",
+      "moveUp": "Премести нагоре",
+      "moveDown": "Премести надолу",
+      "runOnHosts": "Изпълни {{name}} на хостове",
+      "copy": "Копирай {{name}}",
+      "delete": "Изтрий {{name}}",
+      "renameFolder": "Преименувай папка",
+      "deleteFolder": "Изтрий папка",
+      "noSnippetsInThisFolder": "Няма фрагменти в тази папка",
+      "snippets": "Фрагменти",
+      "importAndExport": "Импортиране и експортиране",
+      "folder": "Папка",
+      "new": "Нов",
+      "loading": "Зареждане…",
+      "couldNotLoadSnippets": "Неуспешно зареждане на фрагменти",
+      "checkTheConnectionToYour": "Проверете връзката с вашия сървър и опитайте отново.",
+      "tryAgain": "Опитайте отново",
+      "noSnippetsYet": "Все още няма фрагменти",
+      "createYourFirstSnippetOr": "Създайте вашия първи фрагмент или добавете фрагменти от уеб или десктоп приложението на Termix.",
+      "createSnippet": "Създай фрагмент",
+      "askBeforeRunning": "Питай преди изпълнение",
+      "confirmBeforeASnippetRuns": "Потвърждавай преди изпълнение на фрагмент в терминала",
+      "editSnippet": "Редактиране на фрагмент",
+      "newSnippet": "Нов фрагмент",
+      "cancel": "Отказ",
+      "save": "Запази",
+      "create": "Създай",
+      "name": "Име",
+      "eGUpdatePackages": "напр. Актуализиране на пакетите",
+      "content": "Съдържание",
+      "descriptionOptional": "Описание (по избор)",
+      "shortDescription": "Кратко описание",
+      "folderOptional": "Папка (по избор)",
+      "selectFolder": "Избери папка",
+      "noFolder": "Без папка",
+      "targetHostsOptional": "Целеви хостове (по избор)",
+      "none": "Няма",
+      "note": "Забележка",
+      "pastedIntoTheTerminalWithout": "Поставено в терминала без изпълнение",
+      "targetHosts": "Целеви хостове",
+      "copy2": "Копирай",
+      "edit": "Редактирай",
+      "runOnHosts2": "Изпълни на хостовете",
+      "delete2": "Изтрий",
+      "deleteSnippet": "Изтриване на фрагмент",
+      "deleteThisCannotBeUndone": "Да се изтрие „{{name}}“? Това действие не може да бъде отменено.",
+      "renameFolder2": "Преименуване на папка",
+      "rename": "Преименувай",
+      "folderName": "Име на папката",
+      "eGSystem": "напр. Система",
+      "newFolder": "Нова папка",
+      "deleteFolder2": "Изтриване на папка",
+      "deleteSnippetsInThisFolder": "Да се изтрие „{{name}}“? Фрагментите в тази папка ще станат некатегоризирани."
+    },
+    "sync": {
+      "notYet": "Още не",
+      "justNow": "Току-що",
+      "stopped": "Спряно",
+      "signInToThisServer": "Влезте отново в този сървър, за да синхронизирате",
+      "couldNotChangeThat": "Не можа да се промени",
+      "sync": "Синхронизация",
+      "thisDeviceDoesNotSync": "Това устройство не синхронизира. Свържете Termix сървър, за да запазите хостовете си на повече от едно устройство.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} държи хостовете, идентификационните данни, фрагментите и настройките в синхрон с това {{deviceWord}}. Копие остава на това {{deviceWord}}, така че работи и офлайн.",
+      "lastSynced": "Последна синхронизация {{value}}",
+      "live": "На живо",
+      "syncNow": "Синхронизирай сега",
+      "fix": "Поправи",
+      "thisServerReadsLiveAnd": "Този сървър чете на живо и не запазва копия на {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Включете плъгина за синхронизация на страницата с плъгини на сървъра, след което влезте отново тук, за да запазите копия на това {{deviceWord}}.",
+      "whatSyncs": "Какво се синхронизира",
+      "turnedOffThatDataStays": "Изключено, тези данни остават само на това {{deviceWord}}.",
+      "conflicts": "Конфликти",
+      "changedHereAndOnThe": "Променено едновременно тук и на сървъра. Запазена е версията на сървъра.",
+      "useServer": "Използвай сървъра",
+      "keepMine": "Запази моята",
+      "notSavedOnTheServer": "Не е запазено на сървъра",
+      "theServerRefusedTheseChanges": "Сървърът отказа тези промени. Те остават на това {{deviceWord}}.",
+      "tryAgain": "Опитай отново",
+      "proxy": "Прокси",
+      "onlyNeededWhenAReverse": "Необходимо само когато има реверсивен прокси пред сървъра.",
+      "unlink": "Премахни връзката",
+      "unlinkThisServer": "Премахни връзката с този сървър",
+      "minAgo": "преди {{value}} мин.",
+      "signedOut": "Излязъл от системата",
+      "waitingToSync": "Изчакване за синхронизиране",
+      "synced": "Синхронизирано",
+      "syncing": "Синхронизиране",
+      "offline": "Извън линия"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Фон",
+        "text": "Текст",
+        "cursor": "Курсор",
+        "textUnderCursor": "Текст под курсора",
+        "selection": "Избор",
+        "black": "Черен",
+        "red": "Червен",
+        "green": "Зелен",
+        "yellow": "Жълт",
+        "blue": "Син",
+        "magenta": "Пурпурен",
+        "cyan": "Циан",
+        "white": "Бял",
+        "brightBlack": "Ярко черен",
+        "brightRed": "Ярко червен",
+        "brightGreen": "Ярко зелен",
+        "brightYellow": "Ярко жълт",
+        "brightBlue": "Ярко син",
+        "brightMagenta": "Ярко пурпурен",
+        "brightCyan": "Ярко циан",
+        "brightWhite": "Ярко бял",
+        "customTheme": "Персонализирана тема",
+        "colorsAsHexLike1e1e2e": "Цветове в шестнадесетичен формат, като #1e1e2e.",
+        "cancel": "Отказ",
+        "save": "Запазване",
+        "isNotAHexColor": "{{label}} не е шестнадесетичен цвят"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Компактен",
+      "default": "По подразбиране",
+      "relaxed": "Опушнат",
+      "spacious": "Просторен",
+      "none": "Няма",
+      "couldNotSave": "Неуспешно запазване",
+      "pickASizeFromTo": "Изберете размер от {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Настройките на терминала са нулирани",
+      "terminal": "Терминал",
+      "aHostCanSetIts": "Хостът може да зададе собствена тема и курсор в Termix, които имат предимство пред тези.",
+      "theme": "Тема",
+      "custom": "Персонализирана",
+      "font": "Шрифт",
+      "active": "Активен",
+      "sizeAndSpacing": "Размер и разстояние",
+      "pinchTheTerminalToChange": "Щипнете терминала, за да промените и размера. Големият текст в настройките на {{deviceWord}} го прави по-голям.",
+      "custom2": "Персонализиран {{fontSize}}",
+      "lineHeight": "Височина на реда",
+      "letterSpacing": "Разстояние между буквите",
+      "ligatures": "Лигатури",
+      "cursor": "Курсор",
+      "blink": "Мигане",
+      "bell": "Звън",
+      "vibrate": "Вибрация",
+      "onTheBellAndWhen": "При звън и при натискане за избор",
+      "scrollback": "История на скрола",
+      "linesKeptAboveTheScreen": "Редове, запазени над екрана. Прилага се за нови терминали.",
+      "linksAndKeys": "Връзки и клавиши",
+      "askBeforeOpeningLinks": "Питай преди отваряне на връзки",
+      "doubleTapSendsTab": "Двоен допир изпраща Tab",
+      "longPressStillSelectsText": "Дълго натискане все още избира текст",
+      "optionSendsAlt": "Option изпраща Alt",
+      "onAHardwareKeyboardOff": "На хардуерна клавиатура. Изключено – въвежда символи като на Mac.",
+      "history": "История",
+      "suggestCommands": "Предлагане на команди",
+      "showsPastCommandsThatStart": "Показва минали команди, които започват с това, което пишете",
+      "resetToDefault": "Възстановяване на стойностите по подразбиране",
+      "fontSize": "Размер на шрифта",
+      "aSizeFromTo": "Размер от {{MIN_FONT_SIZE}} до {{MAX_FONT_SIZE}}.",
+      "cancel": "Отказ",
+      "apply": "Приложи",
+      "resetTerminalSettings": "Възстановяване на настройките на терминала?",
+      "themeFontSizeCursorBell": "Темата, шрифтът, размерът, курсорът, звукът и останалото се връщат към стойностите по подразбиране.",
+      "reset": "Възстановяване",
+      "followsAppTheme": "Следва темата на приложението"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Неуспешно стартиране на настройката на 2FA",
+      "twoFactorAuthenticationEnabled": "Двустепенната автентикация е активирана",
+      "invalidCodeTryAgain": "Невалиден код, опитайте отново",
+      "twoFactorAuthenticationDisabled": "Двустепенната автентикация е деактивирана",
+      "failedToDisable2fa": "Неуспешно деактивиране на 2FA",
+      "failedToFetchBackupCodes": "Неуспешно извличане на резервни кодове",
+      "secretCopied": "Тайният код е копиран",
+      "backupCodesCopied": "Резервните кодове са копирани",
+      "twoFactorAuthentication": "Двустепенна автентикация",
+      "loading": "Зареждане…",
+      "scanThisQrCodeWith": "Сканирайте този QR код с приложението си за автентикация (Google Authenticator, Authy и др.), след което въведете 6-цифрения код за потвърждение.",
+      "verifyAmpEnable": "Потвърди &amp; Активирай",
+      "cancel": "Отказ",
+      "saveYourBackupCodes": "Запазете резервните си кодове",
+      "storeTheseSomewhereSafeEach": "Запазете ги на сигурно място. Всеки код може да се използва само веднъж, ако загубите достъп до приложението си за автентикация.",
+      "copyAllCodes": "Копирай всички кодове",
+      "done": "Готово",
+      "yourAccountIsProtectedWith": "Вашият акаунт е защитен с приложение за автентикация.",
+      "addAnExtraLayerOf": "Добавете допълнителен слой сигурност към вашия акаунт.",
+      "viewBackupCodes": "Преглед на резервни кодове",
+      "disable2fa": "Деактивирай 2FA",
+      "enable2fa": "Активирай 2FA",
+      "disableTwoFactorAuthentication": "Деактивиране на двустепенната автентикация",
+      "enterACodeFromYour": "Въведете код от приложението си за автентикация за потвърждение. Можете да активирате 2FA по всяко време.",
+      "enterYourPasswordToConfirm": "Въведете паролата си за потвърждение. Можете да активирате 2FA по всяко време.",
+      "disable": "Деактивирай",
+      "yourPassword": "Вашата парола",
+      "n2faIsEnabled": "2FA е активиран",
+      "n2faIsNotEnabled": "2FA не е активиран"
+    },
+    "language": {
+      "label": "Език",
+      "description": "Приложението се презарежда за смяна",
+      "system": "Същият като на устройството"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Няма SSH хостове тук",
+      "couldNotReadWhatWas": "Не може да се прочете споделеното",
+      "stopTheUploads": "Спиране на качването?",
+      "stopAndLeave": "Спри и напусни",
+      "sendTo": "Изпрати до {{name}}",
+      "sendToAHost": "Изпрати до хост",
+      "nothingToSend": "Няма какво да се изпрати",
+      "close": "Затвори",
+      "done": "Готово",
+      "cancel": "Отказ",
+      "uploadHere": "Качи тук",
+      "uploadsStillGoing_one": "{{count}} качване все още се изпълнява. Излизането ще го спре.",
+      "uploadsStillGoing_other": "{{count}} качвания все още се изпълняват. Излизането ще ги спре.",
+      "filesSize_one": "{{count}} файл | {{size}}",
+      "filesSize_other": "{{count}} файла | {{size}}",
+      "readingWhatWasShared": "Четене на споделеното"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Грешка",
+      "worksWithoutAServer": "Работи без сървър",
+      "accountSwitch": "Акаунт {{account}}, превключване",
+      "search": "Търсене",
+      "notificationsUnread": "Известия, {{unread}} непрочетени",
+      "notifications": "Известия",
+      "signedIn": "Вписан",
+      "signedOut": "Изписан",
+      "copyOnThis": "Копиране на това {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Начало",
+      "hosts": "Хостове",
+      "sessions": "Сесии",
+      "tools": "Инструменти",
+      "settings": "Настройки",
+      "open": "{{label}}, {{count}} отворени"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} отворени"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Изберете хост",
+      "searchHosts": "Търсене на хостове",
+      "clearSearch": "Изчистване на търсенето",
+      "noHostsMatch": "Няма съвпадащи хостове",
+      "noHostsCanUseThis": "Някой хост не може да използва това",
+      "turnItOnForA": "Включете го за хост в редактора на хостове."
+    },
+    "noToolsHereYet": "Все още няма инструменти тук",
+    "onAHost": "На хост",
+    "saved": "Запазени",
+    "fromYourServer": "От вашия сървър"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Отказ",
+      "delete": "Изтриване",
+      "confirm": "Потвърждаване"
+    },
+    "contextMenu": {
+      "closeMenu": "Затваряне на менюто"
+    },
+    "inlineView": {
+      "back": "Назад"
+    },
+    "listRow": {
+      "moreActions": "Още действия"
+    },
+    "pinPad": {
+      "useBiometrics": "Използване на биометрия",
+      "delete": "Изтриване"
+    },
+    "popover": {
+      "close": "Затваряне"
+    },
+    "promptSheet": {
+      "cancel": "Отказ"
+    },
+    "sheet": {
+      "close": "Затваряне"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Този ключ е заключен. Въведете неговата парола.",
+      "thatPassphraseDoesnTOpen": "Тази парола не отваря този ключ.",
+      "thisDoesnTLookLike": "Това не изглежда като частен ключ.",
+      "loadedAndChangedItTo": "Зареден е {{name}} и е променен на формат OpenSSH",
+      "loadedItNeedsItsPassphrase": "Зареден е {{name}}. Нуждае се от паролата си, за да се свърже"
+    },
+    "ago": {
+      "justNow": "току-що"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Не можахме да заредим вашите хостове.",
+      "failedOn": "{{name}} се провали на {{name2}}",
+      "on": "{{name}} на {{name2}}: {{value}}",
+      "ranOn": "Изпълнен е {{name}} на {{name2}}",
+      "runOn": "Изпълни \"{{name}}\" на",
+      "runSnippet": "Изпълни фрагмент",
+      "loadingHosts": "Зареждане на хостовете…",
+      "noHostsAvailable": "Няма налични хостове",
+      "addAHostInTermix": "Добавете хост в Termix, за да изпълнявате фрагменти от началния екран.",
+      "lastUsed": "Последно използван",
+      "failedToRunSnippet": "Неуспешно изпълнение на фрагмент"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Този фрагмент вече не съществува.",
+      "couldNotOpenThatSnippet": "Не можахме да отворим този фрагмент.",
+      "thatHostNoLongerExists": "Този хост вече не съществува.",
+      "couldNotOpenThatHost": "Не може да се отвори този хост."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Начало"
+      },
+      "hosts": {
+        "hosts": "Хостове"
+      },
+      "sessions": {
+        "sessions": "Сесии",
+        "connectToATermixServer": "Свържете се със сървър на Termix, за да отворите терминали, тунели и файлови сесии."
+      }
+    },
+    "layout": {
+      "initializing": "Инициализиране…",
+      "cancel": "Отказ"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Този хост няма валиден MAC адрес.",
+    "thisBuildCanTSend": "Тази версия не може да изпраща пакети за Wake-on-LAN.",
+    "couldNotSendThePacket": "Не може да се изпрати пакетът. Проверете дали Wi-Fi е включен."
+  },
+  "common": {
+    "hostCount_one": "{{count}} хост",
+    "hostCount_other": "{{count}} хоста",
+    "device": {
+      "phone": "телефон",
+      "tablet": "таблет"
+    },
+    "thisDeviceLower": "този {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Споделяне",
+    "action": "Сподели с други хора",
+    "levels": {
+      "connect": "Свързване",
+      "view": "Преглед",
+      "edit": "Редактиране",
+      "manage": "Управление"
+    },
+    "levelHints": {
+      "connect": "Само отваряне на сесии. Настройките на хоста остават скрити",
+      "view": "Свързване, плюс възможност за преглед на настройките на хоста. Тайните никога не се показват",
+      "edit": "Преглед, плюс промяна на настройките, различни от данните за вход",
+      "manage": "Редактиране, плюс споделяне на хоста и промяна или премахване на достъпа"
+    },
+    "until": "до {{date}}",
+    "sharedBy": "от {{name}}",
+    "couldNotLoad": "Не може да се зареди списъкът с лица, имащи достъп",
+    "shared": "Хостът е споделен",
+    "couldNotShare": "Не може да се сподели хостът",
+    "updated": "Достъпът е променен",
+    "couldNotUpdate": "Не може да се промени достъпът",
+    "removeTitle": "Да се премахне {{name}}?",
+    "removeHint": "Те вече няма да могат да използват този хост.",
+    "remove": "Премахване",
+    "removed": "Достъпът е премахнат",
+    "couldNotRemove": "Не може да се премахне достъпът",
+    "whoHasAccess": "Кой има достъп",
+    "loading": "Зареждане...",
+    "nobodyYet": "Само вие можете да използвате този хост.",
+    "changeAccessFor": "Промяна на достъпа за {{name}}",
+    "shareWith": "Сподели с",
+    "users": "Потребители",
+    "roles": "Роли",
+    "searchUsers": "Търсене на потребители",
+    "searchRoles": "Търсене на роли",
+    "noUsers": "Няма други потребители, с които да споделяте.",
+    "noRoles": "Няма роли, с които да споделяте.",
+    "options": "Достъп",
+    "level": "Ниво",
+    "expires": "Завършва",
+    "expiry": {
+      "never": "Никога",
+      "1h": "След 1 час",
+      "1d": "След 1 ден",
+      "7d": "След 7 дни",
+      "30d": "След 30 дни"
+    },
+    "pickSomeone": "Изберете с кого да споделяте",
+    "shareCount_one": "Сподели с {{count}}",
+    "shareCount_other": "Сподели с {{count}}",
+    "removeAccess": "Премахване на достъпа"
+  }
+}

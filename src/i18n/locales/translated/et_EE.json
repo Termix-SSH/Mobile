@@ -1,1 +1,3828 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Logi sisse",
+      "addServer": "Lisa server",
+      "switchAccount": "Vaheta kontot",
+      "noServerConnected": "Ühtegi serverit ei ole ühendatud",
+      "connectToATermixServer": "Ühendu Termix serveriga, et hallata oma hoste, termineale, faile ja muud."
+    },
+    "lockScreen": {
+      "cancel": "Tühista",
+      "tooManyTriesWaitSeconds": "Liiga palju katseid. Oota {{value}} sekundit",
+      "termixLocked": "Termix on lukustatud",
+      "enterYourPinToContinue": "Sisesta oma PIN-kood jätkamiseks"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oranž",
+      "blue": "Sinine",
+      "green": "Roheline",
+      "purple": "Lilla",
+      "pink": "Roosa",
+      "cyan": "Tsüaan",
+      "red": "Punane",
+      "yellow": "Kollane",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Roos",
+      "lime": "Laim",
+      "system": "Süsteem",
+      "light": "Hele",
+      "dark": "Tume"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Kasuta PIN-i",
+      "unlockTermix": "Lukusta Termix lahti",
+      "unlockTermixFirst": "Lukusta Termix esmalt lahti."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "See funktsioon on serveris välja lülitatud.",
+      "aTabWasNotReopened": "Üht vahelehte ei avatud uuesti, kuna selle host on kadunud",
+      "tabsWereNotReopenedBecause": "{{count}} vahelehte ei avatud uuesti, kuna nende hostid on kadunud"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Linka Termixi server selle kasutamiseks",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Sisesta oma serveri aadress",
+        "theAddressCanTHave": "Aadress ei tohi sisaldada tühikuid",
+        "useAnHttpOrHttps": "Kasuta http:// või https:// aadressi",
+        "thatDoesnTLookLike": "See ei näe välja nagu serveri aadress",
+        "thePortMustBeFrom": "Port peab olema vahemikus 1 kuni 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Termixi asemel vastas sisselogimisproksy. Logi esmalt proksy sisse.",
+        "theServerDidNotSend": "Server ei saatnud tokenit.",
+        "theServerDidNotSend2": "Server ei saatnud sessiooni.",
+        "theServerSentNoSign": "Server ei saatnud sisselogimise aadressi.",
+        "theSignInRanOut": "Sisselogimise aeg on läbi või see on juba kasutatud. Logi uuesti sisse.",
+        "wrongUsernameOrPassword": "Vale kasutajanimi või parool",
+        "signInFailedHttp": "Sisselogimine ebaõnnestus (HTTP {{status}})",
+        "thePageSignedYouIn": "Leht kirjutas sind sisse, kuid ei saatnud sessiooni tagasi. Uuenda serverit Termix versioonile 26.11.3 või uuemale.",
+        "thisAccountIsnTAllowed": "Sellel kontol pole luba siia sisse logida.",
+        "noTermixAccountMatchesThat": "Ükski Termixi konto ei vasta sellele sisselogimisele."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Sellel sessioonil pole serverit"
+    },
+    "store": {
+      "noSuchAccount": "Sellist kontot ei eksisteeri",
+      "thisDeviceCanTBe": "Selle seadme ei saa eemaldada",
+      "switchToAnotherAccountFirst": "Lülita esmalt teisele kontole"
+    },
+    "types": {
+      "thisDevice": "See seade"
+    },
+    "accountSwitcher": {
+      "error": "Viga",
+      "worksWithoutAServer": "Töötab ilma serverita",
+      "couldNotSwitchAccount": "Konto vahetamine ei õnnestunud",
+      "accounts": "Kontod",
+      "openTabsKeepRunningWhen": "Avatud vahekaardid jätkavad tööd vahetamisel.",
+      "unlink": "Lahuta {{account}}",
+      "linkAServer": "Lingista server",
+      "eachServerKeepsItsOwn": "Iga server hoiab sellel {{deviceWord}} oma peremeinsid, usaldusandmeid ja seadeid.",
+      "signedIn": "Sisselogitud",
+      "signedOut": "Logitudud välja",
+      "syncedCopy": "Sünkroonitud koopia"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Pinnit ei õnnestunud salvestada",
+      "theServerSKeyMatches": "Serveri võti ühtib pinniga",
+      "theServerShowsAnotherKey": "Server näitab teist võtit",
+      "pinThisKey": "Kinnitada see võti?",
+      "pinThisKey2": "Kinnita see võti",
+      "keyPinned": "Võti kinnitatud",
+      "couldNotReadTheServer": "Serveri võtit ei õnnestunud lugeda",
+      "thatIsNotAPin": "See ei ole pinn",
+      "keysPinned": "Võtmed kinnitatud",
+      "certificatePin": "Sertifikaadi pinn",
+      "trustThisServerOnlyBy": "Usalda seda serverit ainult tema võtme alusel. Kasuta seda isesertifitseeritud sertifikaadi puhul või keela teiste võtmete kasutamine. Lisa uus võti enne serveri sertifikaadi vahetamist.",
+      "removePin": "Eemalda pinn {{pin}}",
+      "remove": "Eemalda",
+      "readTheKeyFromThe": "Loe võti serverilt",
+      "orPasteAPin": "Või kleepi pinn",
+      "pin": "Pinn",
+      "add": "Lisa",
+      "issuedTo": "Antud: {{subject}}",
+      "issuedBy": "Väljaandja: {{issuer}}",
+      "validUntil": "Kehtiv kuni: {{value}}",
+      "checkThatThisKeyMatches": "Veendu, et see võti ühtib sinu serveri omaga, enne kui selle kinnitad.",
+      "pasteTheBase64Sha256Of": "Kleepi serveri avaliku võtme base64 sha256 väärtus, nagu openssl seda kuvab."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proksiseaded salvestatud",
+      "couldNotSaveTheProxy": "Proksiseadeid ei õnnestunud salvestada",
+      "couldNotReadThatFile": "Seda faili ei õnnestunud lugeda",
+      "certificateSaved": "Sertifikaat salvestatud",
+      "theFileOrItsPassphrase": "Fail või selle parool on vale",
+      "couldNotSaveTheCertificate": "Sertifikaati ei õnnestunud salvestada",
+      "headers": "Päised",
+      "sentWithEveryRequestTo": "Saadetakse koos igaga selle serveri päringuga, näiteks Cloudflare'i teenuse token.",
+      "name": "Nimi",
+      "value": "Väärtus",
+      "removeHeader": "Eemalda päis",
+      "addHeader": "Lisa päis",
+      "cloudflareServiceToken": "Cloudflare'i teenuse token",
+      "basicAuth": "Põhiline autentimine",
+      "forAProxyThatAsks": "Proksile, mis küsib kasutajat ja parooli.",
+      "userName": "Kasutajanimi",
+      "password": "Parool",
+      "saveHeadersAndBasicAuth": "Salvesta päised ja põhiline autentimine",
+      "clientCertificate": "Kliendisertifikaat",
+      "forServersThatAskFor": "Serveritele, mis seda küsivad (mTLS). Võti hoitakse {{deviceWord}} turvalises salvestusruumis ja seda ei saa tagasi lugeda.",
+      "certificate": "Sertifikaat",
+      "remove": "Eemalda",
+      "replaceCertificate": "Asenda sertifikaat",
+      "pickAP12OrPfx": "Vali .p12 või .pfx fail",
+      "proxySignIn": "Proksi sisselogimine",
+      "thisIsSignedInTo": " See {{deviceWord}} on proksi sisse logitud.",
+      "forCloudflareAccessAutheliaAuthentik": "Cloudflare Access, Authelia, Authentik ja teiste prokside jaoks, millel on oma sisselogimislehekülg.{{value}}",
+      "signInToTheProxy": "Logi proksi sisse",
+      "forget": "Unusta",
+      "certificatePassphrase": "Sertifikaadi parool",
+      "thePassphraseTheFileWas": "Parool, millega fail salvestati. Jäta tühjaks, kui parooli pole.",
+      "passphrase": "Parool",
+      "save": "Salvesta"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Proksi sisse logitud",
+      "couldNotSaveTheProxy": "Proksi sisselogimist ei õnnestunud salvestada",
+      "signInToTheProxy": "Logi proksi sisse",
+      "thisBuildOfTheApp": "See rakenduse versioon ei suuda hoida vaheserveri sisselogimist. Kasuta vaheserveri päistes asemel teenuse tokenit."
+    },
+    "savedLoginRow": {
+      "signIn": "Logi sisse",
+      "signInWith": "Logi sisse kasutades {{name}}",
+      "whenThisServerSignsYou": "Kui see server sind välja logib, logi uuesti sisse ilma parooli sisestamata."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Ühendus katkestatud. {{copied}} elementi jäeti sellele seadmele.",
+      "unlinked": "Ühendus katkestatud",
+      "couldNotUnlinkTheServer": "Serveri ühenduse katkestamine ebaõnnestus",
+      "unlink": "Kas katkestada {{value}} ühendus?",
+      "thisSignsOutOfThe": "See {{deviceWord}} logib serverist välja. Serverist ei kustutata midagi.",
+      "keepACopyOnThis": "Hoia koopia sellel seadmel",
+      "yourOwnHostsCredentialsAnd": "Sinu enda hostid, sisselogimisandmed ja koodilõigud liiguvad sellele seadmele. Sinuga jagatud hoste ei hoita.",
+      "deleteFromThis": "Kustuta sellelt {{deviceWord}}ilt",
+      "everythingThisHasForThe": "Kõik, mis sellel {{deviceWord}}il serveri jaoks on, eemaldatakse."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Muuda seda allpool Vaheserveri all",
+      "updateTermixMobileFromYour": "Uuenda Termix Mobile'i oma rakenduste poodist"
+    },
+    "savedLogin": {
+      "signInToTermix": "Logi sisse Termixi",
+      "faceUnlock": "näotuvastus"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "See versioon ei suuda kontrollida selle serveri fikseeritud võtit ega saata selle sertifikaati."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "See server ei toeta seda funktsiooni",
+      "theProxyWantsYouTo": "Vaheserver nõuab sinult sisselogimist",
+      "endpointNotAvailableOnThis": "Lõpp-punkt pole sellel serveril saadaval",
+      "unknownError": "Tundmatu viga"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Selle serveri ees olev vaheserver nõuab sinult uuesti sisselogimist.",
+      "authenticationRequiredPleaseLogIn": "Autentimine nõutav. Palun logi uuesti sisse.",
+      "accessDeniedYouDoNot": "Juurdepääs keelatud. Sul pole õigust seda toimingut teha.",
+      "thisFeatureIsTurnedOff": "See funktsioon on serveril välja lülitatud.",
+      "thisServerDoesNotSupport": "See server ei toeta seda funktsiooni.",
+      "resourceNotFoundTheRequested": "Ressurssi ei leitud. Taotletud element võib olla kustutatud.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Ressurs on juba olemas või on kasutusel.",
+      "validationErrorPleaseCheckYour": "Valideerimisviga. Palun kontrolli oma sisendit ja proovi uuesti.",
+      "serverErrorOccurredPleaseTry": "Tekkis serveriviga. Palun proovi hiljem uuesti.",
+      "sslCertificateVerificationFailed": "SSL-sertifikaadi kontroll ebaõnnestus.",
+      "networkErrorPleaseCheckYour": "Võrguviga. Palun kontrolli oma ühendust ja proovi uuesti.",
+      "failedTo": "Toiming {{operation}} ebaõnnestus",
+      "unknownError": "Tundmatu viga",
+      "unexpectedErrorDuring": "Ootamatu viga toimingul {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Rakendus ei suutnud usaldada HTTPS-i sellel kohalikul IP-aadressil. Fikseeri serveri võti Vaheserveri ja kliendisertifikaadi all, kasuta sertifikaati, mida {{deviceWord}} usaldab, või kasuta HTTP-d usaldusväärse kohaliku või VPN-võrgu kaudu.",
+        "thisServerIsBehindA": "See server asub sisselogimise vaheserveri taga. Kasuta selle asemel välise sisselogimise võimalust.",
+        "loginFailed": "Sisselogimine ebaõnnestus"
+      },
+      "files": {
+        "fileNotFound": "Faili ei leitud",
+        "fileWriteOperationDidNot": "Faili kirjutamistoiming ei tagastanud edu staatust",
+        "couldNot": "Ei õnnestunud {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Host salvestatud, kuid mõned seaded ebaõnnestusid: {{value}}",
+        "unexpectedHostResponseFrom": "Ootamatu hosti vastus aadressilt {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Reaalajas näidise hankimine ebaõnnestus"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Vastust ei olnud"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "See server ei näidanud oma fikseeritud võtit, seetõttu lehekülge ei avatud."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "See {{what}} ei ole enam olemas.",
+      "aHostCannotBeIts": "Host ei saa olla omaenda vanem",
+      "parentHostNotFound": "Vanemhosti ei leitud",
+      "aHostCanTGo": "Host ei saa asuda ühe oma alamhosti alla",
+      "thisIsSharedWithYou": "See {{what}} on sinuga jagatud. Ainult selle omanik saab seda muuta.",
+      "nameIsRequired": "Nimi on kohustuslik",
+      "nameAndCommandAreRequired": "Nimi ja käsk on kohustuslikud",
+      "aFolderWithThatName": "Sellise nimega kaust on juba olemas"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "See seade ei suuda {{what}} siia salvestada."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "See koodilõik on sinuga jagatud ja seda ei saa muuta."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Kasuta paroolfraasi, mis sisaldab vähemalt 8 märki.",
+      "thisIsNotATermix": "See ei ole Termixi varundusfail.",
+      "thisBackupIsFromA": "See varundus on uuest Termixi versioonist. Uuenda kõigepealt rakendust.",
+      "wrongPassphraseOrTheFile": "Vale parool või fail on kahjustatud."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "See versioon ei suuda kohalikke andmeid krüpteerida."
+    },
+    "keys": {
+      "unlockTermixFirst": "Lukusta Termix esmalt lahti.",
+      "thatIsNotADatabase": "See ei ole andmebaasi võti.",
+      "couldNotSaveTheDatabase": "Andmebaasi võtit ei õnnestunud salvestada."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Need andmed on salvestatud Termixi uuema versiooniga. Uuenda rakendust, et neid avada."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "See seade ei sünkrooni.",
+      "localDataIsNotAvailable": "Kohalikud andmed pole siin saadaval.",
+      "unlockTermixFirst": "Lukusta Termix esmalt lahti."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Ühenduse loomine ei õnnestu.",
+      "thisWayCanTRun": "Selle kaudu ei saa käskude täitmist käivitada"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo parool",
+      "password": "Parool",
+      "run": "Käivita",
+      "thatPasswordWasWrong": "See parool oli vale.",
+      "onNeedsRoot": "{{reason}} seadmes {{hostName}} vajab root-õigusi.",
+      "needsRootForThis": "{{hostName}} vajab selleks root-õigusi.",
+      "itIsKeptUntilYou": "See säilib, kuni sulg rakenduse."
+    },
+    "run": {
+      "theHostTookTooLong": "Seadme vastamine võttis liiga kaua aega",
+      "connectionLost": "Ühendus katkes"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Selleks on vaja root-õigusi. Logi sisse kasutajana root, seadista paroolita sudo või salvesta seadme jaoks sudo parool.",
+      "theSudoPasswordWasWrong": "Sudo parool oli vale",
+      "commandFailed": "Käsk ebaõnnestus"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telneti kasutamine terminalis vajab ühendust seadmest {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funktsioon {{id}} on juba registreeritud"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Aadress",
+      "theIpOrHostName": "IP või perenime nimi nime all",
+      "username": "Kasutajanimi",
+      "theUserBeforeTheAddress": "Kasutaja enne aadressi",
+      "port": "Port",
+      "thePortAfterTheAddress": "Port pärast aadressi",
+      "hostIcon": "Seadme ikoon",
+      "theIconSetOnThe": "Seadmele määratud ikoon",
+      "pinIcon": "Kinnita ikoon",
+      "marksPinnedHosts": "Tähistab kinnitatud seadmeid",
+      "sharedBadge": "Jagatud märge",
+      "marksHostsSharedWithYou": "Tähistab sinuga jagatud seadmeid",
+      "protocolBadges": "Protokollimärgid",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker ja muud märgid",
+      "tags": "Sildid",
+      "theHostSTags": "Seadme sildid",
+      "cpuAndRam": "CPU ja RAM",
+      "liveUsageBarsOnOnline": "Reaalajas kasutuse ribad võrgus olevatel seadmetel",
+      "statusColors": "Olekuvärvid",
+      "greenBarWhenOnlineRed": "Roheline riba võrgus olles, punane väljaspool võrgu olles"
+    },
+    "uiPrefs": {
+      "small": "Väike",
+      "default": "Vaikimisi",
+      "large": "Suur",
+      "comfortable": "Mugav",
+      "compact": "Kompaktne"
+    },
+    "errors": {
+      "somethingWentWrong": "Midagi läks valesti"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Võtme lukustamine parooliga nõuab Termixi rakendust, mitte veebieelvaadet."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Kohe",
+      "after15Seconds": "15 sekundi pärast",
+      "after1Minute": "1 minuti pärast",
+      "after5Minutes": "5 minuti pärast"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Seadme saladus on kadunud",
+      "noSealedKey": "Puudub pitsitatud võti",
+      "theSealedKeyIsDamaged": "Pitsitatud võti on kahjustatud",
+      "wrongPin": "Vale PIN",
+      "theSealedKeyDidNot": "Tihedat võtit ei õnnestunud avada",
+      "biometricsCanTOpenThe": "Biomeetria ei suuda võtit avada"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Uuenda rakendust",
+      "onYourServerNeedsA": "{{name}} teie serveril vajab sellel {{deviceWord}}il uuemat Termixi versiooni.",
+      "updateThePlugin": "Uuenda pistikprogrammi",
+      "onYourServerIsToo": "{{name}} teie serveril on selle rakenduse jaoks liiga vana. Paluge administraatoril uuendada seda pistikprogrammide halduses."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Rakendus blokeeris",
+      "theAppDoesNotLet": "Rakendus ei lase pistikprogrammidel seda marsruuti kasutada.",
+      "thisBuildCanTReach": "See versioon ei suuda sellele serverile turvaliselt ligi pääseda."
+    },
+    "support": {
+      "needsANewerVersionOf": "Vajab uuemat rakenduse versiooni",
+      "updateThePluginOnThe": "Uuenda pistikprogrammi serveril",
+      "theAppHasItsOwn": "Rakendusel on oma välimus",
+      "notInTheAppYet": "Pole veel rakenduses",
+      "linkAServerToUse": "Kasutamiseks seostage server",
+      "opensInTheAppFrom": "Avaldub rakenduses serverist",
+      "runsOnTheServer": "Töötab serveril",
+      "throughTheServer": "Serveri kaudu",
+      "inTheApp": "Rakenduses",
+      "webView": "Veevaade",
+      "onTheServer": "Serveril",
+      "appLook": "Rakenduse välimus",
+      "notInTheApp": "Pole rakenduses",
+      "safeMode": "Turvarežiim",
+      "notRunning": "Ei tööta",
+      "notInstalled": "Pole paigaldatud",
+      "notOnThisServer": "Pole sellel serveril",
+      "thePluginIsNotInstalled": "Pistikprogrammi ei ole sellele serverile paigaldatud.",
+      "turnedOffOnTheServer": "Serveril välja lülitatud",
+      "itOpensHereAgainWhen": "See avaneb siin uuesti, kui administraator selle sisse lülitab.",
+      "notRunningOnTheServer": "Ei tööta serveril",
+      "theServerIsInSafe": "Server on turvarežiimis, seega töötavad ainult vaadete pistikprogrammid.",
+      "thePluginDidNotStart": "Pistikprogramm ei käivitanud. Administraator saab seda pistikprogrammide halduses kontrollida.",
+      "thisPluginIsNotAvailable": "See pistikprogramm pole saadaval",
+      "itIsNotMadeFor": "Seda ei ole rakenduse jaoks loodud.",
+      "offOnThisServer": "sellel serveril välja lülitatud",
+      "notRunningOnThisServer": "ei tööta sellel serveril",
+      "notOnThisServer2": "pole sellel serveril",
+      "notInTheAppYet2": "Pole veel rakenduses | sellel serveril",
+      "worksOnThis": "Töötab sellel {{deviceWord}}il",
+      "andServer": "{{DeviceWord}} ja server",
+      "deviceOnly": "Ainult {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Laadi uuesti"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Katkesta kõik ühendused",
+      "showOpenSessions": "Kuva avatud sessioonid",
+      "termixShowsANotificationWhile": "Termix kuvab teavitust, kui sessioonid on avatud, et Android hoiaks neid taustal töötamas.",
+      "sessionsOpen_one": "{{count}} sessioon avatud",
+      "sessionsOpen_other": "{{count}} sessiooni avatud",
+      "tunnelsActive_one": "{{count}} tunnel aktiivne",
+      "tunnelsActive_other": "{{count}} tunnelit aktiivne",
+      "notConnected": "Ühendust pole",
+      "waitingForNetwork": "Ootab võrguühendust",
+      "connecting": "Ühenduse loomine",
+      "connected": "Ühendatud",
+      "reconnecting": "Ühenduse taastamine",
+      "failed": "Ebaõnnestus",
+      "closed": "Sulgetud"
+    },
+    "companionPane": {
+      "resizeThePanel": "Muuda {{title}} paneeli suurust"
+    },
+    "connectionsPanel": {
+      "close": "Sulge",
+      "closeAllTabs": "Kas sulged kõik {{count}} vahekaart?",
+      "everySessionEnds": "Kõik sessioonid lõppevad.",
+      "closeAll": "Sulge kõik",
+      "noActiveConnections": "Aktiivseid ühendusi pole",
+      "pickAHostFromThe": "Sessiooni alustamiseks vali host nimekirjast. Siin kuvatakse ka teistel seadmetel avatud vahekaardid.",
+      "connectToAHostTo": "Sessiooni alustamiseks ühendu hostiga. Siin kuvatakse ka teistel seadmetel avatud vahekaardid.",
+      "open": "Ava",
+      "background": "Taustal",
+      "sessionsFromOtherDevicesOr": "Sessioonid teistelt seadmetelt või taustale jäetud vahekaardid. Puuduta taastamiseks.",
+      "liveTapToReconnect": "Aktiivne, puuduta ühenduse taastamiseks",
+      "tapToReopen": "Puuduta uuesti avamiseks"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "See on serveris väljalülitatud",
+      "comesBackHereWhenAn": "{{title}} ilmub siia tagasi, kui administraator lülitab selle plugini uuesti sisse.",
+      "closeTab": "Sulge vahekaart"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Ühendused",
+        "hideHostList": "Peida hostide nimekiri",
+        "showHostList": "Kuva hostide nimekiri",
+        "backToHosts": "Tagasi hostide juurde",
+        "showKeyboard": "Kuva klaviatuur",
+        "hideKeyboard": "Peida klaviatuur",
+        "hideKeysPanel": "Peida võtmete paneel",
+        "showKeysPanel": "Kuva võtmete paneel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Puuduta vahekaardi valikute kuvamiseks, hoia all liigutamiseks",
+        "holdToMove": "Hoia all liigutamiseks",
+        "close": "Sulge {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Ootab võrguühendust",
+        "connectionFailed": "Ühenduse loomine ebaõnnestus",
+        "reconnecting": "Ühenduse taastamine"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Nimeta ümber",
+      "newTabOnThisHost": "Uus vahekaart sellel hostil",
+      "here": "{{title}} siin",
+      "hidePanel": "Peida {{title}} paneel",
+      "showPanel": "Kuva {{title}} paneel",
+      "endSplitView": "Lõpeta jagatud vaade",
+      "splitViewWith": "Jagatud vaade koos...",
+      "moveLeft": "Liiguta vasakule",
+      "moveRight": "Liiguta paremale",
+      "closeTab": "Sulge vahekaart",
+      "closeAllTabs": "Sulge kõik vahekaardid",
+      "closeAllTabs2": "Kas sulged kõik {{count}} vahekaarti?",
+      "everySessionEnds": "Iga sessioon lõpeb.",
+      "closeAll": "Sulge kõik",
+      "splitViewWith2": "Jagatud vaade koos",
+      "renameTab": "Nimeta vahekaart ümber",
+      "leaveItEmptyToUse": "Jäta tühjaks, et kasutada hosti nime."
+    },
+    "resizeHostList": "Muuda hostide nimekirja suurust",
+    "resizeSplitView": "Muuda jagatud vaate suurust",
+    "connections": "Ühendused",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Kaheastmeline autentimine",
+        "enterThe6DigitCode": "Sisesta 6-kohaline kood oma autentimise rakendusest.",
+        "cancel": "Tühista",
+        "verify": "Kinnita",
+        "codeExpiresInSGet": "Kood aegub {{totpCountdown}} s pärast, saada uus kood",
+        "warpgateAuthentication": "Warpgate autentimine",
+        "confirmTheWarpgateAuthenticationUrl": "Kinnita Warpgate autentimise URL ja turvavõti.",
+        "authenticate": "Autentimine",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "Turvavõti (valikuline)",
+        "authenticationRequired": "Autentimine on nõutud",
+        "thisHostNeedsCredentialsTo": "Selle hostiga ühendumiseks on vaja sisselogimisandmeid.",
+        "connect": "Ühendu",
+        "password": "Parool",
+        "sshKey": "SSH-võti",
+        "pastePrivateKey": "Aseta privaatvõti",
+        "keyPassphraseOptional": "Võtme parool (valikuline)"
+      },
+      "connectionError": {
+        "tryAgain": "Proovi uuesti",
+        "close": "Sulge",
+        "connectThroughTheServer": "Ühendu läbi serveri",
+        "connectFromThis": "Ühendu sellest {{deviceWord}}",
+        "triedFromThis": "Prooviti sellest {{deviceWord}}",
+        "triedThroughTheServer": "Prooviti läbi serveri"
+      },
+      "execGate": {
+        "connecting": "Ühenduse loomine..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Midagi läks valesti",
+        "retry": "Proovi uuesti",
+        "refresh": "Värskenda",
+        "nothingToShow": "Pole midagi näidata"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logid kopeeritud",
+        "connectionLog": "Ühenduslogi ({{count}})",
+        "copyLog": "Kopeeri logi",
+        "waitingForConnection": "Ootab ühendust…",
+        "noLogEntries": "Logikirjeid pole"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Ei õnnestunud salvestada, kuidas see host ühendub"
+      },
+      "useSessionConnect": {
+        "connected": "Ühendatud",
+        "connectingTo": "Ühenduse loomine hostiga {{name}}…",
+        "connectionLost": "Ühendus katkes",
+        "failedToConnect": "Ühenduse loomine ebaõnnestus",
+        "invalidCode": "Kehtetu kood",
+        "warpgateAuthenticationFailed": "Warpgate autentimine ebaõnnestus",
+        "authenticationCancelled": "Autentimine tühistati"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Otsing ja käsud",
+    "addHost": "Lisa host",
+    "keyboardShortcuts": "Klaviatuuri otseteed",
+    "home": "Avaleht",
+    "hosts": "Hostid",
+    "sessions": "Sessioonid",
+    "tools": "Tööriistad",
+    "settings": "Seaded",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Klaviatuuri otseteed"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hostid ja kaustad",
+      "yourHostsFoldersAndHosts": "Sinu hostid, kaustad ja sinuga jagatud hostid",
+      "credentials": "Autentimisandmed",
+      "savedPasswordsAndKeysAnd": "Salvestatud paroolid ja võtmed ning sinuga jagatud autentimisandmed",
+      "snippets": "Koodilõigud",
+      "snippetsAndTheirFolders": "Koodilõigud ja nende kaustad",
+      "hostDefaults": "Hostide vaikimisi seaded",
+      "defaultSettingsForNewHosts": "Uute hostide vaikimisi seaded",
+      "preferences": "Eelistused",
+      "settingsThatFollowYouBetween": "Seaded, mis järgnevad sulle seadmete vahel"
+    },
+    "link": {
+      "noSuchServerAccount": "Sellist serveri kontot ei ole",
+      "signInFirst": "Logi esmalt sisse.",
+      "thisServerAccountBelongsTo": "See serveri konto kuulub kasutajale {{value}}. Logi sisse tema nime all või lisa server uuesti selle kasutaja jaoks."
+    },
+    "reasons": {
+      "signedOut": "Sisselogimine lõpetatud",
+      "thisSSignInTo": "Selle {{deviceWord}} sisselogimine serverisse aegus.",
+      "theServerEndedThisS": "Server lõpetas selle {{deviceWord}} sessiooni. Võib-olla logiti sisse teisest seadmest välja.",
+      "proxySignInNeeded": "Vajalik on proxy kaudu sisselogimine",
+      "theProxyInFrontOf": "Selle serveri ees olev proxy palub sul uuesti sisse logida.",
+      "proxyPasswordNeeded": "Vajalik on proxy parool",
+      "theProxyInFrontOf2": "Selle serveri ees olev proxy küsis oma parooli.",
+      "certificateRefused": "Sertifikaat keelduti",
+      "theServerDidNotAccept": "Server ei aktsepteerinud selle {{deviceWord}} sertifikaati.",
+      "untrustedServer": "Usaldamatu server",
+      "theServerSCertificateIs": "Serveri sertifikaati ei usalda see {{deviceWord}}.",
+      "serverKeyChanged": "Serveri võti on muutunud",
+      "theServerShowsAnotherKey": "Server näitab teist võtit kui sellele fikseeritud. Kui olete selle sertifikaati muutnud, fikseerige uus võti.",
+      "offline": "Võrguühendus puudub",
+      "canTReachTheServer": "Serverit ei saa saavutada. Sünkroonimine proovib peagi uuesti.",
+      "serverProblem": "Serveri viga",
+      "theServerHadAProblem": "Serveril tekkis viga. Sünkroonimine proovib peagi uuesti.",
+      "updateNeeded": "Vajalik uuendus",
+      "thisServerUsesANewer": "See server kasutab uuemat sünkrooniversiooni. Uuendage rakendust.",
+      "notATermixServer": "Pole Termixi server",
+      "theAddressDoesNotAnswer": "Aadress ei vasta nagu Termixi server.",
+      "syncIsOff": "Sünkroonimine on välja lülitatud",
+      "theSyncPluginIsOff": "Sellel serveril on Sünkroonimise plugin välja lülitatud. Paluge administraatoril see Pluginadest sisse lülitada.",
+      "differentUser": "Teine kasutaja",
+      "youSignedInAsA": "Olete sisse loginud teise kasutajana kui selle serveri konto kuulub.",
+      "syncStopped": "Sünkroonimine peatati",
+      "somethingWentWrong": "Midagi läks valesti.",
+      "signInAgain": "Logige uuesti sisse",
+      "signInToTheProxy": "Logige proksisse sisse",
+      "enterThePassword": "Sisestage parool",
+      "tryAgain": "Proovi uuesti",
+      "checkThePin": "Kontrolli PIN-koodi",
+      "checkForUpdates": "Kontrolli uuendusi",
+      "pickACertificate": "Valige sertifikaat"
+    },
+    "settings": {
+      "noSuchSetting": "Sellist seadet pole",
+      "snippetFolder": "Koodilõikude kaust",
+      "hostDefault": "Hosti vaikeväärtus"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Server ei aktsepteerinud selle {{deviceWord}} sertifikaati.",
+      "theServerSCertificateIs": "Serveri sertifikaati ei usaldata.",
+      "canTReachTheServer": "Serverit ei saa saavutada.",
+      "signedOut": "Logitud välja",
+      "theProxyAskedForIts": "Proksi küsis oma parooli.",
+      "theProxyWantsYouTo": "Proksi soovib, et te logiksite sisse.",
+      "theSyncPluginIsOff": "Sellel serveril on Sünkroonimise plugin välja lülitatud.",
+      "serverError": "Serveri viga {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Server näitab teist võtit kui fikseeritud."
+    },
+    "remote": {
+      "thisIsNotATermix": "See pole Termixi server.",
+      "theProxyWantsYouTo": "Proksi soovib, et te logiksite sisse.",
+      "thisServerUsesANewer": "See server kasutab uuemat sünkrooniversiooni. Uuendage rakendust."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosti",
+      "credentialCount_one": "{{count}} usaldusandmed",
+      "credentialCount_other": "{{count}} usaldusandeid",
+      "snippetCount_one": "{{count}} koodilõik",
+      "snippetCount_other": "{{count}} koodilõiku",
+      "folderCount_one": "{{count}} kaust",
+      "folderCount_other": "{{count}} kausta",
+      "nothingYet": "seni midagi pole",
+      "listAnd": "{{list}} ja {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Ühendust ei saa luua.",
+      "connectingToFromThis": "Ühenduse loomine {{name}}-ga sellest {{deviceWord}}-st",
+      "connectingToThroughTheServer": "Ühenduse loomine {{name}}-ga serveri kaudu",
+      "reconnectingTry": "Ühenduse taastamine (katse {{retry}})",
+      "disconnected": "Ühendus katkenud",
+      "connected": "Ühendatud",
+      "reconnectedToTheSameSession": "Ühendus taastatud samasse sessiooni",
+      "reconnectedWithANewShell": "Ühendus taastatud uue käsureaga",
+      "couldNotReachTheHost": "Hosti ei saavutatud sellest {{deviceWord}}-st, proovin serveri kaudu",
+      "couldNotConnectThroughThe": "Ühendust ei saanud luua serveri kaudu, proovin sellest {{deviceWord}}-st",
+      "connectionLost": "Ühendus kadus: {{reason}}",
+      "offlineWaitingForTheNetwork": "Võrguühendus puudub, ootan võrku",
+      "nextTryInS": "Järgmine katse {{value}} sekundi pärast",
+      "reconnectingTry2": "Ühenduse taastamine (katse {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Host ei vasta enam",
+      "networkLost": "Võrguühendus kadus",
+      "network": "Võrk: {{type}}{{value}}",
+      "lowPowerModeOn": "Madala energiatarbega režiim on sisse lülitatud",
+      "lowPowerModeOff": "Madala energiatarbega režiim on välja lülitatud",
+      "droppedTypedCharacters": "forms: { \"one\": \"Üks trükitud täht jäeti vahele\", \"other\": \"{{count}} trükitud tähte jäeti vahele\" }",
+      "youDidNotTrustThe": "Sa ei usaldanud hosti võtit.",
+      "checkTheKeyWithWhoever": "Kontrolli võtit hosti haldajaga ja proovi uuesti.",
+      "loginCancelled": "Sisselogimine tühistati.",
+      "connectAgainWhenYouAre": "Ühendu uuesti, kui oled valmis.",
+      "typedInputIsOver64": "Trükitud sisend ületas 64 KB, vanim osa jäeti vahele",
+      "appInTheBackground": "Rakendus taustal",
+      "appInTheForeground": "Rakendus esiplaanil",
+      "thisConnectionCanTRun": "Selle ühenduse kaudu ei saa käsureakäsku käivitada"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Kontrolli aadressi ja porti ning veendu, et server suudab hostini jõuda.",
+      "checkTheAddressAndPort2": "Kontrolli aadressi ja porti ning veendu, et see {{deviceWord}} suudab hostini jõuda.",
+      "checkTheProxySettingsOf": "Kontrolli selle hosti proksiseadeid.",
+      "checkTheKeyWithWhoever": "Kontrolli võtit hosti haldajaga, enne kui sellele usaldad.",
+      "checkTheUsernameAndLogin": "Kontrolli kasutajat ja sisselogimist hosti redaktoris.",
+      "checkThatTheServerIs": "Kontrolli, kas server töötab ja kas sa oled endiselt sisse logitud.",
+      "tryAgainIfItKeeps": "Proovi uuesti. Kui ühendus katkeb korduvalt, kontrolli võrku.",
+      "connectAgainWhenYouAre": "Ühendu uuesti, kui oled valmis.",
+      "pickAnotherWayToConnect": "Vali selle hostiga ühendamiseks teine viis.",
+      "connectThisHostThroughA": "Ühendu selle hostiga Termix serveri kaudu.",
+      "pickTheJumpHostsAgain": "Vali uuesti hüppemajad hosti redaktoris.",
+      "thisIsATailscaleAddress": "See on Tailscale'i aadress. Kontrolli, kas Tailscale on selles {{deviceWord}} ühendatud.",
+      "theSavedKeyCanT": "Salvestatud võtit ei saa lugeda. Kleepi see uuesti hosti redaktoris.",
+      "signInToThisServer": "Logi sellele serverile uuesti sisse.",
+      "openThisHostInThe": "Ava see host Termix veebirakenduses.",
+      "canTConnectThisWay": "Selle viisiga ei saa ühendust luua",
+      "couldNotReachTheHost": "Hostini ei jõutud",
+      "theProxyDidNotLet": "Proksi ei lubanud ühendust läbi",
+      "theHostKeyWasNot": "Hosti võtit ei usaldatud",
+      "theLoginWasRefused": "Sisselogimine keelduti",
+      "theTermixServerDidNot": "Termix server ei vastanud",
+      "theConnectionDropped": "Ühendus katkes",
+      "loginCancelled": "Sisselogimine tühistati"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "See host logib sisse kasutades \"{{authType}}\", mis vajab Termix serverit. Ühenda üks, et ühendust luua.",
+        "thisHostUsesA1password": "See host kasutab 1Password viidet, mis vajab Termix serverit koos Secret Sources funktsiooniga. Ühenda server ja ühenda see host selle kaudu.",
+        "signInWithFirstOpen": "Logi esmalt sisse {{title}}. Ava selle hosti jaoks üks kord terminal ja proovi uuesti.",
+        "theSignInAndThe": "sisselogimine ja sertifikaat asuvad serveris",
+        "theHasNoSshAgent": "sel {{deviceWord}} puudub SSH agent",
+        "needsATermixServerBecause": "{{title}} vajab Termix serverit, sest {{why}}. Ühenda server ja ühenda see host selle kaudu."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Selle hosti hüppemaja ei eksisteeri enam."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Ühendus katkes",
+        "theShellChannelClosed": "Shell-kanal sulgus",
+        "jumpHost": "Hüppemaja {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Vigane kood, proovi uuesti:",
+        "authenticationFailed": "Autentimine ebaõnnestus: {{message}}",
+        "theHostKeyWasNot": "Hosti võtit ei usaldatud.",
+        "loginCancelled": "Sisselogimine tühistati.",
+        "notConnected": "Ühendust pole"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Ühendus katkes"
+      },
+      "thisBuildHasNoSsh": "Selles versioonis puudub SSH mootor. Kasuta poodist saadavat rakendust või ühenda Termix server, et ühendust luua.",
+      "theHostsOnThisAre": "Selle {{deviceWord}} hostid pole veel avatud.",
+      "thisServerSHostsAre": "Selle serveri hostid pole selles {{deviceWord}}. Lülita serveris sisse Sync plugin, et {{deviceWord}}ist ühendust luua."
+    },
+    "origin": {
+      "canTConnect": "Ühendust ei saa luua.",
+      "canTConnectFromThe": "Sellest {{deviceWord}} ei saa ühendust luua.",
+      "canTReachTheServer": "Serverini ei jõuta.",
+      "theOnlyConnectsToSsh": "See {{deviceWord}} ühendub ainult SSH- ja Telnet-majutitega.",
+      "connectThisHostThroughThe": "Ühenda see majutis läbi serveri",
+      "connectThisHostFromThe": "Ühenda see majutis {{deviceWord}} kaudu",
+      "termixServer": "Termixi server",
+      "usesThisWhenItCan": "Kasutab seda {{deviceWord}}, kui majutiseni on võimalik ühenduda, muidu serverit.",
+      "thisConnectsToTheHost": "See {{deviceWord}} ühendub majutise otse.",
+      "theTermixServerConnectsTo": "Termixi server ühendub sinu eest majutisega.",
+      "anSshConnection": "SSH-ühendus",
+      "aTermixServer": "Termixi server",
+      "aConnectionFromThe": "ühendus {{deviceWord}} kaudu",
+      "isOffOnThisServer": "{{title}} on sellel serveril välja lülitatud. {{how}}, et seda kasutada.",
+      "isOffOnThisServer2": "{{title}} on sellel serveril välja lülitatud.",
+      "anotherWayToConnect": "teine viis ühendamiseks",
+      "needsToUseIt": "{{title}} vajab {{what}}. {{how}}, et seda kasutada.",
+      "needsWhichThisHostCan": "{{title}} vajab {{what}}, mida see majutis praegu kasutada ei saa.",
+      "thisDevice": "See {{deviceWord}}",
+      "automatic": "Automaatne"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Oled sellelt serverilt välja logitud. Logi sisse, et selle kaudu ühenduda.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux pole sellel majutisel paigaldatud. Kasutatakse tavalist käsurea keskkonda.",
+        "tapRetryToBringIt": "Puuduta uuesti proovimiseks, et tuua see siia tagasi.",
+        "thisSessionWasOpenedOn": "See sessioon avati teisel seadmel",
+        "noServerUrlFoundLink": "Serveri URL-i ei leitud. Lingi server uuesti.",
+        "signedOutOfThisServer": "Sellelt serverilt välja logitud. Logi uuesti sisse.",
+        "signInWithInYour": "Logi sisse {{title}} abil oma brauseris. See sulgub, kui valmis.",
+        "theSocketClosedWhileThe": "Pesak ühendus katkes, kui rakendus oli taustal",
+        "noWebsocketUrlAvailableServer": "WebSocketi URL pole saadaval – server ei ole konfigureeritud",
+        "connectionTimeoutServerNotResponding": "Ühenduse aegumine – server ei vasta",
+        "verificationCode": "Kinnituskood:",
+        "hostKeyVerificationRequiredBut": "Majutise võtme kontrollimine on nõutud, kuid käitlejat ei ole registreeritud",
+        "hostKeyChangedButNo": "Majutise võti on muutunud, kuid käitlejat ei ole registreeritud",
+        "thisHostNeedsASign": "See majutis vajab sisselogimist, mida toetab ainult veebirakendus",
+        "invalidCodeTryAgain": "Vigane kood, proovi uuesti:",
+        "unknownError": "Tundmatu viga",
+        "connectionClosed": "Ühendus sulgus",
+        "connectionClosed2": "Ühendus sulgus ({{code}})",
+        "theServerClosedTheConnection": "Server sulges ühenduse",
+        "theSocketClosed": "Pesak ühendus sulgus ({{code}})",
+        "signIn": "{{title}} sisselogimine",
+        "signInFailed": "{{title}} sisselogimine ebaõnnestus",
+        "isNotSetUpOn": "{{title}} pole serveril seadistatud",
+        "signInTimedOut": "{{title}} sisselogimise aegumine",
+        "authenticationFailed": "Autentimine ebaõnnestus: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Salvesta majutis ja ühendu sellega, et seda kontrollida.",
+      "loggedInAsOn": "Sisse logitud kui {{username}} majutisel {{host}}",
+      "theHostAskedForMore": "Majutis küsis rohkem kui parooli, näiteks koodi. Salvesta majutis ja ühendu, et sisselogimine lõpetada."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Võrgu ootamine",
+      "couldNotOpenTheTunnel": "Silda ei õnnestunud avada",
+      "theConnectionDropped": "Ühendus katkes",
+      "iosStoppedThisTunnelWhile": "iOS peatas selle silla, kui rakendus oli taustal. Käivita see uuesti, et avada.",
+      "connecting": "Ühendumine",
+      "connected": "Ühendatud",
+      "retrying": "Uuesti proovimine",
+      "waiting": "Ootamine",
+      "failed": "Ebaõnnestus"
+    },
+    "gateways": {
+      "error": "Viga",
+      "gateways": "Läbipääsud",
+      "gatewaysCanOnlyBeChanged": "Läbipääseid saab muuta ainult Termixis veebis.",
+      "noHandshake": "Pole käeshõngu",
+      "rulesMissing": "Reeglid puuduvad",
+      "up": "Aktiivne",
+      "pending": "Ootel",
+      "applying": "Rakendamine",
+      "down": "Maha",
+      "unreachable": "Saavutamata"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Ühendustunneli pole veel. Lisa üks, et suunata port lõppmängija hostilt sellele hostile.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Eemalda tunnel {{value}}",
+      "mode": "Režiim",
+      "local": "Lokaalne",
+      "remote": "Kaug",
+      "dynamic": "Dünaamiline",
+      "targetHost": "Sihtmasin",
+      "onThisHostForTunnels": "Sellel masinal, tunnelite jaoks, mida {{deviceWord}} käitab",
+      "bindHost": "Sidumismasin",
+      "endpointHost": "Lõppmängija masin",
+      "addAnotherHostFirstTunnels": "Lisa esmalt teine masin. Tunnelid läbivad salvestatud masina.",
+      "sourcePort": "Allikasport",
+      "endpointPort": "Lõppmängija port",
+      "maxRetries": "Maksimaalne uuestiproovimiste arv",
+      "retryEveryS": "Proovi uuesti iga (s)",
+      "startOnItsOwn": "Käivita iseseisvalt",
+      "addTunnel": "Lisa tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} vajab porte vahemikus 1 kuni 65535"
+    },
+    "register": {
+      "tunnels": "Tunnelid",
+      "startAndStopSavedTunnels": "Salvestatud tunnelite käivitamine ja peatamine",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Kohalik lõpp-punkt kopeeritud",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Portide kaardistamine",
+      "connect": "Ühenda",
+      "disconnect": "Katkesta ühendus",
+      "cancel": "Tühista",
+      "connected": "Ühendatud",
+      "connecting": "Ühendamine",
+      "disconnecting": "Ühenduse katkestamine",
+      "error": "Viga",
+      "retrying": "Uuestiproovimine ({{value}}/{{value2}})",
+      "waitingS": "Ootel {{value}}s",
+      "waiting": "Ootel",
+      "disconnected": "Ühendus katkestatud"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Tunneli käivitamine pordil {{sourcePort}}",
+      "connectingTunnelOnPort": "Tunneli ühendamine pordil {{sourcePort}}",
+      "disconnectingPort": "Pordi {{sourcePort}} ühenduse katkestamine",
+      "cancellingPort": "Pordi {{sourcePort}} tühistamine",
+      "failedToTunnel": "Tunneli {{action}}imine ebaõnnestus",
+      "tunnels": "Tunnelid | {{count}} | {{value}}",
+      "loadingTunnels": "Tunnelite laadimine…",
+      "noSshTunnelsConfiguredFor": "Sellele masinale pole SSH-tunneli konfigureeritud. Lisa tunnelid masina vormist.",
+      "runOn": "Käivita",
+      "server": "Server",
+      "this": "See {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Sellel {{deviceWord}} peatuvad tunnelid, kui rakendus sulgub. iOS-is peatuvad need ka peagi pärast seda, kui rakkus taustale läheb.",
+      "failedToFetchTunnelStatuses": "Tunnelite staatuste hankimine ebaõnnestus",
+      "thisBuildCanTOpen": "See versioon ei saa {{deviceWord}}il tunneli avada.",
+      "sourceHostNotFound": "Allikamasinat ei leitud",
+      "endpointHostNotFound": "Lõppmängija masinat ei leitud: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunnelid",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunnelit",
+      "runningOnServer": "{{connected}} töötab serveris"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Usaldusandmete tööriistad"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker pole sellel hostil installitud.",
+        "dockerDidNotAnswer": "Docker ei vastanud",
+        "thatIsNotAValid": "See ei ole kehtiv stacki nimi"
+      }
+    },
+    "containerDetail": {
+      "stop": "Peata",
+      "start": "Käivita",
+      "restart": "Taaskäivita",
+      "remove": "Eemalda",
+      "logs": "Logid",
+      "stats": "Statistika",
+      "console": "Konsool",
+      "logsCopied": "Logid kopeeritud",
+      "copy": "Kopeeri",
+      "containerIsNotRunningNo": "Konteiner ei tööta, reaalajas statistikat ei ole.",
+      "cpu": "CPU",
+      "memory": "Mälu",
+      "networkIO": "Võrgu I/O",
+      "blockIO": "Plokki I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Logide laadimine ebaõnnestus",
+      "failedToLoadStats": "Statistika laadimine ebaõnnestus",
+      "noOutput": "(väljundit pole)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Ühenduse loomine Dockeriga...",
+    "remove": "Kas eemaldada {{name}}?",
+    "stop": "Kas peatada {{name}}?",
+    "theContainerIsStoppedAnd": "Konteiner on peatatud ja kustutatud. Selle mahud jäävad alles.",
+    "anythingRunningInItStops": "Kõik, mis selles töötab, peatub.",
+    "remove2": "Eemalda",
+    "stop2": "Peata",
+    "dockerThis": "Docker | see {{deviceWord}}",
+    "lookingForDocker": "Dockerit otsitakse...",
+    "dockerIsNotAvailableOn": "Docker pole sellel hostil saadaval.",
+    "noContainersFound": "Konteinereid ei leitud",
+    "noContainersMatchYourFilters": "Ükski konteiner ei vasta sinu filtritele",
+    "useSudo": "Kasuta sudo",
+    "refresh": "Värskenda",
+    "containers": "Konteinerid",
+    "stacks": "Stackid",
+    "searchContainers": "Otsi konteinereid...",
+    "all": "Kõik",
+    "running": "Töötavad",
+    "stopped": "Peatatud",
+    "start": "Käivita",
+    "restart": "Taaskäivita",
+    "pause": "Paus",
+    "unpause": "Jätka",
+    "moreActions": "Rohkem toiminguid",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker ei vastanud",
+      "docker": "Docker",
+      "noContainers": "Konteinereid pole"
+    },
+    "dockerConsole": {
+      "attachingTo": "Ühenduse loomine {{name}}-ga...",
+      "consoleDisconnected": "Konsooli ühendus katkenud",
+      "reconnect": "Ühenda uuesti",
+      "failedToLoadTheConsole": "Konsooli laadimine ebaõnnestus",
+      "thisSessionHasNoServer": "Sellel sessioonil pole serverit"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Konteinerid, logid ja statistika"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stackid on sellel serveril välja lülitatud.",
+      "couldNotLoadStacks": "Stackide laadimine ebaõnnestus",
+      "noStacks": "Ühtegi stacki pole",
+      "composeProjectsOnThisHost": "Selle hosti Compose'i projektid kuvatakse siin.",
+      "ofRunning": "{{running}}/{{total}} töötab",
+      "couldNotLoadTheStack": "Stacki laadimine ebaõnnestus",
+      "services": "Teenused",
+      "nothingIsRunning": "Ühtegi ei tööta.",
+      "composeFile": "Compose'i fail",
+      "partlyUp": "osaliselt käivitatud",
+      "notDeployed": "pole paigaldatud",
+      "running": "töötab",
+      "stopped": "peatatud",
+      "paused": "pausil"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "See ei ole kehtiv konteineri ID",
+      "consoleFailed": "Konsool ebaõnnestus",
+      "notAuthenticated": "Pole autentimata",
+      "consoleError": "Konsooli viga",
+      "connectionFailed": "Ühenduse loomine ebaõnnestus"
+    },
+    "dockerDidNotAnswer": "Docker ei vastanud",
+    "failedToLoadContainers": "Konteinerite laadimine ebaõnnestus",
+    "failedTo": "{{action}} ebaõnnestus"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Server ei saatnud ühtegi faili",
+        "cancelled": "Tühistanud",
+        "isGone": "{{path}} on kadunud",
+        "canTGoToThe": "{{name}} ei saa prügikasti minna"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Kehtetu prügikasti elemendi ID",
+        "invalidTrashMetadata": "Kehtetu prügikasti metandand",
+        "thisPathCanTBe": "Seda asukohta ei saa prügikasti liigutada",
+        "aFileAlreadyExistsAt": "Originaalasukohas on juba fail olemas"
+      },
+      "sftp": {
+        "commandFailed": "Käsk ebaõnnestus: {{command}}",
+        "alreadyExists": "{{name}} on juba olemas",
+        "alreadyExistsThere": "{{path}} on seal juba olemas",
+        "canTGoToThe": "{{name}} ei saa prügikasti minna: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminal ei ole enam avatud",
+      "clearHistory": "Ajalugu kustuta",
+      "stopFollowingTheTerminal": "Peata terminali jälgimine",
+      "followTheTerminal": "Jälgi terminali",
+      "goToTheTerminalS": "Mine terminali kausta",
+      "cdTheTerminalHere": "cd terminal siia",
+      "folderHistory": "Kausta ajalugu",
+      "mostUsedFirstThenRecent": "Esmalt enim kasutatud, siis hiljutised",
+      "noFoldersYet": "Ühtegi kausta veel pole"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Ühenduse loomine ebaõnnestus.",
+        "couldNotSaveHowThis": "Selle hosti ühenduse salvestamine ebaõnnestus",
+        "thisWayCanTOpen": "Selle viisiga ei saa faile avada"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Seda kausta ei õnnestunud avada",
+      "cancel": "Tühista",
+      "noFoldersHere": "Siin ei ole kaustu"
+    },
+    "couldNotOpenThisFolder": "Seda kausta ei õnnestunud avada",
+    "couldNotSaveToThe": "Kausta salvestamine ebaõnnestus",
+    "failed": "{{label}} ebaõnnestus",
+    "uploading": "{{name}} üleslaadimine",
+    "uploadingFiles": "{{count}} faili üleslaadimine",
+    "downloadingToFilesOnMy": "Allalaadimine failidesse, iPhone'il, Termix",
+    "downloading": "{{name}} allalaadimine",
+    "downloadingFiles": "{{count}} faili allalaadimine",
+    "openALargeFile": "Ava suur fail?",
+    "isBigForAEditor": "{{name}} on suur {{deviceWord}} redaktori jaoks. See võib olla aeglane.",
+    "open": "Ava",
+    "thisLooksLikeABinary": "See näeb välja binaarne fail",
+    "openItInAnotherApp": "Ava see hoopis teises rakenduses?",
+    "openWith": "Ava koos",
+    "tooBigForTheEditor": "Liiga suur redaktorile",
+    "isOver10MbDownload": "{{name}} on suurem kui 10 MB. Kas laadida see alla?",
+    "download": "Laadi alla",
+    "delete": "Kustutada {{what}}?",
+    "moveToTheTrash": "Liigutada {{what}} prügikasti?",
+    "thisCanTBeUndone": "Seda ei saa tagasi võtta.",
+    "youCanRestoreItFrom": "Saate selle prügikastist taastada.",
+    "delete2": "Kustuta",
+    "moveToTrash": "Liiguta prügikasti",
+    "deleteForGood": "Kustutada lõplikult?",
+    "deleteItForGoodInstead": "{{message}}. Kustutada see hoopis lõplikult? Seda ei saa tagasi võtta.",
+    "deleteFailed": "Kustutamine ebaõnnestus",
+    "connectingThroughTheServer": "Ühenduse loomine serveri kaudu...",
+    "connectingFromThis": "Ühenduse loomine sellest {{deviceWord}}...",
+    "connecting": "Ühenduse loomine...",
+    "edit": "Muuda",
+    "downloadFolder": "Laadi kaust alla",
+    "share": "Jaga",
+    "rename": "Nimeta ümber",
+    "copyTo": "Kopeeri siia",
+    "moveTo": "Liiguta siia",
+    "cut": "Lõika",
+    "copy": "Kopeeri",
+    "permissions": "Õigused",
+    "properties": "Omadused",
+    "makeALinkHere": "Loo siia link",
+    "copyPath": "Kopeeri asukoht",
+    "pathCopied": "Asukoht kopeeritud",
+    "done": "Valmis",
+    "selectAll": "Vali kõik",
+    "filterByName": "Filtreeri nime järgi",
+    "closeSearch": "Sule otsing",
+    "search": "Otsi",
+    "changeSort": "Muuda sortimist",
+    "paste": "Kleebi {{count}}",
+    "upload": "Laadi üles",
+    "transfers2": "Ülekanded",
+    "more": "Rohkem",
+    "nothingMatches": "Ühtegi sobivat tulemust ei leitud",
+    "emptyFolder": "Tühi kaust",
+    "uploadFilesOrMakeA": "Laadige failid üles või looge uus.",
+    "newFolder": "Uus kaust",
+    "newFile": "Uus fail",
+    "select": "Vali",
+    "hideHiddenFiles": "Peida peidetud failid",
+    "showHiddenFiles": "Kuva peidetud failid",
+    "trash": "Prügikast",
+    "folderProperties": "Kausta omadused",
+    "refresh": "Värskenda",
+    "rename2": "Nimeta ümber {{name}}",
+    "newLink": "Uus link",
+    "aLinkInThatPoints": "Link asukohas {{path}}, mis viitab asukohale {{path2}}",
+    "name": "Nimi",
+    "create": "Loo",
+    "copyHere": "Kopeeri siia",
+    "moveHere": "Liiguta siia",
+    "fileViewer": {
+      "saved": "{{name}} salvestatud",
+      "couldNotSaveTheFile": "Faili ei õnnestunud salvestada",
+      "discardChanges": "Kas loobuda muudatustest?",
+      "hasChangesThatAreNot": "{{name}} sisaldab salvestamata muudatusi.",
+      "discard": "Loobu",
+      "readOnly": "{{path}} | ainult lugemiseks",
+      "find": "Otsi",
+      "smallerText": "Väiksem tekst",
+      "biggerText": "Suurem tekst",
+      "turnOffLineWrap": "Lõikede mähkimine välja",
+      "wrapLines": "Lõikede mähkimine",
+      "save": "Salvesta"
+    },
+    "hostSection": {
+      "startIn": "Ava kaustas",
+      "theFolderTheFileManager": "Kaust, millest failihaldur esmalt avaneb",
+      "files": "Failid"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Mine asukohta {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Rohkem tegevusi",
+        "moreFor": "Rohkem tegevusi failile {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Õigused",
+      "cancel": "Tühista",
+      "apply": "Rakenda ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Avamine ei õnnestunud",
+      "openWith": "Ava programmiga",
+      "share": "Jaga"
+    },
+    "propertiesView": {
+      "properties": "Omadused",
+      "path": "Asukoht",
+      "type": "Tüüp",
+      "pointsTo": "Viitab",
+      "size": "Suurus",
+      "countFolderSize": "Arvuta kausta suurus",
+      "permissions": "Õigused",
+      "change": "Muuda",
+      "owner": "Omanik",
+      "group": "Grupp",
+      "modified": "Muudetud",
+      "opened": "Avatud",
+      "linkToA": "Link {{value}}-ile",
+      "notShownForFolders": "Kaustade puhul ei kuvata",
+      "file": "Fail",
+      "folder": "Kaust",
+      "link": "Link"
+    },
+    "register": {
+      "fileManager": "Failihaldur",
+      "files": "Failid",
+      "browseEditAndMoveFiles": "Sirvi, muuda ja liiguta faile",
+      "files2": "FAILID",
+      "fileManagerAndTransfers": "Failihaldur ja ülekanded"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Ülekande viga"
+      },
+      "transfersPanel": {
+        "pause": "Paus",
+        "resume": "Jätka",
+        "tryAgain": "Proovi uuesti",
+        "open": "Ava",
+        "cancel": "Tühista",
+        "transfers": "Ülekanded",
+        "goingOf": "{{active}} käimas | {{done}}/{{total}}",
+        "clearFinished": "Kustuta valmis",
+        "cancelAll": "Tühista kõik",
+        "noTransfersYet": "Ülekandeid veel ei ole",
+        "waiting": "Ootel",
+        "paused": "Peatatud",
+        "done": "Valmis",
+        "failed": "Ebaõnnestunud",
+        "cancelled": "Tühistatud"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Prügikasti laadimine ebaõnnestus",
+      "restored": "Taastatud {{name}}",
+      "failedToRestore": "Taastamine ebaõnnestus",
+      "failedToDelete": "Kustutamine ebaõnnestus",
+      "trashEmptied": "Prügikast tühjendatud",
+      "failedToEmptyTrash": "Prügikasti tühjenemine ebaõnnestus",
+      "trash": "Prügikast",
+      "itemsAreRemovedAfterDays": "Eemaldused eemaldatakse {{retentionDays}} päeva pärast",
+      "close": "Sulge",
+      "emptyTrash": "Tühjenda prügikast",
+      "trashIsEmpty": "Prügikast on tühi",
+      "restore": "Taasta {{name}}",
+      "deleteForGood": "Kustuta {{name}} igaveseks"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Just nüüd"
+      }
+    },
+    "getting": "Laadin {{name}}",
+    "itemCount_one": "{{count}} element",
+    "itemCount_other": "{{count}} elementi",
+    "copiedWhat": "Kopeeritud {{what}}",
+    "movedWhat": "Liigutatud {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} sisaldab rohkem kui {{limit}} faili. Laadi alla väiksemaid kaustu."
+    },
+    "downloadingToFilesOnMyIpad": "Laadin alla Failidesse, Minu iPad, Termix",
+    "size": "Suurus",
+    "date": "Kuupäev"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Teenuse lingid",
+      "openInHomepage": "Ava Avalehel",
+      "thisWidgetOnlyShowsOn": "See vidin kuvatakse ainult täislehel."
+    },
+    "register": {
+      "serviceLinks": "Teenuse lingid",
+      "homepage": "Avaleht"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Voogu pole määratud.",
+        "couldNotLoadTheFeed": "Voo laadimine ebaõnnestus.",
+        "theFeedIsEmpty": "Voo on tühi.",
+        "noLocationSet": "Asukohta pole määratud.",
+        "couldNotLoadTheWeather": "Ilma laadimine ebaõnnestus.",
+        "noUrlSet": "URL-i pole määratud.",
+        "couldNotLoadTheData": "Andmete laadimine ebaõnnestus.",
+        "noPictureSet": "Pilti pole määratud.",
+        "badResponse": "vale vastus"
+      },
+      "services": "Teenused",
+      "service": "Teenuse",
+      "serviceLinks": "Teenuse lingid",
+      "bookmarks": "Järjehoidjad",
+      "links2": "Lingid",
+      "search": "Otsing",
+      "clock": "Kell",
+      "countdown": "Tagasiloendamine",
+      "calendar": "Kalender",
+      "notes": "Märkmed",
+      "banner": "Bänner",
+      "ping": "Ping",
+      "host": "Host",
+      "hosts": "Hostid",
+      "quickConnect": "Kiirühendus",
+      "feed": "Voo",
+      "weather": "Ilm",
+      "customApi": "Kohandatud API",
+      "picture": "Pilt",
+      "widget": "Vidin",
+      "links": {
+        "noServicesYet": "Teenuseid veel ei ole.",
+        "noLinkSet": "Linki pole määratud.",
+        "noLinksYet": "Linke veel ei ole.",
+        "noSearchEngineSet": "Otsingumootorit pole määratud.",
+        "search": "Otsing",
+        "noShortcutsYet": "Lühikesi teid pole veel.",
+        "search2": "Otsi {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Linki ei õnnestunud avada"
+      },
+      "status": {
+        "noUrlsYet": "URL-e pole veel.",
+        "down": "Maha",
+        "noHostsPicked": "Peremeid ei ole valitud."
+      },
+      "text": {
+        "noNotesYet": "Märkmeid pole veel.",
+        "noTextYet": "Teksti pole veel."
+      },
+      "time": {
+        "noDateSet": "Kuupäeva pole määratud.",
+        "timeIsUp": "Aeg on läbi"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Vaikimisi väärtust ei õnnestunud salvestada",
+    "couldNotResetTheDefault": "Vaikimisi väärtust ei õnnestunud lähtestada",
+    "back": "Tagasi",
+    "hostDefaults": "Peremehe vaikimisi väärtused",
+    "newHostsStartFromThese": "Uued peremehed alustavad nendega",
+    "managedOnTheServer": "Haldamine toimub serveris",
+    "defaultsForThisServerAre": "Selle serveri vaikimisi väärtused on määratud veebirakenduses.",
+    "level": "Tase",
+    "yourDefaultsOrOneFolder": "Sinu vaikimisi väärtused või ühe kausta omad",
+    "myDefaults": "Minu vaikimisi väärtused",
+    "theServerSets": " Server määrab {{adminCount}}.",
+    "aFolderWinsOverYour": "Kaust eelistatakse sinu vaikimisi väärtustele ja sinu vaikimisi väärtused eelistatakse serveri omadele. Peremees säilitab kõik väärtused, mille sa ise talle oled määranud.{{value}}",
+    "save": "Salvesta",
+    "authentication": "Autentimine",
+    "none": "Puudub",
+    "reset": "Lähtesta",
+    "model": {
+      "username": "Kasutajanimi",
+      "sshPort": "SSH port",
+      "authentication": "Autentimine",
+      "aSavedCredentialForNew": "Salvestatud usaldusandmed uutele peremeestele",
+      "forceKeyboardInteractive": "Sunnitud klaviatuuriga interaktiivne autentimine",
+      "keepaliveInterval": "Eluhoidva signaali intervall",
+      "seconds0TurnsItOff": "Sekundites, 0 lülitab selle välja",
+      "keepaliveTries": "Eluhoidva signaali katsed",
+      "allowOldAlgorithms": "Luba vanad algoritmid",
+      "agentForwarding": "Agenti edastamine",
+      "environmentVariables": "Keskkonnamuutujad",
+      "oneNameValuePerLine": "Üks NIMI=väärtus rea kohta",
+      "checkIfTheHostIs": "Kontrolli, kas peremees on töökorras",
+      "checkInterval": "Kontrolli intervall",
+      "secondsEmptyUsesTheServer": "Sekundites, tühjaks jättes kasutatakse serveri väärtust",
+      "socks5Proxy": "SOCKS5 proksy",
+      "setInTheWebApp": "Määratud veebirakenduses",
+      "jumpHosts": "Hüppemehed",
+      "portKnocking": "Pordi koputamine",
+      "notSet": "Määramata",
+      "fromTheServer": "Serverist",
+      "fromYourDefaults": "Sinu vaikimisi väärtustest",
+      "builtIn": "Sisseehitatud"
+    },
+    "register": {
+      "hostDefaults": "Peremehe vaikimisi väärtused",
+      "portUserAndOptionsFor": "Port, kasutaja ja valikud uutele peremeestele"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Andmeid pole veel",
+      "cpu": "CPU",
+      "memory": "Mälu",
+      "disk": "Ketas",
+      "history": "Ajalugu",
+      "loading": "Laadimine..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Mõõdikuid ei õnnestunud lugeda",
+      "metrics": "Mõõdikud",
+      "cpu": "CPU",
+      "memory": "Mälu",
+      "disk": "Ketas",
+      "noRecentSampleOpenThe": "Viimaseid mõõtmisi pole. Alusta mõõtmist, avades hosti meetrikad."
+    },
+    "register": {
+      "enableMetrics": "Luba meetrikad",
+      "cpuMemoryDiskAndNetwork": "Protsessor, mälu, ketas ja võrk läbi SSH",
+      "hostMetrics": "Hosti meetrikad",
+      "cpu": "Protsessor",
+      "ram": "RAM",
+      "metrics": "Meetrikad",
+      "cpuMemoryDiskAndNetwork2": "Protsessor, mälu, ketas ja võrk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Hosti meetrikad | see {{deviceWord}}",
+      "hostMetrics": "Hosti meetrikad",
+      "ran": "Käivitas {{name}}",
+      "loadingMetrics": "Laadin meetrikaid...",
+      "couldNotReadMetricsFrom": "Ei õnnestunud lugeda meetrikaid sellelt hostilt",
+      "failedToLoadMetrics": "Meetrikate laadimine ebaõnnestus",
+      "thisSessionHasNoServer": "Selles sessioonis puudub server",
+      "twoFactorRequiredForThis": "Selle hosti statistika jaoks on nõutav kaheastmeline autentimine.",
+      "failedToStartMetrics": "Meetrikate käivitamine ebaõnnestus",
+      "failedToRun": "Käivitamine ebaõnnestus: {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "Protsessor",
+        "perCore": "Tuumade kaupa: {{value}}",
+        "cores": "Tuumad",
+        "load": "Koormus",
+        "user": "Kasutaja",
+        "system": "Süsteem",
+        "ioWait": "IO ooteaeg",
+        "steal": "Varastatud"
+      },
+      "diskWidget": {
+        "disk": "Ketas {{mount}}",
+        "disk2": "Ketas",
+        "used": "Kasutusel",
+        "total": "Kokku",
+        "free": "Vaba"
+      },
+      "firewallWidget": {
+        "firewall": "Tulemüür",
+        "rules": "{{type}} | {{ruleCount}} reeglit",
+        "noFirewallDetected": "Tulemüüri ei tuvastatud"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-d ({{count}})",
+        "gpu": "GPU",
+        "memory": "Mälu",
+        "temp": "Temp",
+        "power": "Võimsus",
+        "fan": "Ventilaator"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Sisselogimistegevus",
+        "noLoginActivityRecorded": "Sisselogimistegevust ei registreeritud",
+        "logins": "Sisselogimised",
+        "uniqueIps": "Unikaalsed IP-d",
+        "failed": "Ebaõnnestunud",
+        "recent": "Viimased"
+      },
+      "memoryWidget": {
+        "memory": "Mälu",
+        "used": "Kasutusel",
+        "total": "Kokku",
+        "cached": "Vahemälu",
+        "free": "Vaba"
+      },
+      "networkWidget": {
+        "network": "Võrk",
+        "noInterfaces": "Liideseid pole",
+        "up": "Üles",
+        "down": "Alla"
+      },
+      "portsWidget": {
+        "listeningPorts": "Kuulavad pordid",
+        "noListeningPorts": "Kuulavaid porte pole"
+      },
+      "processesWidget": {
+        "sortBy": "Sorteeri {{label}} järgi",
+        "processes": "Protsessid",
+        "running": "{{value}} töötab | {{total}}",
+        "noProcessData": "Protsesside andmed puuduvad",
+        "cpu": "CPU%",
+        "mem": "MÄLU%",
+        "command": "KÄSK"
+      },
+      "systemWidget": {
+        "system": "Süsteem",
+        "hostname": "Perenime",
+        "os": "Operatsioonisüsteem",
+        "kernel": "Tuum",
+        "arch": "Arhitektuur",
+        "noSystemInfo": "Süsteemi teave puudub"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatuur"
+      },
+      "uptimeWidget": {
+        "uptime": "Tööaeg"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopeeritud koos parooliga",
+      "copiedTheLink": "Link kopeeritud",
+      "shareHost": "Jaga peremees",
+      "thatHostNoLongerExists": "Seda peremeest ei eksisteeri enam",
+      "scanThisInTermixOn": "Skaneeri see Termixis teises {{deviceWord}}is, menüüs Import ja eksport. Kood sisaldab aadressi, porti ja kasutajat. See ei sisalda parooli ega võtit.",
+      "copyLink": "Kopeeri link",
+      "copyLinkWithPassword": "Kopeeri link koos parooliga"
+    },
+    "includePasswordsAndKeys": "Kas kaasata paroolid ja võtmed?",
+    "anyoneWhoGetsThisFile": "Igaüks, kes selle faili kätte saab, saab nendesse peremeestesse sisse logida. Hoidke seda turvaliselt.",
+    "includeThem": "Kaasata need",
+    "pickAtLeastOneHost": "Valige vähemalt üks peremees",
+    "couldNotMakeTheFile": "Faili ei õnnestunud luua",
+    "copiedToTheClipboard": "Kopeeritud lõikelauale",
+    "importAndExport": "Import ja eksport",
+    "moveHostsInAndOut": "Peremeeste sisse- ja väljaviimine",
+    "import": "Import",
+    "aTermixHostFileAn": "Termixi peremehe fail, SSH konfiguratsioonifail või peremehe link või QR-kood teisest {{deviceWord}}ist.",
+    "export": "Eksport",
+    "allHosts": "Kõik peremeesed",
+    "picked": "{{size}} valitud",
+    "pickHosts": "Valige peremeesed",
+    "includePasswordsAndKeys2": "Kaasata paroolid ja võtmed",
+    "offMakesAFileSafe": "Kui see on välja lülitatud, on fail turvaline jagamiseks. Peremeesed, mis kasutavad salvestatud usaldusandmeid, viitavad neile nime järgi",
+    "shareAFile": "Jaga fail",
+    "copy": "Kopeeri",
+    "importPanel": {
+      "couldNotReadThat": "Seda ei õnnestunud lugeda",
+      "couldNotReadThatFile": "Seda faili ei õnnestunud lugeda",
+      "importFailed": "Import ebaõnnestus",
+      "chooseAFile": "Valige fail",
+      "paste": "Kleebi",
+      "scanACode": "Skaneeri kood",
+      "couldNotBeRead": "{{count}} ei õnnestunud lugeda",
+      "updateHostsThatExist": "Uuenda olemasolevaid peremeesi",
+      "sameAddressPortAndUser": "Samad aadress, port ja kasutaja. Vastasel juhul jäetakse need vahele",
+      "cancel": "Tühista",
+      "import": "Import",
+      "andMore": "ja {{value}} veel"
+    },
+    "qrCode": {
+      "qrCode": "QR-kood"
+    },
+    "register": {
+      "importAndExport": "Import ja eksport",
+      "moveHostsInOrOut": "Viige peremeesed sisse või välja faili või QR-koodi abil",
+      "shareHost": "Jaga peremees"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skaneeri peremehe kood",
+      "pointTheCameraAtA": "Suunage kaamera Termixi peremehe QR-koodile.",
+      "termixNeedsTheCameraTo": "Termix vajab koodi skaneerimiseks kaamerat. Midagi ei salvestata.",
+      "allowTheCamera": "Luba kaamera"
+    },
+    "read": {
+      "termixFile": "Termixi fail",
+      "sshConfig": "SSH-i seadistus",
+      "thereIsNothingToImport": "Importimiseks pole midagi",
+      "thatIsNotATermix": "See ei ole Termixi hosti link",
+      "linkHost": "1 host: {{name}}",
+      "sourceHosts_one": "{{what}} koos {{count}} hostiga",
+      "sourceHosts_other": "{{what}} koos {{count}} hostiga"
+    },
+    "saveYourTermixHosts": "Salvesta oma Termixi hostid"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Valmis",
+      "rejected": "Tagasi lükatud",
+      "approvals": "Kinnitused",
+      "nothingIsWaiting": "Midagi ei oota",
+      "actionsARuleHoldsFor": "Siin kuvatakse tegevused, mille kinnitamist reegel nõuab.",
+      "approveAndRun": "Kinnita ja käivita",
+      "reject": "Lükka tagasi",
+      "couldNotLoadApprovals": "Kinnituste laadimine ei õnnestunud",
+      "couldNotDecide": "Otsustamine ei õnnestunud"
+    },
+    "approvalsCard": {
+      "approved": "Kinnitatud",
+      "rejected": "Tagasi lükatud",
+      "waitingForApproval": "Kinnitamist ootamas",
+      "approve": "Kinnita",
+      "reject": "Lükka tagasi",
+      "couldNotDecide": "Otsustamine ei õnnestunud",
+      "seeAll": "Kuva kõik"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Seda ei saa tagasi võtta. Kas käivitada?",
+      "run": "Käivita",
+      "sentForApproval": "Saadetud kinnitamisele",
+      "target": "Sihtmärk",
+      "theItemOnTheHost": "Hostil asuv üksus, näiteks konteiner",
+      "dryRun": "Testkäik",
+      "back": "Tagasi",
+      "actions": "Tegevused",
+      "noActionsForThisHost": "Sellel hostil pole tegevusi",
+      "turnOnAPluginLike": "Lülita serveril selle hosti jaoks sisse plugin nagu Docker või Teenused.",
+      "destructive": "Hävituslik",
+      "changes": "Muudatused",
+      "theActionCouldNotRun": "Tegevuse käivitamine ei õnnestunud",
+      "couldNotLoadActions": "Tegevuste laadimine ei õnnestunud"
+    },
+    "register": {
+      "actions": "Tegevused",
+      "waitingForApproval": "Kinnitamist ootamas",
+      "approvals": "Kinnitused",
+      "actionsWaitingForAPerson": "Tegevused, mis ootavad inimese jah-vastust",
+      "runHistory": "Käivituse ajalugu",
+      "everyActionAnyoneRanFrom": "Kõik tegevused, mida keegi on käivitanud, olenemata seadmest"
+    },
+    "runHistory": {
+      "cancelThisRun": "Kas tühistada see käivitamine?",
+      "cancelRun": "Tühista käivitamine",
+      "keep": "Hoia",
+      "undoThisRun": "Kas võtta see käivitamine tagasi?",
+      "thisRunsTheActionS": "See käivitab tegevuse tagasivõtu sama sisendiga.",
+      "undo": "Võta tagasi",
+      "cancelled": "Tühistatud",
+      "itAlreadyFinished": "See on juba lõpetatud",
+      "done": "Valmis",
+      "runHistory": "Käivituse ajalugu",
+      "nothingHasRunYet": "Midagi pole veel käivitatud",
+      "dryRun": "Testkäik",
+      "cancel": "Tühista",
+      "couldNotLoadHistory": "Ajaloo laadimine ei õnnestunud",
+      "couldNotCancel": "Tühistamine ei õnnestunud",
+      "couldNotUndo": "Tagasivõtmine ei õnnestunud"
+    },
+    "api": {
+      "needsApproval": "Nõuab kinnitust",
+      "needsSignIn": "Nõuab sisselogimist",
+      "done": "Valmis",
+      "failed": "Ebaõnnestus",
+      "running": "Töötamine",
+      "interrupted": "Katkestatud",
+      "rejected": "Tagasi lükatud",
+      "cancelled": "Tühistatud",
+      "expired": "Aegunud"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Lülita {{value}} sisse",
+      "moreSettingsForThisAre": "Lisaseaded asuvad Termixi veebirakenduses.",
+      "pluginHostSettings": "Pärisaatori seaded"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} peab olema number",
+      "mustBeAtLeast": "{{field}} peab olema vähemalt {{min}}",
+      "mustBeAtMost": "{{field}} peab olema maksimaalselt {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Ühenda server, et seda kasutada",
+      "runsOnYourTermixServer": "{{name}} töötab sinu Termixi serveris."
+    },
+    "pluginWebView": {
+      "canTLoad": "{{name}}i laadimine ei õnnestu",
+      "theServerDidNotSend": "Server ei saatnud pistikprogrammi. Veendu, et see on sisse lülitatud, ja proovi uuesti.",
+      "openThisLink": "Ava see link?",
+      "open": "Ava",
+      "needsANewerVersionOf": "Nõuab uuemat rakenduse versiooni",
+      "usesPartsOfTermixThis": "{{name}} kasutab Termixi osi, mida sellel rakendusel veel pole.",
+      "didNotStart": "{{name}} ei käivitanud",
+      "thisScreenIsNotIn": "See ekraan puudub serveris olevast pistikprogrammi versioonist.",
+      "thePluginHitAnError": "Pistikprogramm kohtas käivitamisel viga.",
+      "youReOffline": "Sa oled võrguühenduseta",
+      "runsOnYourServerSo": "{{name}} töötab sinu serveris, seega on vaja ühendust. See avaneb uuesti, kui oled tagasi võrgus.",
+      "tryAgain": "Proovi uuesti"
+    },
+    "shell": {
+      "thatHostIsNotOn": "See host pole veel sellel {{deviceWord}}il.",
+      "theAppCanTOpen": "Rakendus ei saa seda siit avada.",
+      "thatHostIsNotOn2": "See host pole veel sellel {{deviceWord}}il."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Parool",
+      "unchangedIfBlank": "Tühi jättes ei muutu",
+      "port": "Port",
+      "domain": "Domeen",
+      "displaySoundAndClipboardSettings": "Kuvamise, heli ja lõikelaua seaded asuvad Termixi veebirakenduses.",
+      "portMustBeFrom1": "{{label}} port peab olema vahemikus 1–65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Kaugtöölaud katkes",
+        "signIn": "{{label}} sisselogimine",
+        "itWillNotBeSaved": "{{error}} Seda ei salvestata.",
+        "enterTheLoginForIt": "Sisesta {{title}} sisselogimisandmed. Seda ei salvestata.",
+        "reconnecting": "{{label}} ühenduse taastamine",
+        "connecting": "{{label}} ühenduse loomine",
+        "connectionFailed": "Ühenduse loomine ebaõnnestus",
+        "disconnected": "Ühendus katkenud",
+        "reconnect": "Ühenda uuesti",
+        "connectThroughTheServer": "Ühenda serveri kaudu",
+        "pasteToRemote": "Kleebi kaugtöölauale",
+        "typeClipboard": "Trüki lõikelaua sisu",
+        "copyRemoteClipboard": "Kopeeri kaugtöölaualt",
+        "theComputerSCertificateWas": "Arvuti sertifikaati ei usaldatud.",
+        "thatLoginWasRefusedTry": "See sisselogimine keelati. Proovi uuesti."
+      },
+      "target": {
+        "trustThisComputer": "Usalda seda arvutit?",
+        "theCanTCheckS": "{{deviceWord}} ei saa kontrollida {{hostName}}i sertifikaati. Veendu enne jätkamist, et see sõrmejälg ühtib arvutil olevaga.\n\n{{fingerprint}}",
+        "trustAndConnect": "Usalda ja ühendu",
+        "certificateChanged": "Sertifikaat on muutunud",
+        "showsAnotherCertificateThanLast": "{{hostName}} näitab teist sertifikaati kui viimati. See juhtub, kui arvuti on uue sertifikaadi teinud või kui keegi vahel kuulab.\n\nUus sõrmejälg:\n{{fingerprint}}",
+        "trustTheNewOne": "Usalda uut"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Kaugtöölaud",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Valmis",
+      "keyboard": "Klaviatuur",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Seaded",
+      "remoteSettings": "Kaugseaded",
+      "mouseMode": "Hiire režiim",
+      "touch": "Puuteekraan",
+      "trackpad": "Puuteplaadi",
+      "tapWhereYouWantTo": "Puudutage kohta, kuhu soovite klõpsata. Hoidke all parema klõpsi jaoks, lohista lohistamiseks.",
+      "dragToMoveThePointer": "Lohistage kursori liigutamiseks. Puudutage klõpsamiseks, kahe sõrmega puudutage parema klõpsi jaoks, puudutage ja seejärel lohista lohistamiseks.",
+      "zoomXPinchAnywhereTo": "Suumimine: {{value}}x. Suumimiseks tõmmake sõrmi üksteise poole suvalises kohas",
+      "reset": "Lähtesta",
+      "cancel": "Tühista",
+      "connect": "Ühendu",
+      "username": "Kasutajanimi",
+      "domainOptional": "Domeen (valikuline)",
+      "domain": "Domeen",
+      "password": "Parool",
+      "leftArrow": "Vasak nool",
+      "upArrow": "Üles nool",
+      "downArrow": "Alla nool",
+      "rightArrow": "Parem nool",
+      "rdpSignIn": "RDP sisselogimine"
+    },
+    "theRemoteDesktopDropped": "Kaugtöölaud katkes",
+    "theyWillNotBeSaved": "{{errorMessage}} Neid ei salvestata.",
+    "enterCredentialsForTheyWill": "Sisestage {{title}} autentimisandmed. Neid ei salvestata.",
+    "connecting": "Ühenduse loomine",
+    "connectionFailed": "Ühendus ebaõnnestus",
+    "disconnected": "Ühendus katkenud",
+    "reconnect": "Ühenda uuesti",
+    "route": {
+      "thisHostCanTOpen": "See host ei saa siit kaugtöölauda avada."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Rakendus blokeeris"
+    },
+    "failedToStartRemoteSession": "Kaugseansi käivitamine ebaõnnestus",
+    "thatLoginWasRefusedTry": "Sisselogimine keelduti. Proovige uuesti.",
+    "theRemoteRefusedTheSaved": "Kaugserver keeldus salvestatud sisselogimisandmetest. Kontrollige selle hosti RDP sisselogimist.",
+    "remoteSessionFailed": "Kaugseanss ebaõnnestus",
+    "remoteSessionReturnedAnInvalid": "Kaugseanss tagastas kehtetu sõnumi",
+    "failedToLoadTheRemote": "Kaugtöölaua kliendi laadimine ebaõnnestus"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Päevikut ei ole",
+      "thisHostDoesNotKeep": "See host ei hoia systemd päevikut.",
+      "all": "Kõik",
+      "warnings": "Hoiatused",
+      "errors": "Vigad",
+      "stop": "Peata",
+      "follow": "Jälgi",
+      "nothingLogged": "Midagi pole logitud",
+      "tryAnotherLevel": "Proovige teist taset.",
+      "couldNotReadTheJournal": "Päeviku lugemine ebaõnnestus"
+    },
+    "register": {
+      "services": "Teenused",
+      "startStopAndReadLogs": "Käivita, peata ja loe logisid"
+    },
+    "readingServices": "Teenuste lugemine...",
+    "thisHostHasNoSystemd": "Sellel hostil puudub systemd või OpenRC.",
+    "noServicesMatch": "Ükski teenus ei vasta",
+    "noServicesFound": "Teenusi ei leitud",
+    "services": "Teenused",
+    "journal": "Logiraamat",
+    "searchServices": "Otsi teenuseid...",
+    "all": "Kõik",
+    "running": "Töötab",
+    "failed": "Ebaõnnestunud ({{failed}})",
+    "failed2": "Ebaõnnestunud",
+    "servicesCard": {
+      "services": "Teenused",
+      "noSystemdOrOpenrc": "Puudub systemd või OpenRC",
+      "failed": "{{failed}} ebaõnnestunud",
+      "allRunning": "Kõik töötavad",
+      "couldNotReadServices": "Teenusi ei õnnestunud lugeda"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "See jääb peatatud olekusse, kuni see käivitatakse uuesti või host taaskäivitub.",
+      "itStopsForAMoment": "See peatub hetkeks ja käivitub uuesti.",
+      "stop": "Peata",
+      "restart": "Taaskäivita",
+      "is": "{{name}} olek on {{state}}",
+      "start": "Käivita",
+      "journal": "Logiraamat",
+      "couldNotReadTheService": "Teenust ei õnnestunud lugeda",
+      "couldNot": "Ei õnnestunud {{name}} {{action}}",
+      "startsAtBoot": "Käivitub taaskäivitamisel",
+      "mainPid": "Põhiprotsessi ID",
+      "activeSince": "Aktiivne alates",
+      "unitFile": "Ühiku fail",
+      "notSet": "[määramata]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Sisselogimata",
+        "followFailed": "Jälgimine ebaõnnestus",
+        "connectionFailed": "Ühendus ebaõnnestus"
+      }
+    },
+    "couldNotReadServices": "Teenusi ei õnnestunud lugeda",
+    "services2": "Teenused{{where}}",
+    "title": "Teenused",
+    "failedCount": "{{count}} ebaõnnestunud"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Sessiooni jagamine",
+      "shareLink": "Jaga link"
+    },
+    "shareSessionView": {
+      "canWatch": "Võib vaadata",
+      "canType": "Võib trükkida",
+      "n1Hour": "1 tund",
+      "n8Hours": "8 tundi",
+      "n1Day": "1 päev",
+      "n7Days": "7 päeva",
+      "never": "Mitte kunagi",
+      "shareSession": "Jaga sessiooni",
+      "anyoneWithTheLinkCan": "Igaüks, kellel on link, saab seda terminali avada, kui see töötab. Lingid saad Termixis kehtetuks tunnistada.",
+      "peopleWithTheLink": "Inimesed, kellel on link",
+      "expiresAfter": "Aegub pärast",
+      "link": "Link",
+      "copy": "Kopeeri",
+      "share": "Jaga",
+      "makeLink": "Loo link",
+      "theServerGaveNoLink": "Server ei andnud linki",
+      "couldNotMakeALink": "Linki ei õnnestunud luua",
+      "linkCopied": "Link kopeeritud"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Puudub kaust"
+    },
+    "hostPicker": {
+      "selectNone": "Tühista valikud",
+      "selectAll": "Vali kõik",
+      "done": "Valmis"
+    },
+    "register": {
+      "snippets": "Koodilõigud",
+      "snippets2": "KOODILÕIGUD",
+      "savedCommandsToRunOn": "Salvestatud käsud, mida saab käivitada mis tahes hostil"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Selle hostini ei ole siit võimalik pääseda",
+      "exitedWith": "Lõpetati väljumiskoodiga {{exitCode}}",
+      "thisCanTRunIt": "See {{deviceWord}} ei suuda seda käivitada",
+      "noServerIsLinked": "Ühtegi serverit pole seotud"
+    },
+    "runOnHostsSheet": {
+      "run": "Käivita",
+      "run2": "Käivita \"{{name}}\"",
+      "runsOverSshOnEach": "Käivitub SSH kaudu igal hostil. Terminali aken ei avane.",
+      "close": "Sulge",
+      "hosts": "Hostid",
+      "pickHosts": "Vali hostid",
+      "workedFailed": "{{value}} õnnestus, {{failed}} ebaõnnestus",
+      "runOn2": "Käivita hostidel",
+      "runOn_one": "Kas käivitada {{name}} {{count}} hostil?",
+      "runOn_other": "Kas käivitada {{name}} {{count}} hostil?",
+      "hostsPicked_one": "{{count}} host valitud",
+      "hostsPicked_other": "{{count}} hosti valitud"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Otsi koodilõike",
+      "pastesTheNote": "Kleebib märkuse",
+      "runsTheSnippet": "Käivitab koodilõigu",
+      "noSnippetsMatch": "Ühtegi koodilõiku ei leitud",
+      "noSnippetsYet": "Koodilõikeid pole veel",
+      "addSnippetsInSettingsSnippets": "Lisa koodilõikeid seadistustes, Koodilõigud",
+      "run": "Käivita",
+      "insertWithoutRunning": "Sisesta ilma käivitamata",
+      "copy": "Kopeeri"
+    },
+    "snippetsCard": {
+      "snippets": "Koodilõigud",
+      "run": "Käivita {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Eksporditavad koodilõikeid pole",
+      "couldNotMakeTheFile": "Faili ei õnnestunud luua",
+      "copiedToTheClipboard": "Kopeeritud lõikelauale",
+      "couldNotImport": "Importimine ei õnnestunud",
+      "couldNotReadThatFile": "Seda faili ei õnnestunud lugeda",
+      "importAndExport": "Import ja eksport",
+      "theSameFileTheWeb": "Sama fail, mida veebirakendus kasutab.",
+      "export": "Ekspordi",
+      "shareAFile": "Jaga faili",
+      "copy": "Kopeeri",
+      "import": "Impordi",
+      "updateSnippetsThatExist": "Uuenda olemasolevaid koodilõike",
+      "sameNameInTheSame": "Sama nimi samas kaustas. Muud jäetakse vahele.",
+      "chooseAFile": "Vali fail",
+      "paste": "Kleebi",
+      "saveYourSnippets": "Salvesta oma koodilõigud"
+    },
+    "useSnippetRunner": {
+      "run": "Kas käivitada {{name}}?",
+      "run2": "Käivita",
+      "fillInTheValuesFor": "Täida selle koodilõigu väärtused.",
+      "cancel": "Tühista",
+      "insert": "Sisesta",
+      "noTerminalIsOpen": "Terminali aken ei ole avatud"
+    },
+    "variables": {
+      "input": "Sisend {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "See ei ole kehtiv JSON-fail",
+      "theFileNeedsASnippets": "Failis peab olema koodilõikude või kaustade nimekiri",
+      "snippetNameAndContentAre": "Koodilõik {{value}}: nimi ja sisu on kohustuslikud",
+      "folder": "Kaust {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Tailscale seadmete laadimine…",
+      "searchTailscaleDevices": "Otsi Tailscale seadmeid…",
+      "searchTailscaleDevices2": "Otsi Tailscale'i seadmeid",
+      "clearDeviceSearch": "Tühista seadmete otsing",
+      "refreshTailscaleDevices": "Värskenda Tailscale'i seadmeid",
+      "device": "Seade",
+      "noTailnetAddress": "Puudub tailneti aadress",
+      "tailscaleDevice": "Tailscale'i seade",
+      "tailscaleDevices": "Tailscale'i seadmed",
+      "addAHostThatConnects": "Lisa host, mis ühendub Tailscale SSH-ga.",
+      "username": "Kasutajanimi",
+      "sshUsernameFor": "SSH kasutajanimi hostile {{value}}",
+      "addHost": "Lisa host",
+      "noTailscaleDevicesMatchYour": "Ükski Tailscale'i seade ei vasta otsingule.",
+      "noTailscaleDevicesFound": "Tailscale'i seadmeid ei leitud.",
+      "noTailscaleApiKeyIs": "Sellel serveril ei ole Tailscale'i API-võtit. Paluge administraatoril see lisada.",
+      "youDoNotHavePermission": "Sul puudub õigus Tailscale'i seadmete nimekirja kuvamiseks.",
+      "couldNotLoadTailscaleDevices": "Tailscale'i seadmeid ei õnnestunud laadida. Proovi uuesti värskendades.",
+      "tailscaleIsUnavailableOnThis": "Tailscale ei ole sellel serveril saadaval."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Ühenduse taastamine | proov {{attempt}}",
+      "reconnectingInSTry": "Ühenduse taastamine {{secs}} s pärast | proov {{attempt}}",
+      "offlineWaitingForNetwork": "Võrguühendus puudub, oodatakse võrku",
+      "sendToTheNewShell": "Kas saata {{what}} uuele käsureale?",
+      "reconnectNow": "Taasta ühendus kohe",
+      "send": "Saada",
+      "discard": "Loobu",
+      "typedChars_one": "{{count}} trükitud täht",
+      "typedChars_other": "{{count}} trükitud tähte",
+      "waiting": "{{what}} ootab"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Ühenduslogi kopeeritud",
+      "connectionLog": "Ühenduslogi",
+      "copyItIntoABug": "Kopeeri see veateate sisse. Aadressid ja kasutajanimed on välja jäetud.",
+      "copy": "Kopeeri"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Kas kustutada selle hosti ajalugu?",
+        "clear": "Kustuta",
+        "searchHistory": "Otsi ajaloost",
+        "typesTheCommandWithoutRunning": "Trükkib käsu, ilma seda käivitamata",
+        "noCommandsMatch": "Ükski käsk ei vasta",
+        "noHistoryYet": "Ajaloos pole veel midagi",
+        "commandsYouRunOnThis": "Sellel hostil käivitatud käsud kuvatakse siin",
+        "run": "Käivita",
+        "typeWithoutRunning": "Trüki ilma käivitamata",
+        "copy": "Kopeeri",
+        "delete": "Kustuta",
+        "historyCleared": "Ajalugu kustutatud"
+      },
+      "suggestionStrip": {
+        "use": "Kasuta käsku {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Rakenduse seadistus",
+      "delete": "Kustuta (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Vahekaardi pealkiri käsurealt",
+      "programsCanSetTheTab": "Programmid saavad määrata vahekaardi pealkirja",
+      "openTmux": "Ava tmux",
+      "attachToATmuxSession": "Liitu tmuxi sessiooniga või käivita uus",
+      "reconnectOnDrop": "Taasta ühendus katkemisel",
+      "keepTabOpenOnExit": "Hoia vahekaart avatuna väljumisel",
+      "pressEnterToConnectAgain": "Vajuta Enter, et ühenduda uuesti",
+      "saveCommandHistory": "Salvesta käsuajalugu",
+      "offerToFillPasswordPrompts": "Paku paroolipäringute täitmist",
+      "offerToFillSudoPrompts": "Paku sudo-päringute täitmist",
+      "usesTheSudoPasswordFrom": "Kasutab SSH-vahekaardist sudo parooli",
+      "none": "Puudub",
+      "look": "Välimus",
+      "theme": "Teema",
+      "font": "Font",
+      "cursor": "Kursor",
+      "bell": "Helk",
+      "scrollbackLines": "Kerimisridu",
+      "app": "Rakendus",
+      "behavior": "Käitumine",
+      "backspaceSends": "Tagasikustutus saadab",
+      "startupSnippet": "Käivitussnipp",
+      "runsOnceTheShellIs": "Käivitub, kui shell on valmis",
+      "fillWithoutAsking": "Täida küsimata",
+      "onThisOnlyOnceYou": "Ainult sellel {{deviceWord}}il, pärast kui oled valinud Täida alati",
+      "connection": "Ühendus",
+      "keepalive": "Ühenduse hoidmine",
+      "secondsBetweenPings0Turns": "Sekundeid pingide vahel, 0 lülitab selle välja",
+      "default": "Vaikimisi",
+      "keepaliveSeconds": "Ühenduse hoidmise sekundid",
+      "missedPings": "Märkamata pingid",
+      "dropTheConnectionAfterThis": "Katkesta ühendus, kui nii palju jääb vastamata",
+      "missedPingsBeforeDrop": "Märkamata pingid enne katkestamist",
+      "environment": "Keskkond",
+      "removeVariable": "Eemalda muutuja",
+      "addVariable": "Lisa muutuja"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "KLAVIatuur"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rida",
+        "keys": "Klahvid",
+        "sendsAKeyCode": "Saadab klahvkoodi",
+        "stickyModifier": "Kleepuv modifikaator",
+        "appAction": "Rakenduse tegevus",
+        "tmuxPrefixThen": "tmux eesliide, siis {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Klahviread",
+        "onlyFor": "Ainult {{name}} jaoks",
+        "usingTheAppSRows": "Kasutab rakenduse ridu. Muudatused siin kehtivad ainult {{name}} jaoks",
+        "useTheAppSRows": "Kasuta rakenduse ridu"
+      },
+      "keyButton": {
+        "locked": "Lukustatud"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Tühista",
+        "remove": "Kas eemaldada {{what}}?",
+        "remove2": "Eemalda",
+        "dragToReorder": "Lohe ümberjärjestamiseks",
+        "rowName": "Rea nimi",
+        "groupName": "Rühma nimi",
+        "add": "Lisa",
+        "addKey": "Lisa klahv",
+        "addRow": "Lisa rida",
+        "addGroup": "Lisa rühm",
+        "tmuxPrefix": "tmux eesliide",
+        "name": "Nimi",
+        "rename": "Nimeta ümber",
+        "keys": "{{value}} klahvi",
+        "noKeys": "Klahve pole",
+        "remove3": "Eemalda {{label}}",
+        "keys2": "Klahvid",
+        "custom": "Kohandatud",
+        "add2": "Lisa {{label}}",
+        "typeText": "Sisesta tekst",
+        "runCommand": "Käivita käsk",
+        "ctrlKey": "Ctrl-klahv",
+        "label": "Silt",
+        "optional": "Valikuline",
+        "letter": "Täht",
+        "command": "Käsk",
+        "text": "Tekst",
+        "resetToDefault": "Lähtesta vaikeväärtusele"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Muuda klahve Seaded > Klaviatuur"
+      },
+      "keyRowBar": {
+        "keyRow": "Klahvirida {{label}}",
+        "tapForTheNextRow": "Puuduta järgmise rea jaoks, hoia all, et valida",
+        "keyRows": "Klahviridad"
+      },
+      "model": {
+        "clear": "Tühjenda",
+        "main": "Põhi",
+        "keys": "Klahvid",
+        "arrows": "Nooled",
+        "symbols": "Sümbolid",
+        "actions": "Tegevused",
+        "nav": "Navigeerimine",
+        "move": "Liiguta",
+        "function": "Funktsioon",
+        "brackets": "Sulgud",
+        "punctuation": "Kõne märgid",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Aknaosad",
+        "copy": "Kopeeri",
+        "split": "Jaga ─",
+        "split2": "Jaga │",
+        "newWin": "Uus aken",
+        "prevWin": "Eelmine aken",
+        "nextWin": "Järgmine aken",
+        "pane": "Aken ←",
+        "pane2": "Aken ↓",
+        "pane3": "Aken ↑",
+        "pane4": "Aken →",
+        "copyMode": "Kopeerimisrežiim",
+        "pasteBuf": "Kleebi puhver",
+        "killPane": "Sulge aken"
+      }
+    },
+    "output": {
+      "openLink": "Ava link?",
+      "open": "Ava",
+      "pasteLines": "Kleebida {{lines}} rida?",
+      "pasteThisText": "Kleebida see tekst?",
+      "theShellMayRunIt": "Kest võib selle kohe käivitada.\n\n{{text}}",
+      "paste": "Kleebi",
+      "letTheProgramReadYour": "Lubada programmi lugeda lõikelaualt?",
+      "itAskedForWhatYou": "See küsis viimast kopeeritud sisu.",
+      "allow": "Luba",
+      "letTheProgramCopyTo": "Lubada programmi kopeerida lõikelauale?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Täita salvestatud parool?",
+      "asksForTheSudoPassword": "{{hostName}} küsib sudo parooli.",
+      "asksForAPassword": "{{hostName}} küsib parooli.",
+      "fillPassword": "Täita parool",
+      "alwaysFillOnThisHost": "Täida alati sellel hostil",
+      "asksNoMoreOnThis": "Ei küsi enam sellel {{deviceWord}}. Lülita see välja hosti Terminali vahekaardil.",
+      "notNow": "Pole nüüd"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal ja ühenduse hoidmine",
+      "history": "AJALUGU",
+      "find": "Otsi",
+      "tmuxWindows": "tmux aknad",
+      "connectionLog": "Ühenduse logi",
+      "keyRowsForThisHost": "Klahviridad sellele hostile"
+    },
+    "searchBar": {
+      "noResults": "Tulemusi pole",
+      "matchCase": "Sõna pikkuse tähtsus",
+      "wholeWord": "Terve sõna",
+      "regularExpression": "Regulaaravaldis",
+      "find": "Otsi",
+      "closeFind": "Sulge otsing"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Süsteem",
+      "block": "Plokk",
+      "bar": "Riba",
+      "underline": "Allakriipsutatud",
+      "off": "Väljas",
+      "sound": "Heli",
+      "flash": "Välkumine",
+      "both": "Mõlemad"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Uus kaart sellel hostil",
+      "closeTab": "Sulge kaart",
+      "nextTab": "Järgmine kaart",
+      "previousTab": "Eelmine kaart",
+      "goToTab": "Mine kaardile",
+      "find": "Otsi",
+      "fontSize": "Fondi suurus",
+      "paste": "Kleebi",
+      "escape": "Escape",
+      "copyAndPaste": "Kopeeri ja kleebi"
+    },
+    "reconnecting": "Ühenduse taastamine...",
+    "waitingForNetwork": "Võrgu ootamine...",
+    "waitingForYou": "Sinu ootamine...",
+    "connecting": "Ühenduse loomine...",
+    "terminalView": {
+      "scrollToBottom": "Kerige lõppu",
+      "onlyWebLinksCanOpen": "Terminalist saab avada ainult veebilinke",
+      "couldNotOpenLink": "Linki ei õnnestunud avada",
+      "copiedFromTheTerminal": "Terminalist kopeeritud"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Ava tmux-i sessioon",
+        "newSession": "Uus sessioon",
+        "plainShell": "Lihtne käsurea keskkond",
+        "tmuxWindows": "tmux-i aknad",
+        "newWindow": "Uus aken",
+        "windowCount_one": "{{count}} aken",
+        "windowCount_other": "{{count}} akent",
+        "attached": "{{count}} ühendatud",
+        "activeNow": "praegu aktiivne",
+        "activeMinAgo": "aktiivne {{count}} min tagasi",
+        "activeHoursAgo": "aktiivne {{count}} t tagasi",
+        "activeDaysAgo_one": "aktiivne {{count}} päev tagasi",
+        "activeDaysAgo_other": "aktiivne {{count}} päeva tagasi"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopeeri",
+        "selectAll": "Vali kõik",
+        "cancel": "Tühista",
+        "scrollToBottom": "Kerige lõppu",
+        "couldNotCopy": "Kopeerimine ei õnnestunud",
+        "webviewError": "WebViewi viga: {{description}}",
+        "webviewHttpError": "WebViewi HTTP viga: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Sellele hostile pole salvestatud parooli",
+    "backInTmuxSession": "Tagasi tmux-i sessioonis {{tmuxName}}",
+    "backInScreenSession": "Tagasi screeni sessioonis {{name}}",
+    "theServerSessionEndedThis": "Serveri sessioon lõppes. See on uus käsurea keskkond.",
+    "termixWasClosedSoThe": "Termix suleti, seega lõppes vana käsurea keskkond. See on uus käsurea keskkond.",
+    "theConnectionDroppedAndThe": "Ühendus katkes ja vana käsurea keskkond lõppes. See on uus käsurea keskkond.",
+    "disconnectedFrom": "Ühendus hostiga {{hostName}} katkenud"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Kaheastmeline autentimine",
+      "codesFromAnAuthenticatorApp": "Autentifitseerimisrakendusest saadud koodid teie serveri konto jaoks"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-aadress",
+      "neededToWakeThisHost": "Vajalik selle hosti ärkamiseks Wake-on-LAN kaudu",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Kasutage MAC-aadressi kujul 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN saadetud hostile {{name}}",
+      "failedToSendWakeOn": "Wake-on-LAN paketi saatmine ebaõnnestus",
+      "noServer": "Serverit pole"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Ärka {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Kas jagada anonüümseid kasutusstatistikaid?",
+      "termixWouldSendAShort": "Termix saadab lühikese aruande üks kord päevas. Seda seadet saate igal ajal Seadistustes muuta.",
+      "noThanks": "Ei, tänu",
+      "share": "Jaga",
+      "theReportHasTheApp": "Aruanne sisaldab rakenduse versiooni, {{deviceWord}} tüüpi, hostide ja sessioonide ligikaudset arvu, kasutatud funktsioone ning ühenduse loomise edu. See ei sisalda kunagi hostinimesi, kasutajanimi, aadresse, teekondi, käske ega serverite nimesid.",
+      "seeExactlyWhatIsSent": "Vaata täpselt, mis saadetakse"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Laadin versiooni teavet…",
+      "updateAvailable": "Uuendus saadaval",
+      "newVersionAvailable": "Uus versioon on saadaval",
+      "aNewerVersionOfThe": "Mobiilirakenduse uuem versioon on saadaval. Mõned funktsioonid ei pruugi enne uuendamist korralikult töötada.",
+      "versionInformation": "Versiooni teave",
+      "installed": "Paigaldatud",
+      "latest": "Uusim",
+      "unknown": "Tundmatu",
+      "tag": "Silt",
+      "continueAnyway": "Jätka siiski"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopeeritud",
+      "copy": "Kopeeri",
+      "hostKeyChanged": "Hosti võti on muutunud",
+      "verifyHostKey": "Kinnita hosti võti",
+      "cancel": "Tühista",
+      "acceptNewKey": "Nõustu uue võtmega",
+      "connectAndTrust": "Ühendu ja usalda",
+      "theHostSSshKey": "Hosti SSH-võti on viimasest ühendusest peale muutunud. See võib tähendada, et keegi püüab ühendust pealt kuulata.",
+      "youAreConnectingToThis": "Ühendate selle hostiga esimest korda. Kontrollige sõrmejälge enne usaldamist.",
+      "previousKey": "Eelmine võti",
+      "newFingerprint": "Uus sõrmejälg",
+      "hostFingerprint": "Hosti sõrmejälg"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Parool on nõutud",
+      "enterThePassphraseForYour": "Sisestage oma SSH-võtme parool.",
+      "cancel": "Tühista",
+      "connect": "Ühendu",
+      "keyPassphrase": "Võtme parool"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-autentimine on nõutud",
+      "cancel": "Tühista",
+      "connect": "Ühendu",
+      "password": "Parool",
+      "sshKey": "SSH-võti",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nKleepige oma privaatvõti siia...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Võtme parool (valikuline)",
+      "keyboardInteractiveAuthIsNot": "Klaviatuuripõhine interaktiivne autentimine ei ole saadaval. Sisestage andmed otse.",
+      "authenticationFailedPleaseReEnter": "Autentimine ebaõnnestus. Palun sisestage oma andmed uuesti.",
+      "connectionTimedOutPleaseTry": "Ühendus aegus. Palun proovige oma andmetega uuesti."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH kontroll",
+      "completeTheTailscaleSshCheck": "Jätkamiseks lõpetage Tailscale SSH kontroll oma brauseris.",
+      "cancel": "Tühista",
+      "copyUrl": "Kopeeri URL",
+      "openBrowser": "Ava brauser",
+      "urlCopied": "URL kopeeritud",
+      "failedToCopy": "Kopeerimine ebaõnnestus",
+      "couldNotOpenBrowser": "Brauserit ei õnnestunud avada"
+    },
+    "tOTPDialog": {
+      "cancel": "Tühista",
+      "submit": "Saada",
+      "verify": "Kinnita",
+      "password": "Parool",
+      "pasteCode": "Kleebi kood",
+      "passwordRequired": "Parool on nõutud",
+      "twoFactorAuthentication": "Kaheastmeline autentimine",
+      "enterYourPasswordToContinue": "Sisestage jätkamiseks oma parool.",
+      "enterThe6DigitCode": "Sisestage 6-kohaline kood oma autentimise rakendusest."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate'i autentimine",
+      "authenticateViaTheWarpgatePortal": "Autentige Warpgate'i portaaliga ja puudutage seejärel jätkamiseks.",
+      "cancel": "Tühista",
+      "openBrowser": "Ava brauser",
+      "continue": "Jätka",
+      "securityKey": "Turvavõti",
+      "authUrl": "Autentimise URL",
+      "copied": "Kopeeritud",
+      "copy": "Kopeeri",
+      "urlCopied": "URL kopeeritud",
+      "failedToCopy": "Kopeerimine ebaõnnestus",
+      "couldNotOpenBrowser": "Brauserit ei õnnestunud avada"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "see {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Viimane tegevus",
+        "files": "Failid",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Teavitused",
+        "seeAll": "Kuva kõik"
+      },
+      "server": "Server",
+      "openSessions": "Avatud sessioonid",
+      "quickAccess": "Kiirjuurdepääs",
+      "notifications": "Teavitused",
+      "pinnedHosts": "Kinnitatud hostid",
+      "recentHosts": "Viimati kasutatud hostid",
+      "recentActivity": "Viimane tegevus",
+      "pinnedCard": {
+        "addYourFirstHost": "Lisa oma esimene host",
+        "hostsYouOpenShowUp": "Siin kuvatakse hostid, mida avate, ning kinnitatud hostid kuvavad reaalajas kaarte.",
+        "addHost": "Lisa host",
+        "linkAServer": "Lingi server",
+        "pinAHostToSee": "Kinnita host, et seda siin näha",
+        "pinnedHostsShowTheirMetrics": "Kinnitatud hostid kuvavad nende meetrikaid, Dockerit ja teenuseid ülevaates. Hoidke hosti all, et see kinnitada.",
+        "goToHosts": "Mine hostide juurde",
+        "pinned": "Kinnitatud",
+        "opensTheTerminalHoldFor": "Avab terminali. Hoidke all, et näha rohkem.",
+        "turnOnDockerOrServices": "Lülitage selle hosti jaoks sisse Docker või Teenused või puudutage seda, et ühendust luua.",
+        "opens": "Avab {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Kiirjuurdepääs",
+        "quickConnect": "Kiirühendus",
+        "userHostPortWithoutSaving": "kasutaja@host:port, ilma salvestamata"
+      },
+      "recentCard": {
+        "recent": "Viimati"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Versioon",
+        "uptime": "Ühendusaja pikkus",
+        "database": "Andmebaas",
+        "hosts": "Hostid",
+        "online": "Ühendatud",
+        "offline": "Ühendusest väljas",
+        "logins": "Sisselogimised"
+      },
+      "sessionsCard": {
+        "openSessions": "Avatud sessioonid",
+        "connected": "Ühendatud"
+      }
+    },
+    "resetHome": "Taasta avaleht?",
+    "cardsGoBackToThe": "Kaardid taastavad vaikimisi järjekorra ja kuvatud kaardid.",
+    "reset": "Taasta",
+    "doneEditingHome": "Avalehe muutmine lõpetatud",
+    "editHome": "Muuda avalehte",
+    "dragToReorder": "Lohista {{title}} järjekorda muutmiseks",
+    "show": "Kuva {{title}}",
+    "dragCardsToReorderThem": "Lohista kaarte, et muuta nende järjekorda. Lülita kaart välja, et peita see. Kaardid, millel pole midagi kuvada, jäävad automaatselt peidetud.",
+    "resetToDefault": "Taasta vaikimisi",
+    "done": "Valmis",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Serverile ei õnnestu endiselt ühendust saada",
+      "canTReach": "{{account}}-ile ei õnnestu ühendust saada",
+      "youCanKeepWorkingWith": "Saad jätkata tööd selle {{deviceWord}} koopiaga. Muudatused saadetakse serverisse, kui see taasühendub.",
+      "hostsSetToConnectFrom": "Sellelt {{deviceWord}} ühendusele seatud hostid töötavad endiselt.",
+      "tryAgain": "Proovi uuesti",
+      "noAnswer": "vastust ei ole"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vaulti profiil",
+      "none": "Puudub",
+      "signsInWithInYour": "Sisselogimine toimub brauseris läbi Termixi serveri, kasutades {{title}}. Ühenda see host serveri kaudu.",
+      "needsATermixServerLink": "{{title}} nõuab Termixi serverit. Ühenda üks, et kasutada seda sisselogimist.",
+      "isOffOnThisServer": "{{title}} on sellel serveril välja lülitatud. See host säilitab oma sisselogimise seadete."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Logimisandmeid ei õnnestunud laadida",
+      "deleted": "\"{{name}}\" kustutatud",
+      "couldNotDeleteTheCredential": "Logimisandmeid ei õnnestunud kustutada",
+      "credentials": "Logimisandmed",
+      "add": "Lisa",
+      "searchCredentials": "Otsi logimisandmeid",
+      "clearSearch": "Tühjenda otsing",
+      "loadingCredentials": "Laadin logimisandmeid...",
+      "noCredentialsMatchYourSearch": "Ükski logimisandmed ei vasta sinu otsingule",
+      "noCredentialsYet": "Logimisandmeid pole veel",
+      "addCredential": "Lisa logimisandmed",
+      "edit": "Muuda",
+      "delete": "Kustuta",
+      "deleteCredential": "Kustuta logimisandmed",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" kustutatakse püsivalt. Hostid, mis seda kasutavad, kaotavad oma salvestatud logimisandmed.",
+      "cancel": "Tühista",
+      "hostCount_one": "{{count}} host",
+      "hostCount_other": "{{count}} hosti",
+      "sshKey": "SSH võti"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Kas asendada võti?",
+        "theNewKeyTakesThe": "Uus võti asendab praeguse. Hostid, mis usaldavad ainult vanat võtit, ei aktsepteeri enam neid logimisandmeid.",
+        "replace": "Asenda",
+        "newKeyMadeCopyThe": "Uus võti loodud. Kopeeri avalik võti oma hostidele.",
+        "couldNotMakeAKey": "Võtit ei õnnestunud luua",
+        "couldNotReadThatCertificate": "Seda sertifikaadifaili ei õnnestunud lugeda",
+        "leaveWithoutSaving": "Kas lahku ilma salvestamata?",
+        "yourChangesToThisCredential": "Sinu muudatused nendes logimisandmetes kaovad.",
+        "leave": "Lahku",
+        "credentialSaved": "Logimisandmed salvestatud",
+        "credentialAdded": "Logimisandmed lisatud",
+        "couldNotSaveTheCredential": "Logimisandmeid ei õnnestunud salvestada",
+        "enterAHostToTest": "Sisesta testimiseks host, näiteks 10.0.0.5 või box:2222.",
+        "enterTheUsernameFirst": "Sisesta esmalt kasutajanimi.",
+        "editCredential": "Muuda logimisandmeid",
+        "newCredential": "Uued logimisandmed",
+        "cancel": "Tühista",
+        "save": "Salvesta",
+        "credential": "Autentimisandmed",
+        "name": "Nimi",
+        "productionKey": "Tootmisklahv",
+        "username": "Kasutajanimi",
+        "signInWith": "Logi sisse kasutades",
+        "password": "Parool",
+        "sshKey": "SSH-klahv",
+        "unchangedIfBlank": "Jääb muutumatuks, kui jätta tühjaks",
+        "key": "Klahv",
+        "fileOrPaste": "Fail või kleepimine",
+        "makeANewKey": "Loo uus klahv",
+        "aKeyIsSavedChoose": "Klahv on juba salvestatud. Vali fail või kleepi uus, et asendada.",
+        "type": "Tüüp",
+        "ed25519AndEcdsaAreMade": "Ed25519 ja ECDSA luuakse sellel {{deviceWord}}il, RSA sinu serveris.",
+        "madeOnThisEd25519Works": "Loodud sellel {{deviceWord}}il. Ed25519 toimib peaaegu kõikjal.",
+        "passphrase": "Salafraas",
+        "optionalLocksTheNewKey": "Valikuline. Lukustab uue klahvi sellel {{deviceWord}}il ja kettal.",
+        "makeKey": "Loo klahv",
+        "publicKey": "Avalik klahv",
+        "addThisLineToSsh": "Lisa see rida oma hostide faili ~/.ssh/authorized_keys",
+        "publicKeyCopied": "Avalik klahv kopeeritud",
+        "copyPublicKey": "Kopeeri avalik klahv",
+        "certificate": "Sertifikaat",
+        "aCertificateYourCaSigned": "Sinu CA poolt selle klahvi jaoks allkirjastatud sertifikaat, hostide jaoks, kes usaldavad seda CA-d.",
+        "chooseCertificateFile": "Vali sertifikaadifail",
+        "thisDoesNotLookLike": "See ei näi olevat OpenSSH sertifikaat.",
+        "test": "Testi",
+        "hostToTestOn": "Testimiseks host",
+        "n10005Or": "10.0.0.5 või box.lan:2222",
+        "pickASavedHost": "Vali salvestatud host",
+        "details": "Üksikasjad",
+        "description": "Kirjeldus",
+        "whatThisCredentialIsFor": "Milleks need autentimisandmed on mõeldud",
+        "folder": "Kaust",
+        "serverKeys": "Serveri klahvid",
+        "testOnAHost": "Testi hostil",
+        "rsaKeysNeedALinked": "RSA-klahvid vajavad seotud serverit."
+      },
+      "model": {
+        "giveThisCredentialAName": "Anna sellele autentimisandmetele nimi",
+        "addAPrivateKeyOr": "Lisa privaatne klahv või loo uus"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "See on hosti sertifikaat, mitte kasutaja sertifikaat.",
+        "thisCertificateIsNotValid": "See sertifikaat ei ole veel kehtiv.",
+        "thisCertificateHasExpired": "Selle sertifikaadi kehtivusaeg on lõppenud.",
+        "itIsForAKey": "See on mõeldud {{keyType}} klahvi jaoks, kuid see klahv on {{keyType2}}.",
+        "forAnyUser": "Iga kasutaja jaoks",
+        "validFromNoEndDate": "Kehtiv alates {{validAfter}}, lõppkuupäeva pole",
+        "signedBy": "Allkirjastanud {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Kasutajanimi",
+        "fromTheCredential": "Autentimisandmetest: {{credentialUser}}",
+        "signInWith": "Logi sisse kasutades",
+        "password": "Parool",
+        "key": "Klahv",
+        "credential": "Autentimisandmed",
+        "none": "Puudub",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Ühendub Tailscale SSH-ga. Parooli ega klahvi ei salvestata.",
+        "tailscaleIsNotOnFor": "Tailscale ei ole hostil {{value}} sisse lülitatud. See host säilitab oma Tailscale'i sisselogimise.",
+        "unchangedIfBlank": "Jääb muutumatuks, kui jätta tühjaks",
+        "noCredentialsYetTapThe": "Autentimisandmeid pole veel. Lisa uus, vajutades Hostides klahvi ikoonile.",
+        "useCredential": "Kasuta usaldusandmeid {{name}}",
+        "sudoPassword": "Sudo parool",
+        "typedIntoSudoPromptsWhen": "Sisestatakse sudo küsimistesse, kui Terminaali jaotus selle lubab",
+        "notSet": "Määramata",
+        "thisServer": "see server"
+      },
+      "colorIconField": {
+        "color": "Värv",
+        "noColor": "Värvita",
+        "color2": "Värv {{c}}",
+        "icon": "Ikoon",
+        "noIcon": "Ikoonita",
+        "none": "Puudub",
+        "icon2": "Ikoon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Kas lahked ilma salvestamata?",
+        "yourChangesToThisHost": "Teie muudatused sellele hostile kaovad.",
+        "leave": "Lahe",
+        "couldNotSaveHowThis": "Selle hosti ühenduse salvestamine ei õnnestunud",
+        "hostSaved": "Host salvestatud",
+        "hostAdded": "Host lisatud",
+        "couldNotSaveTheHost": "Hosti salvestamine ei õnnestunud",
+        "enterTheHostSAddress": "Sisestage kõigepealt hosti aadress.",
+        "turnOnSshToTest": "Lubage SSH, et testida sisselogimist.",
+        "pickACredentialFirst": "Valige kõigepealt usaldusandmed.",
+        "editHost": "Muuda hosti",
+        "newHost": "Uus host",
+        "cancel": "Tühista",
+        "save": "Salvesta",
+        "host": "Host",
+        "name": "Nimi",
+        "myServer": "Minu server",
+        "address": "Aadress",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port ja kasutajanimi pärinevad teie hosti vaikeväärtustest, kuni te neid muudate.",
+        "folder": "Kaust",
+        "production": "Tootmine",
+        "useAFolderInstead": "Kasutage selle asemel kausta",
+        "putItUnderAHost": "Asetage see selle asemel hosti alla",
+        "pinToTop": "Kinnita ülaossa",
+        "colorAndIcon": "Värv ja ikoon",
+        "notes": "Märkmed",
+        "anythingWorthRememberingAboutThis": "Midagi mäletamist väärt selle hosti kohta",
+        "protocols": "Protokollid",
+        "terminalFilesAndMore": "Terminaali, failid ja muu",
+        "connectFrom": "Ühendu läbi",
+        "features": "Funktsioonid",
+        "otherProtocols": "Muud protokollid",
+        "more": "Rohkem",
+        "theTestRunsFromThis": "Test käivitub sellest {{deviceWord}}. See host ühendub serveri kaudu, seega võib see ikka töötada, kui {{deviceWord}} ei suuda sellele ligi pääseda."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Hüppemajad",
+        "connectsThroughTheseInOrder": "Ühendub nendega järjekorras, seejärel sellele hostile",
+        "reachThisHostThroughOther": "Pääse sellele hostile kõigepealt teiste hostide kaudu",
+        "moveUp": "Liiguta üles",
+        "moveDown": "Liiguta alla",
+        "removeJumpHost": "Eemalda hüppemaja",
+        "addJumpHost": "Lisa hüppemaja",
+        "pickASavedHostTo": "Valige salvestatud host, mille kaudu ühenduda",
+        "searchHosts": "Otsi hoste",
+        "noOtherHostsToPick": "Muid hoste pole valida. Host ei saa hüppa läbi ennast või hosti, mis juba läbi selle läheb.",
+        "missingHost": "Puuduv host #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Lubage vähemalt üks protokoll",
+        "pickACredential": "Valige usaldusandmed",
+        "enterTheHostSAddress": "Sisesta hosti aadress",
+        "theAddressCanTHave": "Aadress ei tohi sisaldada tühikuid",
+        "portMustBeFrom1": "Port peab olema vahemikus 1–65535",
+        "enterTheSshUsername": "Sisesta SSH kasutajanimi"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Host kuvatakse valitud hosti all",
+        "searchHosts": "Hostide otsimine",
+        "noHostsToPickA": "Valitavad hostid puuduvad. Host ei saa olla enda, oma alamhosti ega jagatud hosti all.",
+        "parentHost": "Ülemhost",
+        "subHostsFollowTheFolder": "Alamhostid järgivad oma ülemhosti kausta",
+        "pickParentHost": "Vali ülemhost",
+        "missingHost": "Puuduv host #{{value}}",
+        "pickAHost": "Vali host",
+        "clearParentHost": "Kustuta ülemhost"
+      },
+      "tagsField": {
+        "tags": "Sildid",
+        "typeATagAndPress": "Kirjuta silt ja vajuta Enter",
+        "removeTag": "Eemalda silt {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Ei õnnestunud salvestada, kuidas see host ühendusele saab",
+      "addressCopied": "Aadress kopeeritud",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Ühenda seadmelt",
+      "dismiss": "Sulge",
+      "unpin": "Eemalda kinnitamine",
+      "pinToHome": "Kinnita avalehele",
+      "select": "Vali",
+      "editHost": "Muuda hosti",
+      "copyAddress": "Kopeeri aadress",
+      "addSubHost": "Lisa alamhost",
+      "cloneHost": "Kloon host",
+      "deleteHost": "Kustuta host",
+      "connectThroughTheServer": "Ühenda serveri kaudu",
+      "connectFromThis": "Ühenda sellelt {{deviceWord}}"
+    },
+    "defaultYourOrder": "Vaikimisi (sinu järjekord)",
+    "nameAZ": "Nimi (A-Z)",
+    "nameZA": "Nimi (Z-A)",
+    "ipAscending": "IP (kasvav)",
+    "ipDescending": "IP (kahanev)",
+    "onlineFirst": "Ühendatud esimesena",
+    "offlineFirst": "Ühendamatud esimesena",
+    "pinnedFirst": "Kinnitatud esimesena",
+    "status": "Olek",
+    "online": "Ühendatud",
+    "offline": "Ühendamata",
+    "pinned": "Kinnitatud",
+    "protocol": "Protokoll",
+    "features": "Funktsioonid",
+    "hostsCanOnlyMoveInside": "Hoste saab liigutada ainult oma kausta sees",
+    "couldNotUpdateTheHosts": "Ei õnnestunud hoste uuendada",
+    "sharedHostsCanTBe": "Jagatud hoste ei saa siin kustutada",
+    "delete2": "Kustuta",
+    "noneOfTheseHostsOpen": "Ükski neist hostidest ei ava terminali",
+    "couldNotPinTheHost": "Ei õnnestunud hosti kinnitada",
+    "deleted": "Kustutatud {{name}}",
+    "failedToDeleteHost": "Hosti kustutamine ebaõnnestus",
+    "cloned": "Kloonitud {{name}}",
+    "failedToCloneHost": "Hosti kloonimine ebaõnnestus",
+    "reorderWorksWithTheDefault": "Järjestamine toimib ainult vaikimisi sortimise ja ilma otsingu või filtrita",
+    "couldNotSaveTheOrder": "Ei õnnestunud järjekorda salvestada",
+    "noHostsYet": "Hoste veel ei ole",
+    "addAHostToConnect": "Lisa host, et ühendada sellega ühe puudutusega.",
+    "addHost": "Lisa host",
+    "quickConnect2": "Kiirühendus",
+    "linkAServer": "Seo server",
+    "noHostsMatch": "Ühtegi hosti ei leitud",
+    "clearSearchAndFilters": "Tühjenda otsing ja filtrid",
+    "more": "Rohkem",
+    "dragAHostByIts": "Lohista hosti käepidet, et liigutada seda kausta sees.",
+    "done": "Valmis",
+    "filterHosts": "Filtreeri hoste",
+    "clearFilterText": "Tühjenda filtri tekst",
+    "sortHosts": "Järjesta hoste",
+    "removeFilter": "Eemalda filter {{value}}",
+    "loadingHosts": "Hostide laadimine…",
+    "moveUnderAHost": "Liiguta hosti alla",
+    "moveToFolder": "Liiguta kausta",
+    "leaveItEmptyToTake": "Jäta tühjaks, et eemaldada hostid kaustadest.",
+    "folderLikeProdWeb": "Kaust, nt Prod / Web",
+    "move": "Liiguta",
+    "hosts": "Hostid",
+    "selectHosts": "Vali hostid",
+    "reorderHosts": "Järjesta hoste",
+    "customizeList": "Kohanda nimekirja",
+    "chooseWhatEachHostRow": "Vali, mida iga hosti rida kuvab",
+    "credentials2": "Sisselogimisandmed",
+    "savedPasswordsAndKeys": "Salvestatud paroolid ja võtmed",
+    "tailscaleDevices": "Tailscale seadmed",
+    "refresh": "Värskenda",
+    "rowDensityFollowsSettingsAppearance": "Ridade tihedus järgib seadeid, välimust.",
+    "clearAllFilters": "Tühjenda kõik filtrid",
+    "tags": "Sildid",
+    "stopSelecting": "Lõpeta valimine",
+    "selected": "{{count}} valitud",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Seda võtmefaili ei õnnestunud lugeda",
+        "theClipboardIsEmpty": "Lõikelaud on tühi",
+        "privateKey": "Privaatvõti",
+        "chooseFile": "Vali fail",
+        "paste": "Kleebi",
+        "unchangedIfBlank": "Muutumatu, kui tühi",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Salafraas",
+        "onlyIfTheKeyHas": "Ainult kui võtmel on see olemas",
+        "theKeyIsCheckedWhen": "Võtit kontrollitakse ühendumisel.",
+        "thePastedKey": "kleebitud võti"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Ava",
+        "moreActions": "Rohkem tegevusi",
+        "opensTheTerminalHoldFor": "Avab terminali. Hoidke all rohkemate valikute jaoks.",
+        "shared": "Jagatud",
+        "drag": "Lohista {{name}}",
+        "showSubHosts_one": "Kuva {{name}} {{count}} alamhost",
+        "showSubHosts_other": "Kuva {{name}} {{count}} alamhosti",
+        "hideSubHosts_one": "Peida {{name}} {{count}} alamhost",
+        "hideSubHosts_other": "Peida {{name}} {{count}} alamhosti"
+      },
+      "hostList": {
+        "folderHosts": "Kaust {{name}}, {{total}} hosti"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host ja kasutajanimi on kohustuslikud",
+      "hostSaved": "Host salvestatud",
+      "couldNotSaveTheHost": "Hosti ei õnnestunud salvestada",
+      "quickConnect": "Kiirühendus",
+      "connectToAHostWithout": "Ühendu hostiga ilma seda salvestamata.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Kasutajanimi",
+      "password": "Salasõna",
+      "key": "Võti",
+      "privateKey": "Privaatvõti",
+      "saveToMyHosts": "Salvesta minu hostidele",
+      "keepThisHostAfterConnecting": "Hoia see host pärast ühendumist",
+      "cancel": "Tühista",
+      "connect": "Ühendu"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Hostide laadimine serverist",
+      "yourHostsStayOnThis": "{{message}} Sinu hostid jäävad sellele {{deviceWord}} vahepeal."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Selle hosti võti on muutunud",
+      "trustThisHost": "Usalda seda hosti?",
+      "trust": "Usalda",
+      "stopTest": "Katkesta test",
+      "testConnection": "Testi ühendust",
+      "connecting": "Ühenduse loomine..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Hostide laadimine ebaõnnestus."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} jagatud host jäeti muutumatuks.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} jagatud hosti jäeti muutumatuteks.",
+    "deleteHosts_one": "Kustutada {{count}} host?",
+    "deleteHosts_other": "Kustutada {{count}} hosti?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Kausta nimega {{name}} ei leidu"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Host \"{{name}}\": vigane port",
+        "hostJumpIsNotIn": "Host \"{{name}}\": hüppemajand {{value}} ei ole failis, seega jäeti see välja",
+        "credential": "Tunnus {{name}}: {{error}}",
+        "noValidHostEntriesFound": "SSH konfigureerimisfailist ei leitud kehtivaid Host kirjeid",
+        "credentialWasNotFound": "{{label}}: tunnust {{value}} ei leitud"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Host {{value}}: dublikate eksportitud hosti ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Puuduvad nõutud väljad (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Vigane authType. Peab olema üks järgmistest: {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: SSH-ühenduste jaoks on nõutud kasutajanimi",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: tunnuse autentimiseks on nõutud credentialAlias",
+        "thatIsNotAValid": "See ei ole kehtiv JSON-fail",
+        "hostsArrayIsRequiredAnd": "Hostide massiiv on nõutav ja ei tohi olla tühi",
+        "jumpHostCycle": "{{label}}: hüppemajand tsükkel",
+        "jumpHostIsNotIn": "{{label}}: hüppemajand {{id}} ei ole failis"
+      }
+    },
+    "movedTo": "Liigutatud kausta {{value}}",
+    "movedOutOfFolders": "Liigutatud kaustadest välja",
+    "movedUnder": "Liigutatud alla {{value}}",
+    "openTerminals": "Ava terminalid",
+    "theHost": "host"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Peida salasõna",
+      "showPassword": "Näita salasõna",
+      "enterAUsernameAndPassword": "Sisesta kasutajanimi ja salasõna",
+      "useAtLeast6Characters": "Kasuta salasõnaks vähemalt 6 tähemärki",
+      "thePasswordsDonTMatch": "Salasõnad ei kattu",
+      "makeTheAdminAccount": "Loo administraatori konto",
+      "makeAnAccount": "Loo konto",
+      "thisIsTheFirstAccount": "See on serveri esimene konto, seega haldab see serverit.",
+      "pickAUsernameAndPassword": "Vali selle serveri jaoks kasutajanimi ja salasõna.",
+      "username": "Kasutajanimi",
+      "password": "Salasõna",
+      "passwordAgain": "Salasõna uuesti",
+      "makeAccount": "Loo konto",
+      "back": "Tagasi",
+      "haveAnAccountSignIn": "Kas sul on juba konto? Logi sisse",
+      "resetCodeMadeItIs": "Lähtestuskood on loodud. See asub serveri logides",
+      "enterYourUsername": "Sisesta oma kasutajanimi",
+      "enterTheResetCode": "Sisesta lähtestuskood",
+      "passwordChangedSignInWith": "Salasõna on muudetud. Logi nüüd sellega sisse",
+      "resetPassword": "Lähtesta salasõna",
+      "enterYourUsernameTheServer": "Sisesta oma kasutajanimi. Server kirjutab lähtestuskoodi oma logidesse.",
+      "sendResetCode": "Saada lähtestuskood",
+      "enterThe6DigitCode": "Sisestage 6-kohaline kood serveri logidest.",
+      "resetCode": "Lähtesta kood",
+      "checkCode": "Kontrolli koodi",
+      "newPassword": "Uus parool",
+      "saveNewPassword": "Salvesta uus parool",
+      "backToSignIn": "Tagasi sisselogimisele",
+      "couldNotMakeTheAccount": "Kontot ei õnnestunud luua",
+      "couldNotStartTheReset": "Lähtestamist ei õnnestunud alustada",
+      "thatCodeDidnTWork": "See kood ei töötanud",
+      "couldNotChangeThePassword": "Parooli ei õnnestunud muuta"
+    },
+    "browserStep": {
+      "signInFailed": "Sisselogimine ebaõnnestus",
+      "signInCanceled": "Sisselogimine tühistati",
+      "couldNotOpenTheSign": "Sisselogimise brauserit ei õnnestunud avada",
+      "couldNotOpenTheSign2": "Sisselogimislehte ei õnnestunud avada",
+      "certificateProblem": "Sertifikaadi probleem",
+      "back": "Tagasi",
+      "signIn": "Logi sisse",
+      "reload": "Laadi uuesti",
+      "finishSigningInInYour": "Lõpeta sisselogimine oma brauseris",
+      "useAnySignInYour": "Kasuta serveris saadaval olevat sisselogimismeetodit, näiteks Passkeyt või turvavõtit. Rakendus jätkab tööd pärast sisselogimist.",
+      "theAppPicksUpOnce": "Rakendus jätkab tööd pärast sisselogimispakkuja lõpetamist.",
+      "signingIn": "Logimine sisse...",
+      "openBrowserAgain": "Ava brauser uuesti",
+      "theServerTurnedTheSession": "Server lükkas sessiooni tagasi. Proovi uuesti.",
+      "signedInButTheApp": "Logitud sisse, kuid rakendus ei suuda Termixiga ühendust saada. Proksy võib selle blokeerida.",
+      "thatSignInLinkIs": "See sisselogimislink on vanemast katsest. Logi uuesti sisse.",
+      "signInAgain": "Logi uuesti sisse.",
+      "openTheBrowserAgainWhen": "Ava brauser uuesti, kui oled valmis.",
+      "theWebPageSignedIn": "Veebileht logis sisse, kuid ei saatnud sessiooni. Uuenda serverit ja proovi uuesti.",
+      "theCanTCheckThis": "{{deviceWord}} ei suuda selle serveri sertifikaati kontrollida. Paigalda selle juur-CA {{deviceWord}}ile. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Kasutada järgmine kord sisselogimiseks {{name}}?",
+      "ifThisServerSignsYou": "Kui see server logib sind välja, logi järgmine kord sisse {{name}} abil, mitte parooli sisestamisega. Parool jääb sellele {{deviceWord}}ile.",
+      "use": "Kasuta {{name}}",
+      "notNow": "Pole praegu",
+      "couldNotSaveTheLogin": "Sisselogimist ei õnnestunud salvestada",
+      "thatSADifferentUser": "See on teine kasutaja",
+      "signedIn": "Logitud sisse",
+      "close": "Sulge",
+      "linkYourTermixServer": "Seosta oma Termixi server",
+      "yourHostsCredentialsSnippetsAnd": "Sinu hostid, usaldusandmed, koodilõigud ja seaded sünkroonitakse sellega ning saad kasutada selle lisasid. Kõik töötab sellel {{deviceWord}}il ka siis, kui server pole saadaval.",
+      "checking": "Kontrollin {{host}}...",
+      "proxyAndClientCertificate": "Proksy ja kliendisertifikaat",
+      "couldNotReachThatServer": "Selle serverini ei õnnestunud jõuda. Kontrolli aadressi või seadista proksy või kliendisertifikaat.",
+      "couldNotReachThatServer2": "Selle serverini ei õnnestunud jõuda",
+      "syncCouldNotStartYet": "Sünkroonimist ei õnnestunud veel alustada. See proovib uuesti automaatselt.",
+      "checkingTheServer": "Serveri kontrollimine",
+      "signIn": "Logi sisse",
+      "makeAnAccount": "Loo konto",
+      "resetPassword": "Lähtesta parool",
+      "oneMoreStep": "Veel üks samm",
+      "almostDone": "Peaaegu valmis",
+      "linkAServer": "Seosta server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Salvestatud sisselogimine ei tööta enam",
+      "enterYourUsernameAndPassword": "Sisesta oma kasutajanimi ja parool",
+      "thisServerIsBehindA": "See server asub sisselogimisproksy taga",
+      "signInWith": "Logi sisse {{saved}} abil",
+      "signInWith2": "Logi sisse",
+      "password": "Parool",
+      "username": "Kasutajanimi",
+      "signIn": "Logi sisse",
+      "forgotPassword": "Unustasid parooli?",
+      "makeAnAccount": "Loo konto",
+      "or": "VÕI",
+      "continueWith": "Jätka {{label}} abil",
+      "signInWithAPasskey": "Logi sisse Passkey või turvavõtmega",
+      "opensYourServerAposS": "Avasi brauseris oma serveri sisselogimislehe. Seal toimivad Face ID, sõrmejäljelugeja, NFC ja USB-võtmed. Vajab Termixi versiooni 26.11.3 või uuemat.",
+      "signInInTheBrowser": "Logi sisse brauseris",
+      "opensYourServerAposS2": "Avasi serveri sisselogimislehe, et teha asju, mida rakendus siin ei suuda. Vajab Termixi versiooni 26.10.6 või uuemat.",
+      "thisServerHasNoSign": "Sellel serveril pole rakenduse jaoks sisselogimist lubatud. Küsi selle haldajalt abi või proovi ülalolevat brauseri sisselogimist.",
+      "signInWithYourPassword": "Logi sisse oma parooliga.",
+      "signInFailed": "Sisselogimine ebaõnnestus",
+      "openingItsSignInPage": "Avasin selle sisselogimislehe."
+    },
+    "smallSteps": {
+      "serverAddress": "Serveri aadress",
+      "likeTermixExampleComOr": "Näiteks termix.example.com või 192.168.1.20:30001",
+      "checking": "Kontrollin...",
+      "continue": "Jätka",
+      "proxyAndClientCertificate": "Proksi ja kliendisertifikaat",
+      "aServerWithASelf": "Server, millel on isesertifitseeritud sertifikaat, nõuab, et selle juur-CA oleks esmalt sellele {{deviceWord}} paigaldatud. Tavaline http töötab oma võrgus.",
+      "enterTheCode": "Sisesta kood",
+      "code": "Kood",
+      "the6DigitCodeFrom": "6-kohaline kood autentimise rakendusest või varukood",
+      "checkCode": "Kontrolli koodi",
+      "thisAccountAsksForA": "See konto küsib parooli järel turvavõtit. Logi sisse serveri lehel oma brauseris, et seda kasutada.",
+      "useASecurityKeyIn": "Kasuta turvavõtit brauseris",
+      "backToSignIn": "Tagasi sisselogimisele",
+      "bringThisAposSHosts": "Kas tuua kaasa selle {{deviceWord}} peremed?",
+      "thisHasTheyStayOn": "Sellel {{deviceWord}} on {{what}}. Need jäävad igal juhul sellele seadmele.",
+      "merge": "Ühenda",
+      "copyThemToTooSo": "Kopeeri need ka {{serverName}}-ile, et need sünkrooniksid. Need, mis näevad välja nagu serveri peremees, jäetakse vahele.",
+      "replace": "Asenda",
+      "useOnlyWhatIsOn": "Kasuta selle konto jaoks ainult seda, mis on {{serverName}}-il. Midagi ei kopeerita.",
+      "thatCodeDidnTWork": "See kood ei töötanud",
+      "hostsCredentialsOrSnippets": "peremeesmasinad, usaldusandmed või lõigud"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Seota see server esmalt",
+      "thatHostIsnTHere": "Seda peremeesmasinat pole siin",
+      "couldNotOpenThatHost": "Seda peremeesmasinat ei õnnestunud avada",
+      "noHostWithIdOn": "Peremeesmasinat id-ga {{hostId}} ei leitud kontolt {{account}}.",
+      "isnTLinkedInThe": "{{value}} pole veel rakenduses seotud."
+    }
+  },
+  "notifications": {
+    "notifications": "Teavitused",
+    "markAllRead": "Märgi kõik loetuks",
+    "clearReadNotifications": "Kustuta loetud teavitused",
+    "unread2": "Loetud",
+    "all": "Kõik",
+    "noUnreadNotifications": "Loetud teavitusi pole",
+    "nothingHere": "Siin pole midagi",
+    "markRead": "Märgi loetuks",
+    "delete": "Kustuta",
+    "couldNotLoadNotifications": "Teavitusi ei õnnestunud laadida",
+    "couldNotMarkRead": "Ei õnnestunud märgata loetuks",
+    "couldNotDelete": "Ei õnnestunud kustutada",
+    "couldNotClear": "Ei õnnestunud kustutada"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Impordi",
+      "hosts": "Peremeesmasinad",
+      "aTermixHostFileYour": "Termixi peremeesmasina fail, sinu ~/.ssh/config või peremeesmasina link või QR-kood teiselt {{deviceWord}}-ilt. Need salvestatakse sellele {{deviceWord}}-ile.",
+      "backup": "Varundamine",
+      "aBackupThisAppMade": "Selle rakenduse tehtud varukoopia, mis on parooliga lukustatud. See taastab peremeesmasinad, usaldusandmed ja lõigud.",
+      "restoreABackup": "Taasta varukoopia",
+      "done": "Valmis",
+      "skipForNow": "Jäta praegu vahele",
+      "sshFilesAndRemoteDesktops": "SSH, failid ja kauglaused sinu {{deviceWord}}-ilt. Kuidas soovid alustada?",
+      "useWithoutAServer": "Kasuta ilma serverita",
+      "hostsCredentialsAndSnippetsAre": "Hostid, usaldusandmed ja koodilõigud on sellel {{deviceWord}} krüpteeritult salvestatud. Serveri saad igal ajal hiljem ühendada.",
+      "linkATermixServer": "Ühenda Termixi server",
+      "syncYourHostsCredentialsSnippets": "Sünkrooni oma hostid, usaldusandmed, koodilõigud ja seaded serveriga ning kasuta selle lisasid.",
+      "bringHostsFromATermix": "Impordi hostid Termixi failist, SSH konfiguratsioonist, QR-koodist või varundusest.",
+      "thisDevice": "See seade"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Otsi hoste, koodilõike ja tegevusi",
+      "clearSearch": "Tühjenda otsing",
+      "nothingMatches": "Ühtegi tulemust ei leitud",
+      "typeToSearch": "Kirjuta, et otsida",
+      "findAHostToConnect": "Otsi hosti, kuhu ühenduda, koodilõiku, seadet või tegevust.",
+      "suggested": "Soovitatud | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Käivita {{title}}",
+      "copiedRunItFromThe": "Kopeeritud. Täida selle väärtused, käivitades selle terminali koodilõikudest.",
+      "copiedOpenATerminalTo": "Kopeeritud. Ava terminal, et käivitada koodilõike.",
+      "addHost": "Lisa host",
+      "quickConnect": "Kiire ühendamine",
+      "switchAccount": "Vaheta kontot",
+      "linkAServer": "Ühenda server",
+      "fromYourServer": "Sinu serverist",
+      "settings": "Seaded",
+      "accountsAppearanceSecurity": "Kontod, välimus, turvalisus"
+    },
+    "search": {
+      "hosts": "Hostid",
+      "snippets": "Koodilõigud",
+      "actions": "Tegevused",
+      "settings": "Seaded"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Sessioonide laadimine ebaõnnestus",
+      "sessionRevoked": "Sessioon tühistatud",
+      "failedToRevokeSession": "Sessiooni tühistamine ebaõnnestus",
+      "allSessionsRevoked": "Kõik sessioonid tühistatud",
+      "failedToRevokeAllSessions": "Kõikide sessioonide tühistamine ebaõnnestus",
+      "activeSessions": "Aktiivsed sessioonid",
+      "signOutAllOtherSessions": "Logi välja kõigist teistest sessioonidest",
+      "loading": "Laadimine…",
+      "noActiveSessionsFound": "Aktiivseid sessioone ei leitud.",
+      "unknownDevice": "Tundmatu seade",
+      "lastActive": "Viimati aktiivne {{lastActiveAt}}",
+      "created": "Loodud {{createdAt}}",
+      "revokeSession": "Tühista sessioon",
+      "revokeSession2": "Tühista sessioon?",
+      "thisWillSignOutThat": "See logib selle seadme välja.",
+      "revoke": "Tühista",
+      "revokeAllSessions": "Tühista kõik sessioonid?",
+      "thisWillSignOutEvery": "See logib välja kõik seadmed. Sina jääd selles seadmes sisse logitud.",
+      "cancel": "Tühista",
+      "revokeAll": "Tühista kõik"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "API-klahvide laadimine ebaõnnestus",
+      "failedToCreateApiKey": "API-klahvi loomine ebaõnnestus",
+      "deleteApiKey": "Kustuta API-klahv?",
+      "willStopWorkingRightAway": "\"{{name}}\" lakkab kohest töötamast.",
+      "apiKeyDeleted": "API-klahv kustutatud",
+      "failedToDeleteApiKey": "API-klahvi kustutamine ebaõnnestus",
+      "apiKeys": "API-klahvid",
+      "newApiKey": "Uus API-klahv",
+      "loading": "Laadimine…",
+      "apiKeysAllowProgrammaticAccess": "API-klahvid võimaldavad programmilist ligipääsu Termixile. Salasõna kuvatakse ainult üks kord, seega hoia seda turvaliselt.",
+      "noApiKeysYet": "API-klahve pole veel",
+      "created": "Loodud {{createdAt}}",
+      "lastUsed": "Viimati kasutatud {{lastUsedAt}}",
+      "expires": "Aegub {{expiresAt}}",
+      "delete": "Kustuta {{name}}",
+      "keyCreatedCopyItNow": "Võti loodud. Kopeeri see kohe",
+      "newApiKey2": "Uus API-võti",
+      "thisTokenWonTBe": "Seda tokenit ei kuvata enam.",
+      "apiKeyCopied": "API-võti kopeeritud",
+      "copy": "Kopeeri",
+      "done": "Valmis",
+      "cancel": "Tühista",
+      "create": "Loo",
+      "name": "Nimi *",
+      "eGCiPipeline": "nt CI Pipeline",
+      "user": "Kasutaja *",
+      "noUsersAvailable": "Kasutajaid pole saadaval.",
+      "expiresAtOptional": "Aegumine (valikuline)",
+      "yyyyMmDd": "AAAA/KK/PP",
+      "yearMonthDay": "Aasta / Kuu / Päev"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Hoia sessioonid töötamas",
+      "showsANotificationWhileSessions": "Kuvab teavituse, kui sessioonid on avatud, et Android hoiab neid töötamas, kui lahkud rakendusest",
+      "batteryOptimization": "Akutoitluse optimeerimine",
+      "termixIsNotRestrictedSo": "Termix pole piiratud, seega saavad sessioonid jääda avatuks ka ekraaniga kinni.",
+      "androidMayStillStopSessions": "Android võib ikkagi sessioone peatada aku säästmiseks. Ava akuseaded, leia Termix ja vali Mitte optimeeritud või Piiramatu.",
+      "openBatterySettings": "Ava akuseaded",
+      "notificationsAreOff": "Teavitused on väljas",
+      "sessionsStillRunButThe": "Sessioonid töötavad endiselt, kuid avatud sessioonide loend ja nupp Ühenda kõik lahti jäävad peidetud.",
+      "openNotificationSettings": "Ava teavituste seaded",
+      "thisBuildCanTKeep": "See versioon ei suuda sessioone taustal töötavaks hoida. Need ühenduvad uuesti, kui sa tagasi tuled.",
+      "lowPowerMode": "Madala energiatarbega režiim",
+      "batterySaver": "Akusäästja",
+      "isOnTermixChecksConnections": "{{value}} on sees. Termix kontrollib ühendusi harvemini ja ootab pikemat aega ühenduse taastamise katsete vahel.",
+      "backgroundSessions": "Taustsessioonid",
+      "iosStopsAppsSoonAfter": "iOS peatab rakendused peagi pärast nende sulgemist, seega ei saa sessioonid taustal töötada. Need ühenduvad uuesti, kui sa tagasi tuled, ja tmux või screen jätkab sealt, kus sa olid."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Peatatud",
+        "active": "Aktiivne",
+        "linkAServer": "Seosta server",
+        "eachServerKeepsItsOwn": "Iga server hoiab oma koopiaid sinu hostidest, usaldusandmetest ja seadetest sellel {{deviceWord}}.",
+        "signedInAs": "Sisse logitud kui",
+        "role": "Roll",
+        "administrator": "Administraator",
+        "user": "Kasutaja",
+        "serverVersion": "Serveri versioon",
+        "signOut": "Logi välja",
+        "youAreSignedOutOf": "Sa oled sellelt serverilt välja logitud.",
+        "signIn": "Logi sisse",
+        "passwordChanged": "Parool muudetud",
+        "couldNotChangeThePassword": "Parooli ei õnnestunud muuta",
+        "changePassword": "Muuda parooli",
+        "enterYourCurrentPasswordThen": "Sisesta oma praegune parool ja vali seejärel uus.",
+        "cancel": "Tühista",
+        "change": "Muuda",
+        "currentPassword": "Praegune parool",
+        "newPassword": "Uus parool",
+        "accountDeleted": "Konto kustutatud",
+        "couldNotDeleteTheAccount": "Konto ei õnnestunud kustutada",
+        "deleteServerAccount": "Kustuta serveri konto",
+        "thisPermanentlyDeletesYourAccount": "See kustutab püsivalt sinu konto serveril ja kogu selle andmed. Seda ei saa tagasi pöörata.",
+        "delete": "Kustuta",
+        "confirmYourPassword": "Kinnita oma parool",
+        "worksWithoutAServer": "Töötab ilma serverita",
+        "signedOut": "Välja logitud",
+        "readsLive": "Loeb otse",
+        "synced": "Sünkroonitud",
+        "syncing": "Sünkroonimine",
+        "offline": "Võrguühenduseta"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Jaga anonüümseid kasutusstatistikaid",
+        "aShortReportOnceA": "Lühike aruanne kord päevas. Ei sisalda hoste, nimesid ega aadresse",
+        "nextReport": "Järgmine aruanne",
+        "seeExactlyWhatWouldBe": "Vaata täpselt, mis saadetaks",
+        "couldNotBuildTheReport": "Aruannet ei õnnestunud luua",
+        "preview": "Eelvaade",
+        "thisIsExactlyWhatWould": "See on täpselt see, mis hetkel saadetaks.",
+        "resetInstallId": "Lähtesta paigalduse ID",
+        "futureReportsWillLookLike": "Tulevased aruanded näevad välja nagu uus paigaldus",
+        "resetTheInstallId": "Kas soovid lähtestada paigalduse ID?",
+        "futureReportsWillLookLike2": "Tulevased aruanded näevad välja nagu uus paigaldus.",
+        "reset": "Lähtesta",
+        "installIdReset": "Paigalduse ID lähtestatud"
+      },
+      "appearanceControls": {
+        "theme": "Teema",
+        "accentColor": "Aktsentvärv",
+        "textSize": "Teksti suurus",
+        "sizeOfTextAcrossThe": "Teksti suurus rakmuses, mitte terminallis",
+        "density": "Tihedus",
+        "howTallListRowsAnd": "Loendiread ja seaded on kõrgemad või madalamad"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hostid, usaldusandmed ja koodilõigud salvestatakse krüpteeritud failina sellele {{deviceWord}}. Kasutusstatistika on välja lülitatud, kui sa seda allpool ei sisselülita. Ühendatud server saab ainult seda, mida sa talle sünkroonima lubad.",
+        "recentHosts": "Hiljutised hostid",
+        "forgetTheHostsYouOpened": "Unusta kõik kontod viimasel ajal avatud hostid",
+        "recentHostsCleared": "Hiljutised hostid kustutatud",
+        "clear": "Kustuta",
+        "couldNotCheckForUpdates": "Uuenduste kontrollimine ei õnnestunud",
+        "versionIsOutUpdateFrom": "Versioon {{version}} on saadaval. Uuenda oma poodist.",
+        "youHaveTheNewestVersion": "Sul on uusim versioon",
+        "termixMobile": "Termix Mobile",
+        "updates": "Uuendused",
+        "check": "Kontrolli"
+      },
+      "pinSheet": {
+        "waitSeconds": "Oota {{value}} sekundit",
+        "digits": "{{PIN_LENGTH}} numbrit"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-koodid ei kattu",
+        "appLockIsOn": "Rakmuse lukustus on sisse lülitatud",
+        "turnOffAppLock": "Lülita rakmuse lukustus välja",
+        "enterYourPinToConfirm": "Kinnitamiseks sisesta oma PIN-kood.",
+        "appLockIsOff": "Rakmuse lukustus on välja lülitatud",
+        "appLock": "Rakmuse lukustus",
+        "askForFaceIdTouch": "Nõuda rakmuse avamiseks Face ID-d, Touch ID-d või PIN-koodi",
+        "askForAPinTo": "Nõuda rakmuse avamiseks PIN-koodi",
+        "pinChanged": "PIN-kood muudetud",
+        "couldNotChangeThePin": "PIN-koodi muutmiseks ei õnnestunud",
+        "changePin": "Muuda PIN-koodi",
+        "lockAfter": "Lukusta pärast",
+        "howLongTheAppCan": "Kui kaua võib rakendus silmast ära olla, enne kui see lukustub",
+        "hideInAppSwitcher": "Peida rakenduste vahetajast",
+        "showABlankScreenIn": "Kuva hiljutiste rakenduste loendis tühi ekraan",
+        "chooseA4DigitPin": "Vali 4-numbriline PIN-kood.",
+        "confirmPin": "Kinnita PIN-kood",
+        "enterTheSamePinAgain": "Sisesta sama PIN-kood uuesti.",
+        "currentPin": "Praegune PIN-kood",
+        "enterYourCurrentPin": "Sisesta oma praegune PIN-kood.",
+        "newPin": "Uus PIN-kood",
+        "chooseANew4Digit": "Vali uus 4-numbriline PIN-kood.",
+        "confirmNewPin": "Kinnita uus PIN-kood",
+        "enterTheNewPinAgain": "Sisesta uus PIN-kood uuesti."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Avalehe vidinad",
+        "showYourHostsSnippetsAnd": "Kuva avalehel oma hostid, koodilõigud ja toimenupud",
+        "showAddresses": "Kuva aadressid",
+        "showUserHostUnderEach": "Kuva iga serveri nime all kasutaja@host",
+        "includeOfflineHosts": "Kaasa offline-hostid",
+        "offShowsOnlyServersThat": "Väljal on näha ainult online-serverid",
+        "pinnedHostsOnly": "Ainult kinnitatud hostid",
+        "showOnlyTheHostsYou": "Kuva ainult hostid, mille oled kinnitanud",
+        "snippetsWidget": "Koodilõikude vidin",
+        "showSavedCommandsOnThe": "Kuva avalehel salvestatud käsud",
+        "showCommandPreview": "Kuva käsu eelvaade",
+        "showTheFirstLineOf": "Kuva iga käsu esimene rida"
+      }
+    },
+    "fileSettings": {
+      "files": "Failid",
+      "fileManagerOnThis": "Failihaldur selles {{deviceWord}}",
+      "browsing": "Sirvimine",
+      "transfersAtOnce": "Ühtlasi toimuvad ülekanded",
+      "downloadsAndUploadsThatRun": "Laadimised ja üleslaadimised, mis toimuvad koos",
+      "editor": "Redaktor",
+      "textSize": "Teksti suurus",
+      "filesBesideTheTerminal": "Failid terminali kõrval",
+      "side": "Külg",
+      "whereThePanelSitsOn": "Kus paneel tahvelarvutis asub",
+      "right": "Parem",
+      "left": "Vasak",
+      "howOftenToCheck": "Kui tihti kontrollida",
+      "folderHistory": "Kaustade ajalugu",
+      "foldersKeptPerHost": "Hosti kohta säilitatavad kaustad",
+      "showHiddenFiles": "Kuva peidetud failid",
+      "filesAndFoldersThatStart": "Failid ja kaustad, mis algavad punktiga",
+      "askBeforeMovingToThe": "Küsi enne prügikasti viimist",
+      "deletingForGoodAlwaysAsks": "Lõplik kustutamine küsib alati kinnitust",
+      "wrapLongLines": "Murdke pikad read",
+      "openWithNewTerminals": "Ava uutes terminalides",
+      "onATabletShowThe": "Tahvelarvutis kuva failide paneel, kui terminal avaneb",
+      "followTheTerminal": "Jälgi terminali",
+      "openTheFolderTheTerminal": "Ava kaust, kus terminal asub, kui kasutad cd-käsku"
+    },
+    "keyboardCustomization": {
+      "small": "Väike",
+      "medium": "Keskmine",
+      "large": "Suur",
+      "ms": "{{v}} ms",
+      "keyboard": "Klaviatuur",
+      "keyRowsAboveTheKeyboard": "Klahviread klaviatuuri kohal",
+      "rows": "Read",
+      "keys": "Klahvid",
+      "aHostCanHaveIts": "Hostil võivad olla oma read: puuduta sessioonis selle avatud vahekaarti ja vali \"Klahviread sellele hostile\".",
+      "keySize": "Klahvi suurus",
+      "vibrateOnKeyPress": "Vibreeri klahvivajutuse korral",
+      "repeatAfter": "Korda pärast",
+      "howLongToHoldAn": "Kui kaua noolt või Backspace'i hoida",
+      "repeatEvery": "Korda iga",
+      "hardwareKeyboard": "Riistvaraline klaviatuur",
+      "allShortcuts": "Kõik otseteed",
+      "show": "Kuva"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Varukoopia tegemine ei õnnestunud",
+      "deleteLocalData": "Kustutada kohalikud andmed?",
+      "hostsCredentialsSnippetsAndHistory": "Selles {{deviceWord}} {{account}} jaoks salvestatud hostid, usaldusandmed, koodilõigud ja ajalugu kustutatakse. Seda ei saa tagasi pöörata. Kui soovid neid säilitada, tee enne varukoopia.",
+      "delete": "Kustuta",
+      "localDataDeleted": "Kohalikud andmed kustutatud",
+      "couldNotDeleteLocalData": "Kohalike andmete kustutamine ei õnnestunud",
+      "localData": "Kohalikud andmed",
+      "localDataIsOnlySaved": "Kohalikud andmed salvestatakse ainult {{deviceWord}} rakenduses.",
+      "savedOnThisForThe": "Salvestatud sellele {{deviceWord}} kontole {{account}}. Fail on krüpteeritud võtmega, mis ei lähe kunagi sellest {{deviceWord}} välja.",
+      "hosts": "Hostid",
+      "credentials": "Logimisandmed",
+      "snippets": "Käsud",
+      "size": "Suurus",
+      "dataVersion": "Andmete versioon",
+      "backup": "Varundamine",
+      "aBackupFileHoldsYour": "Varundamisfail sisaldab teie parooli ja võtmeid, mis on lukustatud teie valitud parooliga. Keegi ei saa seda ilma selle paroolita avada.",
+      "exportBackup": "Varunduse eksportimine",
+      "importBackup": "Varunduse importimine",
+      "removesEverythingThisAccountSaved": "Eemaldab kõik, mida see konto sellele {{deviceWord}} salvestas. Ühendatud server hoiab oma koopia.",
+      "deleteLocalData2": "Kohalike andmete kustutamine",
+      "backupPassphrase": "Varunduse parool",
+      "atLeast8CharactersYou": "Vähemalt 8 tähemärki. Seda on vaja varunduse taastamiseks.",
+      "passphrase": "Parool",
+      "next": "Järgmine",
+      "typeItAgain": "Kirjuta see uuesti",
+      "export": "Eksportimine",
+      "saveYourTermixBackup": "Salvesta oma Termix varundus"
+    },
+    "logs": {
+      "logs": "Logid",
+      "latestLinesFromThisRun": "Viimased read selle käivitusest. Serveri aadressid, paroolid ja tokenid on peidetud.",
+      "logsCopied": "Logid kopeeritud",
+      "copy": "Kopeeri",
+      "share": "Jaga",
+      "clear": "Tühjenda",
+      "noLogsYet": "Logisid veel pole",
+      "nothingHasBeenLogged": "Midagi ei ole logitud."
+    },
+    "plugins": {
+      "worksOnThis": "Töötab sellel {{deviceWord}}",
+      "needsTheServer": "Nõuab serverit",
+      "notInTheApp": "Pole rakenduses",
+      "needsANewerVersionOf": "Nõuab uuemat rakenduse versiooni",
+      "updateThePluginOnThe": "Uuenda pluginat serveris",
+      "inTheApp": "Rakenduses",
+      "onThisServer": "Selles serveris",
+      "version": "Versioon",
+      "needsPluginApi": "Nõuab plugin API-d",
+      "thisAppHas": "Selles rakenduses on",
+      "note": "Märkus",
+      "open": "Ava",
+      "openFromAHostS": "Ava {{name}} hosti menüüst.",
+      "plugins": "Pluginad",
+      "everything": "Kõik",
+      "thisDeviceWorksWithNo": "See seade töötab ilma serverita. Ühenda server, et lisada funktsioonid, mis seda vajavad.",
+      "pluginsOnAndHowEach": "Pluginad kontol {{account}} ja kuidas igaüks neist rakenduses näeb välja. Tõmba alla, et uuesti kontrollida.",
+      "whatRunsOnThisAnd": "Mis töötab sellel {{deviceWord}} ja mis läbib {{account}}.",
+      "noPluginList": "Pluginate nimekirja pole",
+      "theServerDidNotSend": "Server ei saatnud oma pluginaid. Tõmba alla, et uuesti proovida.",
+      "serversOlderThan29": "Serveritel, mis on vanemad kui 2.9, on kõik funktsioonid sisse ehitatud.",
+      "nothingToShow": "Midagi näidata pole",
+      "notSentByThisServer": "Selle serveri poolt mitte saadetud"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Kas asendada kohalikud andmed?",
+      "everythingSavedOnThisFor": "Kõik, mis on sellele {{deviceWord}} kontole {{accountName}} salvestatud, asendatakse varundusega.",
+      "continue": "Jätka",
+      "couldNotReadThatFile": "Seda faili ei õnnestunud lugeda",
+      "backupRestored": "Varundus taastatud",
+      "couldNotRestoreTheBackup": "Varunduse taastamine ei õnnestunud",
+      "backupPassphrase": "Varunduse parool",
+      "thePassphraseUsedWhenThe": "Parool, mida kasutati varunduse tegemisel.",
+      "passphrase": "Parool",
+      "restore": "Taasta"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Kontod",
+        "thisDeviceAndLinkedServers": "See seade ja seotud serverid koos nende sünkroonimisolekuga",
+        "syncAndProxy": "Sünkroonimine ja proksy",
+        "whatSyncsConflictsProxyAnd": "Mis sünkroonitakse, konfliktid, proksy ja sideme katkestamine",
+        "serverAccount": "Serveri konto",
+        "whoIsSignedInOn": "Kes on aktiivses serveris sisse logitud",
+        "activeSessions": "Aktiivsed sessioonid",
+        "devicesSignedInToThe": "Serverisse sisse logitud seadmed",
+        "apiKeys": "API-klahvid",
+        "keysForScriptsAndTools": "Klahvid skriptidele ja tööriistadele",
+        "changePassword": "Muuda parooli",
+        "passwordOfYourServerAccount": "Teie serveri konto parool",
+        "deleteServerAccount": "Kustuta serveri konto",
+        "removeYourAccountFromThe": "Eemalda oma konto serverist",
+        "theme": "Teema",
+        "darkLightDraculaNordAnd": "Tume, heleda, Dracula, Nord ja muud",
+        "accentColor": "Aktsentvärv",
+        "textSize": "Teksti suurus",
+        "sizeOfTextAcrossThe": "Teksti suurus kogu rakenduses",
+        "density": "Tihedus",
+        "howTallListRowsAnd": "Nimekirja ridade ja seadete kõrgus",
+        "homeScreenWidgets": "Avalehe vidinad",
+        "hostsAndSnippetsOnThe": "Avalehel olevad peremed ja lõigud",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Font, teema, kursor, kerimisajalugu",
+        "keyboard": "Klaviatuur",
+        "layoutKeysPresets": "Paigutus, klahvid, eelseaded",
+        "appLock": "Rakenduse lukustus",
+        "askForFaceIdTouch": "Nõuda Face ID-d, Touch ID-d või PIN-koodi rakenduse avamiseks",
+        "lockAfter": "Lukusta pärast",
+        "howLongTheAppCan": "Kui kaua võib rakendus silmast kadunud olla, enne kui see lukustub",
+        "hideInAppSwitcher": "Peida rakenduste vahetajast",
+        "showABlankScreenIn": "Kuva tühik ekraan hiljutiste rakenduste nimekirjas",
+        "changePin": "Muuda PIN-koodi",
+        "backgroundSessions": "Taustasessioonid",
+        "whatHappensToOpenSessions": "Mis juhtub avatud sessioonidega, kui lahkute rakendusest",
+        "serverAlerts": "Serveri teavitused",
+        "alertsFromTheAlertsPlugin": "Teavitused serveri Alerts-pliini kaudu",
+        "whatStaysOnThis": "Mis jääb sellele {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Peremed, usaldusandmed ja lõigud on siin salvestatud krüpteerituna",
+        "recentHosts": "Hiljutised peremed",
+        "forgetTheHostsYouOpened": "Unusta hiljuti avatud peremed",
+        "shareAnonymousUsageStatistics": "Jaga anonüümseid kasutusstatistikaid",
+        "aShortReportOnceA": "Lühike aruanne kord päevas. Ei sisalda peremeid, nimesid ega aadresse",
+        "nextReport": "Järgmine aruanne",
+        "seeExactlyWhatWouldBe": "Vaata täpselt, mis saadetaks",
+        "resetInstallId": "Lähtesta installi ID",
+        "futureReportsWillLookLike": "Tulevased aruanded näevad välja nagu uus install",
+        "serverUsageStatistics": "Serveri kasutusstatistika",
+        "telemetrySettingsOnYourServer": "Telemetria seaded teie serveris",
+        "plugins": "Pliinid",
+        "whatTheServerAddsAnd": "Mis server lisab ja kus see töötab",
+        "localData": "Kohalikud andmed",
+        "backupRestoreAndDeleteWhat": "Varunda, taasta ja kustuta see, mis on salvestatud sellele {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versioon ja uuendused",
+        "logs": "Logid",
+        "latestLinesFromThisRun": "Viimased read selle käivitusest, veearuannete jaoks"
+      },
+      "sections": {
+        "accountsAndSync": "Kontod ja sünkroonimine",
+        "thisDeviceLinkedServersAnd": "See seade, seotud serverid ja sünkroonimine",
+        "appearance": "Välimus",
+        "themeAccentTextSizeAnd": "Keel, teema, aktsentvärv, teksti suurus ja tihedus",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Font, värvid ja taustasessioonid",
+        "keyboard": "Klaviatuur",
+        "keyRowsAndShortcuts": "Klahviridad ja otseteed",
+        "security": "Turvalisus",
+        "appLockFaceIdAnd": "Rakenduse lukustus, Face ID ja PIN-kood",
+        "notifications": "Teavitused",
+        "alertsFromYourServer": "Hoiatused teie serverilt",
+        "privacyAndUsageStatistics": "Privaatsus ja kasutamisstatistika",
+        "whatStaysOnThis": "Mis jääb sellele {{deviceWord}}",
+        "plugins": "Pistikprogrammid",
+        "whatTheServerAddsTo": "Mis lisab server rakendusele",
+        "backupAndData": "Varundamine ja andmed",
+        "backUpRestoreImportAnd": "Varundamine, taastamine, import ja eksport",
+        "aboutAndLogs": "Teave ja logid",
+        "versionAndLogsForBug": "Versioon ja logid veateadete jaoks"
+      }
+    },
+    "settings": "Seaded",
+    "searchSettings": "Otsi seadetest",
+    "noSettingsMatch": "Ükski seade ei vasta otsingule.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Koodilõikude laadimine ebaõnnestus",
+      "copied": "Kopeeritud: {{name}}",
+      "nameIsRequired": "Nimi on kohustuslik",
+      "contentIsRequired": "Sisu on kohustuslik",
+      "snippetUpdated": "Koodilõik uuendatud",
+      "snippetCreated": "Koodilõik loodud",
+      "failedToSaveSnippet": "Koodilõigu salvestamine ebaõnnestus",
+      "snippetDeleted": "Koodilõik kustutatud",
+      "failedToDeleteSnippet": "Koodilõigu kustutamine ebaõnnestus",
+      "folderNameIsRequired": "Kausta nimi on kohustuslik",
+      "folderCreated": "Kaust loodud",
+      "failedToCreateFolder": "Kausta loomine ebaõnnestus",
+      "folderDeleted": "Kaust kustutatud",
+      "failedToDeleteFolder": "Kausta kustutamine ebaõnnestus",
+      "folderRenamed": "Kaust ümber nimetatud",
+      "failedToRenameFolder": "Kausta ümbernimetamine ebaõnnestus",
+      "failedToSaveOrder": "Järjekorra salvestamine ebaõnnestus",
+      "moveUp": "Liiguta üles",
+      "moveDown": "Liiguta alla",
+      "runOnHosts": "Käivita {{name}} hostidel",
+      "copy": "Kopeeri {{name}}",
+      "delete": "Kustuta {{name}}",
+      "renameFolder": "Nimeta kaust ümber",
+      "deleteFolder": "Kustuta kaust",
+      "noSnippetsInThisFolder": "Selles kaustas pole koodilõike",
+      "snippets": "Koodilõigud",
+      "importAndExport": "Import ja eksport",
+      "folder": "Kaust",
+      "new": "Uus",
+      "loading": "Laadimine…",
+      "couldNotLoadSnippets": "Koodilõike ei õnnestunud laadida",
+      "checkTheConnectionToYour": "Kontrollige ühendust oma serveriga ja proovige uuesti.",
+      "tryAgain": "Proovi uuesti",
+      "noSnippetsYet": "Koodilõikeid veel pole",
+      "createYourFirstSnippetOr": "Loo oma esimene koodilõik või lisa koodilõike Termixi veebi- või lauaarvutirakendusest.",
+      "createSnippet": "Loo koodilõik",
+      "askBeforeRunning": "Küsi enne käivitamist",
+      "confirmBeforeASnippetRuns": "Kinnita enne lõigu käivitamist terminallis",
+      "editSnippet": "Muuda lõiku",
+      "newSnippet": "Uus lõik",
+      "cancel": "Tühista",
+      "save": "Salvesta",
+      "create": "Loo",
+      "name": "Nimi",
+      "eGUpdatePackages": "nt. Päevita pakid",
+      "content": "Sisu",
+      "descriptionOptional": "Kirjeldus (valikuline)",
+      "shortDescription": "Lühikirjeldus",
+      "folderOptional": "Kaust (valikuline)",
+      "selectFolder": "Vali kaust",
+      "noFolder": "Ilma kaustata",
+      "targetHostsOptional": "Sihtmasinad (valikuline)",
+      "none": "Puudub",
+      "note": "Märkus",
+      "pastedIntoTheTerminalWithout": "Kleepitud terminalli ilma käivitamata",
+      "targetHosts": "Sihtmasinad",
+      "copy2": "Kopeeri",
+      "edit": "Muuda",
+      "runOnHosts2": "Käivita masinatel",
+      "delete2": "Kustuta",
+      "deleteSnippet": "Kustuta lõik",
+      "deleteThisCannotBeUndone": "Kustuta „{{name}}“? Seda ei saa tagasi pöörata.",
+      "renameFolder2": "Nimeta kaust ümber",
+      "rename": "Nimeta ümber",
+      "folderName": "Kausta nimi",
+      "eGSystem": "nt. Süsteem",
+      "newFolder": "Uus kaust",
+      "deleteFolder2": "Kustuta kaust",
+      "deleteSnippetsInThisFolder": "Kustuta „{{name}}“? Selle kausta lõigud muutuvad kategooriateta."
+    },
+    "sync": {
+      "notYet": "Veel mitte",
+      "justNow": "Just nüüd",
+      "stopped": "Peatatud",
+      "signInToThisServer": "Sünkroonimiseks logi sellele serverile uuesti sisse",
+      "couldNotChangeThat": "Seda ei õnnestunud muuta",
+      "sync": "Sünkrooni",
+      "thisDeviceDoesNotSync": "See seade ei sünkrooni. Ühenda Termixi server, et hoida oma masinaid rohkemal kui ühel seadmel.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} hoiab masinaid, usaldusandmeid, lõike ja seadeid selles {{deviceWord}}ga sünkroonis. Koopia jääb sellele {{deviceWord}}ile, nii et see töötab ka võrguta.",
+      "lastSynced": "Viimati sünkroonitud {{value}}",
+      "live": "Reaalajas",
+      "syncNow": "Sünkrooni nüüd",
+      "fix": "Paranda",
+      "thisServerReadsLiveAnd": "See server loeb reaalajas ja ei hoia koopiat selles {{deviceWord}}is.",
+      "turnOnTheSyncPlugin": "Lülita sisse sünkroonimise plugin serveri Pluginad lehel ja logi seejärel siin uuesti sisse, et hoida koopia selles {{deviceWord}}is.",
+      "whatSyncs": "Mis sünkroonitakse",
+      "turnedOffThatDataStays": "Maha lülitatud, see andme jääb ainult sellele {{deviceWord}}ile.",
+      "conflicts": "Konfliktid",
+      "changedHereAndOnThe": "Muudetud siin ja serveril samaaegselt. Serveri versioon jäi alles.",
+      "useServer": "Kasuta serverit",
+      "keepMine": "Jäta minu oma",
+      "notSavedOnTheServer": "Pole serverile salvestatud",
+      "theServerRefusedTheseChanges": "Server keeldus nendest muudatustest. Need jäävad sellele {{deviceWord}}ile.",
+      "tryAgain": "Proovi uuesti",
+      "proxy": "Proksy",
+      "onlyNeededWhenAReverse": "Vajalik ainult siis, kui serveri ees asub pöördproksy.",
+      "unlink": "Ühenda lahti",
+      "unlinkThisServer": "Ühenda see server lahti",
+      "minAgo": "{{value}} min tagasi",
+      "signedOut": "Logitudud välja",
+      "waitingToSync": "Ootab sünkroonimist",
+      "synced": "Sünkroonitud",
+      "syncing": "Sünkroonimine",
+      "offline": "Võrguühenduseta"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Taust",
+        "text": "Tekst",
+        "cursor": "Kursor",
+        "textUnderCursor": "Tekst kursori all",
+        "selection": "Valik",
+        "black": "Must",
+        "red": "Punane",
+        "green": "Roheline",
+        "yellow": "Kollane",
+        "blue": "Sinine",
+        "magenta": "Magenta",
+        "cyan": "Tsüaan",
+        "white": "Valge",
+        "brightBlack": "Hele must",
+        "brightRed": "Hele punane",
+        "brightGreen": "Hele roheline",
+        "brightYellow": "Hele kollane",
+        "brightBlue": "Hele sinine",
+        "brightMagenta": "Hele magenta",
+        "brightCyan": "Hele tsüaan",
+        "brightWhite": "Hele valge",
+        "customTheme": "Kohandatud teema",
+        "colorsAsHexLike1e1e2e": "Värvid hex-koodidena, näiteks #1e1e2e.",
+        "cancel": "Tühista",
+        "save": "Salvesta",
+        "isNotAHexColor": "{{label}} ei ole hex-värv"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompaktne",
+      "default": "Vaikimisi",
+      "relaxed": "Lõdvestunud",
+      "spacious": "Ruumikas",
+      "none": "Puudub",
+      "couldNotSave": "Salvestamine ei õnnestunud",
+      "pickASizeFromTo": "Vali suurus vahemikus {{MIN_FONT_SIZE}} kuni {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminali seaded lähtestatud",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Host saab Termixis määrata oma teema ja kursori, mis on prioriteediga kõrgem kui need seaded.",
+      "theme": "Teema",
+      "custom": "Kohandatud",
+      "font": "Font",
+      "active": "Aktiivne",
+      "sizeAndSpacing": "Suurus ja vahe",
+      "pinchTheTerminalToChange": "Suuruse muutmiseks saad terminali ka nipsutada. Suur tekst sinu {{deviceWord}}seadetes muudab selle suuremaks.",
+      "custom2": "Kohandatud {{fontSize}}",
+      "lineHeight": "Rea kõrgus",
+      "letterSpacing": "Tähede vahe",
+      "ligatures": "Ligatuurid",
+      "cursor": "Kursor",
+      "blink": "Vilkumine",
+      "bell": "Helisignaal",
+      "vibrate": "Vibreerimine",
+      "onTheBellAndWhen": "Helisignaali ja pikalt vajutades valimisel",
+      "scrollback": "Kerimisajalugu",
+      "linesKeptAboveTheScreen": "Ekraani kohal hoitavad read. Kehtib uute terminalide kohta.",
+      "linksAndKeys": "Lingid ja klahvid",
+      "askBeforeOpeningLinks": "Küsi enne linkide avamist",
+      "doubleTapSendsTab": "Topeltklõps saadab Tabi",
+      "longPressStillSelectsText": "Pikk vajutus valib ikka teksti",
+      "optionSendsAlt": "Option saadab Alt",
+      "onAHardwareKeyboardOff": "Füüsilisel klaviatuuril. Väljas tähendab, et sümbolid trükitakse nagu Macis.",
+      "history": "Ajalugu",
+      "suggestCommands": "Käsude ettepanekud",
+      "showsPastCommandsThatStart": "Kuvab varasemaid käske, mis algavad sinu sisestusega",
+      "resetToDefault": "Taasta vaikeväärtused",
+      "fontSize": "Fondi suurus",
+      "aSizeFromTo": "Suurus vahemikus {{MIN_FONT_SIZE}} kuni {{MAX_FONT_SIZE}}.",
+      "cancel": "Tühista",
+      "apply": "Rakenda",
+      "resetTerminalSettings": "Kas taastada terminali seaded?",
+      "themeFontSizeCursorBell": "Teema, font, suurus, kursor, helisignaal ja muu taastatakse vaikeväärtustele.",
+      "reset": "Taasta",
+      "followsAppTheme": "Järgneb rakenduse teemale"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kaheastmelise autentimise seadistamine ei õnnestunud",
+      "twoFactorAuthenticationEnabled": "Kaheastmeline autentimine on lubatud",
+      "invalidCodeTryAgain": "Vigane kood, proovi uuesti",
+      "twoFactorAuthenticationDisabled": "Kaheastmeline autentimine on keelatud",
+      "failedToDisable2fa": "Kaheastmelise autentimise keelamine ei õnnestunud",
+      "failedToFetchBackupCodes": "Varukoodide hankimine ei õnnestunud",
+      "secretCopied": "Salajane kood kopeeritud",
+      "backupCodesCopied": "Varukoodid kopeeritud",
+      "twoFactorAuthentication": "Kaheastmeline autentimine",
+      "loading": "Laadimine…",
+      "scanThisQrCodeWith": "Skaneeri see QR-kood oma autentimusrakendusega (Google Authenticator, Authy jne) ja sisesta kinnitamiseks 6-kohaline kood.",
+      "verifyAmpEnable": "Kinnita &amp; luba",
+      "cancel": "Tühista",
+      "saveYourBackupCodes": "Salvesta oma varukoodid",
+      "storeTheseSomewhereSafeEach": "Hoia need kuskil turvalises kohas. Iga koodi saab kasutada ainult üks kord, kui kaotad ligipääsu oma autentimusrakendusele.",
+      "copyAllCodes": "Kopeeri kõik koodid",
+      "done": "Valmis",
+      "yourAccountIsProtectedWith": "Sinu konto on kaitstud autentimusrakendusega.",
+      "addAnExtraLayerOf": "Lisa oma kontole täiendav turvakiht.",
+      "viewBackupCodes": "Vaata varukoodidele",
+      "disable2fa": "Keela 2FA",
+      "enable2fa": "Luba 2FA",
+      "disableTwoFactorAuthentication": "Keela kaheastmeline autentimine",
+      "enterACodeFromYour": "Sisesta kood oma autentimusrakendusest kinnitamiseks. Saad 2FA igal ajal uuesti lubada.",
+      "enterYourPasswordToConfirm": "Sisesta oma parool kinnitamiseks. Saad 2FA igal ajal uuesti lubada.",
+      "disable": "Keela",
+      "yourPassword": "Sinu parool",
+      "n2faIsEnabled": "2FA on lubatud",
+      "n2faIsNotEnabled": "2FA ei ole lubatud"
+    },
+    "language": {
+      "label": "Keel",
+      "description": "Rakendus laadib uuesti, et keelt vahetada",
+      "system": "Sama kui seadmes"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Siin pole SSH-majutisi",
+      "couldNotReadWhatWas": "Jagatud sisu lugemine ei õnnestunud",
+      "stopTheUploads": "Kas peatada üleslaadimine?",
+      "stopAndLeave": "Peata ja lahkuge",
+      "sendTo": "Saada aadressile {{name}}",
+      "sendToAHost": "Saada majutisele",
+      "nothingToSend": "Saadamiseks pole midagi",
+      "close": "Sulge",
+      "done": "Valmis",
+      "cancel": "Tühista",
+      "uploadHere": "Laadi siia üles",
+      "uploadsStillGoing_one": "{{count}} üleslaadimine on veel pooleli. Lahkumine katkestab selle.",
+      "uploadsStillGoing_other": "{{count}} üleslaadimist on veel pooleli. Lahkumine katkestab need.",
+      "filesSize_one": "{{count}} fail | {{size}}",
+      "filesSize_other": "{{count}} faili | {{size}}",
+      "readingWhatWasShared": "Loen jagatud sisu"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Viga",
+      "worksWithoutAServer": "Töötab ilma serverita",
+      "accountSwitch": "Konto {{account}}, vaheta",
+      "search": "Otsi",
+      "notificationsUnread": "Teavitused, {{unread}} lugemata",
+      "notifications": "Teavitused",
+      "signedIn": "Sisselogitud",
+      "signedOut": "Välja logitud",
+      "copyOnThis": "Kopeeri sellele {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Avaleht",
+      "hosts": "Hostid",
+      "sessions": "Seansid",
+      "tools": "Tööriistad",
+      "settings": "Seaded",
+      "open": "{{label}}, {{count}} avatud"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} avatud"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Vali host",
+      "searchHosts": "Otsi hoste",
+      "clearSearch": "Tühjenda otsing",
+      "noHostsMatch": "Ükski host ei vasta",
+      "noHostsCanUseThis": "Ükski host ei saa seda kasutada",
+      "turnItOnForA": "Lülita see sisse hosti redaktoris."
+    },
+    "noToolsHereYet": "Tööriistu pole veel",
+    "onAHost": "Hostil",
+    "saved": "Salvestatud",
+    "fromYourServer": "Sinu serverist"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Tühista",
+      "delete": "Kustuta",
+      "confirm": "Kinnita"
+    },
+    "contextMenu": {
+      "closeMenu": "Sulge menüü"
+    },
+    "inlineView": {
+      "back": "Tagasi"
+    },
+    "listRow": {
+      "moreActions": "Rohkem tegevusi"
+    },
+    "pinPad": {
+      "useBiometrics": "Kasuta biomeetrikat",
+      "delete": "Kustuta"
+    },
+    "popover": {
+      "close": "Sulge"
+    },
+    "promptSheet": {
+      "cancel": "Tühista"
+    },
+    "sheet": {
+      "close": "Sulge"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "See võti on lukustatud. Sisesta selle parool.",
+      "thatPassphraseDoesnTOpen": "See parool ei ava seda võtit.",
+      "thisDoesnTLookLike": "See ei näe välja nagu privaatne võti.",
+      "loadedAndChangedItTo": "Laadisin {{name}} ja muutsin selle OpenSSH vormingusse",
+      "loadedItNeedsItsPassphrase": "Laadisin {{name}}. Ühendumiseks on vaja selle parooli"
+    },
+    "ago": {
+      "justNow": "just nüüd"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Sinu hoste ei õnnestunud laadida.",
+      "failedOn": "{{name}} ebaõnnestus hostil {{name2}}",
+      "on": "{{name}} hostil {{name2}}: {{value}}",
+      "ranOn": "Käivitasin {{name}} hostil {{name2}}",
+      "runOn": "Käivita \"{{name}}\" hostil",
+      "runSnippet": "Käivita lõik",
+      "loadingHosts": "Laadin hoste…",
+      "noHostsAvailable": "Hoste pole saadaval",
+      "addAHostInTermix": "Lisa Termixis host, et käivitada lõike avalehelt.",
+      "lastUsed": "Viimati kasutatud",
+      "failedToRunSnippet": "Lõigu käivitamine ebaõnnestus"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Seda lõiku ei eksisteeri enam.",
+      "couldNotOpenThatSnippet": "Seda lõiku ei õnnestunud avada.",
+      "thatHostNoLongerExists": "Seda hosti ei eksisteeri enam.",
+      "couldNotOpenThatHost": "Selle peremeesmasina avamine ei õnnestunud."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Avaleht"
+      },
+      "hosts": {
+        "hosts": "Peremeesmasinad"
+      },
+      "sessions": {
+        "sessions": "Seansid",
+        "connectToATermixServer": "Terminalide, tunnelite ja failiseanside avamiseks ühendu Termixi serveriga."
+      }
+    },
+    "layout": {
+      "initializing": "Initsialiseerimine…",
+      "cancel": "Tühista"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Sellel peremeesmasinal puudub kehtiv MAC-aadress.",
+    "thisBuildCanTSend": "See versioon ei saa saata Wake-on-LAN-i pakette.",
+    "couldNotSendThePacket": "Paketi saatmine ei õnnestunud. Veendu, et Wi-Fi on sisse lülitatud."
+  },
+  "common": {
+    "hostCount_one": "{{count}} peremeesmasin",
+    "hostCount_other": "{{count}} peremeesmasinat",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tahvelarvuti"
+    },
+    "thisDeviceLower": "see {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Jagamine",
+    "action": "Jaga inimestega",
+    "levels": {
+      "connect": "Ühendumine",
+      "view": "Vaadatav",
+      "edit": "Redigeeritav",
+      "manage": "Haldamine"
+    },
+    "levelHints": {
+      "connect": "Ainult seanside avamine. Peremeesmasina seaded jäävad peidetud.",
+      "view": "Ühendumine ja peremeesmasina seadete vaatamine. Salasõnu ei kuvata kunagi.",
+      "edit": "Vaadatav, lisaks seadete muutmine, välja arvatud sisselogimisandmed.",
+      "manage": "Redigeeritav, lisaks peremeesmasina jagamine ja juurdepääsu muutmine või eemaldamine."
+    },
+    "until": "kuni {{date}}",
+    "sharedBy": "kasutaja {{name}} poolt",
+    "couldNotLoad": "Juurdepääsu omajate laadimine ei õnnestunud",
+    "shared": "Peremeesmasin jagatud",
+    "couldNotShare": "Peremeesmasina jagamine ei õnnestunud",
+    "updated": "Juurdepääs muudetud",
+    "couldNotUpdate": "Juurdepääsu muutmine ei õnnestunud",
+    "removeTitle": "Kas eemaldada {{name}}?",
+    "removeHint": "Ta ei saa enam seda peremeesmasinat kasutada.",
+    "remove": "Eemalda",
+    "removed": "Juurdepääs eemaldatud",
+    "couldNotRemove": "Juurdepääsu eemaldamine ei õnnestunud",
+    "whoHasAccess": "Kes on juurdepääsuga",
+    "loading": "Laadimine...",
+    "nobodyYet": "Ainult sina saad seda peremeesmasinat kasutada.",
+    "changeAccessFor": "Muuda juurdepääsu kasutajale {{name}}",
+    "shareWith": "Jaga kellega",
+    "users": "Kasutajad",
+    "roles": "Rollid",
+    "searchUsers": "Otsi kasutajaid",
+    "searchRoles": "Otsi rolle",
+    "noUsers": "Teisi kasutajaid, kellega jagada, ei ole.",
+    "noRoles": "Rolle, kellega jagada, ei ole.",
+    "options": "Juurdepääs",
+    "level": "Tase",
+    "expires": "Aegub",
+    "expiry": {
+      "never": "Mitte kunagi",
+      "1h": "1 tunni pärast",
+      "1d": "1 päeva pärast",
+      "7d": "7 päeva pärast",
+      "30d": "30 päeva pärast"
+    },
+    "pickSomeone": "Vali, kellega jagada",
+    "shareCount_one": "Jaga {{count}} inimesega",
+    "shareCount_other": "Jaga {{count}} inimesega",
+    "removeAccess": "Eemalda juurdepääs"
+  }
+}

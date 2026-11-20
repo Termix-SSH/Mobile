@@ -1,1 +1,3802 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "登入",
+      "addServer": "新增伺服器",
+      "switchAccount": "切換帳號",
+      "noServerConnected": "未連接任何伺服器",
+      "connectToATermixServer": "連接至 Termix 伺服器以管理您的主機、終端機、檔案等。"
+    },
+    "lockScreen": {
+      "cancel": "取消",
+      "tooManyTriesWaitSeconds": "嘗試次數過多。請等待 {{value}} 秒",
+      "termixLocked": "Termix 已鎖定",
+      "enterYourPinToContinue": "輸入您的 PIN 碼以繼續"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "橘色",
+      "blue": "藍色",
+      "green": "綠色",
+      "purple": "紫色",
+      "pink": "粉紅色",
+      "cyan": "青色",
+      "red": "紅色",
+      "yellow": "黃色",
+      "teal": "藍綠色",
+      "indigo": "靛藍色",
+      "rose": "玫瑰色",
+      "lime": "萊姆綠",
+      "system": "系統",
+      "light": "淺色",
+      "dark": "深色"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "使用 PIN 碼",
+      "unlockTermix": "解鎖 Termix",
+      "unlockTermixFirst": "請先解鎖 Termix。"
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "此功能已在伺服器上關閉。",
+      "aTabWasNotReopened": "未重新開啟某個分頁，因為其主機已不存在",
+      "tabsWereNotReopenedBecause": "由於主機已不存在，無法重新開啟 {{count}} 個分頁"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "連結 Termix 伺服器以使用此功能",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "輸入您的伺服器位址",
+        "theAddressCanTHave": "位址不能包含空格",
+        "useAnHttpOrHttps": "請使用 http:// 或 https:// 開頭的位址",
+        "thatDoesnTLookLike": "這看起來不像伺服器位址",
+        "thePortMustBeFrom": "連接埠必須介於 1 到 65535 之間"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "登入代理伺服器回應而非 Termix。請先登入代理伺服器。",
+        "theServerDidNotSend": "伺服器未傳送權杖。",
+        "theServerDidNotSend2": "伺服器未傳送工作階段。",
+        "theServerSentNoSign": "伺服器未傳送登入位址。",
+        "theSignInRanOut": "登入已過期或已被使用。請重新登入。",
+        "wrongUsernameOrPassword": "使用者名稱或密碼錯誤",
+        "signInFailedHttp": "登入失敗 (HTTP {{status}})",
+        "thePageSignedYouIn": "頁面已完成登入但未傳回工作階段。請將伺服器更新至 Termix 26.11.3 或更新版本。",
+        "thisAccountIsnTAllowed": "此帳號不允許在此處登入。",
+        "noTermixAccountMatchesThat": "沒有 Termix 帳號符合該登入資訊。"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "此工作階段沒有伺服器"
+    },
+    "store": {
+      "noSuchAccount": "找不到該帳號",
+      "thisDeviceCanTBe": "無法移除此裝置",
+      "switchToAnotherAccountFirst": "請先切換至其他帳號"
+    },
+    "types": {
+      "thisDevice": "此裝置"
+    },
+    "accountSwitcher": {
+      "error": "錯誤",
+      "worksWithoutAServer": "無需伺服器即可運作",
+      "couldNotSwitchAccount": "無法切換帳號",
+      "accounts": "帳號",
+      "openTabsKeepRunningWhen": "切換時，已開啟的分頁會繼續執行。",
+      "unlink": "取消連結 {{account}}",
+      "linkAServer": "連結伺服器",
+      "eachServerKeepsItsOwn": "每個伺服器會在此{{deviceWord}}上保留其專屬的主機、憑證與設定。",
+      "signedIn": "已登入",
+      "signedOut": "已登出",
+      "syncedCopy": "已同步的副本"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "無法儲存憑證固定值",
+      "theServerSKeyMatches": "伺服器的金鑰與固定值相符",
+      "theServerShowsAnotherKey": "伺服器顯示另一個金鑰",
+      "pinThisKey": "要固定此金鑰嗎？",
+      "pinThisKey2": "固定此金鑰",
+      "keyPinned": "金鑰已固定",
+      "couldNotReadTheServer": "無法讀取伺服器的金鑰",
+      "thatIsNotAPin": "這不是有效的固定值",
+      "keysPinned": "金鑰已固定",
+      "certificatePin": "憑證固定值",
+      "trustThisServerOnlyBy": "僅透過金鑰信任此伺服器。適用於自簽憑證，或拒絕其他金鑰。在變更伺服器憑證前，請先新增下一個金鑰。",
+      "removePin": "移除固定值 {{pin}}",
+      "remove": "移除",
+      "readTheKeyFromThe": "從伺服器讀取金鑰",
+      "orPasteAPin": "或貼上固定值",
+      "pin": "固定值",
+      "add": "新增",
+      "issuedTo": "發給：{{subject}}",
+      "issuedBy": "發行者：{{issuer}}",
+      "validUntil": "有效期至：{{value}}",
+      "checkThatThisKeyMatches": "固定前，請確認此金鑰與您伺服器上的金鑰相符。",
+      "pasteTheBase64Sha256Of": "貼上伺服器公鑰的 base64 sha256 雜湊值，格式如同 openssl 輸出的結果。"
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "已儲存代理伺服器設定",
+      "couldNotSaveTheProxy": "無法儲存代理伺服器設定",
+      "couldNotReadThatFile": "無法讀取該檔案",
+      "certificateSaved": "已儲存憑證",
+      "theFileOrItsPassphrase": "檔案或其密碼不正確",
+      "couldNotSaveTheCertificate": "無法儲存憑證",
+      "headers": "標頭",
+      "sentWithEveryRequestTo": "會隨每次向此伺服器的請求一併傳送，例如 Cloudflare 服務權杖。",
+      "name": "名稱",
+      "value": "值",
+      "removeHeader": "移除標頭",
+      "addHeader": "新增標頭",
+      "cloudflareServiceToken": "Cloudflare 服務權杖",
+      "basicAuth": "基本驗證",
+      "forAProxyThatAsks": "適用於要求使用者名稱和密碼的代理伺服器。",
+      "userName": "使用者名稱",
+      "password": "密碼",
+      "saveHeadersAndBasicAuth": "儲存標頭與基本驗證",
+      "clientCertificate": "用戶端憑證",
+      "forServersThatAskFor": "適用於要求憑證的伺服器（mTLS）。金鑰會儲存在 {{deviceWord}} 的安全儲存區中，無法讀取回來。",
+      "certificate": "憑證",
+      "remove": "移除",
+      "replaceCertificate": "替換憑證",
+      "pickAP12OrPfx": "選擇 .p12 或 .pfx 檔案",
+      "proxySignIn": "代理伺服器登入",
+      "forCloudflareAccessAutheliaAuthentik": "適用於 Cloudflare Access、Authelia、Authentik 及其他擁有獨立登入頁面的代理伺服器。{{value}}",
+      "signInToTheProxy": "登入代理伺服器",
+      "forget": "遺忘",
+      "certificatePassphrase": "憑證密碼",
+      "thePassphraseTheFileWas": "儲存檔案時使用的密碼。若無密碼，請留空。",
+      "passphrase": "密碼",
+      "save": "儲存"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "已登入代理伺服器",
+      "couldNotSaveTheProxy": "無法儲存代理伺服器登入狀態",
+      "signInToTheProxy": "登入代理伺服器",
+      "thisBuildOfTheApp": "此版本的應用程式無法維持代理登入狀態。請改用代理標頭中的服務權杖。"
+    },
+    "savedLoginRow": {
+      "signIn": "登入",
+      "signInWith": "使用 {{name}} 登入",
+      "whenThisServerSignsYou": "當此伺服器將您登出時，無需輸入密碼即可再次登入。"
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "已取消連結。{{copied}} 個項目已保留在「此裝置」上。",
+      "unlinked": "已取消連結",
+      "couldNotUnlinkTheServer": "無法取消連結伺服器",
+      "unlink": "要取消連結 {{value}} 嗎？",
+      "thisSignsOutOfThe": "此 {{deviceWord}} 將從伺服器登出。伺服器上的資料不會被刪除。",
+      "keepACopyOnThis": "在「此裝置」上保留副本",
+      "yourOwnHostsCredentialsAnd": "您自己的主機、憑證和程式碼片段將移至「此裝置」。與您共享的主機將不會保留。",
+      "deleteFromThis": "從此 {{deviceWord}} 刪除",
+      "everythingThisHasForThe": "此 {{deviceWord}} 上關於該伺服器的所有資料都將被移除。"
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "在下方「代理」中變更",
+      "updateTermixMobileFromYour": "從您的應用程式商店更新 Termix Mobile"
+    },
+    "savedLogin": {
+      "signInToTermix": "登入 Termix",
+      "faceUnlock": "臉部解鎖"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "此版本無法檢查此伺服器的固定金鑰或發送其憑證。"
+    },
+    "http": {
+      "thisServerDoesNotSupport": "此伺服器不支援此功能",
+      "theProxyWantsYouTo": "代理要求您登入",
+      "endpointNotAvailableOnThis": "此伺服器上無此端點",
+      "unknownError": "未知錯誤"
+    },
+    "errors": {
+      "theProxyInFrontOf": "此伺服器前方的代理要求您重新登入。",
+      "authenticationRequiredPleaseLogIn": "需要驗證。請重新登入。",
+      "accessDeniedYouDoNot": "存取遭拒。您無權執行此操作。",
+      "thisFeatureIsTurnedOff": "此功能已在伺服器上關閉。",
+      "thisServerDoesNotSupport": "此伺服器不支援此功能。",
+      "resourceNotFoundTheRequested": "找不到資源。請求的項目可能已被刪除。",
+      "conflictTheResourceAlreadyExists": "衝突。資源已存在或正在使用中。",
+      "validationErrorPleaseCheckYour": "驗證錯誤。請檢查您的輸入並重試。",
+      "serverErrorOccurredPleaseTry": "發生伺服器錯誤。請稍後再試。",
+      "sslCertificateVerificationFailed": "SSL 憑證驗證失敗。",
+      "networkErrorPleaseCheckYour": "網路錯誤。請檢查您的連線並重試。",
+      "failedTo": "{{operation}} 失敗",
+      "unknownError": "未知錯誤",
+      "unexpectedErrorDuring": "{{operation}} 期間發生意外錯誤：{{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "應用程式無法信任此本機 IP 的 HTTPS。請在「代理與用戶端憑證」下固定伺服器的金鑰，使用 {{deviceWord}} 信任的憑證，或在受信任的本機或 VPN 網路上使用 HTTP。",
+        "thisServerIsBehindA": "此伺服器位於登入代理之後。請改用外部登入選項。",
+        "loginFailed": "登入失敗"
+      },
+      "files": {
+        "fileNotFound": "找不到檔案",
+        "fileWriteOperationDidNot": "檔案寫入操作未返回成功狀態",
+        "couldNot": "無法 {{operation}}（{{status}}）"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "主機已儲存，但部分設定失敗：{{value}}",
+        "unexpectedHostResponseFrom": "來自 {{baseURL}} 的主機回應意外"
+      },
+      "metrics": {
+        "liveSampleFailed": "即時取樣失敗"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "無回應"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "此伺服器未顯示其固定的金鑰，因此未開啟頁面。"
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "該 {{what}} 已不存在。",
+      "aHostCannotBeIts": "主機不能是其自身的父項",
+      "parentHostNotFound": "找不到父主機",
+      "aHostCanTGo": "主機不能置於其自身的子主機之下",
+      "thisIsSharedWithYou": "此 {{what}} 已與您共享。只有其擁有者可以變更它。",
+      "nameIsRequired": "名稱為必填項",
+      "nameAndCommandAreRequired": "名稱和指令為必填項",
+      "aFolderWithThatName": "已存在同名資料夾"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "此裝置無法在此處儲存 {{what}}。"
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "此程式碼片段已與您共享，無法變更。"
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "請使用至少 8 個字元的密碼片語。",
+      "thisIsNotATermix": "這不是 Termix 備份檔案。",
+      "thisBackupIsFromA": "此備份來自較新版本的 Termix。請先更新應用程式。",
+      "wrongPassphraseOrTheFile": "密碼錯誤，或檔案已損毀。"
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "此版本無法加密本機資料。"
+    },
+    "keys": {
+      "unlockTermixFirst": "請先解鎖 Termix。",
+      "thatIsNotADatabase": "這不是資料庫金鑰。",
+      "couldNotSaveTheDatabase": "無法儲存資料庫金鑰。"
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "此資料是由較新版本的 Termix 儲存。請更新應用程式以開啟。"
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "此裝置不同步。",
+      "localDataIsNotAvailable": "此處無可用的本機資料。",
+      "unlockTermixFirst": "請先解鎖 Termix。"
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "無法連線。",
+      "thisWayCanTRun": "此方式無法執行指令"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo 密碼",
+      "password": "密碼",
+      "run": "執行",
+      "thatPasswordWasWrong": "密碼錯誤。",
+      "onNeedsRoot": "{{hostName}} 上的 {{reason}} 需要 root 權限。",
+      "needsRootForThis": "{{hostName}} 需要 root 權限才能執行此操作。",
+      "itIsKeptUntilYou": "密碼將保留至您關閉應用程式為止。"
+    },
+    "run": {
+      "theHostTookTooLong": "主機回應時間過長",
+      "connectionLost": "連線中斷"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "此操作需要 root 權限。請以 root 身分登入、設定免密碼 sudo，或為該主機儲存 sudo 密碼。",
+      "theSudoPasswordWasWrong": "Sudo 密碼錯誤",
+      "commandFailed": "指令失敗"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "終端機中的 Telnet 需要來自 {{deviceWord}} 的連線。"
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "功能 {{id}} 已註冊"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "位址",
+      "theIpOrHostName": "名稱下方的 IP 或主機名稱",
+      "username": "使用者名稱",
+      "theUserBeforeTheAddress": "位址前的使用者",
+      "port": "連接埠",
+      "thePortAfterTheAddress": "位址後的連接埠",
+      "hostIcon": "主機圖示",
+      "theIconSetOnThe": "設定於主機上的圖示",
+      "pinIcon": "釘選圖示",
+      "marksPinnedHosts": "標記已釘選的主機",
+      "sharedBadge": "共用徽章",
+      "marksHostsSharedWithYou": "標記與您共用的主機",
+      "protocolBadges": "通訊協定徽章",
+      "sshRdpDockerAndOther": "SSH、RDP、Docker 及其他標籤",
+      "tags": "標籤",
+      "theHostSTags": "主機的標籤",
+      "cpuAndRam": "CPU 與 RAM",
+      "liveUsageBarsOnOnline": "線上主機的即時使用量長條圖",
+      "statusColors": "狀態顏色",
+      "greenBarWhenOnlineRed": "線上時顯示綠色長條，離線時顯示紅色"
+    },
+    "uiPrefs": {
+      "small": "小",
+      "default": "預設",
+      "large": "大",
+      "comfortable": "舒適",
+      "compact": "緊湊"
+    },
+    "errors": {
+      "somethingWentWrong": "發生錯誤"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "使用密碼保護金鑰需要 Termix 應用程式，而非網頁預覽。"
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "立即",
+      "after15Seconds": "15 秒後",
+      "after1Minute": "1 分鐘後",
+      "after5Minutes": "5 分鐘後"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "裝置金鑰已遺失",
+      "noSealedKey": "無封裝金鑰",
+      "theSealedKeyIsDamaged": "封裝金鑰已損毀",
+      "wrongPin": "PIN 碼錯誤",
+      "theSealedKeyDidNot": "封存的金鑰無法開啟",
+      "biometricsCanTOpenThe": "生物辨識無法開啟金鑰"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "更新應用程式",
+      "onYourServerNeedsA": "伺服器上的 {{name}} 需要在此 {{deviceWord}} 上安裝更新版本的 Termix。",
+      "updateThePlugin": "更新外掛程式",
+      "onYourServerIsToo": "伺服器上的 {{name}} 版本過舊，不適用於此應用程式。請洽系統管理員在「外掛程式」中更新。"
+    },
+    "frameBridge": {
+      "blockedByTheApp": "已被應用程式封鎖",
+      "theAppDoesNotLet": "應用程式不允許外掛程式使用此路由。",
+      "thisBuildCanTReach": "此版本無法安全地連線至此伺服器。"
+    },
+    "support": {
+      "needsANewerVersionOf": "需要更新版本的應用程式",
+      "updateThePluginOnThe": "更新伺服器上的外掛程式",
+      "theAppHasItsOwn": "應用程式自有外觀",
+      "notInTheAppYet": "尚未納入應用程式",
+      "linkAServerToUse": "連結伺服器以使用",
+      "opensInTheAppFrom": "從伺服器在應用程式中開啟",
+      "runsOnTheServer": "在伺服器上執行",
+      "throughTheServer": "透過伺服器",
+      "inTheApp": "在應用程式中",
+      "webView": "網頁檢視",
+      "onTheServer": "在伺服器上",
+      "appLook": "應用程式外觀",
+      "notInTheApp": "不在應用程式中",
+      "safeMode": "安全模式",
+      "notRunning": "未執行",
+      "notInstalled": "未安裝",
+      "notOnThisServer": "不在此伺服器上",
+      "thePluginIsNotInstalled": "此伺服器未安裝此外掛程式。",
+      "turnedOffOnTheServer": "已在伺服器上關閉",
+      "itOpensHereAgainWhen": "系統管理員開啟後，將再次在此處開啟。",
+      "notRunningOnTheServer": "未在伺服器上執行",
+      "theServerIsInSafe": "伺服器處於安全模式，因此僅執行外觀外掛程式。",
+      "thePluginDidNotStart": "外掛程式未啟動。系統管理員可在「外掛程式」中檢查。",
+      "thisPluginIsNotAvailable": "此外掛程式不可用",
+      "itIsNotMadeFor": "它並非為應用程式設計。",
+      "offOnThisServer": "在此伺服器上已關閉",
+      "notRunningOnThisServer": "未在此伺服器上執行",
+      "notOnThisServer2": "不在此伺服器上",
+      "notInTheAppYet2": "尚未納入應用程式 | 在此伺服器上",
+      "worksOnThis": "適用於此 {{deviceWord}}",
+      "andServer": "{{DeviceWord}} 與伺服器",
+      "deviceOnly": "僅限 {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "重新載入"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "全部斷開連線",
+      "showOpenSessions": "顯示開啟的階段",
+      "termixShowsANotificationWhile": "當階段開啟時，Termix 會顯示通知，以便 Android 在背景持續執行它們。",
+      "sessionsOpen_other": "{{count}} 個階段開啟",
+      "tunnelsActive_other": "{{count}} 個隧道啟用中",
+      "notConnected": "未連線",
+      "waitingForNetwork": "等待網路",
+      "connecting": "連線中",
+      "connected": "已連線",
+      "reconnecting": "重新連線中",
+      "failed": "失敗",
+      "closed": "已關閉"
+    },
+    "companionPane": {
+      "resizeThePanel": "調整 {{title}} 面板大小"
+    },
+    "connectionsPanel": {
+      "close": "關閉",
+      "closeAllTabs": "要關閉所有 {{count}} 個分頁嗎？",
+      "everySessionEnds": "所有階段都會結束。",
+      "closeAll": "全部關閉",
+      "noActiveConnections": "沒有活躍連線",
+      "pickAHostFromThe": "從清單中選取主機以開始工作階段。您在其他裝置上開啟的分頁也會顯示在此處。",
+      "connectToAHostTo": "連線至主機以開始工作階段。您在其他裝置上開啟的分頁也會顯示在此處。",
+      "open": "開啟",
+      "background": "背景",
+      "sessionsFromOtherDevicesOr": "來自其他裝置的工作階段或背景分頁。輕觸以恢復。",
+      "liveTapToReconnect": "連線中，輕觸以重新連線",
+      "tapToReopen": "輕觸以重新開啟"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "此功能已在伺服器上關閉",
+      "comesBackHereWhenAn": "當管理員重新啟用其外掛時，{{title}} 會回到這裡。",
+      "closeTab": "關閉分頁"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "連線",
+        "hideHostList": "隱藏主機清單",
+        "showHostList": "顯示主機清單",
+        "backToHosts": "返回主機",
+        "showKeyboard": "顯示鍵盤",
+        "hideKeyboard": "隱藏鍵盤",
+        "hideKeysPanel": "隱藏金鑰面板",
+        "showKeysPanel": "顯示金鑰面板"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "輕觸以顯示分頁選項，長按以移動",
+        "holdToMove": "長按以移動",
+        "close": "關閉 {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "等待網路",
+        "connectionFailed": "連線失敗",
+        "reconnecting": "重新連線中"
+      }
+    },
+    "sessionMenu": {
+      "rename": "重新命名",
+      "newTabOnThisHost": "在此主機上開啟新分頁",
+      "here": "在此處開啟 {{title}}",
+      "hidePanel": "隱藏 {{title}} 面板",
+      "showPanel": "顯示 {{title}} 面板",
+      "endSplitView": "結束分割檢視",
+      "splitViewWith": "分割檢視...",
+      "moveLeft": "向左移動",
+      "moveRight": "向右移動",
+      "closeTab": "關閉分頁",
+      "closeAllTabs": "關閉所有分頁",
+      "closeAllTabs2": "關閉所有 {{count}} 個分頁？",
+      "everySessionEnds": "所有工作階段都會結束。",
+      "closeAll": "全部關閉",
+      "splitViewWith2": "分割檢視",
+      "renameTab": "重新命名分頁",
+      "leaveItEmptyToUse": "留空則使用主機名稱。"
+    },
+    "resizeHostList": "調整主機清單大小",
+    "resizeSplitView": "調整分割檢視大小",
+    "connections": "連線",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "雙重驗證",
+        "enterThe6DigitCode": "輸入驗證器應用程式中的 6 位數代碼。",
+        "cancel": "取消",
+        "verify": "驗證",
+        "codeExpiresInSGet": "代碼將在 {{totpCountdown}} 秒後過期，取得新代碼",
+        "warpgateAuthentication": "Warpgate 驗證",
+        "confirmTheWarpgateAuthenticationUrl": "確認 Warpgate 驗證 URL 與安全金鑰。",
+        "authenticate": "驗證",
+        "warpgateUrl": "Warpgate URL",
+        "securityKeyOptional": "安全金鑰（選填）",
+        "authenticationRequired": "需要驗證",
+        "thisHostNeedsCredentialsTo": "此主機需要憑證才能連線。",
+        "connect": "連線",
+        "password": "密碼",
+        "sshKey": "SSH 金鑰",
+        "pastePrivateKey": "貼上私密金鑰",
+        "keyPassphraseOptional": "金鑰密碼片語（選填）"
+      },
+      "connectionError": {
+        "tryAgain": "重試",
+        "close": "關閉",
+        "connectThroughTheServer": "透過伺服器連線",
+        "connectFromThis": "從此 {{deviceWord}} 連線",
+        "triedFromThis": "已嘗試從此 {{deviceWord}} 連線",
+        "triedThroughTheServer": "已嘗試透過伺服器連線"
+      },
+      "execGate": {
+        "connecting": "連線中..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "發生錯誤",
+        "retry": "重試",
+        "refresh": "重新整理",
+        "nothingToShow": "無內容可顯示"
+      },
+      "useConnectionLog": {
+        "logsCopied": "日誌已複製",
+        "connectionLog": "連線日誌（{{count}}）",
+        "copyLog": "複製日誌",
+        "waitingForConnection": "等待連線中…",
+        "noLogEntries": "無日誌項目"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "無法儲存此主機的連線方式"
+      },
+      "useSessionConnect": {
+        "connected": "已連線",
+        "connectingTo": "正在連線至 {{name}}…",
+        "connectionLost": "連線中斷",
+        "failedToConnect": "連線失敗",
+        "invalidCode": "無效的代碼",
+        "warpgateAuthenticationFailed": "Warpgate 驗證失敗",
+        "authenticationCancelled": "驗證已取消"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "搜尋與指令",
+    "addHost": "新增主機",
+    "keyboardShortcuts": "鍵盤快捷鍵",
+    "home": "首頁",
+    "hosts": "主機",
+    "sessions": "工作階段",
+    "tools": "工具",
+    "settings": "設定",
+    "terminal": "終端機",
+    "shortcutSheet": {
+      "keyboardShortcuts": "鍵盤快捷鍵"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "主機與資料夾",
+      "yourHostsFoldersAndHosts": "您的主機、資料夾，以及與您分享的主機",
+      "credentials": "憑證",
+      "savedPasswordsAndKeysAnd": "已儲存的密碼與金鑰，以及與您分享的憑證",
+      "snippets": "程式碼片段",
+      "snippetsAndTheirFolders": "程式碼片段及其資料夾",
+      "hostDefaults": "主機預設值",
+      "defaultSettingsForNewHosts": "新主機的預設設定",
+      "preferences": "偏好設定",
+      "settingsThatFollowYouBetween": "會隨您在裝置間同步的設定"
+    },
+    "link": {
+      "noSuchServerAccount": "找不到此伺服器帳戶",
+      "signInFirst": "請先登入。",
+      "thisServerAccountBelongsTo": "此伺服器帳戶屬於 {{value}}。請以該身分登入，或為此使用者重新新增伺服器。"
+    },
+    "reasons": {
+      "signedOut": "已登出",
+      "thisSSignInTo": "此 {{deviceWord}} 對伺服器的登入已過期。",
+      "theServerEndedThisS": "伺服器已結束此 {{deviceWord}} 的工作階段。可能是因為您已在其他裝置上登出。",
+      "proxySignInNeeded": "需要代理伺服器登入",
+      "theProxyInFrontOf": "此伺服器前方的代理伺服器要求您重新登入。",
+      "proxyPasswordNeeded": "需要代理伺服器密碼",
+      "theProxyInFrontOf2": "此伺服器前方的代理伺服器要求輸入其密碼。",
+      "certificateRefused": "憑證遭拒",
+      "theServerDidNotAccept": "伺服器不接受此 {{deviceWord}} 的憑證。",
+      "untrustedServer": "不受信任的伺服器",
+      "theServerSCertificateIs": "此 {{deviceWord}} 不信任伺服器的憑證。",
+      "serverKeyChanged": "伺服器金鑰已變更",
+      "theServerShowsAnotherKey": "伺服器顯示的金鑰與已釘選的金鑰不同。如果您已變更憑證，請釘選新的金鑰。",
+      "offline": "離線",
+      "canTReachTheServer": "無法連線至伺服器。同步功能將稍後重試。",
+      "serverProblem": "伺服器問題",
+      "theServerHadAProblem": "伺服器發生問題。同步功能將稍後重試。",
+      "updateNeeded": "需要更新",
+      "thisServerUsesANewer": "此伺服器使用較新版本的同步功能。請更新應用程式。",
+      "notATermixServer": "非 Termix 伺服器",
+      "theAddressDoesNotAnswer": "該位址的回應不符合 Termix 伺服器的特徵。",
+      "syncIsOff": "同步已關閉",
+      "theSyncPluginIsOff": "此伺服器上的同步外掛已關閉。請管理員在「外掛」中將其開啟。",
+      "differentUser": "使用者不同",
+      "youSignedInAsA": "您登入的使用者與此伺服器帳戶所屬的使用者不同。",
+      "syncStopped": "同步已停止",
+      "somethingWentWrong": "發生錯誤。",
+      "signInAgain": "重新登入",
+      "signInToTheProxy": "登入代理伺服器",
+      "enterThePassword": "輸入密碼",
+      "tryAgain": "再試一次",
+      "checkThePin": "檢查釘選",
+      "checkForUpdates": "檢查更新",
+      "pickACertificate": "選擇憑證"
+    },
+    "settings": {
+      "noSuchSetting": "無此設定",
+      "snippetFolder": "程式碼片段資料夾",
+      "hostDefault": "主機預設值"
+    },
+    "errors": {
+      "theServerDidNotAccept": "伺服器不接受此 {{deviceWord}} 的憑證。",
+      "theServerSCertificateIs": "伺服器的憑證不受信任。",
+      "canTReachTheServer": "無法連線至伺服器。",
+      "signedOut": "已登出",
+      "theProxyAskedForIts": "代理伺服器要求輸入密碼。",
+      "theProxyWantsYouTo": "代理伺服器要求您登入。",
+      "theSyncPluginIsOff": "此伺服器上的同步外掛已關閉。",
+      "serverError": "伺服器錯誤 {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "伺服器顯示的金鑰與已釘選的金鑰不同。"
+    },
+    "remote": {
+      "thisIsNotATermix": "這不是 Termix 伺服器。",
+      "theProxyWantsYouTo": "代理伺服器要求您登入。",
+      "thisServerUsesANewer": "此伺服器使用較新版本的同步功能。請更新應用程式。"
+    },
+    "copy": {
+      "hostCount_other": "{{count}} 個主機",
+      "credentialCount_other": "{{count}} 個憑證",
+      "snippetCount_other": "{{count}} 個程式碼片段",
+      "folderCount_other": "{{count}} 個資料夾",
+      "nothingYet": "尚無內容",
+      "listAnd": "{{list}} 與 {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "無法連線。",
+      "connectingToFromThis": "正在從此 {{deviceWord}} 連線至 {{name}}",
+      "connectingToThroughTheServer": "正在透過伺服器連線至 {{name}}",
+      "reconnectingTry": "重新連線中（第 {{retry}} 次嘗試）",
+      "disconnected": "已斷線",
+      "connected": "已連線",
+      "reconnectedToTheSameSession": "已重新連線至同一個工作階段",
+      "reconnectedWithANewShell": "已使用新的 Shell 重新連線",
+      "couldNotReachTheHost": "無法從此 {{deviceWord}} 連線至主機，正嘗試透過伺服器連線",
+      "couldNotConnectThroughThe": "無法透過伺服器連線，正嘗試從此 {{deviceWord}} 連線",
+      "connectionLost": "連線中斷：{{reason}}",
+      "offlineWaitingForTheNetwork": "離線，正在等待網路",
+      "nextTryInS": "將於 {{value}} 秒後重試",
+      "reconnectingTry2": "重新連線中（第 {{reconnectAttempt}} 次嘗試）",
+      "theHostStoppedAnswering": "主機停止回應",
+      "networkLost": "網路中斷",
+      "network": "網路：{{type}}{{value}}",
+      "lowPowerModeOn": "已開啟低電量模式",
+      "lowPowerModeOff": "已關閉低電量模式",
+      "droppedTypedCharacters": "已遺失 {{count}} 個輸入字元",
+      "youDidNotTrustThe": "您未信任此主機金鑰。",
+      "checkTheKeyWithWhoever": "請向主機管理員確認金鑰，然後再試一次。",
+      "loginCancelled": "登入已取消。",
+      "connectAgainWhenYouAre": "準備好後請重新連線。",
+      "typedInputIsOver64": "輸入內容超過 64 KB，已遺失最早的部分",
+      "appInTheBackground": "應用程式在背景執行",
+      "appInTheForeground": "應用程式在前台執行",
+      "thisConnectionCanTRun": "此連線無法執行指令"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "請檢查位址與通訊埠，並確認伺服器能連線至主機。",
+      "checkTheAddressAndPort2": "請檢查位址與通訊埠，並確認此 {{deviceWord}} 能連線至主機。",
+      "checkTheProxySettingsOf": "請檢查此主機的代理伺服器設定。",
+      "checkTheKeyWithWhoever": "在信任之前，請向主機管理員確認金鑰。",
+      "checkTheUsernameAndLogin": "請在主機編輯器中檢查使用者名稱與登入資訊。",
+      "checkThatTheServerIs": "請確認伺服器正在運作，且您仍處於登入狀態。",
+      "tryAgainIfItKeeps": "請再試一次。若持續斷線，請檢查網路。",
+      "connectAgainWhenYouAre": "準備好後請重新連線。",
+      "pickAnotherWayToConnect": "請選擇其他方式連線至此主機。",
+      "connectThisHostThroughA": "請透過 Termix 伺服器連線至此主機。",
+      "pickTheJumpHostsAgain": "請在主機編輯器中重新選擇跳板主機。",
+      "thisIsATailscaleAddress": "這是 Tailscale 位址。請確認此 {{deviceWord}} 上的 Tailscale 已連線。",
+      "theSavedKeyCanT": "無法讀取已儲存的金鑰。請在主機編輯器中重新貼上。",
+      "signInToThisServer": "請重新登入此伺服器。",
+      "openThisHostInThe": "請在 Termix 網頁應用程式中開啟此主機。",
+      "canTConnectThisWay": "無法以此方式連線",
+      "couldNotReachTheHost": "無法連線至主機",
+      "theProxyDidNotLet": "代理伺服器未允許連線通過",
+      "theHostKeyWasNot": "未信任主機金鑰",
+      "theLoginWasRefused": "登入遭拒",
+      "theTermixServerDidNot": "Termix 伺服器未回應",
+      "theConnectionDropped": "連線已中斷",
+      "loginCancelled": "登入已取消"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH agent",
+        "thisHostSignsInWith": "此主機使用「{{authType}}」登入，需要 Termix 伺服器。請連結一個伺服器以進行連線。",
+        "thisHostUsesA1password": "此主機使用 1Password 參考，需要具有 Secret Sources 功能的 Termix 伺服器。請連結一個伺服器，並透過它連線至此主機。",
+        "signInWithFirstOpen": "請先使用 {{title}} 登入。開啟一次至此主機的終端機，然後再試一次。",
+        "theSignInAndThe": "登入與憑證位於伺服器上",
+        "theHasNoSshAgent": "此 {{deviceWord}} 沒有 SSH agent",
+        "needsATermixServerBecause": "{{title}} 需要 Termix 伺服器，因為 {{why}}。請連結一個伺服器，並透過它連線至此主機。"
+      },
+      "chain": {
+        "aJumpHostOfThis": "此主機的跳板主機已不存在。"
+      },
+      "localShell": {
+        "theConnectionWasCut": "連線已中斷",
+        "theShellChannelClosed": "Shell 通道已關閉",
+        "invalidCodeTryAgain": "無效的代碼，請再試一次：",
+        "authenticationFailed": "驗證失敗：{{message}}",
+        "theHostKeyWasNot": "未信任主機金鑰。",
+        "loginCancelled": "登入已取消。",
+        "notConnected": "未連線"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "連線已中斷"
+      },
+      "thisBuildHasNoSsh": "此版本沒有 SSH 引擎。請使用商店中的應用程式，或連結 Termix 伺服器以進行連線。",
+      "theHostsOnThisAre": "此 {{deviceWord}} 上的主機尚未開啟。",
+      "thisServerSHostsAre": "此伺服器的主機不在此 {{deviceWord}} 上。請在伺服器上啟用同步外掛程式，以便從此 {{deviceWord}} 連線。"
+    },
+    "origin": {
+      "canTConnect": "無法連線。",
+      "canTConnectFromThe": "無法從此 {{deviceWord}} 連線。",
+      "canTReachTheServer": "無法連線至伺服器。",
+      "theOnlyConnectsToSsh": "這個 {{deviceWord}} 只能連線至 SSH 與 Telnet 主機。",
+      "connectThisHostThroughThe": "透過伺服器連線至此主機",
+      "connectThisHostFromThe": "從 {{deviceWord}} 連線至此主機",
+      "termixServer": "Termix 伺服器",
+      "usesThisWhenItCan": "若能連線至主機，則使用此 {{deviceWord}}，否則使用伺服器。",
+      "thisConnectsToTheHost": "此 {{deviceWord}} 會直接連線至主機。",
+      "theTermixServerConnectsTo": "Termix 伺服器會為您連線至主機。",
+      "anSshConnection": "SSH 連線",
+      "aTermixServer": "Termix 伺服器",
+      "aConnectionFromThe": "來自 {{deviceWord}} 的連線",
+      "isOffOnThisServer": "此伺服器已關閉 {{title}}。{{how}} 以使用它。",
+      "isOffOnThisServer2": "此伺服器已關閉 {{title}}。",
+      "anotherWayToConnect": "其他連線方式",
+      "needsToUseIt": "{{title}} 需要 {{what}}。{{how}} 以使用它。",
+      "needsWhichThisHostCan": "{{title}} 需要 {{what}}，但此主機目前無法使用。",
+      "thisDevice": "此 {{deviceWord}}",
+      "automatic": "自動"
+    },
+    "relay": {
+      "youAreSignedOutOf": "您已登出此伺服器。請登入以透過它連線。",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "此主機未安裝 tmux。將使用一般 Shell。",
+        "tapRetryToBringIt": "輕觸「重試」將其帶回此處。",
+        "thisSessionWasOpenedOn": "此工作階段是在其他裝置上開啟的",
+        "noServerUrlFoundLink": "找不到伺服器 URL。請重新連結伺服器。",
+        "signedOutOfThisServer": "已登出此伺服器。請重新登入。",
+        "signInWithInYour": "在瀏覽器中使用 {{title}} 登入。完成後此視窗將關閉。",
+        "theSocketClosedWhileThe": "應用程式在背景執行時，Socket 已關閉",
+        "noWebsocketUrlAvailableServer": "沒有可用的 WebSocket URL - 伺服器未設定",
+        "connectionTimeoutServerNotResponding": "連線逾時 - 伺服器沒有回應",
+        "verificationCode": "驗證碼：",
+        "hostKeyVerificationRequiredBut": "需要主機金鑰驗證，但未註冊處理常式",
+        "hostKeyChangedButNo": "主機金鑰已變更，但未註冊處理常式",
+        "thisHostNeedsASign": "此主機需要僅網頁版應用程式支援的登入方式",
+        "invalidCodeTryAgain": "無效的代碼，請再試一次：",
+        "unknownError": "未知錯誤",
+        "connectionClosed": "連線已關閉",
+        "connectionClosed2": "連線已關閉（{{code}}）",
+        "theServerClosedTheConnection": "伺服器已關閉連線",
+        "theSocketClosed": "Socket 已關閉（{{code}}）",
+        "signIn": "{{title}} 登入",
+        "signInFailed": "{{title}} 登入失敗",
+        "isNotSetUpOn": "伺服器尚未設定 {{title}}",
+        "signInTimedOut": "{{title}} 登入逾時"
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "儲存主機並連線以進行檢查。",
+      "loggedInAsOn": "已以 {{username}} 身分登入 {{host}}",
+      "theHostAskedForMore": "主機要求提供密碼以外的資訊（例如驗證碼）。請儲存主機並連線以完成登入。"
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "等待網路",
+      "couldNotOpenTheTunnel": "無法開啟隧道",
+      "theConnectionDropped": "連線中斷",
+      "iosStoppedThisTunnelWhile": "應用程式在背景執行時，iOS 已停止此隧道。請再次啟動以開啟它。",
+      "connecting": "連線中",
+      "connected": "已連線",
+      "retrying": "重試中",
+      "waiting": "等待中",
+      "failed": "失敗"
+    },
+    "gateways": {
+      "error": "錯誤",
+      "gateways": "閘道",
+      "gatewaysCanOnlyBeChanged": "閘道只能在網頁版 Termix 中變更。",
+      "noHandshake": "無交握",
+      "rulesMissing": "規則遺失",
+      "up": "正常",
+      "pending": "等待中",
+      "applying": "正在套用",
+      "down": "離線",
+      "unreachable": "無法連線"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "尚無隧道。新增一個隧道，將端點主機的埠號轉發至此主機。",
+      "tunnel": "隧道 {{value}}",
+      "removeTunnel": "移除隧道 {{value}}",
+      "mode": "模式",
+      "local": "本地",
+      "remote": "遠端",
+      "dynamic": "動態",
+      "targetHost": "目標主機",
+      "onThisHostForTunnels": "在此主機上，供 {{deviceWord}} 執行的隧道使用",
+      "bindHost": "繫結主機",
+      "endpointHost": "端點主機",
+      "addAnotherHostFirstTunnels": "請先新增其他主機。隧道需透過已儲存的主機進行。",
+      "sourcePort": "來源埠號",
+      "endpointPort": "端點埠號",
+      "maxRetries": "最大重試次數",
+      "retryEveryS": "重試間隔（秒）",
+      "startOnItsOwn": "自動啟動",
+      "addTunnel": "新增隧道",
+      "tunnelNeedsPortsFrom1": "隧道 {{value}} 的埠號必須介於 1 到 65535 之間"
+    },
+    "register": {
+      "tunnels": "隧道",
+      "startAndStopSavedTunnels": "啟動與停止已儲存的隧道",
+      "tunnel": "隧道",
+      "tunnel2": "隧道"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "已複製本地端點",
+      "tunnel": "隧道 | {{sourcePort}}",
+      "portMapping": "埠號對應",
+      "connect": "連線",
+      "disconnect": "斷開連線",
+      "cancel": "取消",
+      "connected": "已連線",
+      "connecting": "連線中",
+      "disconnecting": "斷開連線中",
+      "error": "錯誤",
+      "retrying": "重試中（{{value}}/{{value2}}）",
+      "waitingS": "等待 {{value}} 秒",
+      "waiting": "等待中",
+      "disconnected": "已斷開連線"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "正在埠號 {{sourcePort}} 上啟動隧道",
+      "connectingTunnelOnPort": "正在埠號 {{sourcePort}} 上連線隧道",
+      "disconnectingPort": "正在斷開埠號 {{sourcePort}} 的連線",
+      "cancellingPort": "正在取消埠號 {{sourcePort}}",
+      "failedToTunnel": "無法 {{action}} 隧道",
+      "tunnels": "隧道 | {{count}} | {{value}}",
+      "loadingTunnels": "正在載入隧道…",
+      "noSshTunnelsConfiguredFor": "此主機未設定 SSH 隧道。請從主機表單新增隧道。",
+      "runOn": "執行於",
+      "server": "伺服器",
+      "this": "此 {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "此 {{deviceWord}} 上的隧道會在應用程式關閉時停止。在 iOS 上，應用程式進入背景後不久也會停止。",
+      "failedToFetchTunnelStatuses": "無法取得隧道狀態",
+      "thisBuildCanTOpen": "此版本無法在 {{deviceWord}} 上開啟隧道。",
+      "sourceHostNotFound": "找不到來源主機",
+      "endpointHostNotFound": "找不到端點主機：{{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "隧道",
+      "tunnelCount_other": "{{count}} 個隧道",
+      "runningOnServer": "{{connected}} 個正在伺服器上執行"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "憑證工具"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "此主機未安裝 Docker。",
+        "dockerDidNotAnswer": "Docker 未回應",
+        "thatIsNotAValid": "這不是有效的堆疊名稱"
+      }
+    },
+    "containerDetail": {
+      "stop": "停止",
+      "start": "啟動",
+      "restart": "重新啟動",
+      "remove": "移除",
+      "logs": "日誌",
+      "stats": "統計資訊",
+      "console": "主控台",
+      "logsCopied": "日誌已複製",
+      "copy": "複製",
+      "containerIsNotRunningNo": "容器未執行中，無即時統計資料。",
+      "cpu": "CPU",
+      "memory": "記憶體",
+      "networkIO": "網路 I/O",
+      "blockIO": "區塊 I/O",
+      "pids": "程序 ID",
+      "failedToLoadLogs": "載入日誌失敗",
+      "failedToLoadStats": "載入統計資料失敗",
+      "noOutput": "（無輸出）"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "正在連線至 Docker...",
+    "remove": "要移除 {{name}} 嗎？",
+    "stop": "要停止 {{name}} 嗎？",
+    "theContainerIsStoppedAnd": "容器已停止並刪除。其資料卷將保留。",
+    "anythingRunningInItStops": "其中執行的任何內容都會停止。",
+    "remove2": "移除",
+    "stop2": "停止",
+    "dockerThis": "Docker | 此 {{deviceWord}}",
+    "lookingForDocker": "正在尋找 Docker...",
+    "dockerIsNotAvailableOn": "此主機無法使用 Docker。",
+    "noContainersFound": "找不到容器",
+    "noContainersMatchYourFilters": "沒有容器符合您的篩選條件",
+    "useSudo": "使用 sudo",
+    "refresh": "重新整理",
+    "containers": "容器",
+    "stacks": "堆疊",
+    "searchContainers": "搜尋容器...",
+    "all": "全部",
+    "running": "執行中",
+    "stopped": "已停止",
+    "start": "啟動",
+    "restart": "重新啟動",
+    "pause": "暫停",
+    "unpause": "取消暫停",
+    "moreActions": "更多操作",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker 未回應",
+      "docker": "Docker",
+      "noContainers": "沒有容器"
+    },
+    "dockerConsole": {
+      "attachingTo": "正在連線至 {{name}}...",
+      "consoleDisconnected": "主控台已斷開連線",
+      "reconnect": "重新連線",
+      "failedToLoadTheConsole": "載入主控台失敗",
+      "thisSessionHasNoServer": "此工作階段沒有伺服器"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "容器、日誌與統計資訊"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "此伺服器已關閉堆疊功能。",
+      "couldNotLoadStacks": "無法載入堆疊",
+      "noStacks": "沒有堆疊",
+      "composeProjectsOnThisHost": "此主機上的 Compose 專案會顯示在此處。",
+      "ofRunning": "{{running}} / {{total}} 個正在執行",
+      "couldNotLoadTheStack": "無法載入堆疊",
+      "services": "服務",
+      "nothingIsRunning": "沒有任何服務正在執行。",
+      "composeFile": "Compose 檔案",
+      "partlyUp": "部分執行中",
+      "notDeployed": "未部署",
+      "running": "執行中",
+      "stopped": "已停止",
+      "paused": "已暫停"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "這不是有效的容器 ID",
+      "consoleFailed": "主控台失敗",
+      "notAuthenticated": "未通過驗證",
+      "consoleError": "主控台錯誤",
+      "connectionFailed": "連線失敗"
+    },
+    "dockerDidNotAnswer": "Docker 沒有回應",
+    "failedToLoadContainers": "無法載入容器",
+    "failedTo": "{{action}} 失敗"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "伺服器未傳送任何檔案",
+        "cancelled": "已取消",
+        "isGone": "{{path}} 已不存在",
+        "canTGoToThe": "{{name}} 無法移至垃圾桶"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "無效的垃圾桶項目 ID",
+        "invalidTrashMetadata": "無效的垃圾桶中繼資料",
+        "thisPathCanTBe": "此路徑無法移至垃圾桶",
+        "aFileAlreadyExistsAt": "原始路徑已存在檔案"
+      },
+      "sftp": {
+        "commandFailed": "指令失敗：{{command}}",
+        "alreadyExists": "{{name}} 已存在",
+        "alreadyExistsThere": "{{path}} 在該位置已存在",
+        "canTGoToThe": "{{name}} 無法移至垃圾桶：{{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "終端機已關閉",
+      "clearHistory": "清除歷史記錄",
+      "stopFollowingTheTerminal": "停止跟隨終端機",
+      "followTheTerminal": "跟隨終端機",
+      "goToTheTerminalS": "前往終端機所在的資料夾",
+      "cdTheTerminalHere": "將終端機切換至此處",
+      "folderHistory": "資料夾歷史記錄",
+      "mostUsedFirstThenRecent": "最常使用優先，然後是最近使用",
+      "noFoldersYet": "尚無資料夾"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "無法連線。",
+        "couldNotSaveHowThis": "無法儲存此主機的連線方式",
+        "thisWayCanTOpen": "此方式無法開啟檔案"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "無法開啟此資料夾",
+      "cancel": "取消",
+      "noFoldersHere": "此處沒有資料夾"
+    },
+    "couldNotOpenThisFolder": "無法開啟此資料夾",
+    "couldNotSaveToThe": "無法儲存至資料夾",
+    "failed": "{{label}} 失敗",
+    "uploading": "正在上傳 {{name}}",
+    "uploadingFiles": "正在上傳 {{count}} 個檔案",
+    "downloadingToFilesOnMy": "下載至「檔案」App 中的「我的 iPhone」>「Termix」",
+    "downloading": "正在下載 {{name}}",
+    "downloadingFiles": "正在下載 {{count}} 個檔案",
+    "openALargeFile": "要開啟大型檔案嗎？",
+    "isBigForAEditor": "{{name}} 對於 {{deviceWord}} 上的編輯器來說檔案過大，可能會變慢。",
+    "open": "開啟",
+    "thisLooksLikeABinary": "這看起來像是二進位檔案",
+    "openItInAnotherApp": "要改用其他 App 開啟嗎？",
+    "openWith": "以...開啟",
+    "tooBigForTheEditor": "檔案過大，無法在編輯器中開啟",
+    "isOver10MbDownload": "{{name}} 超過 10 MB。要改為下載嗎？",
+    "download": "下載",
+    "delete": "刪除 {{what}}？",
+    "moveToTheTrash": "將 {{what}} 移至垃圾桶？",
+    "thisCanTBeUndone": "此操作無法復原。",
+    "youCanRestoreItFrom": "您可以從垃圾桶還原。",
+    "delete2": "刪除",
+    "moveToTrash": "移至垃圾桶",
+    "deleteForGood": "要永久刪除嗎？",
+    "deleteItForGoodInstead": "{{message}}。要改為永久刪除嗎？此操作無法復原。",
+    "deleteFailed": "刪除失敗",
+    "connectingThroughTheServer": "正在透過伺服器連線...",
+    "connectingFromThis": "正在從此 {{deviceWord}} 連線...",
+    "connecting": "正在連線...",
+    "edit": "編輯",
+    "downloadFolder": "下載資料夾",
+    "share": "分享",
+    "rename": "重新命名",
+    "copyTo": "複製到",
+    "moveTo": "移動到",
+    "cut": "剪下",
+    "copy": "複製",
+    "permissions": "權限",
+    "properties": "內容資訊",
+    "makeALinkHere": "在此建立連結",
+    "copyPath": "複製路徑",
+    "pathCopied": "路徑已複製",
+    "done": "完成",
+    "selectAll": "全選",
+    "filterByName": "依名稱篩選",
+    "closeSearch": "關閉搜尋",
+    "search": "搜尋",
+    "changeSort": "變更排序",
+    "paste": "貼上 {{count}} 個項目",
+    "upload": "上傳",
+    "transfers2": "傳輸",
+    "more": "更多",
+    "nothingMatches": "沒有符合的項目",
+    "emptyFolder": "空資料夾",
+    "uploadFilesOrMakeA": "上傳檔案或建立新檔案。",
+    "newFolder": "新增資料夾",
+    "newFile": "新增檔案",
+    "select": "選取",
+    "hideHiddenFiles": "隱藏隱藏檔案",
+    "showHiddenFiles": "顯示隱藏檔案",
+    "trash": "垃圾桶",
+    "folderProperties": "資料夾內容資訊",
+    "refresh": "重新整理",
+    "rename2": "重新命名 {{name}}",
+    "newLink": "新增連結",
+    "aLinkInThatPoints": "在 {{path}} 中建立指向 {{path2}} 的連結",
+    "name": "名稱",
+    "create": "建立",
+    "copyHere": "複製到此處",
+    "moveHere": "移動到此處",
+    "fileViewer": {
+      "saved": "已儲存 {{name}}",
+      "couldNotSaveTheFile": "無法儲存檔案",
+      "discardChanges": "要捨棄變更嗎？",
+      "hasChangesThatAreNot": "{{name}} 有未儲存的變更。",
+      "discard": "捨棄",
+      "readOnly": "{{path}} | 唯讀",
+      "find": "尋找",
+      "smallerText": "縮小文字",
+      "biggerText": "放大文字",
+      "turnOffLineWrap": "關閉自動換行",
+      "wrapLines": "自動換行",
+      "save": "儲存"
+    },
+    "hostSection": {
+      "startIn": "起始位置",
+      "theFolderTheFileManager": "檔案管理器首次開啟時的資料夾",
+      "files": "檔案"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "前往 {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "更多操作",
+        "moreFor": "{{name}} 的更多選項"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "權限",
+      "cancel": "取消",
+      "apply": "套用 ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "無法開啟",
+      "openWith": "開啟方式",
+      "share": "分享"
+    },
+    "propertiesView": {
+      "properties": "內容資訊",
+      "path": "路徑",
+      "type": "類型",
+      "pointsTo": "指向",
+      "size": "大小",
+      "countFolderSize": "計算資料夾大小",
+      "permissions": "權限",
+      "change": "變更",
+      "owner": "擁有者",
+      "group": "群組",
+      "modified": "修改時間",
+      "opened": "開啟時間",
+      "linkToA": "連結至 {{value}}",
+      "notShownForFolders": "資料夾不顯示",
+      "file": "檔案",
+      "folder": "資料夾",
+      "link": "連結"
+    },
+    "register": {
+      "fileManager": "檔案管理器",
+      "files": "檔案",
+      "browseEditAndMoveFiles": "瀏覽、編輯與移動檔案",
+      "files2": "檔案",
+      "fileManagerAndTransfers": "檔案管理器與傳輸"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "傳輸失敗"
+      },
+      "transfersPanel": {
+        "pause": "暫停",
+        "resume": "恢復",
+        "tryAgain": "重試",
+        "open": "開啟",
+        "cancel": "取消",
+        "transfers": "傳輸",
+        "goingOf": "{{active}} 進行中 | {{done}} / {{total}}",
+        "clearFinished": "清除已完成",
+        "cancelAll": "全部取消",
+        "noTransfersYet": "尚無傳輸",
+        "waiting": "等待中",
+        "paused": "已暫停",
+        "done": "已完成",
+        "failed": "失敗",
+        "cancelled": "已取消"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "無法載入垃圾桶",
+      "restored": "已還原 {{name}}",
+      "failedToRestore": "還原失敗",
+      "failedToDelete": "刪除失敗",
+      "trashEmptied": "已清空垃圾桶",
+      "failedToEmptyTrash": "清空垃圾桶失敗",
+      "trash": "垃圾桶",
+      "itemsAreRemovedAfterDays": "項目將在 {{retentionDays}} 天後刪除",
+      "close": "關閉",
+      "emptyTrash": "清空垃圾桶",
+      "trashIsEmpty": "垃圾桶是空的",
+      "restore": "還原 {{name}}",
+      "deleteForGood": "永久刪除 {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "剛剛"
+      }
+    },
+    "getting": "正在取得 {{name}}",
+    "itemCount_other": "{{count}} 個項目",
+    "copiedWhat": "已複製 {{what}}",
+    "movedWhat": "已移動 {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} 包含超過 {{limit}} 個檔案。請下載較小的資料夾。"
+    },
+    "downloadingToFilesOnMyIpad": "下載至「檔案」>「我的 iPad」>「Termix」",
+    "size": "大小",
+    "date": "日期"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "服務連結",
+      "openInHomepage": "在首頁開啟",
+      "thisWidgetOnlyShowsOn": "此小工具僅在完整頁面顯示。"
+    },
+    "register": {
+      "serviceLinks": "服務連結",
+      "homepage": "首頁"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "未設定任何訂閱源。",
+        "couldNotLoadTheFeed": "無法載入訂閱源。",
+        "theFeedIsEmpty": "訂閱源為空。",
+        "noLocationSet": "未設定位置。",
+        "couldNotLoadTheWeather": "無法載入天氣資訊。",
+        "noUrlSet": "未設定 URL。",
+        "couldNotLoadTheData": "無法載入資料。",
+        "noPictureSet": "未設定圖片。",
+        "badResponse": "回應錯誤"
+      },
+      "services": "服務",
+      "service": "服務",
+      "serviceLinks": "服務連結",
+      "bookmarks": "書籤",
+      "links2": "連結",
+      "search": "搜尋",
+      "clock": "時鐘",
+      "countdown": "倒數計時",
+      "calendar": "日曆",
+      "notes": "備忘錄",
+      "banner": "橫幅",
+      "ping": "Ping",
+      "host": "主機",
+      "hosts": "主機",
+      "quickConnect": "快速連線",
+      "feed": "訂閱源",
+      "weather": "天氣",
+      "customApi": "自訂 API",
+      "picture": "圖片",
+      "widget": "小工具",
+      "links": {
+        "noServicesYet": "尚無服務。",
+        "noLinkSet": "未設定任何連結。",
+        "noLinksYet": "尚無連結。",
+        "noSearchEngineSet": "未設定搜尋引擎。",
+        "search": "搜尋",
+        "noShortcutsYet": "尚無捷徑。",
+        "search2": "搜尋 {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "無法開啟連結"
+      },
+      "status": {
+        "noUrlsYet": "尚無 URL。",
+        "down": "離線",
+        "noHostsPicked": "未選取任何主機。"
+      },
+      "text": {
+        "noNotesYet": "尚無筆記。",
+        "noTextYet": "尚無文字。"
+      },
+      "time": {
+        "noDateSet": "未設定日期。",
+        "timeIsUp": "時間已到"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "無法儲存預設值",
+    "couldNotResetTheDefault": "無法重設預設值",
+    "back": "返回",
+    "hostDefaults": "主機預設值",
+    "newHostsStartFromThese": "新主機將以此為起始設定",
+    "managedOnTheServer": "由伺服器管理",
+    "defaultsForThisServerAre": "此伺服器的預設值已在網頁應用程式中設定。",
+    "level": "層級",
+    "yourDefaultsOrOneFolder": "您的預設值，或某個資料夾的預設值",
+    "myDefaults": "我的預設值",
+    "aFolderWinsOverYour": "資料夾的設定優先於您的預設值，而您的預設值優先於伺服器的設定。主機會保留您自行設定的任何值。{{value}}",
+    "save": "儲存",
+    "authentication": "驗證",
+    "none": "無",
+    "reset": "重設",
+    "model": {
+      "username": "使用者名稱",
+      "sshPort": "SSH 埠",
+      "authentication": "驗證",
+      "aSavedCredentialForNew": "新主機使用的已儲存憑證",
+      "forceKeyboardInteractive": "強制使用鍵盤互動式驗證",
+      "keepaliveInterval": "Keepalive 間隔",
+      "seconds0TurnsItOff": "秒數，0 表示關閉",
+      "keepaliveTries": "Keepalive 重試次數",
+      "allowOldAlgorithms": "允許舊版演算法",
+      "agentForwarding": "Agent 轉發",
+      "environmentVariables": "環境變數",
+      "oneNameValuePerLine": "每行一個 NAME=value",
+      "checkIfTheHostIs": "檢查主機是否線上",
+      "checkInterval": "檢查間隔",
+      "secondsEmptyUsesTheServer": "秒數，留空則使用伺服器的設定",
+      "socks5Proxy": "SOCKS5 代理",
+      "setInTheWebApp": "在網頁應用程式中設定",
+      "jumpHosts": "跳板主機",
+      "portKnocking": "Port Knocking",
+      "notSet": "未設定",
+      "fromTheServer": "來自伺服器",
+      "fromYourDefaults": "來自您的預設值",
+      "builtIn": "內建"
+    },
+    "register": {
+      "hostDefaults": "主機預設值",
+      "portUserAndOptionsFor": "新主機的埠、使用者與選項"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "尚無資料",
+      "cpu": "CPU",
+      "memory": "記憶體",
+      "disk": "磁碟",
+      "history": "歷史記錄",
+      "loading": "載入中..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "無法讀取指標",
+      "metrics": "指標",
+      "cpu": "CPU",
+      "memory": "記憶體",
+      "disk": "磁碟",
+      "noRecentSampleOpenThe": "沒有近期的樣本。開啟主機的效能指標以開始收集。"
+    },
+    "register": {
+      "enableMetrics": "啟用效能指標",
+      "cpuMemoryDiskAndNetwork": "透過 SSH 監控 CPU、記憶體、磁碟與網路",
+      "hostMetrics": "主機效能指標",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "效能指標",
+      "cpuMemoryDiskAndNetwork2": "CPU、記憶體、磁碟與網路"
+    },
+    "serverStats": {
+      "hostMetricsThis": "主機效能指標 | 此 {{deviceWord}}",
+      "hostMetrics": "主機效能指標",
+      "ran": "已執行 {{name}}",
+      "loadingMetrics": "正在載入效能指標...",
+      "couldNotReadMetricsFrom": "無法從此主機讀取效能指標",
+      "failedToLoadMetrics": "載入效能指標失敗",
+      "thisSessionHasNoServer": "此工作階段沒有伺服器",
+      "twoFactorRequiredForThis": "此主機的統計資料需要雙重驗證。",
+      "failedToStartMetrics": "啟動效能指標失敗",
+      "failedToRun": "執行 {{name}} 失敗"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "每核心：{{value}}",
+        "cores": "核心數",
+        "load": "負載",
+        "user": "使用者",
+        "system": "系統",
+        "ioWait": "IO 等待",
+        "steal": "被佔用"
+      },
+      "diskWidget": {
+        "disk": "磁碟 {{mount}}",
+        "disk2": "磁碟",
+        "used": "已使用",
+        "total": "總計",
+        "free": "可用"
+      },
+      "firewallWidget": {
+        "firewall": "防火牆",
+        "rules": "{{type}} | {{ruleCount}} 則規則",
+        "noFirewallDetected": "未偵測到防火牆"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "記憶體",
+        "temp": "溫度",
+        "power": "功耗",
+        "fan": "風扇"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "登入活動",
+        "noLoginActivityRecorded": "未記錄登入活動",
+        "logins": "登入次數",
+        "uniqueIps": "唯一 IP",
+        "failed": "失敗",
+        "recent": "近期"
+      },
+      "memoryWidget": {
+        "memory": "記憶體",
+        "used": "已使用",
+        "total": "總計",
+        "cached": "快取",
+        "free": "可用"
+      },
+      "networkWidget": {
+        "network": "網路",
+        "noInterfaces": "沒有介面",
+        "up": "上傳",
+        "down": "下載"
+      },
+      "portsWidget": {
+        "listeningPorts": "監聽埠",
+        "noListeningPorts": "沒有監聽埠"
+      },
+      "processesWidget": {
+        "sortBy": "依 {{label}} 排序",
+        "processes": "程序",
+        "running": "{{value}} 個執行中 | {{total}}",
+        "noProcessData": "沒有程序資料",
+        "cpu": "CPU%",
+        "mem": "記憶體%",
+        "command": "指令"
+      },
+      "systemWidget": {
+        "system": "系統",
+        "hostname": "主機名稱",
+        "os": "作業系統",
+        "kernel": "核心",
+        "arch": "架構",
+        "noSystemInfo": "沒有系統資訊"
+      },
+      "temperatureWidget": {
+        "temperature": "溫度"
+      },
+      "uptimeWidget": {
+        "uptime": "運行時間"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "已複製（含密碼）",
+      "copiedTheLink": "已複製連結",
+      "shareHost": "分享主機",
+      "thatHostNoLongerExists": "該主機已不存在",
+      "scanThisInTermixOn": "在另一台 {{deviceWord}} 上的 Termix 中，前往「匯入與匯出」掃描此代碼。代碼包含位址、連接埠和使用者，但不包含密碼或金鑰。",
+      "copyLink": "複製連結",
+      "copyLinkWithPassword": "複製含密碼的連結"
+    },
+    "includePasswordsAndKeys": "要包含密碼和金鑰嗎？",
+    "anyoneWhoGetsThisFile": "任何取得此檔案的人都可以登入這些主機。請妥善保管。",
+    "includeThem": "包含它們",
+    "pickAtLeastOneHost": "請至少選擇一個主機",
+    "couldNotMakeTheFile": "無法建立檔案",
+    "copiedToTheClipboard": "已複製到剪貼簿",
+    "importAndExport": "匯入與匯出",
+    "moveHostsInAndOut": "移入或移出主機",
+    "import": "匯入",
+    "aTermixHostFileAn": "Termix 主機檔案、SSH 設定檔，或來自另一台 {{deviceWord}} 的主機連結或 QR 碼。",
+    "export": "匯出",
+    "allHosts": "所有主機",
+    "picked": "已選取 {{size}} 個",
+    "pickHosts": "選擇主機",
+    "includePasswordsAndKeys2": "包含密碼和金鑰",
+    "offMakesAFileSafe": "關閉此選項可使檔案安全分享。使用已儲存憑證的主機將以名稱引用該憑證",
+    "shareAFile": "分享檔案",
+    "copy": "複製",
+    "importPanel": {
+      "couldNotReadThat": "無法讀取該內容",
+      "couldNotReadThatFile": "無法讀取該檔案",
+      "importFailed": "匯入失敗",
+      "chooseAFile": "選擇檔案",
+      "paste": "貼上",
+      "scanACode": "掃描代碼",
+      "couldNotBeRead": "{{count}} 個無法讀取",
+      "updateHostsThatExist": "更新已存在的主機",
+      "sameAddressPortAndUser": "位址、連接埠和使用者相同。否則將跳過",
+      "cancel": "取消",
+      "import": "匯入",
+      "andMore": "及其他 {{value}} 個"
+    },
+    "qrCode": {
+      "qrCode": "QR 碼"
+    },
+    "register": {
+      "importAndExport": "匯入與匯出",
+      "moveHostsInOrOut": "使用檔案或 QR 碼移入或移出主機",
+      "shareHost": "分享主機"
+    },
+    "scanSheet": {
+      "scanAHostCode": "掃描主機代碼",
+      "pointTheCameraAtA": "將相機對準 Termix 主機 QR 碼。",
+      "termixNeedsTheCameraTo": "Termix 需要相機權限才能掃描代碼。不會記錄任何內容。",
+      "allowTheCamera": "允許使用相機"
+    },
+    "read": {
+      "termixFile": "Termix 檔案",
+      "sshConfig": "SSH 設定",
+      "thereIsNothingToImport": "沒有可匯入的內容",
+      "thatIsNotATermix": "這不是 Termix 主機連結",
+      "linkHost": "1 個主機：{{name}}",
+      "sourceHosts_other": "{{what}}，包含 {{count}} 個主機"
+    },
+    "saveYourTermixHosts": "儲存您的 Termix 主機"
+  },
+  "operations": {
+    "approvals": {
+      "done": "已完成",
+      "rejected": "已拒絕",
+      "approvals": "核准",
+      "nothingIsWaiting": "沒有等待中的項目",
+      "actionsARuleHoldsFor": "需要核准的規則動作會顯示在此處。",
+      "approveAndRun": "核准並執行",
+      "reject": "拒絕",
+      "couldNotLoadApprovals": "無法載入核准項目",
+      "couldNotDecide": "無法決定"
+    },
+    "approvalsCard": {
+      "approved": "已核准",
+      "rejected": "已拒絕",
+      "waitingForApproval": "等待核准",
+      "approve": "核准",
+      "reject": "拒絕",
+      "couldNotDecide": "無法決定",
+      "seeAll": "查看全部"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "此操作無法復原。要執行嗎？",
+      "run": "執行",
+      "sentForApproval": "已送審",
+      "target": "目標",
+      "theItemOnTheHost": "主機上的項目，例如容器",
+      "dryRun": "模擬執行",
+      "back": "返回",
+      "actions": "動作",
+      "noActionsForThisHost": "此主機沒有可用動作",
+      "turnOnAPluginLike": "在伺服器上為此主機啟用 Docker 或 Services 等外掛程式。",
+      "destructive": "具破壞性",
+      "changes": "變更",
+      "theActionCouldNotRun": "動作無法執行",
+      "couldNotLoadActions": "無法載入動作"
+    },
+    "register": {
+      "actions": "動作",
+      "waitingForApproval": "等待核准",
+      "approvals": "核准",
+      "actionsWaitingForAPerson": "等待人員核准的動作",
+      "runHistory": "執行記錄",
+      "everyActionAnyoneRanFrom": "任何人從任何裝置執行的所有動作"
+    },
+    "runHistory": {
+      "cancelThisRun": "要取消此次執行嗎？",
+      "cancelRun": "取消執行",
+      "keep": "保留",
+      "undoThisRun": "要復原此次執行嗎？",
+      "thisRunsTheActionS": "這將使用相同的輸入執行動作的復原操作。",
+      "undo": "復原",
+      "cancelled": "已取消",
+      "itAlreadyFinished": "已完成",
+      "done": "已完成",
+      "runHistory": "執行記錄",
+      "nothingHasRunYet": "尚無執行記錄",
+      "dryRun": "模擬執行",
+      "cancel": "取消",
+      "couldNotLoadHistory": "無法載入記錄",
+      "couldNotCancel": "無法取消",
+      "couldNotUndo": "無法復原"
+    },
+    "api": {
+      "needsApproval": "需要核准",
+      "needsSignIn": "需要登入",
+      "done": "已完成",
+      "failed": "失敗",
+      "running": "執行中",
+      "interrupted": "已中斷",
+      "rejected": "已拒絕",
+      "cancelled": "已取消",
+      "expired": "已過期"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "開啟 {{value}}",
+      "moreSettingsForThisAre": "更多設定請前往 Termix 網頁版應用程式。",
+      "pluginHostSettings": "外掛主機設定"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} 必須為數字",
+      "mustBeAtLeast": "{{field}} 必須至少為 {{min}}",
+      "mustBeAtMost": "{{field}} 必須至多為 {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "連結伺服器以使用",
+      "runsOnYourTermixServer": "{{name}} 執行於您的 Termix 伺服器上。"
+    },
+    "pluginWebView": {
+      "canTLoad": "無法載入 {{name}}",
+      "theServerDidNotSend": "伺服器未傳送外掛。請確認伺服器已開啟，然後再試一次。",
+      "openThisLink": "要開啟此連結嗎？",
+      "open": "開啟",
+      "needsANewerVersionOf": "需要更新版本的應用程式",
+      "usesPartsOfTermixThis": "{{name}} 使用了此應用程式尚未具備的 Termix 功能。",
+      "didNotStart": "{{name}} 未能啟動",
+      "thisScreenIsNotIn": "此畫面不存在於伺服器上的外掛版本中。",
+      "thePluginHitAnError": "外掛在啟動時發生錯誤。",
+      "youReOffline": "您目前離線",
+      "runsOnYourServerSo": "{{name}} 執行於您的伺服器上，因此需要網路連線。當您重新連線時，它會再次開啟。",
+      "tryAgain": "再試一次"
+    },
+    "shell": {
+      "thatHostIsNotOn": "該主機尚未在此 {{deviceWord}} 上。",
+      "theAppCanTOpen": "應用程式無法從此處開啟該項目。",
+      "thatHostIsNotOn2": "該主機尚未在此 {{deviceWord}} 上。"
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "密碼",
+      "unchangedIfBlank": "若留空則保持不變",
+      "port": "連接埠",
+      "domain": "網域",
+      "displaySoundAndClipboardSettings": "顯示、音效與剪貼簿設定位於 Termix 網頁版應用程式中。",
+      "portMustBeFrom1": "{{label}} 連接埠必須介於 1 到 65535 之間"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "遠端桌面已中斷",
+        "signIn": "{{label}} 登入",
+        "itWillNotBeSaved": "{{error}} 將不會儲存。",
+        "enterTheLoginForIt": "輸入 {{title}} 的登入資訊。將不會儲存。",
+        "reconnecting": "正在重新連線 {{label}}",
+        "connecting": "正在連線 {{label}}",
+        "connectionFailed": "連線失敗",
+        "disconnected": "已斷開連線",
+        "reconnect": "重新連線",
+        "connectThroughTheServer": "透過伺服器連線",
+        "pasteToRemote": "貼上至遠端",
+        "typeClipboard": "輸入剪貼簿內容",
+        "copyRemoteClipboard": "複製遠端剪貼簿",
+        "theComputerSCertificateWas": "不受信任的電腦憑證。",
+        "thatLoginWasRefusedTry": "該登入遭到拒絕。請再試一次。"
+      },
+      "target": {
+        "trustThisComputer": "要信任此電腦嗎？",
+        "theCanTCheckS": "此 {{deviceWord}} 無法檢查 {{hostName}} 的憑證。請在繼續之前，確認此指紋與電腦上顯示的一致。\n\n{{fingerprint}}",
+        "trustAndConnect": "信任並連線",
+        "certificateChanged": "憑證已變更",
+        "showsAnotherCertificateThanLast": "{{hostName}} 顯示的憑證與上次不同。這通常發生在電腦產生新憑證後，或有人在中間竊聽時。\n\n新指紋：\n{{fingerprint}}",
+        "trustTheNewOne": "信任新憑證"
+      }
+    },
+    "register": {
+      "remoteDesktop": "遠端桌面",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "完成",
+      "keyboard": "鍵盤",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "設定",
+      "remoteSettings": "遠端設定",
+      "mouseMode": "滑鼠模式",
+      "touch": "觸控",
+      "trackpad": "觸控板",
+      "tapWhereYouWantTo": "輕觸要點擊的位置。長按為右鍵點擊，拖曳以移動。",
+      "dragToMoveThePointer": "拖曳以移動指標。輕觸為點擊，兩指輕觸為右鍵點擊，輕觸後拖曳以移動。",
+      "zoomXPinchAnywhereTo": "縮放：{{value}}x。在任意位置捏合以縮放",
+      "reset": "重設",
+      "cancel": "取消",
+      "connect": "連線",
+      "username": "使用者名稱",
+      "domainOptional": "網域（選填）",
+      "domain": "網域",
+      "password": "密碼",
+      "leftArrow": "左箭頭",
+      "upArrow": "上箭頭",
+      "downArrow": "下箭頭",
+      "rightArrow": "右箭頭",
+      "rdpSignIn": "RDP 登入"
+    },
+    "theRemoteDesktopDropped": "遠端桌面已斷線",
+    "theyWillNotBeSaved": "{{errorMessage}} 這些資料將不會被儲存。",
+    "enterCredentialsForTheyWill": "輸入 {{title}} 的憑證。這些資料將不會被儲存。",
+    "connecting": "連線中",
+    "connectionFailed": "連線失敗",
+    "disconnected": "已斷線",
+    "reconnect": "重新連線",
+    "route": {
+      "thisHostCanTOpen": "此主機無法從此處開啟遠端桌面。"
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "被應用程式封鎖"
+    },
+    "failedToStartRemoteSession": "無法啟動遠端工作階段",
+    "thatLoginWasRefusedTry": "該登入遭到拒絕。請再試一次。",
+    "theRemoteRefusedTheSaved": "遠端拒絕了已儲存的登入資訊。請檢查此主機上的 RDP 登入設定。",
+    "remoteSessionFailed": "遠端工作階段失敗",
+    "remoteSessionReturnedAnInvalid": "遠端工作階段回傳無效訊息",
+    "failedToLoadTheRemote": "無法載入遠端桌面用戶端"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "沒有日誌",
+      "thisHostDoesNotKeep": "此主機未保留 systemd 日誌。",
+      "all": "全部",
+      "warnings": "警告",
+      "errors": "錯誤",
+      "stop": "停止",
+      "follow": "追蹤",
+      "nothingLogged": "沒有記錄",
+      "tryAnotherLevel": "請嘗試其他層級。",
+      "couldNotReadTheJournal": "無法讀取日誌"
+    },
+    "register": {
+      "services": "服務",
+      "startStopAndReadLogs": "啟動、停止並查看日誌"
+    },
+    "readingServices": "正在讀取服務...",
+    "thisHostHasNoSystemd": "此主機沒有 systemd 或 OpenRC。",
+    "noServicesMatch": "沒有符合的服務",
+    "noServicesFound": "找不到服務",
+    "services": "服務",
+    "journal": "日誌",
+    "searchServices": "搜尋服務...",
+    "all": "全部",
+    "running": "執行中",
+    "failed": "失敗 ({{failed}})",
+    "failed2": "失敗",
+    "servicesCard": {
+      "services": "服務",
+      "noSystemdOrOpenrc": "沒有 systemd 或 OpenRC",
+      "failed": "{{failed}} 個失敗",
+      "allRunning": "全部執行中",
+      "couldNotReadServices": "無法讀取服務"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "它會保持停止狀態，直到再次啟動或主機重新開機。",
+      "itStopsForAMoment": "它會短暫停止後重新啟動。",
+      "stop": "停止",
+      "restart": "重新啟動",
+      "is": "{{name}} 狀態為 {{state}}",
+      "start": "啟動",
+      "journal": "日誌",
+      "couldNotReadTheService": "無法讀取服務",
+      "couldNot": "無法 {{action}} {{name}}",
+      "startsAtBoot": "開機時啟動",
+      "mainPid": "主要 PID",
+      "activeSince": "啟用時間",
+      "unitFile": "單元檔案",
+      "notSet": "[未設定]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "未登入",
+        "followFailed": "追蹤失敗",
+        "connectionFailed": "連線失敗"
+      }
+    },
+    "couldNotReadServices": "無法讀取服務",
+    "services2": "服務{{where}}",
+    "title": "服務",
+    "failedCount": "{{count}} 個失敗"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "工作階段共用",
+      "shareLink": "共用連結"
+    },
+    "shareSessionView": {
+      "canWatch": "可觀看",
+      "canType": "可輸入",
+      "n1Hour": "1 小時",
+      "n8Hours": "8 小時",
+      "n1Day": "1 天",
+      "n7Days": "7 天",
+      "never": "永不過期",
+      "shareSession": "共用工作階段",
+      "anyoneWithTheLinkCan": "任何擁有此連結的人都可以在此終端機執行期間開啟它。您可以在 Termix 中撤銷連結。",
+      "peopleWithTheLink": "擁有連結的人",
+      "expiresAfter": "過期時間",
+      "link": "連結",
+      "copy": "複製",
+      "share": "共用",
+      "makeLink": "建立連結",
+      "theServerGaveNoLink": "伺服器未提供連結",
+      "couldNotMakeALink": "無法建立連結",
+      "linkCopied": "連結已複製"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "沒有資料夾"
+    },
+    "hostPicker": {
+      "selectNone": "取消全選",
+      "selectAll": "全選",
+      "done": "完成"
+    },
+    "register": {
+      "snippets": "程式碼片段",
+      "snippets2": "程式碼片段",
+      "savedCommandsToRunOn": "在任何主機上執行的已儲存命令"
+    },
+    "runHosts": {
+      "noWayToReachThis": "無法從此處連線到此主機",
+      "exitedWith": "已退出，退出碼為 {{exitCode}}",
+      "thisCanTRunIt": "此 {{deviceWord}} 無法執行",
+      "noServerIsLinked": "未連結任何伺服器"
+    },
+    "runOnHostsSheet": {
+      "run": "執行",
+      "run2": "執行「{{name}}」",
+      "runsOverSshOnEach": "透過 SSH 在各主機上執行。不會開啟終端機。",
+      "close": "關閉",
+      "hosts": "主機",
+      "pickHosts": "選擇主機",
+      "workedFailed": "{{value}} 成功，{{failed}} 失敗",
+      "runOn2": "執行於",
+      "runOn_other": "要在 {{count}} 個主機上執行 {{name}} 嗎？",
+      "hostsPicked_other": "已選擇 {{count}} 個主機"
+    },
+    "snippetsBar": {
+      "searchSnippets": "搜尋程式碼片段",
+      "pastesTheNote": "貼上註解",
+      "runsTheSnippet": "執行程式碼片段",
+      "noSnippetsMatch": "沒有符合的程式碼片段",
+      "noSnippetsYet": "尚無程式碼片段",
+      "addSnippetsInSettingsSnippets": "在「設定」>「程式碼片段」中新增程式碼片段",
+      "run": "執行",
+      "insertWithoutRunning": "插入而不執行",
+      "copy": "複製"
+    },
+    "snippetsCard": {
+      "snippets": "程式碼片段",
+      "run": "執行 {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "沒有可匯出的程式碼片段",
+      "couldNotMakeTheFile": "無法建立檔案",
+      "copiedToTheClipboard": "已複製到剪貼簿",
+      "couldNotImport": "無法匯入",
+      "couldNotReadThatFile": "無法讀取該檔案",
+      "importAndExport": "匯入與匯出",
+      "theSameFileTheWeb": "與網頁版應用程式使用的相同檔案。",
+      "export": "匯出",
+      "shareAFile": "分享檔案",
+      "copy": "複製",
+      "import": "匯入",
+      "updateSnippetsThatExist": "更新已存在的程式碼片段",
+      "sameNameInTheSame": "相同資料夾中的相同名稱。否則將跳過",
+      "chooseAFile": "選擇檔案",
+      "paste": "貼上",
+      "saveYourSnippets": "儲存您的程式碼片段"
+    },
+    "useSnippetRunner": {
+      "run": "要執行 {{name}} 嗎？",
+      "run2": "執行",
+      "fillInTheValuesFor": "填寫此程式碼片段的值。",
+      "cancel": "取消",
+      "insert": "插入",
+      "noTerminalIsOpen": "沒有開啟的終端機"
+    },
+    "variables": {
+      "input": "輸入 {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "這不是有效的 JSON 檔案",
+      "theFileNeedsASnippets": "檔案需要包含程式碼片段或資料夾清單",
+      "snippetNameAndContentAre": "程式碼片段 {{value}}：名稱與內容為必填",
+      "folder": "資料夾 {{name}}：{{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "正在載入 Tailscale 裝置…",
+      "searchTailscaleDevices": "搜尋 Tailscale 裝置…",
+      "searchTailscaleDevices2": "搜尋 Tailscale 裝置",
+      "clearDeviceSearch": "清除裝置搜尋",
+      "refreshTailscaleDevices": "重新整理 Tailscale 裝置",
+      "device": "裝置",
+      "noTailnetAddress": "無 tailnet 位址",
+      "tailscaleDevice": "Tailscale 裝置",
+      "tailscaleDevices": "Tailscale 裝置",
+      "addAHostThatConnects": "新增使用 Tailscale SSH 連線的主機。",
+      "username": "使用者名稱",
+      "sshUsernameFor": "{{value}} 的 SSH 使用者名稱",
+      "addHost": "新增主機",
+      "noTailscaleDevicesMatchYour": "沒有符合搜尋條件的 Tailscale 裝置。",
+      "noTailscaleDevicesFound": "找不到 Tailscale 裝置。",
+      "noTailscaleApiKeyIs": "此伺服器未設定 Tailscale API 金鑰。請洽系統管理員新增。",
+      "youDoNotHavePermission": "您沒有權限列出 Tailscale 裝置。",
+      "couldNotLoadTailscaleDevices": "無法載入 Tailscale 裝置。請重新整理再試。",
+      "tailscaleIsUnavailableOnThis": "此伺服器無法使用 Tailscale。"
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "重新連線中 | 嘗試第 {{attempt}} 次",
+      "reconnectingInSTry": "{{secs}} 秒後重新連線 | 嘗試第 {{attempt}} 次",
+      "offlineWaitingForNetwork": "離線，等待網路連線",
+      "sendToTheNewShell": "要將 {{what}} 傳送至新的 shell 嗎？",
+      "reconnectNow": "立即重新連線",
+      "send": "傳送",
+      "discard": "捨棄",
+      "typedChars_other": "{{count}} 個已輸入的字元",
+      "waiting": "{{what}} 等待中"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "已複製連線記錄",
+      "connectionLog": "連線記錄",
+      "copyItIntoABug": "將其複製到錯誤回報中。位址與使用者名稱已省略。",
+      "copy": "複製"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "要清除此主機的歷史記錄嗎？",
+        "clear": "清除",
+        "searchHistory": "搜尋歷史記錄",
+        "typesTheCommandWithoutRunning": "輸入命令但不執行",
+        "noCommandsMatch": "沒有符合的命令",
+        "noHistoryYet": "尚無歷史記錄",
+        "commandsYouRunOnThis": "您在此主機上執行的命令會顯示在這裡",
+        "run": "執行",
+        "typeWithoutRunning": "輸入但不執行",
+        "copy": "複製",
+        "delete": "刪除",
+        "historyCleared": "歷史記錄已清除"
+      },
+      "suggestionStrip": {
+        "use": "使用 {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "應用程式設定",
+      "delete": "刪除 (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "由 shell 設定分頁標題",
+      "programsCanSetTheTab": "程式可以設定分頁標題",
+      "openTmux": "開啟 tmux",
+      "attachToATmuxSession": "附加到 tmux 工作階段，或建立一個",
+      "reconnectOnDrop": "斷線時重新連線",
+      "keepTabOpenOnExit": "退出時保持分頁開啟",
+      "pressEnterToConnectAgain": "按 Enter 再次連線",
+      "saveCommandHistory": "儲存命令歷史記錄",
+      "offerToFillPasswordPrompts": "提供填入密碼提示",
+      "offerToFillSudoPrompts": "提供填入 sudo 提示",
+      "usesTheSudoPasswordFrom": "使用 SSH 分頁中的 sudo 密碼",
+      "none": "無",
+      "look": "外觀",
+      "theme": "主題",
+      "font": "字型",
+      "cursor": "游標",
+      "bell": "警示音",
+      "scrollbackLines": "捲動行數",
+      "app": "應用程式",
+      "behavior": "行為",
+      "backspaceSends": "Backspace 傳送",
+      "startupSnippet": "啟動程式碼片段",
+      "runsOnceTheShellIs": "Shell 就緒後執行一次",
+      "fillWithoutAsking": "自動填入",
+      "onThisOnlyOnceYou": "僅在此 {{deviceWord}} 上，選擇「一律填入」後生效",
+      "connection": "連線",
+      "keepalive": "保持連線",
+      "secondsBetweenPings0Turns": "Ping 間隔秒數，0 表示關閉",
+      "default": "預設",
+      "keepaliveSeconds": "保持連線秒數",
+      "missedPings": "未回應的 Ping",
+      "dropTheConnectionAfterThis": "超過此數量的 Ping 未回應時中斷連線",
+      "missedPingsBeforeDrop": "中斷連線前的未回應 Ping 數",
+      "environment": "環境",
+      "removeVariable": "移除變數",
+      "addVariable": "新增變數"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "鍵盤"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "列",
+        "keys": "按鍵",
+        "sendsAKeyCode": "傳送按鍵碼",
+        "stickyModifier": "黏著式修飾鍵",
+        "appAction": "應用程式動作",
+        "tmuxPrefixThen": "tmux 前綴，然後 {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "按鍵列",
+        "onlyFor": "僅適用於 {{name}}",
+        "usingTheAppSRows": "使用應用程式的列。此處的變更僅適用於 {{name}}",
+        "useTheAppSRows": "使用應用程式的列"
+      },
+      "keyButton": {
+        "locked": "已鎖定"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "取消",
+        "remove": "移除 {{what}}？",
+        "remove2": "移除",
+        "dragToReorder": "拖曳以重新排序",
+        "rowName": "列名稱",
+        "groupName": "群組名稱",
+        "add": "新增",
+        "addKey": "新增按鍵",
+        "addRow": "新增列",
+        "addGroup": "新增群組",
+        "tmuxPrefix": "tmux 前綴",
+        "name": "名稱",
+        "rename": "重新命名",
+        "keys": "{{value}} 個按鍵",
+        "noKeys": "無按鍵",
+        "remove3": "移除 {{label}}",
+        "keys2": "按鍵",
+        "custom": "自訂",
+        "add2": "新增 {{label}}",
+        "typeText": "輸入文字",
+        "runCommand": "執行命令",
+        "ctrlKey": "Ctrl 鍵",
+        "label": "標籤",
+        "optional": "選填",
+        "letter": "字母",
+        "command": "指令",
+        "text": "文字",
+        "resetToDefault": "重設為預設值"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "在「設定」>「鍵盤」中變更按鍵"
+      },
+      "keyRowBar": {
+        "keyRow": "按鍵列 {{label}}",
+        "tapForTheNextRow": "輕觸切換至下一列，長按以選擇",
+        "keyRows": "按鍵列"
+      },
+      "model": {
+        "clear": "清除",
+        "main": "主要",
+        "keys": "按鍵",
+        "arrows": "方向鍵",
+        "symbols": "符號",
+        "actions": "動作",
+        "nav": "導覽",
+        "move": "移動",
+        "function": "功能鍵",
+        "brackets": "括號",
+        "punctuation": "標點符號",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "窗格",
+        "copy": "複製",
+        "split": "水平分割 ─",
+        "split2": "垂直分割 │",
+        "newWin": "新視窗",
+        "prevWin": "上一個視窗",
+        "nextWin": "下一個視窗",
+        "pane": "左窗格 ←",
+        "pane2": "下窗格 ↓",
+        "pane3": "上窗格 ↑",
+        "pane4": "右窗格 →",
+        "copyMode": "複製模式",
+        "pasteBuf": "貼上緩衝區",
+        "killPane": "關閉窗格"
+      }
+    },
+    "output": {
+      "openLink": "要開啟此連結嗎？",
+      "open": "開啟",
+      "pasteLines": "要貼上 {{lines}} 行嗎？",
+      "pasteThisText": "要貼上這段文字嗎？",
+      "theShellMayRunIt": "Shell 可能會立即執行它。\n\n{{text}}",
+      "paste": "貼上",
+      "letTheProgramReadYour": "要允許程式讀取您的剪貼簿嗎？",
+      "itAskedForWhatYou": "它要求取得您上次複製的內容。",
+      "allow": "允許",
+      "letTheProgramCopyTo": "要允許程式複製到剪貼簿嗎？"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "要填入已儲存的密碼嗎？",
+      "asksForTheSudoPassword": "{{hostName}} 要求輸入 sudo 密碼。",
+      "asksForAPassword": "{{hostName}} 要求輸入密碼。",
+      "fillPassword": "填入密碼",
+      "alwaysFillOnThisHost": "在此主機上總是自動填入",
+      "asksNoMoreOnThis": "在此 {{deviceWord}} 上不再詢問。可在該主機的「終端機」分頁中關閉此功能。",
+      "notNow": "現在不要"
+    },
+    "register": {
+      "terminal": "終端機",
+      "terminalAndKeepalive": "終端機與保持連線",
+      "history": "歷史記錄",
+      "find": "尋找",
+      "tmuxWindows": "tmux 視窗",
+      "connectionLog": "連線記錄",
+      "keyRowsForThisHost": "此主機的按鍵列"
+    },
+    "searchBar": {
+      "noResults": "無結果",
+      "matchCase": "區分大小寫",
+      "wholeWord": "全字符合配",
+      "regularExpression": "正規表示式",
+      "find": "尋找",
+      "closeFind": "關閉尋找"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "系統",
+      "block": "方塊",
+      "bar": "游標",
+      "underline": "底線",
+      "off": "關閉",
+      "sound": "音效",
+      "flash": "閃爍",
+      "both": "兩者"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "在此主機開啟新分頁",
+      "closeTab": "關閉分頁",
+      "nextTab": "下一個分頁",
+      "previousTab": "上一個分頁",
+      "goToTab": "前往分頁",
+      "find": "尋找",
+      "fontSize": "字型大小",
+      "paste": "貼上",
+      "escape": "Escape",
+      "copyAndPaste": "複製與貼上"
+    },
+    "reconnecting": "重新連線中...",
+    "waitingForNetwork": "等待網路...",
+    "waitingForYou": "等待您...",
+    "connecting": "連線中...",
+    "terminalView": {
+      "scrollToBottom": "捲動到底部",
+      "onlyWebLinksCanOpen": "終端機只能開啟網頁連結",
+      "couldNotOpenLink": "無法開啟連結",
+      "copiedFromTheTerminal": "已從終端機複製"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "開啟 tmux 工作階段",
+        "newSession": "新工作階段",
+        "plainShell": "一般 Shell",
+        "tmuxWindows": "tmux 視窗",
+        "newWindow": "新視窗",
+        "windowCount_other": "{{count}} 個視窗",
+        "attached": "{{count}} 個已連接",
+        "activeNow": "目前活躍",
+        "activeMinAgo": "{{count}} 分鐘前活躍",
+        "activeHoursAgo": "{{count}} 小時前活躍",
+        "activeDaysAgo_other": "{{count}} 天前活躍"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "複製",
+        "selectAll": "全選",
+        "cancel": "取消",
+        "scrollToBottom": "捲動到底部",
+        "couldNotCopy": "無法複製",
+        "webviewError": "WebView 錯誤：{{description}}",
+        "webviewHttpError": "WebView HTTP 錯誤：{{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "此主機沒有已儲存的密碼",
+    "backInTmuxSession": "返回 tmux 工作階段 {{tmuxName}}",
+    "backInScreenSession": "返回 screen 工作階段 {{name}}",
+    "theServerSessionEndedThis": "伺服器工作階段已結束。這是新的 Shell。",
+    "termixWasClosedSoThe": "Termix 已關閉，因此舊的 Shell 已結束。這是新的 Shell。",
+    "theConnectionDroppedAndThe": "連線中斷且舊的 Shell 已結束。這是新的 Shell。",
+    "disconnectedFrom": "已與 {{hostName}} 斷開連線"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "雙重驗證",
+      "codesFromAnAuthenticatorApp": "來自驗證器應用程式的伺服器帳戶代碼"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC 位址",
+      "neededToWakeThisHost": "使用 Wake-on-LAN 喚醒此主機所需",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "請使用類似 00:1A:2B:3C:4D:5E 的 MAC 位址"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "已將 Wake-on-LAN 傳送至 {{name}}",
+      "failedToSendWakeOn": "傳送 Wake-on-LAN 封包失敗",
+      "noServer": "無伺服器"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "喚醒 {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "要分享匿名使用統計資料嗎？",
+      "termixWouldSendAShort": "Termix 將每天傳送一份簡短報告。您可以隨時在設定中變更此選項。",
+      "noThanks": "不用了，謝謝",
+      "share": "分享",
+      "theReportHasTheApp": "報告包含應用程式版本、{{deviceWord}} 類型、主機與工作階段的大約數量、您使用的功能，以及連線是否成功。報告絕不會包含主機名稱、使用者名稱、位址、路徑、指令或伺服器名稱。",
+      "seeExactlyWhatIsSent": "查看傳送的詳細內容"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "正在載入版本資訊…",
+      "updateAvailable": "有可用更新",
+      "newVersionAvailable": "有新版本可用",
+      "aNewerVersionOfThe": "行動應用程式有新版本可用。在更新之前，某些功能可能無法正常運作。",
+      "versionInformation": "版本資訊",
+      "installed": "已安裝",
+      "latest": "最新版",
+      "unknown": "未知",
+      "tag": "標籤",
+      "continueAnyway": "仍要繼續"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "已複製",
+      "copy": "複製",
+      "hostKeyChanged": "主機金鑰已變更",
+      "verifyHostKey": "驗證主機金鑰",
+      "cancel": "取消",
+      "acceptNewKey": "接受新金鑰",
+      "connectAndTrust": "連線並信任",
+      "theHostSSshKey": "自上次連線以來，主機的 SSH 金鑰已變更。這可能表示有人正在攔截連線。",
+      "youAreConnectingToThis": "這是您第一次連線到此主機。在信任之前，請檢查指紋。",
+      "previousKey": "先前金鑰",
+      "newFingerprint": "新指紋",
+      "hostFingerprint": "主機指紋"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "需要密碼片語",
+      "enterThePassphraseForYour": "請輸入 SSH 金鑰的密碼片語。",
+      "cancel": "取消",
+      "connect": "連線",
+      "keyPassphrase": "金鑰密碼片語"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "需要 SSH 驗證",
+      "cancel": "取消",
+      "connect": "連線",
+      "password": "密碼",
+      "sshKey": "SSH 金鑰",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\n在此貼上您的私密金鑰…\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "金鑰密碼片語（選填）",
+      "keyboardInteractiveAuthIsNot": "鍵盤互動式驗證不可用。請直接輸入憑證。",
+      "authenticationFailedPleaseReEnter": "驗證失敗。請重新輸入您的憑證。",
+      "connectionTimedOutPleaseTry": "連線逾時。請使用您的憑證再試一次。"
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH 檢查",
+      "completeTheTailscaleSshCheck": "請在瀏覽器中完成 Tailscale SSH 檢查以繼續。",
+      "cancel": "取消",
+      "copyUrl": "複製 URL",
+      "openBrowser": "開啟瀏覽器",
+      "urlCopied": "URL 已複製",
+      "failedToCopy": "複製失敗",
+      "couldNotOpenBrowser": "無法開啟瀏覽器"
+    },
+    "tOTPDialog": {
+      "cancel": "取消",
+      "submit": "提交",
+      "verify": "驗證",
+      "password": "密碼",
+      "pasteCode": "貼上代碼",
+      "passwordRequired": "需要密碼",
+      "twoFactorAuthentication": "雙因素驗證",
+      "enterYourPasswordToContinue": "請輸入密碼以繼續。",
+      "enterThe6DigitCode": "請輸入驗證器應用程式中的 6 位數代碼。"
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate 驗證",
+      "authenticateViaTheWarpgatePortal": "透過 Warpgate 入口網站進行驗證，然後輕觸繼續。",
+      "cancel": "取消",
+      "openBrowser": "開啟瀏覽器",
+      "continue": "繼續",
+      "securityKey": "安全金鑰",
+      "authUrl": "驗證 URL",
+      "copied": "已複製",
+      "copy": "複製",
+      "urlCopied": "URL 已複製",
+      "failedToCopy": "複製失敗",
+      "couldNotOpenBrowser": "無法開啟瀏覽器"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "此 {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "近期活動",
+        "files": "檔案",
+        "terminal": "終端機"
+      },
+      "alertsCard": {
+        "notifications": "通知",
+        "seeAll": "查看全部"
+      },
+      "server": "伺服器",
+      "openSessions": "開啟的會話",
+      "quickAccess": "快速存取",
+      "notifications": "通知",
+      "pinnedHosts": "已釘選的主機",
+      "recentHosts": "近期主機",
+      "recentActivity": "近期活動",
+      "pinnedCard": {
+        "addYourFirstHost": "新增您的第一台主機",
+        "hostsYouOpenShowUp": "您開啟的主機會顯示在此處，已釘選的主機會顯示即時資訊卡。",
+        "addHost": "新增主機",
+        "linkAServer": "連結伺服器",
+        "pinAHostToSee": "釘選主機以在此處查看",
+        "pinnedHostsShowTheirMetrics": "已釘選的主機會一覽無遺地顯示其指標、Docker 與服務。長按主機即可釘選。",
+        "goToHosts": "前往主機",
+        "pinned": "已釘選",
+        "opensTheTerminalHoldFor": "開啟終端機。長按查看更多選項。",
+        "turnOnDockerOrServices": "為此主機啟用 Docker 或服務，或輕觸以連線。",
+        "opens": "開啟 {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "快速存取",
+        "quickConnect": "快速連線",
+        "userHostPortWithoutSaving": "user@host:port，不儲存"
+      },
+      "recentCard": {
+        "recent": "近期"
+      },
+      "serverCard": {
+        "server": "伺服器",
+        "version": "版本",
+        "uptime": "運行時間",
+        "database": "資料庫",
+        "hosts": "主機",
+        "online": "線上",
+        "offline": "離線",
+        "logins": "登入次數"
+      },
+      "sessionsCard": {
+        "openSessions": "開啟的會話",
+        "connected": "已連線"
+      }
+    },
+    "resetHome": "重設首頁？",
+    "cardsGoBackToThe": "卡片將恢復預設順序與顯示項目。",
+    "reset": "重設",
+    "doneEditingHome": "完成編輯首頁",
+    "editHome": "編輯首頁",
+    "dragToReorder": "拖曳 {{title}} 以重新排序",
+    "show": "顯示 {{title}}",
+    "dragCardsToReorderThem": "拖曳卡片以重新排序。關閉卡片可將其隱藏。沒有內容的卡片會自動隱藏。",
+    "resetToDefault": "重設為預設值",
+    "done": "完成",
+    "serverReachBanner": {
+      "stillCanTReachThe": "仍無法連線至伺服器",
+      "canTReach": "無法連線至 {{account}}",
+      "youCanKeepWorkingWith": "您可以繼續使用此 {{deviceWord}} 上的副本進行工作。待連線恢復後，變更將同步上傳。",
+      "hostsSetToConnectFrom": "設定為從此 {{deviceWord}} 連線的主機仍可正常運作。",
+      "tryAgain": "重試",
+      "noAnswer": "無回應"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault 設定檔",
+      "none": "無",
+      "signsInWithInYour": "透過您的 Termix 伺服器，在瀏覽器中使用 {{title}} 登入。請透過伺服器連線至此主機。",
+      "needsATermixServerLink": "{{title}} 需要 Termix 伺服器。請連結一個伺服器以使用此登入方式。",
+      "isOffOnThisServer": "此伺服器上的 {{title}} 已關閉。此主機將保留其登入設定。"
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "無法載入憑證",
+      "deleted": "已刪除「{{name}}」",
+      "couldNotDeleteTheCredential": "無法刪除憑證",
+      "credentials": "憑證",
+      "add": "新增",
+      "searchCredentials": "搜尋憑證",
+      "clearSearch": "清除搜尋",
+      "loadingCredentials": "正在載入憑證...",
+      "noCredentialsMatchYourSearch": "沒有符合搜尋條件的憑證",
+      "noCredentialsYet": "尚無憑證",
+      "addCredential": "新增憑證",
+      "edit": "編輯",
+      "delete": "刪除",
+      "deleteCredential": "刪除憑證",
+      "willBePermanentlyDeletedHosts": "「{{name}}」將被永久刪除。使用此憑證的主機將遺失其儲存的憑證資訊。",
+      "cancel": "取消",
+      "hostCount_other": "{{count}} 個主機",
+      "sshKey": "SSH 金鑰"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "替換金鑰？",
+        "theNewKeyTakesThe": "新金鑰將取代目前金鑰。僅信任舊金鑰的主機將不再接受此憑證。",
+        "replace": "替換",
+        "newKeyMadeCopyThe": "已建立新金鑰。請將公鑰複製到您的主機。",
+        "couldNotMakeAKey": "無法建立金鑰",
+        "couldNotReadThatCertificate": "無法讀取該憑證檔案",
+        "leaveWithoutSaving": "離開而不儲存？",
+        "yourChangesToThisCredential": "您對此憑證的變更將遺失。",
+        "leave": "離開",
+        "credentialSaved": "憑證已儲存",
+        "credentialAdded": "憑證已新增",
+        "couldNotSaveTheCredential": "無法儲存憑證",
+        "enterAHostToTest": "輸入要測試的主機，例如 10.0.0.5 或 box:2222。",
+        "enterTheUsernameFirst": "請先輸入使用者名稱。",
+        "editCredential": "編輯憑證",
+        "newCredential": "新增憑證",
+        "cancel": "取消",
+        "save": "儲存",
+        "credential": "憑證",
+        "name": "名稱",
+        "productionKey": "生產金鑰",
+        "username": "使用者名稱",
+        "signInWith": "登入方式",
+        "password": "密碼",
+        "sshKey": "SSH 金鑰",
+        "unchangedIfBlank": "留空則保持不變",
+        "key": "金鑰",
+        "fileOrPaste": "檔案或貼上",
+        "makeANewKey": "建立新金鑰",
+        "aKeyIsSavedChoose": "已儲存金鑰。選擇檔案或貼上以取代。",
+        "type": "類型",
+        "ed25519AndEcdsaAreMade": "Ed25519 與 ECDSA 在此 {{deviceWord}} 上建立，RSA 則在您的伺服器上建立。",
+        "madeOnThisEd25519Works": "在此 {{deviceWord}} 上建立。Ed25519 幾乎適用於所有環境。",
+        "passphrase": "密碼片語",
+        "optionalLocksTheNewKey": "選填。用於在此 {{deviceWord}} 及磁碟上鎖定新金鑰。",
+        "makeKey": "建立金鑰",
+        "publicKey": "公鑰",
+        "addThisLineToSsh": "將此行新增至您主機上的 ~/.ssh/authorized_keys",
+        "publicKeyCopied": "公鑰已複製",
+        "copyPublicKey": "複製公鑰",
+        "certificate": "憑證",
+        "aCertificateYourCaSigned": "由您的 CA 為此金鑰簽署的憑證，適用於信任該 CA 的主機。",
+        "chooseCertificateFile": "選擇憑證檔案",
+        "thisDoesNotLookLike": "這看起來不像 OpenSSH 憑證。",
+        "test": "測試",
+        "hostToTestOn": "測試用主機",
+        "n10005Or": "10.0.0.5 或 box.lan:2222",
+        "pickASavedHost": "選擇已儲存的主機",
+        "details": "詳細資訊",
+        "description": "描述",
+        "whatThisCredentialIsFor": "此憑證的用途",
+        "folder": "資料夾",
+        "serverKeys": "伺服器金鑰",
+        "testOnAHost": "在主機上測試",
+        "rsaKeysNeedALinked": "RSA 金鑰需要連結伺服器。"
+      },
+      "model": {
+        "giveThisCredentialAName": "為此憑證命名",
+        "addAPrivateKeyOr": "新增私鑰，或建立新金鑰"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "這是主機憑證，而非使用者憑證。",
+        "thisCertificateIsNotValid": "此憑證尚未生效。",
+        "thisCertificateHasExpired": "此憑證已過期。",
+        "itIsForAKey": "這是給 {{keyType}} 金鑰使用的，但此金鑰是 {{keyType2}}。",
+        "forAnyUser": "適用於任何使用者",
+        "validFromNoEndDate": "自 {{validAfter}} 起有效，無到期日",
+        "signedBy": "由 {{caSha256}} 簽署"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "使用者名稱",
+        "fromTheCredential": "來自憑證：{{credentialUser}}",
+        "signInWith": "登入方式",
+        "password": "密碼",
+        "key": "金鑰",
+        "credential": "憑證",
+        "none": "無",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "使用 Tailscale SSH 連線。不會儲存密碼或金鑰。",
+        "tailscaleIsNotOnFor": "{{value}} 未啟用 Tailscale。此主機將保留其 Tailscale 登入資訊。",
+        "unchangedIfBlank": "留空則保持不變",
+        "noCredentialsYetTapThe": "尚無憑證。點擊「主機」中的金鑰圖示以新增。",
+        "useCredential": "使用憑證 {{name}}",
+        "sudoPassword": "Sudo 密碼",
+        "typedIntoSudoPromptsWhen": "當終端機區段開啟此功能時，會輸入至 sudo 提示中",
+        "notSet": "未設定",
+        "thisServer": "此伺服器"
+      },
+      "colorIconField": {
+        "color": "顏色",
+        "noColor": "無顏色",
+        "color2": "顏色 {{c}}",
+        "icon": "圖示",
+        "noIcon": "無圖示",
+        "none": "無",
+        "icon2": "圖示 {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "要離開而不儲存嗎？",
+        "yourChangesToThisHost": "您對此主機的變更將會遺失。",
+        "leave": "離開",
+        "couldNotSaveHowThis": "無法儲存此主機的連線設定",
+        "hostSaved": "主機已儲存",
+        "hostAdded": "主機已新增",
+        "couldNotSaveTheHost": "無法儲存主機",
+        "enterTheHostSAddress": "請先輸入主機的位址。",
+        "turnOnSshToTest": "開啟 SSH 以測試登入。",
+        "pickACredentialFirst": "請先選擇憑證。",
+        "editHost": "編輯主機",
+        "newHost": "新增主機",
+        "cancel": "取消",
+        "save": "儲存",
+        "host": "主機",
+        "name": "名稱",
+        "myServer": "我的伺服器",
+        "address": "位址",
+        "port": "連接埠",
+        "portAndUsernameComeFrom": "連接埠與使用者名稱將沿用您的主機預設值，直到您變更它們為止。",
+        "folder": "資料夾",
+        "production": "生產環境",
+        "useAFolderInstead": "改用資料夾",
+        "putItUnderAHost": "改放在主機下",
+        "pinToTop": "置頂",
+        "colorAndIcon": "顏色與圖示",
+        "notes": "備註",
+        "anythingWorthRememberingAboutThis": "關於此主機值得記住的事項",
+        "protocols": "通訊協定",
+        "terminalFilesAndMore": "終端機、檔案與其他功能",
+        "connectFrom": "連線來源",
+        "features": "功能",
+        "otherProtocols": "其他通訊協定",
+        "more": "更多",
+        "theTestRunsFromThis": "測試將從此 {{deviceWord}} 執行。此主機透過伺服器連線，因此即使 {{deviceWord}} 無法直接連線到它，仍可正常運作。"
+      },
+      "jumpHostsField": {
+        "jumpHosts": "跳板主機",
+        "connectsThroughTheseInOrder": "依序透過這些主機連線，最後到達此主機",
+        "reachThisHostThroughOther": "先透過其他主機連線到此主機",
+        "moveUp": "上移",
+        "moveDown": "下移",
+        "removeJumpHost": "移除跳板主機",
+        "addJumpHost": "新增跳板主機",
+        "pickASavedHostTo": "選擇要透過其連線的已儲存主機",
+        "searchHosts": "搜尋主機",
+        "noOtherHostsToPick": "沒有其他主機可供選擇。主機無法透過自身或已經透過它連線的主機進行跳板連線。",
+        "missingHost": "遺失的主機 #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "請至少開啟一個通訊協定",
+        "pickACredential": "請選擇憑證",
+        "enterTheHostSAddress": "輸入主機位址",
+        "theAddressCanTHave": "位址不能包含空格",
+        "portMustBeFrom1": "連接埠必須介於 1 到 65535 之間",
+        "enterTheSshUsername": "輸入 SSH 使用者名稱"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "此主機將顯示在您選擇的主機下方",
+        "searchHosts": "搜尋主機",
+        "noHostsToPickA": "沒有可選的主機。主機不能設為自己的子主機、其子主機或共用主機。",
+        "parentHost": "父主機",
+        "subHostsFollowTheFolder": "子主機會繼承父主機的資料夾",
+        "pickParentHost": "選擇父主機",
+        "missingHost": "遺失的主機 #{{value}}",
+        "pickAHost": "選擇主機",
+        "clearParentHost": "清除父主機"
+      },
+      "tagsField": {
+        "tags": "標籤",
+        "typeATagAndPress": "輸入標籤後按 Enter",
+        "removeTag": "移除標籤 {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "無法儲存此主機的連線設定",
+      "addressCopied": "已複製位址",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "連線來源",
+      "dismiss": "關閉",
+      "unpin": "取消固定",
+      "pinToHome": "固定至首頁",
+      "select": "選擇",
+      "editHost": "編輯主機",
+      "copyAddress": "複製位址",
+      "addSubHost": "新增子主機",
+      "cloneHost": "複製主機",
+      "deleteHost": "刪除主機",
+      "connectThroughTheServer": "透過伺服器連線",
+      "connectFromThis": "從此 {{deviceWord}} 連線"
+    },
+    "defaultYourOrder": "預設（您的順序）",
+    "nameAZ": "名稱（A-Z）",
+    "nameZA": "名稱（Z-A）",
+    "ipAscending": "IP（遞增）",
+    "ipDescending": "IP（遞減）",
+    "onlineFirst": "線上優先",
+    "offlineFirst": "離線優先",
+    "pinnedFirst": "固定優先",
+    "status": "狀態",
+    "online": "線上",
+    "offline": "離線",
+    "pinned": "已固定",
+    "protocol": "通訊協定",
+    "features": "功能",
+    "hostsCanOnlyMoveInside": "主機只能在同一個資料夾內移動",
+    "couldNotUpdateTheHosts": "無法更新主機",
+    "sharedHostsCanTBe": "共用主機無法在此刪除",
+    "delete2": "刪除",
+    "noneOfTheseHostsOpen": "這些主機都沒有開啟終端機",
+    "couldNotPinTheHost": "無法固定主機",
+    "deleted": "已刪除 {{name}}",
+    "failedToDeleteHost": "刪除主機失敗",
+    "cloned": "已複製 {{name}}",
+    "failedToCloneHost": "複製主機失敗",
+    "reorderWorksWithTheDefault": "重新排序僅在預設排序且無搜尋或篩選時有效",
+    "couldNotSaveTheOrder": "無法儲存順序",
+    "noHostsYet": "尚無主機",
+    "addAHostToConnect": "新增主機，即可一鍵連線。",
+    "addHost": "新增主機",
+    "quickConnect2": "快速連線",
+    "linkAServer": "連結伺服器",
+    "noHostsMatch": "沒有符合的主機",
+    "clearSearchAndFilters": "清除搜尋與篩選條件",
+    "more": "更多",
+    "dragAHostByIts": "拖曳主機的握把，即可將其移動至資料夾內。",
+    "done": "完成",
+    "filterHosts": "篩選主機",
+    "clearFilterText": "清除篩選文字",
+    "sortHosts": "排序主機",
+    "removeFilter": "移除篩選條件 {{value}}",
+    "loadingHosts": "正在載入主機…",
+    "moveUnderAHost": "移至主機下方",
+    "moveToFolder": "移至資料夾",
+    "leaveItEmptyToTake": "留空即可將主機移出資料夾。",
+    "folderLikeProdWeb": "資料夾，例如 Prod / Web",
+    "move": "移動",
+    "hosts": "主機",
+    "selectHosts": "選取主機",
+    "reorderHosts": "重新排序主機",
+    "customizeList": "自訂清單",
+    "chooseWhatEachHostRow": "選擇每個主機列顯示的內容",
+    "credentials2": "憑證",
+    "savedPasswordsAndKeys": "已儲存的密碼與金鑰",
+    "tailscaleDevices": "Tailscale 裝置",
+    "refresh": "重新整理",
+    "rowDensityFollowsSettingsAppearance": "列密度會遵循「設定」中的「外觀」設定。",
+    "clearAllFilters": "清除所有篩選條件",
+    "tags": "標籤",
+    "stopSelecting": "停止選取",
+    "selected": "已選取 {{count}} 項",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "無法讀取該金鑰檔案",
+        "theClipboardIsEmpty": "剪貼簿為空",
+        "privateKey": "私密金鑰",
+        "chooseFile": "選擇檔案",
+        "paste": "貼上",
+        "unchangedIfBlank": "若為空白則保持不變",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "密碼片語",
+        "onlyIfTheKeyHas": "僅在金鑰有密碼片語時使用",
+        "theKeyIsCheckedWhen": "連線時會檢查金鑰。",
+        "thePastedKey": "貼上的金鑰"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "開啟",
+        "moreActions": "更多動作",
+        "opensTheTerminalHoldFor": "開啟終端機。長按以查看更多選項。",
+        "shared": "已共用",
+        "drag": "拖曳 {{name}}",
+        "showSubHosts_other": "顯示 {{name}} 的 {{count}} 個子主機",
+        "hideSubHosts_other": "隱藏 {{name}} 的 {{count}} 個子主機"
+      },
+      "hostList": {
+        "folderHosts": "資料夾 {{name}}，共 {{total}} 個主機"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "必須填寫主機與使用者名稱",
+      "hostSaved": "主機已儲存",
+      "couldNotSaveTheHost": "無法儲存主機",
+      "quickConnect": "快速連線",
+      "connectToAHostWithout": "連線至主機而不儲存。",
+      "hostIp": "主機 / IP",
+      "port": "連接埠",
+      "username": "使用者名稱",
+      "password": "密碼",
+      "key": "金鑰",
+      "privateKey": "私鑰",
+      "saveToMyHosts": "儲存到我的主機",
+      "keepThisHostAfterConnecting": "連線後保留此主機",
+      "cancel": "取消",
+      "connect": "連線"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "正在從伺服器取得您的主機",
+      "yourHostsStayOnThis": "{{message}} 您的主機目前仍保留在此 {{deviceWord}} 上。"
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "此主機的指紋已變更",
+      "trustThisHost": "信任此主機？",
+      "trust": "信任",
+      "stopTest": "停止測試",
+      "testConnection": "測試連線",
+      "connecting": "連線中..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "無法載入主機。"
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}。{{count}} 個共用主機保持不變。",
+    "deleteHosts_other": "刪除 {{count}} 個主機？",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "沒有名為 {{name}} 的資料夾"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "主機「{{name}}」：埠號無效",
+        "hostJumpIsNotIn": "主機「{{name}}」：跳板機 {{value}} 不在檔案中，已略過",
+        "credential": "憑證 {{name}}：{{error}}",
+        "noValidHostEntriesFound": "在 SSH 設定檔中找不到有效的 Host 項目",
+        "credentialWasNotFound": "{{label}}：找不到憑證 {{value}}"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "主機 {{value}}：重複的匯出主機 ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}：缺少必要欄位 (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}：authType 無效。必須是 {{value}} 其中之一",
+        "usernameRequiredForSshConnections": "{{label}}：SSH 連線需要使用者名稱",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}：憑證驗證需要 credentialAlias",
+        "thatIsNotAValid": "這不是有效的 JSON 檔案",
+        "hostsArrayIsRequiredAnd": "必須提供 Hosts 陣列且不得為空",
+        "jumpHostCycle": "{{label}}：跳板機循環",
+        "jumpHostIsNotIn": "{{label}}：跳板機 {{id}} 不在檔案中"
+      }
+    },
+    "movedTo": "已移至 {{value}}",
+    "movedOutOfFolders": "已移出資料夾",
+    "movedUnder": "已移至 {{value}} 下方",
+    "openTerminals": "開啟終端機",
+    "theHost": "該主機"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "隱藏密碼",
+      "showPassword": "顯示密碼",
+      "enterAUsernameAndPassword": "輸入使用者名稱與密碼",
+      "useAtLeast6Characters": "密碼至少需 6 個字元",
+      "thePasswordsDonTMatch": "密碼不符",
+      "makeTheAdminAccount": "建立管理員帳號",
+      "makeAnAccount": "建立帳號",
+      "thisIsTheFirstAccount": "這是伺服器上的第一個帳號，因此擁有管理員權限。",
+      "pickAUsernameAndPassword": "為此伺服器設定使用者名稱與密碼。",
+      "username": "使用者名稱",
+      "password": "密碼",
+      "passwordAgain": "再次輸入密碼",
+      "makeAccount": "建立帳號",
+      "back": "返回",
+      "haveAnAccountSignIn": "已有帳號？登入",
+      "resetCodeMadeItIs": "已產生重設碼，請查看伺服器日誌",
+      "enterYourUsername": "輸入您的使用者名稱",
+      "enterTheResetCode": "輸入重設碼",
+      "passwordChangedSignInWith": "密碼已變更。請立即使用新密碼登入",
+      "resetPassword": "重設密碼",
+      "enterYourUsernameTheServer": "輸入您的使用者名稱。伺服器會將重設碼寫入日誌。",
+      "sendResetCode": "發送重設碼",
+      "enterThe6DigitCode": "輸入伺服器記錄中的 6 位數代碼。",
+      "resetCode": "重設代碼",
+      "checkCode": "檢查代碼",
+      "newPassword": "新密碼",
+      "saveNewPassword": "儲存新密碼",
+      "backToSignIn": "返回登入",
+      "couldNotMakeTheAccount": "無法建立帳戶",
+      "couldNotStartTheReset": "無法啟動重設程序",
+      "thatCodeDidnTWork": "該代碼無效",
+      "couldNotChangeThePassword": "無法變更密碼"
+    },
+    "browserStep": {
+      "signInFailed": "登入失敗",
+      "signInCanceled": "登入已取消",
+      "couldNotOpenTheSign": "無法開啟登入瀏覽器",
+      "couldNotOpenTheSign2": "無法開啟登入頁面",
+      "certificateProblem": "憑證問題",
+      "back": "返回",
+      "signIn": "登入",
+      "reload": "重新載入",
+      "finishSigningInInYour": "在瀏覽器中完成登入",
+      "useAnySignInYour": "使用伺服器上設定的任何登入方式，例如通行金鑰或安全金鑰。登入後應用程式會自動接手。",
+      "theAppPicksUpOnce": "當您的登入提供者完成後，應用程式會自動接手。",
+      "signingIn": "正在登入...",
+      "openBrowserAgain": "再次開啟瀏覽器",
+      "theServerTurnedTheSession": "伺服器拒絕了該工作階段。請再試一次。",
+      "signedInButTheApp": "已登入，但應用程式無法連線至 Termix。可能是代理伺服器阻擋了連線。",
+      "thatSignInLinkIs": "該登入連結來自較早的嘗試。請重新登入。",
+      "signInAgain": "請重新登入。",
+      "openTheBrowserAgainWhen": "準備好時請再次開啟瀏覽器。",
+      "theWebPageSignedIn": "網頁已登入但未傳送工作階段。請更新伺服器後再試一次。",
+      "theCanTCheckThis": "{{deviceWord}} 無法驗證此伺服器的憑證。請在 {{deviceWord}} 上安裝其根 CA。{{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "下次要使用 {{name}} 登入嗎？",
+      "ifThisServerSignsYou": "如果此伺服器將您登出，下次請改用 {{name}} 登入，而非輸入密碼。密碼會保留在此 {{deviceWord}} 上。",
+      "use": "使用 {{name}}",
+      "notNow": "現在不要",
+      "couldNotSaveTheLogin": "無法儲存登入資訊",
+      "thatSADifferentUser": "這是不同的使用者",
+      "signedIn": "已登入",
+      "close": "關閉",
+      "linkYourTermixServer": "連結您的 Termix 伺服器",
+      "yourHostsCredentialsSnippetsAnd": "您的主機、憑證、程式碼片段和設定會與之同步，並可使用其外掛程式。當伺服器離線時，此 {{deviceWord}} 上的所有功能仍會正常運作。",
+      "checking": "正在檢查 {{host}}...",
+      "proxyAndClientCertificate": "代理伺服器與用戶端憑證",
+      "couldNotReachThatServer": "無法連線至該伺服器。請檢查位址，或設定代理伺服器或用戶端憑證。",
+      "couldNotReachThatServer2": "無法連線至該伺服器",
+      "syncCouldNotStartYet": "同步尚未開始。系統會自動重試。",
+      "checkingTheServer": "正在檢查伺服器",
+      "signIn": "登入",
+      "makeAnAccount": "建立帳戶",
+      "resetPassword": "重設密碼",
+      "oneMoreStep": "還剩最後一步",
+      "almostDone": "即將完成",
+      "linkAServer": "連結伺服器"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "儲存的登入資訊已失效",
+      "enterYourUsernameAndPassword": "輸入您的使用者名稱與密碼",
+      "thisServerIsBehindA": "此伺服器位於登入代理伺服器之後",
+      "signInWith": "使用 {{saved}} 登入",
+      "signInWith2": "使用以下方式登入",
+      "password": "密碼",
+      "username": "使用者名稱",
+      "signIn": "登入",
+      "forgotPassword": "忘記密碼？",
+      "makeAnAccount": "建立帳號",
+      "or": "或",
+      "continueWith": "使用 {{label}} 繼續",
+      "signInWithAPasskey": "使用通行金鑰或安全金鑰登入",
+      "opensYourServerAposS": "在瀏覽器中開啟伺服器的登入頁面。Face ID、指紋、NFC 和 USB 金鑰均可使用。需要 Termix 26.11.3 或更新版本。",
+      "signInInTheBrowser": "在瀏覽器中登入",
+      "opensYourServerAposS2": "開啟伺服器的登入頁面，以處理此應用程式無法執行的操作。需要 Termix 26.10.6 或更新版本。",
+      "thisServerHasNoSign": "此伺服器未啟用應用程式可用的登入功能。請洽詢管理員，或嘗試上方的瀏覽器登入。",
+      "signInWithYourPassword": "使用密碼登入。",
+      "signInFailed": "登入失敗",
+      "openingItsSignInPage": "正在開啟登入頁面。"
+    },
+    "smallSteps": {
+      "serverAddress": "伺服器位址",
+      "likeTermixExampleComOr": "例如 termix.example.com 或 192.168.1.20:30001",
+      "checking": "檢查中...",
+      "continue": "繼續",
+      "proxyAndClientCertificate": "Proxy 與用戶端憑證",
+      "aServerWithASelf": "使用自簽憑證的伺服器，需先在此 {{deviceWord}} 上安裝其根 CA。在您的本機網路中可使用純 HTTP。",
+      "enterTheCode": "輸入驗證碼",
+      "code": "驗證碼",
+      "the6DigitCodeFrom": "來自驗證器應用程式的 6 位數驗證碼，或備用碼",
+      "checkCode": "檢查驗證碼",
+      "thisAccountAsksForA": "此帳號在輸入密碼後要求使用安全金鑰。請在瀏覽器的伺服器頁面上登入以使用。",
+      "useASecurityKeyIn": "在瀏覽器中使用安全金鑰",
+      "backToSignIn": "返回登入",
+      "bringThisAposSHosts": "要一併匯入此 {{deviceWord}} 的主機嗎？",
+      "thisHasTheyStayOn": "此 {{deviceWord}} 有 {{what}}。無論如何，它們都會保留在此裝置上。",
+      "merge": "合併",
+      "copyThemToTooSo": "也複製到 {{serverName}} 以進行同步。與伺服器主機相同者將被跳過。",
+      "replace": "取代",
+      "useOnlyWhatIsOn": "此帳號僅使用 {{serverName}} 上的資料。不會複製任何內容。",
+      "thatCodeDidnTWork": "該驗證碼無效",
+      "hostsCredentialsOrSnippets": "主機、憑證或程式碼片段"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "請先連結此伺服器",
+      "thatHostIsnTHere": "找不到該主機",
+      "couldNotOpenThatHost": "無法開啟該主機",
+      "noHostWithIdOn": "{{account}} 上沒有 ID 為 {{hostId}} 的主機。",
+      "isnTLinkedInThe": "{{value}} 尚未在應用程式中連結。"
+    }
+  },
+  "notifications": {
+    "notifications": "通知",
+    "markAllRead": "全部標為已讀",
+    "clearReadNotifications": "清除已讀通知",
+    "unread2": "未讀",
+    "all": "全部",
+    "noUnreadNotifications": "沒有未讀通知",
+    "nothingHere": "這裡什麼都沒有",
+    "markRead": "標為已讀",
+    "delete": "刪除",
+    "couldNotLoadNotifications": "無法載入通知",
+    "couldNotMarkRead": "無法標為已讀",
+    "couldNotDelete": "無法刪除",
+    "couldNotClear": "無法清除"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "匯入",
+      "hosts": "主機",
+      "aTermixHostFileYour": "Termix 主機檔案、您的 ~/.ssh/config，或來自其他 {{deviceWord}} 的主機連結或 QR 碼。它們將儲存於此 {{deviceWord}}。",
+      "backup": "備份",
+      "aBackupThisAppMade": "由本應用程式建立的備份，並使用密碼保護。可還原主機、憑證與程式碼片段。",
+      "restoreABackup": "還原備份",
+      "done": "完成",
+      "skipForNow": "暫時跳過",
+      "sshFilesAndRemoteDesktops": "從您的 {{deviceWord}} 管理 SSH、檔案與遠端桌面。您想如何開始？",
+      "useWithoutAServer": "不使用伺服器",
+      "hostsCredentialsAndSnippetsAre": "主機、憑證與程式碼片段會加密儲存於此 {{deviceWord}}。您可以隨時稍後連結伺服器。",
+      "linkATermixServer": "連結 Termix 伺服器",
+      "syncYourHostsCredentialsSnippets": "將您的主機、憑證、程式碼片段與設定與伺服器同步，並使用其外掛。",
+      "bringHostsFromATermix": "從 Termix 檔案、SSH 設定檔、QR Code 或備份匯入主機。",
+      "thisDevice": "此裝置"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "搜尋主機、程式碼片段、動作",
+      "clearSearch": "清除搜尋",
+      "nothingMatches": "沒有符合的結果",
+      "typeToSearch": "輸入以搜尋",
+      "findAHostToConnect": "尋找要連線的主機、程式碼片段、設定或動作。",
+      "suggested": "建議 | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "在 {{title}} 中執行",
+      "copiedRunItFromThe": "已複製。請從終端機的程式碼片段執行，以填入其值。",
+      "copiedOpenATerminalTo": "已複製。請開啟終端機以執行程式碼片段。",
+      "addHost": "新增主機",
+      "quickConnect": "快速連線",
+      "switchAccount": "切換帳號",
+      "linkAServer": "連結伺服器",
+      "fromYourServer": "來自您的伺服器",
+      "settings": "設定",
+      "accountsAppearanceSecurity": "帳號、外觀、安全性"
+    },
+    "search": {
+      "hosts": "主機",
+      "snippets": "程式碼片段",
+      "actions": "動作",
+      "settings": "設定"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "無法載入工作階段",
+      "sessionRevoked": "工作階段已撤銷",
+      "failedToRevokeSession": "無法撤銷工作階段",
+      "allSessionsRevoked": "所有工作階段已撤銷",
+      "failedToRevokeAllSessions": "無法撤銷所有工作階段",
+      "activeSessions": "目前的工作階段",
+      "signOutAllOtherSessions": "登出所有其他工作階段",
+      "loading": "載入中…",
+      "noActiveSessionsFound": "找不到目前的工作階段。",
+      "unknownDevice": "未知裝置",
+      "lastActive": "上次活動時間 {{lastActiveAt}}",
+      "created": "建立時間 {{createdAt}}",
+      "revokeSession": "撤銷工作階段",
+      "revokeSession2": "撤銷工作階段？",
+      "thisWillSignOutThat": "這將登出該裝置。",
+      "revoke": "撤銷",
+      "revokeAllSessions": "撤銷所有工作階段？",
+      "thisWillSignOutEvery": "這將登出所有裝置。您在此裝置上將保持登入狀態。",
+      "cancel": "取消",
+      "revokeAll": "全部撤銷"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "無法載入 API 金鑰",
+      "failedToCreateApiKey": "無法建立 API 金鑰",
+      "deleteApiKey": "刪除 API 金鑰？",
+      "willStopWorkingRightAway": "「{{name}}」將立即停止運作。",
+      "apiKeyDeleted": "API 金鑰已刪除",
+      "failedToDeleteApiKey": "無法刪除 API 金鑰",
+      "apiKeys": "API 金鑰",
+      "newApiKey": "新增 API 金鑰",
+      "loading": "載入中…",
+      "apiKeysAllowProgrammaticAccess": "API 金鑰允許以程式方式存取 Termix。密鑰僅顯示一次，請妥善儲存。",
+      "noApiKeysYet": "尚無 API 金鑰",
+      "created": "建立時間 {{createdAt}}",
+      "lastUsed": "上次使用時間 {{lastUsedAt}}",
+      "expires": "過期時間 {{expiresAt}}",
+      "delete": "刪除 {{name}}",
+      "keyCreatedCopyItNow": "金鑰已建立。請立即複製",
+      "newApiKey2": "新增 API 金鑰",
+      "thisTokenWonTBe": "此權杖將不會再次顯示。",
+      "apiKeyCopied": "API 金鑰已複製",
+      "copy": "複製",
+      "done": "完成",
+      "cancel": "取消",
+      "create": "建立",
+      "name": "名稱 *",
+      "eGCiPipeline": "例如：CI Pipeline",
+      "user": "使用者 *",
+      "noUsersAvailable": "沒有可用的使用者。",
+      "expiresAtOptional": "過期時間（選填）",
+      "yyyyMmDd": "YYYY/MM/DD",
+      "yearMonthDay": "年 / 月 / 日"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "保持工作階段執行",
+      "showsANotificationWhileSessions": "當工作階段開啟時會顯示通知，以便在您離開應用程式時，Android 系統會繼續執行它們",
+      "batteryOptimization": "電池最佳化",
+      "termixIsNotRestrictedSo": "Termix 未受限，因此即使螢幕關閉，工作階段仍可保持開啟。",
+      "androidMayStillStopSessions": "Android 系統仍可能會為了節省電量而停止工作階段。請開啟電池設定，找到 Termix 並選擇「未最佳化」或「不受限制」。",
+      "openBatterySettings": "開啟電池設定",
+      "notificationsAreOff": "通知已關閉",
+      "sessionsStillRunButThe": "工作階段仍會執行，但開啟的工作階段清單與「全部斷開連線」按鈕將保持隱藏。",
+      "openNotificationSettings": "開啟通知設定",
+      "thisBuildCanTKeep": "此版本無法在背景保持工作階段執行。當您返回時，它們會重新連線。",
+      "lowPowerMode": "低電量模式",
+      "batterySaver": "省電模式",
+      "isOnTermixChecksConnections": "{{value}} 已開啟。Termix 會較少檢查連線，並在重試重新連線時等待更長時間。",
+      "backgroundSessions": "背景工作階段",
+      "iosStopsAppsSoonAfter": "iOS 在您離開應用程式後不久就會停止應用程式，因此工作階段無法在背景執行。當您返回時，它們會重新連線，tmux 或 screen 會從您離開的地方繼續。"
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "已停止",
+        "active": "使用中",
+        "linkAServer": "連結伺服器",
+        "eachServerKeepsItsOwn": "每個伺服器都會在此 {{deviceWord}} 上保留您主機、憑證與設定的獨立副本。",
+        "signedInAs": "已登入為",
+        "role": "角色",
+        "administrator": "管理員",
+        "user": "使用者",
+        "serverVersion": "伺服器版本",
+        "signOut": "登出",
+        "youAreSignedOutOf": "您已從此伺服器登出。",
+        "signIn": "登入",
+        "passwordChanged": "密碼已變更",
+        "couldNotChangeThePassword": "無法變更密碼",
+        "changePassword": "變更密碼",
+        "enterYourCurrentPasswordThen": "輸入您的目前密碼，然後選擇新密碼。",
+        "cancel": "取消",
+        "change": "變更",
+        "currentPassword": "目前密碼",
+        "newPassword": "新密碼",
+        "accountDeleted": "帳戶已刪除",
+        "couldNotDeleteTheAccount": "無法刪除帳戶",
+        "deleteServerAccount": "刪除伺服器帳戶",
+        "thisPermanentlyDeletesYourAccount": "這將永久刪除您在伺服器上的帳戶及其所有資料。此操作無法復原。",
+        "delete": "刪除",
+        "confirmYourPassword": "確認您的密碼",
+        "worksWithoutAServer": "無需伺服器即可運作",
+        "signedOut": "已登出",
+        "readsLive": "即時讀取",
+        "toReview": "{{count}} 項待檢視",
+        "synced": "已同步",
+        "syncing": "同步中",
+        "offline": "離線"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "分享匿名使用統計資料",
+        "aShortReportOnceA": "每天一份簡短報告。不含主機、名稱或位址",
+        "nextReport": "下次報告",
+        "seeExactlyWhatWouldBe": "查看將要傳送的确切內容",
+        "couldNotBuildTheReport": "無法建立報告",
+        "preview": "預覽",
+        "thisIsExactlyWhatWould": "這就是現在會傳送的确切內容。",
+        "resetInstallId": "重設安裝 ID",
+        "futureReportsWillLookLike": "未來的報告將視為全新安裝",
+        "resetTheInstallId": "要重設安裝 ID 嗎？",
+        "futureReportsWillLookLike2": "未來的報告將視為全新安裝。",
+        "reset": "重設",
+        "installIdReset": "安裝 ID 已重設"
+      },
+      "appearanceControls": {
+        "theme": "主題",
+        "accentColor": "強調色",
+        "textSize": "文字大小",
+        "sizeOfTextAcrossThe": "應用程式中的文字大小，不含終端機",
+        "density": "密度",
+        "howTallListRowsAnd": "列表列與設定項目的高度"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "主機、憑證與程式碼片段會儲存在此{{deviceWord}}上的加密檔案中。使用統計資料預設關閉，除非您在下方開啟。連結的伺服器只會收到您允許同步的資料。",
+        "recentHosts": "最近使用的主機",
+        "forgetTheHostsYouOpened": "清除所有帳號中最近開啟的主機",
+        "recentHostsCleared": "已清除最近使用的主機",
+        "clear": "清除",
+        "couldNotCheckForUpdates": "無法檢查更新",
+        "versionIsOutUpdateFrom": "已有 {{version}} 版本。請從您的商店更新。",
+        "youHaveTheNewestVersion": "您已使用最新版本",
+        "termixMobile": "Termix Mobile",
+        "updates": "更新",
+        "check": "檢查"
+      },
+      "pinSheet": {
+        "waitSeconds": "等待 {{value}} 秒",
+        "digits": "{{PIN_LENGTH}} 位數字"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN 碼不符",
+        "appLockIsOn": "應用程式鎖定已開啟",
+        "turnOffAppLock": "關閉應用程式鎖定",
+        "enterYourPinToConfirm": "輸入您的 PIN 碼以確認。",
+        "appLockIsOff": "應用程式鎖定已關閉",
+        "appLock": "應用程式鎖定",
+        "askForFaceIdTouch": "開啟應用程式時要求 Face ID、Touch ID 或 PIN 碼",
+        "askForAPinTo": "開啟應用程式時要求輸入 PIN 碼",
+        "pinChanged": "PIN 碼已變更",
+        "couldNotChangeThePin": "無法變更 PIN 碼",
+        "changePin": "變更 PIN 碼",
+        "lockAfter": "鎖定時間",
+        "howLongTheAppCan": "應用程式隱藏多久後會自動鎖定",
+        "hideInAppSwitcher": "在應用程式切換器中隱藏",
+        "showABlankScreenIn": "在最近使用的應用程式列表中顯示空白畫面",
+        "chooseA4DigitPin": "請選擇 4 位數的 PIN 碼。",
+        "confirmPin": "確認 PIN 碼",
+        "enterTheSamePinAgain": "請再次輸入相同的 PIN 碼。",
+        "currentPin": "目前 PIN 碼",
+        "enterYourCurrentPin": "請輸入您目前的 PIN 碼。",
+        "newPin": "新 PIN 碼",
+        "chooseANew4Digit": "請選擇新的 4 位數 PIN 碼。",
+        "confirmNewPin": "確認新 PIN 碼",
+        "enterTheNewPinAgain": "請再次輸入新的 PIN 碼。"
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "主畫面小工具",
+        "showYourHostsSnippetsAnd": "在主畫面上顯示您的主機、程式碼片段與電源按鈕",
+        "showAddresses": "顯示位址",
+        "showUserHostUnderEach": "在每個伺服器名稱下方顯示 user@host",
+        "includeOfflineHosts": "包含離線主機",
+        "offShowsOnlyServersThat": "關閉時僅顯示線上伺服器",
+        "pinnedHostsOnly": "僅顯示已釘選的主機",
+        "showOnlyTheHostsYou": "僅顯示您已釘選的主機",
+        "snippetsWidget": "程式碼片段小工具",
+        "showSavedCommandsOnThe": "在主畫面上顯示已儲存的指令",
+        "showCommandPreview": "顯示指令預覽",
+        "showTheFirstLineOf": "顯示每個指令的第一行"
+      }
+    },
+    "fileSettings": {
+      "files": "檔案",
+      "fileManagerOnThis": "此 {{deviceWord}} 上的檔案管理員",
+      "browsing": "瀏覽",
+      "transfersAtOnce": "同時傳輸數量",
+      "downloadsAndUploadsThatRun": "同時執行的下載與上傳",
+      "editor": "編輯器",
+      "textSize": "文字大小",
+      "filesBesideTheTerminal": "終端機旁的檔案",
+      "side": "側邊",
+      "whereThePanelSitsOn": "在平板電腦上面板的位置",
+      "right": "右側",
+      "left": "左側",
+      "howOftenToCheck": "檢查頻率",
+      "folderHistory": "資料夾歷史記錄",
+      "foldersKeptPerHost": "每個主機保留的資料夾數量",
+      "showHiddenFiles": "顯示隱藏檔案",
+      "filesAndFoldersThatStart": "以句號開頭的檔案與資料夾",
+      "askBeforeMovingToThe": "移至垃圾桶前確認",
+      "deletingForGoodAlwaysAsks": "永久刪除時總是會詢問",
+      "wrapLongLines": "長行換行",
+      "openWithNewTerminals": "以新終端機開啟",
+      "onATabletShowThe": "在平板電腦上，開啟終端機時顯示檔案面板",
+      "followTheTerminal": "跟隨終端機",
+      "openTheFolderTheTerminal": "當您使用 cd 指令時，開啟終端機所在的資料夾"
+    },
+    "keyboardCustomization": {
+      "small": "小",
+      "medium": "中",
+      "large": "大",
+      "ms": "{{v}} 毫秒",
+      "keyboard": "鍵盤",
+      "keyRowsAboveTheKeyboard": "鍵盤上方的按鍵列",
+      "rows": "列",
+      "keys": "按鍵",
+      "aHostCanHaveIts": "主機可以有自己的按鍵列：在會話中輕觸其開啟的分頁，然後選擇「此主機的按鍵列」。",
+      "keySize": "按鍵大小",
+      "vibrateOnKeyPress": "按鍵時震動",
+      "repeatAfter": "重複延遲",
+      "howLongToHoldAn": "按住方向鍵或 Backspace 的持續時間",
+      "repeatEvery": "重複間隔",
+      "hardwareKeyboard": "實體鍵盤",
+      "allShortcuts": "所有快捷鍵",
+      "show": "顯示"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "無法建立備份",
+      "deleteLocalData": "要刪除本機資料嗎？",
+      "hostsCredentialsSnippetsAndHistory": "此 {{deviceWord}} 上為 {{account}} 儲存的主機、憑證、程式碼片段與歷史記錄將被刪除。此操作無法復原。若要保留這些資料，請先進行備份。",
+      "delete": "刪除",
+      "localDataDeleted": "本機資料已刪除",
+      "couldNotDeleteLocalData": "無法刪除本機資料",
+      "localData": "本機資料",
+      "localDataIsOnlySaved": "本機資料僅儲存於 {{deviceWord}} 應用程式中。",
+      "savedOnThisForThe": "資料已儲存於此 {{deviceWord}} 的 {{account}} 帳戶中。檔案會使用一把永不離開此 {{deviceWord}} 的金鑰進行加密。",
+      "hosts": "主機",
+      "credentials": "憑證",
+      "snippets": "程式碼片段",
+      "size": "大小",
+      "dataVersion": "資料版本",
+      "backup": "備份",
+      "aBackupFileHoldsYour": "備份檔案包含您的密碼與金鑰，並由您選擇的密碼片語鎖定。沒有該密碼片語，任何人都無法開啟。",
+      "exportBackup": "匯出備份",
+      "importBackup": "匯入備份",
+      "removesEverythingThisAccountSaved": "移除此帳戶在此 {{deviceWord}} 上儲存的所有資料。已連結的伺服器會保留其自身的副本。",
+      "deleteLocalData2": "刪除本機資料",
+      "backupPassphrase": "備份密碼片語",
+      "atLeast8CharactersYou": "至少 8 個字元。您需要它來還原備份。",
+      "passphrase": "密碼片語",
+      "next": "下一步",
+      "typeItAgain": "再次輸入",
+      "export": "匯出",
+      "saveYourTermixBackup": "儲存您的 Termix 備份"
+    },
+    "logs": {
+      "logs": "記錄",
+      "latestLinesFromThisRun": "本次執行的最新記錄行。伺服器位址、密碼與權杖已隱藏。",
+      "logsCopied": "記錄已複製",
+      "copy": "複製",
+      "share": "分享",
+      "clear": "清除",
+      "noLogsYet": "尚無記錄",
+      "nothingHasBeenLogged": "尚未記錄任何內容。"
+    },
+    "plugins": {
+      "worksOnThis": "適用於此 {{deviceWord}}",
+      "needsTheServer": "需要伺服器",
+      "notInTheApp": "應用程式中無此項目",
+      "needsANewerVersionOf": "需要更新版本的應用程式",
+      "updateThePluginOnThe": "在伺服器上更新外掛程式",
+      "inTheApp": "應用程式中",
+      "onThisServer": "在此伺服器上",
+      "version": "版本",
+      "needsPluginApi": "需要外掛程式 API",
+      "thisAppHas": "此應用程式具有",
+      "note": "注意",
+      "open": "開啟",
+      "openFromAHostS": "從主機的選單中開啟 {{name}}。",
+      "plugins": "外掛程式",
+      "everything": "全部",
+      "thisDeviceWorksWithNo": "此裝置無需伺服器即可運作。連結伺服器以新增需要伺服器的功能。",
+      "pluginsOnAndHowEach": "{{account}} 上的外掛程式及其在應用程式中的顯示方式。下拉以重新檢查。",
+      "whatRunsOnThisAnd": "在此 {{deviceWord}} 上運行的內容，以及透過 {{account}} 運行的內容。",
+      "noPluginList": "無外掛程式清單",
+      "theServerDidNotSend": "伺服器未傳送其外掛程式。下拉以重試。",
+      "serversOlderThan29": "2.9 版本以前的伺服器已內建所有功能。",
+      "nothingToShow": "無內容可顯示",
+      "notSentByThisServer": "此伺服器未傳送"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "要取代本機資料嗎？",
+      "everythingSavedOnThisFor": "此 {{deviceWord}} 上為 {{accountName}} 儲存的所有資料將被備份取代。",
+      "continue": "繼續",
+      "couldNotReadThatFile": "無法讀取該檔案",
+      "backupRestored": "備份已還原",
+      "couldNotRestoreTheBackup": "無法還原備份",
+      "backupPassphrase": "備份密碼片語",
+      "thePassphraseUsedWhenThe": "建立備份時使用的密碼片語。",
+      "passphrase": "密碼片語",
+      "restore": "還原"
+    },
+    "schema": {
+      "items": {
+        "accounts": "帳戶",
+        "thisDeviceAndLinkedServers": "此裝置與已連結的伺服器，及其同步狀態",
+        "syncAndProxy": "同步與代理",
+        "whatSyncsConflictsProxyAnd": "同步項目、衝突處理、代理與解除連結",
+        "serverAccount": "伺服器帳戶",
+        "whoIsSignedInOn": "目前登入活躍伺服器的使用者",
+        "activeSessions": "活躍工作階段",
+        "devicesSignedInToThe": "已登入伺服器的裝置",
+        "apiKeys": "API 金鑰",
+        "keysForScriptsAndTools": "用於腳本與工具的金鑰",
+        "changePassword": "變更密碼",
+        "passwordOfYourServerAccount": "伺服器帳戶的密碼",
+        "deleteServerAccount": "刪除伺服器帳戶",
+        "removeYourAccountFromThe": "從伺服器移除您的帳戶",
+        "theme": "主題",
+        "darkLightDraculaNordAnd": "深色、淺色、Dracula、Nord 等",
+        "accentColor": "強調色",
+        "textSize": "文字大小",
+        "sizeOfTextAcrossThe": "應用程式中的文字大小",
+        "density": "密度",
+        "howTallListRowsAnd": "列表列與設定項的高度",
+        "homeScreenWidgets": "主畫面小工具",
+        "hostsAndSnippetsOnThe": "主畫面上的主機與程式碼片段",
+        "terminal": "終端機",
+        "fontThemeCursorScrollback": "字型、主題、游標、捲動緩衝區",
+        "keyboard": "鍵盤",
+        "layoutKeysPresets": "版面配置、按鍵、預設值",
+        "appLock": "應用程式鎖定",
+        "askForFaceIdTouch": "開啟應用程式時要求 Face ID、Touch ID 或 PIN 碼",
+        "lockAfter": "鎖定時間",
+        "howLongTheAppCan": "應用程式在背景多久後會鎖定",
+        "hideInAppSwitcher": "在應用程式切換器中隱藏",
+        "showABlankScreenIn": "在最近應用程式列表中顯示空白畫面",
+        "changePin": "變更 PIN 碼",
+        "backgroundSessions": "背景工作階段",
+        "whatHappensToOpenSessions": "離開應用程式時，開啟的工作階段會如何處理",
+        "serverAlerts": "伺服器警示",
+        "alertsFromTheAlertsPlugin": "來自伺服器上 Alerts 外掛程式的警示",
+        "whatStaysOnThis": "保留在此 {{deviceWord}} 上的資料",
+        "hostsCredentialsAndSnippetsAre": "主機、憑證與程式碼片段會加密儲存於此",
+        "recentHosts": "最近使用的主機",
+        "forgetTheHostsYouOpened": "清除最近開啟過的主機記錄",
+        "shareAnonymousUsageStatistics": "分享匿名使用統計資料",
+        "aShortReportOnceA": "每日簡短報告。不含主機、名稱或位址",
+        "nextReport": "下次報告",
+        "seeExactlyWhatWouldBe": "查看將要傳送的确切內容",
+        "resetInstallId": "重設安裝 ID",
+        "futureReportsWillLookLike": "未來的報告將視為全新安裝",
+        "serverUsageStatistics": "伺服器使用統計資料",
+        "telemetrySettingsOnYourServer": "伺服器上的遙測設定",
+        "plugins": "外掛程式",
+        "whatTheServerAddsAnd": "伺服器新增的功能及其執行位置",
+        "localData": "本機資料",
+        "backupRestoreAndDeleteWhat": "備份、還原與刪除儲存於此 {{deviceWord}} 上的資料",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "版本與更新",
+        "logs": "記錄",
+        "latestLinesFromThisRun": "本次執行的最新記錄行，用於錯誤回報"
+      },
+      "sections": {
+        "accountsAndSync": "帳戶與同步",
+        "thisDeviceLinkedServersAnd": "本裝置、已連結的伺服器與同步項目",
+        "appearance": "外觀",
+        "themeAccentTextSizeAnd": "語言、主題、強調色、文字大小與密度",
+        "terminal": "終端機",
+        "fontColorsAndBackgroundSessions": "字型、色彩與背景工作階段",
+        "keyboard": "鍵盤",
+        "keyRowsAndShortcuts": "鍵盤列與快捷鍵",
+        "security": "安全性",
+        "appLockFaceIdAnd": "應用程式鎖定、Face ID 與 PIN 碼",
+        "notifications": "通知",
+        "alertsFromYourServer": "來自您伺服器的警示",
+        "privacyAndUsageStatistics": "隱私與使用統計",
+        "whatStaysOnThis": "保留在此 {{deviceWord}} 上的資料",
+        "plugins": "外掛程式",
+        "whatTheServerAddsTo": "伺服器為應用程式新增的功能",
+        "backupAndData": "備份與資料",
+        "backUpRestoreImportAnd": "備份、還原、匯入與匯出",
+        "aboutAndLogs": "關於與記錄",
+        "versionAndLogsForBug": "版本與錯誤回報記錄"
+      }
+    },
+    "settings": "設定",
+    "searchSettings": "搜尋設定",
+    "noSettingsMatch": "沒有符合的設定。",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "無法載入程式碼片段",
+      "copied": "已複製：{{name}}",
+      "nameIsRequired": "名稱為必填欄位",
+      "contentIsRequired": "內容為必填欄位",
+      "snippetUpdated": "程式碼片段已更新",
+      "snippetCreated": "程式碼片段已建立",
+      "failedToSaveSnippet": "無法儲存程式碼片段",
+      "snippetDeleted": "程式碼片段已刪除",
+      "failedToDeleteSnippet": "無法刪除程式碼片段",
+      "folderNameIsRequired": "資料夾名稱為必填欄位",
+      "folderCreated": "資料夾已建立",
+      "failedToCreateFolder": "無法建立資料夾",
+      "folderDeleted": "資料夾已刪除",
+      "failedToDeleteFolder": "無法刪除資料夾",
+      "folderRenamed": "資料夾已重新命名",
+      "failedToRenameFolder": "無法重新命名資料夾",
+      "failedToSaveOrder": "無法儲存排序",
+      "moveUp": "上移",
+      "moveDown": "下移",
+      "runOnHosts": "在伺服器上執行 {{name}}",
+      "copy": "複製 {{name}}",
+      "delete": "刪除 {{name}}",
+      "renameFolder": "重新命名資料夾",
+      "deleteFolder": "刪除資料夾",
+      "noSnippetsInThisFolder": "此資料夾中沒有程式碼片段",
+      "snippets": "程式碼片段",
+      "importAndExport": "匯入與匯出",
+      "folder": "資料夾",
+      "new": "新增",
+      "loading": "載入中…",
+      "couldNotLoadSnippets": "無法載入程式碼片段",
+      "checkTheConnectionToYour": "請檢查與伺服器的連線，然後再試一次。",
+      "tryAgain": "再試一次",
+      "noSnippetsYet": "尚無程式碼片段",
+      "createYourFirstSnippetOr": "建立您的第一個程式碼片段，或從 Termix 網頁版或桌面版應用程式新增程式碼片段。",
+      "createSnippet": "建立程式碼片段",
+      "askBeforeRunning": "執行前詢問",
+      "confirmBeforeASnippetRuns": "在終端機執行程式碼片段前確認",
+      "editSnippet": "編輯程式碼片段",
+      "newSnippet": "新增程式碼片段",
+      "cancel": "取消",
+      "save": "儲存",
+      "create": "建立",
+      "name": "名稱",
+      "eGUpdatePackages": "例如：更新套件",
+      "content": "內容",
+      "descriptionOptional": "描述（選填）",
+      "shortDescription": "簡短描述",
+      "folderOptional": "資料夾（選填）",
+      "selectFolder": "選取資料夾",
+      "noFolder": "無資料夾",
+      "targetHostsOptional": "目標主機（選填）",
+      "none": "無",
+      "note": "備註",
+      "pastedIntoTheTerminalWithout": "貼入終端機但不執行",
+      "targetHosts": "目標主機",
+      "copy2": "複製",
+      "edit": "編輯",
+      "runOnHosts2": "在主機上執行",
+      "delete2": "刪除",
+      "deleteSnippet": "刪除程式碼片段",
+      "deleteThisCannotBeUndone": "刪除「{{name}}」？此操作無法復原。",
+      "renameFolder2": "重新命名資料夾",
+      "rename": "重新命名",
+      "folderName": "資料夾名稱",
+      "eGSystem": "例如：系統",
+      "newFolder": "新增資料夾",
+      "deleteFolder2": "刪除資料夾",
+      "deleteSnippetsInThisFolder": "刪除「{{name}}」？此資料夾中的程式碼片段將變為未分類。"
+    },
+    "sync": {
+      "notYet": "尚未",
+      "justNow": "剛剛",
+      "stopped": "已停止",
+      "signInToThisServer": "請重新登入此伺服器以同步",
+      "couldNotChangeThat": "無法進行變更",
+      "sync": "同步",
+      "thisDeviceDoesNotSync": "此裝置未啟用同步功能。連結 Termix 伺服器即可在多個裝置上共用主機清單。",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} 會將主機、憑證、程式碼片段與設定與此 {{deviceWord}} 保持同步。此 {{deviceWord}} 會保留一份副本，因此離線時也能使用。",
+      "lastSynced": "上次同步時間：{{value}}",
+      "live": "即時",
+      "syncNow": "立即同步",
+      "fix": "修復",
+      "thisServerReadsLiveAnd": "此伺服器採用即時讀取模式，不會在此 {{deviceWord}} 上保留副本。",
+      "turnOnTheSyncPlugin": "請在伺服器的「外掛程式」頁面啟用同步外掛程式，然後在此重新登入，即可在此 {{deviceWord}} 上保留副本。",
+      "whatSyncs": "同步項目",
+      "turnedOffThatDataStays": "已關閉，該資料僅保留在此 {{deviceWord}} 上。",
+      "conflicts": "衝突",
+      "changedHereAndOnThe": "此處與伺服器同時進行了變更。已保留伺服器的版本。",
+      "useServer": "使用伺服器版本",
+      "keepMine": "保留我的版本",
+      "notSavedOnTheServer": "未儲存至伺服器",
+      "theServerRefusedTheseChanges": "伺服器拒絕了這些變更。它們將保留在此 {{deviceWord}} 上。",
+      "tryAgain": "重試",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "僅在伺服器前方設有反向 Proxy 時需要設定。",
+      "unlink": "解除連結",
+      "unlinkThisServer": "解除此伺服器的連結",
+      "minAgo": "{{value}} 分鐘前",
+      "signedOut": "已登出",
+      "waitingToSync": "等待同步",
+      "synced": "已同步",
+      "syncing": "同步中",
+      "offline": "離線"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "背景",
+        "text": "文字",
+        "cursor": "游標",
+        "textUnderCursor": "游標下的文字",
+        "selection": "選取範圍",
+        "black": "黑色",
+        "red": "紅色",
+        "green": "綠色",
+        "yellow": "黃色",
+        "blue": "藍色",
+        "magenta": "洋紅色",
+        "cyan": "青色",
+        "white": "白色",
+        "brightBlack": "亮黑色",
+        "brightRed": "亮紅色",
+        "brightGreen": "亮綠色",
+        "brightYellow": "亮黃色",
+        "brightBlue": "亮藍色",
+        "brightMagenta": "亮洋紅色",
+        "brightCyan": "亮青色",
+        "brightWhite": "亮白色",
+        "customTheme": "自訂主題",
+        "colorsAsHexLike1e1e2e": "以十六進位格式輸入顏色，例如 #1e1e2e。",
+        "cancel": "取消",
+        "save": "儲存",
+        "isNotAHexColor": "{{label}} 不是有效的十六進位顏色"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "緊湊",
+      "default": "預設",
+      "relaxed": "寬鬆",
+      "spacious": "寬敞",
+      "none": "無",
+      "couldNotSave": "無法儲存",
+      "pickASizeFromTo": "請選擇 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}} 之間的大小",
+      "terminalSettingsReset": "終端機設定已重設",
+      "terminal": "終端機",
+      "aHostCanSetIts": "主機可以在 Termix 中設定自己的主題和游標，其優先於此處設定。",
+      "theme": "主題",
+      "custom": "自訂",
+      "font": "字型",
+      "active": "啟用",
+      "sizeAndSpacing": "大小與間距",
+      "pinchTheTerminalToChange": "捏合終端機也可調整大小。在您的 {{deviceWord}}設定中啟用大字型也會使其變大。",
+      "custom2": "自訂 {{fontSize}}",
+      "lineHeight": "行高",
+      "letterSpacing": "字距",
+      "ligatures": "連字",
+      "cursor": "游標",
+      "blink": "閃爍",
+      "bell": "提示音",
+      "vibrate": "震動",
+      "onTheBellAndWhen": "提示音響起時，以及長按選取時",
+      "scrollback": "捲動緩衝區",
+      "linesKeptAboveTheScreen": "保留在螢幕上方的行數。僅適用於新終端機。",
+      "linksAndKeys": "連結與金鑰",
+      "askBeforeOpeningLinks": "開啟連結前詢問",
+      "doubleTapSendsTab": "雙擊傳送 Tab",
+      "longPressStillSelectsText": "長按仍可選取文字",
+      "optionSendsAlt": "Option 鍵傳送 Alt",
+      "onAHardwareKeyboardOff": "使用實體鍵盤時。關閉時會像 Mac 一樣輸入符號。",
+      "history": "歷史記錄",
+      "suggestCommands": "建議命令",
+      "showsPastCommandsThatStart": "顯示以您輸入內容開頭的過去命令",
+      "resetToDefault": "重設為預設值",
+      "fontSize": "字型大小",
+      "aSizeFromTo": "大小範圍從 {{MIN_FONT_SIZE}} 到 {{MAX_FONT_SIZE}}。",
+      "cancel": "取消",
+      "apply": "套用",
+      "resetTerminalSettings": "要重設終端機設定嗎？",
+      "themeFontSizeCursorBell": "主題、字型、大小、游標、提示音及其他設定將恢復為預設值。",
+      "reset": "重設",
+      "followsAppTheme": "跟隨應用程式主題"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "無法啟動 2FA 設定",
+      "twoFactorAuthenticationEnabled": "已啟用雙重驗證",
+      "invalidCodeTryAgain": "驗證碼無效，請再試一次",
+      "twoFactorAuthenticationDisabled": "已停用雙重驗證",
+      "failedToDisable2fa": "無法停用 2FA",
+      "failedToFetchBackupCodes": "無法取得備用碼",
+      "secretCopied": "已複製密鑰",
+      "backupCodesCopied": "已複製備用碼",
+      "twoFactorAuthentication": "雙重驗證",
+      "loading": "載入中…",
+      "scanThisQrCodeWith": "請使用您的驗證器應用程式（如 Google Authenticator、Authy 等）掃描此 QR 碼，然後輸入 6 位數驗證碼以確認。",
+      "verifyAmpEnable": "驗證並啟用",
+      "cancel": "取消",
+      "saveYourBackupCodes": "請儲存您的備用碼",
+      "storeTheseSomewhereSafeEach": "請將這些碼存放在安全的地方。每個碼只能使用一次，以防您無法存取驗證器。",
+      "copyAllCodes": "複製所有碼",
+      "done": "完成",
+      "yourAccountIsProtectedWith": "您的帳戶已由驗證器應用程式保護。",
+      "addAnExtraLayerOf": "為您的帳戶增加一層安全保障。",
+      "viewBackupCodes": "查看備用碼",
+      "disable2fa": "停用 2FA",
+      "enable2fa": "啟用 2FA",
+      "disableTwoFactorAuthentication": "停用雙重驗證",
+      "enterACodeFromYour": "請輸入驗證器應用程式中的驗證碼以確認。您可以隨時重新啟用 2FA。",
+      "enterYourPasswordToConfirm": "請輸入您的密碼以確認。您可以隨時重新啟用 2FA。",
+      "disable": "停用",
+      "yourPassword": "您的密碼",
+      "n2faIsEnabled": "已啟用 2FA",
+      "n2faIsNotEnabled": "未啟用 2FA"
+    },
+    "language": {
+      "label": "語言",
+      "description": "切換後應用程式將重新載入",
+      "system": "與裝置相同"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "此處沒有 SSH 主機",
+      "couldNotReadWhatWas": "無法讀取分享的內容",
+      "stopTheUploads": "要停止上傳嗎？",
+      "stopAndLeave": "停止並離開",
+      "sendTo": "傳送至 {{name}}",
+      "sendToAHost": "傳送至主機",
+      "nothingToSend": "沒有可傳送的內容",
+      "close": "關閉",
+      "done": "完成",
+      "cancel": "取消",
+      "uploadHere": "上傳至此處",
+      "uploadsStillGoing_other": "還有 {{count}} 個上傳進行中。離開將停止它們。",
+      "filesSize_other": "{{count}} 個檔案 | {{size}}",
+      "readingWhatWasShared": "正在讀取已分享的內容"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "錯誤",
+      "worksWithoutAServer": "無需伺服器即可運作",
+      "accountSwitch": "帳戶 {{account}}，切換",
+      "search": "搜尋",
+      "notificationsUnread": "通知，{{unread}} 則未讀",
+      "notifications": "通知",
+      "signedIn": "已登入",
+      "signedOut": "已登出",
+      "copyOnThis": "在此 {{deviceWord}} 上複製"
+    },
+    "bottomBar": {
+      "home": "首頁",
+      "hosts": "主機",
+      "sessions": "工作階段",
+      "tools": "工具",
+      "settings": "設定",
+      "open": "{{label}}，{{count}} 個開啟"
+    },
+    "sideBar": {
+      "open": "{{label}}，{{count}} 個開啟"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "選擇主機",
+      "searchHosts": "搜尋主機",
+      "clearSearch": "清除搜尋",
+      "noHostsMatch": "沒有符合的主機",
+      "noHostsCanUseThis": "沒有主機可以使用此功能",
+      "turnItOnForA": "請在主機編輯器中為某個主機開啟此功能。"
+    },
+    "noToolsHereYet": "這裡還沒有工具",
+    "onAHost": "在主機上",
+    "saved": "已儲存",
+    "fromYourServer": "來自您的伺服器"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "取消",
+      "delete": "刪除",
+      "confirm": "確認"
+    },
+    "contextMenu": {
+      "closeMenu": "關閉選單"
+    },
+    "inlineView": {
+      "back": "返回"
+    },
+    "listRow": {
+      "moreActions": "更多操作"
+    },
+    "pinPad": {
+      "useBiometrics": "使用生物辨識",
+      "delete": "刪除"
+    },
+    "popover": {
+      "close": "關閉"
+    },
+    "promptSheet": {
+      "cancel": "取消"
+    },
+    "sheet": {
+      "close": "關閉"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "此金鑰已鎖定。請輸入其密碼片語。",
+      "thatPassphraseDoesnTOpen": "該密碼片語無法開啟此金鑰。",
+      "thisDoesnTLookLike": "這看起來不像私密金鑰。",
+      "loadedAndChangedItTo": "已載入 {{name}} 並將其轉換為 OpenSSH 格式",
+      "loadedItNeedsItsPassphrase": "已載入 {{name}}。連線需要其密碼片語"
+    },
+    "ago": {
+      "justNow": "剛剛"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "無法載入您的主機。",
+      "failedOn": "{{name}} 在 {{name2}} 上失敗",
+      "on": "{{name}} 在 {{name2}} 上：{{value}}",
+      "ranOn": "已在 {{name2}} 上執行 {{name}}",
+      "runOn": "在...上執行「{{name}}」",
+      "runSnippet": "執行程式碼片段",
+      "loadingHosts": "正在載入主機…",
+      "noHostsAvailable": "沒有可用的主機",
+      "addAHostInTermix": "在 Termix 中新增主機，即可從主畫面執行程式碼片段。",
+      "lastUsed": "上次使用",
+      "failedToRunSnippet": "執行程式碼片段失敗"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "該程式碼片段已不存在。",
+      "couldNotOpenThatSnippet": "無法開啟該程式碼片段。",
+      "thatHostNoLongerExists": "該主機已不存在。",
+      "couldNotOpenThatHost": "無法開啟該主機。"
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "首頁"
+      },
+      "hosts": {
+        "hosts": "主機"
+      },
+      "sessions": {
+        "sessions": "工作階段",
+        "connectToATermixServer": "連線至 Termix 伺服器以開啟終端機、隧道與檔案工作階段。"
+      }
+    },
+    "layout": {
+      "initializing": "正在初始化…",
+      "cancel": "取消"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "此主機沒有有效的 MAC 位址。",
+    "thisBuildCanTSend": "此版本無法傳送 Wake-on-LAN 封包。",
+    "couldNotSendThePacket": "無法傳送封包。請確認 Wi-Fi 已開啟。"
+  },
+  "common": {
+    "hostCount_other": "{{count}} 台主機",
+    "device": {
+      "phone": "手機",
+      "tablet": "平板"
+    },
+    "thisDeviceLower": "此{{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "共用",
+    "action": "與他人共用",
+    "levels": {
+      "connect": "連線",
+      "view": "檢視",
+      "edit": "編輯",
+      "manage": "管理"
+    },
+    "levelHints": {
+      "connect": "僅開啟工作階段。主機設定將保持隱藏",
+      "view": "可連線，並檢視主機設定。絕不顯示機密資訊",
+      "edit": "可檢視，並變更登入以外的設定",
+      "manage": "可編輯，並共用主機、變更或移除存取權限"
+    },
+    "until": "至 {{date}}",
+    "sharedBy": "由 {{name}} 共用",
+    "couldNotLoad": "無法載入存取權限清單",
+    "shared": "主機已共用",
+    "couldNotShare": "無法共用主機",
+    "updated": "存取權限已變更",
+    "couldNotUpdate": "無法變更存取權限",
+    "removeTitle": "要移除 {{name}} 嗎？",
+    "removeHint": "他們將無法再使用此主機。",
+    "remove": "移除",
+    "removed": "存取權限已移除",
+    "couldNotRemove": "無法移除存取權限",
+    "whoHasAccess": "誰有存取權限",
+    "loading": "載入中...",
+    "nobodyYet": "只有您可以使用此主機。",
+    "changeAccessFor": "變更 {{name}} 的存取權限",
+    "shareWith": "共用給",
+    "users": "使用者",
+    "roles": "角色",
+    "searchUsers": "搜尋使用者",
+    "searchRoles": "搜尋角色",
+    "noUsers": "沒有其他使用者可共用。",
+    "noRoles": "沒有角色可共用。",
+    "options": "存取權限",
+    "level": "層級",
+    "expires": "到期日",
+    "expiry": {
+      "never": "永不",
+      "1h": "1 小時後",
+      "1d": "1 天後",
+      "7d": "7 天後",
+      "30d": "30 天後"
+    },
+    "pickSomeone": "選擇要共用的對象",
+    "shareCount_other": "與 {{count}} 人共用",
+    "removeAccess": "移除存取權限"
+  }
+}

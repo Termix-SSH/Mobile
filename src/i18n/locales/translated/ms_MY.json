@@ -1,1 +1,3806 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Log masuk",
+      "addServer": "Tambah pelayan",
+      "switchAccount": "Tukar akaun",
+      "noServerConnected": "Tiada pelayan disambungkan",
+      "connectToATermixServer": "Sambung ke pelayan Termix untuk menguruskan hos, terminal, fail dan banyak lagi."
+    },
+    "lockScreen": {
+      "cancel": "Batal",
+      "tooManyTriesWaitSeconds": "Terlalu banyak percubaan. Tunggu {{value}} saat",
+      "termixLocked": "Termix Dikunci",
+      "enterYourPinToContinue": "Masukkan PIN anda untuk meneruskan"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oren",
+      "blue": "Biru",
+      "green": "Hijau",
+      "purple": "Ungu",
+      "pink": "Merah Jambu",
+      "cyan": "Sian",
+      "red": "Merah",
+      "yellow": "Kuning",
+      "teal": "Teal",
+      "indigo": "Indigo",
+      "rose": "Ros",
+      "lime": "Lime",
+      "system": "Sistem",
+      "light": "Cerah",
+      "dark": "Gelap"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Gunakan PIN",
+      "unlockTermix": "Buka kunci Termix",
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Ciri ini dimatikan pada pelayan.",
+      "aTabWasNotReopened": "Satu tab tidak dibuka semula kerana hosnya telah hilang",
+      "tabsWereNotReopenedBecause": "{{count}} tab tidak dibuka semula kerana hosnya telah hilang"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Pautkan pelayan Termix untuk menggunakan ini",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Masukkan alamat pelayan anda",
+        "theAddressCanTHave": "Alamat tidak boleh mengandungi ruang",
+        "useAnHttpOrHttps": "Gunakan alamat http:// atau https://",
+        "thatDoesnTLookLike": "Itu tidak kelihatan seperti alamat pelayan",
+        "thePortMustBeFrom": "Port mesti antara 1 hingga 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "Proksi log masuk menjawab bukannya Termix. Log masuk ke proksi terlebih dahulu.",
+        "theServerDidNotSend": "Pelayan tidak menghantar token.",
+        "theServerDidNotSend2": "Pelayan tidak menghantar sesi.",
+        "theServerSentNoSign": "Pelayan tidak menghantar alamat log masuk.",
+        "theSignInRanOut": "Log masuk telah tamat atau telah digunakan. Log masuk semula.",
+        "wrongUsernameOrPassword": "Nama pengguna atau kata laluan salah",
+        "signInFailedHttp": "Log masuk gagal (HTTP {{status}})",
+        "thePageSignedYouIn": "Laman web telah log masuk anda tetapi tidak menghantar sesi kembali. Kemas kini pelayan ke Termix 26.11.3 atau lebih baru.",
+        "thisAccountIsnTAllowed": "Akaun ini tidak dibenarkan untuk log masuk di sini.",
+        "noTermixAccountMatchesThat": "Tiada akaun Termix sepadan dengan log masuk tersebut."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Sesi ini tidak mempunyai pelayan"
+    },
+    "store": {
+      "noSuchAccount": "Akaun tersebut tidak wujud",
+      "thisDeviceCanTBe": "Peranti ini tidak boleh dialih keluar",
+      "switchToAnotherAccountFirst": "Tukar ke akaun lain terlebih dahulu"
+    },
+    "types": {
+      "thisDevice": "Peranti ini"
+    },
+    "accountSwitcher": {
+      "error": "Ralat",
+      "worksWithoutAServer": "Berfungsi tanpa pelayan",
+      "couldNotSwitchAccount": "Tidak dapat menukar akaun",
+      "accounts": "Akaun",
+      "openTabsKeepRunningWhen": "Tab yang dibuka terus berjalan apabila anda bertukar.",
+      "unlink": "Nyahpaut {{account}}",
+      "linkAServer": "Pautkan pelayan",
+      "eachServerKeepsItsOwn": "Setiap pelayan mengekalkan hos, kelayakan dan tetapannya sendiri pada {{deviceWord}} ini.",
+      "signedIn": "Telah log masuk",
+      "signedOut": "Log keluar",
+      "syncedCopy": "Salinan disegerakkan"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Tidak dapat menyimpan pin",
+      "theServerSKeyMatches": "Kunci pelayan sepadan dengan pin",
+      "theServerShowsAnotherKey": "Pelayan menunjukkan kunci lain",
+      "pinThisKey": "Pin kunci ini?",
+      "pinThisKey2": "Pin kunci ini",
+      "keyPinned": "Kunci dipin",
+      "couldNotReadTheServer": "Tidak dapat membaca kunci pelayan",
+      "thatIsNotAPin": "Bukan pin",
+      "keysPinned": "Kunci dipin",
+      "certificatePin": "Pin sijil",
+      "trustThisServerOnlyBy": "Percayai pelayan ini hanya berdasarkan kuncinya. Gunakan untuk sijil tandatangan sendiri, atau untuk menolak mana-mana kunci lain. Tambah kunci seterusnya sebelum anda menukar sijil pelayan.",
+      "removePin": "Buang pin {{pin}}",
+      "remove": "Buang",
+      "readTheKeyFromThe": "Baca kunci dari pelayan",
+      "orPasteAPin": "Atau tampal pin",
+      "pin": "Pin",
+      "add": "Tambah",
+      "issuedTo": "Dikeluarkan kepada: {{subject}}",
+      "issuedBy": "Dikeluarkan oleh: {{issuer}}",
+      "validUntil": "Sah sehingga: {{value}}",
+      "checkThatThisKeyMatches": "Semak bahawa kunci ini sepadan dengan yang ada di pelayan anda sebelum meminya.",
+      "pasteTheBase64Sha256Of": "Tampal base64 sha256 bagi kunci awam pelayan, seperti yang dicetak oleh openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Tetapan proksi disimpan",
+      "couldNotSaveTheProxy": "Tidak dapat menyimpan tetapan proksi",
+      "couldNotReadThatFile": "Tidak dapat membaca fail tersebut",
+      "certificateSaved": "Sijil disimpan",
+      "theFileOrItsPassphrase": "Fail atau frasa lalunya salah",
+      "couldNotSaveTheCertificate": "Tidak dapat menyimpan sijil",
+      "headers": "Pengepala",
+      "sentWithEveryRequestTo": "Dihantar dengan setiap permintaan ke pelayan ini, seperti token perkhidmatan Cloudflare.",
+      "name": "Nama",
+      "value": "Nilai",
+      "removeHeader": "Buang pengepala",
+      "addHeader": "Tambah pengepala",
+      "cloudflareServiceToken": "Token perkhidmatan Cloudflare",
+      "basicAuth": "Pengesahan asas",
+      "forAProxyThatAsks": "Untuk proksi yang meminta nama pengguna dan kata laluan.",
+      "userName": "Nama pengguna",
+      "password": "Kata laluan",
+      "saveHeadersAndBasicAuth": "Simpan pengepala dan pengesahan asas",
+      "clientCertificate": "Sijil klien",
+      "forServersThatAskFor": "Untuk pelayan yang memintanya (mTLS). Kunci disimpan dalam storan selamat {{deviceWord}} dan tidak boleh dibaca semula.",
+      "certificate": "Sijil",
+      "remove": "Buang",
+      "replaceCertificate": "Ganti sijil",
+      "pickAP12OrPfx": "Pilih fail .p12 atau .pfx",
+      "proxySignIn": "Log masuk proksi",
+      "thisIsSignedInTo": " {{deviceWord}} ini telah log masuk ke proksi.",
+      "forCloudflareAccessAutheliaAuthentik": "Untuk Cloudflare Access, Authelia, Authentik dan proksi lain dengan halaman log masuk mereka sendiri.{{value}}",
+      "signInToTheProxy": "Log masuk ke proksi",
+      "forget": "Lupakan",
+      "certificatePassphrase": "Frasa laluan sijil",
+      "thePassphraseTheFileWas": "Frasa laluan yang digunakan untuk menyimpan fail. Biarkan kosong jika tiada.",
+      "passphrase": "Frasa laluan",
+      "save": "Simpan"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Telah log masuk ke proksi",
+      "couldNotSaveTheProxy": "Tidak dapat menyimpan log masuk proksi",
+      "signInToTheProxy": "Log masuk ke proksi",
+      "thisBuildOfTheApp": "Binaan aplikasi ini tidak dapat mengekalkan log masuk proksi. Gunakan token perkhidmatan dalam header proksi sebagai gantinya."
+    },
+    "savedLoginRow": {
+      "signIn": "Log masuk",
+      "signInWith": "Log masuk dengan {{name}}",
+      "whenThisServerSignsYou": "Apabila pelayan ini mengeluarkan anda, log masuk semula tanpa perlu menaip kata laluan anda."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Diputuskan pautan. {{copied}} item telah disimpan pada Peranti ini.",
+      "unlinked": "Diputuskan pautan",
+      "couldNotUnlinkTheServer": "Tidak dapat memutuskan pautan pelayan",
+      "unlink": "Putuskan pautan {{value}}?",
+      "thisSignsOutOfThe": "Peranti {{deviceWord}} ini akan keluar dari pelayan. Tiada apa-apa yang dipadamkan pada pelayan.",
+      "keepACopyOnThis": "Simpan salinan pada Peranti ini",
+      "yourOwnHostsCredentialsAnd": "Hos, kelayakan dan petikan anda sendiri akan dipindahkan ke Peranti ini. Hos yang dikongsi dengan anda tidak akan disimpan.",
+      "deleteFromThis": "Padam dari {{deviceWord}} ini",
+      "everythingThisHasForThe": "Semua data yang dimiliki oleh {{deviceWord}} ini untuk pelayan akan dibuang."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Ubah di bawah Proksi di bawah",
+      "updateTermixMobileFromYour": "Kemas kini Termix Mobile dari kedai aplikasi anda"
+    },
+    "savedLogin": {
+      "signInToTermix": "Log masuk ke Termix",
+      "faceUnlock": "buka kunci muka"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Binaan ini tidak dapat memeriksa kunci yang dipin pada pelayan ini atau menghantar sijilnya."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Pelayan ini tidak menyokong ciri ini",
+      "theProxyWantsYouTo": "Proksi memerlukan anda untuk log masuk",
+      "endpointNotAvailableOnThis": "Titik akhir tidak tersedia pada pelayan ini",
+      "unknownError": "Ralat tidak diketahui"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proksi di hadapan pelayan ini memerlukan anda untuk log masuk semula.",
+      "authenticationRequiredPleaseLogIn": "Pengesahan diperlukan. Sila log masuk semula.",
+      "accessDeniedYouDoNot": "Akses ditolak. Anda tidak mempunyai kebenaran untuk melaksanakan tindakan ini.",
+      "thisFeatureIsTurnedOff": "Ciri ini dimatikan pada pelayan.",
+      "thisServerDoesNotSupport": "Pelayan ini tidak menyokong ciri ini.",
+      "resourceNotFoundTheRequested": "Sumber tidak dijumpai. Item yang diminta mungkin telah dipadamkan.",
+      "conflictTheResourceAlreadyExists": "Pertentangan. Sumber tersebut sudah wujud atau sedang digunakan.",
+      "validationErrorPleaseCheckYour": "Ralat pengesahan. Sila semak input anda dan cuba lagi.",
+      "serverErrorOccurredPleaseTry": "Ralat pelayan berlaku. Sila cuba lagi kemudian.",
+      "sslCertificateVerificationFailed": "Pengesahan sijil SSL gagal.",
+      "networkErrorPleaseCheckYour": "Ralat rangkaian. Sila semak sambungan anda dan cuba lagi.",
+      "failedTo": "Gagal untuk {{operation}}",
+      "unknownError": "Ralat tidak diketahui",
+      "unexpectedErrorDuring": "Ralat tidak dijangka semasa {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Aplikasi tidak dapat mempercayai HTTPS untuk IP tempatan ini. Pin kunci pelayan di bawah Proksi dan sijil klien, gunakan sijil yang dipercayai oleh {{deviceWord}}, atau HTTP pada rangkaian tempatan atau VPN yang dipercayai.",
+        "thisServerIsBehindA": "Pelayan ini berada di belakang proksi log masuk. Gunakan pilihan log masuk luaran sebagai gantinya.",
+        "loginFailed": "Log masuk gagal"
+      },
+      "files": {
+        "fileNotFound": "Fail tidak dijumpai",
+        "fileWriteOperationDidNot": "Operasi tulis fail tidak mengembalikan status berjaya",
+        "couldNot": "Tidak dapat {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Hos disimpan, tetapi beberapa tetapan gagal: {{value}}",
+        "unexpectedHostResponseFrom": "Respons hos tidak dijangka dari {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Sampel langsung gagal"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Tiada jawapan"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Pelayan ini tidak menunjukkan kunci yang dipin padanya, jadi halaman tidak dibuka."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "{{what}} tersebut tidak lagi wujud.",
+      "aHostCannotBeIts": "Hos tidak boleh menjadi induknya sendiri",
+      "parentHostNotFound": "Hos induk tidak dijumpai",
+      "aHostCanTGo": "Hos tidak boleh diletakkan di bawah salah satu sub-hosnya sendiri",
+      "thisIsSharedWithYou": "{{what}} ini dikongsi dengan anda. Hanya pemiliknya sahaja yang boleh mengubahnya.",
+      "nameIsRequired": "Nama diperlukan",
+      "nameAndCommandAreRequired": "Nama dan arahan diperlukan",
+      "aFolderWithThatName": "Folder dengan nama tersebut sudah wujud"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Peranti ini tidak dapat menyimpan {{what}} di sini."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Petikan ini dikongsi dengan anda dan tidak dapat diubah."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Gunakan frasa laluan dengan sekurang-kurangnya 8 aksara.",
+      "thisIsNotATermix": "Ini bukan fail sandaran Termix.",
+      "thisBackupIsFromA": "Sandaran ini adalah dari versi Termix yang lebih baru. Kemas kini aplikasi terlebih dahulu.",
+      "wrongPassphraseOrTheFile": "Frasa laluan salah, atau fail rosak."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Binaan ini tidak boleh mengenkripsi data tempatan."
+    },
+    "keys": {
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu.",
+      "thatIsNotADatabase": "Bukan kunci pangkalan data.",
+      "couldNotSaveTheDatabase": "Tidak dapat menyimpan kunci pangkalan data."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Data ini disimpan oleh versi Termix yang lebih baru. Kemas kini aplikasi untuk membukanya."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Peranti ini tidak disegerakkan.",
+      "localDataIsNotAvailable": "Data tempatan tidak tersedia di sini.",
+      "unlockTermixFirst": "Buka kunci Termix terlebih dahulu."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Tidak dapat menyambung.",
+      "thisWayCanTRun": "Cara ini tidak dapat menjalankan arahan"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Kata laluan Sudo",
+      "password": "Kata laluan",
+      "run": "Jalankan",
+      "thatPasswordWasWrong": "Kata laluan tersebut salah.",
+      "onNeedsRoot": "{{reason}} pada {{hostName}} memerlukan root.",
+      "needsRootForThis": "{{hostName}} memerlukan root untuk ini.",
+      "itIsKeptUntilYou": "Ia disimpan sehingga anda menutup aplikasi."
+    },
+    "run": {
+      "theHostTookTooLong": "Hos mengambil masa terlalu lama untuk menjawab",
+      "connectionLost": "Sambungan terputus"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Ini memerlukan root. Log masuk sebagai root, tetapkan sudo tanpa kata laluan, atau simpan kata laluan sudo untuk hos.",
+      "theSudoPasswordWasWrong": "Kata laluan sudo salah",
+      "commandFailed": "Arahan gagal"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet dalam terminal memerlukan sambungan dari {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Ciri {{id}} sudah didaftarkan"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Alamat",
+      "theIpOrHostName": "IP atau nama hos di bawah nama",
+      "username": "Nama pengguna",
+      "theUserBeforeTheAddress": "Pengguna sebelum alamat",
+      "port": "Port",
+      "thePortAfterTheAddress": "Port selepas alamat",
+      "hostIcon": "Ikon hos",
+      "theIconSetOnThe": "Ikon ditetapkan pada hos",
+      "pinIcon": "Ikon pin",
+      "marksPinnedHosts": "Menandakan hos yang dipin",
+      "sharedBadge": "Lencana dikongsi",
+      "marksHostsSharedWithYou": "Menandakan hos yang dikongsi dengan anda",
+      "protocolBadges": "Lencana protokol",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker dan cip lain",
+      "tags": "Tag",
+      "theHostSTags": "Tag hos",
+      "cpuAndRam": "CPU dan RAM",
+      "liveUsageBarsOnOnline": "Bar penggunaan langsung pada hos dalam talian",
+      "statusColors": "Warna status",
+      "greenBarWhenOnlineRed": "Bar hijau apabila dalam talian, merah apabila luar talian"
+    },
+    "uiPrefs": {
+      "small": "Kecil",
+      "default": "Lalai",
+      "large": "Besar",
+      "comfortable": "Selesa",
+      "compact": "Padat"
+    },
+    "errors": {
+      "somethingWentWrong": "Terdapat masalah"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Mengunci kunci dengan frasa laluan memerlukan aplikasi Termix, bukan pratonton web."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Segera",
+      "after15Seconds": "Selepas 15 saat",
+      "after1Minute": "Selepas 1 minit",
+      "after5Minutes": "Selepas 5 minit"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Rahsia peranti telah hilang",
+      "noSealedKey": "Tiada kunci tertutup",
+      "theSealedKeyIsDamaged": "Kunci tertutup rosak",
+      "wrongPin": "PIN salah",
+      "theSealedKeyDidNot": "Kunci yang disegel tidak dapat dibuka",
+      "biometricsCanTOpenThe": "Biometrik tidak dapat membuka kunci"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Kemas kini aplikasi",
+      "onYourServerNeedsA": "{{name}} pada pelayan anda memerlukan versi Termix yang lebih baru pada {{deviceWord}} ini.",
+      "updateThePlugin": "Kemas kini plugin",
+      "onYourServerIsToo": "{{name}} pada pelayan anda terlalu lama untuk aplikasi ini. Minta pentadbir untuk mengemas kini plugin tersebut."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Disekat oleh aplikasi",
+      "theAppDoesNotLet": "Aplikasi ini tidak membenarkan plugin menggunakan laluan ini.",
+      "thisBuildCanTReach": "Binaan ini tidak dapat mencapai pelayan ini dengan selamat."
+    },
+    "support": {
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "updateThePluginOnThe": "Kemas kini plugin pada pelayan",
+      "theAppHasItsOwn": "Aplikasi mempunyai rupa tersendiri",
+      "notInTheAppYet": "Belum tersedia dalam aplikasi",
+      "linkAServerToUse": "Pautkan pelayan untuk menggunakannya",
+      "opensInTheAppFrom": "Buka dalam aplikasi dari pelayan",
+      "runsOnTheServer": "Berjalan pada pelayan",
+      "throughTheServer": "Melalui pelayan",
+      "inTheApp": "Dalam aplikasi",
+      "webView": "Paparan web",
+      "onTheServer": "Pada pelayan",
+      "appLook": "Rupa aplikasi",
+      "notInTheApp": "Tidak dalam aplikasi",
+      "safeMode": "Mod selamat",
+      "notRunning": "Tidak berjalan",
+      "notInstalled": "Tidak dipasang",
+      "notOnThisServer": "Tidak pada pelayan ini",
+      "thePluginIsNotInstalled": "Plugin ini tidak dipasang pada pelayan ini.",
+      "turnedOffOnTheServer": "Dimatikan pada pelayan",
+      "itOpensHereAgainWhen": "Ia akan dibuka semula di sini apabila pentadbir mengaktifkannya.",
+      "notRunningOnTheServer": "Tidak berjalan pada pelayan",
+      "theServerIsInSafe": "Pelayan berada dalam mod selamat, jadi hanya plugin rupa yang berjalan.",
+      "thePluginDidNotStart": "Plugin tidak berjaya dimulakan. Pentadbir boleh menyemaknya dalam Plugin.",
+      "thisPluginIsNotAvailable": "Plugin ini tidak tersedia",
+      "itIsNotMadeFor": "Ia tidak direka untuk aplikasi ini.",
+      "offOnThisServer": "dimatikan pada pelayan ini",
+      "notRunningOnThisServer": "tidak berjalan pada pelayan ini",
+      "notOnThisServer2": "tidak pada pelayan ini",
+      "notInTheAppYet2": "Belum tersedia dalam aplikasi | pada pelayan ini",
+      "worksOnThis": "Berfungsi pada {{deviceWord}} ini",
+      "andServer": "{{DeviceWord}} dan pelayan",
+      "deviceOnly": "{{DeviceWord}} sahaja | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Muat semula"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Putuskan sambungan semua",
+      "showOpenSessions": "Tunjukkan sesi terbuka",
+      "termixShowsANotificationWhile": "Termix memaparkan pemberitahuan semasa sesi terbuka, supaya Android mengekalkannya berjalan di latar belakang.",
+      "sessionsOpen_other": "{{count}} sesi terbuka",
+      "tunnelsActive_other": "{{count}} terowong aktif",
+      "notConnected": "Tidak disambungkan",
+      "waitingForNetwork": "Menunggu rangkaian",
+      "connecting": "Menyambung",
+      "connected": "Disambungkan",
+      "reconnecting": "Menyambung semula",
+      "failed": "Gagal",
+      "closed": "Ditutup"
+    },
+    "companionPane": {
+      "resizeThePanel": "Ubah saiz panel {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Tutup",
+      "closeAllTabs": "Tutup semua {{count}} tab?",
+      "everySessionEnds": "Setiap sesi akan tamat.",
+      "closeAll": "Tutup semua",
+      "noActiveConnections": "Tiada sambungan aktif",
+      "pickAHostFromThe": "Pilih hos dari senarai untuk memulakan sesi. Tab yang anda buka pada peranti lain juga dipaparkan di sini.",
+      "connectToAHostTo": "Sambung ke hos untuk memulakan sesi. Tab yang anda buka pada peranti lain juga dipaparkan di sini.",
+      "open": "Buka",
+      "background": "Latar belakang",
+      "sessionsFromOtherDevicesOr": "Sesi dari peranti lain atau tab latar belakang. Ketik untuk menghidupkan semula.",
+      "liveTapToReconnect": "Langsung, ketik untuk menyambung semula",
+      "tapToReopen": "Ketik untuk membuka semula"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Ini dimatikan pada pelayan",
+      "comesBackHereWhenAn": "{{title}} akan kembali ke sini apabila pentadbir menghidupkan semula pluginnya.",
+      "closeTab": "Tutup tab"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Sambungan",
+        "hideHostList": "Sembunyikan senarai hos",
+        "showHostList": "Paparkan senarai hos",
+        "backToHosts": "Kembali ke hos",
+        "showKeyboard": "Paparkan papan kekunci",
+        "hideKeyboard": "Sembunyikan papan kekunci",
+        "hideKeysPanel": "Sembunyikan panel kunci",
+        "showKeysPanel": "Paparkan panel kunci"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Ketik untuk pilihan tab, tahan untuk mengalihkan",
+        "holdToMove": "Tahan untuk mengalihkan",
+        "close": "Tutup {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Menunggu rangkaian",
+        "connectionFailed": "Sambungan gagal",
+        "reconnecting": "Menyambung semula"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Namakan semula",
+      "newTabOnThisHost": "Tab baru pada hos ini",
+      "here": "{{title}} di sini",
+      "hidePanel": "Sembunyikan panel {{title}}",
+      "showPanel": "Paparkan panel {{title}}",
+      "endSplitView": "Tamatkan pandangan bahagi",
+      "splitViewWith": "Pandangan bahagi dengan...",
+      "moveLeft": "Alih ke kiri",
+      "moveRight": "Alih ke kanan",
+      "closeTab": "Tutup tab",
+      "closeAllTabs": "Tutup semua tab",
+      "closeAllTabs2": "Tutup semua {{count}} tab?",
+      "everySessionEnds": "Setiap sesi tamat.",
+      "closeAll": "Tutup semua",
+      "splitViewWith2": "Pandangan bahagi dengan",
+      "renameTab": "Namakan semula tab",
+      "leaveItEmptyToUse": "Biarkan kosong untuk menggunakan nama hos."
+    },
+    "resizeHostList": "Ubah saiz senarai hos",
+    "resizeSplitView": "Ubah saiz pandangan bahagi",
+    "connections": "Sambungan",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Pengesahan Dua Faktor",
+        "enterThe6DigitCode": "Masukkan kod 6 digit dari aplikasi pengesah anda.",
+        "cancel": "Batal",
+        "verify": "Pengesahan",
+        "codeExpiresInSGet": "Kod tamat dalam {{totpCountdown}}s, dapatkan kod baru",
+        "warpgateAuthentication": "Pengesahan Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Sahkan URL pengesahan Warpgate dan kunci keselamatan.",
+        "authenticate": "Pengesahan",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Kunci keselamatan (pilihan)",
+        "authenticationRequired": "Pengesahan Diperlukan",
+        "thisHostNeedsCredentialsTo": "Hos ini memerlukan kelayakan untuk menyambung.",
+        "connect": "Sambung",
+        "password": "Kata laluan",
+        "sshKey": "Kunci SSH",
+        "pastePrivateKey": "Tampal kunci peribadi",
+        "keyPassphraseOptional": "Frasa laluan kunci (pilihan)"
+      },
+      "connectionError": {
+        "tryAgain": "Cuba lagi",
+        "close": "Tutup",
+        "connectThroughTheServer": "Sambung melalui pelayan",
+        "connectFromThis": "Sambung dari {{deviceWord}} ini",
+        "triedFromThis": "Dicuba dari {{deviceWord}} ini",
+        "triedThroughTheServer": "Dicuba melalui pelayan"
+      },
+      "execGate": {
+        "connecting": "Menyambung..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Terdapat ralat",
+        "retry": "Cuba lagi",
+        "refresh": "Muat semula",
+        "nothingToShow": "Tiada apa-apa untuk dipaparkan"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Log ditampal",
+        "connectionLog": "Log Sambungan ({{count}})",
+        "copyLog": "Salin log",
+        "waitingForConnection": "Menunggu sambungan…",
+        "noLogEntries": "Tiada entri log"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Gagal menyimpan cara hos ini menyambung"
+      },
+      "useSessionConnect": {
+        "connected": "Bersambung",
+        "connectingTo": "Menyambung ke {{name}}…",
+        "connectionLost": "Sambungan terputus",
+        "failedToConnect": "Gagal menyambung",
+        "invalidCode": "Kod tidak sah",
+        "warpgateAuthenticationFailed": "Pengesahan Warpgate gagal",
+        "authenticationCancelled": "Pengesahan dibatalkan"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Carian dan arahan",
+    "addHost": "Tambah hos",
+    "keyboardShortcuts": "Pintasan papan kekunci",
+    "home": "Laman utama",
+    "hosts": "Hos",
+    "sessions": "Sesi",
+    "tools": "Alat",
+    "settings": "Tetapan",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Pintasan papan kekunci"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Hos dan folder",
+      "yourHostsFoldersAndHosts": "Hos anda, folder dan hos yang dikongsi dengan anda",
+      "credentials": "Kelayakan",
+      "savedPasswordsAndKeysAnd": "Kata laluan dan kunci yang disimpan, serta kelayakan yang dikongsi dengan anda",
+      "snippets": "Potongan",
+      "snippetsAndTheirFolders": "Potongan dan folder mereka",
+      "hostDefaults": "Lalai hos",
+      "defaultSettingsForNewHosts": "Tetapan lalai untuk hos baharu",
+      "preferences": "Keutamaan",
+      "settingsThatFollowYouBetween": "Tetapan yang mengikuti anda antara peranti"
+    },
+    "link": {
+      "noSuchServerAccount": "Akaun pelayan tidak wujud",
+      "signInFirst": "Log masuk dahulu.",
+      "thisServerAccountBelongsTo": "Akaun pelayan ini milik {{value}}. Log masuk sebagai mereka, atau tambah pelayan ini sekali lagi untuk pengguna ini."
+    },
+    "reasons": {
+      "signedOut": "Telah log keluar",
+      "thisSSignInTo": "Tempoh log masuk {{deviceWord}} ini ke pelayan telah tamat.",
+      "theServerEndedThisS": "Pelayan telah menamatkan sesi {{deviceWord}} ini. Ia mungkin telah log keluar dari peranti lain.",
+      "proxySignInNeeded": "Log masuk proksi diperlukan",
+      "theProxyInFrontOf": "Proksi di hadapan pelayan ini meminta anda log masuk semula.",
+      "proxyPasswordNeeded": "Kata laluan proksi diperlukan",
+      "theProxyInFrontOf2": "Proksi di hadapan pelayan ini meminta kata laluan.",
+      "certificateRefused": "Sijil ditolak",
+      "theServerDidNotAccept": "Pelayan tidak menerima sijil {{deviceWord}} ini.",
+      "untrustedServer": "Pelayan tidak dipercayai",
+      "theServerSCertificateIs": "Sijil pelayan tidak dipercayai oleh {{deviceWord}} ini.",
+      "serverKeyChanged": "Kunci pelayan berubah",
+      "theServerShowsAnotherKey": "Pelayan menunjukkan kunci yang berbeza daripada yang ditetapkan untuknya. Jika anda menukar sijilnya, tetapkan kunci baharu.",
+      "offline": "Luar talian",
+      "canTReachTheServer": "Tidak dapat menghubungi pelayan. Penyegerakan akan cuba lagi sebentar lagi.",
+      "serverProblem": "Masalah pelayan",
+      "theServerHadAProblem": "Pelayan mengalami masalah. Penyegerakan akan cuba lagi sebentar lagi.",
+      "updateNeeded": "Kemaskini diperlukan",
+      "thisServerUsesANewer": "Pelayan ini menggunakan versi penyegerakan yang lebih baharu. Kemaskini aplikasi.",
+      "notATermixServer": "Bukan pelayan Termix",
+      "theAddressDoesNotAnswer": "Alamat tersebut tidak menjawab seperti pelayan Termix.",
+      "syncIsOff": "Penyegerakan dimatikan",
+      "theSyncPluginIsOff": "Plugin Penyegerakan dimatikan pada pelayan ini. Minta pentadbir menghidupkannya dalam Plugin.",
+      "differentUser": "Pengguna berbeza",
+      "youSignedInAsA": "Anda log masuk sebagai pengguna yang berbeza daripada pemilik akaun pelayan ini.",
+      "syncStopped": "Penyegerakan dihentikan",
+      "somethingWentWrong": "Terjadi ralat.",
+      "signInAgain": "Log masuk semula",
+      "signInToTheProxy": "Log masuk ke proksi",
+      "enterThePassword": "Masukkan kata laluan",
+      "tryAgain": "Cuba lagi",
+      "checkThePin": "Semak pin",
+      "checkForUpdates": "Semak kemas kini",
+      "pickACertificate": "Pilih sijil"
+    },
+    "settings": {
+      "noSuchSetting": "Tiada tetapan sedemikian",
+      "snippetFolder": "Folder snippet",
+      "hostDefault": "Lalai hos"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Pelayan tidak menerima sijil {{deviceWord}} ini.",
+      "theServerSCertificateIs": "Sijil pelayan tidak dipercayai.",
+      "canTReachTheServer": "Tidak dapat menghubungi pelayan.",
+      "signedOut": "Telah log keluar",
+      "theProxyAskedForIts": "Proksi meminta kata laluan.",
+      "theProxyWantsYouTo": "Proksi meminta anda log masuk.",
+      "theSyncPluginIsOff": "Plugin Penyegerakan dimatikan pada pelayan ini.",
+      "serverError": "Ralat pelayan {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Pelayan menunjukkan kunci yang berbeza daripada yang ditetapkan."
+    },
+    "remote": {
+      "thisIsNotATermix": "Ini bukan pelayan Termix.",
+      "theProxyWantsYouTo": "Proksi meminta anda log masuk.",
+      "thisServerUsesANewer": "Pelayan ini menggunakan versi penyegerakan yang lebih baharu. Kemaskini aplikasi."
+    },
+    "copy": {
+      "hostCount_other": "{{count}} hos",
+      "credentialCount_other": "{{count}} kelayakan",
+      "snippetCount_other": "{{count}} snippet",
+      "folderCount_other": "{{count}} folder",
+      "nothingYet": "tiada lagi",
+      "listAnd": "{{list}} dan {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Tidak dapat menyambung.",
+      "connectingToFromThis": "Menyambung ke {{name}} dari {{deviceWord}} ini",
+      "connectingToThroughTheServer": "Menyambung ke {{name}} melalui pelayan",
+      "reconnectingTry": "Menyambung semula (cubaan {{retry}})",
+      "disconnected": "Putus sambungan",
+      "connected": "Bersambung",
+      "reconnectedToTheSameSession": "Menyambung semula ke sesi yang sama",
+      "reconnectedWithANewShell": "Menyambung semula dengan shell baharu",
+      "couldNotReachTheHost": "Tidak dapat menghubungi hos dari {{deviceWord}} ini, cuba melalui pelayan",
+      "couldNotConnectThroughThe": "Tidak dapat menyambung melalui pelayan, cuba dari {{deviceWord}} ini",
+      "connectionLost": "Sambungan terputus: {{reason}}",
+      "offlineWaitingForTheNetwork": "Luar talian, menunggu rangkaian",
+      "nextTryInS": "Cubaan seterusnya dalam {{value}}s",
+      "reconnectingTry2": "Menyambung semula (cubaan {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Hos berhenti menjawab",
+      "networkLost": "Rangkaian terputus",
+      "network": "Rangkaian: {{type}}{{value}}",
+      "lowPowerModeOn": "Mod kuasa rendah dihidupkan",
+      "lowPowerModeOff": "Mod kuasa rendah dimatikan",
+      "droppedTypedCharacters": "Dibuang {{count}} aksara yang ditaip",
+      "youDidNotTrustThe": "Anda tidak mempercayai kunci hos.",
+      "checkTheKeyWithWhoever": "Semak kunci dengan pihak yang mengendalikan hos, kemudian cuba lagi.",
+      "loginCancelled": "Log masuk dibatalkan.",
+      "connectAgainWhenYouAre": "Sambung semula apabila anda bersedia.",
+      "typedInputIsOver64": "Input yang ditaip melebihi 64 KB, bahagian terlama telah dibuang",
+      "appInTheBackground": "Aplikasi di latar belakang",
+      "appInTheForeground": "Aplikasi di latar hadapan",
+      "thisConnectionCanTRun": "Sambungan ini tidak dapat menjalankan arahan"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Semak alamat dan port, serta pastikan pelayan dapat mencapai hos.",
+      "checkTheAddressAndPort2": "Semak alamat dan port, serta pastikan {{deviceWord}} ini dapat mencapai hos.",
+      "checkTheProxySettingsOf": "Semak tetapan proksi hos ini.",
+      "checkTheKeyWithWhoever": "Semak kunci dengan pihak yang mengendalikan hos sebelum anda mempercayainya.",
+      "checkTheUsernameAndLogin": "Semak nama pengguna dan log masuk dalam penyunting hos.",
+      "checkThatTheServerIs": "Pastikan pelayan sedang berjalan dan anda masih log masuk.",
+      "tryAgainIfItKeeps": "Cuba lagi. Jika sambungan terus terputus, semak rangkaian.",
+      "connectAgainWhenYouAre": "Sambung semula apabila anda bersedia.",
+      "pickAnotherWayToConnect": "Pilih cara lain untuk menyambung hos ini.",
+      "connectThisHostThroughA": "Sambung hos ini melalui pelayan Termix.",
+      "pickTheJumpHostsAgain": "Pilih hos lompat semula dalam penyunting hos.",
+      "thisIsATailscaleAddress": "Ini ialah alamat Tailscale. Pastikan Tailscale disambung pada {{deviceWord}} ini.",
+      "theSavedKeyCanT": "Kunci yang disimpan tidak dapat dibaca. Tampal semula dalam penyunting hos.",
+      "signInToThisServer": "Log masuk ke pelayan ini semula.",
+      "openThisHostInThe": "Buka hos ini dalam aplikasi web Termix.",
+      "canTConnectThisWay": "Tidak dapat menyambung dengan cara ini",
+      "couldNotReachTheHost": "Tidak dapat mencapai hos",
+      "theProxyDidNotLet": "Proksi tidak membenarkan sambungan melalui",
+      "theHostKeyWasNot": "Kunci hos tidak dipercayai",
+      "theLoginWasRefused": "Log masuk ditolak",
+      "theTermixServerDidNot": "Pelayan Termix tidak menjawab",
+      "theConnectionDropped": "Sambungan terputus",
+      "loginCancelled": "Log masuk dibatalkan"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "Ejen SSH",
+        "thisHostSignsInWith": "Hos ini log masuk dengan \"{{authType}}\", yang memerlukan pelayan Termix. Pautkan satu untuk menyambung.",
+        "thisHostUsesA1password": "Hos ini menggunakan rujukan 1Password, yang memerlukan pelayan Termix dengan Secret Sources. Pautkan satu dan sambung hos ini melalui pelayan tersebut.",
+        "signInWithFirstOpen": "Log masuk dengan {{title}} dahulu. Buka terminal ke hos ini sekali, kemudian cuba lagi.",
+        "theSignInAndThe": "log masuk dan sijil berada di pelayan",
+        "theHasNoSshAgent": "{{deviceWord}} ini tiada ejen SSH",
+        "needsATermixServerBecause": "{{title}} memerlukan pelayan Termix kerana {{why}}. Pautkan satu dan sambung hos ini melalui pelayan tersebut."
+      },
+      "chain": {
+        "aJumpHostOfThis": "Hos lompat hos ini tidak lagi wujud."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Sambungan terputus",
+        "theShellChannelClosed": "Saluran shell ditutup",
+        "jumpHost": "Hos lompat {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Kod tidak sah, cuba lagi:",
+        "authenticationFailed": "Pengesahan gagal: {{message}}",
+        "theHostKeyWasNot": "Kunci hos tidak dipercayai.",
+        "loginCancelled": "Log masuk dibatalkan.",
+        "notConnected": "Tidak disambung"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Sambungan terputus"
+      },
+      "thisBuildHasNoSsh": "Binaan ini tiada enjin SSH. Gunakan aplikasi dari kedai, atau pautkan pelayan Termix untuk menyambung.",
+      "theHostsOnThisAre": "Hos pada {{deviceWord}} ini belum dibuka.",
+      "thisServerSHostsAre": "Hos pelayan ini tidak berada pada {{deviceWord}} ini. Hidupkan plugin Sync pada pelayan untuk menyambung dari {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Tidak dapat menyambung.",
+      "canTConnectFromThe": "Tidak dapat menyambung dari {{deviceWord}} ini.",
+      "canTReachTheServer": "Tidak dapat mencapai pelayan.",
+      "theOnlyConnectsToSsh": "Peranti {{deviceWord}} hanya menyambung ke hos SSH dan Telnet.",
+      "connectThisHostThroughThe": "Sambung hos ini melalui pelayan",
+      "connectThisHostFromThe": "Sambung hos ini dari {{deviceWord}}",
+      "termixServer": "Pelayan Termix",
+      "usesThisWhenItCan": "Menggunakan {{deviceWord}} ini apabila ia boleh mencapai hos, sebaliknya menggunakan pelayan.",
+      "thisConnectsToTheHost": "{{deviceWord}} ini menyambung terus ke hos.",
+      "theTermixServerConnectsTo": "Pelayan Termix menyambung ke hos untuk anda.",
+      "anSshConnection": "sambungan SSH",
+      "aTermixServer": "pelayan Termix",
+      "aConnectionFromThe": "sambungan dari {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} dimatikan pada pelayan ini. {{how}} untuk menggunakannya.",
+      "isOffOnThisServer2": "{{title}} dimatikan pada pelayan ini.",
+      "anotherWayToConnect": "cara lain untuk menyambung",
+      "needsToUseIt": "{{title}} memerlukan {{what}}. {{how}} untuk menggunakannya.",
+      "needsWhichThisHostCan": "{{title}} memerlukan {{what}}, yang tidak boleh digunakan oleh hos ini buat masa ini.",
+      "thisDevice": "{{deviceWord}} ini",
+      "automatic": "Automatik"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Anda telah log keluar dari pelayan ini. Log masuk untuk menyambung melalui pelayan ini.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux tidak dipasang pada hos ini. Menggunakan shell biasa.",
+        "tapRetryToBringIt": "Ketuk Cuba Semula untuk memulihkannya di sini.",
+        "thisSessionWasOpenedOn": "Sesi ini dibuka pada peranti lain",
+        "noServerUrlFoundLink": "Tiada URL pelayan ditemui. Pautkan pelayan sekali lagi.",
+        "signedOutOfThisServer": "Telah log keluar dari pelayan ini. Log masuk sekali lagi.",
+        "signInWithInYour": "Log masuk dengan {{title}} dalam pelayar web anda. Tetingkap ini akan ditutup apabila selesai.",
+        "theSocketClosedWhileThe": "Socket ditutup semasa aplikasi berada di latar belakang",
+        "noWebsocketUrlAvailableServer": "Tiada URL WebSocket tersedia - pelayan tidak dikonfigurasi",
+        "connectionTimeoutServerNotResponding": "Had masa sambungan tercapai - pelayan tidak bertindak balas",
+        "verificationCode": "Kod pengesahan:",
+        "hostKeyVerificationRequiredBut": "Pengesahan kunci hos diperlukan tetapi tiada pengendali didaftarkan",
+        "hostKeyChangedButNo": "Kunci hos berubah tetapi tiada pengendali didaftarkan",
+        "thisHostNeedsASign": "Hos ini memerlukan log masuk yang hanya disokong oleh aplikasi web",
+        "invalidCodeTryAgain": "Kod tidak sah, cuba lagi:",
+        "unknownError": "Ralat tidak diketahui",
+        "connectionClosed": "Sambungan ditutup",
+        "connectionClosed2": "Sambungan ditutup ({{code}})",
+        "theServerClosedTheConnection": "Pelayan telah menutup sambungan",
+        "theSocketClosed": "Socket ditutup ({{code}})",
+        "signIn": "Log masuk {{title}}",
+        "signInFailed": "Log masuk {{title}} gagal",
+        "isNotSetUpOn": "{{title}} tidak dikonfigurasi pada pelayan",
+        "signInTimedOut": "Had masa log masuk {{title}} tercapai",
+        "authenticationFailed": "Pengesahan gagal: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Simpan hos dan sambungkan kepadanya untuk mengujinya.",
+      "loggedInAsOn": "Telah log masuk sebagai {{username}} pada {{host}}",
+      "theHostAskedForMore": "Hos meminta lebih daripada kata laluan, seperti kod. Simpan hos dan sambungkan untuk menyelesaikan log masuk."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Menunggu rangkaian",
+      "couldNotOpenTheTunnel": "Tidak dapat membuka terowong",
+      "theConnectionDropped": "Sambungan terputus",
+      "iosStoppedThisTunnelWhile": "iOS menghentikan terowong ini semasa aplikasi berada di latar belakang. Mulakan semula untuk membukanya.",
+      "connecting": "Menyambung",
+      "connected": "Bersambung",
+      "retrying": "Mencuba semula",
+      "waiting": "Menunggu",
+      "failed": "Gagal"
+    },
+    "gateways": {
+      "error": "Ralat",
+      "gateways": "Gerbang",
+      "gatewaysCanOnlyBeChanged": "Gerbang hanya boleh diubah dalam Termix di web.",
+      "noHandshake": "Tiada jabat tangan",
+      "rulesMissing": "Peraturan hilang",
+      "up": "Aktif",
+      "pending": "Menunggu",
+      "applying": "Memohon",
+      "down": "Tutup",
+      "unreachable": "Tidak boleh dicapai"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Tiada terowong lagi. Tambah satu untuk meneruskan port dari hos hujung ke hos ini.",
+      "tunnel": "Terowong {{value}}",
+      "removeTunnel": "Buang terowong {{value}}",
+      "mode": "Mod",
+      "local": "Tempatan",
+      "remote": "Jauh",
+      "dynamic": "Dinamik",
+      "targetHost": "Hos sasaran",
+      "onThisHostForTunnels": "Pada hos ini, untuk terowong yang dijalankan oleh {{deviceWord}}",
+      "bindHost": "Hos ikat",
+      "endpointHost": "Hos hujung",
+      "addAnotherHostFirstTunnels": "Tambah hos lain dahulu. Terowong melalui hos yang disimpan.",
+      "sourcePort": "Port sumber",
+      "endpointPort": "Port hujung",
+      "maxRetries": "Cubaan maksimum",
+      "retryEveryS": "Cuba setiap (s)",
+      "startOnItsOwn": "Mula secara automatik",
+      "addTunnel": "Tambah terowong",
+      "tunnelNeedsPortsFrom1": "Terowong {{value}} memerlukan port dari 1 hingga 65535"
+    },
+    "register": {
+      "tunnels": "Terowong",
+      "startAndStopSavedTunnels": "Mula dan hentikan terowong yang disimpan",
+      "tunnel": "TEROWONG",
+      "tunnel2": "Terowong"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Hujung tempatan disalin",
+      "tunnel": "Terowong | {{sourcePort}}",
+      "portMapping": "Pemetaan Port",
+      "connect": "Sambung",
+      "disconnect": "Putuskan sambungan",
+      "cancel": "Batal",
+      "connected": "Disambung",
+      "connecting": "Menyambung",
+      "disconnecting": "Memutuskan sambungan",
+      "error": "Ralat",
+      "retrying": "Mencuba semula ({{value}}/{{value2}})",
+      "waitingS": "Menunggu {{value}}s",
+      "waiting": "Menunggu",
+      "disconnected": "Terputus sambungan"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Memulakan terowong pada port {{sourcePort}}",
+      "connectingTunnelOnPort": "Menyambung terowong pada port {{sourcePort}}",
+      "disconnectingPort": "Memutuskan sambungan port {{sourcePort}}",
+      "cancellingPort": "Membatalkan port {{sourcePort}}",
+      "failedToTunnel": "Gagal {{action}} terowong",
+      "tunnels": "Terowong | {{count}} | {{value}}",
+      "loadingTunnels": "Memuatkan terowong…",
+      "noSshTunnelsConfiguredFor": "Tiada terowong SSH dikonfigurasi untuk hos ini. Tambah terowong dari borang hos.",
+      "runOn": "Jalankan pada",
+      "server": "Pelayan",
+      "this": "{{deviceWord}} ini",
+      "tunnelsOnThisStopWhen": "Terowong pada {{deviceWord}} ini berhenti apabila aplikasi ditutup. Pada iOS, ia juga berhenti tidak lama selepas aplikasi pergi ke latar belakang.",
+      "failedToFetchTunnelStatuses": "Gagal mendapatkan status terowong",
+      "thisBuildCanTOpen": "Binaan ini tidak boleh membuka terowong pada {{deviceWord}}.",
+      "sourceHostNotFound": "Hos sumber tidak dijumpai",
+      "endpointHostNotFound": "Hos hujung tidak dijumpai: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Terowong",
+      "tunnelCount_other": "{{count}} terowong",
+      "runningOnServer": "{{connected}} berjalan pada pelayan"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Alat Kredensial"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker tidak dipasang pada hos ini.",
+        "dockerDidNotAnswer": "Docker tidak menjawab",
+        "thatIsNotAValid": "Bukan nama tumpukan yang sah"
+      }
+    },
+    "containerDetail": {
+      "stop": "Henti",
+      "start": "Mula",
+      "restart": "Mula Semula",
+      "remove": "Buang",
+      "logs": "Log",
+      "stats": "Statistik",
+      "console": "Pekonsol",
+      "logsCopied": "Log disalin",
+      "copy": "Salin",
+      "containerIsNotRunningNo": "Kontena tidak berjalan, tiada statistik langsung.",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "networkIO": "I/O Rangkaian",
+      "blockIO": "I/O Blok",
+      "pids": "PID",
+      "failedToLoadLogs": "Gagal memuatkan log",
+      "failedToLoadStats": "Gagal memuatkan statistik",
+      "noOutput": "(tiada output)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Menyambung ke Docker...",
+    "remove": "Buang {{name}}?",
+    "stop": "Henti {{name}}?",
+    "theContainerIsStoppedAnd": "Kontena dihentikan dan dipadam. Isipadunya kekal.",
+    "anythingRunningInItStops": "Apa jua yang berjalan di dalamnya akan berhenti.",
+    "remove2": "Buang",
+    "stop2": "Henti",
+    "dockerThis": "Docker | {{deviceWord}} ini",
+    "lookingForDocker": "Mencari Docker...",
+    "dockerIsNotAvailableOn": "Docker tidak tersedia pada hos ini.",
+    "noContainersFound": "Tiada kontena ditemui",
+    "noContainersMatchYourFilters": "Tiada kontena sepadan dengan penapis anda",
+    "useSudo": "Gunakan sudo",
+    "refresh": "Segarkan",
+    "containers": "Kontena",
+    "stacks": "Tumpukan",
+    "searchContainers": "Cari kontena...",
+    "all": "Semua",
+    "running": "Berjalan",
+    "stopped": "Berhenti",
+    "start": "Mula",
+    "restart": "Mula Semula",
+    "pause": "Jeda",
+    "unpause": "Sambung Semula",
+    "moreActions": "Lebih tindakan",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker tidak menjawab",
+      "docker": "Docker",
+      "noContainers": "Tiada kontena"
+    },
+    "dockerConsole": {
+      "attachingTo": "Menyambung ke {{name}}...",
+      "consoleDisconnected": "Pekonsol terputus",
+      "reconnect": "Sambung Semula",
+      "failedToLoadTheConsole": "Gagal memuatkan pekonsol",
+      "thisSessionHasNoServer": "Sesi ini tiada pelayan"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Kontena, log dan statistik"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Tumpukan dimatikan pada pelayan ini.",
+      "couldNotLoadStacks": "Tidak dapat memuatkan tumpukan",
+      "noStacks": "Tiada tumpukan",
+      "composeProjectsOnThisHost": "Projek Compose pada hos ini akan dipaparkan di sini.",
+      "ofRunning": "{{running}} daripada {{total}} sedang berjalan",
+      "couldNotLoadTheStack": "Tidak dapat memuatkan tumpukan",
+      "services": "Perkhidmatan",
+      "nothingIsRunning": "Tiada yang sedang berjalan.",
+      "composeFile": "Fail Compose",
+      "partlyUp": "sebahagian berjalan",
+      "notDeployed": "tidak diternyata",
+      "running": "sedang berjalan",
+      "stopped": "berhenti",
+      "paused": "jeda"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Bukan ID bekas yang sah",
+      "consoleFailed": "Konsol gagal",
+      "notAuthenticated": "Tidak disahkan",
+      "consoleError": "Ralat konsol",
+      "connectionFailed": "Sambungan gagal"
+    },
+    "dockerDidNotAnswer": "Docker tidak menjawab",
+    "failedToLoadContainers": "Gagal memuatkan bekas",
+    "failedTo": "Gagal untuk {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Pelayan tidak menghantar sebarang fail",
+        "cancelled": "Dibatalkan",
+        "isGone": "{{path}} telah hilang",
+        "canTGoToThe": "{{name}} tidak boleh dipindahkan ke tong sampah"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "ID item tong sampah tidak sah",
+        "invalidTrashMetadata": "Metadata tong sampah tidak sah",
+        "thisPathCanTBe": "Laluan ini tidak boleh dipindahkan ke tong sampah",
+        "aFileAlreadyExistsAt": "Fail sudah wujud di laluan asal"
+      },
+      "sftp": {
+        "commandFailed": "Arahan gagal: {{command}}",
+        "alreadyExists": "{{name}} sudah wujud",
+        "alreadyExistsThere": "{{path}} sudah wujud di sana",
+        "canTGoToThe": "{{name}} tidak boleh dipindahkan ke tong sampah: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminal tidak lagi dibuka",
+      "clearHistory": "Kosongkan sejarah",
+      "stopFollowingTheTerminal": "Berhenti mengikuti terminal",
+      "followTheTerminal": "Ikuti terminal",
+      "goToTheTerminalS": "Pergi ke folder terminal",
+      "cdTheTerminalHere": "cd terminal ke sini",
+      "folderHistory": "Sejarah folder",
+      "mostUsedFirstThenRecent": "Paling kerap digunakan dahulu, kemudian baru",
+      "noFoldersYet": "Tiada folder lagi"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Tidak dapat menyambung.",
+        "couldNotSaveHowThis": "Tidak dapat menyimpan cara hos ini bersambung",
+        "thisWayCanTOpen": "Cara ini tidak boleh membuka fail"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Tidak dapat membuka folder ini",
+      "cancel": "Batal",
+      "noFoldersHere": "Tiada folder di sini"
+    },
+    "couldNotOpenThisFolder": "Tidak dapat membuka folder ini",
+    "couldNotSaveToThe": "Tidak dapat menyimpan ke folder",
+    "failed": "{{label}} gagal",
+    "uploading": "Memuat naik {{name}}",
+    "uploadingFiles": "Memuat naik {{count}} fail",
+    "downloadingToFilesOnMy": "Memuat turun ke Fail, Pada iPhone Saya, Termix",
+    "downloading": "Memuat turun {{name}}",
+    "downloadingFiles": "Memuat turun {{count}} fail",
+    "openALargeFile": "Buka fail yang besar?",
+    "isBigForAEditor": "{{name}} adalah besar untuk editor {{deviceWord}}. Ia mungkin perlahan.",
+    "open": "Buka",
+    "thisLooksLikeABinary": "Ini kelihatan seperti fail binari",
+    "openItInAnotherApp": "Bukanya dalam aplikasi lain?",
+    "openWith": "Buka dengan",
+    "tooBigForTheEditor": "Terlalu besar untuk penyunting",
+    "isOver10MbDownload": "{{name}} melebihi 10 MB. Muat turunnya?",
+    "download": "Muat turun",
+    "delete": "Padam {{what}}?",
+    "moveToTheTrash": "Pindahkan {{what}} ke tong sampah?",
+    "thisCanTBeUndone": "Tindakan ini tidak boleh dibatalkan.",
+    "youCanRestoreItFrom": "Anda boleh memulihkannya dari tong sampah.",
+    "delete2": "Padam",
+    "moveToTrash": "Pindahkan ke tong sampah",
+    "deleteForGood": "Padam sepenuhnya?",
+    "deleteItForGoodInstead": "{{message}}. Padam sepenuhnya? Tindakan ini tidak boleh dibatalkan.",
+    "deleteFailed": "Pembuangan gagal",
+    "connectingThroughTheServer": "Menyambung melalui pelayan...",
+    "connectingFromThis": "Menyambung dari {{deviceWord}} ini...",
+    "connecting": "Menyambung...",
+    "edit": "Sunting",
+    "downloadFolder": "Muat turun folder",
+    "share": "Kongsi",
+    "rename": "Tukar nama",
+    "copyTo": "Salin ke",
+    "moveTo": "Pindahkan ke",
+    "cut": "Potong",
+    "copy": "Salin",
+    "permissions": "Kebenaran",
+    "properties": "Sifat",
+    "makeALinkHere": "Buat pautan di sini",
+    "copyPath": "Salin laluan",
+    "pathCopied": "Laluan disalin",
+    "done": "Selesai",
+    "selectAll": "Pilih semua",
+    "filterByName": "Tapis mengikut nama",
+    "closeSearch": "Tutup carian",
+    "search": "Cari",
+    "changeSort": "Tukar susunan",
+    "paste": "Tampal {{count}}",
+    "upload": "Muat naik",
+    "transfers2": "Pindahan",
+    "more": "Lagi",
+    "nothingMatches": "Tiada padanan",
+    "emptyFolder": "Folder kosong",
+    "uploadFilesOrMakeA": "Muat naik fail atau buat yang baru.",
+    "newFolder": "Folder baru",
+    "newFile": "Fail baru",
+    "select": "Pilih",
+    "hideHiddenFiles": "Sembunyikan fail tersembunyi",
+    "showHiddenFiles": "Paparkan fail tersembunyi",
+    "trash": "Tong sampah",
+    "folderProperties": "Sifat folder",
+    "refresh": "Muat semula",
+    "rename2": "Tukar nama {{name}}",
+    "newLink": "Pautan baru",
+    "aLinkInThatPoints": "Pautan di {{path}} yang mengarah ke {{path2}}",
+    "name": "Nama",
+    "create": "Cipta",
+    "copyHere": "Salin ke sini",
+    "moveHere": "Pindahkan ke sini",
+    "fileViewer": {
+      "saved": "{{name}} disimpan",
+      "couldNotSaveTheFile": "Tidak dapat menyimpan fail",
+      "discardChanges": "Buang perubahan?",
+      "hasChangesThatAreNot": "{{name}} mempunyai perubahan yang belum disimpan.",
+      "discard": "Buang",
+      "readOnly": "{{path}} | baca sahaja",
+      "find": "Cari",
+      "smallerText": "Teks lebih kecil",
+      "biggerText": "Teks lebih besar",
+      "turnOffLineWrap": "Matkan balutan baris",
+      "wrapLines": "Balut baris",
+      "save": "Simpan"
+    },
+    "hostSection": {
+      "startIn": "Mula di",
+      "theFolderTheFileManager": "Folder yang dibuka pertama kali oleh pengurus fail",
+      "files": "Fail"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Pergi ke {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Lebih banyak tindakan",
+        "moreFor": "Lebih banyak untuk {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Kebenaran",
+      "cancel": "Batal",
+      "apply": "Terapkan ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Tidak dapat membukanya",
+      "openWith": "Buka dengan",
+      "share": "Kongsi"
+    },
+    "propertiesView": {
+      "properties": "Sifat",
+      "path": "Laluan",
+      "type": "Jenis",
+      "pointsTo": "Menunjuk ke",
+      "size": "Saiz",
+      "countFolderSize": "Kira saiz folder",
+      "permissions": "Kebenaran",
+      "change": "Tukar",
+      "owner": "Pemilik",
+      "group": "Kumpulan",
+      "modified": "Disunting",
+      "opened": "Dibuka",
+      "linkToA": "Pautan ke {{value}}",
+      "notShownForFolders": "Tidak ditunjukkan untuk folder",
+      "file": "Fail",
+      "folder": "Folder",
+      "link": "Pautan"
+    },
+    "register": {
+      "fileManager": "Pengurus Fail",
+      "files": "Fail",
+      "browseEditAndMoveFiles": "Layari, sunting dan alihkan fail",
+      "files2": "FAIL",
+      "fileManagerAndTransfers": "Pengurus fail dan pemindahan"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Pemindahan gagal"
+      },
+      "transfersPanel": {
+        "pause": "Jeda",
+        "resume": "Sambung",
+        "tryAgain": "Cuba lagi",
+        "open": "Buka",
+        "cancel": "Batal",
+        "transfers": "Pemindahan",
+        "goingOf": "{{active}} sedang berjalan | {{done}} daripada {{total}}",
+        "clearFinished": "Kosongkan yang siap",
+        "cancelAll": "Batal semua",
+        "noTransfersYet": "Belum ada pemindahan",
+        "waiting": "Menunggu",
+        "paused": "Dijeda",
+        "done": "Selesai",
+        "failed": "Gagal",
+        "cancelled": "Dibatalkan"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Gagal memuatkan tong sampah",
+      "restored": "Pulihkan {{name}}",
+      "failedToRestore": "Gagal memulihkan",
+      "failedToDelete": "Gagal memadam",
+      "trashEmptied": "Tong sampah telah dikosongkan",
+      "failedToEmptyTrash": "Gagal mengosongkan tong sampah",
+      "trash": "Tong Sampah",
+      "itemsAreRemovedAfterDays": "Item akan dipadam selepas {{retentionDays}} hari",
+      "close": "Tutup",
+      "emptyTrash": "Kosongkan Tong Sampah",
+      "trashIsEmpty": "Tong sampah kosong",
+      "restore": "Pulihkan {{name}}",
+      "deleteForGood": "Padam {{name}} secara kekal"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Baru sahaja"
+      }
+    },
+    "getting": "Mendapatkan {{name}}",
+    "itemCount_other": "{{count}} item",
+    "copiedWhat": "{{what}} telah disalin",
+    "movedWhat": "{{what}} telah dipindahkan",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} mempunyai lebih daripada {{limit}} fail. Muat turun folder yang lebih kecil."
+    },
+    "downloadingToFilesOnMyIpad": "Memuat turun ke Fail, Pada iPad Saya, Termix",
+    "size": "Saiz",
+    "date": "Tarikh"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Pautan perkhidmatan",
+      "openInHomepage": "Buka dalam Homepage",
+      "thisWidgetOnlyShowsOn": "Widget ini hanya dipaparkan pada halaman penuh."
+    },
+    "register": {
+      "serviceLinks": "Pautan perkhidmatan",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Tiada suapan ditetapkan.",
+        "couldNotLoadTheFeed": "Tidak dapat memuatkan suapan.",
+        "theFeedIsEmpty": "Suapan ini kosong.",
+        "noLocationSet": "Tiada lokasi ditetapkan.",
+        "couldNotLoadTheWeather": "Tidak dapat memuatkan cuaca.",
+        "noUrlSet": "Tiada URL ditetapkan.",
+        "couldNotLoadTheData": "Tidak dapat memuatkan data.",
+        "noPictureSet": "Tiada gambar ditetapkan.",
+        "badResponse": "respons tidak sah"
+      },
+      "services": "Perkhidmatan",
+      "service": "Perkhidmatan",
+      "serviceLinks": "Pautan perkhidmatan",
+      "bookmarks": "Penanda Buku",
+      "links2": "Pautan",
+      "search": "Carian",
+      "clock": "Jam",
+      "countdown": "Kiraan Undur",
+      "calendar": "Kalendar",
+      "notes": "Nota",
+      "banner": "Sepanduk",
+      "ping": "Ping",
+      "host": "Hos",
+      "hosts": "Hos",
+      "quickConnect": "Sambung pantas",
+      "feed": "Suapan",
+      "weather": "Cuaca",
+      "customApi": "API Tersuai",
+      "picture": "Gambar",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Tiada perkhidmatan lagi.",
+        "noLinkSet": "Tiada pautan ditetapkan.",
+        "noLinksYet": "Tiada pautan lagi.",
+        "noSearchEngineSet": "Tiada enjin carian ditetapkan.",
+        "search": "Carian",
+        "noShortcutsYet": "Tiada pintasan lagi.",
+        "search2": "Cari {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Tidak dapat membuka pautan"
+      },
+      "status": {
+        "noUrlsYet": "Tiada URL lagi.",
+        "down": "Terputus",
+        "noHostsPicked": "Tiada hos dipilih."
+      },
+      "text": {
+        "noNotesYet": "Tiada nota lagi.",
+        "noTextYet": "Tiada teks lagi."
+      },
+      "time": {
+        "noDateSet": "Tiada tarikh ditetapkan.",
+        "timeIsUp": "Masa tamat"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Tidak dapat menyimpan lalai",
+    "couldNotResetTheDefault": "Tidak dapat menetapkan semula lalai",
+    "back": "Kembali",
+    "hostDefaults": "Lalai hos",
+    "newHostsStartFromThese": "Hos baru bermula dari ini",
+    "managedOnTheServer": "Dikelola pada pelayan",
+    "defaultsForThisServerAre": "Lalai untuk pelayan ini ditetapkan dalam aplikasi web.",
+    "level": "Tahap",
+    "yourDefaultsOrOneFolder": "Lalai anda, atau satu folder",
+    "myDefaults": "Lalai saya",
+    "theServerSets": " Pelayan menetapkan {{adminCount}}.",
+    "aFolderWinsOverYour": "Folder mengatasi lalai anda, dan lalai anda mengatasi lalai pelayan. Hos mengekalkan sebarang nilai yang anda tetapkan sendiri.{{value}}",
+    "save": "Simpan",
+    "authentication": "Pengesahan",
+    "none": "Tiada",
+    "reset": "Tetapkan semula",
+    "model": {
+      "username": "Nama pengguna",
+      "sshPort": "Port SSH",
+      "authentication": "Pengesahan",
+      "aSavedCredentialForNew": "Kredensial yang disimpan untuk hos baru",
+      "forceKeyboardInteractive": "Paksa interaktif papan kekunci",
+      "keepaliveInterval": "Selang keepalive",
+      "seconds0TurnsItOff": "Saat, 0 mematikannya",
+      "keepaliveTries": "Cubaan keepalive",
+      "allowOldAlgorithms": "Benarkan algoritma lama",
+      "agentForwarding": "Pengehalaan ejen",
+      "environmentVariables": "Pembolehubah persekitaran",
+      "oneNameValuePerLine": "Satu NAMA=nilai per baris",
+      "checkIfTheHostIs": "Semak jika hos sedang aktif",
+      "checkInterval": "Selang semakan",
+      "secondsEmptyUsesTheServer": "Saat, kosong menggunakan pelayan",
+      "socks5Proxy": "Proksi SOCKS5",
+      "setInTheWebApp": "Ditetapkan dalam aplikasi web",
+      "jumpHosts": "Hos loncatan",
+      "portKnocking": "Port knocking",
+      "notSet": "Tidak ditetapkan",
+      "fromTheServer": "Dari pelayan",
+      "fromYourDefaults": "Dari lalai anda",
+      "builtIn": "Terbina"
+    },
+    "register": {
+      "hostDefaults": "Lalai hos",
+      "portUserAndOptionsFor": "Port, pengguna dan pilihan untuk hos baru"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Tiada data lagi",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "disk": "Cakera",
+      "history": "Sejarah",
+      "loading": "Memuatkan..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Tidak dapat membaca metrik",
+      "metrics": "Metrik",
+      "cpu": "CPU",
+      "memory": "Memori",
+      "disk": "Cakera",
+      "noRecentSampleOpenThe": "Tiada sampel terkini. Buka metrik hos untuk memulakannya."
+    },
+    "register": {
+      "enableMetrics": "Dayakan metrik",
+      "cpuMemoryDiskAndNetwork": "CPU, memori, cakera dan rangkaian melalui SSH",
+      "hostMetrics": "Metrik Hos",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrik",
+      "cpuMemoryDiskAndNetwork2": "CPU, memori, cakera dan rangkaian"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Metrik Hos | {{deviceWord}} ini",
+      "hostMetrics": "Metrik Hos",
+      "ran": "Menjalankan {{name}}",
+      "loadingMetrics": "Memuatkan metrik...",
+      "couldNotReadMetricsFrom": "Tidak dapat membaca metrik dari hos ini",
+      "failedToLoadMetrics": "Gagal memuatkan metrik",
+      "thisSessionHasNoServer": "Sesi ini tiada pelayan",
+      "twoFactorRequiredForThis": "Autentikasi dua faktor diperlukan untuk statistik hos ini.",
+      "failedToStartMetrics": "Gagal memulakan metrik",
+      "failedToRun": "Gagal menjalankan {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per teras: {{value}}",
+        "cores": "Teras",
+        "load": "Beban",
+        "user": "Pengguna",
+        "system": "Sistem",
+        "ioWait": "Tunggu IO",
+        "steal": "Rampasan"
+      },
+      "diskWidget": {
+        "disk": "Cakera {{mount}}",
+        "disk2": "Cakera",
+        "used": "Digunakan",
+        "total": "Jumlah",
+        "free": "Bebas"
+      },
+      "firewallWidget": {
+        "firewall": "Tembok Api",
+        "rules": "{{type}} | {{ruleCount}} peraturan",
+        "noFirewallDetected": "Tiada tembok api dikesan"
+      },
+      "gpuWidget": {
+        "gpus": "GPU ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memori",
+        "temp": "Suhu",
+        "power": "Kuasa",
+        "fan": "Kipas"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Aktiviti log masuk",
+        "noLoginActivityRecorded": "Tiada aktiviti log masuk direkodkan",
+        "logins": "Log masuk",
+        "uniqueIps": "IP Unik",
+        "failed": "Gagal",
+        "recent": "Terbaru"
+      },
+      "memoryWidget": {
+        "memory": "Memori",
+        "used": "Digunakan",
+        "total": "Jumlah",
+        "cached": "Disimpan Cache",
+        "free": "Bebas"
+      },
+      "networkWidget": {
+        "network": "Rangkaian",
+        "noInterfaces": "Tiada antara muka",
+        "up": "Naik",
+        "down": "Turun"
+      },
+      "portsWidget": {
+        "listeningPorts": "Port Pendengar",
+        "noListeningPorts": "Tiada port pendengar"
+      },
+      "processesWidget": {
+        "sortBy": "Susun mengikut {{label}}",
+        "processes": "Proses",
+        "running": "{{value}} berjalan | {{total}}",
+        "noProcessData": "Tiada data proses",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "PERINTAH"
+      },
+      "systemWidget": {
+        "system": "Sistem",
+        "hostname": "Nama hos",
+        "os": "OS",
+        "kernel": "Teras",
+        "arch": "Arkitektur",
+        "noSystemInfo": "Tiada maklumat sistem"
+      },
+      "temperatureWidget": {
+        "temperature": "Suhu"
+      },
+      "uptimeWidget": {
+        "uptime": "Masa aktif"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Disalin dengan kata laluan",
+      "copiedTheLink": "Pautan disalin",
+      "shareHost": "Kongsi hos",
+      "thatHostNoLongerExists": "Hos tersebut tidak lagi wujud",
+      "scanThisInTermixOn": "Imbas kod ini dalam Termix pada {{deviceWord}} lain, di bawah Import dan eksport. Kod ini mengandungi alamat, port dan pengguna. Ia tidak mengandungi kata laluan atau kunci.",
+      "copyLink": "Salin pautan",
+      "copyLinkWithPassword": "Salin pautan dengan kata laluan"
+    },
+    "includePasswordsAndKeys": "Sertakan kata laluan dan kunci?",
+    "anyoneWhoGetsThisFile": "Siapa sahaja yang mendapat fail ini boleh log masuk ke hos-hos ini. Simpan dengan selamat.",
+    "includeThem": "Sertakan",
+    "pickAtLeastOneHost": "Pilih sekurang-kurangnya satu hos",
+    "couldNotMakeTheFile": "Tidak dapat membuat fail",
+    "copiedToTheClipboard": "Disalin ke papan klip",
+    "importAndExport": "Import dan eksport",
+    "moveHostsInAndOut": "Pindahkan hos masuk dan keluar",
+    "import": "Import",
+    "aTermixHostFileAn": "Fail hos Termix, fail konfigurasi SSH, atau pautan hos atau kod QR daripada {{deviceWord}} lain.",
+    "export": "Eksport",
+    "allHosts": "Semua hos",
+    "picked": "{{size}} dipilih",
+    "pickHosts": "Pilih hos",
+    "includePasswordsAndKeys2": "Sertakan kata laluan dan kunci",
+    "offMakesAFileSafe": "Mati menjadikan fail selamat untuk dikongsi. Hos yang menggunakan kelayakan yang disimpan merujuk kepadanya mengikut nama",
+    "shareAFile": "Kongsi fail",
+    "copy": "Salin",
+    "importPanel": {
+      "couldNotReadThat": "Tidak dapat membaca itu",
+      "couldNotReadThatFile": "Tidak dapat membaca fail itu",
+      "importFailed": "Import gagal",
+      "chooseAFile": "Pilih fail",
+      "paste": "Tampal",
+      "scanACode": "Imbas kod",
+      "couldNotBeRead": "{{count}} tidak dapat dibaca",
+      "updateHostsThatExist": "Kemas kini hos yang sedia ada",
+      "sameAddressPortAndUser": "Alamat, port dan pengguna yang sama. Jika tidak, ia akan dilangkau",
+      "cancel": "Batal",
+      "import": "Import",
+      "andMore": "dan {{value}} lagi"
+    },
+    "qrCode": {
+      "qrCode": "Kod QR"
+    },
+    "register": {
+      "importAndExport": "Import dan eksport",
+      "moveHostsInOrOut": "Pindahkan hos masuk atau keluar dengan fail atau kod QR",
+      "shareHost": "Kongsi hos"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Imbas kod hos",
+      "pointTheCameraAtA": "Arahkan kamera ke kod QR hos Termix.",
+      "termixNeedsTheCameraTo": "Termix memerlukan kamera untuk mengimbas kod. Tiada apa-apa yang direkodkan.",
+      "allowTheCamera": "Benarkan kamera"
+    },
+    "read": {
+      "termixFile": "Fail Termix",
+      "sshConfig": "Konfigurasi SSH",
+      "thereIsNothingToImport": "Tiada apa-apa untuk diimport",
+      "thatIsNotATermix": "Bukan pautan hos Termix",
+      "linkHost": "1 hos: {{name}}",
+      "sourceHosts_other": "{{what}} dengan {{count}} hos"
+    },
+    "saveYourTermixHosts": "Simpan hos Termix anda"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Selesai",
+      "rejected": "Ditolak",
+      "approvals": "Kelulusan",
+      "nothingIsWaiting": "Tiada yang menunggu",
+      "actionsARuleHoldsFor": "Tindakan yang memerlukan kelulusan peraturan akan dipaparkan di sini.",
+      "approveAndRun": "Lulus dan jalankan",
+      "reject": "Tolak",
+      "couldNotLoadApprovals": "Gagal memuatkan kelulusan",
+      "couldNotDecide": "Gagal membuat keputusan"
+    },
+    "approvalsCard": {
+      "approved": "Diluluskan",
+      "rejected": "Ditolak",
+      "waitingForApproval": "Menunggu kelulusan",
+      "approve": "Lulus",
+      "reject": "Tolak",
+      "couldNotDecide": "Gagal membuat keputusan",
+      "seeAll": "Lihat semua"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Ini tidak boleh dibatalkan. Jalankan?",
+      "run": "Jalankan",
+      "sentForApproval": "Dihantar untuk kelulusan",
+      "target": "Sasaran",
+      "theItemOnTheHost": "Item pada hos, seperti bekas",
+      "dryRun": "Jalankan ujian",
+      "back": "Kembali",
+      "actions": "Tindakan",
+      "noActionsForThisHost": "Tiada tindakan untuk hos ini",
+      "turnOnAPluginLike": "Hidupkan plugin seperti Docker atau Perkhidmatan untuk hos ini pada pelayan.",
+      "destructive": "Merosakkan",
+      "changes": "Perubahan",
+      "theActionCouldNotRun": "Tindakan tidak dapat dijalankan",
+      "couldNotLoadActions": "Gagal memuatkan tindakan"
+    },
+    "register": {
+      "actions": "Tindakan",
+      "waitingForApproval": "Menunggu kelulusan",
+      "approvals": "Kelulusan",
+      "actionsWaitingForAPerson": "Tindakan menunggu persetujuan seseorang",
+      "runHistory": "Sejarah pelaksanaan",
+      "everyActionAnyoneRanFrom": "Setiap tindakan yang dijalankan oleh sesiapa sahaja, dari mana-mana peranti"
+    },
+    "runHistory": {
+      "cancelThisRun": "Batalkan pelaksanaan ini?",
+      "cancelRun": "Batalkan pelaksanaan",
+      "keep": "Simpan",
+      "undoThisRun": "Nyahbuat pelaksanaan ini?",
+      "thisRunsTheActionS": "Ini akan menjalankan nyahbuat tindakan dengan input yang sama.",
+      "undo": "Nyahbuat",
+      "cancelled": "Dibatalkan",
+      "itAlreadyFinished": "Sudah selesai",
+      "done": "Selesai",
+      "runHistory": "Sejarah pelaksanaan",
+      "nothingHasRunYet": "Belum ada yang dijalankan",
+      "dryRun": "Jalankan ujian",
+      "cancel": "Batal",
+      "couldNotLoadHistory": "Gagal memuatkan sejarah",
+      "couldNotCancel": "Gagal membatalkan",
+      "couldNotUndo": "Gagal menyahbuat"
+    },
+    "api": {
+      "needsApproval": "Memerlukan kelulusan",
+      "needsSignIn": "Memerlukan log masuk",
+      "done": "Selesai",
+      "failed": "Gagal",
+      "running": "Sedang berjalan",
+      "interrupted": "Terputus",
+      "rejected": "Ditolak",
+      "cancelled": "Dibatalkan",
+      "expired": "Tamat tempoh"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Hidupkan {{value}}",
+      "moreSettingsForThisAre": "Lebih banyak tetapan untuk ini terdapat dalam aplikasi web Termix.",
+      "pluginHostSettings": "Tetapan hos plugin"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} mestilah nombor",
+      "mustBeAtLeast": "{{field}} mestilah sekurang-kurangnya {{min}}",
+      "mustBeAtMost": "{{field}} mestilah setinggi {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Pautkan pelayan untuk menggunakannya",
+      "runsOnYourTermixServer": "{{name}} berjalan pada pelayan Termix anda."
+    },
+    "pluginWebView": {
+      "canTLoad": "Tidak dapat memuatkan {{name}}",
+      "theServerDidNotSend": "Pelayan tidak menghantar plugin. Pastikan ia dihidupkan dan cuba lagi.",
+      "openThisLink": "Buka pautan ini?",
+      "open": "Buka",
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "usesPartsOfTermixThis": "{{name}} menggunakan sebahagian daripada Termix yang belum ada dalam aplikasi ini.",
+      "didNotStart": "{{name}} tidak berjaya dimulakan",
+      "thisScreenIsNotIn": "Skrin ini tidak terdapat dalam versi plugin pada pelayan.",
+      "thePluginHitAnError": "Plugin mengalami ralat semasa bermula.",
+      "youReOffline": "Anda berada dalam talian",
+      "runsOnYourServerSo": "{{name}} berjalan pada pelayan anda, jadi ia memerlukan sambungan. Ia akan dibuka semula apabila anda kembali dalam talian.",
+      "tryAgain": "Cuba lagi"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Hos tersebut belum ada pada {{deviceWord}} ini.",
+      "theAppCanTOpen": "Aplikasi tidak dapat membukanya dari sini.",
+      "thatHostIsNotOn2": "Hos tersebut belum ada pada {{deviceWord}} ini."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Kata laluan",
+      "unchangedIfBlank": "Tidak berubah jika kosong",
+      "port": "Port",
+      "domain": "Domain",
+      "displaySoundAndClipboardSettings": "Tetapan paparan, bunyi dan papan klip terdapat dalam aplikasi web Termix.",
+      "portMustBeFrom1": "Port {{label}} mestilah antara 1 hingga 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Meja jauh terputus",
+        "signIn": "Log masuk {{label}}",
+        "itWillNotBeSaved": "{{error}} Ia tidak akan disimpan.",
+        "enterTheLoginForIt": "Masukkan log masuk untuk {{title}}. Ia tidak akan disimpan.",
+        "reconnecting": "Menyambung semula {{label}}",
+        "connecting": "Menyambung {{label}}",
+        "connectionFailed": "Sambungan Gagal",
+        "disconnected": "Terputus",
+        "reconnect": "Sambung semula",
+        "connectThroughTheServer": "Sambung melalui pelayan",
+        "pasteToRemote": "Tampal ke jauh",
+        "typeClipboard": "Taip papan klip",
+        "copyRemoteClipboard": "Salin papan klip jauh",
+        "theComputerSCertificateWas": "Sijil komputer tidak dipercayai.",
+        "thatLoginWasRefusedTry": "Log masuk tersebut ditolak. Cuba lagi."
+      },
+      "target": {
+        "trustThisComputer": "Percayai komputer ini?",
+        "theCanTCheckS": "{{deviceWord}} tidak dapat menyemak sijil {{hostName}}. Pastikan cap jari ini sepadan dengan yang ada pada komputer sebelum anda meneruskan.\n\n{{fingerprint}}",
+        "trustAndConnect": "Percayai dan sambung",
+        "certificateChanged": "Sijil berubah",
+        "showsAnotherCertificateThanLast": "{{hostName}} menunjukkan sijil yang berbeza daripada kali terakhir. Ini berlaku selepas komputer membuat sijil baru, atau apabila seseorang sedang menyadap di antara.\n\nCap jari baru:\n{{fingerprint}}",
+        "trustTheNewOne": "Percayai yang baru"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Meja Jauh",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Selesai",
+      "keyboard": "Papan Kekunci",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Tetapan",
+      "remoteSettings": "Tetapan Jauh",
+      "mouseMode": "Mod Tetikus",
+      "touch": "Sentuh",
+      "trackpad": "Pad Jejak",
+      "tapWhereYouWantTo": "Sentuh di mana anda mahu klik. Tahan untuk klik kanan, seret untuk seret.",
+      "dragToMoveThePointer": "Seret untuk menggerakkan penuding. Sentuh untuk klik, sentuh dua jari untuk klik kanan, sentuh kemudian seret untuk seret.",
+      "zoomXPinchAnywhereTo": "Zum: {{value}}x. Cubit di mana-mana untuk zum",
+      "reset": "Set Semula",
+      "cancel": "Batal",
+      "connect": "Sambung",
+      "username": "Nama Pengguna",
+      "domainOptional": "Domain (pilihan)",
+      "domain": "Domain",
+      "password": "Kata Laluan",
+      "leftArrow": "Anak panah kiri",
+      "upArrow": "Anak panah atas",
+      "downArrow": "Anak panah bawah",
+      "rightArrow": "Anak panah kanan",
+      "rdpSignIn": "Log masuk RDP"
+    },
+    "theRemoteDesktopDropped": "Meja kerja jauh telah terputus",
+    "theyWillNotBeSaved": "{{errorMessage}} Ia tidak akan disimpan.",
+    "enterCredentialsForTheyWill": "Masukkan kelayakan untuk {{title}}. Ia tidak akan disimpan.",
+    "connecting": "Menyambung",
+    "connectionFailed": "Sambungan Gagal",
+    "disconnected": "Terputus",
+    "reconnect": "Sambung Semula",
+    "route": {
+      "thisHostCanTOpen": "Hos ini tidak boleh membuka meja kerja jauh dari sini."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Disekat oleh aplikasi"
+    },
+    "failedToStartRemoteSession": "Gagal memulakan sesi jauh",
+    "thatLoginWasRefusedTry": "Log masuk itu ditolak. Cuba lagi.",
+    "theRemoteRefusedTheSaved": "Sisi jauh menolak log masuk yang disimpan. Semak log masuk RDP pada hos ini.",
+    "remoteSessionFailed": "Sesi jauh gagal",
+    "remoteSessionReturnedAnInvalid": "Sesi jauh mengembalikan mesej yang tidak sah",
+    "failedToLoadTheRemote": "Gagal memuatkan klien meja kerja jauh"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Tiada jurnal",
+      "thisHostDoesNotKeep": "Hos ini tidak menyimpan jurnal systemd.",
+      "all": "Semua",
+      "warnings": "Amaran",
+      "errors": "Ralat",
+      "stop": "Henti",
+      "follow": "Ikut",
+      "nothingLogged": "Tiada log",
+      "tryAnotherLevel": "Cuba tahap lain.",
+      "couldNotReadTheJournal": "Tidak dapat membaca jurnal"
+    },
+    "register": {
+      "services": "Perkhidmatan",
+      "startStopAndReadLogs": "Mula, hentikan dan baca log"
+    },
+    "readingServices": "Membaca perkhidmatan...",
+    "thisHostHasNoSystemd": "Hos ini tiada systemd atau OpenRC.",
+    "noServicesMatch": "Tiada perkhidmatan sepadan",
+    "noServicesFound": "Tiada perkhidmatan ditemui",
+    "services": "Perkhidmatan",
+    "journal": "Jurnal",
+    "searchServices": "Cari perkhidmatan...",
+    "all": "Semua",
+    "running": "Berjalan",
+    "failed": "Gagal ({{failed}})",
+    "failed2": "Gagal",
+    "servicesCard": {
+      "services": "Perkhidmatan",
+      "noSystemdOrOpenrc": "Tiada systemd atau OpenRC",
+      "failed": "{{failed}} gagal",
+      "allRunning": "Semua berjalan",
+      "couldNotReadServices": "Tidak dapat membaca perkhidmatan"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Ia kekal berhenti sehingga dimulakan semula atau hos but.",
+      "itStopsForAMoment": "Ia berhenti sebentar dan mula semula.",
+      "stop": "Hentikan",
+      "restart": "Mula semula",
+      "is": "{{name}} adalah {{state}}",
+      "start": "Mula",
+      "journal": "Jurnal",
+      "couldNotReadTheService": "Tidak dapat membaca perkhidmatan",
+      "couldNot": "Tidak dapat {{action}} {{name}}",
+      "startsAtBoot": "Mula semasa but",
+      "mainPid": "PID Utama",
+      "activeSince": "Aktif sejak",
+      "unitFile": "Fail unit",
+      "notSet": "[tidak ditetapkan]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Tidak log masuk",
+        "followFailed": "Ikut gagal",
+        "connectionFailed": "Sambungan gagal"
+      }
+    },
+    "couldNotReadServices": "Tidak dapat membaca perkhidmatan",
+    "services2": "Perkhidmatan{{where}}",
+    "title": "Perkhidmatan",
+    "failedCount": "{{count}} gagal"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Kongsi sesi",
+      "shareLink": "Kongsi pautan"
+    },
+    "shareSessionView": {
+      "canWatch": "Boleh menonton",
+      "canType": "Boleh menaip",
+      "n1Hour": "1 jam",
+      "n8Hours": "8 jam",
+      "n1Day": "1 hari",
+      "n7Days": "7 hari",
+      "never": "Tidak pernah",
+      "shareSession": "Kongsi sesi",
+      "anyoneWithTheLinkCan": "Siapa sahaja yang mempunyai pautan boleh membuka terminal ini semasa ia berjalan. Anda boleh mencabut pautan dalam Termix.",
+      "peopleWithTheLink": "Orang dengan pautan",
+      "expiresAfter": "Tamat tempoh selepas",
+      "link": "Pautan",
+      "copy": "Salin",
+      "share": "Kongsi",
+      "makeLink": "Buat pautan",
+      "theServerGaveNoLink": "Pelayan tidak memberikan pautan",
+      "couldNotMakeALink": "Tidak dapat membuat pautan",
+      "linkCopied": "Pautan disalin"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Tiada folder"
+    },
+    "hostPicker": {
+      "selectNone": "Pilih tiada",
+      "selectAll": "Pilih semua",
+      "done": "Selesai"
+    },
+    "register": {
+      "snippets": "Potongan",
+      "snippets2": "POTONGAN",
+      "savedCommandsToRunOn": "Arahan yang disimpan untuk dijalankan pada mana-mana hos"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Tiada cara untuk mencapai hos ini dari sini",
+      "exitedWith": "Keluar dengan {{exitCode}}",
+      "thisCanTRunIt": "{{deviceWord}} ini tidak dapat menjalankannya",
+      "noServerIsLinked": "Tiada pelayan yang disambungkan"
+    },
+    "runOnHostsSheet": {
+      "run": "Jalankan",
+      "run2": "Jalankan \"{{name}}\"",
+      "runsOverSshOnEach": "Dijalankan melalui SSH pada setiap hos. Tiada terminal dibuka.",
+      "close": "Tutup",
+      "hosts": "Hos",
+      "pickHosts": "Pilih hos",
+      "workedFailed": "{{value}} berjaya, {{failed}} gagal",
+      "runOn2": "Jalankan pada",
+      "runOn_other": "Jalankan {{name}} pada {{count}} hos?",
+      "hostsPicked_other": "{{count}} hos dipilih"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Cari potongan",
+      "pastesTheNote": "Menampal nota",
+      "runsTheSnippet": "Menjalankan potongan",
+      "noSnippetsMatch": "Tiada potongan sepadan",
+      "noSnippetsYet": "Belum ada potongan",
+      "addSnippetsInSettingsSnippets": "Tambah potongan dalam Tetapan, Potongan",
+      "run": "Jalankan",
+      "insertWithoutRunning": "Sisip tanpa menjalankan",
+      "copy": "Salin"
+    },
+    "snippetsCard": {
+      "snippets": "Potongan",
+      "run": "Jalankan {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Tiada potongan untuk dieksport",
+      "couldNotMakeTheFile": "Tidak dapat membuat fail",
+      "copiedToTheClipboard": "Disalin ke papan klip",
+      "couldNotImport": "Tidak dapat mengimport",
+      "couldNotReadThatFile": "Tidak dapat membaca fail tersebut",
+      "importAndExport": "Import dan eksport",
+      "theSameFileTheWeb": "Fail yang sama yang digunakan oleh aplikasi web.",
+      "export": "Eksport",
+      "shareAFile": "Kongsi fail",
+      "copy": "Salin",
+      "import": "Import",
+      "updateSnippetsThatExist": "Kemas kini potongan yang sedia ada",
+      "sameNameInTheSame": "Nama yang sama dalam folder yang sama. Jika tidak, ia akan dilangkau",
+      "chooseAFile": "Pilih fail",
+      "paste": "Tampal",
+      "saveYourSnippets": "Simpan potongan anda"
+    },
+    "useSnippetRunner": {
+      "run": "Jalankan {{name}}?",
+      "run2": "Jalankan",
+      "fillInTheValuesFor": "Isi nilai untuk potongan ini.",
+      "cancel": "Batal",
+      "insert": "Sisip",
+      "noTerminalIsOpen": "Tiada terminal yang dibuka"
+    },
+    "variables": {
+      "input": "Input {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Bukan fail JSON yang sah",
+      "theFileNeedsASnippets": "Fail memerlukan senarai potongan atau folder",
+      "snippetNameAndContentAre": "Potongan {{value}}: nama dan kandungan diperlukan",
+      "folder": "Folder {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Memuatkan peranti Tailscale…",
+      "searchTailscaleDevices": "Cari peranti Tailscale…",
+      "searchTailscaleDevices2": "Cari peranti Tailscale",
+      "clearDeviceSearch": "Kosongkan carian peranti",
+      "refreshTailscaleDevices": "Muat semula peranti Tailscale",
+      "device": "Peranti",
+      "noTailnetAddress": "Tiada alamat tailnet",
+      "tailscaleDevice": "Peranti Tailscale",
+      "tailscaleDevices": "Peranti Tailscale",
+      "addAHostThatConnects": "Tambah hos yang menyambung dengan SSH Tailscale.",
+      "username": "Nama pengguna",
+      "sshUsernameFor": "Nama pengguna SSH untuk {{value}}",
+      "addHost": "Tambah hos",
+      "noTailscaleDevicesMatchYour": "Tiada peranti Tailscale sepadan dengan carian anda.",
+      "noTailscaleDevicesFound": "Tiada peranti Tailscale ditemui.",
+      "noTailscaleApiKeyIs": "Tiada kunci API Tailscale dikonfigurasi pada pelayan ini. Minta pentadbir menambah satu.",
+      "youDoNotHavePermission": "Anda tidak mempunyai kebenaran untuk menyenaraikan peranti Tailscale.",
+      "couldNotLoadTailscaleDevices": "Gagal memuat peranti Tailscale. Muat semula untuk cuba lagi.",
+      "tailscaleIsUnavailableOnThis": "Tailscale tidak tersedia pada pelayan ini."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Menyambung semula | cubaan {{attempt}}",
+      "reconnectingInSTry": "Menyambung semula dalam {{secs}}s | cubaan {{attempt}}",
+      "offlineWaitingForNetwork": "Luar talian, menunggu rangkaian",
+      "sendToTheNewShell": "Hantar {{what}} ke shell baharu?",
+      "reconnectNow": "Sambung semula sekarang",
+      "send": "Hantar",
+      "discard": "Buang",
+      "typedChars_other": "{{count}} aksara ditaip",
+      "waiting": "{{what}} menunggu"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Log sambungan disalin",
+      "connectionLog": "Log sambungan",
+      "copyItIntoABug": "Salin ke dalam laporan pepijat. Alamat dan nama pengguna tidak disertakan.",
+      "copy": "Salin"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Kosongkan sejarah untuk hos ini?",
+        "clear": "Kosongkan",
+        "searchHistory": "Cari sejarah",
+        "typesTheCommandWithoutRunning": "Menaip arahan tanpa menjalankannya",
+        "noCommandsMatch": "Tiada arahan sepadan",
+        "noHistoryYet": "Belum ada sejarah",
+        "commandsYouRunOnThis": "Arahan yang anda jalankan pada hos ini akan dipaparkan di sini",
+        "run": "Jalankan",
+        "typeWithoutRunning": "Taip tanpa menjalankan",
+        "copy": "Salin",
+        "delete": "Padam",
+        "historyCleared": "Sejarah dikosongkan"
+      },
+      "suggestionStrip": {
+        "use": "Gunakan {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Tetapan aplikasi",
+      "delete": "Padam (^?)",
+      "controlHH": "Kawalan H (^H)",
+      "tabTitleFromTheShell": "Tajuk tab dari shell",
+      "programsCanSetTheTab": "Program boleh menetapkan tajuk tab",
+      "openTmux": "Buka tmux",
+      "attachToATmuxSession": "Sambung ke sesi tmux, atau mulakan satu",
+      "reconnectOnDrop": "Sambung semula apabila terputus",
+      "keepTabOpenOnExit": "Kekalkan tab terbuka apabila keluar",
+      "pressEnterToConnectAgain": "Tekan Enter untuk menyambung semula",
+      "saveCommandHistory": "Simpan sejarah arahan",
+      "offerToFillPasswordPrompts": "Tawarkan untuk mengisi permintaan kata laluan",
+      "offerToFillSudoPrompts": "Tawarkan untuk mengisi permintaan sudo",
+      "usesTheSudoPasswordFrom": "Menggunakan kata laluan sudo dari tab SSH",
+      "none": "Tiada",
+      "look": "Rupa",
+      "theme": "Tema",
+      "font": "Fon",
+      "cursor": "Kursor",
+      "bell": "Bel",
+      "scrollbackLines": "Baris tatal balik",
+      "app": "Aplikasi",
+      "behavior": "Tingkah laku",
+      "backspaceSends": "Backspace menghantar",
+      "startupSnippet": "Potongan permulaan",
+      "runsOnceTheShellIs": "Berjalan sekali shell sedia",
+      "fillWithoutAsking": "Isi tanpa bertanya",
+      "onThisOnlyOnceYou": "Pada {{deviceWord}} ini sahaja, sekali anda memilih Isi sentiasa",
+      "connection": "Sambungan",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Saat antara ping, 0 mematikannya",
+      "default": "Lalai",
+      "keepaliveSeconds": "Saat keepalive",
+      "missedPings": "Ping yang terlepas",
+      "dropTheConnectionAfterThis": "Putuskan sambungan selepas ini banyak tidak dijawab",
+      "missedPingsBeforeDrop": "Ping yang terlepas sebelum putus",
+      "environment": "Persekitaran",
+      "removeVariable": "Buang pemboleh ubah",
+      "addVariable": "Tambah pemboleh ubah"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "PAPAN KUNCI"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Baris",
+        "keys": "Kunci",
+        "sendsAKeyCode": "Menghantar kod kunci",
+        "stickyModifier": "Pembetulan melekit",
+        "appAction": "Tindakan aplikasi",
+        "tmuxPrefixThen": "Awalan tmux, kemudian {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Baris kunci",
+        "onlyFor": "Hanya untuk {{name}}",
+        "usingTheAppSRows": "Menggunakan baris aplikasi. Perubahan di sini hanya untuk {{name}}",
+        "useTheAppSRows": "Gunakan baris aplikasi"
+      },
+      "keyButton": {
+        "locked": "Terkunci"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Batal",
+        "remove": "Buang {{what}}?",
+        "remove2": "Buang",
+        "dragToReorder": "Seret untuk menyusun semula",
+        "rowName": "Nama baris",
+        "groupName": "Nama kumpulan",
+        "add": "Tambah",
+        "addKey": "Tambah kunci",
+        "addRow": "Tambah baris",
+        "addGroup": "Tambah kumpulan",
+        "tmuxPrefix": "Awalan tmux",
+        "name": "Nama",
+        "rename": "Tukar nama",
+        "keys": "{{value}} kunci",
+        "noKeys": "Tiada kunci",
+        "remove3": "Buang {{label}}",
+        "keys2": "Kunci",
+        "custom": "Tersuai",
+        "add2": "Tambah {{label}}",
+        "typeText": "Taip teks",
+        "runCommand": "Jalankan arahan",
+        "ctrlKey": "Kunci Ctrl",
+        "label": "Label",
+        "optional": "Pilihan",
+        "letter": "Huruf",
+        "command": "Arahan",
+        "text": "Teks",
+        "resetToDefault": "Set semula ke lalai"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Tukar kekunci dalam Tetapan, Papan Kekunci"
+      },
+      "keyRowBar": {
+        "keyRow": "Baris kekunci {{label}}",
+        "tapForTheNextRow": "Ketuk untuk baris seterusnya, tahan untuk memilih satu",
+        "keyRows": "Baris kekunci"
+      },
+      "model": {
+        "clear": "Kosongkan",
+        "main": "Utama",
+        "keys": "Kekunci",
+        "arrows": "Anak panah",
+        "symbols": "Simbol",
+        "actions": "Tindakan",
+        "nav": "Navigasi",
+        "move": "Gerak",
+        "function": "Fungsi",
+        "brackets": "Kurungan",
+        "punctuation": "Tanda baca",
+        "ctrl": "Ctrl",
+        "control": "Kawalan",
+        "windows": "Windows",
+        "panes": "Panel",
+        "copy": "Salin",
+        "split": "Pecah ─",
+        "split2": "Pecah │",
+        "newWin": "Tingkap baru",
+        "prevWin": "Tingkap sebelumnya",
+        "nextWin": "Tingkap seterusnya",
+        "pane": "Panel ←",
+        "pane2": "Panel ↓",
+        "pane3": "Panel ↑",
+        "pane4": "Panel →",
+        "copyMode": "Mod salin",
+        "pasteBuf": "Tampal buf",
+        "killPane": "Tutup panel"
+      }
+    },
+    "output": {
+      "openLink": "Buka pautan?",
+      "open": "Buka",
+      "pasteLines": "Tampal {{lines}} baris?",
+      "pasteThisText": "Tampal teks ini?",
+      "theShellMayRunIt": "Shell mungkin menjalankannya serta-merta.\n\n{{text}}",
+      "paste": "Tampal",
+      "letTheProgramReadYour": "Benarkan program membaca papan klip anda?",
+      "itAskedForWhatYou": "Ia meminta apa yang anda salin terakhir kali.",
+      "allow": "Benarkan",
+      "letTheProgramCopyTo": "Benarkan program menyalin ke papan klip anda?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Isi kata laluan yang disimpan?",
+      "asksForTheSudoPassword": "{{hostName}} meminta kata laluan sudo.",
+      "asksForAPassword": "{{hostName}} meminta kata laluan.",
+      "fillPassword": "Isi kata laluan",
+      "alwaysFillOnThisHost": "Sentiasa isi pada hos ini",
+      "asksNoMoreOnThis": "Tidak akan bertanya lagi pada {{deviceWord}} ini. Matikannya dalam tab Terminal hos.",
+      "notNow": "Bukan sekarang"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal dan keepalive",
+      "history": "SEJARAH",
+      "find": "Cari",
+      "tmuxWindows": "tingkap tmux",
+      "connectionLog": "Log sambungan",
+      "keyRowsForThisHost": "Baris kekunci untuk hos ini"
+    },
+    "searchBar": {
+      "noResults": "Tiada hasil",
+      "matchCase": "Padankan huruf besar/kecil",
+      "wholeWord": "Perkataan penuh",
+      "regularExpression": "Ekspresi biasa",
+      "find": "Cari",
+      "closeFind": "Tutup carian"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistem",
+      "block": "Blok",
+      "bar": "Bar",
+      "underline": "Garis bawah",
+      "off": "Mati",
+      "sound": "Bunyi",
+      "flash": "Kilat",
+      "both": "Kedua-duanya"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Tab baru pada hos ini",
+      "closeTab": "Tutup tab",
+      "nextTab": "Tab seterusnya",
+      "previousTab": "Tab sebelumnya",
+      "goToTab": "Pergi ke tab",
+      "find": "Cari",
+      "fontSize": "Saiz fon",
+      "paste": "Tampal",
+      "escape": "Esc",
+      "copyAndPaste": "Salin dan tampal"
+    },
+    "reconnecting": "Menyambung semula...",
+    "waitingForNetwork": "Menunggu rangkaian...",
+    "waitingForYou": "Menunggu anda...",
+    "connecting": "Menyambung...",
+    "terminalView": {
+      "scrollToBottom": "Tatal ke bawah",
+      "onlyWebLinksCanOpen": "Hanya pautan web boleh dibuka dari terminal",
+      "couldNotOpenLink": "Tidak dapat membuka pautan",
+      "copiedFromTheTerminal": "Disalin dari terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Buka sesi tmux",
+        "newSession": "Sesi baru",
+        "plainShell": "Shell biasa",
+        "tmuxWindows": "tetingkap tmux",
+        "newWindow": "Tetingkap baru",
+        "windowCount_other": "{{count}} tetingkap",
+        "attached": "{{count}} disambungkan",
+        "activeNow": "aktif sekarang",
+        "activeMinAgo": "aktif {{count}} min lalu",
+        "activeHoursAgo": "aktif {{count}} j lalu",
+        "activeDaysAgo_other": "aktif {{count}} hari lalu"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Salin",
+        "selectAll": "Pilih semua",
+        "cancel": "Batal",
+        "scrollToBottom": "Tatal ke bawah",
+        "couldNotCopy": "Tidak dapat menyalin",
+        "webviewError": "Ralat WebView: {{description}}",
+        "webviewHttpError": "Ralat HTTP WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Tiada kata laluan disimpan untuk hos ini",
+    "backInTmuxSession": "Kembali ke sesi tmux {{tmuxName}}",
+    "backInScreenSession": "Kembali ke sesi screen {{name}}",
+    "theServerSessionEndedThis": "Sesi pelayan telah tamat. Ini adalah shell baru.",
+    "termixWasClosedSoThe": "Termix telah ditutup, jadi shell lama telah tamat. Ini adalah shell baru.",
+    "theConnectionDroppedAndThe": "Sambungan terputus dan shell lama telah tamat. Ini adalah shell baru.",
+    "disconnectedFrom": "Terputus dari {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Pengesahan Dua Faktor",
+      "codesFromAnAuthenticatorApp": "Kod daripada aplikasi pengesah untuk akaun pelayan anda"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Alamat MAC",
+      "neededToWakeThisHost": "Diperlukan untuk menghidupkan hos ini dengan Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Gunakan alamat MAC seperti 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN dihantar ke {{name}}",
+      "failedToSendWakeOn": "Gagal menghantar paket Wake-on-LAN",
+      "noServer": "Tiada pelayan"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Hidupkan {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Kongsi statistik penggunaan tanpa nama?",
+      "termixWouldSendAShort": "Termix akan menghantar laporan ringkas sekali sehari. Anda boleh mengubahnya bila-bila masa dalam Tetapan.",
+      "noThanks": "Tidak, terima kasih",
+      "share": "Kongsi",
+      "theReportHasTheApp": "Laporan ini mengandungi versi aplikasi, jenis {{deviceWord}}, anggaran bilangan hos dan sesi, ciri yang anda gunakan, dan sama ada sambungan berjaya. Ia tidak pernah mengandungi nama hos, nama pengguna, alamat, laluan, arahan atau nama pelayan.",
+      "seeExactlyWhatIsSent": "Lihat tepat apa yang dihantar"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Memuatkan maklumat versi…",
+      "updateAvailable": "Kemas Kini Tersedia",
+      "newVersionAvailable": "Versi baharu tersedia",
+      "aNewerVersionOfThe": "Versi baharu aplikasi mudah alih tersedia. Sesetengah ciri mungkin tidak berfungsi dengan betul sehingga anda mengemas kini.",
+      "versionInformation": "Maklumat Versi",
+      "installed": "Dipasang",
+      "latest": "Terkini",
+      "unknown": "Tidak diketahui",
+      "tag": "Tag",
+      "continueAnyway": "Teruskan Anyway"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Disalin",
+      "copy": "Salin",
+      "hostKeyChanged": "Kunci hos berubah",
+      "verifyHostKey": "Pengesahan kunci hos",
+      "cancel": "Batal",
+      "acceptNewKey": "Terima kunci baharu",
+      "connectAndTrust": "Sambung dan percayai",
+      "theHostSSshKey": "Kunci SSH hos telah berubah sejak sambungan terakhir anda. Ini mungkin bermaksud seseorang sedang menyadap sambungan.",
+      "youAreConnectingToThis": "Anda sedang menyambung ke hos ini untuk pertama kali. Semak cap jari sebelum mempercayainya.",
+      "previousKey": "Kunci sebelumnya",
+      "newFingerprint": "Cap jari baharu",
+      "hostFingerprint": "Cap jari hos"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Frasa Laluan Diperlukan",
+      "enterThePassphraseForYour": "Masukkan frasa laluan untuk kunci SSH anda.",
+      "cancel": "Batal",
+      "connect": "Sambung",
+      "keyPassphrase": "Frasa laluan kunci"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Pengesahan SSH Diperlukan",
+      "cancel": "Batal",
+      "connect": "Sambung",
+      "password": "Kata Laluan",
+      "sshKey": "Kunci SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nTampal kunci peribadi anda di sini...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Frasa laluan kunci (pilihan)",
+      "keyboardInteractiveAuthIsNot": "Pengesahan interaktif papan kekunci tidak tersedia. Masukkan kelayakan secara langsung.",
+      "authenticationFailedPleaseReEnter": "Pengesahan gagal. Sila masukkan semula kelayakan anda.",
+      "connectionTimedOutPleaseTry": "Sambungan tamat masa. Sila cuba lagi dengan kelayakan anda."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Semakan SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Lengkapkan semakan SSH Tailscale dalam pelayar web anda untuk meneruskan.",
+      "cancel": "Batal",
+      "copyUrl": "Salin URL",
+      "openBrowser": "Buka Pelayar",
+      "urlCopied": "URL disalin",
+      "failedToCopy": "Gagal menyalin",
+      "couldNotOpenBrowser": "Tidak dapat membuka pelayar"
+    },
+    "tOTPDialog": {
+      "cancel": "Batal",
+      "submit": "Hantar",
+      "verify": "Pengesahan",
+      "password": "Kata laluan",
+      "pasteCode": "Tampal kod",
+      "passwordRequired": "Kata Laluan Diperlukan",
+      "twoFactorAuthentication": "Pengesahan Dua Faktor",
+      "enterYourPasswordToContinue": "Masukkan kata laluan anda untuk meneruskan.",
+      "enterThe6DigitCode": "Masukkan kod 6 digit daripada aplikasi pengesah anda."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Pengesahan Warpgate",
+      "authenticateViaTheWarpgatePortal": "Pengesah melalui portal Warpgate, kemudian ketuk Teruskan.",
+      "cancel": "Batal",
+      "openBrowser": "Buka Pelayar",
+      "continue": "Teruskan",
+      "securityKey": "Kunci Keselamatan",
+      "authUrl": "URL Pengesahan",
+      "copied": "Disalin",
+      "copy": "Salin",
+      "urlCopied": "URL disalin",
+      "failedToCopy": "Gagal menyalin",
+      "couldNotOpenBrowser": "Tidak dapat membuka pelayar"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "{{deviceWord}} ini"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Aktiviti terkini",
+        "files": "Fail",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Pemberitahuan",
+        "seeAll": "Lihat semua"
+      },
+      "server": "Pelayan",
+      "openSessions": "Sesi terbuka",
+      "quickAccess": "Akses pantas",
+      "notifications": "Pemberitahuan",
+      "pinnedHosts": "Hos yang disemat",
+      "recentHosts": "Hos terkini",
+      "recentActivity": "Aktiviti terkini",
+      "pinnedCard": {
+        "addYourFirstHost": "Tambah hos pertama anda",
+        "hostsYouOpenShowUp": "Hos yang anda buka akan muncul di sini, dan hos yang disemat akan memaparkan kad langsung.",
+        "addHost": "Tambah hos",
+        "linkAServer": "Pautkan pelayan",
+        "pinAHostToSee": "Sematkan hos untuk melihatnya di sini",
+        "pinnedHostsShowTheirMetrics": "Hos yang disemat memaparkan metrik, Docker dan perkhidmatannya sekilas pandang. Tahan hos untuk menyematkannya.",
+        "goToHosts": "Pergi ke hos",
+        "pinned": "Disemat",
+        "opensTheTerminalHoldFor": "Membuka terminal. Tahan untuk lebih lanjut.",
+        "turnOnDockerOrServices": "Hidupkan Docker atau Perkhidmatan untuk hos ini, atau ketuknya untuk menyambung.",
+        "opens": "Membuka {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Akses pantas",
+        "quickConnect": "Sambungan pantas",
+        "userHostPortWithoutSaving": "pengguna@hos:port, tanpa menyimpan"
+      },
+      "recentCard": {
+        "recent": "Terbaru"
+      },
+      "serverCard": {
+        "server": "Pelayan",
+        "version": "Versi",
+        "uptime": "Masa operasi",
+        "database": "Pangkalan data",
+        "hosts": "Hos",
+        "online": "Dalam talian",
+        "offline": "Luar talian",
+        "logins": "Log masuk"
+      },
+      "sessionsCard": {
+        "openSessions": "Sesi terbuka",
+        "connected": "Sambung"
+      }
+    },
+    "resetHome": "Set Semula Laman Utama?",
+    "cardsGoBackToThe": "Kad akan kembali ke susunan dan paparan asal.",
+    "reset": "Set Semula",
+    "doneEditingHome": "Selesai menyunting Laman Utama",
+    "editHome": "Sunting Laman Utama",
+    "dragToReorder": "Seret {{title}} untuk menyusun semula",
+    "show": "Paparkan {{title}}",
+    "dragCardsToReorderThem": "Seret kad untuk menyusun semula. Matikan kad untuk menyembunyikannya. Kad tanpa kandungan akan disembunyikan secara automatik.",
+    "resetToDefault": "Set semula ke asal",
+    "done": "Selesai",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Masih tidak dapat menghubungi pelayan",
+      "canTReach": "Tidak dapat menghubungi {{account}}",
+      "youCanKeepWorkingWith": "Anda boleh terus bekerja dengan salinan pada {{deviceWord}} ini. Perubahan akan disegerakkan apabila sambungan kembali.",
+      "hostsSetToConnectFrom": "Hos yang ditetapkan untuk disambung dari {{deviceWord}} ini masih berfungsi.",
+      "tryAgain": "Cuba lagi",
+      "noAnswer": "tiada jawapan"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Profil Vault",
+      "none": "Tiada",
+      "signsInWithInYour": "Log masuk menggunakan {{title}} dalam pelayar anda melalui pelayan Termix. Sambungkan hos ini melalui pelayan.",
+      "needsATermixServerLink": "{{title}} memerlukan pelayan Termix. Pautkan satu untuk menggunakan log masuk ini.",
+      "isOffOnThisServer": "{{title}} dimatikan pada pelayan ini. Hos ini mengekalkan tetapan log masuknya."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Tidak dapat memuatkan kelayakan",
+      "deleted": "Memadam \"{{name}}\"",
+      "couldNotDeleteTheCredential": "Tidak dapat memadam kelayakan",
+      "credentials": "Kelayakan",
+      "add": "Tambah",
+      "searchCredentials": "Cari kelayakan",
+      "clearSearch": "Kosongkan carian",
+      "loadingCredentials": "Memuatkan kelayakan...",
+      "noCredentialsMatchYourSearch": "Tiada kelayakan sepadan dengan carian anda",
+      "noCredentialsYet": "Belum ada kelayakan",
+      "addCredential": "Tambah kelayakan",
+      "edit": "Sunting",
+      "delete": "Padam",
+      "deleteCredential": "Padam kelayakan",
+      "willBePermanentlyDeletedHosts": "\"{{name}}\" akan dipadam secara kekal. Hos yang menggunakannya akan kehilangan kelayakan yang disimpan.",
+      "cancel": "Batal",
+      "hostCount_other": "{{count}} hos",
+      "sshKey": "Kunci SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Gantikan kunci?",
+        "theNewKeyTakesThe": "Kunci baharu akan menggantikan kunci semasa. Hos yang hanya mempercayai kunci lama akan berhenti menerima kelayakan ini.",
+        "replace": "Gantikan",
+        "newKeyMadeCopyThe": "Kunci baharu dicipta. Salin kunci awam ke hos anda.",
+        "couldNotMakeAKey": "Tidak dapat mencipta kunci",
+        "couldNotReadThatCertificate": "Tidak dapat membaca fail sijil tersebut",
+        "leaveWithoutSaving": "Keluar tanpa menyimpan?",
+        "yourChangesToThisCredential": "Perubahan anda pada kelayakan ini akan hilang.",
+        "leave": "Keluar",
+        "credentialSaved": "Kelayakan disimpan",
+        "credentialAdded": "Kelayakan ditambah",
+        "couldNotSaveTheCredential": "Tidak dapat menyimpan kelayakan",
+        "enterAHostToTest": "Masukkan hos untuk ujian, seperti 10.0.0.5 atau kotak:2222.",
+        "enterTheUsernameFirst": "Masukkan nama pengguna terlebih dahulu.",
+        "editCredential": "Sunting kelayakan",
+        "newCredential": "Kelayakan baharu",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "credential": "Kredensial",
+        "name": "Nama",
+        "productionKey": "Kunci pengeluaran",
+        "username": "Nama pengguna",
+        "signInWith": "Log masuk dengan",
+        "password": "Kata laluan",
+        "sshKey": "Kunci SSH",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "key": "Kunci",
+        "fileOrPaste": "Fail atau tampal",
+        "makeANewKey": "Buat kunci baru",
+        "aKeyIsSavedChoose": "Satu kunci telah disimpan. Pilih fail atau tampal untuk menggantikannya.",
+        "type": "Jenis",
+        "ed25519AndEcdsaAreMade": "Ed25519 dan ECDSA dibuat pada {{deviceWord}} ini, RSA pada pelayan anda.",
+        "madeOnThisEd25519Works": "Dibuat pada {{deviceWord}} ini. Ed25519 berfungsi hampir di mana-mana.",
+        "passphrase": "Frasa laluan",
+        "optionalLocksTheNewKey": "Pilihan. Mengunci kunci baru pada {{deviceWord}} ini dan pada cakera.",
+        "makeKey": "Buat kunci",
+        "publicKey": "Kunci awam",
+        "addThisLineToSsh": "Tambah baris ini ke ~/.ssh/authorized_keys pada hos anda",
+        "publicKeyCopied": "Kunci awam disalin",
+        "copyPublicKey": "Salin kunci awam",
+        "certificate": "Sijil",
+        "aCertificateYourCaSigned": "Sijil yang ditandatangani oleh CA anda untuk kunci ini, untuk hos yang mempercayai CA.",
+        "chooseCertificateFile": "Pilih fail sijil",
+        "thisDoesNotLookLike": "Ini tidak kelihatan seperti sijil OpenSSH.",
+        "test": "Uji",
+        "hostToTestOn": "Hos untuk diuji",
+        "n10005Or": "10.0.0.5 atau box.lan:2222",
+        "pickASavedHost": "Pilih hos yang disimpan",
+        "details": "Butiran",
+        "description": "Penerangan",
+        "whatThisCredentialIsFor": "Untuk apa kredensial ini digunakan",
+        "folder": "Folder",
+        "serverKeys": "Kunci pelayan",
+        "testOnAHost": "Uji pada hos",
+        "rsaKeysNeedALinked": "Kunci RSA memerlukan pelayan yang dipautkan."
+      },
+      "model": {
+        "giveThisCredentialAName": "Berikan nama kepada kredensial ini",
+        "addAPrivateKeyOr": "Tambah kunci peribadi, atau buat yang baru"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Ini adalah sijil hos, bukan sijil pengguna.",
+        "thisCertificateIsNotValid": "Sijil ini belum sah.",
+        "thisCertificateHasExpired": "Sijil ini telah tamat tempoh.",
+        "itIsForAKey": "Ia adalah untuk kunci {{keyType}}, tetapi kunci ini adalah {{keyType2}}.",
+        "forAnyUser": "Untuk mana-mana pengguna",
+        "validFromNoEndDate": "Sah dari {{validAfter}}, tiada tarikh tamat",
+        "signedBy": "Ditandatangani oleh {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Nama pengguna",
+        "fromTheCredential": "Dari kredensial: {{credentialUser}}",
+        "signInWith": "Log masuk dengan",
+        "password": "Kata laluan",
+        "key": "Kunci",
+        "credential": "Kredensial",
+        "none": "Tiada",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Sambung dengan Tailscale SSH. Tiada kata laluan atau kunci disimpan.",
+        "tailscaleIsNotOnFor": "Tailscale tidak diaktifkan untuk {{value}}. Hos ini mengekalkan log masuk Tailscale-nya.",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "noCredentialsYetTapThe": "Tiada kredensial lagi. Ketik ikon kunci dalam Hos untuk menambah satu.",
+        "useCredential": "Gunakan kelayakan {{name}}",
+        "sudoPassword": "Kata laluan sudo",
+        "typedIntoSudoPromptsWhen": "Diketik ke dalam petikan sudo apabila bahagian Terminal mengaktifkannya",
+        "notSet": "Tidak ditetapkan",
+        "thisServer": "pelayan ini"
+      },
+      "colorIconField": {
+        "color": "Warna",
+        "noColor": "Tiada warna",
+        "color2": "Warna {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Tiada ikon",
+        "none": "Tiada",
+        "icon2": "Ikon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Keluar tanpa menyimpan?",
+        "yourChangesToThisHost": "Perubahan anda pada hos ini akan hilang.",
+        "leave": "Keluar",
+        "couldNotSaveHowThis": "Gagal menyimpan cara hos ini menyambung",
+        "hostSaved": "Hos disimpan",
+        "hostAdded": "Hos ditambah",
+        "couldNotSaveTheHost": "Gagal menyimpan hos",
+        "enterTheHostSAddress": "Masukkan alamat hos terlebih dahulu.",
+        "turnOnSshToTest": "Aktifkan SSH untuk menguji log masuk.",
+        "pickACredentialFirst": "Pilih kelayakan terlebih dahulu.",
+        "editHost": "Sunting hos",
+        "newHost": "Hos baharu",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "host": "Hos",
+        "name": "Nama",
+        "myServer": "Pelayan saya",
+        "address": "Alamat",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port dan nama pengguna berasal dari tetapan lalai hos anda sehingga anda mengubahnya.",
+        "folder": "Folder",
+        "production": "Pengeluaran",
+        "useAFolderInstead": "Gunakan folder sebagai gantinya",
+        "putItUnderAHost": "Letakkan di bawah hos sebagai gantinya",
+        "pinToTop": "Pin ke atas",
+        "colorAndIcon": "Warna dan ikon",
+        "notes": "Nota",
+        "anythingWorthRememberingAboutThis": "Apa-apa yang perlu diingat tentang hos ini",
+        "protocols": "Protokol",
+        "terminalFilesAndMore": "Terminal, fail dan lain-lain",
+        "connectFrom": "Sambung dari",
+        "features": "Ciri-ciri",
+        "otherProtocols": "Protokol lain",
+        "more": "Lagi",
+        "theTestRunsFromThis": "Ujian dijalankan dari {{deviceWord}} ini. Hos ini menyambung melalui pelayan, jadi ia masih boleh berfungsi apabila {{deviceWord}} tidak dapat mencapainya."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Hos lompat",
+        "connectsThroughTheseInOrder": "Menyambung melalui ini secara berurutan, kemudian ke hos ini",
+        "reachThisHostThroughOther": "Capai hos ini melalui hos lain terlebih dahulu",
+        "moveUp": "Gerak ke atas",
+        "moveDown": "Gerak ke bawah",
+        "removeJumpHost": "Buang hos lompat",
+        "addJumpHost": "Tambah hos lompat",
+        "pickASavedHostTo": "Pilih hos yang disimpan untuk menyambung melalui",
+        "searchHosts": "Cari hos",
+        "noOtherHostsToPick": "Tiada hos lain untuk dipilih. Hos tidak boleh melompat melalui dirinya sendiri atau hos yang sudah melalui ia.",
+        "missingHost": "Hos hilang #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Aktifkan sekurang-kurangnya satu protokol",
+        "pickACredential": "Pilih kelayakan",
+        "enterTheHostSAddress": "Masukkan alamat hos",
+        "theAddressCanTHave": "Alamat tidak boleh mengandungi ruang",
+        "portMustBeFrom1": "Port mesti antara 1 hingga 65535",
+        "enterTheSshUsername": "Masukkan nama pengguna SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Hos akan dipaparkan bersarang di bawah hos yang anda pilih",
+        "searchHosts": "Cari hos",
+        "noHostsToPickA": "Tiada hos untuk dipilih. Hos tidak boleh diletakkan di bawah dirinya sendiri, sub-hosnya sendiri, atau hos kongsi.",
+        "parentHost": "Hos induk",
+        "subHostsFollowTheFolder": "Sub-hos mengikuti folder induknya",
+        "pickParentHost": "Pilih hos induk",
+        "missingHost": "Hos #{{value}} hilang",
+        "pickAHost": "Pilih hos",
+        "clearParentHost": "Kosongkan hos induk"
+      },
+      "tagsField": {
+        "tags": "Tag",
+        "typeATagAndPress": "Taipkan tag dan tekan enter",
+        "removeTag": "Buang tag {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Gagal menyimpan cara hos ini menyambung",
+      "addressCopied": "Alamat disalin",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Sambung dari",
+      "dismiss": "Tutup",
+      "unpin": "Nyahpin",
+      "pinToHome": "Pin ke Utama",
+      "select": "Pilih",
+      "editHost": "Sunting Hos",
+      "copyAddress": "Salin Alamat",
+      "addSubHost": "Tambah Sub-hos",
+      "cloneHost": "Klon Hos",
+      "deleteHost": "Padam Hos",
+      "connectThroughTheServer": "Sambung melalui pelayan",
+      "connectFromThis": "Sambung dari {{deviceWord}} ini"
+    },
+    "defaultYourOrder": "Lalai (susunan anda)",
+    "nameAZ": "Nama (A-Z)",
+    "nameZA": "Nama (Z-A)",
+    "ipAscending": "IP (menaik)",
+    "ipDescending": "IP (menurun)",
+    "onlineFirst": "Dalam talian dahulu",
+    "offlineFirst": "Luar talian dahulu",
+    "pinnedFirst": "Dipin dahulu",
+    "status": "Status",
+    "online": "Dalam talian",
+    "offline": "Luar talian",
+    "pinned": "Dipin",
+    "protocol": "Protokol",
+    "features": "Ciri-ciri",
+    "hostsCanOnlyMoveInside": "Hos hanya boleh dipindahkan di dalam folder mereka sendiri",
+    "couldNotUpdateTheHosts": "Gagal mengemas kini hos",
+    "sharedHostsCanTBe": "Hos kongsi tidak boleh dipadam di sini",
+    "delete2": "Padam",
+    "noneOfTheseHostsOpen": "Tiada hos ini membuka terminal",
+    "couldNotPinTheHost": "Gagal mempin hos",
+    "deleted": "{{name}} dipadam",
+    "failedToDeleteHost": "Gagal memadam hos",
+    "cloned": "{{name}} diklon",
+    "failedToCloneHost": "Gagal mengklon hos",
+    "reorderWorksWithTheDefault": "Susunan semula berfungsi dengan susunan Lalai dan tanpa carian atau penapis",
+    "couldNotSaveTheOrder": "Gagal menyimpan susunan",
+    "noHostsYet": "Belum ada hos",
+    "addAHostToConnect": "Tambah hos untuk menyambungkannya dengan satu sentuhan.",
+    "addHost": "Tambah hos",
+    "quickConnect2": "Sambungan pantas",
+    "linkAServer": "Pautkan pelayan",
+    "noHostsMatch": "Tiada hos sepadan",
+    "clearSearchAndFilters": "Kosongkan carian dan penapis",
+    "more": "Lagi",
+    "dragAHostByIts": "Seret hos menggunakan pemegangnya untuk memindahkannya ke dalam folder.",
+    "done": "Selesai",
+    "filterHosts": "Tapis hos",
+    "clearFilterText": "Kosongkan teks penapis",
+    "sortHosts": "Susun hos",
+    "removeFilter": "Buang penapis {{value}}",
+    "loadingHosts": "Memuatkan hos…",
+    "moveUnderAHost": "Pindahkan di bawah hos",
+    "moveToFolder": "Pindahkan ke folder",
+    "leaveItEmptyToTake": "Biarkan kosong untuk mengeluarkan hos daripada folder.",
+    "folderLikeProdWeb": "Folder, seperti Prod / Web",
+    "move": "Pindahkan",
+    "hosts": "Hos",
+    "selectHosts": "Pilih hos",
+    "reorderHosts": "Susun semula hos",
+    "customizeList": "Sesuaikan senarai",
+    "chooseWhatEachHostRow": "Pilih apa yang dipaparkan oleh setiap baris hos",
+    "credentials2": "Kelayakan",
+    "savedPasswordsAndKeys": "Kata laluan dan kunci yang disimpan",
+    "tailscaleDevices": "Peranti Tailscale",
+    "refresh": "Muat semula",
+    "rowDensityFollowsSettingsAppearance": "Ketumpatan baris mengikuti Tetapan, Rupa.",
+    "clearAllFilters": "Kosongkan semua penapis",
+    "tags": "Tag",
+    "stopSelecting": "Hentikan pemilihan",
+    "selected": "{{count}} dipilih",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Tidak dapat membaca fail kunci tersebut",
+        "theClipboardIsEmpty": "Papan klip kosong",
+        "privateKey": "Kunci peribadi",
+        "chooseFile": "Pilih fail",
+        "paste": "Tampal",
+        "unchangedIfBlank": "Tidak berubah jika kosong",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Frasa laluan",
+        "onlyIfTheKeyHas": "Hanya jika kunci mempunyai satu",
+        "theKeyIsCheckedWhen": "Kunci akan disemak apabila anda menyambung.",
+        "thePastedKey": "kunci yang ditampal"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Buka",
+        "moreActions": "Tindakan lain",
+        "opensTheTerminalHoldFor": "Membuka terminal. Tahan untuk lebih banyak.",
+        "shared": "Dikongsi",
+        "drag": "Seret {{name}}",
+        "showSubHosts_other": "Paparkan {{count}} sub-hos {{name}}",
+        "hideSubHosts_other": "Sembunyikan {{count}} sub-hos {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Folder {{name}}, {{total}} hos"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Hos dan nama pengguna diperlukan",
+      "hostSaved": "Hos disimpan",
+      "couldNotSaveTheHost": "Tidak dapat menyimpan hos",
+      "quickConnect": "Sambungan pantas",
+      "connectToAHostWithout": "Sambung ke hos tanpa menyimpannya.",
+      "hostIp": "Hos / IP",
+      "port": "Port",
+      "username": "Nama pengguna",
+      "password": "Kata Laluan",
+      "key": "Kunci",
+      "privateKey": "Kunci Peribadi",
+      "saveToMyHosts": "Simpan ke hos saya",
+      "keepThisHostAfterConnecting": "Kekalkan hos ini selepas menyambung",
+      "cancel": "Batal",
+      "connect": "Sambung"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Memperoleh hos anda dari pelayan",
+      "yourHostsStayOnThis": "{{message}} Hos anda kekal pada {{deviceWord}} ini buat sementara waktu."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Kunci hos ini telah berubah",
+      "trustThisHost": "Percayai hos ini?",
+      "trust": "Percayai",
+      "stopTest": "Hentikan ujian",
+      "testConnection": "Uji sambungan",
+      "connecting": "Menyambung..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Gagal memuat hos."
+    },
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} hos kongsi dibiarkan seperti sedia ada.",
+    "deleteHosts_other": "Padam {{count}} hos?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Tiada folder bernama {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Hos \"{{name}}\": port salah",
+        "hostJumpIsNotIn": "Hos \"{{name}}\": lompat {{value}} tidak berada dalam fail, jadi ia dikecualikan",
+        "credential": "Kelayakan {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Tiada entri Hos yang sah ditemui dalam fail konfigurasi SSH",
+        "credentialWasNotFound": "{{label}}: kelayakan {{value}} tidak ditemui"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Hos {{value}}: ID hos eksport duplikat {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Medan diperlukan hilang (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: authType tidak sah. Mesti salah satu daripada {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Nama pengguna diperlukan untuk sambungan SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias diperlukan untuk pengesahan kelayakan",
+        "thatIsNotAValid": "Bukan fail JSON yang sah",
+        "hostsArrayIsRequiredAnd": "Array Hos diperlukan dan tidak boleh kosong",
+        "jumpHostCycle": "{{label}}: kitaran hos lompat",
+        "jumpHostIsNotIn": "{{label}}: hos lompat {{id}} tidak berada dalam fail"
+      }
+    },
+    "movedTo": "Dipindahkan ke {{value}}",
+    "movedOutOfFolders": "Dipindahkan keluar dari folder",
+    "movedUnder": "Dipindahkan di bawah {{value}}",
+    "openTerminals": "Terminal terbuka",
+    "theHost": "hos"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Sembunyikan kata laluan",
+      "showPassword": "Tunjukkan kata laluan",
+      "enterAUsernameAndPassword": "Masukkan nama pengguna dan kata laluan",
+      "useAtLeast6Characters": "Gunakan sekurang-kurangnya 6 aksara untuk kata laluan",
+      "thePasswordsDonTMatch": "Kata laluan tidak sepadan",
+      "makeTheAdminAccount": "Buat akaun pentadbir",
+      "makeAnAccount": "Buat akaun",
+      "thisIsTheFirstAccount": "Ini adalah akaun pertama pada pelayan, jadi ia mengendalikan pelayan.",
+      "pickAUsernameAndPassword": "Pilih nama pengguna dan kata laluan untuk pelayan ini.",
+      "username": "Nama Pengguna",
+      "password": "Kata Laluan",
+      "passwordAgain": "Kata laluan sekali lagi",
+      "makeAccount": "Buat akaun",
+      "back": "Kembali",
+      "haveAnAccountSignIn": "Ada akaun? Log masuk",
+      "resetCodeMadeItIs": "Kod reset telah dibuat. Ia berada dalam log pelayan",
+      "enterYourUsername": "Masukkan nama pengguna anda",
+      "enterTheResetCode": "Masukkan kod reset",
+      "passwordChangedSignInWith": "Kata laluan telah diubah. Log masuk dengannya sekarang",
+      "resetPassword": "Set semula kata laluan",
+      "enterYourUsernameTheServer": "Masukkan nama pengguna anda. Pelayan menulis kod reset ke lognya.",
+      "sendResetCode": "Hantar kod reset",
+      "enterThe6DigitCode": "Masukkan kod 6 digit daripada log pelayan.",
+      "resetCode": "Tetapkan semula kod",
+      "checkCode": "Semak kod",
+      "newPassword": "Kata laluan baharu",
+      "saveNewPassword": "Simpan kata laluan baharu",
+      "backToSignIn": "Kembali ke log masuk",
+      "couldNotMakeTheAccount": "Tidak dapat membuat akaun",
+      "couldNotStartTheReset": "Tidak dapat memulakan penetapan semula",
+      "thatCodeDidnTWork": "Kod tersebut tidak berfungsi",
+      "couldNotChangeThePassword": "Tidak dapat mengubah kata laluan"
+    },
+    "browserStep": {
+      "signInFailed": "Log masuk gagal",
+      "signInCanceled": "Log masuk dibatalkan",
+      "couldNotOpenTheSign": "Tidak dapat membuka pelayar log masuk",
+      "couldNotOpenTheSign2": "Tidak dapat membuka halaman log masuk",
+      "certificateProblem": "Masalah sijil",
+      "back": "Kembali",
+      "signIn": "Log masuk",
+      "reload": "Muat semula",
+      "finishSigningInInYour": "Selesaikan log masuk dalam pelayar anda",
+      "useAnySignInYour": "Gunakan sebarang kaedah log masuk yang ada pada pelayan anda, seperti passkey atau kunci keselamatan. Aplikasi akan mengambil alih selepas anda berjaya log masuk.",
+      "theAppPicksUpOnce": "Aplikasi akan mengambil alih selepas penyedia log masuk anda selesai.",
+      "signingIn": "Sedang log masuk...",
+      "openBrowserAgain": "Buka pelayar sekali lagi",
+      "theServerTurnedTheSession": "Pelayan menolak sesi tersebut. Cuba lagi.",
+      "signedInButTheApp": "Berjaya log masuk, tetapi aplikasi tidak dapat menghubungi Termix. Proksi mungkin sedang menyekatnya.",
+      "thatSignInLinkIs": "Pautan log masuk tersebut adalah daripada cubaan sebelumnya. Log masuk sekali lagi.",
+      "signInAgain": "Log masuk sekali lagi.",
+      "openTheBrowserAgainWhen": "Buka pelayar sekali lagi apabila anda sedia.",
+      "theWebPageSignedIn": "Laman web berjaya log masuk tetapi tidak menghantar sesi. Kemas kini pelayan dan cuba lagi.",
+      "theCanTCheckThis": "{{deviceWord}} tidak dapat menyemak sijil pelayan ini. Pasang CA punca pada {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Gunakan {{name}} untuk log masuk lain kali?",
+      "ifThisServerSignsYou": "Jika pelayan ini mengeluarkan anda, log masuk semula menggunakan {{name}} daripada menaip kata laluan anda. Kata laluan kekal pada {{deviceWord}} ini.",
+      "use": "Gunakan {{name}}",
+      "notNow": "Bukan sekarang",
+      "couldNotSaveTheLogin": "Tidak dapat menyimpan log masuk",
+      "thatSADifferentUser": "Itu adalah pengguna yang berbeza",
+      "signedIn": "Berjaya log masuk",
+      "close": "Tutup",
+      "linkYourTermixServer": "Pautkan pelayan Termix anda",
+      "yourHostsCredentialsSnippetsAnd": "Hos, kelayakan, petikan dan tetapan anda disegerakkan dengannya, dan anda mendapat pluginnya. Semua berfungsi pada {{deviceWord}} ini apabila pelayan tidak tersedia.",
+      "checking": "Sedang menyemak {{host}}...",
+      "proxyAndClientCertificate": "Proksi dan sijil klien",
+      "couldNotReachThatServer": "Tidak dapat menghubungi pelayan tersebut. Semak alamat, atau tetapkan proksi atau sijil klien.",
+      "couldNotReachThatServer2": "Tidak dapat menghubungi pelayan tersebut",
+      "syncCouldNotStartYet": "Penyegerakan tidak dapat bermula lagi. Ia akan cuba semula secara automatik.",
+      "checkingTheServer": "Sedang menyemak pelayan",
+      "signIn": "Log masuk",
+      "makeAnAccount": "Buat akaun",
+      "resetPassword": "Tetapkan semula kata laluan",
+      "oneMoreStep": "Satu langkah lagi",
+      "almostDone": "Hampir selesai",
+      "linkAServer": "Pautkan pelayan"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Log masuk yang disimpan tidak lagi berfungsi",
+      "enterYourUsernameAndPassword": "Masukkan nama pengguna dan kata laluan anda",
+      "thisServerIsBehindA": "Pelayan ini berada di sebalik proksi log masuk",
+      "signInWith": "Log masuk dengan {{saved}}",
+      "signInWith2": "Log masuk dengan",
+      "password": "Kata laluan",
+      "username": "Nama pengguna",
+      "signIn": "Log masuk",
+      "forgotPassword": "Lupa kata laluan?",
+      "makeAnAccount": "Buat akaun",
+      "or": "ATAU",
+      "continueWith": "Teruskan dengan {{label}}",
+      "signInWithAPasskey": "Log masuk dengan passkey atau kunci keselamatan",
+      "opensYourServerAposS": "Membuka halaman log masuk pelayan anda dalam pelayar web. Face ID, cap jari, NFC dan kunci USB semuanya berfungsi di sana. Memerlukan Termix 26.11.3 atau lebih baru.",
+      "signInInTheBrowser": "Log masuk dalam pelayar web",
+      "opensYourServerAposS2": "Membuka halaman log masuk pelayan anda, untuk sebarang fungsi yang tidak dapat dilakukan oleh aplikasi ini. Memerlukan Termix 26.10.6 atau lebih baru.",
+      "thisServerHasNoSign": "Pelayan ini tidak mempunyai log masuk yang diaktifkan untuk digunakan oleh aplikasi ini. Tanya pengendalinya, atau cuba log masuk melalui pelayar web di atas.",
+      "signInWithYourPassword": "Log masuk dengan kata laluan anda.",
+      "signInFailed": "Log masuk gagal",
+      "openingItsSignInPage": "Membuka halaman log masuknya."
+    },
+    "smallSteps": {
+      "serverAddress": "Alamat pelayan",
+      "likeTermixExampleComOr": "Seperti termix.example.com atau 192.168.1.20:30001",
+      "checking": "Memeriksa...",
+      "continue": "Teruskan",
+      "proxyAndClientCertificate": "Proksi dan sijil klien",
+      "aServerWithASelf": "Pelayan dengan sijil tandatangan sendiri memerlukan CA punca dipasang pada {{deviceWord}} ini terlebih dahulu. Http biasa berfungsi pada rangkaian anda sendiri.",
+      "enterTheCode": "Masukkan kod",
+      "code": "Kod",
+      "the6DigitCodeFrom": "Kod 6 digit daripada aplikasi pengesah anda, atau kod sandaran",
+      "checkCode": "Semak kod",
+      "thisAccountAsksForA": "Akaun ini meminta kunci keselamatan selepas kata laluan. Log masuk pada halaman pelayan dalam pelayar web anda untuk menggunakannya.",
+      "useASecurityKeyIn": "Gunakan kunci keselamatan dalam pelayar web",
+      "backToSignIn": "Kembali ke log masuk",
+      "bringThisAposSHosts": "Bawa bersama hos {{deviceWord}} ini?",
+      "thisHasTheyStayOn": "{{deviceWord}} ini mempunyai {{what}}. Ia kekal pada peranti ini dalam kes mana-mana.",
+      "merge": "Gabung",
+      "copyThemToTooSo": "Salin juga ke {{serverName}}, supaya ia disegerakkan. Yang kelihatan sama dengan hos pelayan akan dilangkau.",
+      "replace": "Ganti",
+      "useOnlyWhatIsOn": "Gunakan hanya apa yang ada pada {{serverName}} untuk akaun ini. Tiada apa-apa yang disalin.",
+      "thatCodeDidnTWork": "Kod itu tidak berfungsi",
+      "hostsCredentialsOrSnippets": "hos, kelayakan atau petikan"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Pautkan pelayan ini terlebih dahulu",
+      "thatHostIsnTHere": "Hos itu tidak ada di sini",
+      "couldNotOpenThatHost": "Tidak dapat membuka hos itu",
+      "noHostWithIdOn": "Tiada hos dengan id {{hostId}} pada {{account}}.",
+      "isnTLinkedInThe": "{{value}} belum dipautkan dalam aplikasi."
+    }
+  },
+  "notifications": {
+    "notifications": "Pemberitahuan",
+    "markAllRead": "Tanda semua dibaca",
+    "clearReadNotifications": "Kosongkan pemberitahuan yang dibaca",
+    "unread2": "Belum dibaca",
+    "all": "Semua",
+    "noUnreadNotifications": "Tiada pemberitahuan belum dibaca",
+    "nothingHere": "Tiada apa-apa di sini",
+    "markRead": "Tanda dibaca",
+    "delete": "Padam",
+    "couldNotLoadNotifications": "Tidak dapat memuatkan pemberitahuan",
+    "couldNotMarkRead": "Tidak dapat menanda dibaca",
+    "couldNotDelete": "Tidak dapat memadam",
+    "couldNotClear": "Tidak dapat mengosongkan"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Import",
+      "hosts": "Hos",
+      "aTermixHostFileYour": "Fail hos Termix, ~/.ssh/config anda, atau pautan hos atau kod QR daripada {{deviceWord}} lain. Ia disimpan pada {{deviceWord}} ini.",
+      "backup": "Sandaran",
+      "aBackupThisAppMade": "Sandaran yang dibuat oleh aplikasi ini, dikunci dengan frasa laluan. Ia memulihkan hos, kelayakan dan petikan.",
+      "restoreABackup": "Pulihkan sandaran",
+      "done": "Selesai",
+      "skipForNow": "Langkau buat masa ini",
+      "sshFilesAndRemoteDesktops": "SSH, fail dan desktop jauh daripada {{deviceWord}} anda. Bagaimana anda ingin bermula?",
+      "useWithoutAServer": "Gunakan tanpa pelayan",
+      "hostsCredentialsAndSnippetsAre": "Hos, kelayakan dan petikan disimpan dalam keadaan terenkripsi pada {{deviceWord}} ini. Anda boleh menyambungkan pelayan pada bila-bila masa kemudian.",
+      "linkATermixServer": "Sambungkan pelayan Termix",
+      "syncYourHostsCredentialsSnippets": "Serentak hos, kelayakan, petikan dan tetapan anda dengan pelayan anda dan gunakan pluginnya.",
+      "bringHostsFromATermix": "Bawa hos dari fail Termix, konfigurasi SSH, kod QR atau sandaran.",
+      "thisDevice": "Peranti ini"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Cari hos, petikan, tindakan",
+      "clearSearch": "Kosongkan carian",
+      "nothingMatches": "Tiada padanan",
+      "typeToSearch": "Taip untuk mencari",
+      "findAHostToConnect": "Cari hos untuk disambungkan, petikan, tetapan atau tindakan.",
+      "suggested": "Disyorkan | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Jalankan dalam {{title}}",
+      "copiedRunItFromThe": "Disalin. Jalankan dari petikan terminal untuk mengisi nilainya.",
+      "copiedOpenATerminalTo": "Disalin. Buka terminal untuk menjalankan petikan.",
+      "addHost": "Tambah hos",
+      "quickConnect": "Sambungan pantas",
+      "switchAccount": "Tukar akaun",
+      "linkAServer": "Sambungkan pelayan",
+      "fromYourServer": "Dari pelayan anda",
+      "settings": "Tetapan",
+      "accountsAppearanceSecurity": "Akaun, rupa, keselamatan"
+    },
+    "search": {
+      "hosts": "Hos",
+      "snippets": "Petikan",
+      "actions": "Tindakan",
+      "settings": "Tetapan"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Gagal memuatkan sesi",
+      "sessionRevoked": "Sesi ditarik balik",
+      "failedToRevokeSession": "Gagal menarik balik sesi",
+      "allSessionsRevoked": "Semua sesi ditarik balik",
+      "failedToRevokeAllSessions": "Gagal menarik balik semua sesi",
+      "activeSessions": "Sesi aktif",
+      "signOutAllOtherSessions": "Log keluar semua sesi lain",
+      "loading": "Memuatkan…",
+      "noActiveSessionsFound": "Tiada sesi aktif ditemui.",
+      "unknownDevice": "Peranti tidak dikenali",
+      "lastActive": "Aktif terakhir {{lastActiveAt}}",
+      "created": "Dicipta {{createdAt}}",
+      "revokeSession": "Tarik balik sesi",
+      "revokeSession2": "Tarik balik sesi?",
+      "thisWillSignOutThat": "Ini akan mengeluarkan log peranti tersebut.",
+      "revoke": "Tarik balik",
+      "revokeAllSessions": "Tarik balik semua sesi?",
+      "thisWillSignOutEvery": "Ini akan mengeluarkan log setiap peranti. Anda akan kekal log masuk pada peranti ini.",
+      "cancel": "Batal",
+      "revokeAll": "Tarik balik semua"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Gagal memuatkan kunci API",
+      "failedToCreateApiKey": "Gagal mencipta kunci API",
+      "deleteApiKey": "Padam kunci API?",
+      "willStopWorkingRightAway": "\"{{name}}\" akan berhenti berfungsi serta-merta.",
+      "apiKeyDeleted": "Kunci API dipadam",
+      "failedToDeleteApiKey": "Gagal memadam kunci API",
+      "apiKeys": "Kunci API",
+      "newApiKey": "Kunci API baharu",
+      "loading": "Memuatkan…",
+      "apiKeysAllowProgrammaticAccess": "Kunci API membolehkan akses programatik ke Termix. Rahsia hanya ditunjukkan sekali, jadi simpan dengan selamat.",
+      "noApiKeysYet": "Belum ada kunci API",
+      "created": "Dicipta {{createdAt}}",
+      "lastUsed": "Digunakan terakhir {{lastUsedAt}}",
+      "expires": "Tamat tempoh {{expiresAt}}",
+      "delete": "Padam {{name}}",
+      "keyCreatedCopyItNow": "Kunci dicipta. Salin sekarang",
+      "newApiKey2": "Kunci API Baharu",
+      "thisTokenWonTBe": "Token ini tidak akan dipaparkan lagi.",
+      "apiKeyCopied": "Kunci API disalin",
+      "copy": "Salin",
+      "done": "Selesai",
+      "cancel": "Batal",
+      "create": "Cipta",
+      "name": "Nama *",
+      "eGCiPipeline": "cth. Saluran CI",
+      "user": "Pengguna *",
+      "noUsersAvailable": "Tiada pengguna tersedia.",
+      "expiresAtOptional": "Tamat Tempoh (pilihan)",
+      "yyyyMmDd": "TTTT/BB/HH",
+      "yearMonthDay": "Tahun / Bulan / Hari"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Kekalkan sesi berjalan",
+      "showsANotificationWhileSessions": "Menunjukkan pemberitahuan semasa sesi dibuka, supaya Android mengekalkannya berjalan apabila anda meninggalkan aplikasi",
+      "batteryOptimization": "Pengoptimuman bateri",
+      "termixIsNotRestrictedSo": "Termix tidak terhad, jadi sesi boleh kekal terbuka dengan skrin dimatikan.",
+      "androidMayStillStopSessions": "Android mungkin masih menghentikan sesi untuk menjimatkan bateri. Buka tetapan bateri, cari Termix dan pilih Tidak dioptimumkan atau Tidak terhad.",
+      "openBatterySettings": "Buka tetapan bateri",
+      "notificationsAreOff": "Pemberitahuan dimatikan",
+      "sessionsStillRunButThe": "Sesi masih berjalan, tetapi senarai sesi terbuka dan butang Putuskan semua kekal tersembunyi.",
+      "openNotificationSettings": "Buka tetapan pemberitahuan",
+      "thisBuildCanTKeep": "Binaan ini tidak dapat mengekalkan sesi berjalan di latar belakang. Ia menyambung semula apabila anda kembali.",
+      "lowPowerMode": "Mod Kuasa Rendah",
+      "batterySaver": "Penjimatan bateri",
+      "isOnTermixChecksConnections": "{{value}} dihidupkan. Termix memeriksa sambungan kurang kerap dan menunggu lebih lama antara cubaan sambungan semula.",
+      "backgroundSessions": "Sesi latar belakang",
+      "iosStopsAppsSoonAfter": "iOS menghentikan aplikasi tidak lama selepas anda meninggalkannya, jadi sesi tidak dapat berjalan di latar belakang. Ia menyambung semula apabila anda kembali, dan tmux atau screen mengambil alih dari tempat anda berhenti."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Berhenti",
+        "active": "Aktif",
+        "linkAServer": "Pautkan pelayan",
+        "eachServerKeepsItsOwn": "Setiap pelayan mengekalkan salinan sendiri hos, kelayakan dan tetapan anda pada {{deviceWord}} ini.",
+        "signedInAs": "Log masuk sebagai",
+        "role": "Peranan",
+        "administrator": "Pentadbir",
+        "user": "Pengguna",
+        "serverVersion": "Versi pelayan",
+        "signOut": "Log keluar",
+        "youAreSignedOutOf": "Anda telah log keluar dari pelayan ini.",
+        "signIn": "Log masuk",
+        "passwordChanged": "Kata laluan ditukar",
+        "couldNotChangeThePassword": "Tidak dapat menukar kata laluan",
+        "changePassword": "Tukar kata laluan",
+        "enterYourCurrentPasswordThen": "Masukkan kata laluan semasa anda, kemudian pilih yang baharu.",
+        "cancel": "Batal",
+        "change": "Tukar",
+        "currentPassword": "Kata laluan semasa",
+        "newPassword": "Kata laluan baharu",
+        "accountDeleted": "Akaun dipadam",
+        "couldNotDeleteTheAccount": "Tidak dapat memadam akaun",
+        "deleteServerAccount": "Padam akaun pelayan",
+        "thisPermanentlyDeletesYourAccount": "Ini memadam akaun anda pada pelayan dan semua datanya secara kekal. Ia tidak boleh dibatalkan.",
+        "delete": "Padam",
+        "confirmYourPassword": "Sahkan kata laluan anda",
+        "worksWithoutAServer": "Berfungsi tanpa pelayan",
+        "signedOut": "Telah log keluar",
+        "readsLive": "Baca secara langsung",
+        "toReview": "{{count}} untuk semak",
+        "synced": "Disegerakkan",
+        "syncing": "Menyeragamkan",
+        "offline": "Luar talian"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Kongsi statistik penggunaan tanpa nama",
+        "aShortReportOnceA": "Laporan ringkas sekali sehari. Tiada hos, nama atau alamat",
+        "nextReport": "Laporan seterusnya",
+        "seeExactlyWhatWouldBe": "Lihat tepat apa yang akan dihantar",
+        "couldNotBuildTheReport": "Tidak dapat membina laporan",
+        "preview": "Pratonton",
+        "thisIsExactlyWhatWould": "Ini adalah tepat apa yang akan dihantar sekarang.",
+        "resetInstallId": "Tetap semula ID pemasangan",
+        "futureReportsWillLookLike": "Laporan masa depan akan kelihatan seperti pemasangan baru",
+        "resetTheInstallId": "Tetap semula ID pemasangan?",
+        "futureReportsWillLookLike2": "Laporan masa depan akan kelihatan seperti pemasangan baru.",
+        "reset": "Tetap semula",
+        "installIdReset": "ID pemasangan ditetapkan semula"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Warna aksen",
+        "textSize": "Saiz teks",
+        "sizeOfTextAcrossThe": "Saiz teks merentasi aplikasi, bukan terminal",
+        "density": "Ketumpatan",
+        "howTallListRowsAnd": "Betapa tinggi baris senarai dan tetapan"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Hos, kelayakan dan petikan disimpan dalam fail terenkripsi pada {{deviceWord}} ini. Statistik penggunaan dimatikan kecuali anda menghidupkannya di bawah. Pelayan yang disambungkan hanya mendapat apa yang anda benarkan disegerakkan.",
+        "recentHosts": "Hos terkini",
+        "forgetTheHostsYouOpened": "Lupakan hos yang anda buka baru-baru ini pada setiap akaun",
+        "recentHostsCleared": "Hos terkini dibersihkan",
+        "clear": "Bersihkan",
+        "couldNotCheckForUpdates": "Tidak dapat memeriksa kemas kini",
+        "versionIsOutUpdateFrom": "Versi {{version}} telah keluar. Kemaskini dari kedai anda.",
+        "youHaveTheNewestVersion": "Anda mempunyai versi terkini",
+        "termixMobile": "Termix Mobile",
+        "updates": "Kemas kini",
+        "check": "Periksa"
+      },
+      "pinSheet": {
+        "waitSeconds": "Tunggu {{value}} saat",
+        "digits": "{{PIN_LENGTH}} digit"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN tidak sepadan",
+        "appLockIsOn": "Kunci Aplikasi dihidupkan",
+        "turnOffAppLock": "Matikan Kunci Aplikasi",
+        "enterYourPinToConfirm": "Masukkan PIN anda untuk mengesahkan.",
+        "appLockIsOff": "Kunci Aplikasi dimatikan",
+        "appLock": "Kunci Aplikasi",
+        "askForFaceIdTouch": "Minta Face ID, Touch ID atau PIN untuk membuka aplikasi",
+        "askForAPinTo": "Minta PIN untuk membuka aplikasi",
+        "pinChanged": "PIN ditukar",
+        "couldNotChangeThePin": "Tidak dapat menukar PIN",
+        "changePin": "Tukar PIN",
+        "lockAfter": "Kunci selepas",
+        "howLongTheAppCan": "Betapa lama aplikasi boleh berada di luar pandangan sebelum ia dikunci",
+        "hideInAppSwitcher": "Sembunyikan dalam penukar aplikasi",
+        "showABlankScreenIn": "Paparkan skrin kosong dalam senarai aplikasi terkini",
+        "chooseA4DigitPin": "Pilih PIN 4 digit.",
+        "confirmPin": "Sahkan PIN",
+        "enterTheSamePinAgain": "Masukkan PIN yang sama sekali lagi.",
+        "currentPin": "PIN semasa",
+        "enterYourCurrentPin": "Masukkan PIN semasa anda.",
+        "newPin": "PIN baru",
+        "chooseANew4Digit": "Pilih PIN 4 digit yang baru.",
+        "confirmNewPin": "Sahkan PIN baru",
+        "enterTheNewPinAgain": "Masukkan PIN baru sekali lagi."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widget skrin utama",
+        "showYourHostsSnippetsAnd": "Paparkan hos, petikan dan butang kuasa anda di skrin utama",
+        "showAddresses": "Paparkan alamat",
+        "showUserHostUnderEach": "Paparkan pengguna@hos di bawah setiap nama pelayan",
+        "includeOfflineHosts": "Sertakan hos luar talian",
+        "offShowsOnlyServersThat": "Mati memaparkan hanya pelayan yang dalam talian",
+        "pinnedHostsOnly": "Hanya hos yang disemat",
+        "showOnlyTheHostsYou": "Paparkan hanya hos yang anda sematkan",
+        "snippetsWidget": "Widget petikan",
+        "showSavedCommandsOnThe": "Paparkan arahan yang disimpan di skrin utama",
+        "showCommandPreview": "Paparkan pratonton arahan",
+        "showTheFirstLineOf": "Paparkan baris pertama setiap arahan"
+      }
+    },
+    "fileSettings": {
+      "files": "Fail",
+      "fileManagerOnThis": "Pengurus fail pada {{deviceWord}} ini",
+      "browsing": "Pelayaran",
+      "transfersAtOnce": "Pemindahan serentak",
+      "downloadsAndUploadsThatRun": "Muat turun dan muat naik yang berjalan bersama",
+      "editor": "Penyunting",
+      "textSize": "Saiz teks",
+      "filesBesideTheTerminal": "Fail di sebelah terminal",
+      "side": "Sisi",
+      "whereThePanelSitsOn": "Di mana panel diletakkan pada tablet",
+      "right": "Kanan",
+      "left": "Kiri",
+      "howOftenToCheck": "Berapa kerap untuk menyemak",
+      "folderHistory": "Sejarah folder",
+      "foldersKeptPerHost": "Folder yang disimpan setiap hos",
+      "showHiddenFiles": "Paparkan fail tersembunyi",
+      "filesAndFoldersThatStart": "Fail dan folder yang bermula dengan titik",
+      "askBeforeMovingToThe": "Tanya sebelum mengalihkan ke tong sampah",
+      "deletingForGoodAlwaysAsks": "Pemadamkan secara kekal sentiasa meminta pengesahan",
+      "wrapLongLines": "Balut baris panjang",
+      "openWithNewTerminals": "Buka dengan terminal baru",
+      "onATabletShowThe": "Pada tablet, paparkan panel fail apabila terminal dibuka",
+      "followTheTerminal": "Ikuti terminal",
+      "openTheFolderTheTerminal": "Buka folder tempat terminal berada semasa anda cd"
+    },
+    "keyboardCustomization": {
+      "small": "Kecil",
+      "medium": "Sederhana",
+      "large": "Besar",
+      "ms": "{{v}} ms",
+      "keyboard": "Papan kekunci",
+      "keyRowsAboveTheKeyboard": "Baris kekunci di atas papan kekunci",
+      "rows": "Baris",
+      "keys": "Kekunci",
+      "aHostCanHaveIts": "Hos boleh mempunyai baris sendiri: ketik tab bukanya dalam sesi dan pilih Baris kekunci untuk hos ini.",
+      "keySize": "Saiz kekunci",
+      "vibrateOnKeyPress": "Getar semasa menekan kekunci",
+      "repeatAfter": "Ulang selepas",
+      "howLongToHoldAn": "Berapa lama untuk menahan anak panah atau Backspace",
+      "repeatEvery": "Ulang setiap",
+      "hardwareKeyboard": "Papan kekunci perkakasan",
+      "allShortcuts": "Semua pintasan",
+      "show": "Paparkan"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Tidak dapat membuat sandaran",
+      "deleteLocalData": "Padam data tempatan?",
+      "hostsCredentialsSnippetsAndHistory": "Hos, kelayakan, petikan dan sejarah yang disimpan pada {{deviceWord}} ini untuk {{account}} akan dipadam. Ini tidak boleh dibatalkan. Buat sandaran terlebih dahulu jika anda ingin menyimpannya.",
+      "delete": "Padam",
+      "localDataDeleted": "Data tempatan dipadam",
+      "couldNotDeleteLocalData": "Tidak dapat memadam data tempatan",
+      "localData": "Data tempatan",
+      "localDataIsOnlySaved": "Data tempatan hanya disimpan dalam aplikasi {{deviceWord}}.",
+      "savedOnThisForThe": "Disimpan pada {{deviceWord}} ini untuk {{account}}. Fail ini disulitkan dengan kunci yang tidak pernah meninggalkan {{deviceWord}} ini.",
+      "hosts": "Hos",
+      "credentials": "Kelayakan",
+      "snippets": "Potongan",
+      "size": "Saiz",
+      "dataVersion": "Versi data",
+      "backup": "Sandaran",
+      "aBackupFileHoldsYour": "Fail sandaran menyimpan kata laluan dan kunci anda, dikunci dengan frasa laluan yang anda pilih. Tiada siapa boleh membukanya tanpa frasa laluan tersebut.",
+      "exportBackup": "Eksport sandaran",
+      "importBackup": "Import sandaran",
+      "removesEverythingThisAccountSaved": "Menghapuskan semua yang disimpan oleh akaun ini pada {{deviceWord}} ini. Pelayan yang disambungkan mengekalkan salinan sendiri.",
+      "deleteLocalData2": "Padam data tempatan",
+      "backupPassphrase": "Frasa laluan sandaran",
+      "atLeast8CharactersYou": "Sekurang-kurangnya 8 aksara. Anda memerlukannya untuk memulihkan sandaran.",
+      "passphrase": "Frasa laluan",
+      "next": "Seterusnya",
+      "typeItAgain": "Taipkan semula",
+      "export": "Eksport",
+      "saveYourTermixBackup": "Simpan sandaran Termix anda"
+    },
+    "logs": {
+      "logs": "Log",
+      "latestLinesFromThisRun": "Baris terkini dari pelaksanaan ini. Alamat pelayan, kata laluan dan token disembunyikan.",
+      "logsCopied": "Log disalin",
+      "copy": "Salin",
+      "share": "Kongsi",
+      "clear": "Kosongkan",
+      "noLogsYet": "Belum ada log",
+      "nothingHasBeenLogged": "Tiada apa-apa yang telah dilogkan."
+    },
+    "plugins": {
+      "worksOnThis": "Berfungsi pada {{deviceWord}} ini",
+      "needsTheServer": "Memerlukan pelayan",
+      "notInTheApp": "Tidak dalam aplikasi",
+      "needsANewerVersionOf": "Memerlukan versi aplikasi yang lebih baru",
+      "updateThePluginOnThe": "Kemas kini plugin pada pelayan",
+      "inTheApp": "Dalam aplikasi",
+      "onThisServer": "Pada pelayan ini",
+      "version": "Versi",
+      "needsPluginApi": "Memerlukan API plugin",
+      "thisAppHas": "Aplikasi ini mempunyai",
+      "note": "Nota",
+      "open": "Buka",
+      "openFromAHostS": "Buka {{name}} dari menu hos.",
+      "plugins": "Plugin",
+      "everything": "Semua",
+      "thisDeviceWorksWithNo": "Peranti ini berfungsi tanpa pelayan. Sambungkan pelayan untuk menambah ciri yang memerlukannya.",
+      "pluginsOnAndHowEach": "Plugin pada {{account}} dan bagaimana setiap satu dipaparkan dalam aplikasi. Seret ke bawah untuk menyemak semula.",
+      "whatRunsOnThisAnd": "Apa yang berjalan pada {{deviceWord}} ini dan apa yang melalui {{account}}.",
+      "noPluginList": "Tiada senarai plugin",
+      "theServerDidNotSend": "Pelayan tidak menghantar pluginnya. Seret ke bawah untuk mencuba lagi.",
+      "serversOlderThan29": "Pelayan yang lebih lama daripada 2.9 mempunyai setiap ciri terbina dalam.",
+      "nothingToShow": "Tiada apa-apa untuk dipaparkan",
+      "notSentByThisServer": "Tidak dihantar oleh pelayan ini"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Gantikan data tempatan?",
+      "everythingSavedOnThisFor": "Semua yang disimpan pada {{deviceWord}} ini untuk {{accountName}} akan digantikan dengan sandaran.",
+      "continue": "Teruskan",
+      "couldNotReadThatFile": "Tidak dapat membaca fail tersebut",
+      "backupRestored": "Sandaran dipulihkan",
+      "couldNotRestoreTheBackup": "Tidak dapat memulihkan sandaran",
+      "backupPassphrase": "Frasa laluan sandaran",
+      "thePassphraseUsedWhenThe": "Frasa laluan yang digunakan apabila sandaran dibuat.",
+      "passphrase": "Frasa laluan",
+      "restore": "Pulihkan"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Akaun",
+        "thisDeviceAndLinkedServers": "Peranti ini dan pelayan yang disambungkan, beserta keadaan sinkronisasinya",
+        "syncAndProxy": "Sinkronisasi dan proksi",
+        "whatSyncsConflictsProxyAnd": "Apa yang disinkronkan, konflik, proksi, dan nyahsambungan",
+        "serverAccount": "Akaun pelayan",
+        "whoIsSignedInOn": "Siapa yang log masuk pada pelayan aktif",
+        "activeSessions": "Sesi aktif",
+        "devicesSignedInToThe": "Peranti yang log masuk ke pelayan",
+        "apiKeys": "Kunci API",
+        "keysForScriptsAndTools": "Kunci untuk skrip dan alat",
+        "changePassword": "Tukar kata laluan",
+        "passwordOfYourServerAccount": "Kata laluan akaun pelayan anda",
+        "deleteServerAccount": "Padam akaun pelayan",
+        "removeYourAccountFromThe": "Buang akaun anda daripada pelayan",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Gelap, cerah, Dracula, Nord dan lain-lain",
+        "accentColor": "Warna aksen",
+        "textSize": "Saiz teks",
+        "sizeOfTextAcrossThe": "Saiz teks merentas aplikasi",
+        "density": "Ketumpatan",
+        "howTallListRowsAnd": "Ketinggian baris senarai dan tetapan",
+        "homeScreenWidgets": "Widget skrin utama",
+        "hostsAndSnippetsOnThe": "Hos dan petikan pada skrin utama",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Fon, tema, kursor, tatal balik",
+        "keyboard": "Papan kekunci",
+        "layoutKeysPresets": "Susun atur, kekunci, pratetap",
+        "appLock": "Kunci Aplikasi",
+        "askForFaceIdTouch": "Minta Face ID, Touch ID atau PIN untuk membuka aplikasi",
+        "lockAfter": "Kunci selepas",
+        "howLongTheAppCan": "Lama aplikasi boleh berada di luar pandangan sebelum dikunci",
+        "hideInAppSwitcher": "Sembunyikan dalam penukar aplikasi",
+        "showABlankScreenIn": "Paparkan skrin kosong dalam senarai aplikasi terkini",
+        "changePin": "Tukar PIN",
+        "backgroundSessions": "Sesi latar belakang",
+        "whatHappensToOpenSessions": "Apa yang berlaku kepada sesi terbuka apabila anda meninggalkan aplikasi",
+        "serverAlerts": "Amaran pelayan",
+        "alertsFromTheAlertsPlugin": "Amaran daripada plugin Amaran pada pelayan anda",
+        "whatStaysOnThis": "Apa yang kekal pada {{deviceWord}} ini",
+        "hostsCredentialsAndSnippetsAre": "Hos, kelayakan dan petikan disimpan dalam bentuk terenkripsi di sini",
+        "recentHosts": "Hos terkini",
+        "forgetTheHostsYouOpened": "Lupakan hos yang anda buka baru-baru ini",
+        "shareAnonymousUsageStatistics": "Kongsi statistik penggunaan tanpa nama",
+        "aShortReportOnceA": "Laporan ringkas sekali sehari. Tiada hos, nama atau alamat",
+        "nextReport": "Laporan seterusnya",
+        "seeExactlyWhatWouldBe": "Lihat tepat apa yang akan dihantar",
+        "resetInstallId": "Set semula ID pemasangan",
+        "futureReportsWillLookLike": "Laporan masa depan akan kelihatan seperti pemasangan baharu",
+        "serverUsageStatistics": "Statistik penggunaan pelayan",
+        "telemetrySettingsOnYourServer": "Tetapan telemetri pada pelayan anda",
+        "plugins": "Plugin",
+        "whatTheServerAddsAnd": "Apa yang ditambah oleh pelayan dan di mana ia berjalan",
+        "localData": "Data tempatan",
+        "backupRestoreAndDeleteWhat": "Sandaran, pulihkan dan padam apa yang disimpan pada {{deviceWord}} ini",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versi dan kemas kini",
+        "logs": "Log",
+        "latestLinesFromThisRun": "Baris terkini daripada larian ini, untuk laporan pepijat"
+      },
+      "sections": {
+        "accountsAndSync": "Akaun dan sinkronisasi",
+        "thisDeviceLinkedServersAnd": "Peranti ini, pelayan yang disambungkan dan apa yang disegerakkan",
+        "appearance": "Rupa",
+        "themeAccentTextSizeAnd": "Bahasa, tema, aksen, saiz teks dan ketumpatan",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Fon, warna dan sesi latar belakang",
+        "keyboard": "Papan kekunci",
+        "keyRowsAndShortcuts": "Baris kekunci dan pintasan",
+        "security": "Keselamatan",
+        "appLockFaceIdAnd": "Kunci Aplikasi, Face ID dan PIN",
+        "notifications": "Pemberitahuan",
+        "alertsFromYourServer": "Amaran daripada pelayan anda",
+        "privacyAndUsageStatistics": "Privasi dan statistik penggunaan",
+        "whatStaysOnThis": "Apa yang kekal pada {{deviceWord}} ini",
+        "plugins": "Plugin",
+        "whatTheServerAddsTo": "Apa yang ditambah oleh pelayan ke dalam aplikasi",
+        "backupAndData": "Sandaran dan data",
+        "backUpRestoreImportAnd": "Sandar, pulihkan, import dan eksport",
+        "aboutAndLogs": "Mengenai dan log",
+        "versionAndLogsForBug": "Versi dan log untuk laporan pepijat"
+      }
+    },
+    "settings": "Tetapan",
+    "searchSettings": "Cari tetapan",
+    "noSettingsMatch": "Tiada tetapan sepadan.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Gagal memuatkan snippet",
+      "copied": "Disalin: {{name}}",
+      "nameIsRequired": "Nama diperlukan",
+      "contentIsRequired": "Kandungan diperlukan",
+      "snippetUpdated": "Snippet dikemas kini",
+      "snippetCreated": "Snippet dicipta",
+      "failedToSaveSnippet": "Gagal menyimpan snippet",
+      "snippetDeleted": "Snippet dipadam",
+      "failedToDeleteSnippet": "Gagal memadam snippet",
+      "folderNameIsRequired": "Nama folder diperlukan",
+      "folderCreated": "Folder dicipta",
+      "failedToCreateFolder": "Gagal mencipta folder",
+      "folderDeleted": "Folder dipadam",
+      "failedToDeleteFolder": "Gagal memadam folder",
+      "folderRenamed": "Folder ditukar nama",
+      "failedToRenameFolder": "Gagal menukar nama folder",
+      "failedToSaveOrder": "Gagal menyimpan susunan",
+      "moveUp": "Gerakkan ke atas",
+      "moveDown": "Gerakkan ke bawah",
+      "runOnHosts": "Jalankan {{name}} pada hos",
+      "copy": "Salin {{name}}",
+      "delete": "Padam {{name}}",
+      "renameFolder": "Tukar nama folder",
+      "deleteFolder": "Padam folder",
+      "noSnippetsInThisFolder": "Tiada snippet dalam folder ini",
+      "snippets": "Snippet",
+      "importAndExport": "Import dan eksport",
+      "folder": "Folder",
+      "new": "Baharu",
+      "loading": "Memuatkan…",
+      "couldNotLoadSnippets": "Tidak dapat memuatkan snippet",
+      "checkTheConnectionToYour": "Semak sambungan ke pelayan anda dan cuba lagi.",
+      "tryAgain": "Cuba lagi",
+      "noSnippetsYet": "Belum ada snippet",
+      "createYourFirstSnippetOr": "Cipta snippet pertama anda, atau tambah snippet daripada aplikasi web atau desktop Termix.",
+      "createSnippet": "Cipta snippet",
+      "askBeforeRunning": "Tanya sebelum menjalankan",
+      "confirmBeforeASnippetRuns": "Sahkan sebelum snippet dijalankan dalam terminal",
+      "editSnippet": "Sunting Snippet",
+      "newSnippet": "Snippet Baharu",
+      "cancel": "Batal",
+      "save": "Simpan",
+      "create": "Cipta",
+      "name": "Nama",
+      "eGUpdatePackages": "cth. Kemas kini pakej",
+      "content": "Kandungan",
+      "descriptionOptional": "Penerangan (pilihan)",
+      "shortDescription": "Penerangan ringkas",
+      "folderOptional": "Folder (pilihan)",
+      "selectFolder": "Pilih folder",
+      "noFolder": "Tiada folder",
+      "targetHostsOptional": "Hos sasaran (pilihan)",
+      "none": "Tiada",
+      "note": "Nota",
+      "pastedIntoTheTerminalWithout": "Dilekatkan ke dalam terminal tanpa dijalankan",
+      "targetHosts": "Hos sasaran",
+      "copy2": "Salin",
+      "edit": "Sunting",
+      "runOnHosts2": "Jalankan pada hos",
+      "delete2": "Padam",
+      "deleteSnippet": "Padam Snippet",
+      "deleteThisCannotBeUndone": "Padam \"{{name}}\"? Tindakan ini tidak boleh dibatalkan.",
+      "renameFolder2": "Tukar Nama Folder",
+      "rename": "Tukar Nama",
+      "folderName": "Nama folder",
+      "eGSystem": "cth. Sistem",
+      "newFolder": "Folder Baharu",
+      "deleteFolder2": "Padam Folder",
+      "deleteSnippetsInThisFolder": "Padam \"{{name}}\"? Snippet dalam folder ini akan menjadi tidak dikategorikan."
+    },
+    "sync": {
+      "notYet": "Belum lagi",
+      "justNow": "Baru sahaja",
+      "stopped": "Berhenti",
+      "signInToThisServer": "Log masuk ke pelayan ini sekali lagi untuk menyegerakkan",
+      "couldNotChangeThat": "Tidak dapat mengubahnya",
+      "sync": "Segerakkan",
+      "thisDeviceDoesNotSync": "Peranti ini tidak menyegerakkan. Pautkan pelayan Termix untuk mengekalkan hos anda pada lebih daripada satu peranti.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} mengekalkan hos, kelayakan, snippet dan tetapan selaras dengan {{deviceWord}} ini. Salinan kekal pada {{deviceWord}} ini, jadi ia berfungsi dalam talian juga.",
+      "lastSynced": "Disegerakkan terakhir {{value}}",
+      "live": "Langsung",
+      "syncNow": "Segerakkan sekarang",
+      "fix": "Baiki",
+      "thisServerReadsLiveAnd": "Pelayan ini membaca secara langsung dan tidak mengekalkan salinan pada {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Hidupkan plugin Segerakkan di halaman Plugin pelayan, kemudian log masuk semula di sini untuk mengekalkan salinan pada {{deviceWord}} ini.",
+      "whatSyncs": "Apa yang disegerakkan",
+      "turnedOffThatDataStays": "Dimatikan, data tersebut kekal pada {{deviceWord}} ini sahaja.",
+      "conflicts": "Perbezaan",
+      "changedHereAndOnThe": "Diubah di sini dan pada pelayan pada masa yang sama. Versi pelayan telah dikekalkan.",
+      "useServer": "Gunakan pelayan",
+      "keepMine": "Kekalkan milik saya",
+      "notSavedOnTheServer": "Tidak disimpan pada pelayan",
+      "theServerRefusedTheseChanges": "Pelayan menolak perubahan ini. Ia kekal pada {{deviceWord}} ini.",
+      "tryAgain": "Cuba lagi",
+      "proxy": "Proksi",
+      "onlyNeededWhenAReverse": "Hanya diperlukan apabila proksi songsang berada di hadapan pelayan.",
+      "unlink": "Putuskan pautan",
+      "unlinkThisServer": "Putuskan pautan pelayan ini",
+      "minAgo": "{{value}} min lalu",
+      "signedOut": "Log keluar",
+      "waitingToSync": "Menunggu untuk disegerakkan",
+      "synced": "Disegerakkan",
+      "syncing": "Menyegerakkan",
+      "offline": "Luar talian"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Latar belakang",
+        "text": "Teks",
+        "cursor": "Kursor",
+        "textUnderCursor": "Teks di bawah kursor",
+        "selection": "Pemilihan",
+        "black": "Hitam",
+        "red": "Merah",
+        "green": "Hijau",
+        "yellow": "Kuning",
+        "blue": "Biru",
+        "magenta": "Magenta",
+        "cyan": "Sian",
+        "white": "Putih",
+        "brightBlack": "Hitam terang",
+        "brightRed": "Merah terang",
+        "brightGreen": "Hijau terang",
+        "brightYellow": "Kuning terang",
+        "brightBlue": "Biru terang",
+        "brightMagenta": "Magenta terang",
+        "brightCyan": "Sian terang",
+        "brightWhite": "Putih terang",
+        "customTheme": "Tema tersuai",
+        "colorsAsHexLike1e1e2e": "Warna sebagai heksa, seperti #1e1e2e.",
+        "cancel": "Batal",
+        "save": "Simpan",
+        "isNotAHexColor": "{{label}} bukan warna heksa"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Padat",
+      "default": "Lalai",
+      "relaxed": "Longgar",
+      "spacious": "Luas",
+      "none": "Tiada",
+      "couldNotSave": "Tidak dapat menyimpan",
+      "pickASizeFromTo": "Pilih saiz dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Tetapan terminal ditetapkan semula",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Hos boleh menetapkan tema dan kursornya sendiri dalam Termix, yang akan mengatasi tetapan ini.",
+      "theme": "Tema",
+      "custom": "Tersuai",
+      "font": "Fon",
+      "active": "Aktif",
+      "sizeAndSpacing": "Saiz dan jarak",
+      "pinchTheTerminalToChange": "Cubit terminal untuk mengubah saiz juga. Teks besar dalam tetapan {{deviceWord}} anda akan membuatnya lebih besar.",
+      "custom2": "Tersuai {{fontSize}}",
+      "lineHeight": "Ketinggian baris",
+      "letterSpacing": "Jarak huruf",
+      "ligatures": "Ligatur",
+      "cursor": "Kursor",
+      "blink": "Kedip",
+      "bell": "Bel",
+      "vibrate": "Getar",
+      "onTheBellAndWhen": "Apabila bel berbunyi dan apabila anda tekan lama untuk memilih",
+      "scrollback": "Skrol balik",
+      "linesKeptAboveTheScreen": "Baris yang disimpan di atas skrin. Berkuat kuasa untuk terminal baharu.",
+      "linksAndKeys": "Pautan dan kekunci",
+      "askBeforeOpeningLinks": "Tanya sebelum membuka pautan",
+      "doubleTapSendsTab": "Ketuk dua kali menghantar Tab",
+      "longPressStillSelectsText": "Tekan lama masih memilih teks",
+      "optionSendsAlt": "Option menghantar Alt",
+      "onAHardwareKeyboardOff": "Pada papan kekunci perkakasan. Matikan untuk menaip simbol seperti pada Mac.",
+      "history": "Sejarah",
+      "suggestCommands": "Cadangkan arahan",
+      "showsPastCommandsThatStart": "Menunjukkan arahan lepas yang bermula dengan apa yang anda taip",
+      "resetToDefault": "Set semula ke lalai",
+      "fontSize": "Saiz fon",
+      "aSizeFromTo": "Saiz dari {{MIN_FONT_SIZE}} hingga {{MAX_FONT_SIZE}}.",
+      "cancel": "Batal",
+      "apply": "Terapkan",
+      "resetTerminalSettings": "Set semula tetapan terminal?",
+      "themeFontSizeCursorBell": "Tema, fon, saiz, kursor, loceng dan selebihnya kembali ke lalai.",
+      "reset": "Set semula",
+      "followsAppTheme": "Ikuti tema aplikasi"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Gagal memulakan persediaan 2FA",
+      "twoFactorAuthenticationEnabled": "Pengesahan dua faktor diaktifkan",
+      "invalidCodeTryAgain": "Kod tidak sah, cuba lagi",
+      "twoFactorAuthenticationDisabled": "Pengesahan dua faktor dilumpuhkan",
+      "failedToDisable2fa": "Gagal melumpuhkan 2FA",
+      "failedToFetchBackupCodes": "Gagal mendapatkan kod sandaran",
+      "secretCopied": "Rahsia disalin",
+      "backupCodesCopied": "Kod sandaran disalin",
+      "twoFactorAuthentication": "Pengesahan dua faktor",
+      "loading": "Memuatkan…",
+      "scanThisQrCodeWith": "Imbas kod QR ini dengan aplikasi pengesah anda (Google Authenticator, Authy, dll.), kemudian masukkan kod 6 digit untuk mengesahkan.",
+      "verifyAmpEnable": "Sahkan &amp; Aktifkan",
+      "cancel": "Batal",
+      "saveYourBackupCodes": "Simpan kod sandaran anda",
+      "storeTheseSomewhereSafeEach": "Simpan kod ini di tempat yang selamat. Setiap kod hanya boleh digunakan sekali jika anda kehilangan akses kepada pengesah anda.",
+      "copyAllCodes": "Salin semua kod",
+      "done": "Selesai",
+      "yourAccountIsProtectedWith": "Akaun anda dilindungi dengan aplikasi pengesah.",
+      "addAnExtraLayerOf": "Tambah lapisan keselamatan tambahan kepada akaun anda.",
+      "viewBackupCodes": "Lihat kod sandaran",
+      "disable2fa": "Lumpuhkan 2FA",
+      "enable2fa": "Aktifkan 2FA",
+      "disableTwoFactorAuthentication": "Lumpuhkan Pengesahan Dua Faktor",
+      "enterACodeFromYour": "Masukkan kod dari aplikasi pengesah anda untuk mengesahkan. Anda boleh mengaktifkan semula 2FA pada bila-bila masa.",
+      "enterYourPasswordToConfirm": "Masukkan kata laluan anda untuk mengesahkan. Anda boleh mengaktifkan semula 2FA pada bila-bila masa.",
+      "disable": "Lumpuhkan",
+      "yourPassword": "Kata laluan anda",
+      "n2faIsEnabled": "2FA diaktifkan",
+      "n2faIsNotEnabled": "2FA tidak diaktifkan"
+    },
+    "language": {
+      "label": "Bahasa",
+      "description": "Aplikasi akan dimuat semula untuk bertukar",
+      "system": "Sama seperti peranti"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Tiada hos SSH di sini",
+      "couldNotReadWhatWas": "Tidak dapat membaca apa yang dikongsi",
+      "stopTheUploads": "Hentikan muat naik?",
+      "stopAndLeave": "Hentikan dan keluar",
+      "sendTo": "Hantar ke {{name}}",
+      "sendToAHost": "Hantar ke hos",
+      "nothingToSend": "Tiada apa-apa untuk dihantar",
+      "close": "Tutup",
+      "done": "Selesai",
+      "cancel": "Batal",
+      "uploadHere": "Muat naik di sini",
+      "uploadsStillGoing_other": "{{count}} muat naik masih berjalan. Meninggalkan akan menghentikannya.",
+      "filesSize_other": "{{count}} fail | {{size}}",
+      "readingWhatWasShared": "Membaca apa yang dikongsi"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Ralat",
+      "worksWithoutAServer": "Berfungsi tanpa pelayan",
+      "accountSwitch": "Akaun {{account}}, tukar",
+      "search": "Cari",
+      "notificationsUnread": "Pemberitahuan, {{unread}} belum dibaca",
+      "notifications": "Pemberitahuan",
+      "signedIn": "Telah log masuk",
+      "signedOut": "Telah log keluar",
+      "copyOnThis": "Salin pada {{deviceWord}} ini"
+    },
+    "bottomBar": {
+      "home": "Laman Utama",
+      "hosts": "Hos",
+      "sessions": "Sesi",
+      "tools": "Alat",
+      "settings": "Tetapan",
+      "open": "{{label}}, {{count}} dibuka"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} dibuka"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Pilih hos",
+      "searchHosts": "Cari hos",
+      "clearSearch": "Kosongkan carian",
+      "noHostsMatch": "Tiada hos sepadan",
+      "noHostsCanUseThis": "Tiada hos boleh menggunakan ini",
+      "turnItOnForA": "Hidupkannya untuk hos dalam penyunting hos."
+    },
+    "noToolsHereYet": "Tiada alat di sini lagi",
+    "onAHost": "Pada hos",
+    "saved": "Disimpan",
+    "fromYourServer": "Dari pelayan anda"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Batal",
+      "delete": "Padam",
+      "confirm": "Sahkan"
+    },
+    "contextMenu": {
+      "closeMenu": "Tutup menu"
+    },
+    "inlineView": {
+      "back": "Kembali"
+    },
+    "listRow": {
+      "moreActions": "Lebih banyak tindakan"
+    },
+    "pinPad": {
+      "useBiometrics": "Gunakan biometrik",
+      "delete": "Padam"
+    },
+    "popover": {
+      "close": "Tutup"
+    },
+    "promptSheet": {
+      "cancel": "Batal"
+    },
+    "sheet": {
+      "close": "Tutup"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Kunci ini dikunci. Masukkan frasa lalunya.",
+      "thatPassphraseDoesnTOpen": "Frasa laluan itu tidak membuka kunci ini.",
+      "thisDoesnTLookLike": "Ini tidak kelihatan seperti kunci peribadi.",
+      "loadedAndChangedItTo": "Memuatkan {{name}} dan mengubahnya kepada format OpenSSH",
+      "loadedItNeedsItsPassphrase": "Memuatkan {{name}}. Ia memerlukan frasa laluan untuk menyambung"
+    },
+    "ago": {
+      "justNow": "baru sahaja"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Tidak dapat memuatkan hos anda.",
+      "failedOn": "{{name}} gagal pada {{name2}}",
+      "on": "{{name}} pada {{name2}}: {{value}}",
+      "ranOn": "Menjalankan {{name}} pada {{name2}}",
+      "runOn": "Jalankan \"{{name}}\" pada",
+      "runSnippet": "Jalankan petikan",
+      "loadingHosts": "Memuatkan hos…",
+      "noHostsAvailable": "Tiada hos tersedia",
+      "addAHostInTermix": "Tambah hos dalam Termix untuk menjalankan petikan dari skrin utama anda.",
+      "lastUsed": "Terakhir digunakan",
+      "failedToRunSnippet": "Gagal menjalankan petikan"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Petikan itu tidak wujud lagi.",
+      "couldNotOpenThatSnippet": "Tidak dapat membuka petikan itu.",
+      "thatHostNoLongerExists": "Hos itu tidak wujud lagi.",
+      "couldNotOpenThatHost": "Tidak dapat membuka hos tersebut."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Laman Utama"
+      },
+      "hosts": {
+        "hosts": "Hos"
+      },
+      "sessions": {
+        "sessions": "Sesi",
+        "connectToATermixServer": "Sambung ke pelayan Termix untuk membuka terminal, terowong dan sesi fail."
+      }
+    },
+    "layout": {
+      "initializing": "Memulakan…",
+      "cancel": "Batal"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Hos ini tiada alamat MAC yang sah.",
+    "thisBuildCanTSend": "Binaan ini tidak boleh menghantar paket Wake-on-LAN.",
+    "couldNotSendThePacket": "Tidak dapat menghantar paket. Pastikan Wi-Fi dihidupkan."
+  },
+  "common": {
+    "hostCount_other": "{{count}} hos",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tablet"
+    },
+    "thisDeviceLower": "{{deviceWord}} ini"
+  },
+  "hostAccess": {
+    "title": "Kongsi",
+    "action": "Kongsi dengan orang lain",
+    "levels": {
+      "connect": "Sambung",
+      "view": "Lihat",
+      "edit": "Sunting",
+      "manage": "Urus"
+    },
+    "levelHints": {
+      "connect": "Buka sesi sahaja. Tetapan hos kekal tersembunyi",
+      "view": "Sambung, serta lihat tetapan hos. Rahsia tidak pernah dipaparkan",
+      "edit": "Lihat, serta ubah tetapan selain log masuk",
+      "manage": "Sunting, serta kongsi hos dan ubah atau buang akses"
+    },
+    "until": "sehingga {{date}}",
+    "sharedBy": "oleh {{name}}",
+    "couldNotLoad": "Tidak dapat memuatkan senarai yang mempunyai akses",
+    "shared": "Hos dikongsi",
+    "couldNotShare": "Tidak dapat berkongsi hos",
+    "updated": "Akses diubah",
+    "couldNotUpdate": "Tidak dapat mengubah akses",
+    "removeTitle": "Buang {{name}}?",
+    "removeHint": "Mereka tidak lagi boleh menggunakan hos ini.",
+    "remove": "Buang",
+    "removed": "Akses dibuang",
+    "couldNotRemove": "Tidak dapat membuang akses",
+    "whoHasAccess": "Siapa yang mempunyai akses",
+    "loading": "Memuatkan...",
+    "nobodyYet": "Hanya anda yang boleh menggunakan hos ini.",
+    "changeAccessFor": "Ubah akses untuk {{name}}",
+    "shareWith": "Kongsi dengan",
+    "users": "Pengguna",
+    "roles": "Peranan",
+    "searchUsers": "Cari pengguna",
+    "searchRoles": "Cari peranan",
+    "noUsers": "Tiada pengguna lain untuk dikongsi.",
+    "noRoles": "Tiada peranan untuk dikongsi.",
+    "options": "Akses",
+    "level": "Tahap",
+    "expires": "Berakhir",
+    "expiry": {
+      "never": "Tidak pernah",
+      "1h": "Dalam 1 jam",
+      "1d": "Dalam 1 hari",
+      "7d": "Dalam 7 hari",
+      "30d": "Dalam 30 hari"
+    },
+    "pickSomeone": "Pilih siapa untuk dikongsi",
+    "shareCount_other": "Kongsi dengan {{count}}",
+    "removeAccess": "Buang akses"
+  }
+}

@@ -1,1 +1,3852 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Autentificare",
+      "addServer": "Adaugă server",
+      "switchAccount": "Schimbă contul",
+      "noServerConnected": "Niciun server conectat",
+      "connectToATermixServer": "Conectează-te la un server Termix pentru a-ți gestiona gazdele, terminalele, fișierele și multe altele."
+    },
+    "lockScreen": {
+      "cancel": "Anulează",
+      "tooManyTriesWaitSeconds": "Prea multe încercări. Așteaptă {{value}} secunde",
+      "termixLocked": "Termix este blocat",
+      "enterYourPinToContinue": "Introdu PIN-ul pentru a continua"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Portocaliu",
+      "blue": "Albastru",
+      "green": "Verde",
+      "purple": "Violet",
+      "pink": "Roz",
+      "cyan": "Cyan",
+      "red": "Roșu",
+      "yellow": "Galben",
+      "teal": "Turcoaz",
+      "indigo": "Indigo",
+      "rose": "Trandafiriu",
+      "lime": "Lime",
+      "system": "Sistem",
+      "light": "Deschis",
+      "dark": "Întunecat"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Folosește PIN",
+      "unlockTermix": "Deblochează Termix",
+      "unlockTermixFirst": "Deblochează mai întâi Termix."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Această funcție este dezactivată pe server.",
+      "aTabWasNotReopened": "O filă nu a fost redeschisă deoarece gazda sa nu mai există",
+      "tabsWereNotReopenedBecause": "Nu s-au redeschis {{count}} file deoarece gazdele lor nu mai există"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "forms",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "forms",
+        "theAddressCanTHave": "forms",
+        "useAnHttpOrHttps": "forms",
+        "thatDoesnTLookLike": "forms",
+        "thePortMustBeFrom": "forms"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "forms",
+        "theServerDidNotSend": "forms",
+        "theServerDidNotSend2": "forms",
+        "theServerSentNoSign": "forms",
+        "theSignInRanOut": "forms",
+        "wrongUsernameOrPassword": "forms",
+        "signInFailedHttp": "Autentificarea a eșuat (HTTP {{status}})",
+        "thePageSignedYouIn": "forms",
+        "thisAccountIsnTAllowed": "forms",
+        "noTermixAccountMatchesThat": "forms"
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "forms"
+    },
+    "store": {
+      "noSuchAccount": "forms",
+      "thisDeviceCanTBe": "forms",
+      "switchToAnotherAccountFirst": "forms"
+    },
+    "types": {
+      "thisDevice": "forms"
+    },
+    "accountSwitcher": {
+      "error": "forms",
+      "worksWithoutAServer": "forms",
+      "couldNotSwitchAccount": "forms",
+      "accounts": "forms",
+      "openTabsKeepRunningWhen": "forms",
+      "unlink": "Deconectează {{account}}",
+      "linkAServer": "forms",
+      "eachServerKeepsItsOwn": "Fiecare server își păstrează propriile gazde, date de autentificare și setări pe acest{{deviceWord}}.",
+      "signedIn": "forms",
+      "signedOut": "Deconectat",
+      "syncedCopy": "Copie sincronizată"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Nu s-a putut salva pin-ul",
+      "theServerSKeyMatches": "Cheia serverului corespunde cu pin-ul",
+      "theServerShowsAnotherKey": "Serverul afișează o altă cheie",
+      "pinThisKey": "Fixezi această cheie?",
+      "pinThisKey2": "Fixează această cheie",
+      "keyPinned": "Cheie fixată",
+      "couldNotReadTheServer": "Nu s-a putut citi cheia serverului",
+      "thatIsNotAPin": "Acesta nu este un pin",
+      "keysPinned": "Chei fixate",
+      "certificatePin": "Pin certificat",
+      "trustThisServerOnlyBy": "Încrede-te în acest server doar pe baza cheii sale. Folosește-l pentru un certificat auto-semnat sau pentru a refuza orice altă cheie. Adaugă următoarea cheie înainte de a schimba certificatul serverului.",
+      "removePin": "Elimină pin-ul {{pin}}",
+      "remove": "Elimină",
+      "readTheKeyFromThe": "Citește cheia de pe server",
+      "orPasteAPin": "Sau lipește un pin",
+      "pin": "Pin",
+      "add": "Adaugă",
+      "issuedTo": "Emitent pentru: {{subject}}",
+      "issuedBy": "Emitent: {{issuer}}",
+      "validUntil": "Valabil până la: {{value}}",
+      "checkThatThisKeyMatches": "Verifică dacă această cheie corespunde cu cea de pe server înainte de a o fixa.",
+      "pasteTheBase64Sha256Of": "Lipește hash-ul sha256 în format base64 al cheii publice a serverului, așa cum îl afișează openssl."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Setările proxy au fost salvate",
+      "couldNotSaveTheProxy": "Nu s-au putut salva setările proxy",
+      "couldNotReadThatFile": "Nu s-a putut citi acel fișier",
+      "certificateSaved": "Certificat salvat",
+      "theFileOrItsPassphrase": "Fișierul sau fraza de parolă este incorectă",
+      "couldNotSaveTheCertificate": "Nu s-a putut salva certificatul",
+      "headers": "Antete",
+      "sentWithEveryRequestTo": "Trimise cu fiecare cerere către acest server, de exemplu un token de serviciu Cloudflare.",
+      "name": "Nume",
+      "value": "Valoare",
+      "removeHeader": "Elimină antetul",
+      "addHeader": "Adaugă antet",
+      "cloudflareServiceToken": "Token de serviciu Cloudflare",
+      "basicAuth": "Autentificare de bază",
+      "forAProxyThatAsks": "Pentru un proxy care solicită un nume de utilizator și o parolă.",
+      "userName": "Nume de utilizator",
+      "password": "Parolă",
+      "saveHeadersAndBasicAuth": "Salvează antetele și autentificarea de bază",
+      "clientCertificate": "Certificat client",
+      "forServersThatAskFor": "Pentru servere care solicită unul (mTLS). Cheia este păstrată în stocarea securizată a {{deviceWord}} și nu poate fi citită înapoi.",
+      "certificate": "Certificat",
+      "remove": "Elimină",
+      "replaceCertificate": "Înlocuiește certificatul",
+      "pickAP12OrPfx": "Alege un fișier .p12 sau .pfx",
+      "proxySignIn": "Autentificare proxy",
+      "thisIsSignedInTo": " Acest {{deviceWord}} este autentificat la proxy.",
+      "forCloudflareAccessAutheliaAuthentik": "Pentru Cloudflare Access, Authelia, Authentik și alte proxys cu propria pagină de autentificare.{{value}}",
+      "signInToTheProxy": "Autentifică-te la proxy",
+      "forget": "Uită",
+      "certificatePassphrase": "Fraza de parolă a certificatului",
+      "thePassphraseTheFileWas": "Fraza de parolă cu care a fost salvat fișierul. Lasă-l gol dacă nu are.",
+      "passphrase": "Fraza de parolă",
+      "save": "Salvează"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Autentificat la proxy",
+      "couldNotSaveTheProxy": "Nu s-a putut salva autentificarea la proxy",
+      "signInToTheProxy": "Autentifică-te la proxy",
+      "thisBuildOfTheApp": "Această versiune a aplicației nu poate menține o autentificare prin proxy. Folosește un token de serviciu în anteturile proxy în schimb."
+    },
+    "savedLoginRow": {
+      "signIn": "Autentificare",
+      "signInWith": "Autentificare cu {{name}}",
+      "whenThisServerSignsYou": "Când acest server te deconectează, autentifică-te din nou fără a introduce parola."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Deconectat. {{copied}} elemente au fost păstrate pe Acest dispozitiv.",
+      "unlinked": "Deconectat",
+      "couldNotUnlinkTheServer": "Nu s-a putut deconecta serverul",
+      "unlink": "Deconectezi {{value}}?",
+      "thisSignsOutOfThe": "Acest {{deviceWord}} se deconectează de la server. Nimic nu este șters de pe server.",
+      "keepACopyOnThis": "Păstrează o copie pe Acest dispozitiv",
+      "yourOwnHostsCredentialsAnd": "Gazdele, acreditările și fragmentele tale se mută pe Acest dispozitiv. Gazdele partajate cu tine nu sunt păstrate.",
+      "deleteFromThis": "Șterge de pe acest {{deviceWord}}",
+      "everythingThisHasForThe": "Tot ce are acest {{deviceWord}} pentru server este eliminat."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Modifică-l la Proxy mai jos",
+      "updateTermixMobileFromYour": "Actualizează Termix Mobile din magazinul de aplicații"
+    },
+    "savedLogin": {
+      "signInToTermix": "Autentificare în Termix",
+      "faceUnlock": "deblocare facială"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Această versiune nu poate verifica cheia fixată a acestui server sau să trimită certificatul său."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Acest server nu suportă această funcționalitate",
+      "theProxyWantsYouTo": "Proxy-ul dorește să te autentifici",
+      "endpointNotAvailableOnThis": "Punctul final nu este disponibil pe acest server",
+      "unknownError": "Eroare necunoscută"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxy-ul din fața acestui server dorește să te autentifici din nou.",
+      "authenticationRequiredPleaseLogIn": "Autentificare necesară. Te rugăm să te autentifici din nou.",
+      "accessDeniedYouDoNot": "Acces interzis. Nu ai permisiunea de a efectua această acțiune.",
+      "thisFeatureIsTurnedOff": "Această funcționalitate este dezactivată pe server.",
+      "thisServerDoesNotSupport": "Acest server nu suportă această funcționalitate.",
+      "resourceNotFoundTheRequested": "Resursă negăsită. Elementul solicitat poate fi șters.",
+      "conflictTheResourceAlreadyExists": "Conflict. Resursa există deja sau este în utilizare.",
+      "validationErrorPleaseCheckYour": "Eroare de validare. Te rugăm să verifici intrarea și să încerci din nou.",
+      "serverErrorOccurredPleaseTry": "A apărut o eroare de server. Te rugăm să încerci din nou mai târziu.",
+      "sslCertificateVerificationFailed": "Verificarea certificatului SSL a eșuat.",
+      "networkErrorPleaseCheckYour": "Eroare de rețea. Te rugăm să verifici conexiunea și să încerci din nou.",
+      "failedTo": "Eșec la {{operation}}",
+      "unknownError": "Eroare necunoscută",
+      "unexpectedErrorDuring": "Eroare neașteptată în timpul {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Aplicația nu a putut încrede HTTPS pentru această adresă IP locală. Fixează cheia serverului la Proxy și certificat client, folosește un certificat în care {{deviceWord}} are încredere, sau HTTP pe o rețea locală sau VPN de încredere.",
+        "thisServerIsBehindA": "Acest server este în spatele unui proxy de autentificare. Folosește opțiunea de autentificare externă în schimb.",
+        "loginFailed": "Autentificare eșuată"
+      },
+      "files": {
+        "fileNotFound": "Fișier negăsit",
+        "fileWriteOperationDidNot": "Operația de scriere a fișierului nu a returnat starea de succes",
+        "couldNot": "Nu s-a putut {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Gazdă salvată, dar unele setări au eșuat: {{value}}",
+        "unexpectedHostResponseFrom": "Răspuns neașteptat de la gazdă de la {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Eșec la mostră live"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Fără răspuns"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Acest server nu a afișat cheia la care este fixat, așa că pagina nu a fost deschisă."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Acest {{what}} nu mai există.",
+      "aHostCannotBeIts": "O gazdă nu poate fi propriul său părinte",
+      "parentHostNotFound": "Gazda părinte nu a fost găsită",
+      "aHostCanTGo": "O gazdă nu poate fi plasată sub una dintre sub-gazdele sale",
+      "thisIsSharedWithYou": "Acest {{what}} este partajat cu tine. Doar proprietarul său îl poate modifica.",
+      "nameIsRequired": "Numele este obligatoriu",
+      "nameAndCommandAreRequired": "Numele și comanda sunt obligatorii",
+      "aFolderWithThatName": "Există deja un dosar cu acest nume"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Acest dispozitiv nu poate salva {{what}} aici."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Acest fragment este partajat cu tine și nu poate fi modificat."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Folosește o frază de parolă cu cel puțin 8 caractere.",
+      "thisIsNotATermix": "Acesta nu este un fișier de rezervă Termix.",
+      "thisBackupIsFromA": "Această rezervă este de la o versiune mai nouă a Termix. Actualizează mai întâi aplicația.",
+      "wrongPassphraseOrTheFile": "Frază de parolă incorectă sau fișierul este corupt."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Această versiune nu poate cripta datele locale."
+    },
+    "keys": {
+      "unlockTermixFirst": "Deblocați Termix mai întâi.",
+      "thatIsNotADatabase": "Acesta nu este o cheie de bază de date.",
+      "couldNotSaveTheDatabase": "Nu s-a putut salva cheia bazei de date."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Aceste date au fost salvate de o versiune mai nouă a Termix. Actualizați aplicația pentru a le deschide."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Acest dispozitiv nu se sincronizează.",
+      "localDataIsNotAvailable": "Datele locale nu sunt disponibile aici.",
+      "unlockTermixFirst": "Deblocați Termix mai întâi."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Nu se poate conecta.",
+      "thisWayCanTRun": "Această metodă nu poate executa comenzi"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Parola sudo",
+      "password": "Parolă",
+      "run": "Execută",
+      "thatPasswordWasWrong": "Această parolă a fost incorectă.",
+      "onNeedsRoot": "{{reason}} pe {{hostName}} necesită drepturi de root.",
+      "needsRootForThis": "{{hostName}} necesită drepturi de root pentru aceasta.",
+      "itIsKeptUntilYou": "Este reținută până închideți aplicația."
+    },
+    "run": {
+      "theHostTookTooLong": "Gazda a durat prea mult să răspundă",
+      "connectionLost": "Conexiune pierdută"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Aceasta necesită root. Conectați-vă ca root, configurați sudo fără parolă sau salvați o parolă sudo pentru gazdă.",
+      "theSudoPasswordWasWrong": "Parola sudo a fost incorectă",
+      "commandFailed": "Comanda a eșuat"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet în terminal necesită o conexiune de la {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funcția {{id}} este deja înregistrată"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adresă",
+      "theIpOrHostName": "IP-ul sau numele gazdei sub nume",
+      "username": "Nume utilizator",
+      "theUserBeforeTheAddress": "Utilizatorul înainte de adresă",
+      "port": "Port",
+      "thePortAfterTheAddress": "Portul după adresă",
+      "hostIcon": "Iconița gazdei",
+      "theIconSetOnThe": "Iconița setată pe gazdă",
+      "pinIcon": "Fixează iconița",
+      "marksPinnedHosts": "Marchează gazdele fixate",
+      "sharedBadge": "Insignă partajată",
+      "marksHostsSharedWithYou": "Marchează gazdele partajate cu dumneavoastră",
+      "protocolBadges": "Insigne protocol",
+      "sshRdpDockerAndOther": "Etichete SSH, RDP, Docker și altele",
+      "tags": "Etichete",
+      "theHostSTags": "Etichetele gazdei",
+      "cpuAndRam": "CPU și RAM",
+      "liveUsageBarsOnOnline": "Bare de utilizare în timp real pe gazdele online",
+      "statusColors": "Culori stare",
+      "greenBarWhenOnlineRed": "Bară verde când este online, roșie când este offline"
+    },
+    "uiPrefs": {
+      "small": "Mic",
+      "default": "Implicit",
+      "large": "Mare",
+      "comfortable": "Confortabil",
+      "compact": "Compact"
+    },
+    "errors": {
+      "somethingWentWrong": "Ceva nu a mers bine"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Blocarea unei chei cu o frază de parolă necesită aplicația Termix, nu o previzualizare web."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Imediat",
+      "after15Seconds": "După 15 secunde",
+      "after1Minute": "După 1 minut",
+      "after5Minutes": "După 5 minute"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Secretul dispozitivului a dispărut",
+      "noSealedKey": "Nicio cheie sigilată",
+      "theSealedKeyIsDamaged": "Cheia sigilată este coruptă",
+      "wrongPin": "PIN incorect",
+      "theSealedKeyDidNot": "Cheia sigilată nu s-a deschis",
+      "biometricsCanTOpenThe": "Biometria nu poate deschide cheia"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Actualizează aplicația",
+      "onYourServerNeedsA": "{{name}} de pe serverul tău necesită o versiune mai nouă a Termix pe acest {{deviceWord}}.",
+      "updateThePlugin": "Actualizează pluginul",
+      "onYourServerIsToo": "{{name}} de pe serverul tău este prea vechi pentru această aplicație. Cere unui administrator să îl actualizeze în Plugins."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blocat de aplicație",
+      "theAppDoesNotLet": "Aplicația nu permite pluginurilor să folosească această rută.",
+      "thisBuildCanTReach": "Această versiune nu poate ajunge în siguranță la acest server."
+    },
+    "support": {
+      "needsANewerVersionOf": "Necesită o versiune mai nouă a aplicației",
+      "updateThePluginOnThe": "Actualizează pluginul pe server",
+      "theAppHasItsOwn": "Aplicația are propriul aspect",
+      "notInTheAppYet": "Încă nu este în aplicație",
+      "linkAServerToUse": "Conectează un server pentru a-l folosi",
+      "opensInTheAppFrom": "Se deschide în aplicație de pe server",
+      "runsOnTheServer": "Rulează pe server",
+      "throughTheServer": "Prin server",
+      "inTheApp": "În aplicație",
+      "webView": "Vizualizare web",
+      "onTheServer": "Pe server",
+      "appLook": "Aspect aplicație",
+      "notInTheApp": "Nu este în aplicație",
+      "safeMode": "Mod sigur",
+      "notRunning": "Nu rulează",
+      "notInstalled": "Nu este instalat",
+      "notOnThisServer": "Nu este pe acest server",
+      "thePluginIsNotInstalled": "Pluginul nu este instalat pe acest server.",
+      "turnedOffOnTheServer": "Dezactivat pe server",
+      "itOpensHereAgainWhen": "Se va deschide din nou aici când un administrator îl activează.",
+      "notRunningOnTheServer": "Nu rulează pe server",
+      "theServerIsInSafe": "Serverul este în mod sigur, așa că rulează doar pluginurile de tip look.",
+      "thePluginDidNotStart": "Pluginul nu a pornit. Un administrator îl poate verifica în Plugins.",
+      "thisPluginIsNotAvailable": "Acest plugin nu este disponibil",
+      "itIsNotMadeFor": "Nu este creat pentru aplicație.",
+      "offOnThisServer": "dezactivat pe acest server",
+      "notRunningOnThisServer": "nu rulează pe acest server",
+      "notOnThisServer2": "nu este pe acest server",
+      "notInTheAppYet2": "Încă nu este în aplicație | pe acest server",
+      "worksOnThis": "Funcționează pe acest {{deviceWord}}",
+      "andServer": "{{DeviceWord}} și server",
+      "deviceOnly": "Doar {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Reîncarcă"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Deconectează tot",
+      "showOpenSessions": "Afișează sesiunile deschise",
+      "termixShowsANotificationWhile": "Termix afișează o notificare cât timp sesiunile sunt deschise, astfel încât Android să le mențină active în fundal.",
+      "sessionsOpen_one": "{{count}} sesiune deschisă",
+      "sessionsOpen_few": "{{count}} sesiuni deschise",
+      "sessionsOpen_other": "{{count}} sesiuni deschise",
+      "tunnelsActive_one": "{{count}} tunel activ",
+      "tunnelsActive_few": "{{count}} tuneluri active",
+      "tunnelsActive_other": "{{count}} tuneluri active",
+      "notConnected": "Neconectat",
+      "waitingForNetwork": "Se așteaptă rețeaua",
+      "connecting": "Se conectează",
+      "connected": "Conectat",
+      "reconnecting": "Se reconectează",
+      "failed": "Eșuat",
+      "closed": "Închis"
+    },
+    "companionPane": {
+      "resizeThePanel": "Redimensionează panoul {{title}}"
+    },
+    "connectionsPanel": {
+      "close": "Închide",
+      "closeAllTabs": "Închizi toate cele {{count}} file?",
+      "everySessionEnds": "Fiecare sesiune se încheie.",
+      "closeAll": "Închide tot",
+      "noActiveConnections": "Nicio conexiune activă",
+      "pickAHostFromThe": "Selectează un gazdă din listă pentru a începe o sesiune. Filele deschise pe alte dispozitive apar și aici.",
+      "connectToAHostTo": "Conectează-te la o gazdă pentru a începe o sesiune. Filele deschise pe alte dispozitive apar și aici.",
+      "open": "Deschide",
+      "background": "Fundal",
+      "sessionsFromOtherDevicesOr": "Sesiuni de pe alte dispozitive sau file puse în fundal. Atinge pentru a le relua.",
+      "liveTapToReconnect": "Activ, atinge pentru reconectare",
+      "tapToReopen": "Atinge pentru redeschidere"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Aceasta este dezactivată pe server",
+      "comesBackHereWhenAn": "{{title}} revine aici când un administrator activează din nou plugin-ul său.",
+      "closeTab": "Închide fila"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Conexiuni",
+        "hideHostList": "Ascunde lista de gazde",
+        "showHostList": "Afișează lista de gazde",
+        "backToHosts": "Înapoi la gazde",
+        "showKeyboard": "Afișează tastatura",
+        "hideKeyboard": "Ascunde tastatura",
+        "hideKeysPanel": "Ascunde panoul de chei",
+        "showKeysPanel": "Afișează panoul de chei"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Atinge pentru opțiuni de filă, ține apăsat pentru a muta",
+        "holdToMove": "Ține apăsat pentru a muta",
+        "close": "Închide {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Se așteaptă la rețea",
+        "connectionFailed": "Conexiunea a eșuat",
+        "reconnecting": "Se reconectează"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Redenumește",
+      "newTabOnThisHost": "Filă nouă pe această gazdă",
+      "here": "{{title}} aici",
+      "hidePanel": "Ascunde panoul {{title}}",
+      "showPanel": "Afișează panoul {{title}}",
+      "endSplitView": "Închide vizualizarea împărțită",
+      "splitViewWith": "Vizualizare împărțită cu...",
+      "moveLeft": "Mută la stânga",
+      "moveRight": "Mută la dreapta",
+      "closeTab": "Închide fila",
+      "closeAllTabs": "Închide toate filele",
+      "closeAllTabs2": "Închizi toate cele {{count}} file?",
+      "everySessionEnds": "Fiecare sesiune se încheie.",
+      "closeAll": "Închide tot",
+      "splitViewWith2": "Vizualizare împărțită cu",
+      "renameTab": "Redenumește fila",
+      "leaveItEmptyToUse": "Lasă gol pentru a folosi numele gazdei."
+    },
+    "resizeHostList": "Redimensionează lista de gazde",
+    "resizeSplitView": "Redimensionează vizualizarea împărțită",
+    "connections": "Conexiuni",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "Autentificare cu doi factori",
+        "enterThe6DigitCode": "Introdu codul de 6 cifre din aplicația ta de autentificare.",
+        "cancel": "Anulează",
+        "verify": "Verifică",
+        "codeExpiresInSGet": "Codul expiră în {{totpCountdown}}s, obține un cod nou",
+        "warpgateAuthentication": "Autentificare Warpgate",
+        "confirmTheWarpgateAuthenticationUrl": "Confirmă URL-ul de autentificare Warpgate și cheia de securitate.",
+        "authenticate": "Autentifică",
+        "warpgateUrl": "URL Warpgate",
+        "securityKeyOptional": "Cheie de securitate (opțional)",
+        "authenticationRequired": "Autentificare necesară",
+        "thisHostNeedsCredentialsTo": "Această gazdă necesită date de autentificare pentru conectare.",
+        "connect": "Conectează",
+        "password": "Parolă",
+        "sshKey": "Cheie SSH",
+        "pastePrivateKey": "Lipește cheia privată",
+        "keyPassphraseOptional": "Fraza de parolă a cheii (opțional)"
+      },
+      "connectionError": {
+        "tryAgain": "Încearcă din nou",
+        "close": "Închide",
+        "connectThroughTheServer": "Conectează-te prin server",
+        "connectFromThis": "Conectează-te de pe acest {{deviceWord}}",
+        "triedFromThis": "S-a încercat de pe acest {{deviceWord}}",
+        "triedThroughTheServer": "S-a încercat prin server"
+      },
+      "execGate": {
+        "connecting": "Se conectează..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "A apărut o eroare",
+        "retry": "Reîncearcă",
+        "refresh": "Reîmprospătează",
+        "nothingToShow": "Nu există nimic de afișat"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Jurnale copiate",
+        "connectionLog": "Jurnal conexiune ({{count}})",
+        "copyLog": "Copiază jurnalul",
+        "waitingForConnection": "Se așteaptă conexiunea…",
+        "noLogEntries": "Nu există intrări în jurnal"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Nu s-a putut salva modul în care se conectează acest gazdă"
+      },
+      "useSessionConnect": {
+        "connected": "Conectat",
+        "connectingTo": "Se conectează la {{name}}…",
+        "connectionLost": "Conexiunea s-a întrerupt",
+        "failedToConnect": "Conectarea a eșuat",
+        "invalidCode": "Cod nevalid",
+        "warpgateAuthenticationFailed": "Autentificarea Warpgate a eșuat",
+        "authenticationCancelled": "Autentificarea a fost anulată"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Căutare și comenzi",
+    "addHost": "Adaugă gazdă",
+    "keyboardShortcuts": "Scurtături de tastatură",
+    "home": "Acasă",
+    "hosts": "Gazde",
+    "sessions": "Sesiuni",
+    "tools": "Unelte",
+    "settings": "Setări",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Scurtături de tastatură"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Gazde și dosare",
+      "yourHostsFoldersAndHosts": "Gazdele tale, dosarele și gazdele partajate cu tine",
+      "credentials": "Credențiale",
+      "savedPasswordsAndKeysAnd": "Parole și chei salvate, precum și credențialele partajate cu tine",
+      "snippets": "Fragmente",
+      "snippetsAndTheirFolders": "Fragmente și dosarele lor",
+      "hostDefaults": "Setări implicite pentru gazde",
+      "defaultSettingsForNewHosts": "Setări implicite pentru gazdele noi",
+      "preferences": "Preferințe",
+      "settingsThatFollowYouBetween": "Setări care te însoțesc între dispozitive"
+    },
+    "link": {
+      "noSuchServerAccount": "Cont de server inexistent",
+      "signInFirst": "Autentifică-te mai întâi.",
+      "thisServerAccountBelongsTo": "Acest cont de server aparține lui {{value}}. Autentifică-te ca acesta sau adaugă din nou serverul pentru acest utilizator."
+    },
+    "reasons": {
+      "signedOut": "Deconectat",
+      "thisSSignInTo": "Autentificarea acestui {{deviceWord}} pe server a expirat.",
+      "theServerEndedThisS": "Serverul a încheiat sesiunea acestui {{deviceWord}}. Este posibil să fi fost deconectat de pe un alt dispozitiv.",
+      "proxySignInNeeded": "Este necesară autentificarea prin proxy",
+      "theProxyInFrontOf": "Proxy-ul din fața acestui server solicită o reautentificare.",
+      "proxyPasswordNeeded": "Este necesară parola proxy-ului",
+      "theProxyInFrontOf2": "Proxy-ul din fața acestui server a solicitat parola sa.",
+      "certificateRefused": "Certificat refuzat",
+      "theServerDidNotAccept": "Serverul nu a acceptat certificatul acestui {{deviceWord}}.",
+      "untrustedServer": "Server neîncrezut",
+      "theServerSCertificateIs": "Certificatul serverului nu este încrezut de acest {{deviceWord}}.",
+      "serverKeyChanged": "Cheia serverului s-a schimbat",
+      "theServerShowsAnotherKey": "Serverul afișează o cheie diferită de cea fixată pentru el. Dacă ai schimbat certificatul său, fixează noua cheie.",
+      "offline": "Deconectat",
+      "canTReachTheServer": "Nu se poate ajunge la server. Sincronizarea va reîncerca în curând.",
+      "serverProblem": "Problemă la server",
+      "theServerHadAProblem": "Serverul a întâmpinat o problemă. Sincronizarea va reîncerca în curând.",
+      "updateNeeded": "Este necesară o actualizare",
+      "thisServerUsesANewer": "Acest server folosește o versiune mai nouă de sincronizare. Actualizează aplicația.",
+      "notATermixServer": "Nu este un server Termix",
+      "theAddressDoesNotAnswer": "Adresa nu răspunde ca un server Termix.",
+      "syncIsOff": "Sincronizarea este oprită",
+      "theSyncPluginIsOff": "Plugin-ul Sync este oprit pe acest server. Cere unui administrator să îl activeze în secțiunea Plugins.",
+      "differentUser": "Utilizator diferit",
+      "youSignedInAsA": "Te-ai autentificat ca un utilizator diferit de cel căruia îi aparține acest cont de server.",
+      "syncStopped": "Sincronizarea s-a oprit",
+      "somethingWentWrong": "Ceva nu a mers bine.",
+      "signInAgain": "Autentifică-te din nou",
+      "signInToTheProxy": "Autentifică-te la proxy",
+      "enterThePassword": "Introdu parola",
+      "tryAgain": "Încearcă din nou",
+      "checkThePin": "Verifică codul PIN",
+      "checkForUpdates": "Verifică actualizările",
+      "pickACertificate": "Alege un certificat"
+    },
+    "settings": {
+      "noSuchSetting": "Această setare nu există",
+      "snippetFolder": "Dosar cu snippet-uri",
+      "hostDefault": "Implicit pentru gazdă"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Serverul nu a acceptat certificatul acestui {{deviceWord}}.",
+      "theServerSCertificateIs": "Certificatul serverului nu este de încredere.",
+      "canTReachTheServer": "Nu se poate ajunge la server.",
+      "signedOut": "Deconectat",
+      "theProxyAskedForIts": "Proxy-ul a solicitat parola sa.",
+      "theProxyWantsYouTo": "Proxy-ul dorește să te autentifici.",
+      "theSyncPluginIsOff": "Plugin-ul Sync este oprit pe acest server.",
+      "serverError": "Eroare de server {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Serverul afișează o cheie diferită de cea fixată."
+    },
+    "remote": {
+      "thisIsNotATermix": "Acesta nu este un server Termix.",
+      "theProxyWantsYouTo": "Proxy-ul dorește să te autentifici.",
+      "thisServerUsesANewer": "Acest server folosește o versiune mai nouă de sincronizare. Actualizează aplicația."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} gazdă",
+      "hostCount_few": "{{count}} gazde",
+      "hostCount_other": "{{count}} gazde",
+      "credentialCount_one": "{{count}} acreditare",
+      "credentialCount_few": "{{count}} acreditări",
+      "credentialCount_other": "{{count}} acreditări",
+      "snippetCount_one": "{{count}} snippet",
+      "snippetCount_few": "{{count}} snippet-uri",
+      "snippetCount_other": "{{count}} snippet-uri",
+      "folderCount_one": "{{count}} dosar",
+      "folderCount_few": "{{count}} dosare",
+      "folderCount_other": "{{count}} dosare",
+      "nothingYet": "încă nimic",
+      "listAnd": "{{list}} și {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Nu se poate conecta.",
+      "connectingToFromThis": "Se conectează la {{name}} de pe acest {{deviceWord}}",
+      "connectingToThroughTheServer": "Se conectează la {{name}} prin intermediul serverului",
+      "reconnectingTry": "Se reconectează (încercarea {{retry}})",
+      "disconnected": "Deconectat",
+      "connected": "Conectat",
+      "reconnectedToTheSameSession": "Reconectat la aceeași sesiune",
+      "reconnectedWithANewShell": "Reconectat cu un shell nou",
+      "couldNotReachTheHost": "Nu s-a putut ajunge la gazdă de pe acest {{deviceWord}}, se încearcă prin intermediul serverului",
+      "couldNotConnectThroughThe": "Nu s-a putut conecta prin intermediul serverului, se încearcă de pe acest {{deviceWord}}",
+      "connectionLost": "Conexiunea pierdută: {{reason}}",
+      "offlineWaitingForTheNetwork": "Deconectat, se așteaptă rețeaua",
+      "nextTryInS": "Următoarea încercare în {{value}}s",
+      "reconnectingTry2": "Se reconectează (încercarea {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Gazda a încetat să mai răspundă",
+      "networkLost": "Rețeaua pierdută",
+      "network": "Rețea: {{type}}{{value}}",
+      "lowPowerModeOn": "Modul de consum redus activat",
+      "lowPowerModeOff": "Modul de consum redus dezactivat",
+      "droppedTypedCharacters": "Au fost ignorate {{count}} caractere tastate",
+      "youDidNotTrustThe": "Nu ai încredere în cheia gazdei.",
+      "checkTheKeyWithWhoever": "Verifică cheia cu persoana care administrează gazda, apoi încearcă din nou.",
+      "loginCancelled": "Autentificarea a fost anulată.",
+      "connectAgainWhenYouAre": "Conectează-te din nou când ești pregătit.",
+      "typedInputIsOver64": "Intrarea tastată depășește 64 KB, cea mai veche parte a fost eliminată",
+      "appInTheBackground": "Aplicația în fundal",
+      "appInTheForeground": "Aplicația în prim-plan",
+      "thisConnectionCanTRun": "Această conexiune nu poate executa comenzi"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Verifică adresa și portul, și că serverul poate ajunge la gazdă.",
+      "checkTheAddressAndPort2": "Verifică adresa și portul, și că acest {{deviceWord}} poate ajunge la gazdă.",
+      "checkTheProxySettingsOf": "Verifică setările proxy ale acestei gazde.",
+      "checkTheKeyWithWhoever": "Verifică cheia cu persoana care administrează gazda înainte de a-i acorda încredere.",
+      "checkTheUsernameAndLogin": "Verifică numele de utilizator și datele de autentificare în editorul de gazdă.",
+      "checkThatTheServerIs": "Verifică dacă serverul este pornit și dacă ești încă autentificat.",
+      "tryAgainIfItKeeps": "Încearcă din nou. Dacă se deconectează în continuare, verifică rețeaua.",
+      "connectAgainWhenYouAre": "Conectează-te din nou când ești pregătit.",
+      "pickAnotherWayToConnect": "Alege o altă metodă de conectare a acestei gazde.",
+      "connectThisHostThroughA": "Conectează această gazdă printr-un server Termix.",
+      "pickTheJumpHostsAgain": "Alege din nou gazdele intermediare în editorul de gazdă.",
+      "thisIsATailscaleAddress": "Aceasta este o adresă Tailscale. Verifică dacă Tailscale este conectat pe acest {{deviceWord}}.",
+      "theSavedKeyCanT": "Cheia salvată nu poate fi citită. Lipește-o din nou în editorul de gazdă.",
+      "signInToThisServer": "Autentifică-te din nou pe acest server.",
+      "openThisHostInThe": "Deschide această gazdă în aplicația web Termix.",
+      "canTConnectThisWay": "Nu se poate conecta în acest mod",
+      "couldNotReachTheHost": "Nu s-a putut ajunge la gazdă",
+      "theProxyDidNotLet": "Proxy-ul nu a permis trecerea conexiunii",
+      "theHostKeyWasNot": "Cheia gazdei nu a fost încredințată",
+      "theLoginWasRefused": "Autentificarea a fost refuzată",
+      "theTermixServerDidNot": "Serverul Termix nu a răspuns",
+      "theConnectionDropped": "Conexiunea s-a întrerupt",
+      "loginCancelled": "Autentificarea a fost anulată"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "Agent SSH",
+        "thisHostSignsInWith": "Această gazdă se autentifică cu „{{authType}}”, ceea ce necesită un server Termix. Asociază unul pentru a te conecta.",
+        "thisHostUsesA1password": "Această gazdă folosește o referință 1Password, ceea ce necesită un server Termix cu Secret Sources. Asociază unul și conectează această gazdă prin el.",
+        "signInWithFirstOpen": "Autentifică-te mai întâi cu {{title}}. Deschide o dată un terminal către această gazdă, apoi încearcă din nou.",
+        "theSignInAndThe": "autentificarea și certificatul se află pe server",
+        "theHasNoSshAgent": "{{deviceWord}} nu are un agent SSH",
+        "needsATermixServerBecause": "{{title}} necesită un server Termix deoarece {{why}}. Asociază unul și conectează această gazdă prin el."
+      },
+      "chain": {
+        "aJumpHostOfThis": "O gazdă intermediară a acestei gazde nu mai există."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Conexiunea a fost întreruptă",
+        "theShellChannelClosed": "Canalul shell s-a închis",
+        "jumpHost": "Gazdă intermediară {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Cod invalid, încearcă din nou:",
+        "authenticationFailed": "Autentificarea a eșuat: {{message}}",
+        "theHostKeyWasNot": "Cheia gazdei nu a fost încredințată.",
+        "loginCancelled": "Autentificarea a fost anulată.",
+        "notConnected": "Neconectat"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Conexiunea a fost întreruptă"
+      },
+      "thisBuildHasNoSsh": "Această versiune nu are motor SSH. Folosește aplicația din magazin sau asociază un server Termix pentru a te conecta.",
+      "theHostsOnThisAre": "Gazdele de pe acest {{deviceWord}} nu sunt încă deschise.",
+      "thisServerSHostsAre": "Gazdele acestui server nu se află pe acest {{deviceWord}}. Activează pluginul Sync pe server pentru a te conecta de pe {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Nu se poate conecta.",
+      "canTConnectFromThe": "Nu se poate conecta de pe acest {{deviceWord}}.",
+      "canTReachTheServer": "Nu se poate ajunge la server.",
+      "theOnlyConnectsToSsh": "Acest {{deviceWord}} se conectează doar la gazde SSH și Telnet.",
+      "connectThisHostThroughThe": "Conectează această gazdă prin server",
+      "connectThisHostFromThe": "Conectează această gazdă de pe {{deviceWord}}",
+      "termixServer": "server Termix",
+      "usesThisWhenItCan": "Folosește acest {{deviceWord}} când poate ajunge la gazdă, altfel serverul.",
+      "thisConnectsToTheHost": "Acest {{deviceWord}} se conectează direct la gazdă.",
+      "theTermixServerConnectsTo": "Serverul Termix se conectează la gazdă pentru tine.",
+      "anSshConnection": "o conexiune SSH",
+      "aTermixServer": "un server Termix",
+      "aConnectionFromThe": "o conexiune de pe {{deviceWord}}",
+      "isOffOnThisServer": "{{title}} este dezactivat pe acest server. {{how}} pentru a-l folosi.",
+      "isOffOnThisServer2": "{{title}} este dezactivat pe acest server.",
+      "anotherWayToConnect": "o altă modalitate de conectare",
+      "needsToUseIt": "{{title}} are nevoie de {{what}}. {{how}} pentru a-l folosi.",
+      "needsWhichThisHostCan": "{{title}} are nevoie de {{what}}, pe care această gazdă nu îl poate folosi momentan.",
+      "thisDevice": "Acest {{deviceWord}}",
+      "automatic": "Automat"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Ești deconectat de pe acest server. Conectează-te pentru a te conecta prin el.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux nu este instalat pe această gazdă. Se folosește shell-ul simplu.",
+        "tapRetryToBringIt": "Apasă Retentativ pentru a-l readuce aici.",
+        "thisSessionWasOpenedOn": "Această sesiune a fost deschisă pe un alt dispozitiv",
+        "noServerUrlFoundLink": "Nu s-a găsit nicio URL a serverului. Asociază din nou serverul.",
+        "signedOutOfThisServer": "Deconectat de pe acest server. Conectează-te din nou.",
+        "signInWithInYour": "Conectează-te cu {{title}} în browser. Aceasta se închide când este gata.",
+        "theSocketClosedWhileThe": "Socket-ul s-a închis în timp ce aplicația era în fundal",
+        "noWebsocketUrlAvailableServer": "Nicio URL WebSocket disponibilă - server neconfigurat",
+        "connectionTimeoutServerNotResponding": "Timp de așteptare pentru conexiune - serverul nu răspunde",
+        "verificationCode": "Cod de verificare:",
+        "hostKeyVerificationRequiredBut": "Verificarea cheii gazdei este necesară, dar nu este înregistrat niciun handler",
+        "hostKeyChangedButNo": "Cheia gazdei s-a schimbat, dar nu este înregistrat niciun handler",
+        "thisHostNeedsASign": "Această gazdă necesită o autentificare suportată doar de aplicația web",
+        "invalidCodeTryAgain": "Cod invalid, încearcă din nou:",
+        "unknownError": "Eroare necunoscută",
+        "connectionClosed": "Conexiune închisă",
+        "connectionClosed2": "Conexiune închisă ({{code}})",
+        "theServerClosedTheConnection": "Serverul a închis conexiunea",
+        "theSocketClosed": "Socket-ul s-a închis ({{code}})",
+        "signIn": "autentificare {{title}}",
+        "signInFailed": "autentificarea {{title}} a eșuat",
+        "isNotSetUpOn": "{{title}} nu este configurat pe server",
+        "signInTimedOut": "timpul de autentificare {{title}} a expirat",
+        "authenticationFailed": "Autentificare eșuată: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Salvează gazda și conectează-te la ea pentru a o verifica.",
+      "loggedInAsOn": "Conectat ca {{username}} pe {{host}}",
+      "theHostAskedForMore": "Gazda a cerut mai mult decât o parolă, de exemplu un cod. Salvează gazda și conectează-te pentru a finaliza autentificarea."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Se așteaptă rețeaua",
+      "couldNotOpenTheTunnel": "Nu s-a putut deschide tunelul",
+      "theConnectionDropped": "Conexiunea s-a întrerupt",
+      "iosStoppedThisTunnelWhile": "iOS a oprit acest tunel în timp ce aplicația era în fundal. Repornește-l pentru a-l deschide.",
+      "connecting": "Se conectează",
+      "connected": "Conectat",
+      "retrying": "Se reîncearcă",
+      "waiting": "Se așteaptă",
+      "failed": "Eșuat"
+    },
+    "gateways": {
+      "error": "Eroare",
+      "gateways": "Gateway-uri",
+      "gatewaysCanOnlyBeChanged": "Gateway-urile pot fi modificate doar în Termix pe web.",
+      "noHandshake": "Fără handshake",
+      "rulesMissing": "Reguli lipsă",
+      "up": "Activ",
+      "pending": "În așteptare",
+      "applying": "Se aplică",
+      "down": "Oprit",
+      "unreachable": "Nepotrivit"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Încă nu există tuneluri. Adaugă unul pentru a redirecționa un port de la gazda de capăt către această gazdă.",
+      "tunnel": "Tunel {{value}}",
+      "removeTunnel": "Elimină tunelul {{value}}",
+      "mode": "Mod",
+      "local": "Local",
+      "remote": "Remote",
+      "dynamic": "Dinamic",
+      "targetHost": "Gazda țintă",
+      "onThisHostForTunnels": "Pe această gazdă, pentru tunelurile pe care le rulează {{deviceWord}}",
+      "bindHost": "Gazda de legare",
+      "endpointHost": "Gazda de capăt",
+      "addAnotherHostFirstTunnels": "Adaugă mai întâi o altă gazdă. Tunelurile trec printr-o gazdă salvată.",
+      "sourcePort": "Portul sursă",
+      "endpointPort": "Portul de capăt",
+      "maxRetries": "Maxim încercări",
+      "retryEveryS": "Reîncearcă la fiecare (s)",
+      "startOnItsOwn": "Pornește independent",
+      "addTunnel": "Adaugă tunel",
+      "tunnelNeedsPortsFrom1": "Tunelul {{value}} necesită porturi între 1 și 65535"
+    },
+    "register": {
+      "tunnels": "Tuneluri",
+      "startAndStopSavedTunnels": "Pornește și oprește tunelurile salvate",
+      "tunnel": "TUNEL",
+      "tunnel2": "Tunel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Punctul final local a fost copiat",
+      "tunnel": "Tunel | {{sourcePort}}",
+      "portMapping": "Mapare porturi",
+      "connect": "Conectează",
+      "disconnect": "Deconectează",
+      "cancel": "Anulează",
+      "connected": "Conectat",
+      "connecting": "Se conectează",
+      "disconnecting": "Se deconectează",
+      "error": "Eroare",
+      "retrying": "Se reîncearcă ({{value}}/{{value2}})",
+      "waitingS": "Se așteaptă {{value}}s",
+      "waiting": "Se așteaptă",
+      "disconnected": "Deconectat"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Se pornește tunelul pe portul {{sourcePort}}",
+      "connectingTunnelOnPort": "Se conectează tunelul pe portul {{sourcePort}}",
+      "disconnectingPort": "Se deconectează portul {{sourcePort}}",
+      "cancellingPort": "Se anulează portul {{sourcePort}}",
+      "failedToTunnel": "Nu s-a putut {{action}} tunelul",
+      "tunnels": "Tuneluri | {{count}} | {{value}}",
+      "loadingTunnels": "Se încarcă tunelurile…",
+      "noSshTunnelsConfiguredFor": "Nu sunt configurate tuneluri SSH pentru această gazdă. Adaugă tuneluri din formularul gazdei.",
+      "runOn": "Rulează pe",
+      "server": "Server",
+      "this": "Acest {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunelurile de pe acest {{deviceWord}} se opresc când aplicația este închisă. Pe iOS, se opresc și curând după ce aplicația trece în fundal.",
+      "failedToFetchTunnelStatuses": "Nu s-au putut obține stările tunelurilor",
+      "thisBuildCanTOpen": "Această versiune nu poate deschide tuneluri pe {{deviceWord}}.",
+      "sourceHostNotFound": "Gazda sursă nu a fost găsită",
+      "endpointHostNotFound": "Gazda de capăt nu a fost găsită: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tuneluri",
+      "tunnelCount_one": "{{count}} tunel",
+      "tunnelCount_few": "{{count}} tuneluri",
+      "tunnelCount_other": "{{count}} tuneluri",
+      "runningOnServer": "{{connected}} rulează pe server"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Instrumente de autentificare"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker nu este instalat pe acest gazdă.",
+        "dockerDidNotAnswer": "Docker nu a răspuns",
+        "thatIsNotAValid": "Acesta nu este un nume de stivă valid"
+      }
+    },
+    "containerDetail": {
+      "stop": "Oprește",
+      "start": "Pornește",
+      "restart": "Redenemare",
+      "remove": "Elimină",
+      "logs": "Jurnale",
+      "stats": "Statistici",
+      "console": "Consolă",
+      "logsCopied": "Jurnale copiate",
+      "copy": "Copiază",
+      "containerIsNotRunningNo": "Containerul nu rulează, nu există statistici în timp real.",
+      "cpu": "CPU",
+      "memory": "Memorie",
+      "networkIO": "I/O rețea",
+      "blockIO": "I/O bloc",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Nu s-au putut încărca jurnalele",
+      "failedToLoadStats": "Nu s-au putut încărca statisticile",
+      "noOutput": "(fără ieșire)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Se conectează la Docker...",
+    "remove": "Elimină {{name}}?",
+    "stop": "Oprește {{name}}?",
+    "theContainerIsStoppedAnd": "Containerul este oprit și șters. Volumele sale rămân.",
+    "anythingRunningInItStops": "Tot ce rulează în el se oprește.",
+    "remove2": "Elimină",
+    "stop2": "Oprește",
+    "dockerThis": "Docker | acest {{deviceWord}}",
+    "lookingForDocker": "Se caută Docker...",
+    "dockerIsNotAvailableOn": "Docker nu este disponibil pe acest gazdă.",
+    "noContainersFound": "Nu s-au găsit containere",
+    "noContainersMatchYourFilters": "Niciun container nu se potrivește cu filtrele tale",
+    "useSudo": "Folosește sudo",
+    "refresh": "Reîmprospătează",
+    "containers": "Containere",
+    "stacks": "Stive",
+    "searchContainers": "Caută containere...",
+    "all": "Toate",
+    "running": "Rulează",
+    "stopped": "Oprite",
+    "start": "Pornește",
+    "restart": "Redenemare",
+    "pause": "Pauză",
+    "unpause": "Reia",
+    "moreActions": "Mai multe acțiuni",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker nu a răspuns",
+      "docker": "Docker",
+      "noContainers": "Fără containere"
+    },
+    "dockerConsole": {
+      "attachingTo": "Se atașează la {{name}}...",
+      "consoleDisconnected": "Consola s-a deconectat",
+      "reconnect": "Reconectează",
+      "failedToLoadTheConsole": "Nu s-a putut încărca consola",
+      "thisSessionHasNoServer": "Această sesiune nu are server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Containere, jurnale și statistici"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stivele sunt dezactivate pe acest server.",
+      "couldNotLoadStacks": "Nu s-au putut încărca stivele",
+      "noStacks": "Niciun stack",
+      "composeProjectsOnThisHost": "Proiectele Compose de pe acest host apar aici.",
+      "ofRunning": "{{running}} din {{total}} active",
+      "couldNotLoadTheStack": "Nu s-a putut încărca stack-ul",
+      "services": "Servicii",
+      "nothingIsRunning": "Nimic nu rulează.",
+      "composeFile": "Fișier Compose",
+      "partlyUp": "parțial activ",
+      "notDeployed": "neimplementat",
+      "running": "activ",
+      "stopped": "oprit",
+      "paused": "în pauză"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Acesta nu este un ID de container valid",
+      "consoleFailed": "Consola a eșuat",
+      "notAuthenticated": "Neautentificat",
+      "consoleError": "Eroare de consolă",
+      "connectionFailed": "Conexiunea a eșuat"
+    },
+    "dockerDidNotAnswer": "Docker nu a răspuns",
+    "failedToLoadContainers": "Încărcarea containerelor a eșuat",
+    "failedTo": "Acțiunea {{action}} a eșuat"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Serverul nu a trimis niciun fișier",
+        "cancelled": "Anulat",
+        "isGone": "{{path}} a dispărut",
+        "canTGoToThe": "{{name}} nu poate fi mutat în coșul de gunoi"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "ID-ul elementului din coș este invalid",
+        "invalidTrashMetadata": "Metadatele coșului sunt invalide",
+        "thisPathCanTBe": "Această cale nu poate fi mutată în coșul de gunoi",
+        "aFileAlreadyExistsAt": "Un fișier există deja la calea originală"
+      },
+      "sftp": {
+        "commandFailed": "Comanda a eșuat: {{command}}",
+        "alreadyExists": "{{name}} există deja",
+        "alreadyExistsThere": "{{path}} există deja acolo",
+        "canTGoToThe": "{{name}} nu poate fi mutat în coșul de gunoi: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminalul nu mai este deschis",
+      "clearHistory": "Șterge istoricul",
+      "stopFollowingTheTerminal": "Oprește urmărirea terminalului",
+      "followTheTerminal": "Urmărește terminalul",
+      "goToTheTerminalS": "Mergi la folderul terminalului",
+      "cdTheTerminalHere": "cd terminalul aici",
+      "folderHistory": "Istoricul folderelor",
+      "mostUsedFirstThenRecent": "Cele mai folosite mai întâi, apoi recente",
+      "noFoldersYet": "Încă nu există foldere"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Nu se poate conecta.",
+        "couldNotSaveHowThis": "Nu s-a putut salva modul în care se conectează acest host",
+        "thisWayCanTOpen": "Această metodă nu poate deschide fișiere"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Nu s-a putut deschide acest folder",
+      "cancel": "Anulează",
+      "noFoldersHere": "Nu există foldere aici"
+    },
+    "couldNotOpenThisFolder": "Nu s-a putut deschide acest folder",
+    "couldNotSaveToThe": "Nu s-a putut salva în folder",
+    "failed": "{{label}} a eșuat",
+    "uploading": "Se încarcă {{name}}",
+    "uploadingFiles": "Se încarcă {{count}} fișiere",
+    "downloadingToFilesOnMy": "Se descarcă în Fișiere, Pe iPhone-ul meu, Termix",
+    "downloading": "Se descarcă {{name}}",
+    "downloadingFiles": "Se descarcă {{count}} fișiere",
+    "openALargeFile": "Deschizi un fișier mare?",
+    "isBigForAEditor": "{{name}} este mare pentru un editor {{deviceWord}}. S-ar putea să fie lent.",
+    "open": "Deschide",
+    "thisLooksLikeABinary": "Acesta pare un fișier binar",
+    "openItInAnotherApp": "Deschide-l în altă aplicație?",
+    "openWith": "Deschide cu",
+    "tooBigForTheEditor": "Prea mare pentru editor",
+    "isOver10MbDownload": "{{name}} are peste 10 MB. Îl descarci în schimb?",
+    "download": "Descarcă",
+    "delete": "Ștergi {{what}}?",
+    "moveToTheTrash": "Muți {{what}} la coș?",
+    "thisCanTBeUndone": "Această acțiune nu poate fi anulată.",
+    "youCanRestoreItFrom": "Poți să îl restaurezi din coș.",
+    "delete2": "Șterge",
+    "moveToTrash": "Mută la coș",
+    "deleteForGood": "Ștergi definitiv?",
+    "deleteItForGoodInstead": "{{message}}. Ștergi definitiv în schimb? Această acțiune nu poate fi anulată.",
+    "deleteFailed": "Ștergerea a eșuat",
+    "connectingThroughTheServer": "Se conectează prin server...",
+    "connectingFromThis": "Se conectează de pe acest {{deviceWord}}...",
+    "connecting": "Se conectează...",
+    "edit": "Editează",
+    "downloadFolder": "Descarcă dosarul",
+    "share": "Distribuie",
+    "rename": "Redenumește",
+    "copyTo": "Copiază în",
+    "moveTo": "Mută în",
+    "cut": "Taie",
+    "copy": "Copiază",
+    "permissions": "Permisiuni",
+    "properties": "Proprietăți",
+    "makeALinkHere": "Creează un link aici",
+    "copyPath": "Copiază calea",
+    "pathCopied": "Calea a fost copiată",
+    "done": "Gata",
+    "selectAll": "Selectează tot",
+    "filterByName": "Filtrează după nume",
+    "closeSearch": "Închide căutarea",
+    "search": "Caută",
+    "changeSort": "Schimbă sortarea",
+    "paste": "Lipește {{count}}",
+    "upload": "Încarcă",
+    "transfers2": "Transferuri",
+    "more": "Mai multe",
+    "nothingMatches": "Nimic nu se potrivește",
+    "emptyFolder": "Dosar gol",
+    "uploadFilesOrMakeA": "Încarcă fișiere sau creează unul nou.",
+    "newFolder": "Dosar nou",
+    "newFile": "Fișier nou",
+    "select": "Selectează",
+    "hideHiddenFiles": "Ascunde fișierele ascunse",
+    "showHiddenFiles": "Afișează fișierele ascunse",
+    "trash": "Coș",
+    "folderProperties": "Proprietăți dosar",
+    "refresh": "Reîmprospătează",
+    "rename2": "Redenumește {{name}}",
+    "newLink": "Link nou",
+    "aLinkInThatPoints": "Un link în {{path}} care indică către {{path2}}",
+    "name": "Nume",
+    "create": "Creează",
+    "copyHere": "Copiază aici",
+    "moveHere": "Mută aici",
+    "fileViewer": {
+      "saved": "Salvat {{name}}",
+      "couldNotSaveTheFile": "Nu s-a putut salva fișierul",
+      "discardChanges": "Renunți la modificări?",
+      "hasChangesThatAreNot": "{{name}} are modificări nesalvate.",
+      "discard": "Renunță",
+      "readOnly": "{{path}} | doar citire",
+      "find": "Caută",
+      "smallerText": "Text mai mic",
+      "biggerText": "Text mai mare",
+      "turnOffLineWrap": "Dezactivează împachetarea textului",
+      "wrapLines": "Împachetează textul",
+      "save": "Salvează"
+    },
+    "hostSection": {
+      "startIn": "Pornește în",
+      "theFolderTheFileManager": "Dosarul în care se deschide managerul de fișiere",
+      "files": "Fișiere"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Mergi la {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Mai multe acțiuni",
+        "moreFor": "Mai multe pentru {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Permisiuni",
+      "cancel": "Anulează",
+      "apply": "Aplică ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Nu a putut fi deschis",
+      "openWith": "Deschide cu",
+      "share": "Distribuie"
+    },
+    "propertiesView": {
+      "properties": "Proprietăți",
+      "path": "Cale",
+      "type": "Tip",
+      "pointsTo": "Indică către",
+      "size": "Dimensiune",
+      "countFolderSize": "Calculează dimensiunea dosarului",
+      "permissions": "Permisiuni",
+      "change": "Modifică",
+      "owner": "Proprietar",
+      "group": "Grup",
+      "modified": "Modificat",
+      "opened": "Deschis",
+      "linkToA": "Legătură către un {{value}}",
+      "notShownForFolders": "Nu se afișează pentru dosare",
+      "file": "Fișier",
+      "folder": "Dosar",
+      "link": "Legătură"
+    },
+    "register": {
+      "fileManager": "Manager de fișiere",
+      "files": "Fișiere",
+      "browseEditAndMoveFiles": "Răsfoiește, editează și mută fișiere",
+      "files2": "FIȘIERE",
+      "fileManagerAndTransfers": "Manager de fișiere și transferuri"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Transferul a eșuat"
+      },
+      "transfersPanel": {
+        "pause": "Pauză",
+        "resume": "Reia",
+        "tryAgain": "Încearcă din nou",
+        "open": "Deschide",
+        "cancel": "Anulează",
+        "transfers": "Transferuri",
+        "goingOf": "{{active}} în curs | {{done}} din {{total}}",
+        "clearFinished": "Șterge finalizate",
+        "cancelAll": "Anulează toate",
+        "noTransfersYet": "Încă nu există transferuri",
+        "waiting": "În așteptare",
+        "paused": "În pauză",
+        "done": "Finalizat",
+        "failed": "Eșuat",
+        "cancelled": "Anulat"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Nu s-a putut încărca coșul de gunoi",
+      "restored": "Restaurat {{name}}",
+      "failedToRestore": "Restaurarea a eșuat",
+      "failedToDelete": "Ștergerea a eșuat",
+      "trashEmptied": "Coșul de gunoi a fost golit",
+      "failedToEmptyTrash": "Golirea coșului de gunoi a eșuat",
+      "trash": "Coș de gunoi",
+      "itemsAreRemovedAfterDays": "Elementele sunt șterse după {{retentionDays}} zile",
+      "close": "Închide",
+      "emptyTrash": "Golește coșul de gunoi",
+      "trashIsEmpty": "Coșul de gunoi este gol",
+      "restore": "Restaurează {{name}}",
+      "deleteForGood": "Șterge definitiv {{name}}"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Chiar acum"
+      }
+    },
+    "getting": "Se încarcă {{name}}",
+    "itemCount_one": "{{count}} element",
+    "itemCount_few": "{{count}} elemente",
+    "itemCount_other": "{{count}} elemente",
+    "copiedWhat": "{{what}} copiat",
+    "movedWhat": "{{what}} mutat",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} conține mai mult de {{limit}} fișiere. Descarcă foldere mai mici."
+    },
+    "downloadingToFilesOnMyIpad": "Se descarcă în Fișiere, Pe iPad-ul meu, Termix",
+    "size": "Dimensiune",
+    "date": "Dată"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Legături către servicii",
+      "openInHomepage": "Deschide în Homepage",
+      "thisWidgetOnlyShowsOn": "Acest widget este afișat doar pe pagina completă."
+    },
+    "register": {
+      "serviceLinks": "Legături către servicii",
+      "homepage": "Homepage"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Niciun feed nu este configurat.",
+        "couldNotLoadTheFeed": "Nu s-a putut încărca feed-ul.",
+        "theFeedIsEmpty": "Feed-ul este gol.",
+        "noLocationSet": "Nicio locație nu este configurată.",
+        "couldNotLoadTheWeather": "Nu s-a putut încărca vremea.",
+        "noUrlSet": "Nicio adresă URL nu este configurată.",
+        "couldNotLoadTheData": "Nu s-au putut încărca datele.",
+        "noPictureSet": "Nicio imagine nu este configurată.",
+        "badResponse": "răspuns nevalid"
+      },
+      "services": "Servicii",
+      "service": "Serviciu",
+      "serviceLinks": "Legături către servicii",
+      "bookmarks": "Marcaje",
+      "links2": "Legături",
+      "search": "Caută",
+      "clock": "Ceas",
+      "countdown": "Numărătoare inversă",
+      "calendar": "Calendar",
+      "notes": "Notițe",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Gazdă",
+      "hosts": "Gazde",
+      "quickConnect": "Conectare rapidă",
+      "feed": "Feed",
+      "weather": "Vreme",
+      "customApi": "API personalizat",
+      "picture": "Imagine",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Încă nu există servicii.",
+        "noLinkSet": "Nicio legătură nu este configurată.",
+        "noLinksYet": "Încă nu există legături.",
+        "noSearchEngineSet": "Niciun motor de căutare nu este configurat.",
+        "search": "Caută",
+        "noShortcutsYet": "Încă nu există scurtături.",
+        "search2": "Caută în {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Nu s-a putut deschide link-ul"
+      },
+      "status": {
+        "noUrlsYet": "Încă nu există URL-uri.",
+        "down": "Oprit",
+        "noHostsPicked": "Nu a fost selectat niciun gazdă."
+      },
+      "text": {
+        "noNotesYet": "Încă nu există note.",
+        "noTextYet": "Încă nu există text."
+      },
+      "time": {
+        "noDateSet": "Nu a fost setată nicio dată.",
+        "timeIsUp": "Timpul a expirat"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Nu s-a putut salva valoarea implicită",
+    "couldNotResetTheDefault": "Nu s-a putut reseta valoarea implicită",
+    "back": "Înapoi",
+    "hostDefaults": "Setări implicite pentru gazde",
+    "newHostsStartFromThese": "Gazdele noi încep cu acestea",
+    "managedOnTheServer": "Gestionate pe server",
+    "defaultsForThisServerAre": "Setările implicite pentru acest server sunt configurate în aplicația web.",
+    "level": "Nivel",
+    "yourDefaultsOrOneFolder": "Setările tale implicite sau ale unui dosar",
+    "myDefaults": "Setările mele implicite",
+    "theServerSets": " Serverul setează {{adminCount}}.",
+    "aFolderWinsOverYour": "Un dosar are prioritate față de setările tale implicite, iar setările tale implicite au prioritate față de cele ale serverului. O gazdă păstrează orice valoare setată direct pe ea.{{value}}",
+    "save": "Salvează",
+    "authentication": "Autentificare",
+    "none": "Niciuna",
+    "reset": "Resetează",
+    "model": {
+      "username": "Nume utilizator",
+      "sshPort": "Port SSH",
+      "authentication": "Autentificare",
+      "aSavedCredentialForNew": "O acreditare salvată pentru gazdele noi",
+      "forceKeyboardInteractive": "Forțează interacțiunea prin tastatură",
+      "keepaliveInterval": "Interval keepalive",
+      "seconds0TurnsItOff": "Secunde, 0 îl dezactivează",
+      "keepaliveTries": "Încercări keepalive",
+      "allowOldAlgorithms": "Permite algoritmele vechi",
+      "agentForwarding": "Forwarding agent",
+      "environmentVariables": "Variabile de mediu",
+      "oneNameValuePerLine": "O singură pereche NUME=valoare pe linie",
+      "checkIfTheHostIs": "Verifică dacă gazda este activă",
+      "checkInterval": "Interval de verificare",
+      "secondsEmptyUsesTheServer": "Secunde, gol folosește cel al serverului",
+      "socks5Proxy": "Proxy SOCKS5",
+      "setInTheWebApp": "Setat în aplicația web",
+      "jumpHosts": "Gazde intermediare (jump hosts)",
+      "portKnocking": "Port knocking",
+      "notSet": "Nu este setat",
+      "fromTheServer": "De la server",
+      "fromYourDefaults": "Din setările tale implicite",
+      "builtIn": "Integrat"
+    },
+    "register": {
+      "hostDefaults": "Setări implicite pentru gazde",
+      "portUserAndOptionsFor": "Port, utilizator și opțiuni pentru gazdele noi"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Încă nu există date",
+      "cpu": "CPU",
+      "memory": "Memorie",
+      "disk": "Disc",
+      "history": "Istoric",
+      "loading": "Se încarcă..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Nu s-au putut citi metricile",
+      "metrics": "Metrici",
+      "cpu": "CPU",
+      "memory": "Memorie",
+      "disk": "Disc",
+      "noRecentSampleOpenThe": "Niciun eșantion recent. Deschideți metricile gazdei pentru a începe unul."
+    },
+    "register": {
+      "enableMetrics": "Activează metricile",
+      "cpuMemoryDiskAndNetwork": "CPU, memorie, disc și rețea prin SSH",
+      "hostMetrics": "Metrici gazdă",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Metrici",
+      "cpuMemoryDiskAndNetwork2": "CPU, memorie, disc și rețea"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Metrici gazdă | acest {{deviceWord}}",
+      "hostMetrics": "Metrici gazdă",
+      "ran": "A rulat {{name}}",
+      "loadingMetrics": "Se încarcă metricile...",
+      "couldNotReadMetricsFrom": "Nu s-au putut citi metricile de la această gazdă",
+      "failedToLoadMetrics": "Încărcarea metrilor a eșuat",
+      "thisSessionHasNoServer": "Această sesiune nu are un server",
+      "twoFactorRequiredForThis": "Autentificarea cu doi factori este necesară pentru statisticile acestei gazde.",
+      "failedToStartMetrics": "Pornirea metrilor a eșuat",
+      "failedToRun": "Executarea {{name}} a eșuat"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Pe nucleu: {{value}}",
+        "cores": "Nucleuri",
+        "load": "Sarcină",
+        "user": "Utilizator",
+        "system": "Sistem",
+        "ioWait": "Așteptare IO",
+        "steal": "Furt"
+      },
+      "diskWidget": {
+        "disk": "Disc  {{mount}}",
+        "disk2": "Disc",
+        "used": "Folosit",
+        "total": "Total",
+        "free": "Liber"
+      },
+      "firewallWidget": {
+        "firewall": "Zid de protecție",
+        "rules": "{{type}} | {{ruleCount}} reguli",
+        "noFirewallDetected": "Niciun zid de protecție detectat"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-uri ({{count}})",
+        "gpu": "GPU",
+        "memory": "Memorie",
+        "temp": "Temp",
+        "power": "Putere",
+        "fan": "Ventilator"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Activitate de autentificare",
+        "noLoginActivityRecorded": "Nicio activitate de autentificare înregistrată",
+        "logins": "Autentificări",
+        "uniqueIps": "IP-uri unice",
+        "failed": "Eșuate",
+        "recent": "Recente"
+      },
+      "memoryWidget": {
+        "memory": "Memorie",
+        "used": "Folosit",
+        "total": "Total",
+        "cached": "Cache",
+        "free": "Liber"
+      },
+      "networkWidget": {
+        "network": "Rețea",
+        "noInterfaces": "Nicio interfață",
+        "up": "În sus",
+        "down": "În jos"
+      },
+      "portsWidget": {
+        "listeningPorts": "Porturi ascultătoare",
+        "noListeningPorts": "Nicio port ascultător"
+      },
+      "processesWidget": {
+        "sortBy": "Sortează după {{label}}",
+        "processes": "Procese",
+        "running": "{{value}} în execuție | {{total}}",
+        "noProcessData": "Nicio date despre procese",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "COMANDĂ"
+      },
+      "systemWidget": {
+        "system": "Sistem",
+        "hostname": "Nume gazdă",
+        "os": "Sistem de operare",
+        "kernel": "Kernel",
+        "arch": "Arhitectură",
+        "noSystemInfo": "Nicio informație despre sistem"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatură"
+      },
+      "uptimeWidget": {
+        "uptime": "Timp de funcționare"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Copiat cu parola",
+      "copiedTheLink": "Link copiat",
+      "shareHost": "Distribuie gazdă",
+      "thatHostNoLongerExists": "Această gazdă nu mai există",
+      "scanThisInTermixOn": "Scanează acest cod în Termix pe un alt {{deviceWord}}, sub Import și export. Codul conține adresa, portul și utilizatorul. Nu conține parolă sau cheie.",
+      "copyLink": "Copiază link",
+      "copyLinkWithPassword": "Copiază link cu parolă"
+    },
+    "includePasswordsAndKeys": "Includ parole și chei?",
+    "anyoneWhoGetsThisFile": "Oricine obține acest fișier se poate autentifica pe aceste gazde. Păstrează-l în siguranță.",
+    "includeThem": "Include-le",
+    "pickAtLeastOneHost": "Selectează cel puțin o gazdă",
+    "couldNotMakeTheFile": "Nu s-a putut crea fișierul",
+    "copiedToTheClipboard": "Copiat în clipboard",
+    "importAndExport": "Import și export",
+    "moveHostsInAndOut": "Mută gazde în interior și în exterior",
+    "import": "Importă",
+    "aTermixHostFileAn": "Un fișier de gazdă Termix, un fișier de configurare SSH sau un link/gazdă QR de pe un alt {{deviceWord}}.",
+    "export": "Exportă",
+    "allHosts": "Toate gazdele",
+    "picked": "{{size}} selectate",
+    "pickHosts": "Selectează gazde",
+    "includePasswordsAndKeys2": "Includ parole și chei",
+    "offMakesAFileSafe": "Dezactivat face fișierul sigur pentru distribuire. Gazdele care folosesc o acreditare salvată o referă după nume",
+    "shareAFile": "Distribuie un fișier",
+    "copy": "Copiază",
+    "importPanel": {
+      "couldNotReadThat": "Nu s-a putut citi",
+      "couldNotReadThatFile": "Nu s-a putut citi acel fișier",
+      "importFailed": "Importul a eșuat",
+      "chooseAFile": "Alege un fișier",
+      "paste": "Lipește",
+      "scanACode": "Scanează un cod",
+      "couldNotBeRead": "{{count}} nu au putut fi citite",
+      "updateHostsThatExist": "Actualizează gazdele care există",
+      "sameAddressPortAndUser": "Aceeași adresă, port și utilizator. Altfel sunt ignorate",
+      "cancel": "Anulează",
+      "import": "Importă",
+      "andMore": "și încă {{value}}"
+    },
+    "qrCode": {
+      "qrCode": "Cod QR"
+    },
+    "register": {
+      "importAndExport": "Import și export",
+      "moveHostsInOrOut": "Mută gazde în interior sau în exterior cu un fișier sau cod QR",
+      "shareHost": "Distribuie gazdă"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Scanează un cod de gazdă",
+      "pointTheCameraAtA": "Indreaptă camera către un cod QR de gazdă Termix.",
+      "termixNeedsTheCameraTo": "Termix are nevoie de cameră pentru a scana un cod. Nimic nu este înregistrat.",
+      "allowTheCamera": "Permite camera"
+    },
+    "read": {
+      "termixFile": "Fișier Termix",
+      "sshConfig": "Configurație SSH",
+      "thereIsNothingToImport": "Nu există nimic de importat",
+      "thatIsNotATermix": "Acesta nu este un link de gazdă Termix",
+      "linkHost": "1 gazdă: {{name}}",
+      "sourceHosts_one": "{{what}} cu {{count}} gazdă",
+      "sourceHosts_few": "{{what}} cu {{count}} gazde",
+      "sourceHosts_other": "{{what}} cu {{count}} gazde"
+    },
+    "saveYourTermixHosts": "Salvează-ți gazdele Termix"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Finalizat",
+      "rejected": "Respinse",
+      "approvals": "Aprobari",
+      "nothingIsWaiting": "Nu așteaptă nimic",
+      "actionsARuleHoldsFor": "Acțiunile pentru care o regulă necesită aprobare apar aici.",
+      "approveAndRun": "Aprobă și execută",
+      "reject": "Respinge",
+      "couldNotLoadApprovals": "Nu s-au putut încărca aprobările",
+      "couldNotDecide": "Nu s-a putut decide"
+    },
+    "approvalsCard": {
+      "approved": "Aprobat",
+      "rejected": "Respins",
+      "waitingForApproval": "În așteptarea aprobării",
+      "approve": "Aprobă",
+      "reject": "Respinge",
+      "couldNotDecide": "Nu s-a putut decide",
+      "seeAll": "Vezi toate"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Aceasta nu poate fi anulată. O execuți?",
+      "run": "Execută",
+      "sentForApproval": "Trimis spre aprobare",
+      "target": "Țintă",
+      "theItemOnTheHost": "Elementul de pe gazdă, cum ar fi un container",
+      "dryRun": "Execuție de test",
+      "back": "Înapoi",
+      "actions": "Acțiuni",
+      "noActionsForThisHost": "Nicio acțiune pentru această gazdă",
+      "turnOnAPluginLike": "Activează un plugin precum Docker sau Servicii pentru această gazdă pe server.",
+      "destructive": "Distructiv",
+      "changes": "Modificări",
+      "theActionCouldNotRun": "Acțiunea nu a putut fi executată",
+      "couldNotLoadActions": "Nu s-au putut încărca acțiunile"
+    },
+    "register": {
+      "actions": "Acțiuni",
+      "waitingForApproval": "În așteptarea aprobării",
+      "approvals": "Aprobari",
+      "actionsWaitingForAPerson": "Acțiuni în așteptarea aprobării umane",
+      "runHistory": "Istoric execuții",
+      "everyActionAnyoneRanFrom": "Orice acțiune executată de oricine, de pe orice dispozitiv"
+    },
+    "runHistory": {
+      "cancelThisRun": "Anulezi această execuție?",
+      "cancelRun": "Anulează execuția",
+      "keep": "Păstrează",
+      "undoThisRun": "Anulezi această execuție?",
+      "thisRunsTheActionS": "Aceasta execută operația de anulare a acțiunii cu aceeași intrare.",
+      "undo": "Anulează",
+      "cancelled": "Anulată",
+      "itAlreadyFinished": "S-a finalizat deja",
+      "done": "Finalizat",
+      "runHistory": "Istoric execuții",
+      "nothingHasRunYet": "Nimic nu a fost executat încă",
+      "dryRun": "Execuție de test",
+      "cancel": "Anulează",
+      "couldNotLoadHistory": "Nu s-a putut încărca istoricul",
+      "couldNotCancel": "Nu s-a putut anula",
+      "couldNotUndo": "Nu s-a putut anula"
+    },
+    "api": {
+      "needsApproval": "Necesită aprobare",
+      "needsSignIn": "Necesită autentificare",
+      "done": "Finalizat",
+      "failed": "Eșuat",
+      "running": "În curs",
+      "interrupted": "Întrerupt",
+      "rejected": "Respins",
+      "cancelled": "Anulat",
+      "expired": "Expirat"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Activează {{value}}",
+      "moreSettingsForThisAre": "Mai multe setări pentru aceasta se găsesc în aplicația web Termix.",
+      "pluginHostSettings": "Setări gazdă plugin"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} trebuie să fie un număr",
+      "mustBeAtLeast": "{{field}} trebuie să fie cel puțin {{min}}",
+      "mustBeAtMost": "{{field}} trebuie să fie cel mult {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Asociază un server pentru a-l utiliza",
+      "runsOnYourTermixServer": "{{name}} rulează pe serverul tău Termix."
+    },
+    "pluginWebView": {
+      "canTLoad": "Nu se poate încărca {{name}}",
+      "theServerDidNotSend": "Serverul nu a trimis pluginul. Verifică dacă este pornit și încearcă din nou.",
+      "openThisLink": "Deschizi acest link?",
+      "open": "Deschide",
+      "needsANewerVersionOf": "Necesită o versiune mai nouă a aplicației",
+      "usesPartsOfTermixThis": "{{name}} folosește componente din Termix pe care această aplicație nu le are încă.",
+      "didNotStart": "{{name}} nu s-a pornit",
+      "thisScreenIsNotIn": "Acest ecran nu se află în versiunea pluginului de pe server.",
+      "thePluginHitAnError": "Pluginul a întâmpinat o eroare la pornire.",
+      "youReOffline": "Ești offline",
+      "runsOnYourServerSo": "{{name}} rulează pe serverul tău, așa că are nevoie de o conexiune. Se va redeschide când revii online.",
+      "tryAgain": "Încearcă din nou"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Această gazdă nu se află încă pe acest {{deviceWord}}.",
+      "theAppCanTOpen": "Aplicația nu poate deschide asta de aici.",
+      "thatHostIsNotOn2": "Această gazdă nu se află încă pe acest {{deviceWord}}."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Parolă",
+      "unchangedIfBlank": "Neschimbat dacă este gol",
+      "port": "Port",
+      "domain": "Domeniu",
+      "displaySoundAndClipboardSettings": "Setările de afișare, sunet și clipboard se găsesc în aplicația web Termix.",
+      "portMustBeFrom1": "Portul {{label}} trebuie să fie între 1 și 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Conexiunea la desktopul remote s-a întrerupt",
+        "signIn": "Autentificare {{label}}",
+        "itWillNotBeSaved": "{{error}} Nu va fi salvat.",
+        "enterTheLoginForIt": "Introdu datele de autentificare pentru {{title}}. Acestea nu vor fi salvate.",
+        "reconnecting": "Reconectare {{label}}",
+        "connecting": "Conectare {{label}}",
+        "connectionFailed": "Conexiune eșuată",
+        "disconnected": "Deconectat",
+        "reconnect": "Reconectare",
+        "connectThroughTheServer": "Conectează-te prin server",
+        "pasteToRemote": "Lipește în remote",
+        "typeClipboard": "Tastează din clipboard",
+        "copyRemoteClipboard": "Copiază clipboardul remote",
+        "theComputerSCertificateWas": "Certificatul computerului nu a fost considerat de încredere.",
+        "thatLoginWasRefusedTry": "Autentificarea a fost refuzată. Încearcă din nou."
+      },
+      "target": {
+        "trustThisComputer": "Acordă încredere acestui computer?",
+        "theCanTCheckS": "{{deviceWord}} nu poate verifica certificatul lui {{hostName}}. Asigură-te că această amprentă se potrivește cu cea de pe computer înainte de a continua.\n\n{{fingerprint}}",
+        "trustAndConnect": "Acordă încredere și conectează-te",
+        "certificateChanged": "Certificat modificat",
+        "showsAnotherCertificateThanLast": "{{hostName}} afișează un alt certificat decât data trecută. Acest lucru se întâmplă după ce computerul generează unul nou sau când cineva interceptează conexiunea.\n\nAmprentă nouă:\n{{fingerprint}}",
+        "trustTheNewOne": "Acordă încredere celui nou"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Desktop Remote",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Gata",
+      "keyboard": "Tastatură",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Setări",
+      "remoteSettings": "Setări la distanță",
+      "mouseMode": "Mod mouse",
+      "touch": "Ecran tactil",
+      "trackpad": "Trackpad",
+      "tapWhereYouWantTo": "Atingeți unde doriți să faceți clic. Țineți apăsat pentru clic dreapta, trageți pentru a muta.",
+      "dragToMoveThePointer": "Trageți pentru a muta cursorul. Atingeți pentru clic, atingere cu două degete pentru clic dreapta, atingeți apoi trageți pentru a muta.",
+      "zoomXPinchAnywhereTo": "Mărire: {{value}}x. Îndepărtați degetele oriunde pentru a mări",
+      "reset": "Resetează",
+      "cancel": "Anulează",
+      "connect": "Conectează-te",
+      "username": "Nume utilizator",
+      "domainOptional": "Domeniu (opțional)",
+      "domain": "Domeniu",
+      "password": "Parolă",
+      "leftArrow": "Săgeată stânga",
+      "upArrow": "Săgeată sus",
+      "downArrow": "Săgeată jos",
+      "rightArrow": "Săgeată dreapta",
+      "rdpSignIn": "Autentificare RDP"
+    },
+    "theRemoteDesktopDropped": "Sesiunea desktop la distanță s-a încheiat",
+    "theyWillNotBeSaved": "{{errorMessage}} Acestea nu vor fi salvate.",
+    "enterCredentialsForTheyWill": "Introduceți datele de autentificare pentru {{title}}. Acestea nu vor fi salvate.",
+    "connecting": "Se conectează",
+    "connectionFailed": "Conectarea a eșuat",
+    "disconnected": "Deconectat",
+    "reconnect": "Reconectează-te",
+    "route": {
+      "thisHostCanTOpen": "Acest gazdă nu poate deschide un desktop la distanță de aici."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blocat de aplicație"
+    },
+    "failedToStartRemoteSession": "Nu s-a putut porni sesiunea la distanță",
+    "thatLoginWasRefusedTry": "Autentificarea a fost refuzată. Încercați din nou.",
+    "theRemoteRefusedTheSaved": "Gazda la distanță a refuzat datele de autentificare salvate. Verificați datele de autentificare RDP pe această gazdă.",
+    "remoteSessionFailed": "Sesiunea la distanță a eșuat",
+    "remoteSessionReturnedAnInvalid": "Sesiunea la distanță a returnat un mesaj nevalid",
+    "failedToLoadTheRemote": "Nu s-a putut încărca clientul desktop la distanță"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Niciun jurnal",
+      "thisHostDoesNotKeep": "Această gazdă nu păstrează un jurnal systemd.",
+      "all": "Toate",
+      "warnings": "Avertismente",
+      "errors": "Erori",
+      "stop": "Oprește",
+      "follow": "Urmărește",
+      "nothingLogged": "Nimic înregistrat",
+      "tryAnotherLevel": "Încercați un alt nivel.",
+      "couldNotReadTheJournal": "Nu s-a putut citi jurnalul"
+    },
+    "register": {
+      "services": "Servicii",
+      "startStopAndReadLogs": "Pornire, oprire și vizualizare jurnale"
+    },
+    "readingServices": "Citirea serviciilor...",
+    "thisHostHasNoSystemd": "Acest gazdă nu are systemd sau OpenRC.",
+    "noServicesMatch": "Niciun serviciu nu se potrivește",
+    "noServicesFound": "Nu s-au găsit servicii",
+    "services": "Servicii",
+    "journal": "Jurnal",
+    "searchServices": "Caută servicii...",
+    "all": "Toate",
+    "running": "Active",
+    "failed": "Eșuate ({{failed}})",
+    "failed2": "Eșuat",
+    "servicesCard": {
+      "services": "Servicii",
+      "noSystemdOrOpenrc": "Fără systemd sau OpenRC",
+      "failed": "{{failed}} eșuate",
+      "allRunning": "Toate active",
+      "couldNotReadServices": "Nu s-au putut citi serviciile"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Rămâne oprit până este pornit din nou sau până gazda se repornește.",
+      "itStopsForAMoment": "Se oprește pentru o clipă și pornește din nou.",
+      "stop": "Oprește",
+      "restart": "Repornire",
+      "is": "{{name}} este {{state}}",
+      "start": "Pornește",
+      "journal": "Jurnal",
+      "couldNotReadTheService": "Nu s-a putut citi serviciul",
+      "couldNot": "Nu s-a putut {{action}} {{name}}",
+      "startsAtBoot": "Se pornește la boot",
+      "mainPid": "PID principal",
+      "activeSince": "Activ din",
+      "unitFile": "Fișier unitate",
+      "notSet": "[nesetat]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Nu sunteți autentificat",
+        "followFailed": "Urmărirea a eșuat",
+        "connectionFailed": "Conexiunea a eșuat"
+      }
+    },
+    "couldNotReadServices": "Nu s-au putut citi serviciile",
+    "services2": "Servicii{{where}}",
+    "title": "Servicii",
+    "failedCount": "{{count}} eșuate"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Partajare sesiune",
+      "shareLink": "Partajează link"
+    },
+    "shareSessionView": {
+      "canWatch": "Poate vizualiza",
+      "canType": "Poate tasta",
+      "n1Hour": "1 oră",
+      "n8Hours": "8 ore",
+      "n1Day": "1 zi",
+      "n7Days": "7 zile",
+      "never": "Niciodată",
+      "shareSession": "Partajează sesiunea",
+      "anyoneWithTheLinkCan": "Oricine are link-ul poate deschide acest terminal cât timp rulează. Puteți revoca link-urile în Termix.",
+      "peopleWithTheLink": "Persoanele cu link-ul",
+      "expiresAfter": "Expiră după",
+      "link": "Link",
+      "copy": "Copiază",
+      "share": "Partajează",
+      "makeLink": "Generează link",
+      "theServerGaveNoLink": "Serverul nu a returnat niciun link",
+      "couldNotMakeALink": "Nu s-a putut genera un link",
+      "linkCopied": "Link copiat"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Fără dosar"
+    },
+    "hostPicker": {
+      "selectNone": "Deselectează tot",
+      "selectAll": "Selectează toate",
+      "done": "Gata"
+    },
+    "register": {
+      "snippets": "Fragmente",
+      "snippets2": "FRAGMENTE",
+      "savedCommandsToRunOn": "Comenzi salvate pentru a fi executate pe orice gazdă"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Nu există nicio cale de a ajunge la această gazdă de aici",
+      "exitedWith": "S-a încheiat cu codul {{exitCode}}",
+      "thisCanTRunIt": "Acest {{deviceWord}} nu îl poate executa",
+      "noServerIsLinked": "Niciun server nu este conectat"
+    },
+    "runOnHostsSheet": {
+      "run": "Execută",
+      "run2": "Execută „{{name}}”",
+      "runsOverSshOnEach": "Se execută prin SSH pe fiecare gazdă. Nu se deschide niciun terminal.",
+      "close": "Închide",
+      "hosts": "Gazde",
+      "pickHosts": "Alege gazde",
+      "workedFailed": "{{value}} au reușit, {{failed}} au eșuat",
+      "runOn2": "Execută pe",
+      "runOn_one": "Execuți {{name}} pe {{count}} gazdă?",
+      "runOn_few": "Execuți {{name}} pe {{count}} gazde?",
+      "runOn_other": "Execuți {{name}} pe {{count}} gazde?",
+      "hostsPicked_one": "{{count}} gazdă selectată",
+      "hostsPicked_few": "{{count}} gazde selectate",
+      "hostsPicked_other": "{{count}} gazde selectate"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Caută fragmente",
+      "pastesTheNote": "Lipește nota",
+      "runsTheSnippet": "Execută fragmentul",
+      "noSnippetsMatch": "Niciun fragment nu se potrivește",
+      "noSnippetsYet": "Încă nu există fragmente",
+      "addSnippetsInSettingsSnippets": "Adaugă fragmente în Setări, Fragmente",
+      "run": "Execută",
+      "insertWithoutRunning": "Inserează fără a executa",
+      "copy": "Copiază"
+    },
+    "snippetsCard": {
+      "snippets": "Fragmente",
+      "run": "Execută {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Nu există fragmente de exportat",
+      "couldNotMakeTheFile": "Nu s-a putut crea fișierul",
+      "copiedToTheClipboard": "Copiat în clipboard",
+      "couldNotImport": "Nu s-a putut importa",
+      "couldNotReadThatFile": "Nu s-a putut citi acel fișier",
+      "importAndExport": "Importă și exportă",
+      "theSameFileTheWeb": "Același fișier pe care îl folosește aplicația web.",
+      "export": "Exportă",
+      "shareAFile": "Distribuie un fișier",
+      "copy": "Copiază",
+      "import": "Importă",
+      "updateSnippetsThatExist": "Actualizează fragmentele care există",
+      "sameNameInTheSame": "Același nume în același dosar. Altfel, acestea sunt ignorate",
+      "chooseAFile": "Alege un fișier",
+      "paste": "Lipește",
+      "saveYourSnippets": "Salvează-ți fragmentele"
+    },
+    "useSnippetRunner": {
+      "run": "Execuți {{name}}?",
+      "run2": "Execută",
+      "fillInTheValuesFor": "Completează valorile pentru acest fragment.",
+      "cancel": "Anulează",
+      "insert": "Inserează",
+      "noTerminalIsOpen": "Niciun terminal nu este deschis"
+    },
+    "variables": {
+      "input": "Introducere {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Acesta nu este un fișier JSON valid",
+      "theFileNeedsASnippets": "Fișierul necesită o listă de fragmente sau dosare",
+      "snippetNameAndContentAre": "Fragment {{value}}: numele și conținutul sunt obligatorii",
+      "folder": "Dosar {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Se încarcă dispozitivele Tailscale…",
+      "searchTailscaleDevices": "Caută dispozitive Tailscale…",
+      "searchTailscaleDevices2": "Caută dispozitive Tailscale",
+      "clearDeviceSearch": "Șterge căutarea dispozitivelor",
+      "refreshTailscaleDevices": "Reîmprospătează dispozitivele Tailscale",
+      "device": "Dispozitiv",
+      "noTailnetAddress": "Nicio adresă tailnet",
+      "tailscaleDevice": "Dispozitiv Tailscale",
+      "tailscaleDevices": "Dispozitive Tailscale",
+      "addAHostThatConnects": "Adaugă un gazdă care se conectează prin Tailscale SSH.",
+      "username": "Nume utilizator",
+      "sshUsernameFor": "Nume utilizator SSH pentru {{value}}",
+      "addHost": "Adaugă gazdă",
+      "noTailscaleDevicesMatchYour": "Niciun dispozitiv Tailscale nu se potrivește cu căutarea.",
+      "noTailscaleDevicesFound": "Nu s-au găsit dispozitive Tailscale.",
+      "noTailscaleApiKeyIs": "Nu este configurată nicio cheie API Tailscale pe acest server. Cere unui administrator să adauge una.",
+      "youDoNotHavePermission": "Nu ai permisiunea de a lista dispozitivele Tailscale.",
+      "couldNotLoadTailscaleDevices": "Nu s-au putut încărca dispozitivele Tailscale. Reîmprospătează pentru a încerca din nou.",
+      "tailscaleIsUnavailableOnThis": "Tailscale nu este disponibil pe acest server."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Se reconectează | încercare {{attempt}}",
+      "reconnectingInSTry": "Se reconectează în {{secs}}s | încercare {{attempt}}",
+      "offlineWaitingForNetwork": "Deconectat, se așteaptă rețeaua",
+      "sendToTheNewShell": "Se trimite {{what}} către noua consolă?",
+      "reconnectNow": "Reconectează acum",
+      "send": "Trimite",
+      "discard": "Renunță",
+      "typedChars_one": "{{count}} caracter tastat",
+      "typedChars_few": "{{count}} caractere tastate",
+      "typedChars_other": "{{count}} caractere tastate",
+      "waiting": "{{what}} în așteptare"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Jurnalul conexiunii a fost copiat",
+      "connectionLog": "Jurnal conexiune",
+      "copyItIntoABug": "Copiază-l într-un raport de eroare. Adresele și numele de utilizator sunt omise.",
+      "copy": "Copiază"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Se șterge istoricul pentru această gazdă?",
+        "clear": "Șterge",
+        "searchHistory": "Caută în istoric",
+        "typesTheCommandWithoutRunning": "Tastează comanda fără a o executa",
+        "noCommandsMatch": "Nicio comandă nu se potrivește",
+        "noHistoryYet": "Încă nu există istoric",
+        "commandsYouRunOnThis": "Comenzile pe care le execuți pe această gazdă apar aici",
+        "run": "Execută",
+        "typeWithoutRunning": "Tastează fără a executa",
+        "copy": "Copiază",
+        "delete": "Șterge",
+        "historyCleared": "Istoricul a fost șters"
+      },
+      "suggestionStrip": {
+        "use": "Folosește {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "Setare aplicație",
+      "delete": "Șterge (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Titlul filei din consolă",
+      "programsCanSetTheTab": "Programele pot seta titlul filei",
+      "openTmux": "Deschide tmux",
+      "attachToATmuxSession": "Conectează-te la o sesiune tmux sau începe una",
+      "reconnectOnDrop": "Reconectează la deconectare",
+      "keepTabOpenOnExit": "Păstrează fila deschisă la ieșire",
+      "pressEnterToConnectAgain": "Apasă Enter pentru a te reconecta",
+      "saveCommandHistory": "Salvează istoricul comenzilor",
+      "offerToFillPasswordPrompts": "Oferă completarea automată a parolelor",
+      "offerToFillSudoPrompts": "Oferă completarea automată a solicitărilor sudo",
+      "usesTheSudoPasswordFrom": "Folosește parola sudo din fila SSH",
+      "none": "Niciuna",
+      "look": "Aspect",
+      "theme": "Temă",
+      "font": "Font",
+      "cursor": "Cursor",
+      "bell": "Sunet de alertă",
+      "scrollbackLines": "Linii de derulare",
+      "app": "Aplicație",
+      "behavior": "Comportament",
+      "backspaceSends": "Backspace trimite",
+      "startupSnippet": "Fragment de pornire",
+      "runsOnceTheShellIs": "Se execută când shell-ul este gata",
+      "fillWithoutAsking": "Completează fără să întrebe",
+      "onThisOnlyOnceYou": "Doar pe acest {{deviceWord}}, după ce ai ales „Completează mereu”",
+      "connection": "Conexiune",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Secunde între ping-uri, 0 dezactivează",
+      "default": "Implicit",
+      "keepaliveSeconds": "Secunde keepalive",
+      "missedPings": "Ping-uri pierdute",
+      "dropTheConnectionAfterThis": "Închide conexiunea după acest număr de răspunsuri lipsă",
+      "missedPingsBeforeDrop": "Ping-uri pierdute înainte de deconectare",
+      "environment": "Mediu",
+      "removeVariable": "Șterge variabila",
+      "addVariable": "Adaugă variabilă"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TASTATURĂ"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rând",
+        "keys": "Taste",
+        "sendsAKeyCode": "Trimite un cod de tastă",
+        "stickyModifier": "Modifier lipicios",
+        "appAction": "Acțiune aplicație",
+        "tmuxPrefixThen": "prefix tmux, apoi {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Rânduri de taste",
+        "onlyFor": "Doar pentru {{name}}",
+        "usingTheAppSRows": "Folosește rândurile aplicației. Modificările de aici sunt doar pentru {{name}}",
+        "useTheAppSRows": "Folosește rândurile aplicației"
+      },
+      "keyButton": {
+        "locked": "Blocat"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Anulează",
+        "remove": "Ștergi {{what}}?",
+        "remove2": "Șterge",
+        "dragToReorder": "Trage pentru a rearanja",
+        "rowName": "Numele rândului",
+        "groupName": "Numele grupului",
+        "add": "Adaugă",
+        "addKey": "Adaugă tastă",
+        "addRow": "Adaugă rând",
+        "addGroup": "Adaugă grup",
+        "tmuxPrefix": "prefix tmux",
+        "name": "Nume",
+        "rename": "Redenumește",
+        "keys": "{{value}} taste",
+        "noKeys": "Nicio tastă",
+        "remove3": "Șterge {{label}}",
+        "keys2": "Taste",
+        "custom": "Personalizat",
+        "add2": "Adaugă {{label}}",
+        "typeText": "Scrie text",
+        "runCommand": "Execută comandă",
+        "ctrlKey": "Tasta Ctrl",
+        "label": "Etichetă",
+        "optional": "Opțional",
+        "letter": "Literă",
+        "command": "Comandă",
+        "text": "Text",
+        "resetToDefault": "Resetează la implicit"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Modifică tastele în Setări, Tastatură"
+      },
+      "keyRowBar": {
+        "keyRow": "Rând de taste {{label}}",
+        "tapForTheNextRow": "Atinge pentru rândul următor, ține apăsat pentru a alege unul",
+        "keyRows": "Rânduri de taste"
+      },
+      "model": {
+        "clear": "Șterge",
+        "main": "Principal",
+        "keys": "Taste",
+        "arrows": "Săgeți",
+        "symbols": "Simboluri",
+        "actions": "Acțiuni",
+        "nav": "Navigare",
+        "move": "Mută",
+        "function": "Funcție",
+        "brackets": "Paranteze",
+        "punctuation": "Punctuație",
+        "ctrl": "Ctrl",
+        "control": "Control",
+        "windows": "Windows",
+        "panes": "Pane-uri",
+        "copy": "Copiază",
+        "split": "Împarte ─",
+        "split2": "Împarte │",
+        "newWin": "Fereastră nouă",
+        "prevWin": "Fereastră anterioară",
+        "nextWin": "Fereastră următoare",
+        "pane": "Panou ←",
+        "pane2": "Panou ↓",
+        "pane3": "Panou ↑",
+        "pane4": "Panou →",
+        "copyMode": "Mod copiere",
+        "pasteBuf": "Lipește buffer",
+        "killPane": "Închide panou"
+      }
+    },
+    "output": {
+      "openLink": "Deschizi link-ul?",
+      "open": "Deschide",
+      "pasteLines": "Lipești {{lines}} linii?",
+      "pasteThisText": "Lipești acest text?",
+      "theShellMayRunIt": "Shell-ul îl poate executa imediat.\n\n{{text}}",
+      "paste": "Lipește",
+      "letTheProgramReadYour": "Permiți programului să citească din clipboard?",
+      "itAskedForWhatYou": "A cerut ce ai copiat ultima dată.",
+      "allow": "Permite",
+      "letTheProgramCopyTo": "Permiți programului să copieze în clipboard?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Completezi parola salvată?",
+      "asksForTheSudoPassword": "{{hostName}} cere parola sudo.",
+      "asksForAPassword": "{{hostName}} cere o parolă.",
+      "fillPassword": "Completează parola",
+      "alwaysFillOnThisHost": "Completează mereu pe acest host",
+      "asksNoMoreOnThis": "Nu va mai întreba pe acest {{deviceWord}}. Dezactivează-l în fila Terminal a host-ului.",
+      "notNow": "Nu acum"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal și keepalive",
+      "history": "ISTORIC",
+      "find": "Caută",
+      "tmuxWindows": "ferestre tmux",
+      "connectionLog": "Jurnal conexiune",
+      "keyRowsForThisHost": "Rânduri de taste pentru acest host"
+    },
+    "searchBar": {
+      "noResults": "Niciun rezultat",
+      "matchCase": "Sensibil la majuscule",
+      "wholeWord": "Cuvânt întreg",
+      "regularExpression": "Expresie regulată",
+      "find": "Caută",
+      "closeFind": "Închide căutarea"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "Sistem",
+      "block": "Bloc",
+      "bar": "Bară",
+      "underline": "Subliniere",
+      "off": "Oprit",
+      "sound": "Sunet",
+      "flash": "Clipire",
+      "both": "Ambele"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Filă nouă pe acest gazdă",
+      "closeTab": "Închide fila",
+      "nextTab": "Filă următoare",
+      "previousTab": "Filă anterioară",
+      "goToTab": "Mergi la filă",
+      "find": "Caută",
+      "fontSize": "Dimensiune font",
+      "paste": "Lipește",
+      "escape": "Escape",
+      "copyAndPaste": "Copiază și lipește"
+    },
+    "reconnecting": "Se reconectează...",
+    "waitingForNetwork": "Se așteaptă la rețea...",
+    "waitingForYou": "Se așteaptă la tine...",
+    "connecting": "Se conectează...",
+    "terminalView": {
+      "scrollToBottom": "Derulează jos",
+      "onlyWebLinksCanOpen": "Doar link-urile web pot fi deschise din terminal",
+      "couldNotOpenLink": "Nu s-a putut deschide link-ul",
+      "copiedFromTheTerminal": "Copiat din terminal"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Deschide o sesiune tmux",
+        "newSession": "Sesiune nouă",
+        "plainShell": "Shell simplu",
+        "tmuxWindows": "ferestre tmux",
+        "newWindow": "Fereastră nouă",
+        "windowCount_one": "{{count}} fereastră",
+        "windowCount_few": "{{count}} ferestre",
+        "windowCount_other": "{{count}} ferestre",
+        "attached": "{{count}} atașate",
+        "activeNow": "activ acum",
+        "activeMinAgo": "activ acum {{count}} min",
+        "activeHoursAgo": "activ acum {{count}} h",
+        "activeDaysAgo_one": "activ acum {{count}} zi",
+        "activeDaysAgo_few": "activ acum {{count}} zile",
+        "activeDaysAgo_other": "activ acum {{count}} zile"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Copiază",
+        "selectAll": "Selectează tot",
+        "cancel": "Anulează",
+        "scrollToBottom": "Derulează jos",
+        "couldNotCopy": "Nu s-a putut copia",
+        "webviewError": "Eroare WebView: {{description}}",
+        "webviewHttpError": "Eroare HTTP WebView: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Nicio parolă salvată pentru această gazdă",
+    "backInTmuxSession": "Înapoi în sesiunea tmux {{tmuxName}}",
+    "backInScreenSession": "Înapoi în sesiunea screen {{name}}",
+    "theServerSessionEndedThis": "Sesiunea serverului s-a încheiat. Acesta este un shell nou.",
+    "termixWasClosedSoThe": "Termix a fost închis, așa că shell-ul vechi s-a încheiat. Acesta este un shell nou.",
+    "theConnectionDroppedAndThe": "Conexiunea s-a întrerupt și shell-ul vechi s-a încheiat. Acesta este un shell nou.",
+    "disconnectedFrom": "Deconectat de la {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "Autentificare cu doi factori",
+      "codesFromAnAuthenticatorApp": "Coduri dintr-o aplicație de autentificare pentru contul dvs. de server"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "Adresă MAC",
+      "neededToWakeThisHost": "Necesară pentru a trezi acest gazdă cu Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Folosiți o adresă MAC de tipul 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN trimis către {{name}}",
+      "failedToSendWakeOn": "Nu s-a putut trimite pachetul Wake-on-LAN",
+      "noServer": "Fără server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Trezește {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Doriți să partajați statistici anonime de utilizare?",
+      "termixWouldSendAShort": "Termix va trimite un raport scurt o dată pe zi. Puteți modifica acest lucru oricând în Setări.",
+      "noThanks": "Nu, mulțumesc",
+      "share": "Partajează",
+      "theReportHasTheApp": "Raportul conține versiunea aplicației, tipul {{deviceWord}}, numărul aproximativ de gazde și sesiuni, funcțiile pe care le folosiți și dacă conectarea a reușit. Nu conține niciodată nume de gazde, nume de utilizator, adrese, căi, comenzi sau nume de server.",
+      "seeExactlyWhatIsSent": "Vedeți exact ce este trimis"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Se încarcă informațiile despre versiune…",
+      "updateAvailable": "Actualizare disponibilă",
+      "newVersionAvailable": "Versiune nouă disponibilă",
+      "aNewerVersionOfThe": "O versiune mai nouă a aplicației mobile este disponibilă. Unele funcții s-ar putea să nu funcționeze corect până când actualizați.",
+      "versionInformation": "Informații despre versiune",
+      "installed": "Instalată",
+      "latest": "Cea mai recentă",
+      "unknown": "Necunoscută",
+      "tag": "Etichetă",
+      "continueAnyway": "Continuă oricum"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Copiat",
+      "copy": "Copiază",
+      "hostKeyChanged": "Cheia gazdei s-a schimbat",
+      "verifyHostKey": "Verifică cheia gazdei",
+      "cancel": "Anulează",
+      "acceptNewKey": "Acceptă noua cheie",
+      "connectAndTrust": "Conectează și încredințează",
+      "theHostSSshKey": "Cheia SSH a gazdei s-a schimbat de la ultima conexiune. Acest lucru ar putea însemna că cineva interceptează conexiunea.",
+      "youAreConnectingToThis": "Vă conectați la această gazdă pentru prima dată. Verificați amprenta înainte de a o încredința.",
+      "previousKey": "Cheia anterioară",
+      "newFingerprint": "Amprentă nouă",
+      "hostFingerprint": "Amprenta gazdei"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Este necesară fraza de parolă",
+      "enterThePassphraseForYour": "Introduceți fraza de parolă pentru cheia dvs. SSH.",
+      "cancel": "Anulează",
+      "connect": "Conectează",
+      "keyPassphrase": "Fraza de parolă a cheii"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "Este necesară autentificarea SSH",
+      "cancel": "Anulează",
+      "connect": "Conectează",
+      "password": "Parolă",
+      "sshKey": "Cheie SSH",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nLipiți cheia privată aici...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Fraza de parolă a cheii (opțional)",
+      "keyboardInteractiveAuthIsNot": "Autentificarea interactivă prin tastatură nu este disponibilă. Introduceți datele de autentificare direct.",
+      "authenticationFailedPleaseReEnter": "Autentificarea a eșuat. Vă rugăm să reintroduceți datele de autentificare.",
+      "connectionTimedOutPleaseTry": "Conexiunea a expirat. Vă rugăm să încercați din nou cu datele de autentificare."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Verificare SSH Tailscale",
+      "completeTheTailscaleSshCheck": "Finalizați verificarea SSH Tailscale în browser pentru a continua.",
+      "cancel": "Anulează",
+      "copyUrl": "Copiază URL",
+      "openBrowser": "Deschide browserul",
+      "urlCopied": "URL copiat",
+      "failedToCopy": "Nu s-a putut copia",
+      "couldNotOpenBrowser": "Nu s-a putut deschide browserul"
+    },
+    "tOTPDialog": {
+      "cancel": "Anulează",
+      "submit": "Trimite",
+      "verify": "Verifică",
+      "password": "Parolă",
+      "pasteCode": "Lipește codul",
+      "passwordRequired": "Parola este obligatorie",
+      "twoFactorAuthentication": "Autentificare cu doi factori",
+      "enterYourPasswordToContinue": "Introdu parola pentru a continua.",
+      "enterThe6DigitCode": "Introdu codul de 6 cifre din aplicația ta de autentificare."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Autentificare Warpgate",
+      "authenticateViaTheWarpgatePortal": "Autentifică-te prin portalul Warpgate, apoi apasă Continuă.",
+      "cancel": "Anulează",
+      "openBrowser": "Deschide browserul",
+      "continue": "Continuă",
+      "securityKey": "Cheie de securitate",
+      "authUrl": "URL de autentificare",
+      "copied": "Copiat",
+      "copy": "Copiază",
+      "urlCopied": "URL copiat",
+      "failedToCopy": "Nu s-a putut copia",
+      "couldNotOpenBrowser": "Nu s-a putut deschide browserul"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "acest {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Activitate recentă",
+        "files": "Fișiere",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Notificări",
+        "seeAll": "Vezi toate"
+      },
+      "server": "Server",
+      "openSessions": "Sesiuni deschise",
+      "quickAccess": "Acces rapid",
+      "notifications": "Notificări",
+      "pinnedHosts": "Gazde fixate",
+      "recentHosts": "Gazde recente",
+      "recentActivity": "Activitate recentă",
+      "pinnedCard": {
+        "addYourFirstHost": "Adaugă prima gazdă",
+        "hostsYouOpenShowUp": "Gazdele pe care le deschizi apar aici, iar gazdele fixate afișează carduri în timp real.",
+        "addHost": "Adaugă gazdă",
+        "linkAServer": "Conectează un server",
+        "pinAHostToSee": "Fixează o gazdă pentru a o vedea aici",
+        "pinnedHostsShowTheirMetrics": "Gazdele fixate afișează metricile, Docker și serviciile într-o privire. Ține apăsat pe o gazdă pentru a o fixa.",
+        "goToHosts": "Mergi la gazde",
+        "pinned": "Fixate",
+        "opensTheTerminalHoldFor": "Deschide terminalul. Ține apăsat pentru mai multe opțiuni.",
+        "turnOnDockerOrServices": "Activează Docker sau Serviciile pentru această gazdă, sau apasă pentru a te conecta.",
+        "opens": "Deschide {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Acces rapid",
+        "quickConnect": "Conectare rapidă",
+        "userHostPortWithoutSaving": "utilizator@gazdă:port, fără a salva"
+      },
+      "recentCard": {
+        "recent": "Recente"
+      },
+      "serverCard": {
+        "server": "Server",
+        "version": "Versiune",
+        "uptime": "Timp de funcționare",
+        "database": "Bază de date",
+        "hosts": "Gazde",
+        "online": "Online",
+        "offline": "Offline",
+        "logins": "Autentificări"
+      },
+      "sessionsCard": {
+        "openSessions": "Sesiuni deschise",
+        "connected": "Conectat"
+      }
+    },
+    "resetHome": "Resetezi pagina principală?",
+    "cardsGoBackToThe": "Cardurile revin la ordinea implicită și la setarea vizibilității inițiale.",
+    "reset": "Resetează",
+    "doneEditingHome": "Finalizare editare pagină principală",
+    "editHome": "Editează pagina principală",
+    "dragToReorder": "Trage {{title}} pentru a rearanja",
+    "show": "Afișează {{title}}",
+    "dragCardsToReorderThem": "Trage cardurile pentru a le rearanja. Dezactivează un card pentru a-l ascunde. Cardurile fără conținut rămân ascunse automat.",
+    "resetToDefault": "Resetează la implicit",
+    "done": "Terminat",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Nu se poate ajunge la server",
+      "canTReach": "Nu se poate ajunge la {{account}}",
+      "youCanKeepWorkingWith": "Poți continua să lucrezi cu copia de pe acest {{deviceWord}}. Modificările se sincronizează când revine online.",
+      "hostsSetToConnectFrom": "Gazdele setate să se conecteze de pe acest {{deviceWord}} funcționează în continuare.",
+      "tryAgain": "Încearcă din nou",
+      "noAnswer": "fără răspuns"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Profil Vault",
+      "none": "Niciunul",
+      "signsInWithInYour": "Autentifică-te cu {{title}} în browser prin serverul Termix. Conectează această gazdă prin server.",
+      "needsATermixServerLink": "{{title}} necesită un server Termix. Asociază unul pentru a folosi această autentificare.",
+      "isOffOnThisServer": "{{title}} este dezactivat pe acest server. Această gazdă își păstrează setarea de autentificare."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Nu s-au putut încărca acreditările",
+      "deleted": "Șters „{{name}}”",
+      "couldNotDeleteTheCredential": "Nu s-a putut șterge acreditarea",
+      "credentials": "Acreditări",
+      "add": "Adaugă",
+      "searchCredentials": "Caută acreditări",
+      "clearSearch": "Șterge căutarea",
+      "loadingCredentials": "Se încarcă acreditările...",
+      "noCredentialsMatchYourSearch": "Nicio acreditare nu se potrivește cu căutarea",
+      "noCredentialsYet": "Încă nu există acreditări",
+      "addCredential": "Adaugă acreditare",
+      "edit": "Editează",
+      "delete": "Șterge",
+      "deleteCredential": "Șterge acreditarea",
+      "willBePermanentlyDeletedHosts": "„{{name}}” va fi șters definitiv. Gazdele care o folosesc își vor pierde acreditările salvate.",
+      "cancel": "Anulează",
+      "hostCount_one": "{{count}} gazdă",
+      "hostCount_few": "{{count}} gazde",
+      "hostCount_other": "{{count}} gazde",
+      "sshKey": "Cheie SSH"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Înlocuiești cheia?",
+        "theNewKeyTakesThe": "Cheia nouă înlocuiește cea curentă. Gazdele care acceptă doar cheia veche vor refuza această acreditare.",
+        "replace": "Înlocuiește",
+        "newKeyMadeCopyThe": "Cheia nouă a fost generată. Copiază cheia publică pe gazdele tale.",
+        "couldNotMakeAKey": "Nu s-a putut genera cheia",
+        "couldNotReadThatCertificate": "Nu s-a putut citi fișierul de certificat",
+        "leaveWithoutSaving": "Părăsești fără a salva?",
+        "yourChangesToThisCredential": "Modificările aduse acestei acreditări se vor pierde.",
+        "leave": "Părăsește",
+        "credentialSaved": "Acreditare salvată",
+        "credentialAdded": "Acreditare adăugată",
+        "couldNotSaveTheCredential": "Nu s-a putut salva acreditarea",
+        "enterAHostToTest": "Introdu o gazdă pentru testare, de exemplu 10.0.0.5 sau box:2222.",
+        "enterTheUsernameFirst": "Introdu mai întâi numele de utilizator.",
+        "editCredential": "Editează acreditarea",
+        "newCredential": "Acreditare nouă",
+        "cancel": "Anulează",
+        "save": "Salvează",
+        "credential": "Credencială",
+        "name": "Nume",
+        "productionKey": "Cheie de producție",
+        "username": "Nume de utilizator",
+        "signInWith": "Autentificare cu",
+        "password": "Parolă",
+        "sshKey": "Cheie SSH",
+        "unchangedIfBlank": "Rămâne neschimbat dacă este gol",
+        "key": "Cheie",
+        "fileOrPaste": "Fișier sau lipire",
+        "makeANewKey": "Generează o nouă cheie",
+        "aKeyIsSavedChoose": "O cheie este deja salvată. Alege un fișier sau lipește pentru a o înlocui.",
+        "type": "Tip",
+        "ed25519AndEcdsaAreMade": "Ed25519 și ECDSA sunt generate pe acest {{deviceWord}}, RSA pe serverul tău.",
+        "madeOnThisEd25519Works": "Generată pe acest {{deviceWord}}. Ed25519 funcționează aproape peste tot.",
+        "passphrase": "Frază de acces",
+        "optionalLocksTheNewKey": "Opțional. Blochează noua cheie pe acest {{deviceWord}} și pe disc.",
+        "makeKey": "Generează cheie",
+        "publicKey": "Cheie publică",
+        "addThisLineToSsh": "Adaugă această linie în ~/.ssh/authorized_keys pe host-urile tale",
+        "publicKeyCopied": "Cheia publică a fost copiată",
+        "copyPublicKey": "Copiază cheia publică",
+        "certificate": "Certificat",
+        "aCertificateYourCaSigned": "Un certificat semnat de CA-ul tău pentru această cheie, pentru host-urile care încredințează CA-ul.",
+        "chooseCertificateFile": "Alege fișierul certificatului",
+        "thisDoesNotLookLike": "Acesta nu pare un certificat OpenSSH.",
+        "test": "Testează",
+        "hostToTestOn": "Host pentru testare",
+        "n10005Or": "10.0.0.5 sau box.lan:2222",
+        "pickASavedHost": "Alege un host salvat",
+        "details": "Detalii",
+        "description": "Descriere",
+        "whatThisCredentialIsFor": "Scopul acestei credentiale",
+        "folder": "Dosar",
+        "serverKeys": "Chei server",
+        "testOnAHost": "Testează pe un host",
+        "rsaKeysNeedALinked": "Cheile RSA necesită un server asociat."
+      },
+      "model": {
+        "giveThisCredentialAName": "Dă un nume acestei credentiale",
+        "addAPrivateKeyOr": "Adaugă o cheie privată sau generează una nouă"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Acesta este un certificat de host, nu unul de utilizator.",
+        "thisCertificateIsNotValid": "Acest certificat nu este încă valabil.",
+        "thisCertificateHasExpired": "Acest certificat a expirat.",
+        "itIsForAKey": "Este pentru o cheie {{keyType}}, dar această cheie este {{keyType2}}.",
+        "forAnyUser": "Pentru orice utilizator",
+        "validFromNoEndDate": "Valabil din {{validAfter}}, fără dată de expirare",
+        "signedBy": "Semnat de {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Nume de utilizator",
+        "fromTheCredential": "Din credentială: {{credentialUser}}",
+        "signInWith": "Autentificare cu",
+        "password": "Parolă",
+        "key": "Cheie",
+        "credential": "Credentială",
+        "none": "Niciuna",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Se conectează prin Tailscale SSH. Nu se păstrează nicio parolă sau cheie.",
+        "tailscaleIsNotOnFor": "Tailscale nu este activat pentru {{value}}. Acest host își păstrează autentificarea Tailscale.",
+        "unchangedIfBlank": "Rămâne neschimbat dacă este gol",
+        "noCredentialsYetTapThe": "Nu există credentiale încă. Apasă pe pictograma de cheie din Hosts pentru a adăuga una.",
+        "useCredential": "Folosește acreditarea {{name}}",
+        "sudoPassword": "Parolă sudo",
+        "typedIntoSudoPromptsWhen": "Se introduce în prompturile sudo când secțiunea Terminal activează această opțiune",
+        "notSet": "Nesetată",
+        "thisServer": "acest server"
+      },
+      "colorIconField": {
+        "color": "Culoare",
+        "noColor": "Fără culoare",
+        "color2": "Culoare {{c}}",
+        "icon": "Iconiță",
+        "noIcon": "Fără iconiță",
+        "none": "Niciuna",
+        "icon2": "Iconiță {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Părăsiți fără a salva?",
+        "yourChangesToThisHost": "Modificările aduse acestui gazdă vor fi pierdute.",
+        "leave": "Părăsiți",
+        "couldNotSaveHowThis": "Nu s-a putut salva modul în care se conectează această gazdă",
+        "hostSaved": "Gazdă salvată",
+        "hostAdded": "Gazdă adăugată",
+        "couldNotSaveTheHost": "Nu s-a putut salva gazda",
+        "enterTheHostSAddress": "Introduceți mai întâi adresa gazdei.",
+        "turnOnSshToTest": "Activați SSH pentru a testa autentificarea.",
+        "pickACredentialFirst": "Alegeți mai întâi o acreditare.",
+        "editHost": "Editare gazdă",
+        "newHost": "Gazdă nouă",
+        "cancel": "Anulare",
+        "save": "Salvare",
+        "host": "Gazdă",
+        "name": "Nume",
+        "myServer": "Serverul meu",
+        "address": "Adresă",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Portul și numele de utilizator provin din valorile implicite ale gazdei, până le modificați.",
+        "folder": "Dosar",
+        "production": "Producție",
+        "useAFolderInstead": "Folosiți un dosar în schimb",
+        "putItUnderAHost": "Plasați-l sub o gazdă în schimb",
+        "pinToTop": "Fixare în partea de sus",
+        "colorAndIcon": "Culoare și iconiță",
+        "notes": "Note",
+        "anythingWorthRememberingAboutThis": "Orice detaliu de reținut despre această gazdă",
+        "protocols": "Protocoale",
+        "terminalFilesAndMore": "Terminal, fișiere și alte funcții",
+        "connectFrom": "Conectare de la",
+        "features": "Funcții",
+        "otherProtocols": "Alte protocoale",
+        "more": "Mai multe",
+        "theTestRunsFromThis": "Testul se execută de pe acest {{deviceWord}}. Această gazdă se conectează prin server, așa că poate funcționa chiar și când {{deviceWord}} nu o poate atinge direct."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Gazde de salt",
+        "connectsThroughTheseInOrder": "Se conectează prin acestea, în ordine, apoi la această gazdă",
+        "reachThisHostThroughOther": "Atingeți această gazdă mai întâi prin alte gazde",
+        "moveUp": "Mutare în sus",
+        "moveDown": "Mutare în jos",
+        "removeJumpHost": "Eliminare gazdă de salt",
+        "addJumpHost": "Adăugare gazdă de salt",
+        "pickASavedHostTo": "Alegeți o gazdă salvată pentru a vă conecta prin ea",
+        "searchHosts": "Căutare gazde",
+        "noOtherHostsToPick": "Nu există alte gazde disponibile. O gazdă nu poate face salt prin ea însăși sau prin o gazdă care deja trece prin ea.",
+        "missingHost": "Gazdă lipsă #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Activați cel puțin un protocol",
+        "pickACredential": "Alegeți o acreditare",
+        "enterTheHostSAddress": "Introduceți adresa gazdei",
+        "theAddressCanTHave": "Adresa nu poate conține spații",
+        "portMustBeFrom1": "Portul trebuie să fie între 1 și 65535",
+        "enterTheSshUsername": "Introduceți numele de utilizator SSH"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Gazda va apărea imbricată sub cea pe care o alegeți",
+        "searchHosts": "Caută gazde",
+        "noHostsToPickA": "Nu există gazde disponibile. O gazdă nu poate fi plasată sub ea însăși, sub una dintre sub-gazdele sale sau sub o gazdă partajată.",
+        "parentHost": "Gazdă părinte",
+        "subHostsFollowTheFolder": "Sub-gazdele urmează folderul gazdei părinte",
+        "pickParentHost": "Alege gazdă părinte",
+        "missingHost": "Gazdă lipsă #{{value}}",
+        "pickAHost": "Alege o gazdă",
+        "clearParentHost": "Șterge gazda părinte"
+      },
+      "tagsField": {
+        "tags": "Etichete",
+        "typeATagAndPress": "Tastați o etichetă și apăsați Enter",
+        "removeTag": "Elimină eticheta {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Nu s-a putut salva modul de conectare al acestei gazde",
+      "addressCopied": "Adresa a fost copiată",
+      "cpu": "CPU {{value}}%",
+      "ram": "RAM {{value}}%",
+      "connectFrom": "Conectează-te din",
+      "dismiss": "Ignoră",
+      "unpin": "Deprinde",
+      "pinToHome": "Fixează pe Ecranul principal",
+      "select": "Selectează",
+      "editHost": "Editează gazda",
+      "copyAddress": "Copiază adresa",
+      "addSubHost": "Adaugă sub-gazdă",
+      "cloneHost": "Clonează gazda",
+      "deleteHost": "Șterge gazda",
+      "connectThroughTheServer": "Conectează-te prin server",
+      "connectFromThis": "Conectează-te din acest {{deviceWord}}"
+    },
+    "defaultYourOrder": "Implicit (ordinea ta)",
+    "nameAZ": "Nume (A-Z)",
+    "nameZA": "Nume (Z-A)",
+    "ipAscending": "IP (crescător)",
+    "ipDescending": "IP (descrescător)",
+    "onlineFirst": "Online mai întâi",
+    "offlineFirst": "Offline mai întâi",
+    "pinnedFirst": "Fixate mai întâi",
+    "status": "Stare",
+    "online": "Online",
+    "offline": "Offline",
+    "pinned": "Fixate",
+    "protocol": "Protocol",
+    "features": "Funcționalități",
+    "hostsCanOnlyMoveInside": "Gazdele se pot muta doar în interiorul propriului folder",
+    "couldNotUpdateTheHosts": "Nu s-au putut actualiza gazdele",
+    "sharedHostsCanTBe": "Gazdele partajate nu pot fi șterse aici",
+    "delete2": "Șterge",
+    "noneOfTheseHostsOpen": "Niciuna dintre aceste gazde nu deschide un terminal",
+    "couldNotPinTheHost": "Nu s-a putut fixa gazda",
+    "deleted": "Am șters {{name}}",
+    "failedToDeleteHost": "Ștergerea gazdei a eșuat",
+    "cloned": "Am clonat {{name}}",
+    "failedToCloneHost": "Clonarea gazdei a eșuat",
+    "reorderWorksWithTheDefault": "Reordonarea funcționează cu sortarea Implicită și fără căutare sau filtru",
+    "couldNotSaveTheOrder": "Nu s-a putut salva ordinea",
+    "noHostsYet": "Încă nu există gazde",
+    "addAHostToConnect": "Adaugă un host pentru a te conecta la el cu o singură atingere.",
+    "addHost": "Adaugă host",
+    "quickConnect2": "Conectare rapidă",
+    "linkAServer": "Conectează un server",
+    "noHostsMatch": "Niciun host nu corespunde",
+    "clearSearchAndFilters": "Șterge căutarea și filtrele",
+    "more": "Mai multe",
+    "dragAHostByIts": "Trage un host de mâner pentru a-l muta în folderul său.",
+    "done": "Gata",
+    "filterHosts": "Filtrează host-urile",
+    "clearFilterText": "Șterge textul filtrului",
+    "sortHosts": "Sortează host-urile",
+    "removeFilter": "Elimină filtrul {{value}}",
+    "loadingHosts": "Se încarcă host-urile…",
+    "moveUnderAHost": "Mută sub un host",
+    "moveToFolder": "Mută în folder",
+    "leaveItEmptyToTake": "Lasă gol pentru a scoate host-urile din foldere.",
+    "folderLikeProdWeb": "Folder, de exemplu Prod / Web",
+    "move": "Mută",
+    "hosts": "Host-uri",
+    "selectHosts": "Selectează host-uri",
+    "reorderHosts": "Reordonează host-urile",
+    "customizeList": "Personalizează lista",
+    "chooseWhatEachHostRow": "Alege ce afișează fiecare rând de host",
+    "credentials2": "Credențiale",
+    "savedPasswordsAndKeys": "Parole și chei salvate",
+    "tailscaleDevices": "Dispozitive Tailscale",
+    "refresh": "Reîmprospătează",
+    "rowDensityFollowsSettingsAppearance": "Densitatea rândurilor urmează Setări, Aspect.",
+    "clearAllFilters": "Șterge toate filtrele",
+    "tags": "Etichete",
+    "stopSelecting": "Oprește selecția",
+    "selected": "{{count}} selectat(e)",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Nu s-a putut citi fișierul cheii",
+        "theClipboardIsEmpty": "Clipboard-ul este gol",
+        "privateKey": "Cheie privată",
+        "chooseFile": "Alege fișier",
+        "paste": "Lipește",
+        "unchangedIfBlank": "Neschimbat dacă este gol",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Frază de parolă",
+        "onlyIfTheKeyHas": "Doar dacă cheia are una",
+        "theKeyIsCheckedWhen": "Cheia este verificată când te conectezi.",
+        "thePastedKey": "cheia lipită"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Deschide",
+        "moreActions": "Mai multe acțiuni",
+        "opensTheTerminalHoldFor": "Deschide terminalul. Apasă lung pentru mai multe.",
+        "shared": "Partajat",
+        "drag": "Trage {{name}}",
+        "showSubHosts_one": "Afișează {{count}} sub-host al lui {{name}}",
+        "showSubHosts_few": "Afișează {{count}} sub-host-uri ale lui {{name}}",
+        "showSubHosts_other": "Afișează {{count}} sub-host-uri ale lui {{name}}",
+        "hideSubHosts_one": "Ascunde {{count}} sub-host al lui {{name}}",
+        "hideSubHosts_few": "Ascunde {{count}} sub-host-uri ale lui {{name}}",
+        "hideSubHosts_other": "Ascunde {{count}} sub-host-uri ale lui {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Folder {{name}}, {{total}} host-uri"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Host-ul și numele de utilizator sunt obligatorii",
+      "hostSaved": "Host salvat",
+      "couldNotSaveTheHost": "Nu s-a putut salva host-ul",
+      "quickConnect": "Conectare rapidă",
+      "connectToAHostWithout": "Conectează-te la un host fără a-l salva.",
+      "hostIp": "Host / IP",
+      "port": "Port",
+      "username": "Nume de utilizator",
+      "password": "Parolă",
+      "key": "Cheie",
+      "privateKey": "Cheie privată",
+      "saveToMyHosts": "Salvează în gazdele mele",
+      "keepThisHostAfterConnecting": "Păstrează această gazdă după conectare",
+      "cancel": "Anulează",
+      "connect": "Conectează-te"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Se preiau gazdele de pe server",
+      "yourHostsStayOnThis": "{{message}} Gazdele rămân pe acest {{deviceWord}} în timp."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Cheia acestei gazde s-a schimbat",
+      "trustThisHost": "Ai încredere în această gazdă?",
+      "trust": "Ai încredere",
+      "stopTest": "Oprește testul",
+      "testConnection": "Testează conexiunea",
+      "connecting": "Se conectează..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Nu s-au putut încărca gazdele."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} gazdă partajată a fost lăsată așa cum era.",
+    "sharedLeftAsTheyAre_few": "{{done}}. {{count}} gazde partajate au fost lăsate așa cum erau.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} gazde partajate au fost lăsate așa cum erau.",
+    "deleteHosts_one": "Ștergi {{count}} gazdă?",
+    "deleteHosts_few": "Ștergi {{count}} gazde?",
+    "deleteHosts_other": "Ștergi {{count}} gazde?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Nu există un dosar cu numele {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Gazda „{{name}}”: port invalid",
+        "hostJumpIsNotIn": "Gazda „{{name}}”: saltul {{value}} nu se află în fișier, așa că a fost omis",
+        "credential": "Credențiala {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Nu s-au găsit intrări valide pentru Host în fișierul de configurare SSH",
+        "credentialWasNotFound": "{{label}}: credențiala {{value}} nu a fost găsită"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Gazda {{value}}: id-ul gazdei exportate este duplicat {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Câmpuri obligatorii lipsă (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: authType invalid. Trebuie să fie unul dintre {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Numele de utilizator este obligatoriu pentru conexiunile SSH",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias este obligatoriu pentru autentificarea cu credențiale",
+        "thatIsNotAValid": "Acesta nu este un fișier JSON valid",
+        "hostsArrayIsRequiredAnd": "Lista de gazde este obligatorie și nu poate fi goală",
+        "jumpHostCycle": "{{label}}: ciclu de gazde de salt",
+        "jumpHostIsNotIn": "{{label}}: gazda de salt {{id}} nu se află în fișier"
+      }
+    },
+    "movedTo": "Mutat în {{value}}",
+    "movedOutOfFolders": "Mutat din dosare",
+    "movedUnder": "Mutat sub {{value}}",
+    "openTerminals": "Terminale deschise",
+    "theHost": "gazda"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Ascunde parola",
+      "showPassword": "Afișează parola",
+      "enterAUsernameAndPassword": "Introdu un nume de utilizator și o parolă",
+      "useAtLeast6Characters": "Folosește cel puțin 6 caractere pentru parolă",
+      "thePasswordsDonTMatch": "Parolele nu coincid",
+      "makeTheAdminAccount": "Creează contul de administrator",
+      "makeAnAccount": "Creează un cont",
+      "thisIsTheFirstAccount": "Acesta este primul cont de pe server, așa că va administra serverul.",
+      "pickAUsernameAndPassword": "Alege un nume de utilizator și o parolă pentru acest server.",
+      "username": "Nume de utilizator",
+      "password": "Parolă",
+      "passwordAgain": "Parola din nou",
+      "makeAccount": "Creează cont",
+      "back": "Înapoi",
+      "haveAnAccountSignIn": "Ai deja un cont? Autentifică-te",
+      "resetCodeMadeItIs": "Codul de resetare a fost generat. Se află în jurnalele serverului",
+      "enterYourUsername": "Introdu numele tău de utilizator",
+      "enterTheResetCode": "Introdu codul de resetare",
+      "passwordChangedSignInWith": "Parola a fost schimbată. Autentifică-te acum cu ea",
+      "resetPassword": "Resetează parola",
+      "enterYourUsernameTheServer": "Introdu numele tău de utilizator. Serverul va scrie un cod de resetare în jurnalele sale.",
+      "sendResetCode": "Trimite codul de resetare",
+      "enterThe6DigitCode": "Introduceți codul de 6 cifre din jurnalele serverului.",
+      "resetCode": "Resetează codul",
+      "checkCode": "Verifică codul",
+      "newPassword": "Parolă nouă",
+      "saveNewPassword": "Salvează parola nouă",
+      "backToSignIn": "Înapoi la autentificare",
+      "couldNotMakeTheAccount": "Nu s-a putut crea contul",
+      "couldNotStartTheReset": "Nu s-a putut iniția resetarea",
+      "thatCodeDidnTWork": "Acest cod nu a funcționat",
+      "couldNotChangeThePassword": "Nu s-a putut modifica parola"
+    },
+    "browserStep": {
+      "signInFailed": "Autentificarea a eșuat",
+      "signInCanceled": "Autentificarea a fost anulată",
+      "couldNotOpenTheSign": "Nu s-a putut deschide browserul pentru autentificare",
+      "couldNotOpenTheSign2": "Nu s-a putut deschide pagina de autentificare",
+      "certificateProblem": "Problemă cu certificatul",
+      "back": "Înapoi",
+      "signIn": "Autentificare",
+      "reload": "Reîncarcă",
+      "finishSigningInInYour": "Finalizați autentificarea în browser",
+      "useAnySignInYour": "Folosiți orice metodă de autentificare disponibilă pe server, cum ar fi o cheie de acces sau o cheie de securitate. Aplicația preia controlul după ce vă autentificați.",
+      "theAppPicksUpOnce": "Aplicația preia controlul după ce furnizorul de autentificare finalizează procesul.",
+      "signingIn": "Se autentifică...",
+      "openBrowserAgain": "Deschide din nou browserul",
+      "theServerTurnedTheSession": "Serverul a respins sesiunea. Încercați din nou.",
+      "signedInButTheApp": "Autentificare reușită, dar aplicația nu poate accesa Termix. Un proxy ar putea bloca conexiunea.",
+      "thatSignInLinkIs": "Acest link de autentificare este dintr-o încercare anterioară. Autentificați-vă din nou.",
+      "signInAgain": "Autentificați-vă din nou.",
+      "openTheBrowserAgainWhen": "Deschideți din nou browserul când sunteți pregătit.",
+      "theWebPageSignedIn": "Pagina web s-a autentificat, dar nu a trimis nicio sesiune. Actualizați serverul și încercați din nou.",
+      "theCanTCheckThis": "{{deviceWord}} nu poate verifica certificatul acestui server. Instalați CA rădăcină pe {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Doriți să folosiți {{name}} pentru autentificare data viitoare?",
+      "ifThisServerSignsYou": "Dacă acest server vă deconectează, autentificați-vă din nou cu {{name}} în loc să tastați parola. Parola rămâne pe acest {{deviceWord}}.",
+      "use": "Folosește {{name}}",
+      "notNow": "Nu acum",
+      "couldNotSaveTheLogin": "Nu s-a putut salva datele de autentificare",
+      "thatSADifferentUser": "Acesta este un alt utilizator",
+      "signedIn": "Autentificare reușită",
+      "close": "Închide",
+      "linkYourTermixServer": "Conectați-vă la serverul Termix",
+      "yourHostsCredentialsSnippetsAnd": "Gazdele, datele de autentificare, fragmentele și setările se sincronizează cu acesta, iar dvs. primiți plugin-urile sale. Totul continuă să funcționeze pe acest {{deviceWord}} când serverul este indisponibil.",
+      "checking": "Se verifică {{host}}...",
+      "proxyAndClientCertificate": "Proxy și certificat client",
+      "couldNotReachThatServer": "Nu s-a putut accesa acel server. Verificați adresa sau configurați proxy-ul sau certificatul client.",
+      "couldNotReachThatServer2": "Nu s-a putut accesa acel server",
+      "syncCouldNotStartYet": "Sincronizarea nu a putut începe încă. Va încerca din nou automat.",
+      "checkingTheServer": "Se verifică serverul",
+      "signIn": "Autentificare",
+      "makeAnAccount": "Creați un cont",
+      "resetPassword": "Resetează parola",
+      "oneMoreStep": "Încă un pas",
+      "almostDone": "Aproape gata",
+      "linkAServer": "Conectați un server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Datele de autentificare salvate nu mai funcționează",
+      "enterYourUsernameAndPassword": "Introduceți numele de utilizator și parola",
+      "thisServerIsBehindA": "Acest server este în spatele unui proxy de autentificare",
+      "signInWith": "Autentificare cu {{saved}}",
+      "signInWith2": "Autentificare cu",
+      "password": "Parolă",
+      "username": "Nume de utilizator",
+      "signIn": "Autentificare",
+      "forgotPassword": "Ai uitat parola?",
+      "makeAnAccount": "Creează un cont",
+      "or": "SAU",
+      "continueWith": "Continuă cu {{label}}",
+      "signInWithAPasskey": "Autentifică-te cu o cheie de acces sau o cheie de securitate",
+      "opensYourServerAposS": "Deschide pagina de autentificare a serverului tău în browser. Face ID, amprentă, NFC și chei USB funcționează acolo. Necesită Termix 26.11.3 sau o versiune mai nouă.",
+      "signInInTheBrowser": "Autentifică-te în browser",
+      "opensYourServerAposS2": "Deschide pagina de autentificare a serverului, pentru orice nu poate fi făcut aici în aplicație. Necesită Termix 26.10.6 sau o versiune mai nouă.",
+      "thisServerHasNoSign": "Acest server nu are activată nicio metodă de autentificare pe care aplicația o poate folosi. Întreabă administratorul serverului sau încearcă autentificarea prin browser de mai sus.",
+      "signInWithYourPassword": "Autentifică-te cu parola ta.",
+      "signInFailed": "Autentificarea a eșuat",
+      "openingItsSignInPage": "Se deschide pagina de autentificare."
+    },
+    "smallSteps": {
+      "serverAddress": "Adresa serverului",
+      "likeTermixExampleComOr": "De exemplu termix.example.com sau 192.168.1.20:30001",
+      "checking": "Se verifică...",
+      "continue": "Continuă",
+      "proxyAndClientCertificate": "Proxy și certificat client",
+      "aServerWithASelf": "Un server cu un certificat semnat de sine însuși necesită instalarea CA rădăcină pe acest {{deviceWord}} mai întâi. HTTP simplu funcționează în rețeaua ta locală.",
+      "enterTheCode": "Introdu codul",
+      "code": "Cod",
+      "the6DigitCodeFrom": "Codul cu 6 cifre din aplicația ta de autentificare sau un cod de rezervă",
+      "checkCode": "Verifică codul",
+      "thisAccountAsksForA": "Acest cont solicită o cheie de securitate după parolă. Autentifică-te pe pagina serverului în browser pentru a o folosi.",
+      "useASecurityKeyIn": "Folosește o cheie de securitate în browser",
+      "backToSignIn": "Înapoi la autentificare",
+      "bringThisAposSHosts": "Dorești să preiei și gazdele de pe acest {{deviceWord}}?",
+      "thisHasTheyStayOn": "Acest {{deviceWord}} are {{what}}. Acestea rămân pe acest dispozitiv în orice caz.",
+      "merge": "Combină",
+      "copyThemToTooSo": "Copiază-le și pe {{serverName}}, pentru a le sincroniza. Cele care coincid cu o gazdă de pe server sunt ignorate.",
+      "replace": "Înlocuiește",
+      "useOnlyWhatIsOn": "Folosește doar ceea ce se află pe {{serverName}} pentru acest cont. Nimic nu este copiat.",
+      "thatCodeDidnTWork": "Acest cod nu a funcționat",
+      "hostsCredentialsOrSnippets": "gazde, credențiale sau fragmente"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Conectează mai întâi acest server",
+      "thatHostIsnTHere": "Această gazdă nu se află aici",
+      "couldNotOpenThatHost": "Nu s-a putut deschide această gazdă",
+      "noHostWithIdOn": "Nicio gazdă cu id-ul {{hostId}} pe {{account}}.",
+      "isnTLinkedInThe": "{{value}} nu este încă conectat în aplicație."
+    }
+  },
+  "notifications": {
+    "notifications": "Notificări",
+    "markAllRead": "Marchează toate ca citite",
+    "clearReadNotifications": "Șterge notificările citite",
+    "unread2": "Necitite",
+    "all": "Toate",
+    "noUnreadNotifications": "Nicio notificare necitită",
+    "nothingHere": "Nu este nimic aici",
+    "markRead": "Marchează ca citită",
+    "delete": "Șterge",
+    "couldNotLoadNotifications": "Nu s-au putut încărca notificările",
+    "couldNotMarkRead": "Nu s-a putut marca ca citită",
+    "couldNotDelete": "Nu s-a putut șterge",
+    "couldNotClear": "Nu s-a putut șterge"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importă",
+      "hosts": "Gazde",
+      "aTermixHostFileYour": "Un fișier de gazde Termix, fișierul tău ~/.ssh/config sau un link/cod QR de la un alt {{deviceWord}}. Acestea sunt salvate pe acest {{deviceWord}}.",
+      "backup": "Copie de siguranță",
+      "aBackupThisAppMade": "O copie de siguranță creată de această aplicație, blocată cu o frază de acces. Restabilește gazdele, credențialele și fragmentele.",
+      "restoreABackup": "Restabilește o copie de siguranță",
+      "done": "Terminat",
+      "skipForNow": "Sari peste pentru moment",
+      "sshFilesAndRemoteDesktops": "SSH, fișiere și desktopuri remote de pe {{deviceWord}}-ul tău. Cum dorești să începi?",
+      "useWithoutAServer": "Folosește fără un server",
+      "hostsCredentialsAndSnippetsAre": "Gazdele, acreditările și fragmentele sunt stocate criptate pe acest {{deviceWord}}. Poți conecta un server oricând mai târziu.",
+      "linkATermixServer": "Conectează un server Termix",
+      "syncYourHostsCredentialsSnippets": "Sincronizează-ți gazdele, acreditările, fragmentele și setările cu serverul tău și folosește-ți plugin-urile acestuia.",
+      "bringHostsFromATermix": "Importă gazde dintr-un fișier Termix, o configurație SSH, un cod QR sau o copie de rezervă.",
+      "thisDevice": "Acest dispozitiv"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Caută gazde, fragmente, acțiuni",
+      "clearSearch": "Șterge căutarea",
+      "nothingMatches": "Nimic nu se potrivește",
+      "typeToSearch": "Scrie pentru a căuta",
+      "findAHostToConnect": "Găsește o gazdă la care să te conectezi, un fragment, o setare sau o acțiune.",
+      "suggested": "Sugerat | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Rulează în {{title}}",
+      "copiedRunItFromThe": "Copiat. Rulează-l din fragmentele terminalului pentru a completa valorile.",
+      "copiedOpenATerminalTo": "Copiat. Deschide un terminal pentru a rula fragmente.",
+      "addHost": "Adaugă gazdă",
+      "quickConnect": "Conectare rapidă",
+      "switchAccount": "Comută contul",
+      "linkAServer": "Conectează un server",
+      "fromYourServer": "De pe serverul tău",
+      "settings": "Setări",
+      "accountsAppearanceSecurity": "Conturi, aspect, securitate"
+    },
+    "search": {
+      "hosts": "Gazde",
+      "snippets": "Fragmente",
+      "actions": "Acțiuni",
+      "settings": "Setări"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Nu s-au putut încărca sesiunile",
+      "sessionRevoked": "Sesiune revocată",
+      "failedToRevokeSession": "Nu s-a putut revoca sesiunea",
+      "allSessionsRevoked": "Toate sesiunile au fost revocate",
+      "failedToRevokeAllSessions": "Nu s-au putut revoca toate sesiunile",
+      "activeSessions": "Sesiuni active",
+      "signOutAllOtherSessions": "Deconectează toate celelalte sesiuni",
+      "loading": "Se încarcă…",
+      "noActiveSessionsFound": "Nu s-au găsit sesiuni active.",
+      "unknownDevice": "Dispozitiv necunoscut",
+      "lastActive": "Ultima activitate {{lastActiveAt}}",
+      "created": "Creat la {{createdAt}}",
+      "revokeSession": "Revocă sesiunea",
+      "revokeSession2": "Revoci sesiunea?",
+      "thisWillSignOutThat": "Acest lucru va deconecta acel dispozitiv.",
+      "revoke": "Revocă",
+      "revokeAllSessions": "Revoci toate sesiunile?",
+      "thisWillSignOutEvery": "Acest lucru va deconecta fiecare dispozitiv. Vei rămâne conectat pe acest dispozitiv.",
+      "cancel": "Anulează",
+      "revokeAll": "Revocă toate"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Nu s-au putut încărca cheile API",
+      "failedToCreateApiKey": "Nu s-a putut crea cheia API",
+      "deleteApiKey": "Ștergi cheia API?",
+      "willStopWorkingRightAway": "\"{{name}}\" va înceta să funcționeze imediat.",
+      "apiKeyDeleted": "Cheia API a fost ștearsă",
+      "failedToDeleteApiKey": "Nu s-a putut șterge cheia API",
+      "apiKeys": "Chei API",
+      "newApiKey": "Cheie API nouă",
+      "loading": "Se încarcă…",
+      "apiKeysAllowProgrammaticAccess": "Cheile API permit accesul programatic la Termix. Secretul este afișat o singură dată, așa că păstrează-l în siguranță.",
+      "noApiKeysYet": "Încă nu există chei API",
+      "created": "Creat la {{createdAt}}",
+      "lastUsed": "Ultima utilizare {{lastUsedAt}}",
+      "expires": "Expiră la {{expiresAt}}",
+      "delete": "Șterge {{name}}",
+      "keyCreatedCopyItNow": "Cheia a fost creată. Copiaz-o acum",
+      "newApiKey2": "Cheie API nouă",
+      "thisTokenWonTBe": "Acest token nu va mai fi afișat.",
+      "apiKeyCopied": "Cheia API a fost copiată",
+      "copy": "Copiază",
+      "done": "Terminat",
+      "cancel": "Anulează",
+      "create": "Creează",
+      "name": "Nume *",
+      "eGCiPipeline": "ex. Pipeline CI",
+      "user": "Utilizator *",
+      "noUsersAvailable": "Niciun utilizator disponibil.",
+      "expiresAtOptional": "Expiră la (opțional)",
+      "yyyyMmDd": "AAAA/LL/ZZ",
+      "yearMonthDay": "An / Lună / Zi"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Păstrează sesiunile active",
+      "showsANotificationWhileSessions": "Afișează o notificare cât timp sesiunile sunt deschise, astfel încât Android să le mențină active când părăsești aplicația",
+      "batteryOptimization": "Optimizare baterie",
+      "termixIsNotRestrictedSo": "Termix nu este restricționat, deci sesiunile pot rămâne deschise cu ecranul oprit.",
+      "androidMayStillStopSessions": "Android poate totuși să oprească sesiunile pentru a economisi bateria. Deschide setările bateriei, caută Termix și selectează Neoptimizat sau Fără restricții.",
+      "openBatterySettings": "Deschide setările bateriei",
+      "notificationsAreOff": "Notificările sunt dezactivate",
+      "sessionsStillRunButThe": "Sesiunile continuă să ruleze, dar lista de sesiuni deschise și butonul Deconectează totul rămân ascunse.",
+      "openNotificationSettings": "Deschide setările notificărilor",
+      "thisBuildCanTKeep": "Această versiune nu poate menține sesiunile active în fundal. Ele se reconectează când revii.",
+      "lowPowerMode": "Modul de economisire a energiei",
+      "batterySaver": "Economisitor de baterie",
+      "isOnTermixChecksConnections": "{{value}} este activat. Termix verifică conexiunile mai rar și așteaptă mai mult între încercările de reconectare.",
+      "backgroundSessions": "Sesiuni în fundal",
+      "iosStopsAppsSoonAfter": "iOS oprește aplicațiile curând după ce le părăsești, deci sesiunile nu pot rula în fundal. Ele se reconectează când revii, iar tmux sau screen preiau de unde ai rămas."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Oprit",
+        "active": "Activ",
+        "linkAServer": "Asociază un server",
+        "eachServerKeepsItsOwn": "Fiecare server își păstrează propria copie a gazdelor, acreditărilor și setărilor tale pe acest {{deviceWord}}.",
+        "signedInAs": "Autentificat ca",
+        "role": "Rol",
+        "administrator": "Administrator",
+        "user": "Utilizator",
+        "serverVersion": "Versiunea serverului",
+        "signOut": "Deconectare",
+        "youAreSignedOutOf": "Ești deconectat de pe acest server.",
+        "signIn": "Autentificare",
+        "passwordChanged": "Parola a fost schimbată",
+        "couldNotChangeThePassword": "Nu s-a putut schimba parola",
+        "changePassword": "Schimbă parola",
+        "enterYourCurrentPasswordThen": "Introdu parola curentă, apoi alege una nouă.",
+        "cancel": "Anulează",
+        "change": "Schimbă",
+        "currentPassword": "Parola curentă",
+        "newPassword": "Parola nouă",
+        "accountDeleted": "Contul a fost șters",
+        "couldNotDeleteTheAccount": "Nu s-a putut șterge contul",
+        "deleteServerAccount": "Șterge contul de pe server",
+        "thisPermanentlyDeletesYourAccount": "Aceasta șterge definitiv contul tău de pe server și toate datele asociate. Acțiunea nu poate fi anulată.",
+        "delete": "Șterge",
+        "confirmYourPassword": "Confirmă parola",
+        "worksWithoutAServer": "Funcționează fără server",
+        "signedOut": "Deconectat",
+        "readsLive": "Citește în timp real",
+        "toReview": "de verificat: {{count}}",
+        "synced": "Sincronizat",
+        "syncing": "Se sincronizează",
+        "offline": "Deconectat"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Partajează statisticile anonime de utilizare",
+        "aShortReportOnceA": "Un scurt raport o dată pe zi. Fără servere, nume sau adrese",
+        "nextReport": "Următorul raport",
+        "seeExactlyWhatWouldBe": "Vezi exact ce ar fi trimis",
+        "couldNotBuildTheReport": "Nu s-a putut genera raportul",
+        "preview": "Previzualizare",
+        "thisIsExactlyWhatWould": "Acesta este exact ceea ce ar fi trimis chiar acum.",
+        "resetInstallId": "Resetează ID-ul de instalare",
+        "futureReportsWillLookLike": "Rapoartele viitoare vor părea ca o instalare nouă",
+        "resetTheInstallId": "Resetezi ID-ul de instalare?",
+        "futureReportsWillLookLike2": "Rapoartele viitoare vor părea ca o instalare nouă.",
+        "reset": "Resetează",
+        "installIdReset": "ID-ul de instalare a fost resetat"
+      },
+      "appearanceControls": {
+        "theme": "Temă",
+        "accentColor": "Culoare de accent",
+        "textSize": "Dimensiune text",
+        "sizeOfTextAcrossThe": "Dimensiunea textului în aplicație, nu în terminal",
+        "density": "Densitate",
+        "howTallListRowsAnd": "Cât de înalte sunt rândurile din liste și setările"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Serverele, acreditările și fragmentele sunt păstrate într-un fișier criptat pe acest{{deviceWord}}. Statisticile de utilizare sunt oprite, decât dacă le activezi mai jos. Un server conectat primește doar ceea ce îi permiți să sincronizeze.",
+        "recentHosts": "Servere recente",
+        "forgetTheHostsYouOpened": "Uită serverele la care te-ai conectat recent pe fiecare cont",
+        "recentHostsCleared": "Serverele recente au fost șterse",
+        "clear": "Șterge",
+        "couldNotCheckForUpdates": "Nu s-a putut verifica dacă există actualizări",
+        "versionIsOutUpdateFrom": "Versiunea {{version}} este disponibilă. Actualizează din magazinul tău.",
+        "youHaveTheNewestVersion": "Ai cea mai nouă versiune",
+        "termixMobile": "Termix Mobile",
+        "updates": "Actualizări",
+        "check": "Verifică"
+      },
+      "pinSheet": {
+        "waitSeconds": "Așteaptă {{value}} secunde",
+        "digits": "{{PIN_LENGTH}} cifre"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "Codurile PIN nu coincid",
+        "appLockIsOn": "Blocarea aplicației este activată",
+        "turnOffAppLock": "Dezactivează blocarea aplicației",
+        "enterYourPinToConfirm": "Introdu codul PIN pentru a confirma.",
+        "appLockIsOff": "Blocarea aplicației este dezactivată",
+        "appLock": "Blocare aplicație",
+        "askForFaceIdTouch": "Solicită Face ID, Touch ID sau un cod PIN pentru a deschide aplicația",
+        "askForAPinTo": "Solicită un cod PIN pentru a deschide aplicația",
+        "pinChanged": "Codul PIN a fost schimbat",
+        "couldNotChangeThePin": "Nu s-a putut schimba codul PIN",
+        "changePin": "Schimbă codul PIN",
+        "lockAfter": "Blochează după",
+        "howLongTheAppCan": "Cât timp poate rămâne aplicația invizibilă înainte de a se bloca",
+        "hideInAppSwitcher": "Ascunde în comutatorul de aplicații",
+        "showABlankScreenIn": "Afișează un ecran gol în lista de aplicații recente",
+        "chooseA4DigitPin": "Alege un cod PIN cu 4 cifre.",
+        "confirmPin": "Confirmă codul PIN",
+        "enterTheSamePinAgain": "Introdu din nou același cod PIN.",
+        "currentPin": "Codul PIN actual",
+        "enterYourCurrentPin": "Introdu codul PIN actual.",
+        "newPin": "Cod PIN nou",
+        "chooseANew4Digit": "Alege un nou cod PIN cu 4 cifre.",
+        "confirmNewPin": "Confirmă noul cod PIN",
+        "enterTheNewPinAgain": "Introdu din nou noul cod PIN."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Widget-uri pe ecranul principal",
+        "showYourHostsSnippetsAnd": "Afișează gazdele, fragmentele și butoanele de alimentare pe ecranul principal",
+        "showAddresses": "Afișează adresele",
+        "showUserHostUnderEach": "Afișează utilizator@gazdă sub fiecare nume de server",
+        "includeOfflineHosts": "Include gazdele offline",
+        "offShowsOnlyServersThat": "Dezactivat afișează doar serverele care sunt online",
+        "pinnedHostsOnly": "Doar gazdele fixate",
+        "showOnlyTheHostsYou": "Afișează doar gazdele pe care le-ai fixat",
+        "snippetsWidget": "Widget pentru fragmente",
+        "showSavedCommandsOnThe": "Afișează comenzile salvate pe ecranul principal",
+        "showCommandPreview": "Afișează previzualizarea comenzii",
+        "showTheFirstLineOf": "Afișează prima linie a fiecărei comenzi"
+      }
+    },
+    "fileSettings": {
+      "files": "Fișiere",
+      "fileManagerOnThis": "Manager de fișiere pe acest {{deviceWord}}",
+      "browsing": "Navigare",
+      "transfersAtOnce": "Transferuri simultan",
+      "downloadsAndUploadsThatRun": "Descărcări și încărcări care rulează împreună",
+      "editor": "Editor",
+      "textSize": "Dimensiune text",
+      "filesBesideTheTerminal": "Fișiere lângă terminal",
+      "side": "Lateral",
+      "whereThePanelSitsOn": "Unde se află panoul pe o tabletă",
+      "right": "Dreapta",
+      "left": "Stânga",
+      "howOftenToCheck": "Frecvența verificării",
+      "folderHistory": "Istoric dosare",
+      "foldersKeptPerHost": "Dosare păstrate per gazdă",
+      "showHiddenFiles": "Afișează fișierele ascunse",
+      "filesAndFoldersThatStart": "Fișiere și dosare care încep cu un punct",
+      "askBeforeMovingToThe": "Întreabă înainte de a muta la coșul de gunoi",
+      "deletingForGoodAlwaysAsks": "Ștergerea definitivă întreabă întotdeauna",
+      "wrapLongLines": "Împachetează liniile lungi",
+      "openWithNewTerminals": "Deschide cu terminale noi",
+      "onATabletShowThe": "Pe o tabletă, afișează panoul de fișiere când se deschide un terminal",
+      "followTheTerminal": "Urmărește terminalul",
+      "openTheFolderTheTerminal": "Deschide dosarul în care se află terminalul pe măsură ce folosești cd"
+    },
+    "keyboardCustomization": {
+      "small": "Mic",
+      "medium": "Mediu",
+      "large": "Mare",
+      "ms": "{{v}} ms",
+      "keyboard": "Tastatură",
+      "keyRowsAboveTheKeyboard": "Rânduri de taste deasupra tastaturii",
+      "rows": "Rânduri",
+      "keys": "Taste",
+      "aHostCanHaveIts": "O gazdă poate avea propriile rânduri: atinge fila deschisă a acesteia într-o sesiune și selectează Rânduri de taste pentru această gazdă.",
+      "keySize": "Dimensiune taste",
+      "vibrateOnKeyPress": "Vibrează la apăsarea tastei",
+      "repeatAfter": "Repetă după",
+      "howLongToHoldAn": "Cât timp să ții apăsată o săgeată sau Backspace",
+      "repeatEvery": "Repetă la fiecare",
+      "hardwareKeyboard": "Tastatură hardware",
+      "allShortcuts": "Toate scurtăturile",
+      "show": "Afișează"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Nu s-a putut crea backup-ul",
+      "deleteLocalData": "Ștergi datele locale?",
+      "hostsCredentialsSnippetsAndHistory": "Gazdele, acreditările, fragmentele și istoricul salvate pe acest {{deviceWord}} pentru {{account}} vor fi șterse. Această acțiune nu poate fi anulată. Creează un backup mai întâi dacă vrei să le păstrezi.",
+      "delete": "Șterge",
+      "localDataDeleted": "Datele locale au fost șterse",
+      "couldNotDeleteLocalData": "Nu s-au putut șterge datele locale",
+      "localData": "Date locale",
+      "localDataIsOnlySaved": "Datele locale sunt salvate doar în aplicația {{deviceWord}}.",
+      "savedOnThisForThe": "Salvat pe acest {{deviceWord}} pentru {{account}}. Fișierul este criptat cu o cheie care nu părăsește niciodată acest {{deviceWord}}.",
+      "hosts": "Gazde",
+      "credentials": "Credențiale",
+      "snippets": "Fragmente",
+      "size": "Dimensiune",
+      "dataVersion": "Versiunea datelor",
+      "backup": "Copie de siguranță",
+      "aBackupFileHoldsYour": "Un fișier de copie de siguranță conține parolele și cheile tale, blocate cu o frază de acces aleasă de tine. Nimeni nu îl poate deschide fără acea frază de acces.",
+      "exportBackup": "Exportă copia de siguranță",
+      "importBackup": "Importă copia de siguranță",
+      "removesEverythingThisAccountSaved": "Șterge tot ce a salvat acest cont pe acest {{deviceWord}}. Un server legat își păstrează propria copie.",
+      "deleteLocalData2": "Șterge datele locale",
+      "backupPassphrase": "Frază de acces pentru copie de siguranță",
+      "atLeast8CharactersYou": "Cel puțin 8 caractere. Ai nevoie de ea pentru a restaura copia de siguranță.",
+      "passphrase": "Frază de acces",
+      "next": "Înainte",
+      "typeItAgain": "Scrie-o din nou",
+      "export": "Exportă",
+      "saveYourTermixBackup": "Salvează copia de siguranță Termix"
+    },
+    "logs": {
+      "logs": "Jurnale",
+      "latestLinesFromThisRun": "Cele mai recente linii din această sesiune. Adresele serverelor, parolele și token-urile sunt ascunse.",
+      "logsCopied": "Jurnale copiate",
+      "copy": "Copiază",
+      "share": "Distribuie",
+      "clear": "Șterge",
+      "noLogsYet": "Încă nu există jurnale",
+      "nothingHasBeenLogged": "Nu s-au înregistrat evenimente."
+    },
+    "plugins": {
+      "worksOnThis": "Funcționează pe acest {{deviceWord}}",
+      "needsTheServer": "Necesită serverul",
+      "notInTheApp": "Nu este în aplicație",
+      "needsANewerVersionOf": "Necesită o versiune mai nouă a aplicației",
+      "updateThePluginOnThe": "Actualizează pluginul pe server",
+      "inTheApp": "În aplicație",
+      "onThisServer": "Pe acest server",
+      "version": "Versiune",
+      "needsPluginApi": "Necesită API-ul pluginului",
+      "thisAppHas": "Această aplicație are",
+      "note": "Notă",
+      "open": "Deschide",
+      "openFromAHostS": "Deschide {{name}} din meniul unei gazde.",
+      "plugins": "Pluginuri",
+      "everything": "Totul",
+      "thisDeviceWorksWithNo": "Acest dispozitiv funcționează fără server. Leagă un server pentru a adăuga funcțiile care necesită unul.",
+      "pluginsOnAndHowEach": "Pluginurile de pe {{account}} și modul în care fiecare apare în aplicație. Trage în jos pentru a verifica din nou.",
+      "whatRunsOnThisAnd": "Ce rulează pe acest {{deviceWord}} și ce trece prin {{account}}.",
+      "noPluginList": "Nicio listă de pluginuri",
+      "theServerDidNotSend": "Serverul nu a trimis pluginurile sale. Trage în jos pentru a încerca din nou.",
+      "serversOlderThan29": "Serverele mai vechi decât 2.9 au fiecare funcție integrată.",
+      "nothingToShow": "Nimic de afișat",
+      "notSentByThisServer": "Nu a fost trimis de acest server"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Înlocuiești datele locale?",
+      "everythingSavedOnThisFor": "Tot ce este salvat pe acest {{deviceWord}} pentru {{accountName}} va fi înlocuit cu copia de siguranță.",
+      "continue": "Continuă",
+      "couldNotReadThatFile": "Nu s-a putut citi acel fișier",
+      "backupRestored": "Copie de siguranță restaurată",
+      "couldNotRestoreTheBackup": "Nu s-a putut restaura copia de siguranță",
+      "backupPassphrase": "Frază de acces pentru copie de siguranță",
+      "thePassphraseUsedWhenThe": "Frază de acces folosită la crearea copiei de siguranță.",
+      "passphrase": "Frază de acces",
+      "restore": "Restaurează"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Conturi",
+        "thisDeviceAndLinkedServers": "Acest dispozitiv și serverele asociate, cu starea lor de sincronizare",
+        "syncAndProxy": "Sincronizare și proxy",
+        "whatSyncsConflictsProxyAnd": "Ce se sincronizează, conflictele, proxy și dezlegarea",
+        "serverAccount": "Cont de server",
+        "whoIsSignedInOn": "Cine este autentificat pe serverul activ",
+        "activeSessions": "Sesiuni active",
+        "devicesSignedInToThe": "Dispozitive autentificate pe server",
+        "apiKeys": "Chei API",
+        "keysForScriptsAndTools": "Chei pentru scripturi și instrumente",
+        "changePassword": "Schimbă parola",
+        "passwordOfYourServerAccount": "Parola contului tău de server",
+        "deleteServerAccount": "Șterge contul de server",
+        "removeYourAccountFromThe": "Elimină contul tău de pe server",
+        "theme": "Temă",
+        "darkLightDraculaNordAnd": "Întunecat, deschis, Dracula, Nord și altele",
+        "accentColor": "Culoare de accent",
+        "textSize": "Dimensiune text",
+        "sizeOfTextAcrossThe": "Dimensiunea textului în întreaga aplicație",
+        "density": "Densitate",
+        "howTallListRowsAnd": "Cât de înalte sunt rândurile din liste și setările",
+        "homeScreenWidgets": "Widget-uri pe ecranul principal",
+        "hostsAndSnippetsOnThe": "Gazde și fragmente pe ecranul principal",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Font, temă, cursor, istoric derulare",
+        "keyboard": "Tastatură",
+        "layoutKeysPresets": "Aspect, taste, presetări",
+        "appLock": "Blocare aplicație",
+        "askForFaceIdTouch": "Solicită Face ID, Touch ID sau un PIN pentru a deschide aplicația",
+        "lockAfter": "Blochează după",
+        "howLongTheAppCan": "Cât timp poate rămâne aplicația din vedere înainte de a se bloca",
+        "hideInAppSwitcher": "Ascunde în comutatorul de aplicații",
+        "showABlankScreenIn": "Afișează un ecran gol în lista de aplicații recente",
+        "changePin": "Schimbă PIN-ul",
+        "backgroundSessions": "Sesiuni în fundal",
+        "whatHappensToOpenSessions": "Ce se întâmplă cu sesiunile deschise când părăsești aplicația",
+        "serverAlerts": "Alerte de server",
+        "alertsFromTheAlertsPlugin": "Alerte de la pluginul Alerts de pe serverul tău",
+        "whatStaysOnThis": "Ce rămâne pe acest {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Gazdele, acreditările și fragmentele sunt stocate criptate aici",
+        "recentHosts": "Gazde recente",
+        "forgetTheHostsYouOpened": "Uită gazdele pe care le-ai deschis recent",
+        "shareAnonymousUsageStatistics": "Partajează statistici anonime de utilizare",
+        "aShortReportOnceA": "Un raport scurt o dată pe zi. Fără gazde, nume sau adrese",
+        "nextReport": "Următorul raport",
+        "seeExactlyWhatWouldBe": "Vezi exact ce ar fi trimis",
+        "resetInstallId": "Resetează ID-ul de instalare",
+        "futureReportsWillLookLike": "Rapoartele viitoare vor părea ca o instalare nouă",
+        "serverUsageStatistics": "Statistici de utilizare ale serverului",
+        "telemetrySettingsOnYourServer": "Setări de telemetrie pe serverul tău",
+        "plugins": "Plugin-uri",
+        "whatTheServerAddsAnd": "Ce adaugă serverul și unde rulează",
+        "localData": "Date locale",
+        "backupRestoreAndDeleteWhat": "Salvează, restaurează și șterge ceea ce este păstrat pe acest {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versiune și actualizări",
+        "logs": "Jurnale",
+        "latestLinesFromThisRun": "Ultimele linii din această execuție, pentru rapoarte de erori"
+      },
+      "sections": {
+        "accountsAndSync": "Conturi și sincronizare",
+        "thisDeviceLinkedServersAnd": "Acest dispozitiv, serverele conectate și ce se sincronizează",
+        "appearance": "Aspect",
+        "themeAccentTextSizeAnd": "Limba, tema, culoarea accent, dimensiunea textului și densitatea",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Font, culori și sesiuni în fundal",
+        "keyboard": "Tastatură",
+        "keyRowsAndShortcuts": "Rânduri de taste și combinații rapide",
+        "security": "Securitate",
+        "appLockFaceIdAnd": "Blocarea aplicației, Face ID și PIN",
+        "notifications": "Notificări",
+        "alertsFromYourServer": "Alerte de la serverul tău",
+        "privacyAndUsageStatistics": "Confidențialitate și statistici de utilizare",
+        "whatStaysOnThis": "Ce rămâne pe acest {{deviceWord}}",
+        "plugins": "Plugin-uri",
+        "whatTheServerAddsTo": "Ce adaugă serverul la aplicație",
+        "backupAndData": "Copie de siguranță și date",
+        "backUpRestoreImportAnd": "Copie de siguranță, restaurare, import și export",
+        "aboutAndLogs": "Despre și jurnale",
+        "versionAndLogsForBug": "Versiune și jurnale pentru rapoarte de erori"
+      }
+    },
+    "settings": "Setări",
+    "searchSettings": "Caută în setări",
+    "noSettingsMatch": "Nicio setare nu corespunde.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Nu s-au putut încărca fragmentele",
+      "copied": "Copiat: {{name}}",
+      "nameIsRequired": "Numele este obligatoriu",
+      "contentIsRequired": "Conținutul este obligatoriu",
+      "snippetUpdated": "Fragment actualizat",
+      "snippetCreated": "Fragment creat",
+      "failedToSaveSnippet": "Nu s-a putut salva fragmentul",
+      "snippetDeleted": "Fragment șters",
+      "failedToDeleteSnippet": "Nu s-a putut șterge fragmentul",
+      "folderNameIsRequired": "Numele dosarului este obligatoriu",
+      "folderCreated": "Dosar creat",
+      "failedToCreateFolder": "Nu s-a putut crea dosarul",
+      "folderDeleted": "Dosar șters",
+      "failedToDeleteFolder": "Nu s-a putut șterge dosarul",
+      "folderRenamed": "Dosar redenumit",
+      "failedToRenameFolder": "Nu s-a putut redenumi dosarul",
+      "failedToSaveOrder": "Nu s-a putut salva ordinea",
+      "moveUp": "Mută în sus",
+      "moveDown": "Mută în jos",
+      "runOnHosts": "Execută {{name}} pe servere",
+      "copy": "Copiază {{name}}",
+      "delete": "Șterge {{name}}",
+      "renameFolder": "Redenumește dosarul",
+      "deleteFolder": "Șterge dosarul",
+      "noSnippetsInThisFolder": "Nu există fragmente în acest dosar",
+      "snippets": "Fragmente",
+      "importAndExport": "Import și export",
+      "folder": "Dosar",
+      "new": "Nou",
+      "loading": "Se încarcă…",
+      "couldNotLoadSnippets": "Nu s-au putut încărca fragmentele",
+      "checkTheConnectionToYour": "Verifică conexiunea la server și încearcă din nou.",
+      "tryAgain": "Încearcă din nou",
+      "noSnippetsYet": "Încă nu există fragmente",
+      "createYourFirstSnippetOr": "Creează primul tău fragment sau adaugă fragmente din aplicația web sau desktop Termix.",
+      "createSnippet": "Creează fragment",
+      "askBeforeRunning": "Întreabă înainte de executare",
+      "confirmBeforeASnippetRuns": "Confirmă înainte ca un fragment să se execute în terminal",
+      "editSnippet": "Editează fragmentul",
+      "newSnippet": "Fragment nou",
+      "cancel": "Anulează",
+      "save": "Salvează",
+      "create": "Creează",
+      "name": "Nume",
+      "eGUpdatePackages": "ex. Actualizează pachetele",
+      "content": "Conținut",
+      "descriptionOptional": "Descriere (opțional)",
+      "shortDescription": "Descriere scurtă",
+      "folderOptional": "Dosar (opțional)",
+      "selectFolder": "Selectează dosarul",
+      "noFolder": "Fără dosar",
+      "targetHostsOptional": "Gazde țintă (opțional)",
+      "none": "Niciuna",
+      "note": "Notă",
+      "pastedIntoTheTerminalWithout": "Lipit în terminal fără a fi executat",
+      "targetHosts": "Gazde țintă",
+      "copy2": "Copiază",
+      "edit": "Editează",
+      "runOnHosts2": "Execută pe gazde",
+      "delete2": "Șterge",
+      "deleteSnippet": "Șterge fragmentul",
+      "deleteThisCannotBeUndone": "Șterge „{{name}}”? Această acțiune nu poate fi anulată.",
+      "renameFolder2": "Redenumește dosarul",
+      "rename": "Redenumește",
+      "folderName": "Numele dosarului",
+      "eGSystem": "ex. Sistem",
+      "newFolder": "Dosar nou",
+      "deleteFolder2": "Șterge dosarul",
+      "deleteSnippetsInThisFolder": "Șterge „{{name}}”? Fragmentele din acest dosar vor deveni necategorizate."
+    },
+    "sync": {
+      "notYet": "Încă nu",
+      "justNow": "Chiar acum",
+      "stopped": "Oprit",
+      "signInToThisServer": "Autentifică-te din nou pe acest server pentru a sincroniza",
+      "couldNotChangeThat": "Nu s-a putut modifica",
+      "sync": "Sincronizare",
+      "thisDeviceDoesNotSync": "Acest dispozitiv nu se sincronizează. Conectează un server Termix pentru a-ți păstra gazdele pe mai multe dispozitive.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} menține gazdele, acreditările, fragmentele și setările sincronizate cu acest {{deviceWord}}. O copie rămâne pe acest {{deviceWord}}, astfel încât funcționează și offline.",
+      "lastSynced": "Ultima sincronizare: {{value}}",
+      "live": "Live",
+      "syncNow": "Sincronizează acum",
+      "fix": "Repară",
+      "thisServerReadsLiveAnd": "Acest server citește în timp real și nu păstrează nicio copie pe {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Activează pluginul Sync în pagina Plugins a serverului, apoi autentifică-te din nou aici pentru a păstra o copie pe acest {{deviceWord}}.",
+      "whatSyncs": "Ce se sincronizează",
+      "turnedOffThatDataStays": "Dezactivat, acele date rămân doar pe acest {{deviceWord}}.",
+      "conflicts": "Conflicte",
+      "changedHereAndOnThe": "Modificat aici și pe server în același timp. A fost păstrată versiunea de pe server.",
+      "useServer": "Folosește serverul",
+      "keepMine": "Păstrează pe al meu",
+      "notSavedOnTheServer": "Nu este salvat pe server",
+      "theServerRefusedTheseChanges": "Serverul a refuzat aceste modificări. Acestea rămân pe acest {{deviceWord}}.",
+      "tryAgain": "Încearcă din nou",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Necesar doar când un proxy invers se află în fața serverului.",
+      "unlink": "Deconectează",
+      "unlinkThisServer": "Deconectează acest server",
+      "minAgo": "acum {{value}} min",
+      "signedOut": "Deconectat",
+      "waitingToSync": "În așteptarea sincronizării",
+      "synced": "Sincronizat",
+      "syncing": "Se sincronizează",
+      "offline": "Deconectat"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Fundal",
+        "text": "Text",
+        "cursor": "Cursor",
+        "textUnderCursor": "Text sub cursor",
+        "selection": "Selectare",
+        "black": "Negru",
+        "red": "Roșu",
+        "green": "Verde",
+        "yellow": "Galben",
+        "blue": "Albastru",
+        "magenta": "Magenta",
+        "cyan": "Cyan",
+        "white": "Alb",
+        "brightBlack": "Negru intens",
+        "brightRed": "Roșu intens",
+        "brightGreen": "Verde intens",
+        "brightYellow": "Galben intens",
+        "brightBlue": "Albastru intens",
+        "brightMagenta": "Magenta intens",
+        "brightCyan": "Cyan intens",
+        "brightWhite": "Alb intens",
+        "customTheme": "Temă personalizată",
+        "colorsAsHexLike1e1e2e": "Culori în format hex, de exemplu #1e1e2e.",
+        "cancel": "Anulează",
+        "save": "Salvează",
+        "isNotAHexColor": "{{label}} nu este o culoare hex"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Compact",
+      "default": "Implicit",
+      "relaxed": "Relaxat",
+      "spacious": "Spațios",
+      "none": "Niciunul",
+      "couldNotSave": "Nu s-a putut salva",
+      "pickASizeFromTo": "Alege o dimensiune între {{MIN_FONT_SIZE}} și {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Setările terminalului au fost resetate",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "Un host își poate seta propria temă și cursor în Termix, care vor avea prioritate față de aceste setări.",
+      "theme": "Temă",
+      "custom": "Personalizat",
+      "font": "Font",
+      "active": "Activ",
+      "sizeAndSpacing": "Dimensiune și spațiere",
+      "pinchTheTerminalToChange": "Folosește gestul de pinch pe terminal pentru a modifica și dimensiunea. Textul mare din setările {{deviceWord}} îl va face mai mare.",
+      "custom2": "Personalizat {{fontSize}}",
+      "lineHeight": "Înălțimea liniei",
+      "letterSpacing": "Spațierea literelor",
+      "ligatures": "Ligaturi",
+      "cursor": "Cursor",
+      "blink": "Clipire",
+      "bell": "Sunet de alertă",
+      "vibrate": "Vibrație",
+      "onTheBellAndWhen": "La sunetul de alertă și când apeși lung pentru a selecta",
+      "scrollback": "Istoric derulare",
+      "linesKeptAboveTheScreen": "Linii păstrate deasupra ecranului. Se aplică la terminalele noi.",
+      "linksAndKeys": "Link-uri și chei",
+      "askBeforeOpeningLinks": "Întreabă înainte de a deschide link-uri",
+      "doubleTapSendsTab": "Dubla atingere trimite Tab",
+      "longPressStillSelectsText": "Apăsarea lungă selectează totuși textul",
+      "optionSendsAlt": "Opțiunea trimite Alt",
+      "onAHardwareKeyboardOff": "Pe o tastatură hardware. Dezactivat tastează simboluri ca pe un Mac.",
+      "history": "Istoric",
+      "suggestCommands": "Sugerează comenzi",
+      "showsPastCommandsThatStart": "Afișează comenzile anterioare care încep cu ceea ce tastezi",
+      "resetToDefault": "Resetează la valorile implicite",
+      "fontSize": "Dimensiunea fontului",
+      "aSizeFromTo": "O dimensiune de la {{MIN_FONT_SIZE}} la {{MAX_FONT_SIZE}}.",
+      "cancel": "Anulează",
+      "apply": "Aplică",
+      "resetTerminalSettings": "Resetezi setările terminalului?",
+      "themeFontSizeCursorBell": "Tema, fontul, dimensiunea, cursorul, sunetul și restul revin la valorile implicite.",
+      "reset": "Resetează",
+      "followsAppTheme": "Urmărește tema aplicației"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Nu s-a putut porni configurarea 2FA",
+      "twoFactorAuthenticationEnabled": "Autentificarea cu doi factori activată",
+      "invalidCodeTryAgain": "Cod invalid, încearcă din nou",
+      "twoFactorAuthenticationDisabled": "Autentificarea cu doi factori dezactivată",
+      "failedToDisable2fa": "Nu s-a putut dezactiva 2FA",
+      "failedToFetchBackupCodes": "Nu s-au putut prelua codurile de rezervă",
+      "secretCopied": "Secret copiat",
+      "backupCodesCopied": "Codurile de rezervă copiate",
+      "twoFactorAuthentication": "Autentificare cu doi factori",
+      "loading": "Se încarcă…",
+      "scanThisQrCodeWith": "Scanează acest cod QR cu aplicația ta de autentificare (Google Authenticator, Authy etc.), apoi introdu codul de 6 cifre pentru confirmare.",
+      "verifyAmpEnable": "Verifică &amp; Activează",
+      "cancel": "Anulează",
+      "saveYourBackupCodes": "Salvează-ți codurile de rezervă",
+      "storeTheseSomewhereSafeEach": "Păstrează-le într-un loc sigur. Fiecare cod poate fi folosit o singură dată dacă pierzi accesul la aplicația de autentificare.",
+      "copyAllCodes": "Copiază toate codurile",
+      "done": "Gata",
+      "yourAccountIsProtectedWith": "Contul tău este protejat cu o aplicație de autentificare.",
+      "addAnExtraLayerOf": "Adaugă un strat suplimentar de securitate contului tău.",
+      "viewBackupCodes": "Vizualizează codurile de rezervă",
+      "disable2fa": "Dezactivează 2FA",
+      "enable2fa": "Activează 2FA",
+      "disableTwoFactorAuthentication": "Dezactivează autentificarea cu doi factori",
+      "enterACodeFromYour": "Introdu un cod din aplicația ta de autentificare pentru confirmare. Poți reactiva 2FA oricând.",
+      "enterYourPasswordToConfirm": "Introdu parola ta pentru confirmare. Poți reactiva 2FA oricând.",
+      "disable": "Dezactivează",
+      "yourPassword": "Parola ta",
+      "n2faIsEnabled": "2FA este activat",
+      "n2faIsNotEnabled": "2FA nu este activat"
+    },
+    "language": {
+      "label": "Limba",
+      "description": "Aplicația se reîncarcă pentru a comuta",
+      "system": "Același ca dispozitivul"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Niciun gazdă SSH aici",
+      "couldNotReadWhatWas": "Nu s-a putut citi ceea ce a fost partajat",
+      "stopTheUploads": "Oprești încărcările?",
+      "stopAndLeave": "Oprește și pleacă",
+      "sendTo": "Trimite către {{name}}",
+      "sendToAHost": "Trimite către o gazdă",
+      "nothingToSend": "Nimic de trimis",
+      "close": "Închide",
+      "done": "Gata",
+      "cancel": "Anulează",
+      "uploadHere": "Încarcă aici",
+      "uploadsStillGoing_one": "Se mai încarcă {{count}} fișier. Dacă plecați, se oprește.",
+      "uploadsStillGoing_few": "Se mai încarcă {{count}} fișiere. Dacă plecați, se opresc.",
+      "uploadsStillGoing_other": "Se mai încarcă {{count}} fișiere. Dacă plecați, se opresc.",
+      "filesSize_one": "{{count}} fișier | {{size}}",
+      "filesSize_few": "{{count}} fișiere | {{size}}",
+      "filesSize_other": "{{count}} fișiere | {{size}}",
+      "readingWhatWasShared": "Citesc ce a fost partajat"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Eroare",
+      "worksWithoutAServer": "Funcționează fără un server",
+      "accountSwitch": "Contul {{account}}, comută",
+      "search": "Caută",
+      "notificationsUnread": "Notificări, {{unread}} necitite",
+      "notifications": "Notificări",
+      "signedIn": "Autentificat",
+      "signedOut": "Deconectat",
+      "copyOnThis": "Copiază pe acest {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Acasă",
+      "hosts": "Gazde",
+      "sessions": "Sesiuni",
+      "tools": "Unelte",
+      "settings": "Setări",
+      "open": "{{label}}, {{count}} deschise"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} deschise"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Alege o gazdă",
+      "searchHosts": "Caută gazde",
+      "clearSearch": "Șterge căutarea",
+      "noHostsMatch": "Nicio gazdă nu se potrivește",
+      "noHostsCanUseThis": "Nicio gazdă nu poate folosi aceasta",
+      "turnItOnForA": "Activează-o pentru o gazdă în editorul de gazde."
+    },
+    "noToolsHereYet": "Încă nu există unelte aici",
+    "onAHost": "Pe o gazdă",
+    "saved": "Salvate",
+    "fromYourServer": "De pe serverul tău"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Anulează",
+      "delete": "Șterge",
+      "confirm": "Confirmă"
+    },
+    "contextMenu": {
+      "closeMenu": "Închide meniul"
+    },
+    "inlineView": {
+      "back": "Înapoi"
+    },
+    "listRow": {
+      "moreActions": "Mai multe acțiuni"
+    },
+    "pinPad": {
+      "useBiometrics": "Folosește biometria",
+      "delete": "Șterge"
+    },
+    "popover": {
+      "close": "Închide"
+    },
+    "promptSheet": {
+      "cancel": "Anulează"
+    },
+    "sheet": {
+      "close": "Închide"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Această cheie este blocată. Introdu parola ei.",
+      "thatPassphraseDoesnTOpen": "Această parolă nu deblochează această cheie.",
+      "thisDoesnTLookLike": "Acesta nu pare a fi o cheie privată.",
+      "loadedAndChangedItTo": "Am încărcat {{name}} și am convertit-o în format OpenSSH",
+      "loadedItNeedsItsPassphrase": "Am încărcat {{name}}. Are nevoie de parola ei pentru a se conecta"
+    },
+    "ago": {
+      "justNow": "acum"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Nu am putut încărca gazdele tale.",
+      "failedOn": "{{name}} a eșuat pe {{name2}}",
+      "on": "{{name}} pe {{name2}}: {{value}}",
+      "ranOn": "Am rulat {{name}} pe {{name2}}",
+      "runOn": "Rulează „{{name}}” pe",
+      "runSnippet": "Rulează fragmentul",
+      "loadingHosts": "Se încarcă gazdele…",
+      "noHostsAvailable": "Nicio gazdă disponibilă",
+      "addAHostInTermix": "Adaugă o gazdă în Termix pentru a rula fragmente de pe ecranul principal.",
+      "lastUsed": "Ultima utilizare",
+      "failedToRunSnippet": "Nu s-a putut rula fragmentul"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Acest fragment nu mai există.",
+      "couldNotOpenThatSnippet": "Nu s-a putut deschide acest fragment.",
+      "thatHostNoLongerExists": "Această gazdă nu mai există.",
+      "couldNotOpenThatHost": "Nu s-a putut deschide gazda respectivă."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Acasă"
+      },
+      "hosts": {
+        "hosts": "Gazde"
+      },
+      "sessions": {
+        "sessions": "Sesiuni",
+        "connectToATermixServer": "Conectează-te la un server Termix pentru a deschide terminale, tuneluri și sesiuni de fișiere."
+      }
+    },
+    "layout": {
+      "initializing": "Se inițializează…",
+      "cancel": "Anulează"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Această gazdă nu are o adresă MAC validă.",
+    "thisBuildCanTSend": "Această versiune nu poate trimite pachete Wake-on-LAN.",
+    "couldNotSendThePacket": "Nu s-a putut trimite pachetul. Verifică dacă Wi-Fi este activat."
+  },
+  "common": {
+    "hostCount_one": "{{count}} gazdă",
+    "hostCount_few": "{{count}} gazde",
+    "hostCount_other": "{{count}} gazde",
+    "device": {
+      "phone": "telefon",
+      "tablet": "tabletă"
+    },
+    "thisDeviceLower": "acest {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Partajare",
+    "action": "Partajează cu alte persoane",
+    "levels": {
+      "connect": "Conectare",
+      "view": "Vizualizare",
+      "edit": "Editare",
+      "manage": "Administrare"
+    },
+    "levelHints": {
+      "connect": "Doar deschiderea sesiunilor. Setările gazdei rămân ascunse",
+      "view": "Conectare, plus vizualizarea setărilor gazdei. Secretelor nu li se afișează niciodată",
+      "edit": "Vizualizare, plus modificarea setărilor, cu excepția celor de autentificare",
+      "manage": "Editare, plus partajarea gazdei și modificarea sau eliminarea accesului"
+    },
+    "until": "până la {{date}}",
+    "sharedBy": "de către {{name}}",
+    "couldNotLoad": "Nu s-a putut încărca lista persoanelor cu acces",
+    "shared": "Gazdă partajată",
+    "couldNotShare": "Nu s-a putut partaja gazda",
+    "updated": "Acces modificat",
+    "couldNotUpdate": "Nu s-a putut modifica accesul",
+    "removeTitle": "Elimini accesul pentru {{name}}?",
+    "removeHint": "Această persoană nu va mai putea folosi această gazdă.",
+    "remove": "Elimină",
+    "removed": "Acces eliminat",
+    "couldNotRemove": "Nu s-a putut elimina accesul",
+    "whoHasAccess": "Cine are acces",
+    "loading": "Se încarcă...",
+    "nobodyYet": "Doar tu poți folosi această gazdă.",
+    "changeAccessFor": "Modifică accesul pentru {{name}}",
+    "shareWith": "Partajează cu",
+    "users": "Utilizatori",
+    "roles": "Roluri",
+    "searchUsers": "Caută utilizatori",
+    "searchRoles": "Caută roluri",
+    "noUsers": "Nu sunt alți utilizatori cu care să partajezi.",
+    "noRoles": "Nu sunt roluri cu care să partajezi.",
+    "options": "Acces",
+    "level": "Nivel",
+    "expires": "Expiră",
+    "expiry": {
+      "never": "Niciodată",
+      "1h": "În 1 oră",
+      "1d": "În 1 zi",
+      "7d": "În 7 zile",
+      "30d": "În 30 de zile"
+    },
+    "pickSomeone": "Alege cu cine să partajezi",
+    "shareCount_one": "Partajează cu {{count}} persoană",
+    "shareCount_few": "Partajează cu {{count}} persoane",
+    "shareCount_other": "Partajează cu {{count}} persoane",
+    "removeAccess": "Elimină accesul"
+  }
+}

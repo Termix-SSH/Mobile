@@ -1,1 +1,3827 @@
-{}
+{
+  "components": {
+    "connectEmptyState": {
+      "signIn": "Logg inn",
+      "addServer": "Legg til server",
+      "switchAccount": "Bytt konto",
+      "noServerConnected": "Ingen server er koblet til",
+      "connectToATermixServer": "Koble til en Termix-server for å administrere vertene, terminalene, filene og mer."
+    },
+    "lockScreen": {
+      "cancel": "Avbryt",
+      "tooManyTriesWaitSeconds": "For mange forsøk. Vent {{value}} sekunder",
+      "termixLocked": "Termix er låst",
+      "enterYourPinToContinue": "Skriv inn PIN-koden din for å fortsette"
+    }
+  },
+  "constants": {
+    "theme": {
+      "orange": "Oransje",
+      "blue": "Blå",
+      "green": "Grønn",
+      "purple": "Lilla",
+      "pink": "Rosa",
+      "cyan": "Syan",
+      "red": "Rød",
+      "yellow": "Gul",
+      "teal": "Turkis",
+      "indigo": "Indigo",
+      "rose": "Rose",
+      "lime": "Lime",
+      "system": "System",
+      "light": "Lys",
+      "dark": "Mørk"
+    }
+  },
+  "contexts": {
+    "appLockContext": {
+      "usePin": "Bruk PIN-kode",
+      "unlockTermix": "Lås opp Termix",
+      "unlockTermixFirst": "Lås opp Termix først."
+    },
+    "terminalSessionsContext": {
+      "thisFeatureIsTurnedOff": "Denne funksjonen er slått av på serveren.",
+      "aTabWasNotReopened": "En fane ble ikke gjenåpnet fordi verten er borte"
+    }
+  },
+  "accounts": {
+    "linkATermixServerTo": "Koble til en Termix-server for å bruke dette",
+    "link": {
+      "address": {
+        "enterYourServerSAddress": "Skriv inn adressen til serveren din",
+        "theAddressCanTHave": "Adressen kan ikke inneholde mellomrom",
+        "useAnHttpOrHttps": "Bruk en http://- eller https://-adresse",
+        "thatDoesnTLookLike": "Det ser ikke ut som en serveradresse",
+        "thePortMustBeFrom": "Porten må være mellom 1 og 65535"
+      },
+      "login": {
+        "aLoginProxyAnsweredInstead": "En innloggingsproxy svarte i stedet for Termix. Logg inn på proxyen først.",
+        "theServerDidNotSend": "Serveren sendte ikke en token.",
+        "theServerDidNotSend2": "Serveren sendte ikke en økt.",
+        "theServerSentNoSign": "Serveren sendte ingen innloggingsadresse.",
+        "theSignInRanOut": "Innloggingen utløp eller ble allerede brukt. Prøv å logge inn igjen.",
+        "wrongUsernameOrPassword": "Feil brukernavn eller passord",
+        "signInFailedHttp": "Innlogging mislyktes (HTTP {{status}})",
+        "thePageSignedYouIn": "Siden logget deg inn, men sendte ingen økt tilbake. Oppdater serveren til Termix 26.11.3 eller nyere.",
+        "thisAccountIsnTAllowed": "Denne kontoen har ikke tillatelse til å logge inn her.",
+        "noTermixAccountMatchesThat": "Ingen Termix-konto matcher denne innloggingen."
+      }
+    },
+    "session": {
+      "thisSessionHasNoServer": "Denne økten har ingen server"
+    },
+    "store": {
+      "noSuchAccount": "Slik konto finnes ikke",
+      "thisDeviceCanTBe": "Denne enheten kan ikke fjernes",
+      "switchToAnotherAccountFirst": "Bytt til en annen konto først"
+    },
+    "types": {
+      "thisDevice": "Denne enheten"
+    },
+    "accountSwitcher": {
+      "error": "Feil",
+      "worksWithoutAServer": "Fungerer uten en server",
+      "couldNotSwitchAccount": "Kunne ikke bytte konto",
+      "accounts": "Kontoer",
+      "openTabsKeepRunningWhen": "Åpne faner fortsetter å kjøre når du bytter.",
+      "unlink": "Fjern kobling til {{account}}",
+      "linkAServer": "Koble til en server",
+      "eachServerKeepsItsOwn": "Hver server lagrer sine egne verter, legitimasjon og innstillinger på denne{{deviceWord}}.",
+      "signedIn": "Logget inn",
+      "signedOut": "Logget ut",
+      "syncedCopy": "Synkronisert kopi"
+    },
+    "certPinSettings": {
+      "couldNotSaveThePin": "Kunne ikke lagre pin-koden",
+      "theServerSKeyMatches": "Tjenerens nøkkel matcher pin-koden",
+      "theServerShowsAnotherKey": "Tjeneren viser en annen nøkkel",
+      "pinThisKey": "Vil du feste denne nøkkelen?",
+      "pinThisKey2": "Fest denne nøkkelen",
+      "keyPinned": "Nøkkel festet",
+      "couldNotReadTheServer": "Kunne ikke lese tjenerens nøkkel",
+      "thatIsNotAPin": "Det er ikke en pin-kode",
+      "keysPinned": "Nøkler festet",
+      "certificatePin": "Sertifikat-pin",
+      "trustThisServerOnlyBy": "Stol kun på denne tjeneren basert på nøkkelen. Bruk dette for selvsignerte sertifikater, eller for å avvise alle andre nøkler. Legg til den nye nøkkelen før du endrer tjenerens sertifikat.",
+      "removePin": "Fjern pin {{pin}}",
+      "remove": "Fjern",
+      "readTheKeyFromThe": "Les nøkkelen fra tjeneren",
+      "orPasteAPin": "Eller lim inn en pin-kode",
+      "pin": "Pin",
+      "add": "Legg til",
+      "issuedTo": "Usted til: {{subject}}",
+      "issuedBy": "Usted av: {{issuer}}",
+      "validUntil": "Gyldig til: {{value}}",
+      "checkThatThisKeyMatches": "Sjekk at denne nøkkelen matcher den på tjeneren din før du fester den.",
+      "pasteTheBase64Sha256Of": "Lim inn base64-sha256 av tjenerens offentlige nøkkel, slik openssl skriver den ut."
+    },
+    "proxySettings": {
+      "proxySettingsSaved": "Proxy-innstillinger lagret",
+      "couldNotSaveTheProxy": "Kunne ikke lagre proxy-innstillingene",
+      "couldNotReadThatFile": "Kunne ikke lese den filen",
+      "certificateSaved": "Sertifikat lagret",
+      "theFileOrItsPassphrase": "Filen eller passfrasen er feil",
+      "couldNotSaveTheCertificate": "Kunne ikke lagre sertifikatet",
+      "headers": "Overskrifter",
+      "sentWithEveryRequestTo": "Sendes med hver forespørsel til denne tjeneren, som for eksempel en Cloudflare-tjenestetoken.",
+      "name": "Navn",
+      "value": "Verdi",
+      "removeHeader": "Fjern overskrift",
+      "addHeader": "Legg til overskrift",
+      "cloudflareServiceToken": "Cloudflare-tjenestetoken",
+      "basicAuth": "Grunnleggende autentisering",
+      "forAProxyThatAsks": "For en proxy som ber om brukernavn og passord.",
+      "userName": "Brukernavn",
+      "password": "Passord",
+      "saveHeadersAndBasicAuth": "Lagre overskrifter og grunnleggende autentisering",
+      "clientCertificate": "Klientsertifikat",
+      "forServersThatAskFor": "For tjenerne som ber om ett (mTLS). Nøkkelen lagres i {{deviceWord}}s sikre lagring og kan ikke leses ut igjen.",
+      "certificate": "Sertifikat",
+      "remove": "Fjern",
+      "replaceCertificate": "Erstatt sertifikat",
+      "pickAP12OrPfx": "Velg en .p12- eller .pfx-fil",
+      "proxySignIn": "Proxy-innlogging",
+      "thisIsSignedInTo": " Denne {{deviceWord}}en er logget inn i proxyen.",
+      "forCloudflareAccessAutheliaAuthentik": "For Cloudflare Access, Authelia, Authentik og andre proxyer med sin egen innloggingside.{{value}}",
+      "signInToTheProxy": "Logg inn i proxyen",
+      "forget": "Glem",
+      "certificatePassphrase": "Sertifikatpassfrase",
+      "thePassphraseTheFileWas": "Passfrasen filen ble lagret med. La den stå tom hvis den ikke har noen.",
+      "passphrase": "Passfrase",
+      "save": "Lagre"
+    },
+    "proxySignIn": {
+      "signedInToTheProxy": "Logget inn i proxyen",
+      "couldNotSaveTheProxy": "Kunne ikke lagre proxy-innloggingen",
+      "signInToTheProxy": "Logg inn i proxyen",
+      "thisBuildOfTheApp": "Denne versjonen av appen kan ikke opprettholde proxy-innlogging. Bruk en tjenestetoken i proxy-overskriftene i stedet."
+    },
+    "savedLoginRow": {
+      "signIn": "Logg inn",
+      "signInWith": "Logg inn med {{name}}",
+      "whenThisServerSignsYou": "Når denne serveren logger deg ut, logger du inn igjen uten å skrive inn passordet ditt."
+    },
+    "unlinkSheet": {
+      "unlinkedItemsWereKeptOn": "Frakoblet. {{copied}} elementer ble beholdt på Denne enheten.",
+      "unlinked": "Frakoblet",
+      "couldNotUnlinkTheServer": "Kunne ikke frakoble serveren",
+      "unlink": "Frakoble {{value}}?",
+      "thisSignsOutOfThe": "Denne {{deviceWord}} logger ut av serveren. Ingenting slettes på serveren.",
+      "keepACopyOnThis": "Behold en kopi på Denne enheten",
+      "yourOwnHostsCredentialsAnd": "Dine egne vertsregistre, legitimasjon og kommandoutdrag flyttes til Denne enheten. Vertsregistre som er delt med deg, beholdes ikke.",
+      "deleteFromThis": "Slett fra denne {{deviceWord}}",
+      "everythingThisHasForThe": "Alt denne {{deviceWord}} har for serveren fjernes."
+    },
+    "useSyncFix": {
+      "changeItUnderProxyBelow": "Endre det under Proxy nedenfor",
+      "updateTermixMobileFromYour": "Oppdater Termix Mobile fra appbutikken din"
+    },
+    "savedLogin": {
+      "signInToTermix": "Logg inn på Termix",
+      "faceUnlock": "ansiktsgjenkjenning"
+    }
+  },
+  "api": {
+    "accountClient": {
+      "thisBuildCanTCheck": "Denne versjonen kan ikke sjekke serverens faste nøkkel eller sende sertifikatet sitt."
+    },
+    "http": {
+      "thisServerDoesNotSupport": "Denne serveren støtter ikke denne funksjonen",
+      "theProxyWantsYouTo": "Proxyen ber deg om å logge inn",
+      "endpointNotAvailableOnThis": "Endepunktet er ikke tilgjengelig på denne serveren",
+      "unknownError": "Ukjent feil"
+    },
+    "errors": {
+      "theProxyInFrontOf": "Proxyen foran denne serveren ber deg om å logge inn igjen.",
+      "authenticationRequiredPleaseLogIn": "Autentisering påkrevd. Vennligst logg inn igjen.",
+      "accessDeniedYouDoNot": "Tilgang nektet. Du har ikke tillatelse til å utføre denne handlingen.",
+      "thisFeatureIsTurnedOff": "Denne funksjonen er slått av på serveren.",
+      "thisServerDoesNotSupport": "Denne serveren støtter ikke denne funksjonen.",
+      "resourceNotFoundTheRequested": "Ressursen ble ikke funnet. Det etterspurte elementet kan ha blitt slettet.",
+      "conflictTheResourceAlreadyExists": "Konflikt. Ressursen finnes allerede eller er i bruk.",
+      "validationErrorPleaseCheckYour": "Valideringsfeil. Vennligst sjekk inndataene dine og prøv igjen.",
+      "serverErrorOccurredPleaseTry": "Serverfeil oppstod. Vennligst prøv igjen senere.",
+      "sslCertificateVerificationFailed": "Verifisering av SSL-sertifikat mislyktes.",
+      "networkErrorPleaseCheckYour": "Nettverksfeil. Vennligst sjekk tilkoblingen din og prøv igjen.",
+      "failedTo": "Kunne ikke {{operation}}",
+      "unknownError": "Ukjent feil",
+      "unexpectedErrorDuring": "Uventet feil under {{operation}}: {{errorMessage}}"
+    },
+    "modules": {
+      "auth": {
+        "theAppCouldNotTrust": "Appen kunne ikke stole på HTTPS for denne lokale IP-adressen. Fest serverens nøkkel under Proxy og klientsertifikat, bruk et sertifikat {{deviceWord}} stoler på, eller bruk HTTP på et betrodd lokalt nettverk eller VPN.",
+        "thisServerIsBehindA": "Denne serveren er bak en innloggingsproxy. Bruk alternativet for ekstern innlogging i stedet.",
+        "loginFailed": "Innlogging mislyktes"
+      },
+      "files": {
+        "fileNotFound": "Filen ble ikke funnet",
+        "fileWriteOperationDidNot": "Filskriveoperasjonen returnerte ikke suksessstatus",
+        "couldNot": "Kunne ikke {{operation}} ({{status}})"
+      },
+      "hosts": {
+        "hostSavedButSomeSettings": "Vertsregister lagret, men noen innstillinger mislyktes: {{value}}",
+        "unexpectedHostResponseFrom": "Uventet svar fra vertsregisteret fra {{baseURL}}"
+      },
+      "metrics": {
+        "liveSampleFailed": "Direkteprøve mislyktes"
+      }
+    },
+    "nativeAdapter": {
+      "noAnswer": "Ingen svar"
+    },
+    "pinPreflight": {
+      "thisServerDidNotShow": "Denne serveren viste ikke nøkkelen den er festet til, så siden ble ikke åpnet."
+    }
+  },
+  "data": {
+    "local": {
+      "thatNoLongerExists": "Denne {{what}} finnes ikke lenger.",
+      "aHostCannotBeIts": "Et vertsregister kan ikke være sin egen forelder",
+      "parentHostNotFound": "Foreldrevertsregister ble ikke funnet",
+      "aHostCanTGo": "Et vertsregister kan ikke plasseres under ett av sine egne undervertsregistre",
+      "thisIsSharedWithYou": "Denne {{what}} er delt med deg. Bare eieren kan endre den.",
+      "nameIsRequired": "Navn er påkrevd",
+      "nameAndCommandAreRequired": "Navn og kommando er påkrevd",
+      "aFolderWithThatName": "En mappe med det navnet finnes allerede"
+    },
+    "repositories": {
+      "thisDeviceCanTSave": "Denne enheten kan ikke lagre {{what}} her."
+    },
+    "sharedSnippets": {
+      "thisSnippetIsSharedWith": "Dette kommandoutdraget er delt med deg og kan ikke endres."
+    }
+  },
+  "db": {
+    "backup": {
+      "useAPassphraseWithAt": "Bruk en passfrase med minst 8 tegn.",
+      "thisIsNotATermix": "Dette er ikke en Termix-sikkerhetskopi.",
+      "thisBackupIsFromA": "Denne sikkerhetskopien er fra en nyere versjon av Termix. Oppdater appen først.",
+      "wrongPassphraseOrTheFile": "Feil passfrase, eller filen er skadet."
+    },
+    "expoDriver": {
+      "thisBuildCanTEncrypt": "Denne versjonen kan ikke kryptere lokale data."
+    },
+    "keys": {
+      "unlockTermixFirst": "Lås opp Termix først.",
+      "thatIsNotADatabase": "Dette er ikke en database-nøkkel.",
+      "couldNotSaveTheDatabase": "Kunne ikke lagre database-nøkkelen."
+    },
+    "migrate": {
+      "thisDataWasSavedBy": "Disse dataene ble lagret av en nyere versjon av Termix. Oppdater appen for å åpne dem."
+    },
+    "stores": {
+      "thisDeviceDoesNotSync": "Denne enheten synkroniserer ikke.",
+      "localDataIsNotAvailable": "Lokale data er ikke tilgjengelig her.",
+      "unlockTermixFirst": "Lås opp Termix først."
+    }
+  },
+  "exec": {
+    "target": {
+      "canTConnect": "Kan ikke koble til.",
+      "thisWayCanTRun": "Denne metoden kan ikke kjøre kommandoer"
+    },
+    "sudoPromptHost": {
+      "sudoPassword": "Sudo-passord",
+      "password": "Passord",
+      "run": "Kjør",
+      "thatPasswordWasWrong": "Passordet var feil.",
+      "onNeedsRoot": "{{reason}} på {{hostName}} krever root.",
+      "needsRootForThis": "{{hostName}} krever root for dette.",
+      "itIsKeptUntilYou": "Det beholdes til du lukker appen."
+    },
+    "run": {
+      "theHostTookTooLong": "Verteren svarte for sent",
+      "connectionLost": "Tilkoblingen ble brutt"
+    },
+    "runner": {
+      "thisNeedsRootLogIn": "Dette krever root. Logg inn som root, sett opp passordløs sudo, eller lagre et sudo-passord for verten.",
+      "theSudoPasswordWasWrong": "Sudo-passordet var feil",
+      "commandFailed": "Kommandoen mislyktes"
+    }
+  },
+  "features": {
+    "openCheck": {
+      "telnetInTheTerminalNeeds": "Telnet i terminalen krever en tilkobling fra {{deviceWord}}."
+    },
+    "registry": {
+      "featureIsAlreadyRegistered": "Funksjon {{id}} er allerede registrert"
+    }
+  },
+  "core": {
+    "hostListPrefs": {
+      "address": "Adresse",
+      "theIpOrHostName": "IP-adressen eller vertsnavnet under navnet",
+      "username": "Brukernavn",
+      "theUserBeforeTheAddress": "Brukeren før adressen",
+      "port": "Port",
+      "thePortAfterTheAddress": "Porten etter adressen",
+      "hostIcon": "Vertsikon",
+      "theIconSetOnThe": "Ikonet satt på verten",
+      "pinIcon": "Fest ikon",
+      "marksPinnedHosts": "Markerer festede verter",
+      "sharedBadge": "Delt-merke",
+      "marksHostsSharedWithYou": "Markerer verter som er delt med deg",
+      "protocolBadges": "Protokollmerker",
+      "sshRdpDockerAndOther": "SSH, RDP, Docker og andre merker",
+      "tags": "Tagger",
+      "theHostSTags": "Vertsens tagger",
+      "cpuAndRam": "CPU og RAM",
+      "liveUsageBarsOnOnline": "Live bruksstenger på tilkoblete verter",
+      "statusColors": "Statusfarger",
+      "greenBarWhenOnlineRed": "Grønn stang når tilkoblet, rød når frakoblet"
+    },
+    "uiPrefs": {
+      "small": "Liten",
+      "default": "Standard",
+      "large": "Stor",
+      "comfortable": "Komfortabel",
+      "compact": "Kompakt"
+    },
+    "errors": {
+      "somethingWentWrong": "Noe gikk galt"
+    }
+  },
+  "keys": {
+    "generate": {
+      "ecdsaP256": "ECDSA P-256",
+      "lockingAKeyWithA": "Å låse en nøkkel med en passfrase krever Termix-appen, ikke en web-forhåndsvisning."
+    }
+  },
+  "lock": {
+    "machine": {
+      "rightAway": "Med en gang",
+      "after15Seconds": "Etter 15 sekunder",
+      "after1Minute": "Etter 1 minutt",
+      "after5Minutes": "Etter 5 minutter"
+    },
+    "keyVault": {
+      "theDeviceSecretIsGone": "Enhetsnøkkelen er borte",
+      "noSealedKey": "Ingen forseglet nøkkel",
+      "theSealedKeyIsDamaged": "Den forseglede nøkkelen er skadet",
+      "wrongPin": "Feil PIN-kode",
+      "theSealedKeyDidNot": "Den forsegla nøkkelen kunne ikke åpnes",
+      "biometricsCanTOpenThe": "Biometri kan ikke åpne nøkkelen"
+    }
+  },
+  "plugins": {
+    "compat": {
+      "updateTheApp": "Oppdater appen",
+      "onYourServerNeedsA": "{{name}} på tjeneren din krever en nyere versjon av Termix på denne {{deviceWord}}.",
+      "updateThePlugin": "Oppdater programtillegget",
+      "onYourServerIsToo": "{{name}} på tjeneren din er for gammel for denne appen. Be en administrator om å oppdatere den i Programtillegg."
+    },
+    "frameBridge": {
+      "blockedByTheApp": "Blokkert av appen",
+      "theAppDoesNotLet": "Appen tillater ikke at programtillegg bruker denne ruten.",
+      "thisBuildCanTReach": "Denne utgaven kan ikke nå tjeneren trygt."
+    },
+    "support": {
+      "needsANewerVersionOf": "Krever en nyere versjon av appen",
+      "updateThePluginOnThe": "Oppdater programtillegget på tjeneren",
+      "theAppHasItsOwn": "Appen har sitt eget utseende",
+      "notInTheAppYet": "Ikke i appen ennå",
+      "linkAServerToUse": "Koble til en tjener for å bruke den",
+      "opensInTheAppFrom": "Åpnes i appen fra tjeneren",
+      "runsOnTheServer": "Kjører på tjeneren",
+      "throughTheServer": "Via tjeneren",
+      "inTheApp": "I appen",
+      "webView": "Nettvisning",
+      "onTheServer": "På tjeneren",
+      "appLook": "App-utseende",
+      "notInTheApp": "Ikke i appen",
+      "safeMode": "Sikker modus",
+      "notRunning": "Kjører ikke",
+      "notInstalled": "Ikke installert",
+      "notOnThisServer": "Ikke på denne tjeneren",
+      "thePluginIsNotInstalled": "Programtillegget er ikke installert på denne tjeneren.",
+      "turnedOffOnTheServer": "Skrudd av på tjeneren",
+      "itOpensHereAgainWhen": "Den åpnes her igjen når en administrator skru den på.",
+      "notRunningOnTheServer": "Kjører ikke på tjeneren",
+      "theServerIsInSafe": "Tjeneren er i sikker modus, så bare visningsprogramtillegg kjører.",
+      "thePluginDidNotStart": "Programtillegget startet ikke. En administrator kan sjekke det i Programtillegg.",
+      "thisPluginIsNotAvailable": "Dette programtillegget er ikke tilgjengelig",
+      "itIsNotMadeFor": "Det er ikke laget for appen.",
+      "offOnThisServer": "av på denne tjeneren",
+      "notRunningOnThisServer": "kjører ikke på denne tjeneren",
+      "notOnThisServer2": "ikke på denne tjeneren",
+      "notInTheAppYet2": "Ikke i appen ennå | på denne tjeneren",
+      "worksOnThis": "Fungerer på denne {{deviceWord}}",
+      "andServer": "{{DeviceWord}} og tjener",
+      "deviceOnly": "Kun {{DeviceWord}} | {{reach}}"
+    },
+    "pluginScreen": {
+      "reload": "Last inn på nytt"
+    }
+  },
+  "sessions": {
+    "background": {
+      "disconnectAll": "Koble fra alle",
+      "showOpenSessions": "Vis åpne økter",
+      "termixShowsANotificationWhile": "Termix viser en varsling mens økter er åpne, slik at Android holder dem kørende i bakgrunnen.",
+      "sessionsOpen_one": "{{count}} økt åpen",
+      "sessionsOpen_other": "{{count}} økter åpne",
+      "tunnelsActive_one": "{{count}} tunnel aktiv",
+      "tunnelsActive_other": "{{count}} tunneler aktive",
+      "notConnected": "Ikke koblet til",
+      "waitingForNetwork": "Venter på nettverk",
+      "connecting": "Kobler til",
+      "connected": "Koblet til",
+      "reconnecting": "Kobler til på nytt",
+      "failed": "Mislyktes",
+      "closed": "Lukket"
+    },
+    "companionPane": {
+      "resizeThePanel": "Endre størrelse på {{title}}-panelet"
+    },
+    "connectionsPanel": {
+      "close": "Lukk",
+      "closeAllTabs": "Lukk alle {{count}} faner?",
+      "everySessionEnds": "Alle økter avsluttes.",
+      "closeAll": "Lukk alle",
+      "noActiveConnections": "Ingen aktive tilkoblinger",
+      "pickAHostFromThe": "Velg en vert fra listen for å starte en økt. Faner du åpner på andre enheter vises også her.",
+      "connectToAHostTo": "Koble til en vert for å starte en økt. Faner du åpner på andre enheter vises også her.",
+      "open": "Åpne",
+      "background": "Bakgrunn",
+      "sessionsFromOtherDevicesOr": "Økter fra andre enheter eller faner i bakgrunnen. Trykk for å gjenopplive.",
+      "liveTapToReconnect": "Aktiv, trykk for å koble til på nytt",
+      "tapToReopen": "Trykk for å åpne på nytt"
+    },
+    "missingTab": {
+      "thisIsTurnedOffOn": "Dette er slått av på serveren",
+      "comesBackHereWhenAn": "{{title}} kommer tilbake hit når en administrator slår på programtillegget igjen.",
+      "closeTab": "Lukk fane"
+    },
+    "navigation": {
+      "tabBar": {
+        "connections": "Tilkoblinger",
+        "hideHostList": "Skjul vertsliste",
+        "showHostList": "Vis vertsliste",
+        "backToHosts": "Tilbake til verter",
+        "showKeyboard": "Vis tastatur",
+        "hideKeyboard": "Skjul tastatur",
+        "hideKeysPanel": "Skjul nøkkelpanel",
+        "showKeysPanel": "Vis nøkkelpanel"
+      },
+      "tabStrip": {
+        "tapForTabOptionsHold": "Trykk for fanevalg, hold nede for å flytte",
+        "holdToMove": "Hold nede for å flytte",
+        "close": "Lukk {{title}}"
+      },
+      "tabStatusMark": {
+        "waitingForNetwork": "Venter på nettverk",
+        "connectionFailed": "Tilkobling mislyktes",
+        "reconnecting": "Kobler til på nytt"
+      }
+    },
+    "sessionMenu": {
+      "rename": "Gi nytt navn",
+      "newTabOnThisHost": "Ny fane på denne verten",
+      "here": "{{title}} her",
+      "hidePanel": "Skjul {{title}}-panel",
+      "showPanel": "Vis {{title}}-panel",
+      "endSplitView": "Avslutt delt visning",
+      "splitViewWith": "Delt visning med...",
+      "moveLeft": "Flytt til venstre",
+      "moveRight": "Flytt til høyre",
+      "closeTab": "Lukk fane",
+      "closeAllTabs": "Lukk alle faner",
+      "closeAllTabs2": "Lukk alle {{count}} faner?",
+      "everySessionEnds": "Alle økter avsluttes.",
+      "closeAll": "Lukk alle",
+      "splitViewWith2": "Delt visning med",
+      "renameTab": "Gi nytt navn til fane",
+      "leaveItEmptyToUse": "La det stå tomt for å bruke vertens navn."
+    },
+    "resizeHostList": "Endre størrelse på vertsliste",
+    "resizeSplitView": "Endre størrelse på delt visning",
+    "connections": "Tilkoblinger",
+    "shared": {
+      "authDialogs": {
+        "twoFactorAuthentication": "To-faktor-autentisering",
+        "enterThe6DigitCode": "Skriv inn 6-sifret kode fra autentiseringsappen din.",
+        "cancel": "Avbryt",
+        "verify": "Bekreft",
+        "codeExpiresInSGet": "Koden utløper om {{totpCountdown}} s, hent en ny kode",
+        "warpgateAuthentication": "Warpgate-autentisering",
+        "confirmTheWarpgateAuthenticationUrl": "Bekreft Warpgate-autentiserings-URL og sikkerhetsnøkkel.",
+        "authenticate": "Autentiser",
+        "warpgateUrl": "Warpgate-URL",
+        "securityKeyOptional": "Sikkerhetsnøkkel (valgfritt)",
+        "authenticationRequired": "Autentisering påkrevd",
+        "thisHostNeedsCredentialsTo": "Denne verten krever påloggingsinformasjon for å koble til.",
+        "connect": "Koble til",
+        "password": "Passord",
+        "sshKey": "SSH-nøkkel",
+        "pastePrivateKey": "Lim inn privat nøkkel",
+        "keyPassphraseOptional": "Nøkkelsetning (valgfritt)"
+      },
+      "connectionError": {
+        "tryAgain": "Prøv igjen",
+        "close": "Lukk",
+        "connectThroughTheServer": "Koble til gjennom serveren",
+        "connectFromThis": "Koble til fra denne {{deviceWord}}",
+        "triedFromThis": "Prøvde fra denne {{deviceWord}}",
+        "triedThroughTheServer": "Prøvde gjennom serveren"
+      },
+      "execGate": {
+        "connecting": "Kobler til..."
+      },
+      "sessionFrame": {
+        "somethingWentWrong": "Noe gikk galt",
+        "retry": "Prøv igjen",
+        "refresh": "Oppdater",
+        "nothingToShow": "Ingenting å vise"
+      },
+      "useConnectionLog": {
+        "logsCopied": "Logger kopiert",
+        "connectionLog": "Tilkoblingslogg ({{count}})",
+        "copyLog": "Kopier logg",
+        "waitingForConnection": "Venter på tilkobling…",
+        "noLogEntries": "Ingen loggoppføringer"
+      },
+      "useHostConnection": {
+        "couldNotSaveHowThis": "Kunne ikke lagre hvordan denne verten kobler til"
+      },
+      "useSessionConnect": {
+        "connected": "Tilkoblet",
+        "connectingTo": "Kobler til {{name}}…",
+        "connectionLost": "Tilkoblingen ble brutt",
+        "failedToConnect": "Kunne ikke koble til",
+        "invalidCode": "Ugyldig kode",
+        "warpgateAuthenticationFailed": "Warpgate-autentisering mislyktes",
+        "authenticationCancelled": "Autentisering avbrutt"
+      }
+    }
+  },
+  "shortcuts": {
+    "searchAndCommands": "Søk og kommandoer",
+    "addHost": "Legg til vert",
+    "keyboardShortcuts": "Tastatursnarveier",
+    "home": "Hjem",
+    "hosts": "Verter",
+    "sessions": "Økter",
+    "tools": "Verktøy",
+    "settings": "Innstillinger",
+    "terminal": "Terminal",
+    "shortcutSheet": {
+      "keyboardShortcuts": "Tastatursnarveier"
+    }
+  },
+  "sync": {
+    "kinds": {
+      "hostsAndFolders": "Verter og mapper",
+      "yourHostsFoldersAndHosts": "Dine verter, mapper og verter som er delt med deg",
+      "credentials": "Legitimasjonsdata",
+      "savedPasswordsAndKeysAnd": "Lagrede passord og nøkler, og legitimasjonsdata delt med deg",
+      "snippets": "Kodesnutter",
+      "snippetsAndTheirFolders": "Kodesnutter og deres mapper",
+      "hostDefaults": "Standardverdier for verter",
+      "defaultSettingsForNewHosts": "Standardinnstillinger for nye verter",
+      "preferences": "Preferanser",
+      "settingsThatFollowYouBetween": "Innstillinger som følger deg mellom enheter"
+    },
+    "link": {
+      "noSuchServerAccount": "Slik serverkonto finnes ikke",
+      "signInFirst": "Logg inn først.",
+      "thisServerAccountBelongsTo": "Denne serverkontoen tilhører {{value}}. Logg inn som denne brukeren, eller legg til serveren på nytt for denne brukeren."
+    },
+    "reasons": {
+      "signedOut": "Logget ut",
+      "thisSSignInTo": "Innloggingen til serveren for denne {{deviceWord}} har utløpt.",
+      "theServerEndedThisS": "Serveren avsluttet økten for denne {{deviceWord}}. Den kan ha blitt logget ut fra en annen enhet.",
+      "proxySignInNeeded": "Proxy-innlogging kreves",
+      "theProxyInFrontOf": "Proxyen foran denne serveren ber deg logge inn på nytt.",
+      "proxyPasswordNeeded": "Proxy-passord kreves",
+      "theProxyInFrontOf2": "Proxyen foran denne serveren ba om passordet sitt.",
+      "certificateRefused": "Sertifikat avvist",
+      "theServerDidNotAccept": "Serveren aksepterte ikke sertifikatet til denne {{deviceWord}}.",
+      "untrustedServer": "Ikke betrodd server",
+      "theServerSCertificateIs": "Serverens sertifikat er ikke betrodd av denne {{deviceWord}}.",
+      "serverKeyChanged": "Servernøkkelen har endret seg",
+      "theServerShowsAnotherKey": "Serveren viser en annen nøkkel enn den som er festet for den. Hvis du har endret sertifikatet, fest den nye nøkkelen.",
+      "offline": "Frakoblet",
+      "canTReachTheServer": "Kan ikke nå serveren. Synkronisering prøver igjen snart.",
+      "serverProblem": "Serverproblem",
+      "theServerHadAProblem": "Serveren hadde et problem. Synkronisering prøver igjen snart.",
+      "updateNeeded": "Oppdatering nødvendig",
+      "thisServerUsesANewer": "Denne serveren bruker en nyere synkroniseringsversjon. Oppdater appen.",
+      "notATermixServer": "Ikke en Termix-server",
+      "theAddressDoesNotAnswer": "Adressen svarer ikke som en Termix-server.",
+      "syncIsOff": "Synkronisering er av",
+      "theSyncPluginIsOff": "Synkroniseringsprogramtillegget er av på denne serveren. Be en administrator om å slå det på i Programtillegg.",
+      "differentUser": "Annen bruker",
+      "youSignedInAsA": "Du har logget inn som en annen bruker enn den denne serverkontoen tilhører.",
+      "syncStopped": "Synkronisering stoppet",
+      "somethingWentWrong": "Noe gikk galt.",
+      "signInAgain": "Logg inn igjen",
+      "signInToTheProxy": "Logg inn på proxyen",
+      "enterThePassword": "Skriv inn passordet",
+      "tryAgain": "Prøv igjen",
+      "checkThePin": "Sjekk PIN-koden",
+      "checkForUpdates": "Sjekk etter oppdateringer",
+      "pickACertificate": "Velg et sertifikat"
+    },
+    "settings": {
+      "noSuchSetting": "Slik innstilling finnes ikke",
+      "snippetFolder": "Mappen for kommandoutdrag",
+      "hostDefault": "Standard for vert"
+    },
+    "errors": {
+      "theServerDidNotAccept": "Serveren aksepterte ikke sertifikatet til denne {{deviceWord}}.",
+      "theServerSCertificateIs": "Serverens sertifikat er ikke stilt tillit til.",
+      "canTReachTheServer": "Kan ikke nå serveren.",
+      "signedOut": "Logget ut",
+      "theProxyAskedForIts": "Proxyen ba om passordet sitt.",
+      "theProxyWantsYouTo": "Proxyen vil at du skal logge inn.",
+      "theSyncPluginIsOff": "Synkroniseringsprogramtillegget er av på denne serveren.",
+      "serverError": "Serverfeil {{status}}"
+    },
+    "manager": {
+      "theServerShowsAnotherKey": "Serveren viser en annen nøkkel enn den festede."
+    },
+    "remote": {
+      "thisIsNotATermix": "Dette er ikke en Termix-server.",
+      "theProxyWantsYouTo": "Proxyen vil at du skal logge inn.",
+      "thisServerUsesANewer": "Denne serveren bruker en nyere synkroniseringsversjon. Oppdater appen."
+    },
+    "copy": {
+      "hostCount_one": "{{count}} vert",
+      "hostCount_other": "{{count}} verter",
+      "credentialCount_one": "{{count}} legitimasjon",
+      "credentialCount_other": "{{count}} legitimasjoner",
+      "snippetCount_one": "{{count}} kommandoutdrag",
+      "snippetCount_other": "{{count}} kommandoutdrag",
+      "folderCount_one": "{{count}} mappe",
+      "folderCount_other": "{{count}} mapper",
+      "nothingYet": "ingenting ennå",
+      "listAnd": "{{list}} og {{last}}"
+    }
+  },
+  "transport": {
+    "connection": {
+      "canTConnect": "Kan ikke koble til.",
+      "connectingToFromThis": "Kobler til {{name}} fra denne {{deviceWord}}",
+      "connectingToThroughTheServer": "Kobler til {{name}} gjennom serveren",
+      "reconnectingTry": "Kobler til igjen (forsøk {{retry}})",
+      "disconnected": "Frakoblet",
+      "connected": "Koblet til",
+      "reconnectedToTheSameSession": "Koblet til igjen til samme økt",
+      "reconnectedWithANewShell": "Koblet til igjen med en ny skal",
+      "couldNotReachTheHost": "Kunne ikke nå verten fra denne {{deviceWord}}, prøver gjennom serveren",
+      "couldNotConnectThroughThe": "Kunne ikke koble til gjennom serveren, prøver fra denne {{deviceWord}}",
+      "connectionLost": "Tilkobling tapt: {{reason}}",
+      "offlineWaitingForTheNetwork": "Frakoblet, venter på nettverket",
+      "nextTryInS": "Neste forsøk om {{value}}s",
+      "reconnectingTry2": "Kobler til igjen (forsøk {{reconnectAttempt}})",
+      "theHostStoppedAnswering": "Verten sluttet å svare",
+      "networkLost": "Nettverket ble tapt",
+      "network": "Nettverk: {{type}}{{value}}",
+      "lowPowerModeOn": "Lav strømbruk er på",
+      "lowPowerModeOff": "Lav strømbruk er av",
+      "droppedTypedCharacters": "Fjernet {{count}} skrevne tegn",
+      "youDidNotTrustThe": "Du stott ikke på vertsnykelen.",
+      "checkTheKeyWithWhoever": "Sjekk nøkkelen med den som driver verten, og prøv igjen.",
+      "loginCancelled": "Innlogging avbrutt.",
+      "connectAgainWhenYouAre": "Koble til igjen når du er klar.",
+      "typedInputIsOver64": "Skrivent input er over 64 KB, den eldste delen ble droppet",
+      "appInTheBackground": "Appen i bakgrunnen",
+      "appInTheForeground": "Appen i forgrunnen",
+      "thisConnectionCanTRun": "Denne tilkoblingen kan ikke kjøre kommandoer"
+    },
+    "errors": {
+      "checkTheAddressAndPort": "Sjekk adressen og porten, og at serveren kan nå verten.",
+      "checkTheAddressAndPort2": "Sjekk adressen og porten, og at denne {{deviceWord}} kan nå verten.",
+      "checkTheProxySettingsOf": "Sjekk proxy-innstillingene for denne verten.",
+      "checkTheKeyWithWhoever": "Sjekk nøkkelen med den som driver verten før du stoler på den.",
+      "checkTheUsernameAndLogin": "Sjekk brukernavnet og innloggingen i vertredigeren.",
+      "checkThatTheServerIs": "Sjekk at serveren er oppe og at du fortsatt er logget inn.",
+      "tryAgainIfItKeeps": "Prøv igjen. Hvis den fortsetter å droppe, sjekk nettverket.",
+      "connectAgainWhenYouAre": "Koble til igjen når du er klar.",
+      "pickAnotherWayToConnect": "Velg en annen måte å koble til denne verten på.",
+      "connectThisHostThroughA": "Koble til denne verten gjennom en Termix-server.",
+      "pickTheJumpHostsAgain": "Velg hoppvertene igjen i vertredigeren.",
+      "thisIsATailscaleAddress": "Dette er en Tailscale-adresse. Sjekk at Tailscale er koblet til på denne {{deviceWord}}.",
+      "theSavedKeyCanT": "Den lagrede nøkkelen kan ikke leses. Lim den inn igjen i vertredigeren.",
+      "signInToThisServer": "Logg inn på denne serveren igjen.",
+      "openThisHostInThe": "Åpne denne verten i Termix-nettappen.",
+      "canTConnectThisWay": "Kan ikke koble til på denne måten",
+      "couldNotReachTheHost": "Kunne ikke nå verten",
+      "theProxyDidNotLet": "Proxyen lot ikke tilkoblingen gå gjennom",
+      "theHostKeyWasNot": "Vertsnykkelen var ikke stolt på",
+      "theLoginWasRefused": "Innloggingen ble avslått",
+      "theTermixServerDidNot": "Termix-serveren svarte ikke",
+      "theConnectionDropped": "Tilkoblingen ble brutt",
+      "loginCancelled": "Innlogging avbrutt"
+    },
+    "local": {
+      "authSupport": {
+        "vault": "Vault",
+        "stepCa": "Step CA",
+        "sshAgent": "SSH-agent",
+        "thisHostSignsInWith": "Denne verten logger inn med \"{{authType}}\", som trenger en Termix-server. Koble til en for å koble til.",
+        "thisHostUsesA1password": "Denne verten bruker en 1Password-referanse, som trenger en Termix-server med Secret Sources. Koble til en og koble til denne verten gjennom den.",
+        "signInWithFirstOpen": "Logg inn med {{title}} først. Åpne en terminal til denne verten en gang, og prøv igjen.",
+        "theSignInAndThe": "innloggingen og sertifikatet befinner seg på serveren",
+        "theHasNoSshAgent": "{{deviceWord}} har ingen SSH-agent",
+        "needsATermixServerBecause": "{{title}} trenger en Termix-server fordi {{why}}. Koble til en og koble til denne verten gjennom den."
+      },
+      "chain": {
+        "aJumpHostOfThis": "En hoppvert for denne verten finnes ikke lenger."
+      },
+      "localShell": {
+        "theConnectionWasCut": "Tilkoblingen ble brutt",
+        "theShellChannelClosed": "Skalkanalen ble lukket",
+        "jumpHost": "Hoppvert {{value}}/{{total}} ({{ip}}): ",
+        "invalidCodeTryAgain": "Ugyldig kode, prøv igjen:",
+        "authenticationFailed": "Autentisering mislyktes: {{message}}",
+        "theHostKeyWasNot": "Vertsnykkelen var ikke stolt på.",
+        "loginCancelled": "Innlogging avbrutt.",
+        "notConnected": "Ikke tilkoblet"
+      },
+      "localTelnetShell": {
+        "theConnectionWasCut": "Tilkoblingen ble brutt"
+      },
+      "thisBuildHasNoSsh": "Denne byggingen har ingen SSH-motor. Bruk appen fra butikken, eller koble til en Termix-server for å koble til.",
+      "theHostsOnThisAre": "Vertene på denne {{deviceWord}} er ikke åpne ennå.",
+      "thisServerSHostsAre": "Denne serverens vertene er ikke på denne {{deviceWord}}. Slå på Sync-pluginet på serveren for å koble til fra {{deviceWord}}."
+    },
+    "origin": {
+      "canTConnect": "Kan ikke koble til.",
+      "canTConnectFromThe": "Kan ikke koble til fra denne {{deviceWord}}.",
+      "canTReachTheServer": "Kan ikke nå serveren.",
+      "theOnlyConnectsToSsh": "Denne {{deviceWord}}en kobler bare til SSH- og Telnet-vertene.",
+      "connectThisHostThroughThe": "Koble til denne verten gjennom serveren",
+      "connectThisHostFromThe": "Koble til denne verten fra {{deviceWord}}en",
+      "termixServer": "Termix-server",
+      "usesThisWhenItCan": "Bruker denne {{deviceWord}}en når den kan nå verten, ellers serveren.",
+      "thisConnectsToTheHost": "Denne {{deviceWord}}en kobler til selve verten.",
+      "theTermixServerConnectsTo": "Termix-serveren kobler til verten for deg.",
+      "anSshConnection": "en SSH-tilkobling",
+      "aTermixServer": "en Termix-server",
+      "aConnectionFromThe": "en tilkobling fra {{deviceWord}}en",
+      "isOffOnThisServer": "{{title}} er av på denne serveren. {{how}} for å bruke den.",
+      "isOffOnThisServer2": "{{title}} er av på denne serveren.",
+      "anotherWayToConnect": "en annen måte å koble på",
+      "needsToUseIt": "{{title}} trenger {{what}}. {{how}} for å bruke den.",
+      "needsWhichThisHostCan": "{{title}} trenger {{what}}, som denne verten ikke kan bruke akkurat nå.",
+      "thisDevice": "Denne {{deviceWord}}en",
+      "automatic": "Automatisk"
+    },
+    "relay": {
+      "youAreSignedOutOf": "Du er logget ut av denne serveren. Logg inn for å koble gjennom den.",
+      "relayShell": {
+        "tmuxIsNotInstalledOn": "tmux er ikke installert på denne verten. Bruker vanlig shell.",
+        "tapRetryToBringIt": "Trykk på Prøv igjen for å hente den tilbake hit.",
+        "thisSessionWasOpenedOn": "Denne økten ble åpnet på en annen enhet",
+        "noServerUrlFoundLink": "Fant ingen server-URL. Koble til serveren på nytt.",
+        "signedOutOfThisServer": "Logget ut av denne serveren. Logg inn på nytt.",
+        "signInWithInYour": "Logg inn med {{title}} i nettleseren din. Dette lukkes når det er ferdig.",
+        "theSocketClosedWhileThe": "Socketen ble lukket mens appen var i bakgrunnen",
+        "noWebsocketUrlAvailableServer": "Ingen WebSocket-URL tilgjengelig – serveren er ikke konfigurert",
+        "connectionTimeoutServerNotResponding": "Tilkoblingstid utløpt – serveren svarer ikke",
+        "verificationCode": "Verifiseringskode:",
+        "hostKeyVerificationRequiredBut": "Vertsnøkkelverifisering kreves, men ingen håndterer er registrert",
+        "hostKeyChangedButNo": "Vertsnøkkelen har endret seg, men ingen håndterer er registrert",
+        "thisHostNeedsASign": "Denne verten krever en pålogging som bare nettappen støtter",
+        "invalidCodeTryAgain": "Ugyldig kode, prøv igjen:",
+        "unknownError": "Ukjent feil",
+        "connectionClosed": "Tilkoblingen ble lukket",
+        "connectionClosed2": "Tilkoblingen ble lukket ({{code}})",
+        "theServerClosedTheConnection": "Serveren lukket tilkoblingen",
+        "theSocketClosed": "Socketen ble lukket ({{code}})",
+        "signIn": "{{title}}-pålogging",
+        "signInFailed": "{{title}}-pålogging mislyktes",
+        "isNotSetUpOn": "{{title}} er ikke konfigurert på serveren",
+        "signInTimedOut": "{{title}}-påloggingen ble tidsavbrutt",
+        "authenticationFailed": "Autentisering mislyktes: "
+      }
+    },
+    "test": {
+      "saveTheHostAndConnect": "Lagre verten og koble til den for å teste den.",
+      "loggedInAsOn": "Logget inn som {{username}} på {{host}}",
+      "theHostAskedForMore": "Verten ba om mer enn et passord, for eksempel en kode. Lagre verten og koble til for å fullføre påloggingen."
+    }
+  },
+  "tunnels": {
+    "runner": {
+      "waitingForNetwork": "Venter på nettverk",
+      "couldNotOpenTheTunnel": "Kunne ikke åpne tunnelen",
+      "theConnectionDropped": "Tilkoblingen ble brutt",
+      "iosStoppedThisTunnelWhile": "iOS stoppet denne tunnelen mens appen var i bakgrunnen. Start den på nytt for å åpne den.",
+      "connecting": "Kobler til",
+      "connected": "Tilkoblet",
+      "retrying": "Prøver igjen",
+      "waiting": "Venter",
+      "failed": "Mislyktes"
+    },
+    "gateways": {
+      "error": "Feil",
+      "gateways": "Gateways",
+      "gatewaysCanOnlyBeChanged": "Gateways kan bare endres i Termix på nettet.",
+      "noHandshake": "Ingen håndtrykk",
+      "rulesMissing": "Regler mangler",
+      "up": "Opp",
+      "pending": "Venter",
+      "applying": "Legges til",
+      "down": "Nede",
+      "unreachable": "Uoppnåelig"
+    },
+    "hostTunnelsSection": {
+      "noTunnelsYetAddOne": "Ingen tunneler ennå. Legg til en for å videresende en port fra sluttpunktsverten til denne verten.",
+      "tunnel": "Tunnel {{value}}",
+      "removeTunnel": "Fjern tunnel {{value}}",
+      "mode": "Modus",
+      "local": "Lokal",
+      "remote": "Fjern",
+      "dynamic": "Dynamisk",
+      "targetHost": "Målvert",
+      "onThisHostForTunnels": "På denne verten, for tunneler som {{deviceWord}} kjører",
+      "bindHost": "Bindingsvert",
+      "endpointHost": "Sluttpunktsvert",
+      "addAnotherHostFirstTunnels": "Legg til en annen vert først. Tunneler går gjennom en lagret vert.",
+      "sourcePort": "Kildeport",
+      "endpointPort": "Sluttpunktport",
+      "maxRetries": "Maks antall forsøk",
+      "retryEveryS": "Prøv igjen hver (s)",
+      "startOnItsOwn": "Start automatisk",
+      "addTunnel": "Legg til tunnel",
+      "tunnelNeedsPortsFrom1": "Tunnel {{value}} trenger porter fra 1 til 65535"
+    },
+    "register": {
+      "tunnels": "Tunneler",
+      "startAndStopSavedTunnels": "Start og stopp lagrede tunneler",
+      "tunnel": "TUNNEL",
+      "tunnel2": "Tunnel"
+    },
+    "tunnelCard": {
+      "localEndpointCopied": "Lokalt sluttpunkt kopiert",
+      "tunnel": "Tunnel | {{sourcePort}}",
+      "portMapping": "Porttilordning",
+      "connect": "Koble til",
+      "disconnect": "Koble fra",
+      "cancel": "Avbryt",
+      "connected": "Tilkoblet",
+      "connecting": "Kobler til",
+      "disconnecting": "Kobler fra",
+      "error": "Feil",
+      "retrying": "Prøver igjen ({{value}}/{{value2}})",
+      "waitingS": "Venter {{value}}s",
+      "waiting": "Venter",
+      "disconnected": "Frakoblet"
+    },
+    "tunnelManager": {
+      "startingTunnelOnPort": "Starter tunnel på port {{sourcePort}}",
+      "connectingTunnelOnPort": "Kobler til tunnel på port {{sourcePort}}",
+      "disconnectingPort": "Kobler fra port {{sourcePort}}",
+      "cancellingPort": "Avbryter port {{sourcePort}}",
+      "failedToTunnel": "Kunne ikke {{action}} tunnel",
+      "tunnels": "Tunneler | {{count}} | {{value}}",
+      "loadingTunnels": "Laster inn tunneler…",
+      "noSshTunnelsConfiguredFor": "Ingen SSH-tunneler er konfigurert for denne verten. Legg til tunneler fra vertsformularen.",
+      "runOn": "Kjør på",
+      "server": "Tjener",
+      "this": "Denne {{deviceWord}}",
+      "tunnelsOnThisStopWhen": "Tunneler på denne {{deviceWord}} stopper når appen lukkes. På iOS stopper de også kort tid etter at appen går til bakgrunnen.",
+      "failedToFetchTunnelStatuses": "Kunne ikke hente tunnelstatuser",
+      "thisBuildCanTOpen": "Denne utgaven kan ikke åpne tunneler på {{deviceWord}}.",
+      "sourceHostNotFound": "Kildeverten ble ikke funnet",
+      "endpointHostNotFound": "Sluttpunktsverten ble ikke funnet: {{endpointHost}}"
+    },
+    "tunnelsCard": {
+      "tunnels": "Tunneler",
+      "tunnelCount_one": "{{count}} tunnel",
+      "tunnelCount_other": "{{count}} tunneler",
+      "runningOnServer": "{{connected}} kjører på tjener"
+    }
+  },
+  "credentialTools": {
+    "register": {
+      "credentialTools": "Innloggingsverktøy"
+    }
+  },
+  "docker": {
+    "backend": {
+      "local": {
+        "dockerIsNotInstalledOn": "Docker er ikke installert på denne verten.",
+        "dockerDidNotAnswer": "Docker svarte ikke",
+        "thatIsNotAValid": "Dette er ikke et gyldig stakknavn"
+      }
+    },
+    "containerDetail": {
+      "stop": "Stopp",
+      "start": "Start",
+      "restart": "Start på nytt",
+      "remove": "Fjern",
+      "logs": "Logger",
+      "stats": "Statistikk",
+      "console": "Konsoll",
+      "logsCopied": "Logger kopiert",
+      "copy": "Kopier",
+      "containerIsNotRunningNo": "Beholderen kjører ikke, ingen sanntidsstatistikk.",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "networkIO": "Nettverks-I/O",
+      "blockIO": "Blokk-I/O",
+      "pids": "PIDs",
+      "failedToLoadLogs": "Kunne ikke laste logger",
+      "failedToLoadStats": "Kunne ikke laste statistikk",
+      "noOutput": "(ingen output)"
+    },
+    "docker": "Docker",
+    "connectingToDocker": "Kobler til Docker...",
+    "remove": "Fjerne {{name}}?",
+    "stop": "Stoppe {{name}}?",
+    "theContainerIsStoppedAnd": "Beholderen er stoppet og slettet. Volumene beholdes.",
+    "anythingRunningInItStops": "Alt som kjører i den stoppes.",
+    "remove2": "Fjern",
+    "stop2": "Stopp",
+    "dockerThis": "Docker | denne {{deviceWord}}",
+    "lookingForDocker": "Leter etter Docker...",
+    "dockerIsNotAvailableOn": "Docker er ikke tilgjengelig på denne verten.",
+    "noContainersFound": "Ingen containere funnet",
+    "noContainersMatchYourFilters": "Ingen containere matcher filtrene dine",
+    "useSudo": "Bruk sudo",
+    "refresh": "Oppdater",
+    "containers": "Containere",
+    "stacks": "Stakker",
+    "searchContainers": "Søk i containere...",
+    "all": "Alle",
+    "running": "Kjører",
+    "stopped": "Stoppet",
+    "start": "Start",
+    "restart": "Start på nytt",
+    "pause": "Pause",
+    "unpause": "Fjern pause",
+    "moreActions": "Flere handlinger",
+    "dockerCard": {
+      "dockerDidNotAnswer": "Docker svarte ikke",
+      "docker": "Docker",
+      "noContainers": "Ingen containere"
+    },
+    "dockerConsole": {
+      "attachingTo": "Kobler til {{name}}...",
+      "consoleDisconnected": "Konsollen er frakoblet",
+      "reconnect": "Koble til på nytt",
+      "failedToLoadTheConsole": "Kunne ikke laste konsollen",
+      "thisSessionHasNoServer": "Denne økten har ingen server"
+    },
+    "register": {
+      "docker": "Docker",
+      "containersLogsAndStats": "Containere, logger og statistikk"
+    },
+    "stacksView": {
+      "stacksAreTurnedOffOn": "Stakker er slått av på denne serveren.",
+      "couldNotLoadStacks": "Kunne ikke laste stakker",
+      "noStacks": "Ingen stabel",
+      "composeProjectsOnThisHost": "Compose-prosjekter på denne verten vises her.",
+      "ofRunning": "{{running}} av {{total}} kjører",
+      "couldNotLoadTheStack": "Kunne ikke laste stabelen",
+      "services": "Tjenester",
+      "nothingIsRunning": "Ingenting kjører.",
+      "composeFile": "Compose-fil",
+      "partlyUp": "delvis opp",
+      "notDeployed": "ikke implementert",
+      "running": "kjører",
+      "stopped": "stoppet",
+      "paused": "pauset"
+    },
+    "consoleLink": {
+      "thatIsNotAValid": "Dette er ikke en gyldig container-ID",
+      "consoleFailed": "Konsollet feilet",
+      "notAuthenticated": "Ikke autentisert",
+      "consoleError": "Konsollfeil",
+      "connectionFailed": "Tilkoblingen feilet"
+    },
+    "dockerDidNotAnswer": "Docker svarte ikke",
+    "failedToLoadContainers": "Kunne ikke laste containere",
+    "failedTo": "Kunne ikke {{action}}"
+  },
+  "fileManager": {
+    "backend": {
+      "relay": {
+        "theServerSentNoFile": "Serveren sendte ingen fil",
+        "cancelled": "Avbrutt",
+        "isGone": "{{path}} er borte",
+        "canTGoToThe": "{{name}} kan ikke flyttes til papirkurven"
+      },
+      "sftpTrash": {
+        "invalidTrashItemId": "Ugyldig papirkurv-ID",
+        "invalidTrashMetadata": "Ugyldig papirkurvmetadata",
+        "thisPathCanTBe": "Denne stien kan ikke flyttes til papirkurven",
+        "aFileAlreadyExistsAt": "En fil finnes allerede på den opprinnelige stien"
+      },
+      "sftp": {
+        "commandFailed": "Kommandoen feilet: {{command}}",
+        "alreadyExists": "{{name}} finnes allerede",
+        "alreadyExistsThere": "{{path}} finnes allerede der",
+        "canTGoToThe": "{{name}} kan ikke flyttes til papirkurven: {{message}}"
+      }
+    },
+    "companionFiles": {
+      "theTerminalIsnTOpen": "Terminalen er ikke lenger åpen",
+      "clearHistory": "Tøm historikk",
+      "stopFollowingTheTerminal": "Slutt å følge terminalen",
+      "followTheTerminal": "Følg terminalen",
+      "goToTheTerminalS": "Gå til terminalens mappe",
+      "cdTheTerminalHere": "cd terminalen hit",
+      "folderHistory": "Mapphistorikk",
+      "mostUsedFirstThenRecent": "Mest brukte først, deretter nylige",
+      "noFoldersYet": "Ingen mapper ennå"
+    },
+    "connection": {
+      "useFileBackend": {
+        "canTConnect": "Kan ikke koble til.",
+        "couldNotSaveHowThis": "Kunne ikke lagre hvordan denne verten kobles til",
+        "thisWayCanTOpen": "Denne metoden kan ikke åpne filer"
+      }
+    },
+    "destinationPicker": {
+      "couldNotOpenThisFolder": "Kunne ikke åpne denne mappen",
+      "cancel": "Avbryt",
+      "noFoldersHere": "Ingen mapper her"
+    },
+    "couldNotOpenThisFolder": "Kunne ikke åpne denne mappen",
+    "couldNotSaveToThe": "Kunne ikke lagre i mappen",
+    "failed": "{{label}} feilet",
+    "uploading": "Laster opp {{name}}",
+    "uploadingFiles": "Laster opp {{count}} filer",
+    "downloadingToFilesOnMy": "Laster ned til Filer, På min iPhone, Termix",
+    "downloading": "Laster ned {{name}}",
+    "downloadingFiles": "Laster ned {{count}} filer",
+    "openALargeFile": "Åpne en stor fil?",
+    "isBigForAEditor": "{{name}} er stor for en {{deviceWord}}-redigerer. Den kan være treg.",
+    "open": "Åpne",
+    "thisLooksLikeABinary": "Dette ser ut som en binærfil",
+    "openItInAnotherApp": "Vil du åpne den i en annen app i stedet?",
+    "openWith": "Åpne med",
+    "tooBigForTheEditor": "For stor for redigereren",
+    "isOver10MbDownload": "{{name}} er over 10 MB. Vil du laste den ned i stedet?",
+    "download": "Last ned",
+    "delete": "Slette {{what}}?",
+    "moveToTheTrash": "Flytte {{what}} til papirkurven?",
+    "thisCanTBeUndone": "Dette kan ikke angres.",
+    "youCanRestoreItFrom": "Du kan gjenopprette den fra papirkurven.",
+    "delete2": "Slett",
+    "moveToTrash": "Flytt til papirkurv",
+    "deleteForGood": "Slette permanent?",
+    "deleteItForGoodInstead": "{{message}}. Vil du slette den permanent i stedet? Dette kan ikke angres.",
+    "deleteFailed": "Sletting mislyktes",
+    "connectingThroughTheServer": "Kobler til via serveren...",
+    "connectingFromThis": "Kobler til fra denne {{deviceWord}}...",
+    "connecting": "Kobler til...",
+    "edit": "Rediger",
+    "downloadFolder": "Last ned mappe",
+    "share": "Del",
+    "rename": "Gi nytt navn",
+    "copyTo": "Kopier til",
+    "moveTo": "Flytt til",
+    "cut": "Klipp ut",
+    "copy": "Kopier",
+    "permissions": "Tillatelser",
+    "properties": "Egenskaper",
+    "makeALinkHere": "Opprett en lenke her",
+    "copyPath": "Kopier sti",
+    "pathCopied": "Sti kopiert",
+    "done": "Ferdig",
+    "selectAll": "Merk alle",
+    "filterByName": "Filtrer etter navn",
+    "closeSearch": "Lukk søk",
+    "search": "Søk",
+    "changeSort": "Endre sortering",
+    "paste": "Lim inn {{count}}",
+    "upload": "Last opp",
+    "transfers2": "Overføringer",
+    "more": "Mer",
+    "nothingMatches": "Ingen treff",
+    "emptyFolder": "Tom mappe",
+    "uploadFilesOrMakeA": "Last opp filer eller opprett en ny.",
+    "newFolder": "Ny mappe",
+    "newFile": "Ny fil",
+    "select": "Velg",
+    "hideHiddenFiles": "Skjul skjulte filer",
+    "showHiddenFiles": "Vis skjulte filer",
+    "trash": "Papirkurv",
+    "folderProperties": "Mappeegenskaper",
+    "refresh": "Oppdater",
+    "rename2": "Gi nytt navn til {{name}}",
+    "newLink": "Ny lenke",
+    "aLinkInThatPoints": "En lenke i {{path}} som peker til {{path2}}",
+    "name": "Navn",
+    "create": "Opprett",
+    "copyHere": "Kopier hit",
+    "moveHere": "Flytt hit",
+    "fileViewer": {
+      "saved": "Lagret {{name}}",
+      "couldNotSaveTheFile": "Kunne ikke lagre filen",
+      "discardChanges": "Forkast endringer?",
+      "hasChangesThatAreNot": "{{name}} har endringer som ikke er lagret.",
+      "discard": "Forkast",
+      "readOnly": "{{path}} | skrivebeskyttet",
+      "find": "Søk",
+      "smallerText": "Mindre tekst",
+      "biggerText": "Større tekst",
+      "turnOffLineWrap": "Slå av linjeskift",
+      "wrapLines": "Bryt linjer",
+      "save": "Lagre"
+    },
+    "hostSection": {
+      "startIn": "Start i",
+      "theFolderTheFileManager": "Mappen filbehandleren åpner først",
+      "files": "Filer"
+    },
+    "list": {
+      "breadcrumbs": {
+        "goTo": "Gå til {{path}}"
+      },
+      "fileRow": {
+        "moreActions": "Flere handlinger",
+        "moreFor": "Flere for {{name}}"
+      }
+    },
+    "permissionsDialog": {
+      "permissions": "Tillatelser",
+      "cancel": "Avbryt",
+      "apply": "Bruk ({{octal}})"
+    },
+    "previewView": {
+      "couldNotOpenIt": "Kunne ikke åpne den",
+      "openWith": "Åpne med",
+      "share": "Del"
+    },
+    "propertiesView": {
+      "properties": "Egenskaper",
+      "path": "Sti",
+      "type": "Type",
+      "pointsTo": "Peker til",
+      "size": "Størrelse",
+      "countFolderSize": "Beregn mappestørrelse",
+      "permissions": "Tillatelser",
+      "change": "Endre",
+      "owner": "Eier",
+      "group": "Gruppe",
+      "modified": "Sist endret",
+      "opened": "Åpnet",
+      "linkToA": "Lenke til en {{value}}",
+      "notShownForFolders": "Vises ikke for mapper",
+      "file": "Fil",
+      "folder": "Mappe",
+      "link": "Lenke"
+    },
+    "register": {
+      "fileManager": "Filbehandler",
+      "files": "Filer",
+      "browseEditAndMoveFiles": "Bla gjennom, rediger og flytt filer",
+      "files2": "FILER",
+      "fileManagerAndTransfers": "Filbehandler og overføringer"
+    },
+    "transfers": {
+      "manager": {
+        "transferFailed": "Overføring mislyktes"
+      },
+      "transfersPanel": {
+        "pause": "Pause",
+        "resume": "Fortsett",
+        "tryAgain": "Prøv igjen",
+        "open": "Åpne",
+        "cancel": "Avbryt",
+        "transfers": "Overføringer",
+        "goingOf": "{{active}} pågår | {{done}} av {{total}}",
+        "clearFinished": "Fjern fullførte",
+        "cancelAll": "Avbryt alle",
+        "noTransfersYet": "Ingen overføringer ennå",
+        "waiting": "Venter",
+        "paused": "Pauset",
+        "done": "Fullført",
+        "failed": "Mislyktes",
+        "cancelled": "Avbrutt"
+      }
+    },
+    "trashView": {
+      "failedToLoadTrash": "Kunne ikke laste papirkurven",
+      "restored": "Gjenopprettet {{name}}",
+      "failedToRestore": "Kunne ikke gjenopprette",
+      "failedToDelete": "Kunne ikke slette",
+      "trashEmptied": "Papirkurven er tømt",
+      "failedToEmptyTrash": "Kunne ikke tømme papirkurven",
+      "trash": "Papirkurv",
+      "itemsAreRemovedAfterDays": "Elementer fjernes etter {{retentionDays}} dager",
+      "close": "Lukk",
+      "emptyTrash": "Tøm papirkurven",
+      "trashIsEmpty": "Papirkurven er tom",
+      "restore": "Gjenopprett {{name}}",
+      "deleteForGood": "Slett {{name}} permanent"
+    },
+    "utils": {
+      "fileUtils": {
+        "justNow": "Nettopp nå"
+      }
+    },
+    "getting": "Henter {{name}}",
+    "itemCount_one": "{{count}} element",
+    "itemCount_other": "{{count}} elementer",
+    "copiedWhat": "Kopierte {{what}}",
+    "movedWhat": "Flyttet {{what}}",
+    "actions": {
+      "hasMoreThanFilesDownload": "{{name}} har mer enn {{limit}} filer. Last ned mindre mapper."
+    },
+    "downloadingToFilesOnMyIpad": "Laster ned til Filer, På min iPad, Termix",
+    "size": "Størrelse",
+    "date": "Dato"
+  },
+  "homepage": {
+    "homepageCard": {
+      "serviceLinks": "Tjenestelenker",
+      "openInHomepage": "Åpne i Homepage",
+      "thisWidgetOnlyShowsOn": "Denne widgeten vises kun på fullsidevisningen."
+    },
+    "register": {
+      "serviceLinks": "Tjenestelenker",
+      "homepage": "Hjemmeside"
+    },
+    "widgets": {
+      "feeds": {
+        "noFeedSet": "Ingen feed er angitt.",
+        "couldNotLoadTheFeed": "Kunne ikke laste feeden.",
+        "theFeedIsEmpty": "Feeden er tom.",
+        "noLocationSet": "Ingen lokasjon er angitt.",
+        "couldNotLoadTheWeather": "Kunne ikke laste været.",
+        "noUrlSet": "Ingen URL er angitt.",
+        "couldNotLoadTheData": "Kunne ikke laste dataene.",
+        "noPictureSet": "Ingen bilde er angitt.",
+        "badResponse": "feil svar"
+      },
+      "services": "Tjenester",
+      "service": "Tjeneste",
+      "serviceLinks": "Tjenestelenker",
+      "bookmarks": "Bokmerker",
+      "links2": "Lenker",
+      "search": "Søk",
+      "clock": "Klokke",
+      "countdown": "Nedtellning",
+      "calendar": "Kalender",
+      "notes": "Notater",
+      "banner": "Banner",
+      "ping": "Ping",
+      "host": "Vert",
+      "hosts": "Verter",
+      "quickConnect": "Rask tilkobling",
+      "feed": "Feed",
+      "weather": "Vær",
+      "customApi": "Egendefinert API",
+      "picture": "Bilde",
+      "widget": "Widget",
+      "links": {
+        "noServicesYet": "Ingen tjenester ennå.",
+        "noLinkSet": "Ingen lenke er angitt.",
+        "noLinksYet": "Ingen lenker ennå.",
+        "noSearchEngineSet": "Ingen søkemotor er angitt.",
+        "search": "Søk",
+        "noShortcutsYet": "Ingen snarveier ennå.",
+        "search2": "Søk i {{label}}"
+      },
+      "shared": {
+        "couldNotOpenTheLink": "Kunne ikke åpne lenken"
+      },
+      "status": {
+        "noUrlsYet": "Ingen URL-er ennå.",
+        "down": "Nede",
+        "noHostsPicked": "Ingen vertsmaskiner valgt."
+      },
+      "text": {
+        "noNotesYet": "Ingen notater ennå.",
+        "noTextYet": "Ingen tekst ennå."
+      },
+      "time": {
+        "noDateSet": "Ingen dato angitt.",
+        "timeIsUp": "Tiden er ute"
+      }
+    }
+  },
+  "hostDefaults": {
+    "couldNotSaveTheDefault": "Kunne ikke lagre standardverdien",
+    "couldNotResetTheDefault": "Kunne ikke tilbakestille standardverdien",
+    "back": "Tilbake",
+    "hostDefaults": "Standardverdier for vertsmaskiner",
+    "newHostsStartFromThese": "Nye vertsmaskiner starter med disse",
+    "managedOnTheServer": "Styres på serveren",
+    "defaultsForThisServerAre": "Standardverdier for denne serveren er satt i webappen.",
+    "level": "Nivå",
+    "yourDefaultsOrOneFolder": "Dine standardverdier, eller en mappe sin",
+    "myDefaults": "Mine standardverdier",
+    "theServerSets": " Serveren setter {{adminCount}}.",
+    "aFolderWinsOverYour": "En mappe har forrang foran dine standardverdier, og dine standardverdier har forrang foran serverens. En vertsmaskin beholder enhver verdi du har satt på den selv.{{value}}",
+    "save": "Lagre",
+    "authentication": "Autentisering",
+    "none": "Ingen",
+    "reset": "Tilbakestill",
+    "model": {
+      "username": "Brukernavn",
+      "sshPort": "SSH-port",
+      "authentication": "Autentisering",
+      "aSavedCredentialForNew": "En lagret legitimasjon for nye vertsmaskiner",
+      "forceKeyboardInteractive": "Tving tastaturinteraktiv",
+      "keepaliveInterval": "Keepalive-intervall",
+      "seconds0TurnsItOff": "Sekunder, 0 slår det av",
+      "keepaliveTries": "Keepalive-forsøk",
+      "allowOldAlgorithms": "Tillat gamle algoritmer",
+      "agentForwarding": "Agentforwarding",
+      "environmentVariables": "Miljøvariabler",
+      "oneNameValuePerLine": "Én NAVN=verdi per linje",
+      "checkIfTheHostIs": "Sjekk om vertsmaskinen er oppe",
+      "checkInterval": "Sjekkeintervall",
+      "secondsEmptyUsesTheServer": "Sekunder, tom bruker serverens",
+      "socks5Proxy": "SOCKS5-proxy",
+      "setInTheWebApp": "Satt i webappen",
+      "jumpHosts": "Hopp-verts",
+      "portKnocking": "Port knocking",
+      "notSet": "Ikke satt",
+      "fromTheServer": "Fra serveren",
+      "fromYourDefaults": "Fra dine standardverdier",
+      "builtIn": "Innebygd"
+    },
+    "register": {
+      "hostDefaults": "Standardverdier for vertsmaskiner",
+      "portUserAndOptionsFor": "Port, bruker og alternativer for nye vertsmaskiner"
+    }
+  },
+  "hostMetrics": {
+    "historyCard": {
+      "noDataYet": "Ingen data ennå",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "disk": "Disk",
+      "history": "Historikk",
+      "loading": "Laster..."
+    },
+    "metricsCard": {
+      "couldNotReadMetrics": "Kunne ikke lese metrikker",
+      "metrics": "Metrikker",
+      "cpu": "CPU",
+      "memory": "Minne",
+      "disk": "Disk",
+      "noRecentSampleOpenThe": "Ingen nylig prøve. Åpne vertsstatistikken for å starte en."
+    },
+    "register": {
+      "enableMetrics": "Aktiver statistikk",
+      "cpuMemoryDiskAndNetwork": "CPU, minne, disk og nettverk via SSH",
+      "hostMetrics": "Vertsstatistikk",
+      "cpu": "CPU",
+      "ram": "RAM",
+      "metrics": "Statistikk",
+      "cpuMemoryDiskAndNetwork2": "CPU, minne, disk og nettverk"
+    },
+    "serverStats": {
+      "hostMetricsThis": "Vertsstatistikk | denne {{deviceWord}}",
+      "hostMetrics": "Vertsstatistikk",
+      "ran": "Kjørte {{name}}",
+      "loadingMetrics": "Laster inn statistikk...",
+      "couldNotReadMetricsFrom": "Kunne ikke lese statistikk fra denne verten",
+      "failedToLoadMetrics": "Kunne ikke laste inn statistikk",
+      "thisSessionHasNoServer": "Denne økten har ingen server",
+      "twoFactorRequiredForThis": "To-faktor-autentisering kreves for denne vertens statistikk.",
+      "failedToStartMetrics": "Kunne ikke starte statistikk",
+      "failedToRun": "Kunne ikke kjøre {{name}}"
+    },
+    "widgets": {
+      "cpuWidget": {
+        "cpu": "CPU",
+        "perCore": "Per kjerne: {{value}}",
+        "cores": "Kjerner",
+        "load": "Last",
+        "user": "Bruker",
+        "system": "System",
+        "ioWait": "IO-ventetid",
+        "steal": "Stjålet"
+      },
+      "diskWidget": {
+        "disk": "Disk  {{mount}}",
+        "disk2": "Disk",
+        "used": "Brukt",
+        "total": "Totalt",
+        "free": "Ledig"
+      },
+      "firewallWidget": {
+        "firewall": "Brannmur",
+        "rules": "{{type}} | {{ruleCount}} regler",
+        "noFirewallDetected": "Ingen brannmur oppdaget"
+      },
+      "gpuWidget": {
+        "gpus": "GPU-er ({{count}})",
+        "gpu": "GPU",
+        "memory": "Minne",
+        "temp": "Temp",
+        "power": "Effekt",
+        "fan": "Vifte"
+      },
+      "loginStatsWidget": {
+        "loginActivity": "Innloggingsaktivitet",
+        "noLoginActivityRecorded": "Ingen innloggingsaktivitet registrert",
+        "logins": "Innlogginger",
+        "uniqueIps": "Unike IP-er",
+        "failed": "Mislykket",
+        "recent": "Nylig"
+      },
+      "memoryWidget": {
+        "memory": "Minne",
+        "used": "Brukt",
+        "total": "Totalt",
+        "cached": "Hurtigbuffer",
+        "free": "Ledig"
+      },
+      "networkWidget": {
+        "network": "Nettverk",
+        "noInterfaces": "Ingen grensesnitt",
+        "up": "Opp",
+        "down": "Ned"
+      },
+      "portsWidget": {
+        "listeningPorts": "Porter som lytter",
+        "noListeningPorts": "Ingen porter som lytter"
+      },
+      "processesWidget": {
+        "sortBy": "Sorter etter {{label}}",
+        "processes": "Prosesser",
+        "running": "{{value}} kjører | {{total}}",
+        "noProcessData": "Ingen prosessdata",
+        "cpu": "CPU%",
+        "mem": "MEM%",
+        "command": "KOMMANDO"
+      },
+      "systemWidget": {
+        "system": "System",
+        "hostname": "Vertsnavn",
+        "os": "OS",
+        "kernel": "Kjerne",
+        "arch": "Arkitektur",
+        "noSystemInfo": "Ingen systeminfo"
+      },
+      "temperatureWidget": {
+        "temperature": "Temperatur"
+      },
+      "uptimeWidget": {
+        "uptime": "Oppetid"
+      }
+    }
+  },
+  "hostTransfer": {
+    "hostShare": {
+      "copiedWithThePassword": "Kopiert med passord",
+      "copiedTheLink": "Kopierte lenken",
+      "shareHost": "Del vert",
+      "thatHostNoLongerExists": "Den verten finnes ikke lenger",
+      "scanThisInTermixOn": "Skann dette i Termix på en annen {{deviceWord}}, under Import og eksport. Koden inneholder adresse, port og bruker. Den inneholder ikke passord eller nøkkel.",
+      "copyLink": "Kopier lenke",
+      "copyLinkWithPassword": "Kopier lenke med passord"
+    },
+    "includePasswordsAndKeys": "Inkluder passord og nøkler?",
+    "anyoneWhoGetsThisFile": "Alle som får tak i denne filen kan logge inn på disse vertene. Hold den trygg.",
+    "includeThem": "Inkluder dem",
+    "pickAtLeastOneHost": "Velg minst én vert",
+    "couldNotMakeTheFile": "Kunne ikke opprette filen",
+    "copiedToTheClipboard": "Kopiert til utklippstavlen",
+    "importAndExport": "Import og eksport",
+    "moveHostsInAndOut": "Flytt vertene inn og ut",
+    "import": "Importer",
+    "aTermixHostFileAn": "En Termix-vertfil, en SSH-konfigurasjonsfil eller en vertlenke eller QR-kode fra en annen {{deviceWord}}.",
+    "export": "Eksporter",
+    "allHosts": "Alle vertene",
+    "picked": "{{size}} valgt",
+    "pickHosts": "Velg vertene",
+    "includePasswordsAndKeys2": "Inkluder passord og nøkler",
+    "offMakesAFileSafe": "Av gjør filen trygg å dele. Vertene som bruker lagrede legitimasjonspunkt, peker på dem ved navn",
+    "shareAFile": "Del en fil",
+    "copy": "Kopier",
+    "importPanel": {
+      "couldNotReadThat": "Kunne ikke lese det",
+      "couldNotReadThatFile": "Kunne ikke lese den filen",
+      "importFailed": "Importen mislyktes",
+      "chooseAFile": "Velg en fil",
+      "paste": "Lim inn",
+      "scanACode": "Skann en kode",
+      "couldNotBeRead": "{{count}} kunne ikke leses",
+      "updateHostsThatExist": "Oppdater vertene som finnes",
+      "sameAddressPortAndUser": "Samme adresse, port og bruker. Ellers blir de hoppet over",
+      "cancel": "Avbryt",
+      "import": "Importer",
+      "andMore": "og {{value}} til"
+    },
+    "qrCode": {
+      "qrCode": "QR-kode"
+    },
+    "register": {
+      "importAndExport": "Import og eksport",
+      "moveHostsInOrOut": "Flytt vertene inn eller ut med en fil eller QR-kode",
+      "shareHost": "Del vert"
+    },
+    "scanSheet": {
+      "scanAHostCode": "Skann en vertkode",
+      "pointTheCameraAtA": "Ret kameraet mot en Termix-vert QR-kode.",
+      "termixNeedsTheCameraTo": "Termix trenger kameraet for å skanne en kode. Det blir ikke tatt opp noe.",
+      "allowTheCamera": "Tillat kameraet"
+    },
+    "read": {
+      "termixFile": "Termix-fil",
+      "sshConfig": "SSH-konfigurasjon",
+      "thereIsNothingToImport": "Det er ingenting å importere",
+      "thatIsNotATermix": "Dette er ikke en Termix-vertlenke",
+      "linkHost": "1 vert: {{name}}",
+      "sourceHosts_one": "{{what}} med {{count}} vert",
+      "sourceHosts_other": "{{what}} med {{count}} verter"
+    },
+    "saveYourTermixHosts": "Lagre Termix-vertene dine"
+  },
+  "operations": {
+    "approvals": {
+      "done": "Ferdig",
+      "rejected": "Avvist",
+      "approvals": "Godkjenninger",
+      "nothingIsWaiting": "Ingenting venter",
+      "actionsARuleHoldsFor": "Handlinger som krever godkjenning fra en regel vises her.",
+      "approveAndRun": "Godkjenn og kjør",
+      "reject": "Avvis",
+      "couldNotLoadApprovals": "Kunne ikke laste inn godkjenninger",
+      "couldNotDecide": "Kunne ikke avgjøre"
+    },
+    "approvalsCard": {
+      "approved": "Godkjent",
+      "rejected": "Avvist",
+      "waitingForApproval": "Venter på godkjenning",
+      "approve": "Godkjenn",
+      "reject": "Avvis",
+      "couldNotDecide": "Kunne ikke avgjøre",
+      "seeAll": "Se alle"
+    },
+    "hostActions": {
+      "thisCanTBeUndone": "Dette kan ikke angres. Kjør det?",
+      "run": "Kjør",
+      "sentForApproval": "Sendt til godkjenning",
+      "target": "Mål",
+      "theItemOnTheHost": "Elementet på verten, for eksempel en beholder",
+      "dryRun": "Tørkjøring",
+      "back": "Tilbake",
+      "actions": "Handlinger",
+      "noActionsForThisHost": "Ingen handlinger for denne verten",
+      "turnOnAPluginLike": "Aktiver en plugin som Docker eller Tjenester for denne verten på serveren.",
+      "destructive": "Destruktiv",
+      "changes": "Endringer",
+      "theActionCouldNotRun": "Handlingen kunne ikke kjøres",
+      "couldNotLoadActions": "Kunne ikke laste inn handlinger"
+    },
+    "register": {
+      "actions": "Handlinger",
+      "waitingForApproval": "Venter på godkjenning",
+      "approvals": "Godkjenninger",
+      "actionsWaitingForAPerson": "Handlinger som venter på at noen sier ja",
+      "runHistory": "Kjøringshistorikk",
+      "everyActionAnyoneRanFrom": "Alle handlinger noen har kjørt, fra enhver enhet"
+    },
+    "runHistory": {
+      "cancelThisRun": "Vil du avbryte denne kjøringen?",
+      "cancelRun": "Avbryt kjøring",
+      "keep": "Behold",
+      "undoThisRun": "Vil du angre denne kjøringen?",
+      "thisRunsTheActionS": "Dette kjører handlingens angro med samme inndata.",
+      "undo": "Angre",
+      "cancelled": "Avbrutt",
+      "itAlreadyFinished": "Den er allerede ferdig",
+      "done": "Ferdig",
+      "runHistory": "Kjøringshistorikk",
+      "nothingHasRunYet": "Ingenting har blitt kjørt ennå",
+      "dryRun": "Tørkjøring",
+      "cancel": "Avbryt",
+      "couldNotLoadHistory": "Kunne ikke laste inn historikk",
+      "couldNotCancel": "Kunne ikke avbryte",
+      "couldNotUndo": "Kunne ikke angre"
+    },
+    "api": {
+      "needsApproval": "Krever godkjenning",
+      "needsSignIn": "Krever pålogging",
+      "done": "Ferdig",
+      "failed": "Mislyktes",
+      "running": "Kjører",
+      "interrupted": "Avbrutt",
+      "rejected": "Avvist",
+      "cancelled": "Avbrutt",
+      "expired": "Utløpt"
+    }
+  },
+  "pluginHostFields": {
+    "register": {
+      "turnOn": "Skru på {{value}}",
+      "moreSettingsForThisAre": "Flere innstillinger for dette finnes i Termix-nettappen.",
+      "pluginHostSettings": "Innstillinger for programtilleggsvært"
+    },
+    "fields": {
+      "mustBeANumber": "{{field}} må være et tall",
+      "mustBeAtLeast": "{{field}} må være minst {{min}}",
+      "mustBeAtMost": "{{field}} må være maksimalt {{max}}"
+    }
+  },
+  "pluginWebview": {
+    "pluginSessionTab": {
+      "linkAServerToUse": "Koble til en server for å bruke den",
+      "runsOnYourTermixServer": "{{name}} kjører på Termix-serveren din."
+    },
+    "pluginWebView": {
+      "canTLoad": "Kan ikke laste {{name}}",
+      "theServerDidNotSend": "Serveren sendte ikke programtillegget. Sjekk at den er på, og prøv igjen.",
+      "openThisLink": "Vil du åpne denne lenken?",
+      "open": "Åpne",
+      "needsANewerVersionOf": "Krever en nyere versjon av appen",
+      "usesPartsOfTermixThis": "{{name}} bruker deler av Termix som denne appen ennå ikke har.",
+      "didNotStart": "{{name}} startet ikke",
+      "thisScreenIsNotIn": "Denne skjermen finnes ikke i versjonen av programtillegget på serveren.",
+      "thePluginHitAnError": "Programtillegget traff en feil under oppstart.",
+      "youReOffline": "Du er frakoblet",
+      "runsOnYourServerSo": "{{name}} kjører på serveren din, så den trenger en tilkobling. Den åpnes igjen når du er tilbake online.",
+      "tryAgain": "Prøv igjen"
+    },
+    "shell": {
+      "thatHostIsNotOn": "Den verten er ikke på denne {{deviceWord}} ennå.",
+      "theAppCanTOpen": "Appen kan ikke åpne det fra her.",
+      "thatHostIsNotOn2": "Den verten er ikke på denne {{deviceWord}} ennå."
+    }
+  },
+  "remoteDesktop": {
+    "hostSections": {
+      "telnet": "Telnet",
+      "password": "Passord",
+      "unchangedIfBlank": "Uendret hvis tomt",
+      "port": "Port",
+      "domain": "Domene",
+      "displaySoundAndClipboardSettings": "Innstillinger for skjerm, lyd og utklippstavle finnes i Termix-nettappen.",
+      "portMustBeFrom1": "{{label}}-porten må være mellom 1 og 65535"
+    },
+    "native": {
+      "nativeRemoteDesktop": {
+        "theRemoteDesktopDropped": "Fjernskjermen ble koblet fra",
+        "signIn": "{{label}}-innlogging",
+        "itWillNotBeSaved": "{{error}} Det blir ikke lagret.",
+        "enterTheLoginForIt": "Skriv inn påloggingsdetaljene for {{title}}. De blir ikke lagret.",
+        "reconnecting": "Kobler på nytt {{label}}",
+        "connecting": "Kobler til {{label}}",
+        "connectionFailed": "Tilkobling mislyktes",
+        "disconnected": "Frakoblet",
+        "reconnect": "Koble til på nytt",
+        "connectThroughTheServer": "Koble til gjennom serveren",
+        "pasteToRemote": "Lim inn i fjernskjermen",
+        "typeClipboard": "Skriv ut utklippstavle",
+        "copyRemoteClipboard": "Kopier fjernskjermens utklippstavle",
+        "theComputerSCertificateWas": "Datamaskinens sertifikat var ikke stilt tillit til.",
+        "thatLoginWasRefusedTry": "Den påloggingen ble avvist. Prøv igjen."
+      },
+      "target": {
+        "trustThisComputer": "Stille tillit til denne datamaskinen?",
+        "theCanTCheckS": "{{deviceWord}} kan ikke sjekke {{hostName}} sitt sertifikat. Sørg for at dette fingeravtrykket matcher det på datamaskinen før du fortsetter.\n\n{{fingerprint}}",
+        "trustAndConnect": "Stille tillit og koble til",
+        "certificateChanged": "Sertifikatet har endret seg",
+        "showsAnotherCertificateThanLast": "{{hostName}} viser et annet sertifikat enn sist. Dette skjer når datamaskinen lager et nytt sertifikat, eller når noen lytter mellom.\n\nNytt fingeravtrykk:\n{{fingerprint}}",
+        "trustTheNewOne": "Stille tillit til det nye"
+      }
+    },
+    "register": {
+      "remoteDesktop": "Fjernskjerm",
+      "telnet": "Telnet"
+    },
+    "remoteChrome": {
+      "ctrl": "Ctrl",
+      "alt": "Alt",
+      "shift": "Shift",
+      "win": "Win",
+      "done": "Ferdig",
+      "keyboard": "Tastatur",
+      "esc": "Esc",
+      "tab": "Tab",
+      "home": "Home",
+      "end": "End",
+      "bksp": "Bksp",
+      "del": "Del",
+      "enter": "Enter",
+      "fn": "Fn",
+      "settings": "Innstillinger",
+      "remoteSettings": "Fjerninnstillinger",
+      "mouseMode": "Musemodus",
+      "touch": "Berøring",
+      "trackpad": "Pekeplate",
+      "tapWhereYouWantTo": "Trykk der du vil klikke. Hold nede for høyreklikk, dra for å dra.",
+      "dragToMoveThePointer": "Dra for å flytte pekeren. Trykk for å klikke, trykk med to fingre for høyreklikk, trykk og dra for å dra.",
+      "zoomXPinchAnywhereTo": "Zoom: {{value}}x. Klyp hvor som helst for å zoome",
+      "reset": "Tilbakestill",
+      "cancel": "Avbryt",
+      "connect": "Koble til",
+      "username": "Brukernavn",
+      "domainOptional": "Domene (valgfritt)",
+      "domain": "Domene",
+      "password": "Passord",
+      "leftArrow": "Venstre pil",
+      "upArrow": "Opp-pil",
+      "downArrow": "Ned-pil",
+      "rightArrow": "Høyre pil",
+      "rdpSignIn": "RDP-innlogging"
+    },
+    "theRemoteDesktopDropped": "Fjernskjermen ble koblet fra",
+    "theyWillNotBeSaved": "{{errorMessage}} De blir ikke lagret.",
+    "enterCredentialsForTheyWill": "Skriv inn påloggingsdetaljer for {{title}}. De blir ikke lagret.",
+    "connecting": "Kobler til",
+    "connectionFailed": "Tilkobling mislyktes",
+    "disconnected": "Frakoblet",
+    "reconnect": "Koble til igjen",
+    "route": {
+      "thisHostCanTOpen": "Denne verten kan ikke åpne en fjernskjerm herfra."
+    },
+    "tunnelBridge": {
+      "blockedByTheApp": "Blokkert av appen"
+    },
+    "failedToStartRemoteSession": "Kunne ikke starte fjernsesjonen",
+    "thatLoginWasRefusedTry": "Innloggingen ble avslått. Prøv igjen.",
+    "theRemoteRefusedTheSaved": "Fjerverten avslå den lagrede innloggingen. Sjekk RDP-innloggingen på denne verten.",
+    "remoteSessionFailed": "Fjernsesjonen mislyktes",
+    "remoteSessionReturnedAnInvalid": "Fjernsesjonen returnerte en ugyldig melding",
+    "failedToLoadTheRemote": "Kunne ikke laste klienten for fjernskjerm"
+  },
+  "services": {
+    "journalView": {
+      "noJournal": "Ingen logg",
+      "thisHostDoesNotKeep": "Denne verten holder ikke en systemd-logg.",
+      "all": "Alle",
+      "warnings": "Advarsler",
+      "errors": "Feil",
+      "stop": "Stopp",
+      "follow": "Følg",
+      "nothingLogged": "Ingenting logget",
+      "tryAnotherLevel": "Prøv et annet nivå.",
+      "couldNotReadTheJournal": "Kunne ikke lese loggen"
+    },
+    "register": {
+      "services": "Tjenester",
+      "startStopAndReadLogs": "Start, stop og les logger"
+    },
+    "readingServices": "Lester tjenester...",
+    "thisHostHasNoSystemd": "Denne verten har verken systemd eller OpenRC.",
+    "noServicesMatch": "Ingen tjenester matcher",
+    "noServicesFound": "Ingen tjenester funnet",
+    "services": "Tjenester",
+    "journal": "Logg",
+    "searchServices": "Søk etter tjenester...",
+    "all": "Alle",
+    "running": "Kjører",
+    "failed": "Mislyktes ({{failed}})",
+    "failed2": "Mislyktes",
+    "servicesCard": {
+      "services": "Tjenester",
+      "noSystemdOrOpenrc": "Ingen systemd eller OpenRC",
+      "failed": "{{failed}} mislyktes",
+      "allRunning": "Alle kjører",
+      "couldNotReadServices": "Kunne ikke lese tjenester"
+    },
+    "unitDetailView": {
+      "itStaysStoppedUntilIt": "Den forblir stoppet til den startes på nytt eller verten starter.",
+      "itStopsForAMoment": "Den stopper kortvarig og starter på nytt.",
+      "stop": "Stopp",
+      "restart": "Start på nytt",
+      "is": "{{name}} er {{state}}",
+      "start": "Start",
+      "journal": "Logg",
+      "couldNotReadTheService": "Kunne ikke lese tjenesten",
+      "couldNot": "Kunne ikke {{action}} {{name}}",
+      "startsAtBoot": "Startes ved oppstart",
+      "mainPid": "Hoved-PID",
+      "activeSince": "Aktiv siden",
+      "unitFile": "Enhetsfil",
+      "notSet": "[ikke angitt]"
+    },
+    "backend": {
+      "relay": {
+        "notSignedIn": "Ikke pålogget",
+        "followFailed": "Følg mislyktes",
+        "connectionFailed": "Tilkobling mislyktes"
+      }
+    },
+    "couldNotReadServices": "Kunne ikke lese tjenester",
+    "services2": "Tjenester{{where}}",
+    "title": "Tjenester",
+    "failedCount": "{{count}} mislyktes"
+  },
+  "sessionSharing": {
+    "register": {
+      "sessionSharing": "Øktdeling",
+      "shareLink": "Del lenke"
+    },
+    "shareSessionView": {
+      "canWatch": "Kan se",
+      "canType": "Kan skrive",
+      "n1Hour": "1 time",
+      "n8Hours": "8 timer",
+      "n1Day": "1 dag",
+      "n7Days": "7 dager",
+      "never": "Aldri",
+      "shareSession": "Del økt",
+      "anyoneWithTheLinkCan": "Alle med lenken kan åpne denne terminalen mens den kjører. Du kan trekke tilbake lenker i Termix.",
+      "peopleWithTheLink": "Personer med lenken",
+      "expiresAfter": "Utløper etter",
+      "link": "Lenke",
+      "copy": "Kopier",
+      "share": "Del",
+      "makeLink": "Opprett lenke",
+      "theServerGaveNoLink": "Serveren ga ingen lenke",
+      "couldNotMakeALink": "Kunne ikke opprette en lenke",
+      "linkCopied": "Lenke kopiert"
+    }
+  },
+  "snippets": {
+    "group": {
+      "noFolder": "Ingen mappe"
+    },
+    "hostPicker": {
+      "selectNone": "Velg ingen",
+      "selectAll": "Velg alle",
+      "done": "Ferdig"
+    },
+    "register": {
+      "snippets": "Snippets",
+      "snippets2": "SNIPPETS",
+      "savedCommandsToRunOn": "Lagrede kommandoer som kan kjøres på enhver vert"
+    },
+    "runHosts": {
+      "noWayToReachThis": "Ingen måte å nå denne verten fra her",
+      "exitedWith": "Avsluttet med {{exitCode}}",
+      "thisCanTRunIt": "Denne {{deviceWord}} kan ikke kjøre den",
+      "noServerIsLinked": "Ingen server er koblet til"
+    },
+    "runOnHostsSheet": {
+      "run": "Kjør",
+      "run2": "Kjør «{{name}}»",
+      "runsOverSshOnEach": "Kjører over SSH på hver vert. Ingen terminal åpnes.",
+      "close": "Lukk",
+      "hosts": "Verter",
+      "pickHosts": "Velg verter",
+      "workedFailed": "{{value}} fungerte, {{failed}} mislyktes",
+      "runOn2": "Kjør på",
+      "runOn_one": "Kjør {{name}} på {{count}} vert?",
+      "runOn_other": "Kjør {{name}} på {{count}} verter?",
+      "hostsPicked_one": "{{count}} vert valgt",
+      "hostsPicked_other": "{{count}} verter valgt"
+    },
+    "snippetsBar": {
+      "searchSnippets": "Søk i snippets",
+      "pastesTheNote": "Limer inn notatet",
+      "runsTheSnippet": "Kjører snippetet",
+      "noSnippetsMatch": "Ingen snippets matcher",
+      "noSnippetsYet": "Ingen snippets ennå",
+      "addSnippetsInSettingsSnippets": "Legg til snippets i Innstillinger, Snippets",
+      "run": "Kjør",
+      "insertWithoutRunning": "Sett inn uten å kjøre",
+      "copy": "Kopier"
+    },
+    "snippetsCard": {
+      "snippets": "Snippets",
+      "run": "Kjør {{name}}"
+    },
+    "snippetTransferSheet": {
+      "thereAreNoSnippetsTo": "Det finnes ingen snippets å eksportere",
+      "couldNotMakeTheFile": "Kunne ikke opprette filen",
+      "copiedToTheClipboard": "Kopiert til utklippstavlen",
+      "couldNotImport": "Kunne ikke importere",
+      "couldNotReadThatFile": "Kunne ikke lese den filen",
+      "importAndExport": "Importer og eksporter",
+      "theSameFileTheWeb": "Samme fil som nettoppelsen bruker.",
+      "export": "Eksporter",
+      "shareAFile": "Del en fil",
+      "copy": "Kopier",
+      "import": "Importer",
+      "updateSnippetsThatExist": "Oppdater snippets som allerede finnes",
+      "sameNameInTheSame": "Samme navn i samme mappe. Ellers blir de hoppet over",
+      "chooseAFile": "Velg en fil",
+      "paste": "Lim inn",
+      "saveYourSnippets": "Lagre snippets"
+    },
+    "useSnippetRunner": {
+      "run": "Kjør {{name}}?",
+      "run2": "Kjør",
+      "fillInTheValuesFor": "Fyll inn verdiene for dette snippetet.",
+      "cancel": "Avbryt",
+      "insert": "Sett inn",
+      "noTerminalIsOpen": "Ingen terminal er åpen"
+    },
+    "variables": {
+      "input": "Inndata {{digits}}"
+    },
+    "transfer": {
+      "thatIsNotAValid": "Det er ikke en gyldig JSON-fil",
+      "theFileNeedsASnippets": "Filen må inneholde en liste over snippets eller mapper",
+      "snippetNameAndContentAre": "Snippet {{value}}: navn og innhold er påkrevd",
+      "folder": "Mappe {{name}}: {{value}}"
+    }
+  },
+  "tailscale": {
+    "register": {
+      "tailscale": "Tailscale"
+    },
+    "tailscaleDevices": {
+      "loadingTailscaleDevices": "Laster inn Tailscale-enheter…",
+      "searchTailscaleDevices": "Søk i Tailscale-enheter…",
+      "searchTailscaleDevices2": "Søk etter Tailscale-enheter",
+      "clearDeviceSearch": "Tøm enhetssøk",
+      "refreshTailscaleDevices": "Oppdater Tailscale-enheter",
+      "device": "Enhet",
+      "noTailnetAddress": "Ingen tailnet-adresse",
+      "tailscaleDevice": "Tailscale-enhet",
+      "tailscaleDevices": "Tailscale-enheter",
+      "addAHostThatConnects": "Legg til en vert som kobler til med Tailscale SSH.",
+      "username": "Brukernavn",
+      "sshUsernameFor": "SSH-brukernavn for {{value}}",
+      "addHost": "Legg til vert",
+      "noTailscaleDevicesMatchYour": "Ingen Tailscale-enheter matcher søket ditt.",
+      "noTailscaleDevicesFound": "Ingen Tailscale-enheter funnet.",
+      "noTailscaleApiKeyIs": "Ingen Tailscale API-nøkkel er konfigurert på denne serveren. Be en administrator om å legge til en.",
+      "youDoNotHavePermission": "Du har ikke tillatelse til å liste Tailscale-enheter.",
+      "couldNotLoadTailscaleDevices": "Kunne ikke laste Tailscale-enheter. Oppdater for å prøve igjen.",
+      "tailscaleIsUnavailableOnThis": "Tailscale er utilgjengelig på denne serveren."
+    }
+  },
+  "terminal": {
+    "connectionBanner": {
+      "reconnectingTry": "Kobler til på nytt | forsøk {{attempt}}",
+      "reconnectingInSTry": "Kobler til på nytt om {{secs}}s | forsøk {{attempt}}",
+      "offlineWaitingForNetwork": "Frakoblet, venter på nettverk",
+      "sendToTheNewShell": "Send {{what}} til den nye skallet?",
+      "reconnectNow": "Koble til på nytt nå",
+      "send": "Send",
+      "discard": "Forkast",
+      "typedChars_one": "{{count}} skrevet tegn",
+      "typedChars_other": "{{count}} skrevne tegn",
+      "waiting": "{{what}} venter"
+    },
+    "connectionLogSheet": {
+      "connectionLogCopied": "Tilkoblingslogg kopiert",
+      "connectionLog": "Tilkoblingslogg",
+      "copyItIntoABug": "Kopier den til en feilrapport. Adresser og brukernavn er utelatt.",
+      "copy": "Kopier"
+    },
+    "history": {
+      "historyBar": {
+        "clearHistoryForThisHost": "Tøm historikken for denne verten?",
+        "clear": "Tøm",
+        "searchHistory": "Søk i historikk",
+        "typesTheCommandWithoutRunning": "Skriv kommandoen uten å kjøre den",
+        "noCommandsMatch": "Ingen kommandoer matcher",
+        "noHistoryYet": "Ingen historikk ennå",
+        "commandsYouRunOnThis": "Kommandoer du kjører på denne verten vises her",
+        "run": "Kjør",
+        "typeWithoutRunning": "Skriv uten å kjøre",
+        "copy": "Kopier",
+        "delete": "Slett",
+        "historyCleared": "Historikk tømt"
+      },
+      "suggestionStrip": {
+        "use": "Bruk {{command}}"
+      }
+    },
+    "hostTerminalTab": {
+      "appSetting": "App-innstilling",
+      "delete": "Slett (^?)",
+      "controlHH": "Control H (^H)",
+      "tabTitleFromTheShell": "Fanetittel fra skallet",
+      "programsCanSetTheTab": "Programmer kan angi fanetittelen",
+      "openTmux": "Åpne tmux",
+      "attachToATmuxSession": "Koble til en tmux-sesjon, eller start en",
+      "reconnectOnDrop": "Koble til på nytt ved tap",
+      "keepTabOpenOnExit": "Hold fanen åpen ved avslutning",
+      "pressEnterToConnectAgain": "Trykk Enter for å koble til på nytt",
+      "saveCommandHistory": "Lagre kommandohistorikk",
+      "offerToFillPasswordPrompts": "Tilby å fylle ut passordforespørsler",
+      "offerToFillSudoPrompts": "Tilby å fylle ut sudo-forespørsler",
+      "usesTheSudoPasswordFrom": "Bruker sudo-passordet fra SSH-fanen",
+      "none": "Ingen",
+      "look": "Utseende",
+      "theme": "Tema",
+      "font": "Skrifttype",
+      "cursor": "Markør",
+      "bell": "Lydvarsel",
+      "scrollbackLines": "Rullbar historikk",
+      "app": "App",
+      "behavior": "Oppførsel",
+      "backspaceSends": "Backspace sender",
+      "startupSnippet": "Oppstartskommando",
+      "runsOnceTheShellIs": "Kjøres når skallet er klart",
+      "fillWithoutAsking": "Fyll ut uten å spørre",
+      "onThisOnlyOnceYou": "Kun på denne {{deviceWord}}en, etter at du har valgt «Alltid fyll ut»",
+      "connection": "Tilkobling",
+      "keepalive": "Keepalive",
+      "secondsBetweenPings0Turns": "Sekunder mellom pinger, 0 slår det av",
+      "default": "Standard",
+      "keepaliveSeconds": "Keepalive-sekunder",
+      "missedPings": "Ubesvarte pinger",
+      "dropTheConnectionAfterThis": "Koble fra etter dette antall ubesvarte pinger",
+      "missedPingsBeforeDrop": "Ubesvarte pinger før frakobling",
+      "environment": "Miljø",
+      "removeVariable": "Fjern variabel",
+      "addVariable": "Legg til variabel"
+    },
+    "keyboard": {
+      "bottomToolbar": {
+        "keyboard": "TASTATUR"
+      }
+    },
+    "keys": {
+      "edit": {
+        "row": "Rad",
+        "keys": "Taster",
+        "sendsAKeyCode": "Sender en tastekode",
+        "stickyModifier": "Klistret modifikator",
+        "appAction": "App-handling",
+        "tmuxPrefixThen": "tmux-prefix, deretter {{value}}"
+      },
+      "hostKeyRowsView": {
+        "keyRows": "Tastaturrader",
+        "onlyFor": "Kun for {{name}}",
+        "usingTheAppSRows": "Bruker appens rader. Endringer her gjelder kun {{name}}",
+        "useTheAppSRows": "Bruk appens rader"
+      },
+      "keyButton": {
+        "locked": "Låst"
+      },
+      "keyLayoutEditor": {
+        "ctrl": "Ctrl+{{value}}",
+        "cancel": "Avbryt",
+        "remove": "Fjerne {{what}}?",
+        "remove2": "Fjern",
+        "dragToReorder": "Dra for å endre rekkefølge",
+        "rowName": "Radnavn",
+        "groupName": "Gruppenavn",
+        "add": "Legg til",
+        "addKey": "Legg til tast",
+        "addRow": "Legg til rad",
+        "addGroup": "Legg til gruppe",
+        "tmuxPrefix": "tmux-prefix",
+        "name": "Navn",
+        "rename": "Gi nytt navn",
+        "keys": "{{value}}-taster",
+        "noKeys": "Ingen taster",
+        "remove3": "Fjern {{label}}",
+        "keys2": "Taster",
+        "custom": "Tilpasset",
+        "add2": "Legg til {{label}}",
+        "typeText": "Skriv tekst",
+        "runCommand": "Kjør kommando",
+        "ctrlKey": "Ctrl-tast",
+        "label": "Etikett",
+        "optional": "Valgfritt",
+        "letter": "Bokstav",
+        "command": "Kommando",
+        "text": "Tekst",
+        "resetToDefault": "Tilbakestill til standard"
+      },
+      "keyPanel": {
+        "changeKeysInSettingsKeyboard": "Endre taster i Innstillinger, Tastatur"
+      },
+      "keyRowBar": {
+        "keyRow": "Tastrad {{label}}",
+        "tapForTheNextRow": "Trykk for neste rad, hold inne for å velge en",
+        "keyRows": "Tastrader"
+      },
+      "model": {
+        "clear": "Tøm",
+        "main": "Hoved",
+        "keys": "Taster",
+        "arrows": "Piltaster",
+        "symbols": "Symboler",
+        "actions": "Handlinger",
+        "nav": "Navigering",
+        "move": "Flytt",
+        "function": "Funksjon",
+        "brackets": "Parenteser",
+        "punctuation": "Tegnssetting",
+        "ctrl": "Ctrl",
+        "control": "Kontroll",
+        "windows": "Vinduer",
+        "panes": "Vinduer",
+        "copy": "Kopier",
+        "split": "Del ─",
+        "split2": "Del │",
+        "newWin": "Nytt vindu",
+        "prevWin": "Forrige vindu",
+        "nextWin": "Neste vindu",
+        "pane": "Vindu ←",
+        "pane2": "Vindu ↓",
+        "pane3": "Vindu ↑",
+        "pane4": "Vindu →",
+        "copyMode": "Kopiermodus",
+        "pasteBuf": "Lim inn buffer",
+        "killPane": "Lukk vindu"
+      }
+    },
+    "output": {
+      "openLink": "Åpne lenke?",
+      "open": "Åpne",
+      "pasteLines": "Lim inn {{lines}} linjer?",
+      "pasteThisText": "Lim inn denne teksten?",
+      "theShellMayRunIt": "Skallet kan kjøre den med en gang.\n\n{{text}}",
+      "paste": "Lim inn",
+      "letTheProgramReadYour": "La programmet lese utklippstavlen din?",
+      "itAskedForWhatYou": "Det ba om det du sist kopierte.",
+      "allow": "Tillat",
+      "letTheProgramCopyTo": "La programmet kopiere til utklippstavlen din?"
+    },
+    "passwordFillSheet": {
+      "fillTheSavedPassword": "Fyll ut lagret passord?",
+      "asksForTheSudoPassword": "{{hostName}} ber om sudo-passordet.",
+      "asksForAPassword": "{{hostName}} ber om et passord.",
+      "fillPassword": "Fyll ut passord",
+      "alwaysFillOnThisHost": "Alltid fyll ut på denne verten",
+      "asksNoMoreOnThis": "Spør ikke lenger på denne {{deviceWord}}. Slå det av i vertens Terminal-fane.",
+      "notNow": "Ikke nå"
+    },
+    "register": {
+      "terminal": "Terminal",
+      "terminalAndKeepalive": "Terminal og keepalive",
+      "history": "HISTORIKK",
+      "find": "Søk",
+      "tmuxWindows": "tmux-vinduer",
+      "connectionLog": "Tilkoblingslogg",
+      "keyRowsForThisHost": "Tastrader for denne verten"
+    },
+    "searchBar": {
+      "noResults": "Ingen resultater",
+      "matchCase": "Match case",
+      "wholeWord": "Hele ord",
+      "regularExpression": "Regulært uttrykk",
+      "find": "Søk",
+      "closeFind": "Lukk søk"
+    },
+    "settings": {
+      "caskaydiaCove": "Caskaydia Cove",
+      "jetbrainsMono": "JetBrains Mono",
+      "firaCode": "Fira Code",
+      "system": "System",
+      "block": "Blokk",
+      "bar": "Stolpe",
+      "underline": "Understreking",
+      "off": "Av",
+      "sound": "Lyd",
+      "flash": "Blink",
+      "both": "Begge"
+    },
+    "shortcuts": {
+      "newTabOnThisHost": "Ny fane på denne verten",
+      "closeTab": "Lukk fane",
+      "nextTab": "Neste fane",
+      "previousTab": "Forrige fane",
+      "goToTab": "Gå til fane",
+      "find": "Søk",
+      "fontSize": "Skriftstørrelse",
+      "paste": "Lim inn",
+      "escape": "Escape",
+      "copyAndPaste": "Kopier og lim inn"
+    },
+    "reconnecting": "Kobler på nytt...",
+    "waitingForNetwork": "Venter på nettverk...",
+    "waitingForYou": "Venter på deg...",
+    "connecting": "Kobler til...",
+    "terminalView": {
+      "scrollToBottom": "Rull til bunnen",
+      "onlyWebLinksCanOpen": "Kun web-lenker kan åpnes fra terminalen",
+      "couldNotOpenLink": "Kunne ikke åpne lenke",
+      "copiedFromTheTerminal": "Kopiert fra terminalen"
+    },
+    "tmux": {
+      "tmuxSheets": {
+        "openATmuxSession": "Åpne en tmux-økt",
+        "newSession": "Ny økt",
+        "plainShell": "Vanlig skal",
+        "tmuxWindows": "tmux-vinduer",
+        "newWindow": "Nytt vindu",
+        "windowCount_one": "{{count}} vindu",
+        "windowCount_other": "{{count}} vinduer",
+        "attached": "{{count}} tilkoblet",
+        "activeNow": "aktiv nå",
+        "activeMinAgo": "aktiv for {{count}} min siden",
+        "activeHoursAgo": "aktiv for {{count}} t siden",
+        "activeDaysAgo_one": "aktiv for {{count}} dag siden",
+        "activeDaysAgo_other": "aktiv for {{count}} dager siden"
+      }
+    },
+    "xterm": {
+      "xtermTerminalView": {
+        "copy": "Kopier",
+        "selectAll": "Merk alt",
+        "cancel": "Avbryt",
+        "scrollToBottom": "Rull til bunnen",
+        "couldNotCopy": "Kunne ikke kopiere",
+        "webviewError": "WebView-feil: {{description}}",
+        "webviewHttpError": "WebView HTTP-feil: {{statusCode}}"
+      }
+    },
+    "noSavedPasswordForThis": "Ingen lagret passord for denne verten",
+    "backInTmuxSession": "Tilbake i tmux-økt {{tmuxName}}",
+    "backInScreenSession": "Tilbake i screen-økt {{name}}",
+    "theServerSessionEndedThis": "Serverøkten ble avsluttet. Dette er en ny skal.",
+    "termixWasClosedSoThe": "Termix ble lukket, så den gamle skalen ble avsluttet. Dette er en ny skal.",
+    "theConnectionDroppedAndThe": "Tilkoblingen ble brutt og den gamle skalen ble avsluttet. Dette er en ny skal.",
+    "disconnectedFrom": "Frakoblet {{hostName}}"
+  },
+  "totp": {
+    "register": {
+      "twoFactorAuthentication": "To-faktor-autentisering",
+      "codesFromAnAuthenticatorApp": "Koder fra en autentiseringsapp for serverkontoen din"
+    }
+  },
+  "wakeOnLan": {
+    "hostSection": {
+      "macAddress": "MAC-adresse",
+      "neededToWakeThisHost": "Nødvendig for å vekke denne verten med Wake-on-LAN",
+      "wakeOnLan": "Wake-on-LAN",
+      "useAMacAddressLike": "Bruk en MAC-adresse som 00:1A:2B:3C:4D:5E"
+    },
+    "register": {
+      "wakeOnLan": "Wake on LAN"
+    },
+    "wake": {
+      "wakeOnLanSentTo": "Wake-on-LAN sendt til {{name}}",
+      "failedToSendWakeOn": "Kunne ikke sende Wake-on-LAN-pakke",
+      "noServer": "Ingen server"
+    },
+    "wakeCard": {
+      "wakeOnLan": "Wake on LAN",
+      "wake": "Vekk {{value}}"
+    }
+  },
+  "analytics": {
+    "consentPrompt": {
+      "shareAnonymousUsageStatistics": "Vil du dele anonyme bruksstatistikk?",
+      "termixWouldSendAShort": "Termix vil sende en kort rapport en gang i døgnet. Du kan endre dette når som helst i Innstillinger.",
+      "noThanks": "Nei takk",
+      "share": "Del",
+      "theReportHasTheApp": "Rapporten inneholder appversjon, {{deviceWord}}-type, omtrentlige antall vertener og økter, hvilke funksjoner du bruker, og om tilkoblingen fungerte. Den inneholder aldri vertsnavn, brukernavn, adresser, stier, kommandoer eller servernavn.",
+      "seeExactlyWhatIsSent": "Se nøyaktig hva som sendes"
+    }
+  },
+  "authentication": {
+    "updateRequired": {
+      "loadingVersionInformation": "Laster versjonsinformasjon…",
+      "updateAvailable": "Oppdatering tilgjengelig",
+      "newVersionAvailable": "Ny versjon tilgjengelig",
+      "aNewerVersionOfThe": "En nyere versjon av mobilappen er tilgjengelig. Noen funksjoner fungerer kanskje ikke korrekt før du oppdaterer.",
+      "versionInformation": "Versjonsinformasjon",
+      "installed": "Installert",
+      "latest": "Siste",
+      "unknown": "Ukjent",
+      "tag": "Tag",
+      "continueAnyway": "Fortsett uansett"
+    }
+  },
+  "dialogs": {
+    "hostKeyVerificationDialog": {
+      "copied": "Kopiert",
+      "copy": "Kopier",
+      "hostKeyChanged": "Vertsnøkkel endret",
+      "verifyHostKey": "Bekreft vertsnøkkel",
+      "cancel": "Avbryt",
+      "acceptNewKey": "Godta ny nøkkel",
+      "connectAndTrust": "Koble til og stoler på",
+      "theHostSSshKey": "Vertens SSH-nøkkel har endret seg siden forrige tilkobling. Dette kan bety at noen avlytter tilkoblingen.",
+      "youAreConnectingToThis": "Du kobler til denne verten for første gang. Sjekk fingeravtrykket før du stoler på den.",
+      "previousKey": "Forrige nøkkel",
+      "newFingerprint": "Nytt fingeravtrykk",
+      "hostFingerprint": "Vertsfingeravtrykk"
+    },
+    "passphraseDialog": {
+      "passphraseRequired": "Passfrase påkrevd",
+      "enterThePassphraseForYour": "Skriv inn passfrasen for SSH-nøkkelen din.",
+      "cancel": "Avbryt",
+      "connect": "Koble til",
+      "keyPassphrase": "Nøkkelpassfrase"
+    },
+    "sSHAuthDialog": {
+      "sshAuthenticationRequired": "SSH-autentisering påkrevd",
+      "cancel": "Avbryt",
+      "connect": "Koble til",
+      "password": "Passord",
+      "sshKey": "SSH-nøkkel",
+      "beginOpensshPrivateKeyPaste": "-----BEGIN OPENSSH PRIVATE KEY-----\nLim inn din private nøkkel her...\n-----END OPENSSH PRIVATE KEY-----",
+      "keyPassphraseOptional": "Nøkkelpassfrase (valgfritt)",
+      "keyboardInteractiveAuthIsNot": "Tastaturinteraktiv autentisering er ikke tilgjengelig. Skriv inn legitimasjonen direkte.",
+      "authenticationFailedPleaseReEnter": "Autentisering mislyktes. Vennligst skriv inn legitimasjonen på nytt.",
+      "connectionTimedOutPleaseTry": "Tilkoblingen ble tidsavbrutt. Vennligst prøv igjen med legitimasjonen din."
+    },
+    "tailscaleCheckDialog": {
+      "tailscaleSshCheck": "Tailscale SSH-sjekk",
+      "completeTheTailscaleSshCheck": "Fullfør Tailscale SSH-sjekken i nettleseren din for å fortsette.",
+      "cancel": "Avbryt",
+      "copyUrl": "Kopier URL",
+      "openBrowser": "Åpne nettleser",
+      "urlCopied": "URL kopiert",
+      "failedToCopy": "Klarte ikke å kopiere",
+      "couldNotOpenBrowser": "Klarte ikke å åpne nettleser"
+    },
+    "tOTPDialog": {
+      "cancel": "Avbryt",
+      "submit": "Send inn",
+      "verify": "Bekreft",
+      "password": "Passord",
+      "pasteCode": "Lim inn kode",
+      "passwordRequired": "Passord påkrevd",
+      "twoFactorAuthentication": "To-faktor-autentisering",
+      "enterYourPasswordToContinue": "Skriv inn passordet ditt for å fortsette.",
+      "enterThe6DigitCode": "Skriv inn 6-sifret kode fra autentiseringsappen din."
+    },
+    "warpgateDialog": {
+      "warpgateAuthentication": "Warpgate-autentisering",
+      "authenticateViaTheWarpgatePortal": "Autentiser via Warpgate-portalen, og trykk deretter på Fortsett.",
+      "cancel": "Avbryt",
+      "openBrowser": "Åpne nettleser",
+      "continue": "Fortsett",
+      "securityKey": "Sikkerhetsnøkkel",
+      "authUrl": "Autentiserings-URL",
+      "copied": "Kopiert",
+      "copy": "Kopier",
+      "urlCopied": "URL kopiert",
+      "failedToCopy": "Klarte ikke å kopiere",
+      "couldNotOpenBrowser": "Klarte ikke å åpne nettleser"
+    }
+  },
+  "home": {
+    "cardFrame": {
+      "this": "denne {{deviceWord}}"
+    },
+    "cards": {
+      "activityCard": {
+        "recentActivity": "Siste aktivitet",
+        "files": "Filer",
+        "terminal": "Terminal"
+      },
+      "alertsCard": {
+        "notifications": "Varsler",
+        "seeAll": "Se alle"
+      },
+      "server": "Tjener",
+      "openSessions": "Åpne økter",
+      "quickAccess": "Hurtigtilgang",
+      "notifications": "Varsler",
+      "pinnedHosts": "Festede vertsmaskiner",
+      "recentHosts": "Siste vertsmaskiner",
+      "recentActivity": "Siste aktivitet",
+      "pinnedCard": {
+        "addYourFirstHost": "Legg til din første vertsmaskin",
+        "hostsYouOpenShowUp": "Vertsmaskiner du åpner vises her, og festede vertsmaskiner viser live-kort.",
+        "addHost": "Legg til vertsmaskin",
+        "linkAServer": "Koble til en tjener",
+        "pinAHostToSee": "Fest en vertsmaskin for å se den her",
+        "pinnedHostsShowTheirMetrics": "Festede vertsmaskiner viser målinger, Docker og tjenester på ett blikk. Hold en vertsmaskin for å feste den.",
+        "goToHosts": "Gå til vertsmaskiner",
+        "pinned": "Festet",
+        "opensTheTerminalHoldFor": "Åpner terminalen. Hold inne for mer.",
+        "turnOnDockerOrServices": "Aktiver Docker eller Tjenester for denne vertsmaskinen, eller trykk på den for å koble til.",
+        "opens": "Åpner {{title}}"
+      },
+      "quickCard": {
+        "quickAccess": "Hurtigtilgang",
+        "quickConnect": "Hurtigtilkobling",
+        "userHostPortWithoutSaving": "bruker@vert:port, uten lagring"
+      },
+      "recentCard": {
+        "recent": "Siste"
+      },
+      "serverCard": {
+        "server": "Tjener",
+        "version": "Versjon",
+        "uptime": "Oppetid",
+        "database": "Database",
+        "hosts": "Vertsmaskiner",
+        "online": "Online",
+        "offline": "Frakoblet",
+        "logins": "Innlogginger"
+      },
+      "sessionsCard": {
+        "openSessions": "Åpne økter",
+        "connected": "Tilkoblet"
+      }
+    },
+    "resetHome": "Tilbakestill startside?",
+    "cardsGoBackToThe": "Kortene tilbakestilles til standard rekkefølge og visningsinnstillinger.",
+    "reset": "Tilbakestill",
+    "doneEditingHome": "Ferdig med redigering av startside",
+    "editHome": "Rediger startside",
+    "dragToReorder": "Dra {{title}} for å endre rekkefølge",
+    "show": "Vis {{title}}",
+    "dragCardsToReorderThem": "Dra i kortene for å endre rekkefølgen. Slå av et kort for å skjule det. Kort uten innhold forblir skjult automatisk.",
+    "resetToDefault": "Tilbakestill til standard",
+    "done": "Ferdig",
+    "serverReachBanner": {
+      "stillCanTReachThe": "Kan fortsatt ikke nå serveren",
+      "canTReach": "Kan ikke nå {{account}}",
+      "youCanKeepWorkingWith": "Du kan fortsette å jobbe med kopien på denne {{deviceWord}}. Endringene synkroniseres når den er tilbake.",
+      "hostsSetToConnectFrom": "Verter som er satt opp for å koble fra denne {{deviceWord}} fungerer fortsatt.",
+      "tryAgain": "Prøv igjen",
+      "noAnswer": "ingen svar"
+    }
+  },
+  "hosts": {
+    "browserSignIn": {
+      "stepCa": "Step CA",
+      "vault": "Vault",
+      "vaultProfile": "Vault-profil",
+      "none": "Ingen",
+      "signsInWithInYour": "Logger inn med {{title}} i nettleseren din gjennom Termix-serveren din. Koble til denne verten gjennom serveren.",
+      "needsATermixServerLink": "{{title}} krever en Termix-server. Koble til en for å bruke denne påloggingen.",
+      "isOffOnThisServer": "{{title}} er slått av på denne serveren. Denne verten beholder påloggingsinnstillingen sin."
+    },
+    "credentialListModal": {
+      "couldNotLoadCredentials": "Kunne ikke laste inn legitimasjon",
+      "deleted": "Slettet «{{name}}»",
+      "couldNotDeleteTheCredential": "Kunne ikke slette legitimasjonen",
+      "credentials": "Legitimasjon",
+      "add": "Legg til",
+      "searchCredentials": "Søk i legitimasjon",
+      "clearSearch": "Tøm søk",
+      "loadingCredentials": "Laster inn legitimasjon...",
+      "noCredentialsMatchYourSearch": "Ingen legitimasjon matcher søket ditt",
+      "noCredentialsYet": "Ingen legitimasjon ennå",
+      "addCredential": "Legg til legitimasjon",
+      "edit": "Rediger",
+      "delete": "Slett",
+      "deleteCredential": "Slett legitimasjon",
+      "willBePermanentlyDeletedHosts": "«{{name}}» blir slettet permanent. Verter som bruker den, mister lagret legitimasjon.",
+      "cancel": "Avbryt",
+      "hostCount_one": "{{count}} vert",
+      "hostCount_other": "{{count}} verter",
+      "sshKey": "SSH-nøkkel"
+    },
+    "credentials": {
+      "credentialEditor": {
+        "rsa2048": "RSA 2048",
+        "rsa4096": "RSA 4096",
+        "replaceTheKey": "Erstatte nøkkelen?",
+        "theNewKeyTakesThe": "Den nye nøkkelen erstatter den nåværende. Verter som kun stoler på den gamle nøkkelen, vil slutte å godta denne legitimasjonen.",
+        "replace": "Erstatt",
+        "newKeyMadeCopyThe": "Ny nøkkel opprettet. Kopier den offentlige nøkkelen til vertene dine.",
+        "couldNotMakeAKey": "Kunne ikke opprette nøkkel",
+        "couldNotReadThatCertificate": "Kunne ikke lese sertifikatfilen",
+        "leaveWithoutSaving": "Forlate uten å lagre?",
+        "yourChangesToThisCredential": "Endringene dine i denne legitimasjonen går tapt.",
+        "leave": "Forlat",
+        "credentialSaved": "Legitimasjon lagret",
+        "credentialAdded": "Legitimasjon lagt til",
+        "couldNotSaveTheCredential": "Kunne ikke lagre legitimasjonen",
+        "enterAHostToTest": "Skriv inn en vert å teste på, som 10.0.0.5 eller boks:2222.",
+        "enterTheUsernameFirst": "Skriv inn brukernavnet først.",
+        "editCredential": "Rediger legitimasjon",
+        "newCredential": "Ny legitimasjon",
+        "cancel": "Avbryt",
+        "save": "Lagre",
+        "credential": "Innloggingsdetaljer",
+        "name": "Navn",
+        "productionKey": "Produksjonsnøkkel",
+        "username": "Brukernavn",
+        "signInWith": "Logg inn med",
+        "password": "Passord",
+        "sshKey": "SSH-nøkkel",
+        "unchangedIfBlank": "Uendret hvis tomt",
+        "key": "Nøkkel",
+        "fileOrPaste": "Fil eller lim inn",
+        "makeANewKey": "Opprett en ny nøkkel",
+        "aKeyIsSavedChoose": "En nøkkel er lagret. Velg en fil eller lim inn for å erstatte den.",
+        "type": "Type",
+        "ed25519AndEcdsaAreMade": "Ed25519 og ECDSA opprettes på denne {{deviceWord}}, RSA på serveren din.",
+        "madeOnThisEd25519Works": "Opprettet på denne {{deviceWord}}. Ed25519 fungerer nesten overalt.",
+        "passphrase": "Passfrase",
+        "optionalLocksTheNewKey": "Valgfritt. Låser den nye nøkkelen på denne {{deviceWord}} og på disk.",
+        "makeKey": "Opprett nøkkel",
+        "publicKey": "Offentlig nøkkel",
+        "addThisLineToSsh": "Legg til denne linjen i ~/.ssh/authorized_keys på vertene dine",
+        "publicKeyCopied": "Offentlig nøkkel kopiert",
+        "copyPublicKey": "Kopier offentlig nøkkel",
+        "certificate": "Sertifikat",
+        "aCertificateYourCaSigned": "Et sertifikat som CA-en din har signert for denne nøkkelen, for vertene som stoler på CA-en.",
+        "chooseCertificateFile": "Velg sertifikatfil",
+        "thisDoesNotLookLike": "Dette ser ikke ut som et OpenSSH-sertifikat.",
+        "test": "Test",
+        "hostToTestOn": "Vert å teste på",
+        "n10005Or": "10.0.0.5 eller boks.lan:2222",
+        "pickASavedHost": "Velg en lagret vert",
+        "details": "Detaljer",
+        "description": "Beskrivelse",
+        "whatThisCredentialIsFor": "Hva disse innloggingsdetaljene er for",
+        "folder": "Mappe",
+        "serverKeys": "Servernøkler",
+        "testOnAHost": "Test på en vert",
+        "rsaKeysNeedALinked": "RSA-nøkler krever en koblet server."
+      },
+      "model": {
+        "giveThisCredentialAName": "Gi disse innloggingsdetaljene et navn",
+        "addAPrivateKeyOr": "Legg til en privat nøkkel, eller opprett en ny"
+      },
+      "cert": {
+        "thisIsAHostCertificate": "Dette er et vertssertifikat, ikke et brukersertifikat.",
+        "thisCertificateIsNotValid": "Dette sertifikatet er ikke gyldig ennå.",
+        "thisCertificateHasExpired": "Dette sertifikatet har utløpt.",
+        "itIsForAKey": "Det er for en {{keyType}}-nøkkel, men denne nøkkelen er {{keyType2}}.",
+        "forAnyUser": "For alle brukere",
+        "validFromNoEndDate": "Gyldig fra {{validAfter}}, ingen sluttdato",
+        "signedBy": "Signert av {{caSha256}}"
+      }
+    },
+    "editor": {
+      "authFields": {
+        "username": "Brukernavn",
+        "fromTheCredential": "Fra innloggingsdetaljene: {{credentialUser}}",
+        "signInWith": "Logg inn med",
+        "password": "Passord",
+        "key": "Nøkkel",
+        "credential": "Innloggingsdetaljer",
+        "none": "Ingen",
+        "tailscale": "Tailscale",
+        "connectsWithTailscaleSshNo": "Kobler til med Tailscale SSH. Ingen passord eller nøkler lagres.",
+        "tailscaleIsNotOnFor": "Tailscale er ikke aktivert for {{value}}. Denne verten beholder sin Tailscale-innlogging.",
+        "unchangedIfBlank": "Uendret hvis tomt",
+        "noCredentialsYetTapThe": "Ingen innloggingsdetaljer ennå. Trykk på nøkkelikonet i Vertene for å legge til en.",
+        "useCredential": "Bruk legitimasjon {{name}}",
+        "sudoPassword": "Sudo-passord",
+        "typedIntoSudoPromptsWhen": "Skrives inn i sudo-forespørsler når Terminal-seksjonen slår den på",
+        "notSet": "Ikke angitt",
+        "thisServer": "denne serveren"
+      },
+      "colorIconField": {
+        "color": "Farge",
+        "noColor": "Ingen farge",
+        "color2": "Farge {{c}}",
+        "icon": "Ikon",
+        "noIcon": "Ingen ikon",
+        "none": "Ingen",
+        "icon2": "Ikon {{name}}"
+      },
+      "hostEditor": {
+        "leaveWithoutSaving": "Forlate uten å lagre?",
+        "yourChangesToThisHost": "Endringene dine på denne verten vil gå tapt.",
+        "leave": "Forlat",
+        "couldNotSaveHowThis": "Kunne ikke lagre hvordan denne verten kobler til",
+        "hostSaved": "Vert lagret",
+        "hostAdded": "Vert lagt til",
+        "couldNotSaveTheHost": "Kunne ikke lagre verten",
+        "enterTheHostSAddress": "Skriv inn vertens adresse først.",
+        "turnOnSshToTest": "Slå på SSH for å teste påloggingen.",
+        "pickACredentialFirst": "Velg en legitimasjon først.",
+        "editHost": "Rediger vert",
+        "newHost": "Ny vert",
+        "cancel": "Avbryt",
+        "save": "Lagre",
+        "host": "Vert",
+        "name": "Navn",
+        "myServer": "Min server",
+        "address": "Adresse",
+        "port": "Port",
+        "portAndUsernameComeFrom": "Port og brukernavn kommer fra standardverdiene dine for verten inntil du endrer dem.",
+        "folder": "Mappe",
+        "production": "Produksjon",
+        "useAFolderInstead": "Bruk en mappe i stedet",
+        "putItUnderAHost": "Legg den under en vert i stedet",
+        "pinToTop": "Fest til toppen",
+        "colorAndIcon": "Farge og ikon",
+        "notes": "Notater",
+        "anythingWorthRememberingAboutThis": "Noe verdt å huske om denne verten",
+        "protocols": "Protokoller",
+        "terminalFilesAndMore": "Terminal, filer og mer",
+        "connectFrom": "Koble fra",
+        "features": "Funksjoner",
+        "otherProtocols": "Andre protokoller",
+        "more": "Mer",
+        "theTestRunsFromThis": "Testen kjøres fra denne {{deviceWord}}. Denne verten kobler til gjennom serveren, så den kan fortsatt fungere når {{deviceWord}} ikke kan nå den."
+      },
+      "jumpHostsField": {
+        "jumpHosts": "Hopp-verter",
+        "connectsThroughTheseInOrder": "Kobler til gjennom disse i rekkefølge, deretter til denne verten",
+        "reachThisHostThroughOther": "Nå denne verten gjennom andre vertene først",
+        "moveUp": "Flytt opp",
+        "moveDown": "Flytt ned",
+        "removeJumpHost": "Fjern hopp-vert",
+        "addJumpHost": "Legg til hopp-vert",
+        "pickASavedHostTo": "Velg en lagret vert å koble gjennom",
+        "searchHosts": "Søk etter vertene",
+        "noOtherHostsToPick": "Ingen andre vertene å velge. En vert kan ikke hoppe gjennom seg selv eller en vert som allerede går gjennom den.",
+        "missingHost": "Manglende vert #{{id}}"
+      },
+      "model": {
+        "turnOnAtLeastOne": "Slå på minst én protokoll",
+        "pickACredential": "Velg en legitimasjon",
+        "enterTheHostSAddress": "Skriv inn vertsadressen",
+        "theAddressCanTHave": "Adressen kan ikke inneholde mellomrom",
+        "portMustBeFrom1": "Porten må være mellom 1 og 65535",
+        "enterTheSshUsername": "Skriv inn SSH-brukernavnet"
+      },
+      "parentHostField": {
+        "theHostShowsNestedUnder": "Versten vises som en underordnet under den du velger",
+        "searchHosts": "Søk etter verter",
+        "noHostsToPickA": "Ingen verter å velge. En vert kan ikke plasseres under seg selv, en av sine egne underordnede verter eller en delt vert.",
+        "parentHost": "Overordnet vert",
+        "subHostsFollowTheFolder": "Underordnede verter følger mappen til sin overordnede vert",
+        "pickParentHost": "Velg overordnet vert",
+        "missingHost": "Manglende vert #{{value}}",
+        "pickAHost": "Velg en vert",
+        "clearParentHost": "Fjern overordnet vert"
+      },
+      "tagsField": {
+        "tags": "Etiketter",
+        "typeATagAndPress": "Skriv inn en etikett og trykk enter",
+        "removeTag": "Fjern etikett {{tag}}",
+        "webProd": "web, prod"
+      }
+    },
+    "hostActionSheet": {
+      "couldNotSaveHowThis": "Kunne ikke lagre hvordan denne verten kobles til",
+      "addressCopied": "Adresse kopiert",
+      "cpu": "CPU {{value}} %",
+      "ram": "RAM {{value}} %",
+      "connectFrom": "Koble fra",
+      "dismiss": "Lukk",
+      "unpin": "Løsne",
+      "pinToHome": "Fest til Hjem",
+      "select": "Velg",
+      "editHost": "Rediger vert",
+      "copyAddress": "Kopier adresse",
+      "addSubHost": "Legg til underordnet vert",
+      "cloneHost": "Klon vert",
+      "deleteHost": "Slett vert",
+      "connectThroughTheServer": "Koble til gjennom serveren",
+      "connectFromThis": "Koble til fra denne {{deviceWord}}"
+    },
+    "defaultYourOrder": "Standard (din rekkefølge)",
+    "nameAZ": "Navn (A-Å)",
+    "nameZA": "Navn (Å-A)",
+    "ipAscending": "IP (stigende)",
+    "ipDescending": "IP (synkende)",
+    "onlineFirst": "Online først",
+    "offlineFirst": "Frakoblet først",
+    "pinnedFirst": "Festede først",
+    "status": "Status",
+    "online": "Online",
+    "offline": "Frakoblet",
+    "pinned": "Festet",
+    "protocol": "Protokoll",
+    "features": "Funksjoner",
+    "hostsCanOnlyMoveInside": "Verter kan bare flyttes innenfor sin egen mappe",
+    "couldNotUpdateTheHosts": "Kunne ikke oppdatere vertene",
+    "sharedHostsCanTBe": "Delte verter kan ikke slettes her",
+    "delete2": "Slett",
+    "noneOfTheseHostsOpen": "Ingen av disse vertene åpner et terminalvindu",
+    "couldNotPinTheHost": "Kunne ikke feste verten",
+    "deleted": "Slettet {{name}}",
+    "failedToDeleteHost": "Kunne ikke slette verten",
+    "cloned": "Klonet {{name}}",
+    "failedToCloneHost": "Kunne ikke klonen verten",
+    "reorderWorksWithTheDefault": "Omordning fungerer med standard sortering og uten søk eller filter",
+    "couldNotSaveTheOrder": "Kunne ikke lagre rekkefølgen",
+    "noHostsYet": "Ingen verter ennå",
+    "addAHostToConnect": "Legg til en vert for å koble til med ett trykk.",
+    "addHost": "Legg til vert",
+    "quickConnect2": "Rask tilkobling",
+    "linkAServer": "Koble til en server",
+    "noHostsMatch": "Ingen verter matcher",
+    "clearSearchAndFilters": "Tøm søk og filtre",
+    "more": "Mer",
+    "dragAHostByIts": "Dra i gripepunktet på en vert for å flytte den inn i mappen.",
+    "done": "Ferdig",
+    "filterHosts": "Filtrer verter",
+    "clearFilterText": "Tøm filtertekst",
+    "sortHosts": "Sorter verter",
+    "removeFilter": "Fjern filter {{value}}",
+    "loadingHosts": "Laster verter …",
+    "moveUnderAHost": "Flytt under en vert",
+    "moveToFolder": "Flytt til mappe",
+    "leaveItEmptyToTake": "La det stå tomt for å fjerne vertene fra mapper.",
+    "folderLikeProdWeb": "Mappe, som Prod / Web",
+    "move": "Flytt",
+    "hosts": "Verter",
+    "selectHosts": "Velg verter",
+    "reorderHosts": "Endre rekkefølge på verter",
+    "customizeList": "Tilpass liste",
+    "chooseWhatEachHostRow": "Velg hva hver vertsrad viser",
+    "credentials2": "Legitimasjon",
+    "savedPasswordsAndKeys": "Lagrede passord og nøkler",
+    "tailscaleDevices": "Tailscale-enheter",
+    "refresh": "Oppdater",
+    "rowDensityFollowsSettingsAppearance": "Radtetthet følger Innstillinger, Utseende.",
+    "clearAllFilters": "Tøm alle filtre",
+    "tags": "Tagger",
+    "stopSelecting": "Avslutt valg",
+    "selected": "{{count}} valgt",
+    "keys": {
+      "keyInput": {
+        "couldNotReadThatKey": "Kunne ikke lese den nøkkel filen",
+        "theClipboardIsEmpty": "Utklippsverdien er tom",
+        "privateKey": "Privat nøkkel",
+        "chooseFile": "Velg fil",
+        "paste": "Lim inn",
+        "unchangedIfBlank": "Uendret hvis tomt",
+        "beginOpensshPrivateKey": "-----BEGIN OPENSSH PRIVATE KEY-----",
+        "passphrase": "Passfrase",
+        "onlyIfTheKeyHas": "Kun hvis nøkkelen har en",
+        "theKeyIsCheckedWhen": "Nøkkelen sjekkes når du kobler til.",
+        "thePastedKey": "den limte nøkkelen"
+      }
+    },
+    "navigation": {
+      "host": {
+        "open": "Åpne",
+        "moreActions": "Flere handlinger",
+        "opensTheTerminalHoldFor": "Åpner terminalen. Hold inne for mer.",
+        "shared": "Delt",
+        "drag": "Dra {{name}}",
+        "showSubHosts_one": "Vis {{count}} undervert av {{name}}",
+        "showSubHosts_other": "Vis {{count}} underverter av {{name}}",
+        "hideSubHosts_one": "Skjul {{count}} undervert av {{name}}",
+        "hideSubHosts_other": "Skjul {{count}} underverter av {{name}}"
+      },
+      "hostList": {
+        "folderHosts": "Mappe {{name}}, {{total}} verter"
+      }
+    },
+    "quickConnect": {
+      "hostAndUsernameAreRequired": "Vert og brukernavn er påkrevd",
+      "hostSaved": "Vert lagret",
+      "couldNotSaveTheHost": "Kunne ikke lagre verten",
+      "quickConnect": "Rask tilkobling",
+      "connectToAHostWithout": "Koble til en vert uten å lagre den.",
+      "hostIp": "Vert / IP",
+      "port": "Port",
+      "username": "Brukernavn",
+      "password": "Passord",
+      "key": "Nøkkel",
+      "privateKey": "Privat nøkkel",
+      "saveToMyHosts": "Lagre til mine vertsmaskiner",
+      "keepThisHostAfterConnecting": "Behold denne vertsmaskinen etter tilkobling",
+      "cancel": "Avbryt",
+      "connect": "Koble til"
+    },
+    "syncBanner": {
+      "gettingYourHostsFromThe": "Henter dine vertsmaskiner fra serveren",
+      "yourHostsStayOnThis": "{{message}} Vertsmaskinene dine forblir på denne {{deviceWord}} i mellomtiden."
+    },
+    "testConnection": {
+      "thisHostSKeyChanged": "Nøkkelen for denne vertsmaskinen har endret seg",
+      "trustThisHost": "Stol på denne vertsmaskinen?",
+      "trust": "Stol på",
+      "stopTest": "Stopp test",
+      "testConnection": "Test tilkobling",
+      "connecting": "Kobler til..."
+    },
+    "useHostsData": {
+      "failedToLoadHosts": "Kunne ikke laste inn vertsmaskiner."
+    },
+    "sharedLeftAsTheyAre_one": "{{done}}. {{count}} delt vertsmaskin ble beholdt som den er.",
+    "sharedLeftAsTheyAre_other": "{{done}}. {{count}} delte vertsmaskiner ble beholdt som de er.",
+    "deleteHosts_one": "Slett {{count}} vertsmaskin?",
+    "deleteHosts_other": "Slett {{count}} vertsmaskiner?",
+    "defaults": {
+      "store": {
+        "noFolderNamed": "Ingen mappe med navnet {{name}}"
+      }
+    },
+    "transfer": {
+      "import": {
+        "hostBadPort": "Vertsmaskin \"{{name}}\": ugyldig port",
+        "hostJumpIsNotIn": "Vertsmaskin \"{{name}}\": hopp {{value}} er ikke i filen, så den ble utelatt",
+        "credential": "Legitimasjon {{name}}: {{error}}",
+        "noValidHostEntriesFound": "Fant ingen gyldige Host-opptegnelser i SSH-konfigurasjonsfilen",
+        "credentialWasNotFound": "{{label}}: legitimasjonen {{value}} ble ikke funnet"
+      },
+      "termixJson": {
+        "hostDuplicateExportedHostId": "Vertsmaskin {{value}}: duplisert eksportert vertsmaskin-ID {{exportId}}",
+        "missingRequiredFieldsIpPort": "{{label}}: Mangler påkrevde felter (ip, port)",
+        "invalidAuthtypeMustBeOne": "{{label}}: Ugyldig authType. Må være en av {{value}}",
+        "usernameRequiredForSshConnections": "{{label}}: Brukernavn kreves for SSH-tilkoblinger",
+        "credentialaliasRequiredForCredentialAuthentication": "{{label}}: credentialAlias kreves for legitimasjonsautentisering",
+        "thatIsNotAValid": "Dette er ikke en gyldig JSON-fil",
+        "hostsArrayIsRequiredAnd": "Vertsmaskin-array er påkrevd og må ikke være tomt",
+        "jumpHostCycle": "{{label}}: hopp-vertsmaskinsyklus",
+        "jumpHostIsNotIn": "{{label}}: hopp-vertsmaskin {{id}} er ikke i filen"
+      }
+    },
+    "movedTo": "Flyttet til {{value}}",
+    "movedOutOfFolders": "Flyttet ut av mapper",
+    "movedUnder": "Flyttet under {{value}}",
+    "openTerminals": "Åpne terminaler",
+    "theHost": "vertsmaskinen"
+  },
+  "link": {
+    "accountSteps": {
+      "hidePassword": "Skjul passord",
+      "showPassword": "Vis passord",
+      "enterAUsernameAndPassword": "Skriv inn et brukernavn og passord",
+      "useAtLeast6Characters": "Bruk minst 6 tegn i passordet",
+      "thePasswordsDonTMatch": "Passordene stemmer ikke overens",
+      "makeTheAdminAccount": "Opprett administratorkontoen",
+      "makeAnAccount": "Opprett en konto",
+      "thisIsTheFirstAccount": "Dette er den første kontoen på serveren, så den styrer serveren.",
+      "pickAUsernameAndPassword": "Velg et brukernavn og passord for denne serveren.",
+      "username": "Brukernavn",
+      "password": "Passord",
+      "passwordAgain": "Passord på nytt",
+      "makeAccount": "Opprett konto",
+      "back": "Tilbake",
+      "haveAnAccountSignIn": "Har du en konto? Logg inn",
+      "resetCodeMadeItIs": "Tilbakestillingskode opprettet. Den finnes i serverens logger",
+      "enterYourUsername": "Skriv inn brukernavnet ditt",
+      "enterTheResetCode": "Skriv inn tilbakestillingskoden",
+      "passwordChangedSignInWith": "Passordet er endret. Logg inn med det nå",
+      "resetPassword": "Tilbakestill passord",
+      "enterYourUsernameTheServer": "Skriv inn brukernavnet ditt. Serveren skriver en tilbakestillingskode til loggene sine.",
+      "sendResetCode": "Send tilbakestillingskode",
+      "enterThe6DigitCode": "Skriv inn 6-sifret koden fra serverloggene.",
+      "resetCode": "Tilbakestill kode",
+      "checkCode": "Sjekk kode",
+      "newPassword": "Nytt passord",
+      "saveNewPassword": "Lagre nytt passord",
+      "backToSignIn": "Tilbake til pålogging",
+      "couldNotMakeTheAccount": "Kunne ikke opprette kontoen",
+      "couldNotStartTheReset": "Kunne ikke starte tilbakestillingen",
+      "thatCodeDidnTWork": "Den koden fungerte ikke",
+      "couldNotChangeThePassword": "Kunne ikke endre passordet"
+    },
+    "browserStep": {
+      "signInFailed": "Pålogging mislyktes",
+      "signInCanceled": "Pålogging avbrutt",
+      "couldNotOpenTheSign": "Kunne ikke åpne påloggingssiden i nettleseren",
+      "couldNotOpenTheSign2": "Kunne ikke åpne påloggingssiden",
+      "certificateProblem": "Sertifikatproblem",
+      "back": "Tilbake",
+      "signIn": "Logg inn",
+      "reload": "Last inn på nytt",
+      "finishSigningInInYour": "Fullfør påloggingen i nettleseren din",
+      "useAnySignInYour": "Bruk hvilken som helst påloggingsmetode serveren din har, som passnøkkel eller sikkerhetsnøkkel. Appen tar over når du er logget inn.",
+      "theAppPicksUpOnce": "Appen tar over når påloggingsleverandøren din er ferdig.",
+      "signingIn": "Logger inn...",
+      "openBrowserAgain": "Åpne nettleseren igjen",
+      "theServerTurnedTheSession": "Serveren avviste økten. Prøv igjen.",
+      "signedInButTheApp": "Logget inn, men appen kan ikke nå Termix. En proxy kan blokkere det.",
+      "thatSignInLinkIs": "Den påloggingslenken er fra et tidligere forsøk. Logg inn igjen.",
+      "signInAgain": "Logg inn igjen.",
+      "openTheBrowserAgainWhen": "Åpne nettleseren igjen når du er klar.",
+      "theWebPageSignedIn": "Nettsiden logget inn, men sendte ingen økt. Oppdater serveren og prøv igjen.",
+      "theCanTCheckThis": "{{deviceWord}} kan ikke sjekke sertifikatet til denne serveren. Installer rot-CA-en på {{deviceWord}}. {{text}}"
+    },
+    "linkFlow": {
+      "useToSignInNext": "Bruke {{name}} for å logge inn neste gang?",
+      "ifThisServerSignsYou": "Hvis denne serveren logger deg ut, kan du logge inn igjen med {{name}} i stedet for å skrive inn passordet. Passordet blir lagret på denne {{deviceWord}}.",
+      "use": "Bruk {{name}}",
+      "notNow": "Ikke nå",
+      "couldNotSaveTheLogin": "Kunne ikke lagre påloggingsinformasjonen",
+      "thatSADifferentUser": "Det er en annen bruker",
+      "signedIn": "Logget inn",
+      "close": "Lukk",
+      "linkYourTermixServer": "Koble til Termix-serveren din",
+      "yourHostsCredentialsSnippetsAnd": "Vertene, legitimasjonen, kommandosnuttene og innstillingene dine synkroniseres med den, og du får tilgang til utvidelsene dens. Alt fungerer fortsatt på denne {{deviceWord}} når serveren er utilgjengelig.",
+      "checking": "Sjekker {{host}}...",
+      "proxyAndClientCertificate": "Proxy og klientsertifikat",
+      "couldNotReachThatServer": "Kunne ikke nå den serveren. Sjekk adressen, eller sett opp proxyen eller klientsertifikatet.",
+      "couldNotReachThatServer2": "Kunne ikke nå den serveren",
+      "syncCouldNotStartYet": "Synkronisering kunne ikke starte ennå. Den prøver igjen automatisk.",
+      "checkingTheServer": "Sjekker serveren",
+      "signIn": "Logg inn",
+      "makeAnAccount": "Opprett en konto",
+      "resetPassword": "Tilbakestill passord",
+      "oneMoreStep": "Én siste steg",
+      "almostDone": "Nesten ferdig",
+      "linkAServer": "Koble til en server"
+    },
+    "signInStep": {
+      "theSavedLoginNoLonger": "Den lagrede påloggingsinformasjonen fungerer ikke lenger",
+      "enterYourUsernameAndPassword": "Skriv inn brukernavnet og passordet ditt",
+      "thisServerIsBehindA": "Denne serveren er bak en påloggingsproxy",
+      "signInWith": "Logg inn med {{saved}}",
+      "signInWith2": "Logg inn med",
+      "password": "Passord",
+      "username": "Brukernavn",
+      "signIn": "Logg inn",
+      "forgotPassword": "Glemt passord?",
+      "makeAnAccount": "Opprett en konto",
+      "or": "ELLER",
+      "continueWith": "Fortsett med {{label}}",
+      "signInWithAPasskey": "Logg inn med en passnøkkel eller sikkerhetsnøkkel",
+      "opensYourServerAposS": "Åpner serverens innloggingside i nettleseren. Face ID, fingeravtrykk, NFC og USB-nøkler fungerer der. Krever Termix 26.11.3 eller nyere.",
+      "signInInTheBrowser": "Logg inn i nettleseren",
+      "opensYourServerAposS2": "Åpner serverens innloggingside, for alt som ikke kan gjøres i appen. Krever Termix 26.10.6 eller nyere.",
+      "thisServerHasNoSign": "Denne serveren har ingen innlogging som appen kan bruke. Spør den som driver serveren, eller prøv innlogging i nettleseren over.",
+      "signInWithYourPassword": "Logg inn med passordet ditt.",
+      "signInFailed": "Innlogging mislyktes",
+      "openingItsSignInPage": "Åpner innloggingsiden."
+    },
+    "smallSteps": {
+      "serverAddress": "Serveradresse",
+      "likeTermixExampleComOr": "Som termix.example.com eller 192.168.1.20:30001",
+      "checking": "Sjekker...",
+      "continue": "Fortsett",
+      "proxyAndClientCertificate": "Proxy og klientsertifikat",
+      "aServerWithASelf": "En server med et selvsignert sertifikat må ha rot-CA-en installert på denne {{deviceWord}} først. Vanlig http fungerer på ditt eget nettverk.",
+      "enterTheCode": "Skriv inn koden",
+      "code": "Kode",
+      "the6DigitCodeFrom": "Sifferkoden på 6 siffer fra autentiseringsappen din, eller en reservekode",
+      "checkCode": "Sjekk kode",
+      "thisAccountAsksForA": "Denne kontoen ber om en sikkerhetsnøkkel etter passordet. Logg inn på serverens side i nettleseren for å bruke den.",
+      "useASecurityKeyIn": "Bruk en sikkerhetsnøkkel i nettleseren",
+      "backToSignIn": "Tilbake til innlogging",
+      "bringThisAposSHosts": "Ta med denne {{deviceWord}}ens vertsdata?",
+      "thisHasTheyStayOn": "Denne {{deviceWord}}en har {{what}}. De blir værende på denne enheten uansett.",
+      "merge": "Slå sammen",
+      "copyThemToTooSo": "Kopier dem til {{serverName}} også, slik at de synkroniseres. De som ser ut som en serververt blir hoppet over.",
+      "replace": "Erstatt",
+      "useOnlyWhatIsOn": "Bruk kun det som er på {{serverName}} for denne kontoen. Ingenting blir kopiert.",
+      "thatCodeDidnTWork": "Den koden fungerte ikke",
+      "hostsCredentialsOrSnippets": "verter, legitimasjon eller utdrag"
+    }
+  },
+  "links": {
+    "openLinkHost": {
+      "linkThisServerFirst": "Koble til denne serveren først",
+      "thatHostIsnTHere": "Den verten finnes ikke her",
+      "couldNotOpenThatHost": "Kunne ikke åpne den verten",
+      "noHostWithIdOn": "Ingen vert med id {{hostId}} på {{account}}.",
+      "isnTLinkedInThe": "{{value}} er ikke koblet til i appen ennå."
+    }
+  },
+  "notifications": {
+    "notifications": "Varsler",
+    "markAllRead": "Merk alle som lest",
+    "clearReadNotifications": "Fjern leste varsler",
+    "unread2": "Uleste",
+    "all": "Alle",
+    "noUnreadNotifications": "Ingen uleste varsler",
+    "nothingHere": "Ingenting her",
+    "markRead": "Merk som lest",
+    "delete": "Slett",
+    "couldNotLoadNotifications": "Kunne ikke laste inn varsler",
+    "couldNotMarkRead": "Kunne ikke merke som lest",
+    "couldNotDelete": "Kunne ikke slette",
+    "couldNotClear": "Kunne ikke tømme"
+  },
+  "onboarding": {
+    "welcome": {
+      "import": "Importer",
+      "hosts": "Verter",
+      "aTermixHostFileYour": "En Termix-vertfil, din ~/.ssh/config, eller en vertlenke eller QR-kode fra en annen {{deviceWord}}. De blir lagret på denne {{deviceWord}}en.",
+      "backup": "Sikkerhetskopi",
+      "aBackupThisAppMade": "En sikkerhetskopi denne appen har laget, låst med en passfrase. Den gjenoppretter verter, legitimasjon og utdrag.",
+      "restoreABackup": "Gjenopprett en sikkerhetskopi",
+      "done": "Ferdig",
+      "skipForNow": "Hopp over nå",
+      "sshFilesAndRemoteDesktops": "SSH, filer og fjernskrivebord fra din {{deviceWord}}. Hvordan vil du starte?",
+      "useWithoutAServer": "Bruk uten en server",
+      "hostsCredentialsAndSnippetsAre": "Verter, innloggingsdetaljer og kommandofragmenter lagres kryptert på denne {{deviceWord}}. Du kan koble til en server når som helst senere.",
+      "linkATermixServer": "Koble til en Termix-server",
+      "syncYourHostsCredentialsSnippets": "Synkroniser verter, innloggingsdetaljer, kommandofragmenter og innstillinger med serveren din, og bruk dens tilleggsprogrammer.",
+      "bringHostsFromATermix": "Importer verter fra en Termix-fil, en SSH-konfigurasjon, en QR-kode eller en sikkerhetskopi.",
+      "thisDevice": "Denne enheten"
+    }
+  },
+  "palette": {
+    "commandPalette": {
+      "searchHostsSnippetsActions": "Søk etter verter, kommandofragmenter, handlinger",
+      "clearSearch": "Tøm søk",
+      "nothingMatches": "Ingen treff",
+      "typeToSearch": "Skriv for å søke",
+      "findAHostToConnect": "Finn en vert å koble til, et kommandofragment, en innstilling eller en handling.",
+      "suggested": "Forslag | {{value}}"
+    },
+    "usePaletteItems": {
+      "runIn": "Kjør i {{title}}",
+      "copiedRunItFromThe": "Kopiert. Kjør det fra terminalens kommandofragmenter for å fylle ut verdiene.",
+      "copiedOpenATerminalTo": "Kopiert. Åpne en terminal for å kjøre kommandofragmenter.",
+      "addHost": "Legg til vert",
+      "quickConnect": "Rask tilkobling",
+      "switchAccount": "Bytt konto",
+      "linkAServer": "Koble til en server",
+      "fromYourServer": "Fra serveren din",
+      "settings": "Innstillinger",
+      "accountsAppearanceSecurity": "Kontoer, utseende, sikkerhet"
+    },
+    "search": {
+      "hosts": "Verter",
+      "snippets": "Kommandofragmenter",
+      "actions": "Handlinger",
+      "settings": "Innstillinger"
+    }
+  },
+  "settings": {
+    "activeSessions": {
+      "failedToLoadSessions": "Kunne ikke laste inn økter",
+      "sessionRevoked": "Økt opphevet",
+      "failedToRevokeSession": "Kunne ikke oppheve økten",
+      "allSessionsRevoked": "Alle økter opphevet",
+      "failedToRevokeAllSessions": "Kunne ikke oppheve alle økter",
+      "activeSessions": "Aktive økter",
+      "signOutAllOtherSessions": "Logg ut alle andre økter",
+      "loading": "Laster inn…",
+      "noActiveSessionsFound": "Ingen aktive økter funnet.",
+      "unknownDevice": "Ukjent enhet",
+      "lastActive": "Sist aktiv {{lastActiveAt}}",
+      "created": "Opprettet {{createdAt}}",
+      "revokeSession": "Opphev økt",
+      "revokeSession2": "Opphev økt?",
+      "thisWillSignOutThat": "Dette vil logge ut den enheten.",
+      "revoke": "Opphev",
+      "revokeAllSessions": "Opphev alle økter?",
+      "thisWillSignOutEvery": "Dette vil logge ut alle enheter. Du forblir innlogget på denne enheten.",
+      "cancel": "Avbryt",
+      "revokeAll": "Opphev alle"
+    },
+    "apiKeys": {
+      "failedToLoadApiKeys": "Kunne ikke laste inn API-nøkler",
+      "failedToCreateApiKey": "Kunne ikke opprette API-nøkkel",
+      "deleteApiKey": "Slett API-nøkkel?",
+      "willStopWorkingRightAway": "\"{{name}}\" slutter å fungere med en gang.",
+      "apiKeyDeleted": "API-nøkkel slettet",
+      "failedToDeleteApiKey": "Kunne ikke slette API-nøkkel",
+      "apiKeys": "API-nøkler",
+      "newApiKey": "Ny API-nøkkel",
+      "loading": "Laster inn…",
+      "apiKeysAllowProgrammaticAccess": "API-nøkler gir programmatisk tilgang til Termix. Hemmeligheten vises bare én gang, så lagre den trygt.",
+      "noApiKeysYet": "Ingen API-nøkler ennå",
+      "created": "Opprettet {{createdAt}}",
+      "lastUsed": "Sist brukt {{lastUsedAt}}",
+      "expires": "Utløper {{expiresAt}}",
+      "delete": "Slett {{name}}",
+      "keyCreatedCopyItNow": "Nøkkel opprettet. Kopier den nå",
+      "newApiKey2": "Ny API-nøkkel",
+      "thisTokenWonTBe": "Denne tokenen vises ikke igjen.",
+      "apiKeyCopied": "API-nøkkel kopiert",
+      "copy": "Kopier",
+      "done": "Ferdig",
+      "cancel": "Avbryt",
+      "create": "Opprett",
+      "name": "Navn *",
+      "eGCiPipeline": "f.eks. CI-pipeline",
+      "user": "Bruker *",
+      "noUsersAvailable": "Ingen brukere tilgjengelige.",
+      "expiresAtOptional": "Utløper (valgfritt)",
+      "yyyyMmDd": "ÅÅÅÅ/MM/DD",
+      "yearMonthDay": "År / Måned / Dag"
+    },
+    "backgroundSessionsSection": {
+      "keepSessionsRunning": "Hold økter i gang",
+      "showsANotificationWhileSessions": "Viser en varsling mens økter er åpne, slik at Android holder dem i gang når du forlater appen",
+      "batteryOptimization": "Batterioptimalisering",
+      "termixIsNotRestrictedSo": "Termix er ikke begrenset, så økter kan holdes åpne med skjermen av.",
+      "androidMayStillStopSessions": "Android kan fortsatt stoppe økter for å spare batteri. Åpne batteriinnstillingene, finn Termix og velg Ikke optimalisert eller Ubegrenset.",
+      "openBatterySettings": "Åpne batteriinnstillinger",
+      "notificationsAreOff": "Varslinger er av",
+      "sessionsStillRunButThe": "Økter kjører fortsatt, men listen over åpne økter og knappen Koble fra alle forblir skjult.",
+      "openNotificationSettings": "Åpne varslingsinnstillinger",
+      "thisBuildCanTKeep": "Denne versjonen kan ikke holde økter i gang i bakgrunnen. De kobler til på nytt når du kommer tilbake.",
+      "lowPowerMode": "Lav strømforbruk",
+      "batterySaver": "Batterisparer",
+      "isOnTermixChecksConnections": "{{value}} er på. Termix sjekker tilkoblinger mindre ofte og venter lenger mellom gjenkoblingsforsøk.",
+      "backgroundSessions": "Bakgrunnsøkter",
+      "iosStopsAppsSoonAfter": "iOS stopper apper kort tid etter at du forlater dem, så økter kan ikke kjøre i bakgrunnen. De kobler til på nytt når du kommer tilbake, og tmux eller screen tar opp der du slapp."
+    },
+    "controls": {
+      "accountControls": {
+        "stopped": "Stoppet",
+        "active": "Aktiv",
+        "linkAServer": "Koble til en server",
+        "eachServerKeepsItsOwn": "Hver server holder sin egen kopi av dine vertsmaskiner, legitimasjon og innstillinger på denne {{deviceWord}}.",
+        "signedInAs": "Logget inn som",
+        "role": "Rolle",
+        "administrator": "Administrator",
+        "user": "Bruker",
+        "serverVersion": "Serverversjon",
+        "signOut": "Logg ut",
+        "youAreSignedOutOf": "Du er logget ut av denne serveren.",
+        "signIn": "Logg inn",
+        "passwordChanged": "Passord endret",
+        "couldNotChangeThePassword": "Kunne ikke endre passordet",
+        "changePassword": "Endre passord",
+        "enterYourCurrentPasswordThen": "Skriv inn gjeldende passord, og velg deretter et nytt.",
+        "cancel": "Avbryt",
+        "change": "Endre",
+        "currentPassword": "Gjeldende passord",
+        "newPassword": "Nytt passord",
+        "accountDeleted": "Konto slettet",
+        "couldNotDeleteTheAccount": "Kunne ikke slette kontoen",
+        "deleteServerAccount": "Slett serverkonto",
+        "thisPermanentlyDeletesYourAccount": "Dette sletter kontoen din på serveren og all dens data permanent. Det kan ikke angres.",
+        "delete": "Slett",
+        "confirmYourPassword": "Bekreft passordet ditt",
+        "worksWithoutAServer": "Fungerer uten en server",
+        "signedOut": "Logget ut",
+        "readsLive": "Leser direkte",
+        "synced": "Syncet",
+        "syncing": "Synkroniserer",
+        "offline": "Frakoblet"
+      },
+      "analyticsControls": {
+        "shareAnonymousUsageStatistics": "Del anonyme bruksstatistikk",
+        "aShortReportOnceA": "En kort rapport en gang i døgnet. Ingen vertsnavn, brukernavn eller adresser",
+        "nextReport": "Neste rapport",
+        "seeExactlyWhatWouldBe": "Se nøyaktig hva som vil bli sendt",
+        "couldNotBuildTheReport": "Kunne ikke generere rapporten",
+        "preview": "Forhåndsvisning",
+        "thisIsExactlyWhatWould": "Dette er nøyaktig hva som vil bli sendt akkurat nå.",
+        "resetInstallId": "Tilbakestill installasjons-ID",
+        "futureReportsWillLookLike": "Fremtidige rapporter vil se ut som en ny installasjon",
+        "resetTheInstallId": "Tilbakestill installasjons-ID?",
+        "futureReportsWillLookLike2": "Fremtidige rapporter vil se ut som en ny installasjon.",
+        "reset": "Tilbakestill",
+        "installIdReset": "Installasjons-ID tilbakestilt"
+      },
+      "appearanceControls": {
+        "theme": "Tema",
+        "accentColor": "Accentfarge",
+        "textSize": "Tekststørrelse",
+        "sizeOfTextAcrossThe": "Størrelse på tekst i hele appen, ikke i terminalen",
+        "density": "Tetthet",
+        "howTallListRowsAnd": "Høyden på radene i lister og innstillinger"
+      },
+      "miscControls": {
+        "hostsCredentialsAndSnippetsAre": "Verter, legitimasjon og kommandofragmenter lagres i en kryptert fil på denne{{deviceWord}}. Bruksstatistikk er deaktivert med mindre du slår den på nedenfor. En koblet server mottar bare det du lar den synkronisere.",
+        "recentHosts": "Nylige verter",
+        "forgetTheHostsYouOpened": "Glem vertene du har åpnet nylig for alle kontoer",
+        "recentHostsCleared": "Nylige verter slettet",
+        "clear": "Tøm",
+        "couldNotCheckForUpdates": "Kunne ikke sjekke etter oppdateringer",
+        "versionIsOutUpdateFrom": "Versjon {{version}} er tilgjengelig. Oppdater fra appbutikken.",
+        "youHaveTheNewestVersion": "Du har den nyeste versjonen",
+        "termixMobile": "Termix Mobile",
+        "updates": "Oppdateringer",
+        "check": "Sjekk"
+      },
+      "pinSheet": {
+        "waitSeconds": "Vent {{value}} sekunder",
+        "digits": "{{PIN_LENGTH}} siffer"
+      },
+      "securityControls": {
+        "thePinsDoNotMatch": "PIN-kodene stemmer ikke overens",
+        "appLockIsOn": "App-lås er på",
+        "turnOffAppLock": "Slå av app-lås",
+        "enterYourPinToConfirm": "Skriv inn PIN-koden din for å bekrefte.",
+        "appLockIsOff": "App-lås er av",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Be om Face ID, Touch ID eller PIN-kode for å åpne appen",
+        "askForAPinTo": "Be om PIN-kode for å åpne appen",
+        "pinChanged": "PIN-kode endret",
+        "couldNotChangeThePin": "Kunne ikke endre PIN-koden",
+        "changePin": "Endre PIN-kode",
+        "lockAfter": "Lås etter",
+        "howLongTheAppCan": "Hvor lenge appen kan være utenfor synsfeltet før den låses",
+        "hideInAppSwitcher": "Skjul i app-bytter",
+        "showABlankScreenIn": "Vis en tom skjerm i listen over nylige apper",
+        "chooseA4DigitPin": "Velg en 4-sifret PIN-kode.",
+        "confirmPin": "Bekreft PIN-kode",
+        "enterTheSamePinAgain": "Skriv inn samme PIN-kode på nytt.",
+        "currentPin": "Nåværende PIN-kode",
+        "enterYourCurrentPin": "Skriv inn nåværende PIN-kode.",
+        "newPin": "Ny PIN-kode",
+        "chooseANew4Digit": "Velg en ny 4-sifret PIN-kode.",
+        "confirmNewPin": "Bekreft ny PIN-kode",
+        "enterTheNewPinAgain": "Skriv inn den nye PIN-koden på nytt."
+      },
+      "widgetsControl": {
+        "homeScreenWidgets": "Hjem-skjermwidgeter",
+        "showYourHostsSnippetsAnd": "Vis vertene, kommandoutdrag og strømbrytere på hjemmeskjermen",
+        "showAddresses": "Vis adresser",
+        "showUserHostUnderEach": "Vis bruker@vert under hvert tjernernavn",
+        "includeOfflineHosts": "Inkluder frakoblede verter",
+        "offShowsOnlyServersThat": "Av viser kun verter som er tilkoblet",
+        "pinnedHostsOnly": "Kun festede verter",
+        "showOnlyTheHostsYou": "Vis kun vertene du har festet",
+        "snippetsWidget": "Kommandoutdrag-widget",
+        "showSavedCommandsOnThe": "Vis lagrede kommandoer på hjemmeskjermen",
+        "showCommandPreview": "Vis forhåndsvisning av kommando",
+        "showTheFirstLineOf": "Vis første linje i hver kommando"
+      }
+    },
+    "fileSettings": {
+      "files": "Filer",
+      "fileManagerOnThis": "Filbehandler på denne {{deviceWord}}",
+      "browsing": "Navigering",
+      "transfersAtOnce": "Overføringer samtidig",
+      "downloadsAndUploadsThatRun": "Nedlastinger og opplastinger som kjører samtidig",
+      "editor": "Redigerer",
+      "textSize": "Tekststørrelse",
+      "filesBesideTheTerminal": "Filer ved siden av terminalen",
+      "side": "Side",
+      "whereThePanelSitsOn": "Hvor panelet vises på en nettbrett",
+      "right": "Høyre",
+      "left": "Venstre",
+      "howOftenToCheck": "Sjekkeintervall",
+      "folderHistory": "Mappehistorikk",
+      "foldersKeptPerHost": "Mapper lagret per vert",
+      "showHiddenFiles": "Vis skjulte filer",
+      "filesAndFoldersThatStart": "Filer og mapper som starter med punktum",
+      "askBeforeMovingToThe": "Spør før flytting til papirkurv",
+      "deletingForGoodAlwaysAsks": "Permanent sletting spør alltid",
+      "wrapLongLines": "Bryt lange linjer",
+      "openWithNewTerminals": "Åpne med nye terminaler",
+      "onATabletShowThe": "Vis filpanelet når en terminal åpnes på nettbrett",
+      "followTheTerminal": "Følg terminalen",
+      "openTheFolderTheTerminal": "Åpne mappen terminalen befinner seg i når du bruker cd"
+    },
+    "keyboardCustomization": {
+      "small": "Liten",
+      "medium": "Medium",
+      "large": "Stor",
+      "ms": "{{v}} ms",
+      "keyboard": "Tastatur",
+      "keyRowsAboveTheKeyboard": "Tastrekker over tastaturet",
+      "rows": "Rekker",
+      "keys": "Taster",
+      "aHostCanHaveIts": "En vert kan ha sine egne rekker: trykk på den åpne fanen i en økt og velg Tastrekker for denne verten.",
+      "keySize": "Taststørrelse",
+      "vibrateOnKeyPress": "Vibrer ved tastetrykk",
+      "repeatAfter": "Gjenta etter",
+      "howLongToHoldAn": "Hvor lenge du skal holde inne piltaster eller Slett",
+      "repeatEvery": "Gjenta hvert",
+      "hardwareKeyboard": "Maskintastatur",
+      "allShortcuts": "Alle snarveier",
+      "show": "Vis"
+    },
+    "localData": {
+      "couldNotMakeTheBackup": "Kunne ikke opprette sikkerhetskopi",
+      "deleteLocalData": "Slette lokale data?",
+      "hostsCredentialsSnippetsAndHistory": "Verter, legitimasjon, kommandoutdrag og historikk lagret på denne {{deviceWord}} for {{account}} blir slettet. Dette kan ikke angres. Lag en sikkerhetskopi først hvis du vil beholde dem.",
+      "delete": "Slett",
+      "localDataDeleted": "Lokale data slettet",
+      "couldNotDeleteLocalData": "Kunne ikke slette lokale data",
+      "localData": "Lokale data",
+      "localDataIsOnlySaved": "Lokal data lagres kun i {{deviceWord}}-appen.",
+      "savedOnThisForThe": "Lagret på denne {{deviceWord}} for {{account}}. Filen er kryptert med en nøkkel som aldri forlater denne {{deviceWord}}.",
+      "hosts": "Verter",
+      "credentials": "Innloggingsdetaljer",
+      "snippets": "Kommandofragmenter",
+      "size": "Størrelse",
+      "dataVersion": "Dataversjon",
+      "backup": "Sikkerhetskopi",
+      "aBackupFileHoldsYour": "En sikkerhetskopi inneholder passord og nøkler, låst med en passfrase du velger. Ingen kan åpne den uten passfrasen.",
+      "exportBackup": "Eksporter sikkerhetskopi",
+      "importBackup": "Importer sikkerhetskopi",
+      "removesEverythingThisAccountSaved": "Fjerner alt denne kontoen har lagret på denne {{deviceWord}}. En koblet server beholder sin egen kopi.",
+      "deleteLocalData2": "Slett lokal data",
+      "backupPassphrase": "Passfrase for sikkerhetskopi",
+      "atLeast8CharactersYou": "Minst 8 tegn. Du trenger den for å gjenopprette sikkerhetskopien.",
+      "passphrase": "Passfrase",
+      "next": "Neste",
+      "typeItAgain": "Skriv den igjen",
+      "export": "Eksporter",
+      "saveYourTermixBackup": "Lagre Termix-sikkerhetskopien"
+    },
+    "logs": {
+      "logs": "Logger",
+      "latestLinesFromThisRun": "Siste linjer fra denne økten. Serveradresser, passord og token er skjult.",
+      "logsCopied": "Logger kopiert",
+      "copy": "Kopier",
+      "share": "Del",
+      "clear": "Tøm",
+      "noLogsYet": "Ingen logger ennå",
+      "nothingHasBeenLogged": "Ingenting er logget."
+    },
+    "plugins": {
+      "worksOnThis": "Fungerer på denne {{deviceWord}}",
+      "needsTheServer": "Krever server",
+      "notInTheApp": "Ikke i appen",
+      "needsANewerVersionOf": "Krever en nyere versjon av appen",
+      "updateThePluginOnThe": "Oppdater tillegget på serveren",
+      "inTheApp": "I appen",
+      "onThisServer": "På denne serveren",
+      "version": "Versjon",
+      "needsPluginApi": "Krever tilleggs-API",
+      "thisAppHas": "Denne appen har",
+      "note": "Merknad",
+      "open": "Åpne",
+      "openFromAHostS": "Åpne {{name}} fra en vertsinns stillingsmeny.",
+      "plugins": "Tillegg",
+      "everything": "Alt",
+      "thisDeviceWorksWithNo": "Denne enheten fungerer uten server. Koble til en server for å legge til funksjoner som krever det.",
+      "pluginsOnAndHowEach": "Tillegg på {{account}} og hvordan de vises i appen. Dra ned for å sjekke igjen.",
+      "whatRunsOnThisAnd": "Hva som kjører på denne {{deviceWord}} og hva som går gjennom {{account}}.",
+      "noPluginList": "Ingen tilleggsliste",
+      "theServerDidNotSend": "Serveren sendte ikke sine tilleggs. Dra ned for å prøve igjen.",
+      "serversOlderThan29": "Servere eldre enn 2.9 har alle funksjoner innebygget.",
+      "nothingToShow": "Ingenting å vise",
+      "notSentByThisServer": "Ikke sendt av denne serveren"
+    },
+    "restoreBackup": {
+      "replaceLocalData": "Erstatte lokal data?",
+      "everythingSavedOnThisFor": "Alt som er lagret på denne {{deviceWord}} for {{accountName}} erstattes med sikkerhetskopien.",
+      "continue": "Fortsett",
+      "couldNotReadThatFile": "Kunne ikke lese filen",
+      "backupRestored": "Sikkerhetskopi gjenopprettet",
+      "couldNotRestoreTheBackup": "Kunne ikke gjenopprette sikkerhetskopien",
+      "backupPassphrase": "Passfrase for sikkerhetskopi",
+      "thePassphraseUsedWhenThe": "Passfrasen som ble brukt da sikkerhetskopien ble laget.",
+      "passphrase": "Passfrase",
+      "restore": "Gjenopprett"
+    },
+    "schema": {
+      "items": {
+        "accounts": "Kontoer",
+        "thisDeviceAndLinkedServers": "Denne enheten og koblet servere, med synkroniseringsstatus",
+        "syncAndProxy": "Synkronisering og proxy",
+        "whatSyncsConflictsProxyAnd": "Hva som synkroniseres, konflikter, proxy og frakobling",
+        "serverAccount": "Serverkonto",
+        "whoIsSignedInOn": "Hvem er pålogget på den aktive serveren",
+        "activeSessions": "Aktive økter",
+        "devicesSignedInToThe": "Enheter pålogget på serveren",
+        "apiKeys": "API-nøkler",
+        "keysForScriptsAndTools": "Nøkler for skript og verktøy",
+        "changePassword": "Endre passord",
+        "passwordOfYourServerAccount": "Passord for serverkontoen din",
+        "deleteServerAccount": "Slett serverkonto",
+        "removeYourAccountFromThe": "Fjern kontoen din fra serveren",
+        "theme": "Tema",
+        "darkLightDraculaNordAnd": "Mørkt, lyst, Dracula, Nord og mer",
+        "accentColor": "Accentfarge",
+        "textSize": "Tekststørrelse",
+        "sizeOfTextAcrossThe": "Størrelse på tekst i hele appen",
+        "density": "Tetthet",
+        "howTallListRowsAnd": "Høyde på radene i lister og innstillinger",
+        "homeScreenWidgets": "Widgeter på startsiden",
+        "hostsAndSnippetsOnThe": "Verter og utdrag på startsiden",
+        "terminal": "Terminal",
+        "fontThemeCursorScrollback": "Skrifttype, tema, markør, rullebuffer",
+        "keyboard": "Tastatur",
+        "layoutKeysPresets": "Oppsett, taster, forhåndsinnstillinger",
+        "appLock": "App-lås",
+        "askForFaceIdTouch": "Be om Face ID, Touch ID eller PIN-kode for å åpne appen",
+        "lockAfter": "Lås etter",
+        "howLongTheAppCan": "Hvor lenge appen kan være utenfor synsfeltet før den låses",
+        "hideInAppSwitcher": "Skjul i app-bytter",
+        "showABlankScreenIn": "Vis en tom skjerm i listen over nylige apper",
+        "changePin": "Endre PIN-kode",
+        "backgroundSessions": "Bakgrunnsøkter",
+        "whatHappensToOpenSessions": "Hva som skjer med åpne økter når du forlater appen",
+        "serverAlerts": "Servervarsler",
+        "alertsFromTheAlertsPlugin": "Varsler fra Alerts-tillegget på serveren din",
+        "whatStaysOnThis": "Hva som beholdes på denne {{deviceWord}}",
+        "hostsCredentialsAndSnippetsAre": "Verter, legitimasjon og utdrag lagres kryptert her",
+        "recentHosts": "Nylige verter",
+        "forgetTheHostsYouOpened": "Glem vertene du har åpnet nylig",
+        "shareAnonymousUsageStatistics": "Del anonyme bruksstatistikk",
+        "aShortReportOnceA": "En kort rapport en gang om dagen. Ingen verter, navn eller adresser",
+        "nextReport": "Neste rapport",
+        "seeExactlyWhatWouldBe": "Se nøyaktig hva som vil bli sendt",
+        "resetInstallId": "Tilbakestill installasjons-ID",
+        "futureReportsWillLookLike": "Fremtidige rapporter vil se ut som en ny installasjon",
+        "serverUsageStatistics": "Serverbruksstatistikk",
+        "telemetrySettingsOnYourServer": "Telemetriinnstillinger på serveren din",
+        "plugins": "Tillegg",
+        "whatTheServerAddsAnd": "Hva serveren legger til og hvor den kjører",
+        "localData": "Lokale data",
+        "backupRestoreAndDeleteWhat": "Sikkerhetskopi, gjenopprett og slett det som er lagret på denne {{deviceWord}}",
+        "termixMobile": "Termix Mobile",
+        "versionAndUpdates": "Versjon og oppdateringer",
+        "logs": "Logger",
+        "latestLinesFromThisRun": "Siste linjer fra denne kjøringen, for feilrapporter"
+      },
+      "sections": {
+        "accountsAndSync": "Kontoer og synkronisering",
+        "thisDeviceLinkedServersAnd": "Denne enheten, koblet servere og hva som synkroniseres",
+        "appearance": "Utseende",
+        "themeAccentTextSizeAnd": "Språk, tema, aksentfarge, tekststørrelse og tetthet",
+        "terminal": "Terminal",
+        "fontColorsAndBackgroundSessions": "Skrifttype, farger og bakgrunnsøkter",
+        "keyboard": "Tastatur",
+        "keyRowsAndShortcuts": "Tastrekker og snarveier",
+        "security": "Sikkerhet",
+        "appLockFaceIdAnd": "App-lås, Face ID og PIN-kode",
+        "notifications": "Varsler",
+        "alertsFromYourServer": "Varsler fra serveren din",
+        "privacyAndUsageStatistics": "Personvern og bruksstatistikk",
+        "whatStaysOnThis": "Hva som blir på denne {{deviceWord}}",
+        "plugins": "Programtillegg",
+        "whatTheServerAddsTo": "Hva serveren legger til i appen",
+        "backupAndData": "Sikkerhetskopi og data",
+        "backUpRestoreImportAnd": "Sikkerhetskopi, gjenoppretting, import og eksport",
+        "aboutAndLogs": "Om og logger",
+        "versionAndLogsForBug": "Versjon og logger for feilrapporter"
+      }
+    },
+    "settings": "Innstillinger",
+    "searchSettings": "Søk i innstillinger",
+    "noSettingsMatch": "Ingen innstillinger matcher.",
+    "termixMobileV": "Termix Mobile v{{appVersion}}",
+    "termixMobile": "Termix Mobile",
+    "snippets": {
+      "failedToLoadSnippets": "Kunne ikke laste inn utdrag",
+      "copied": "Kopiert: {{name}}",
+      "nameIsRequired": "Navn er påkrevd",
+      "contentIsRequired": "Innhold er påkrevd",
+      "snippetUpdated": "Utdrag oppdatert",
+      "snippetCreated": "Utdrag opprettet",
+      "failedToSaveSnippet": "Kunne ikke lagre utdrag",
+      "snippetDeleted": "Utdrag slettet",
+      "failedToDeleteSnippet": "Kunne ikke slette utdrag",
+      "folderNameIsRequired": "Mappenavn er påkrevd",
+      "folderCreated": "Mappe opprettet",
+      "failedToCreateFolder": "Kunne ikke opprette mappe",
+      "folderDeleted": "Mappe slettet",
+      "failedToDeleteFolder": "Kunne ikke slette mappe",
+      "folderRenamed": "Mappe omdøpt",
+      "failedToRenameFolder": "Kunne ikke omdøpe mappe",
+      "failedToSaveOrder": "Kunne ikke lagre rekkefølge",
+      "moveUp": "Flytt opp",
+      "moveDown": "Flytt ned",
+      "runOnHosts": "Kjør {{name}} på vertsmaskiner",
+      "copy": "Kopier {{name}}",
+      "delete": "Slett {{name}}",
+      "renameFolder": "Omdøp mappe",
+      "deleteFolder": "Slett mappe",
+      "noSnippetsInThisFolder": "Ingen utdrag i denne mappen",
+      "snippets": "Utdrag",
+      "importAndExport": "Import og eksport",
+      "folder": "Mappe",
+      "new": "Ny",
+      "loading": "Laster inn…",
+      "couldNotLoadSnippets": "Kunne ikke laste inn utdrag",
+      "checkTheConnectionToYour": "Sjekk tilkoblingen til serveren din og prøv igjen.",
+      "tryAgain": "Prøv igjen",
+      "noSnippetsYet": "Ingen utdrag ennå",
+      "createYourFirstSnippetOr": "Opprett ditt første utdrag, eller legg til utdrag fra Termix-nett- eller skrivebordsappen.",
+      "createSnippet": "Opprett utdrag",
+      "askBeforeRunning": "Spør før kjøring",
+      "confirmBeforeASnippetRuns": "Bekreft før et utdrag kjøres i terminalen",
+      "editSnippet": "Rediger utdrag",
+      "newSnippet": "Nytt utdrag",
+      "cancel": "Avbryt",
+      "save": "Lagre",
+      "create": "Opprett",
+      "name": "Navn",
+      "eGUpdatePackages": "f.eks. Oppdater pakker",
+      "content": "Innhold",
+      "descriptionOptional": "Beskrivelse (valgfritt)",
+      "shortDescription": "Kort beskrivelse",
+      "folderOptional": "Mappe (valgfritt)",
+      "selectFolder": "Velg mappe",
+      "noFolder": "Ingen mappe",
+      "targetHostsOptional": "Målverter (valgfritt)",
+      "none": "Ingen",
+      "note": "Merknad",
+      "pastedIntoTheTerminalWithout": "Limt inn i terminalen uten å kjøre",
+      "targetHosts": "Målverter",
+      "copy2": "Kopier",
+      "edit": "Rediger",
+      "runOnHosts2": "Kjør på verter",
+      "delete2": "Slett",
+      "deleteSnippet": "Slett utdrag",
+      "deleteThisCannotBeUndone": "Slett «{{name}}»? Dette kan ikke angres.",
+      "renameFolder2": "Gi mappen nytt navn",
+      "rename": "Gi nytt navn",
+      "folderName": "Mappenavn",
+      "eGSystem": "f.eks. System",
+      "newFolder": "Ny mappe",
+      "deleteFolder2": "Slett mappe",
+      "deleteSnippetsInThisFolder": "Slett «{{name}}»? Utdrag i denne mappen blir ukategorisert."
+    },
+    "sync": {
+      "notYet": "Ikke ennå",
+      "justNow": "Nettopp nå",
+      "stopped": "Stoppet",
+      "signInToThisServer": "Logg på denne serveren igjen for å synkronisere",
+      "couldNotChangeThat": "Kunne ikke endre dette",
+      "sync": "Synkroniser",
+      "thisDeviceDoesNotSync": "Denne enheten synkroniserer ikke. Koble til en Termix-server for å beholde vertene dine på flere enn én enhet.",
+      "keepsHostsCredentialsSnippetsAnd": "{{server}} holder verter, legitimasjon, utdrag og innstillinger oppdatert i forhold til denne {{deviceWord}}. En kopi beholdes på denne {{deviceWord}}, slik at den også fungerer uten nett.",
+      "lastSynced": "Sist synkronisert {{value}}",
+      "live": "Direkte",
+      "syncNow": "Synkroniser nå",
+      "fix": "Løs",
+      "thisServerReadsLiveAnd": "Denne serveren leser direkte og beholder ingen kopi på {{deviceWord}}.",
+      "turnOnTheSyncPlugin": "Aktiver Synkroniseringsprogramtillegget på serverens Programtillegg-side, og logg deretter på igjen her for å beholde en kopi på denne {{deviceWord}}.",
+      "whatSyncs": "Hva som synkroniseres",
+      "turnedOffThatDataStays": "Slått av, denne dataen beholdes kun på denne {{deviceWord}}.",
+      "conflicts": "Konflikter",
+      "changedHereAndOnThe": "Endret her og på serveren samtidig. Serverens versjon ble beholdt.",
+      "useServer": "Bruk server",
+      "keepMine": "Behold min",
+      "notSavedOnTheServer": "Ikke lagret på serveren",
+      "theServerRefusedTheseChanges": "Serveren avviste disse endringene. De beholdes på denne {{deviceWord}}.",
+      "tryAgain": "Prøv igjen",
+      "proxy": "Proxy",
+      "onlyNeededWhenAReverse": "Kun nødvendig når en reversert proxy står foran serveren.",
+      "unlink": "Fjern kobling",
+      "unlinkThisServer": "Fjern kobling til denne serveren",
+      "minAgo": "{{value}} min siden",
+      "signedOut": "Logget ut",
+      "waitingToSync": "Venter på synkronisering",
+      "synced": "Synkronisert",
+      "syncing": "Synkroniserer",
+      "offline": "Frakoblet"
+    },
+    "terminal": {
+      "customThemeSheet": {
+        "background": "Bakgrunn",
+        "text": "Tekst",
+        "cursor": "Markør",
+        "textUnderCursor": "Tekst under markøren",
+        "selection": "Utsnitt",
+        "black": "Svart",
+        "red": "Rød",
+        "green": "Grønn",
+        "yellow": "Gul",
+        "blue": "Blå",
+        "magenta": "Magenta",
+        "cyan": "Cyan",
+        "white": "Hvit",
+        "brightBlack": "Lys svart",
+        "brightRed": "Lys rød",
+        "brightGreen": "Lys grønn",
+        "brightYellow": "Lys gul",
+        "brightBlue": "Lys blå",
+        "brightMagenta": "Lys magenta",
+        "brightCyan": "Lys cyan",
+        "brightWhite": "Lys hvit",
+        "customTheme": "Egendefinert tema",
+        "colorsAsHexLike1e1e2e": "Farger som hex, som #1e1e2e.",
+        "cancel": "Avbryt",
+        "save": "Lagre",
+        "isNotAHexColor": "{{label}} er ikke en hex-farge"
+      }
+    },
+    "terminalCustomization": {
+      "compact": "Kompakt",
+      "default": "Standard",
+      "relaxed": "Slapp",
+      "spacious": "Romslig",
+      "none": "Ingen",
+      "couldNotSave": "Kunne ikke lagre",
+      "pickASizeFromTo": "Velg en størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}",
+      "terminalSettingsReset": "Terminalinnstillinger tilbakestilt",
+      "terminal": "Terminal",
+      "aHostCanSetIts": "En vert kan angi sitt eget tema og markør i Termix, som har forrang foran disse.",
+      "theme": "Tema",
+      "custom": "Egendefinert",
+      "font": "Skrifttype",
+      "active": "Aktiv",
+      "sizeAndSpacing": "Størrelse og avstand",
+      "pinchTheTerminalToChange": "Bruk klypebevegelse på terminalen for å endre størrelsen også. Stor tekst i {{deviceWord}}innstillingene gjør den større.",
+      "custom2": "Egendefinert {{fontSize}}",
+      "lineHeight": "Linjehøyde",
+      "letterSpacing": "Bokstavavstand",
+      "ligatures": "Ligaturer",
+      "cursor": "Markør",
+      "blink": "Blink",
+      "bell": "Belle",
+      "vibrate": "Vibrer",
+      "onTheBellAndWhen": "Ved belle og når du trykker lenge for å velge",
+      "scrollback": "Rullebakover",
+      "linesKeptAboveTheScreen": "Linjer beholdt over skjermen. Gjelder for nye terminaler.",
+      "linksAndKeys": "Lenker og nøkler",
+      "askBeforeOpeningLinks": "Spør før lenker åpnes",
+      "doubleTapSendsTab": "Dobbelttrykk sender Tab",
+      "longPressStillSelectsText": "Langt trykk velger fortsatt tekst",
+      "optionSendsAlt": "Option sender Alt",
+      "onAHardwareKeyboardOff": "På et fysisk tastatur. Av skriver symboler som på en Mac.",
+      "history": "Historikk",
+      "suggestCommands": "Foreslå kommandoer",
+      "showsPastCommandsThatStart": "Viser tidligere kommandoer som starter med det du skriver",
+      "resetToDefault": "Tilbakestill til standard",
+      "fontSize": "Skriftstørrelse",
+      "aSizeFromTo": "En størrelse fra {{MIN_FONT_SIZE}} til {{MAX_FONT_SIZE}}.",
+      "cancel": "Avbryt",
+      "apply": "Bruk",
+      "resetTerminalSettings": "Tilbakestill terminalinnstillinger?",
+      "themeFontSizeCursorBell": "Tema, skrifttype, størrelse, markør, lydsignal og resten tilbakestilles til standard.",
+      "reset": "Tilbakestill",
+      "followsAppTheme": "Følg appens tema"
+    },
+    "twoFactorAuth": {
+      "failedToStart2faSetup": "Kunne ikke starte 2FA-oppsett",
+      "twoFactorAuthenticationEnabled": "To-faktor-autentisering er aktivert",
+      "invalidCodeTryAgain": "Ugyldig kode, prøv igjen",
+      "twoFactorAuthenticationDisabled": "To-faktor-autentisering er deaktivert",
+      "failedToDisable2fa": "Kunne ikke deaktivere 2FA",
+      "failedToFetchBackupCodes": "Kunne ikke hente sikkerhetskoder",
+      "secretCopied": "Hemmelighet kopiert",
+      "backupCodesCopied": "Sikkerhetskoder kopiert",
+      "twoFactorAuthentication": "To-faktor-autentisering",
+      "loading": "Laster inn…",
+      "scanThisQrCodeWith": "Skann denne QR-koden med autentiseringsappen din (Google Authenticator, Authy osv.), og skriv inn den 6-sifrede koden for å bekrefte.",
+      "verifyAmpEnable": "Bekreft &amp; Aktiver",
+      "cancel": "Avbryt",
+      "saveYourBackupCodes": "Lagre sikkerhetskodene dine",
+      "storeTheseSomewhereSafeEach": "Lagre disse et trygt sted. Hver kode kan bare brukes én gang hvis du mister tilgangen til autentiseringsappen din.",
+      "copyAllCodes": "Kopier alle koder",
+      "done": "Ferdig",
+      "yourAccountIsProtectedWith": "Kontoen din er beskyttet med en autentiseringsapp.",
+      "addAnExtraLayerOf": "Legg til et ekstra sikkerhetslag på kontoen din.",
+      "viewBackupCodes": "Vis sikkerhetskoder",
+      "disable2fa": "Deaktiver 2FA",
+      "enable2fa": "Aktiver 2FA",
+      "disableTwoFactorAuthentication": "Deaktiver to-faktor-autentisering",
+      "enterACodeFromYour": "Skriv inn en kode fra autentiseringsappen din for å bekrefte. Du kan aktivere 2FA på nytt når som helst.",
+      "enterYourPasswordToConfirm": "Skriv inn passordet ditt for å bekrefte. Du kan aktivere 2FA på nytt når som helst.",
+      "disable": "Deaktiver",
+      "yourPassword": "Passordet ditt",
+      "n2faIsEnabled": "2FA er aktivert",
+      "n2faIsNotEnabled": "2FA er ikke aktivert"
+    },
+    "language": {
+      "label": "Språk",
+      "description": "Appen lastes inn på nytt for å bytte",
+      "system": "Samme som enheten"
+    }
+  },
+  "share": {
+    "shareTarget": {
+      "noSshHostsHere": "Ingen SSH-vertsherer her",
+      "couldNotReadWhatWas": "Kunne ikke lese det som ble delt",
+      "stopTheUploads": "Vil du stoppe opplastingene?",
+      "stopAndLeave": "Stopp og forlat",
+      "sendTo": "Send til {{name}}",
+      "sendToAHost": "Send til en vert",
+      "nothingToSend": "Ingenting å sende",
+      "close": "Lukk",
+      "done": "Ferdig",
+      "cancel": "Avbryt",
+      "uploadHere": "Last opp her",
+      "uploadsStillGoing_one": "{{count}} opplasting pågår fortsatt. Å forlate siden stopper den.",
+      "uploadsStillGoing_other": "{{count}} opplastninger pågår fortsatt. Å forlate siden stopper dem.",
+      "filesSize_one": "{{count}} fil | {{size}}",
+      "filesSize_other": "{{count}} filer | {{size}}",
+      "readingWhatWasShared": "Lester hva som ble delt"
+    }
+  },
+  "shell": {
+    "appHeader": {
+      "error": "Feil",
+      "worksWithoutAServer": "Fungerer uten en server",
+      "accountSwitch": "Konto {{account}}, bytt",
+      "search": "Søk",
+      "notificationsUnread": "Varsler, {{unread}} uläste",
+      "notifications": "Varsler",
+      "signedIn": "Logget inn",
+      "signedOut": "Logget ut",
+      "copyOnThis": "Kopier til denne {{deviceWord}}"
+    },
+    "bottomBar": {
+      "home": "Hjem",
+      "hosts": "Verter",
+      "sessions": "Økter",
+      "tools": "Verktøy",
+      "settings": "Innstillinger",
+      "open": "{{label}}, {{count}} åpne"
+    },
+    "sideBar": {
+      "open": "{{label}}, {{count}} åpne"
+    }
+  },
+  "tools": {
+    "hostPicker": {
+      "pickAHost": "Velg en vert",
+      "searchHosts": "Søk etter verter",
+      "clearSearch": "Tøm søk",
+      "noHostsMatch": "Ingen verter matcher",
+      "noHostsCanUseThis": "Ingen verter kan bruke dette",
+      "turnItOnForA": "Skru det på for en vert i vertredigeren."
+    },
+    "noToolsHereYet": "Ingen verktøy her ennå",
+    "onAHost": "På en vert",
+    "saved": "Lagret",
+    "fromYourServer": "Fra din server"
+  },
+  "ui": {
+    "confirm": {
+      "cancel": "Avbryt",
+      "delete": "Slett",
+      "confirm": "Bekreft"
+    },
+    "contextMenu": {
+      "closeMenu": "Lukk meny"
+    },
+    "inlineView": {
+      "back": "Tilbake"
+    },
+    "listRow": {
+      "moreActions": "Flere handlinger"
+    },
+    "pinPad": {
+      "useBiometrics": "Bruk biometri",
+      "delete": "Slett"
+    },
+    "popover": {
+      "close": "Lukk"
+    },
+    "promptSheet": {
+      "cancel": "Avbryt"
+    },
+    "sheet": {
+      "close": "Lukk"
+    }
+  },
+  "utils": {
+    "keyImport": {
+      "thisKeyIsLockedEnter": "Denne nøkkelen er låst. Skriv inn passfrasen.",
+      "thatPassphraseDoesnTOpen": "Den passfrasen åpner ikke denne nøkkelen.",
+      "thisDoesnTLookLike": "Dette ser ikke ut som en privat nøkkel.",
+      "loadedAndChangedItTo": "Lastet inn {{name}} og konverterte den til OpenSSH-format",
+      "loadedItNeedsItsPassphrase": "Lastet inn {{name}}. Den trenger passfrasen sin for å koble til"
+    },
+    "ago": {
+      "justNow": "akkurat nå"
+    }
+  },
+  "widgets": {
+    "runSnippetSheet": {
+      "couldNotLoadYourHosts": "Kunne ikke laste inn vertene dine.",
+      "failedOn": "{{name}} mislyktes på {{name2}}",
+      "on": "{{name}} på {{name2}}: {{value}}",
+      "ranOn": "Kjørte {{name}} på {{name2}}",
+      "runOn": "Kjør \"{{name}}\" på",
+      "runSnippet": "Kjør utdrag",
+      "loadingHosts": "Laster inn verter…",
+      "noHostsAvailable": "Ingen verter tilgjengelige",
+      "addAHostInTermix": "Legg til en vert i Termix for å kjøre utdrag fra startsiden din.",
+      "lastUsed": "Sist brukt",
+      "failedToRunSnippet": "Kunne ikke kjøre utdraget"
+    },
+    "useWidgetDeepLink": {
+      "thatSnippetNoLongerExists": "Utdraget finnes ikke lenger.",
+      "couldNotOpenThatSnippet": "Kunne ikke åpne utdraget.",
+      "thatHostNoLongerExists": "Verten finnes ikke lenger.",
+      "couldNotOpenThatHost": "Kunne ikke åpne den verten."
+    }
+  },
+  "app": {
+    "tabs": {
+      "home": {
+        "home": "Hjem"
+      },
+      "hosts": {
+        "hosts": "Verter"
+      },
+      "sessions": {
+        "sessions": "Økter",
+        "connectToATermixServer": "Koble til en Termix-tjener for å åpne terminaler, tunneler og filøkter."
+      }
+    },
+    "layout": {
+      "initializing": "Initialiserer…",
+      "cancel": "Avbryt"
+    }
+  },
+  "wol": {
+    "thisHostHasNoValid": "Denne verten har ingen gyldig MAC-adresse.",
+    "thisBuildCanTSend": "Denne versjonen kan ikke sende Wake-on-LAN-pakker.",
+    "couldNotSendThePacket": "Kunne ikke sende pakken. Sjekk at Wi-Fi er på."
+  },
+  "common": {
+    "hostCount_one": "{{count}} vert",
+    "hostCount_other": "{{count}} verter",
+    "device": {
+      "phone": "telefon",
+      "tablet": "nettleser"
+    },
+    "thisDeviceLower": "denne {{deviceWord}}"
+  },
+  "hostAccess": {
+    "title": "Deling",
+    "action": "Del med andre",
+    "levels": {
+      "connect": "Koble til",
+      "view": "Vis",
+      "edit": "Rediger",
+      "manage": "Administrer"
+    },
+    "levelHints": {
+      "connect": "Kun åpne økter. Vertsinstillingene forblir skjulte",
+      "view": "Koble til, i tillegg til å se vertsinstillingene. Hemmeligheter vises aldri",
+      "edit": "Vis, i tillegg til å endre innstillinger bortsett fra pålogging",
+      "manage": "Rediger, i tillegg til å dele verten og endre eller fjerne tilgang"
+    },
+    "until": "til {{date}}",
+    "sharedBy": "av {{name}}",
+    "couldNotLoad": "Kunne ikke laste inn hvem som har tilgang",
+    "shared": "Vert delt",
+    "couldNotShare": "Kunne ikke dele verten",
+    "updated": "Tilgang endret",
+    "couldNotUpdate": "Kunne ikke endre tilgangen",
+    "removeTitle": "Fjerne {{name}}?",
+    "removeHint": "De kan ikke lenger bruke denne verten.",
+    "remove": "Fjern",
+    "removed": "Tilgang fjernet",
+    "couldNotRemove": "Kunne ikke fjerne tilgangen",
+    "whoHasAccess": "Hvem har tilgang",
+    "loading": "Laster inn...",
+    "nobodyYet": "Kun du kan bruke denne verten.",
+    "changeAccessFor": "Endre tilgang for {{name}}",
+    "shareWith": "Del med",
+    "users": "Brukere",
+    "roles": "Roller",
+    "searchUsers": "Søk etter brukere",
+    "searchRoles": "Søk etter roller",
+    "noUsers": "Ingen andre brukere å dele med.",
+    "noRoles": "Ingen roller å dele med.",
+    "options": "Tilgang",
+    "level": "Nivå",
+    "expires": "Utløper",
+    "expiry": {
+      "never": "Aldri",
+      "1h": "Om 1 time",
+      "1d": "Om 1 dag",
+      "7d": "Om 7 dager",
+      "30d": "Om 30 dager"
+    },
+    "pickSomeone": "Velg hvem du vil dele med",
+    "shareCount_one": "Del med {{count}}",
+    "shareCount_other": "Del med {{count}}",
+    "removeAccess": "Fjern tilgang"
+  }
+}
