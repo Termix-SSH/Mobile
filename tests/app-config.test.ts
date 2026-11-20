@@ -121,6 +121,18 @@ describe("web view pins", () => {
     expect(plugin.patchAndroid(out)).toBe(out);
   });
 
+  test("Android web views show the client certificate saved for the host", () => {
+    const out = plugin.patchAndroid(OLD_ANDROID);
+    expect(out).toContain("public void onReceivedClientCertRequest(");
+    expect(out).toContain('"webClientCert"');
+    expect(out).toContain("request.proceed(");
+    expect(out).toContain(
+      "super.onReceivedClientCertRequest(webView, request);",
+    );
+    expect(out.match(/onReceivedClientCertRequest\(WebView/g)).toHaveLength(1);
+    expect(plugin.patchAndroid(out)).toBe(out);
+  });
+
   test("Android refuses to build when the page anchors move", () => {
     const moved = OLD_ANDROID.replace(
       "        super.onPageFinished(webView, url);\n",
@@ -140,6 +152,28 @@ describe("web view pins", () => {
     expect(out).toContain('NSSelectorFromString(@"pinState:host:")');
     expect(out).toContain(
       "NSURLSessionAuthChallengeCancelAuthenticationChallenge",
+    );
+    expect(plugin.patchIos(out)).toBe(out);
+  });
+
+  test("iOS answers a client certificate challenge with the saved identity", () => {
+    const anchor =
+      "  if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodClientCertificate) {";
+    const objc = [
+      "{",
+      anchor,
+      "    completionHandler(NSURLSessionAuthChallengeUseCredential, clientAuthenticationCredential);",
+      "  }",
+      "}",
+    ].join("\n");
+    const out = plugin.patchIos(objc);
+    expect(out).toContain('NSSelectorFromString(@"credentialForHost:")');
+    // The saved identity is tried inside the branch, before the stock answer.
+    expect(out.indexOf("credentialForHost:")).toBeGreaterThan(
+      out.indexOf(anchor),
+    );
+    expect(out.indexOf("credentialForHost:")).toBeLessThan(
+      out.indexOf("clientAuthenticationCredential"),
     );
     expect(plugin.patchIos(out)).toBe(out);
   });

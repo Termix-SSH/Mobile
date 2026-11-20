@@ -1,4 +1,5 @@
-// Lets web views trust a server by its pinned key (termix-net ServerPins).
+// Lets web views trust a server by its pinned key (termix-net ServerPins),
+// and show the client certificate saved for a host behind mTLS.
 // Android: a certificate error proceeds only when the key is pinned for the
 // host. iOS: a pinned host is answered by its key, matching or refused.
 // The web view can't link termix-net, so it finds the check by class name.
@@ -56,6 +57,25 @@ ${ANDROID_PAGE_CHECK}    }
 `;
 const ANDROID_COMMIT_ANCHOR = "    @Override\n    public void onPageFinished(";
 
+const ANDROID_CERT_MARKER = "Termix: the client certificate saved";
+const ANDROID_CERT_METHOD = `    @Override
+    public void onReceivedClientCertRequest(WebView webView, android.webkit.ClientCertRequest request) {
+        // ${ANDROID_CERT_MARKER} for this host.
+        try {
+            Object[] termixCert = (Object[]) Class.forName("expo.modules.termixnet.ClientCerts")
+                .getMethod("webClientCert", android.content.Context.class, String.class)
+                .invoke(null, webView.getContext(), request.getHost());
+            if (termixCert != null) {
+                request.proceed((java.security.PrivateKey) termixCert[0], (java.security.cert.X509Certificate[]) termixCert[1]);
+                return;
+            }
+        } catch (Exception ignored) {
+        }
+        super.onReceivedClientCertRequest(webView, request);
+    }
+
+`;
+
 const IOS_MARKER = "Termix: a pinned server key";
 const IOS_ANCHOR =
   "  if ([[challenge protectionSpace] authenticationMethod] == NSURLAuthenticationMethodClientCertificate) {";
@@ -105,6 +125,21 @@ function insertOnce(contents, marker, patch, anchor, file) {
   return contents.replace(anchor, `${patch}${anchor}`);
 }
 
+const IOS_CERT_MARKER = "Termix: the client certificate saved";
+const IOS_CERT_PATCH = `
+    // ${IOS_CERT_MARKER} for this host.
+    Class termixIds = NSClassFromString(@"TermixClientIdentity");
+    SEL termixIdSel = NSSelectorFromString(@"credentialForHost:");
+    if (termixIds != nil && [termixIds respondsToSelector:termixIdSel]) {
+      NSURLCredential *(*credentialFor)(id, SEL, NSString *) =
+        (NSURLCredential *(*)(id, SEL, NSString *))[termixIds methodForSelector:termixIdSel];
+      NSURLCredential *termixCredential = credentialFor(termixIds, termixIdSel, challenge.protectionSpace.host);
+      if (termixCredential != nil) {
+        completionHandler(NSURLSessionAuthChallengeUseCredential, termixCredential);
+        return;
+      }
+    }`;
+
 function patchAndroid(java) {
   let out = insertOnce(
     removeLanBypass(java),
@@ -129,17 +164,27 @@ function patchAndroid(java) {
       `${ANDROID_COMMIT_METHOD}${ANDROID_COMMIT_ANCHOR}`,
     );
   }
-  return out;
+  return insertOnce(
+    out,
+    ANDROID_CERT_MARKER,
+    ANDROID_CERT_METHOD,
+    ANDROID_COMMIT_ANCHOR,
+    "RNCWebViewClient.java",
+  );
 }
 
 function patchIos(objc) {
-  return insertOnce(
+  let out = insertOnce(
     objc,
     IOS_MARKER,
     IOS_PATCH,
     IOS_ANCHOR,
     "RNCWebViewImpl.m",
   );
+  if (!out.includes(IOS_CERT_MARKER)) {
+    out = out.replace(IOS_ANCHOR, `${IOS_ANCHOR}${IOS_CERT_PATCH}`);
+  }
+  return out;
 }
 
 function patchFile(root, file, patch) {
