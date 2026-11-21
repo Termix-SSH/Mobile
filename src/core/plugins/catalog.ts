@@ -176,6 +176,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "vault", name: "SSH Certificate Signer", kind: "server" },
   { id: "virtual-machines", name: "Virtual Machines", kind: "webview" },
   { id: "wake-on-lan", name: "Wake-on-LAN", kind: "webview" },
+  { id: "wall-display", name: "Wall Display", kind: "look" },
   { id: "warpgate", name: "Warpgate", kind: "server" },
   { id: "web-endpoint", name: "Web Endpoint", kind: "none" },
   {
