@@ -81,6 +81,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "fleets", name: "Fleets", kind: "webview" },
   { id: "git", name: "Git", kind: "webview" },
   { id: "homepage", name: "Homepage", kind: "webview" },
+  { id: "host-layout", name: "Host Layout", kind: "look" },
   { id: "host-metrics", name: "Host Metrics", kind: "none" },
   { id: "host-status", name: "Host Status", kind: "app" },
   { id: "hosts-config", name: "Hosts Config", kind: "server" },
