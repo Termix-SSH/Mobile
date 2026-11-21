@@ -101,6 +101,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "object-storage", name: "Object Storage", kind: "webview" },
   { id: "operations-center", name: "Operations Center", kind: "none" },
   { id: "opkssh", name: "OPKSSH", kind: "server" },
+  { id: "original-layout", name: "Original Layout", kind: "look" },
   { id: "out-of-band", name: "Out-of-band", kind: "webview" },
   {
     id: "package-manager",
