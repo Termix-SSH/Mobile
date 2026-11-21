@@ -161,6 +161,7 @@ export const OFFICIAL_PLUGINS: CatalogEntry[] = [
   { id: "sync", name: "Sync", kind: "server" },
   { id: "tailscale", name: "Tailscale", kind: "none" },
   { id: "telemetry", name: "Usage Statistics", kind: "server" },
+  { id: "terminal-layout", name: "Terminal Layout", kind: "look" },
   { id: "termix-identity", name: "Termix Identity", kind: "server" },
   { id: "tmux-monitor", name: "Tmux Monitor", kind: "server" },
   { id: "totp", name: "TOTP", kind: "none" },
