@@ -8,6 +8,23 @@ export interface FrameTheme {
   mode: "light" | "dark";
 }
 
+/**
+ * Where a foldable screen bends across the page, in the page's own CSS
+ * pixels. Only sent while a fold crosses the web view.
+ */
+export interface FrameFold {
+  /** vertical: the crease runs top to bottom and splits left from right. */
+  axis: "vertical" | "horizontal";
+  /**
+   * The area to keep clear around the crease, from the page's left edge
+   * (vertical) or top edge (horizontal).
+   */
+  start: number;
+  end: number;
+  /** Bent right now. A flat fold still splits the screen in two. */
+  active: boolean;
+}
+
 export interface FrameViewTarget {
   view: string;
   hostId?: string;
@@ -72,6 +89,8 @@ export type AppMessage =
   | { t: "ws.error"; id: string; message: string }
   | { t: "theme"; theme: FrameTheme; css: string }
   | { t: "view"; view: FrameViewTarget }
+  /** A fold crossed the page, moved, bent or went flat; null when it no longer crosses. */
+  | { t: "fold"; fold: FrameFold | null }
   | { t: "reload" }
   | { t: "back" }
   | { t: "foreign.reply"; id: string; ok: boolean; value?: unknown }

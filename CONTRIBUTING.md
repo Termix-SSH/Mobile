@@ -49,6 +49,31 @@ npm test
 
 This writes a new migration to `drizzle/` and `src/core/db/migrations.ts`. Never edit a migration that has shipped. `npm test` fails when the two disagree.
 
+## Server plugin pages
+
+Server plugins with no phone version run in a web view. The page they run in is built from `scripts/plugin-host/` into `assets/plugin-host/host.js.html`, and every message between the app and the page is typed in `src/core/plugins/frame-protocol.ts`. After changing either, run:
+
+```sh
+npm run build:plugin-host
+npm test
+```
+
+When a foldable screen bends across the page, the app sends `{ t: "fold", fold }`, where `fold` is `{ axis, start, end, active }` in the page's own CSS pixels (`axis` is `"vertical"` when the crease runs top to bottom, `start` and `end` bound the area to keep clear from the page's left or top edge, `active` is true while the screen is bent). It is sent again when the fold moves, bends, goes flat or turns, and with `fold: null` once it no longer crosses the page. Screens that don't fold never get it. The page sets:
+
+- `--termix-fold-start`, `--termix-fold-end` and `--termix-fold-size` on `<html>`, in `px`
+- `data-termix-fold="vertical"` or `"horizontal"` on `<html>`, plus `data-termix-fold-active` while bent
+- `window.termixFold` to the latest `fold` or `null`, and a `termix:fold` event on `window` with it as `detail`
+
+`start` and `end` are positions in the page's viewport, so they fit a layout that fills the page and does not scroll along the fold. A plugin can lay out two columns around the crease with CSS alone:
+
+```css
+html[data-termix-fold="vertical"] .columns {
+  display: grid;
+  grid-template-columns: var(--termix-fold-start) 1fr;
+  column-gap: var(--termix-fold-size);
+}
+```
+
 ## Project layout
 
 - `app/` holds routes only. Each route file imports a screen from `src/`.
