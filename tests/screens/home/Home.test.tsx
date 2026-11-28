@@ -96,8 +96,15 @@ jest.mock("@/core/data/hooks", () => ({
   useRepositories: () => ({ hosts: { list: async () => [] } }),
   useLiveList: () => ({ data: [], loading: false }),
 }));
+let mockFold: any = null;
 jest.mock("@/utils/window-class", () => ({
-  windowInfo: () => ({ canSplit: mockSplit }),
+  useWindowInfo: () => ({
+    canSplit: mockSplit,
+    fold: mockFold,
+    width: 900,
+    height: 700,
+    verticalBar: null,
+  }),
 }));
 jest.mock("@/core/status", () => ({ useHostStatuses: () => ({}) }));
 const mockCtx = { account: { id: "a1", kind: "local" }, client: null };
@@ -150,6 +157,7 @@ beforeEach(async () => {
   mockFeatureCards = [];
   mockDragEnd = null;
   mockSplit = false;
+  mockFold = null;
 });
 
 const texts = () =>
@@ -190,6 +198,32 @@ test("tablets lay cards out in two columns, row by row", async () => {
   await screen.findByText("wake on");
   // Left column first: cards 1 and 3, then card 2 on the right.
   expect(texts()).toEqual(["sessions", "wake on", "snippets on"]);
+});
+
+test("a book fold puts the gap between the columns on the crease", async () => {
+  // Bent like a book; the card row starts 96pt in, past the rail.
+  mockFold = { axis: "vertical", start: 428, end: 452, active: true };
+  mockFeatureCards = [card("snippets", 70), card("wake", 85)];
+  await render(<Home />);
+  await screen.findByText("wake on");
+  const row = screen.getByTestId("home-columns");
+  // Every mocked View shares these methods.
+  const native = jest.requireActual(
+    "@react-native/jest-preset/jest/MockNativeMethods",
+  ).default;
+  native.measureInWindow.mockImplementation((cb: any) => cb(96, 80, 760, 400));
+  try {
+    await fireEvent(row, "layout", {
+      nativeEvent: { layout: { x: 0, y: 0, width: 760, height: 400 } },
+    });
+  } finally {
+    native.measureInWindow.mockReset();
+  }
+  // A phone too small for two flat columns still gets one per half.
+  expect(texts()).toEqual(["sessions", "wake on", "snippets on"]);
+  expect(screen.getByTestId("home-column-0")).toHaveStyle({ width: 332 });
+  expect(screen.getByTestId("home-column-1")).toHaveStyle({ flex: 1 });
+  expect(row).toHaveStyle({ gap: 24 });
 });
 
 test("edit mode reorders and hides, and the layout is saved", async () => {
