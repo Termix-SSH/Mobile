@@ -14,12 +14,7 @@ import {
 import { PluginSessionTab } from "./PluginSessionTab";
 import { pluginIcon } from "./PluginIcon";
 import { frameTabType } from "./shell";
-import { currentWindowSize, windowInfo } from "@/utils/window-class";
-
-function device(): "phone" | "tablet" {
-  const { width, height } = currentWindowSize();
-  return windowInfo(width, height).canSplit ? "tablet" : "phone";
-}
+import { frameDevice } from "./device";
 
 function sessionTab(plugin: FramePlugin, view: FrameView) {
   const label = viewLabel(plugin, view);
@@ -117,7 +112,7 @@ export function syncFrameFeatures(
 
 function sync(client: AccountClient | null) {
   syncFrameFeatures(
-    client ? framePlugins(client.serverPlugins, features, device()) : [],
+    client ? framePlugins(client.serverPlugins, features, frameDevice()) : [],
   );
 }
 

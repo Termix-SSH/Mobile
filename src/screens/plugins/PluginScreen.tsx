@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { BackHandler, Pressable, View } from "react-native";
-import { currentWindowSize } from "@/utils/window-class";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Blocks, RotateCw } from "lucide-react-native";
@@ -11,6 +10,7 @@ import { unavailableText } from "@/core/plugins/support";
 import { framePlugin, viewLabel } from "@/core/plugins/webview";
 import { useThemeColor } from "@/contexts/ThemeContext";
 import { useTerminalSessions } from "@/contexts/TerminalSessionsContext";
+import { frameDevice } from "@/features/plugin-webview/device";
 import { PluginIcon } from "@/features/plugin-webview/PluginIcon";
 import {
   PluginWebView,
@@ -22,11 +22,6 @@ import { hasPluginSettings, PluginSettingsView } from "./PluginSettingsView";
 import { Screen } from "@/components/Screen";
 import { openTab } from "@/screens/shell/navigate";
 import { t } from "@/i18n";
-
-function device(): "phone" | "tablet" {
-  const { width, height } = currentWindowSize();
-  return Math.min(width, height) >= 600 ? "tablet" : "phone";
-}
 
 /** A server plugin's screen that is not about one host (Homepage, Alerts). */
 export default function PluginScreen() {
@@ -52,7 +47,7 @@ export default function PluginScreen() {
     [client, params.pluginId, version],
   );
   const plugin = useMemo(
-    () => (entry ? framePlugin(entry, features, device()) : null),
+    () => (entry ? framePlugin(entry, features, frameDevice()) : null),
     [entry],
   );
   const missing = unavailableText(entry);
