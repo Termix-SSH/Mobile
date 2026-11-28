@@ -1,11 +1,5 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import {
-  Pressable,
-  RefreshControl,
-  ScrollView,
-  useWindowDimensions,
-  View,
-} from "react-native";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Pressable, RefreshControl, ScrollView, View } from "react-native";
 import { useFocusEffect } from "expo-router";
 import DraggableFlatList, {
   ScaleDecorator,
@@ -33,8 +27,10 @@ import {
 import { openTab } from "@/screens/shell/navigate";
 import type { SSHHost } from "@/types";
 import { Button, FakeSwitch, Text, useConfirm } from "@/ui";
-import { windowInfo } from "@/utils/window-class";
+import { useFoldTweenWidth } from "@/utils/fold-tween";
+import { useWindowInfo } from "@/utils/window-class";
 import { CORE_HOME_CARDS } from "./cards";
+import { COLUMN_GAP, homeColumns, type Row } from "./columns";
 import { HomeDataContext, type HomeData } from "./HomeData";
 import {
   mergeLayout,
@@ -122,8 +118,44 @@ export default function Home() {
   const confirm = useConfirm();
   const openHostRaw = useOpenHost();
   const openHostAsRaw = useOpenHostAs();
-  const { width, height } = useWindowDimensions();
-  const twoColumns = windowInfo(width, height).canSplit;
+  const win = useWindowInfo();
+  // Where the card row sits in the window, to line the columns up with a fold.
+  const rowRef = useRef<View>(null);
+  const [row, setRow] = useState<Row | null>(null);
+  const measureRow = useCallback(
+    () =>
+      rowRef.current?.measureInWindow((x, _y, w) =>
+        setRow((prev) =>
+          prev && prev.x === x && prev.width === w ? prev : { x, width: w },
+        ),
+      ),
+    [],
+  );
+  // The rail can move or the fold can bend without the row's own size changing.
+  useEffect(() => {
+    measureRow();
+  }, [
+    measureRow,
+    win.fold?.axis,
+    win.fold?.start,
+    win.fold?.end,
+    win.fold?.active,
+    win.width,
+    win.height,
+    win.verticalBar,
+  ]);
+  const columnLayout = homeColumns(win.canSplit, row, win.fold);
+  // The first column glides onto the crease as the screen bends, and back as it goes flat.
+  // Keyed on the bend alone, so the first measure on a bent screen doesn't glide.
+  const bent = !!(win.fold?.axis === "vertical" && win.fold.active);
+  const firstWidth = useFoldTweenWidth(
+    columnLayout.fold?.first ?? (row ? (row.width - COLUMN_GAP) / 2 : 0),
+    bent,
+  );
+  const columnGap = useFoldTweenWidth(
+    columnLayout.fold?.gap ?? COLUMN_GAP,
+    bent,
+  );
   const [focused, setFocused] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
@@ -215,7 +247,7 @@ export default function Home() {
       />
     );
   };
-  const columns = twoColumns
+  const columns = columnLayout.two
     ? [
         visible.filter((_, i) => i % 2 === 0),
         visible.filter((_, i) => i % 2 === 1),
@@ -269,9 +301,26 @@ export default function Home() {
           >
             <ServerReachBanner />
             {loaded ? (
-              <View className="flex-row gap-3">
+              <View
+                ref={rowRef}
+                testID="home-columns"
+                onLayout={measureRow}
+                className="flex-row"
+                style={{ gap: columnGap }}
+              >
                 {columns.map((column, index) => (
-                  <View key={index} className="min-w-0 flex-1 gap-3">
+                  <View
+                    key={index}
+                    testID={`home-column-${index}`}
+                    className="min-w-0 gap-3"
+                    // Two measured columns: the first has a set width (on a fold it ends
+                    // at the crease) and the second takes the rest.
+                    style={
+                      index === 0 && columns.length > 1 && row
+                        ? { width: firstWidth }
+                        : { flex: 1 }
+                    }
+                  >
                     {column.map(renderCard)}
                   </View>
                 ))}
