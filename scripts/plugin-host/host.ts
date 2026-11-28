@@ -10,12 +10,7 @@ import * as ReactI18next from "react-i18next";
 import * as Sonner from "sonner";
 import * as SdkFrontend from "@termix-ssh/plugin-sdk/frontend";
 import * as SdkUi from "@termix-ssh/plugin-sdk/ui";
-// SDK 1.0.22 adds these; the build points at a core checkout until it is on npm.
-
-import {
-  startPluginFrame,
-  type PluginFrame,
-} from "@termix-ssh/plugin-sdk/frame-host";
+import { startPluginFrame } from "@termix-ssh/plugin-sdk/frame-host";
 import coreCss from "@termix-ssh/plugin-sdk/frame-host.css";
 
 import {
@@ -24,17 +19,22 @@ import {
   PROBE_VIEW,
   type AppMessage,
   type FrameBoot,
+  type FrameFold,
   type PageMessage,
   type ShellCall,
 } from "../../src/core/plugins/frame-protocol";
 import { createNet } from "./net";
 import { installImportMap, isLinkError } from "./shared";
 import { watchGestures } from "./gestures";
+import { applyFold } from "./fold";
+import { createReceiver } from "./receive";
 
 type Win = typeof window & {
   __termixFrameBoot?: FrameBoot;
   ReactNativeWebView?: { postMessage(data: string): void };
   [PAGE_RECEIVER]?: (message: AppMessage) => void;
+  /** Where the screen folds across the page, or null. See fold.ts. */
+  termixFold?: FrameFold | null;
 };
 
 const win = window as Win;
@@ -66,8 +66,6 @@ async function boot() {
   win.XMLHttpRequest = net.XMLHttpRequest;
   win.WebSocket = net.WebSocket;
 
-  let frame: PluginFrame | null = null;
-  let backlog: AppMessage[] = [];
   // Calls for other plugins' parts wait for the app's reply.
   const waiting = new Map<
     string,
@@ -86,36 +84,22 @@ async function boot() {
           post({ t: "foreign.emit", name, data: plain(value) }),
       }
     : undefined;
-  const handle = (message: AppMessage) => {
-    if (net.receive(message)) return;
-    if (message.t === "foreign.reply") {
-      const entry = waiting.get(message.id);
-      waiting.delete(message.id);
-      if (message.ok) entry?.resolve(message.value);
+  const receiver = createReceiver({
+    net: (message) => net.receive(message),
+    foreignReply: (reply) => {
+      const entry = waiting.get(reply.id);
+      waiting.delete(reply.id);
+      if (reply.ok) entry?.resolve(reply.value);
       else entry?.reject(new Error("Refused"));
-      return;
-    }
-    if (!frame) {
-      backlog.push(message);
-      return;
-    }
-    if (message.t === "theme") {
-      style("termix-theme", message.css);
-      frame.setTheme(message.theme);
-    } else if (message.t === "view") {
-      frame.setView(message.view);
-    } else if (message.t === "reload") {
-      void frame.reload();
-    } else if (message.t === "back") {
-      post({ t: "back.result", handled: goBack() });
-    } else if (message.t === "foreign.event") {
-      frame.foreignEvent(message.name, message.data);
-    } else if (message.t === "foreign.describe") {
-      const { items } = frame.describeParts(message.kind, message.id);
-      post({ t: "foreign.parts", reqId: message.reqId, items: plain(items) });
-    }
-  };
-  win[PAGE_RECEIVER] = handle;
+    },
+    fold: (fold) => applyFold(fold),
+    themeCss: (css) => style("termix-theme", css),
+    back: () => post({ t: "back.result", handled: goBack() }),
+    parts: (reqId, items) =>
+      post({ t: "foreign.parts", reqId, items: plain(items) }),
+  });
+  win[PAGE_RECEIVER] = receiver.handle;
+  win.termixFold = null;
 
   style("termix-core", coreCss);
   style("termix-theme", data.themeCss);
@@ -153,6 +137,7 @@ async function boot() {
     (...args: unknown[]) =>
       post({ t: "shell", call, args });
   const root = document.getElementById("root")!;
+  let frame: Awaited<ReturnType<typeof startPluginFrame>>;
   try {
     frame = await startPluginFrame({
       root,
@@ -189,9 +174,7 @@ async function boot() {
   }
   post({ t: "loaded", ...views });
 
-  const queued = backlog;
-  backlog = [];
-  queued.forEach(handle);
+  receiver.start(frame);
 
   const current = frame;
   watchGestures({

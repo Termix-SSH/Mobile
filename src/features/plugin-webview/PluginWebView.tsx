@@ -10,6 +10,7 @@ import {
 import { ActivityIndicator, Linking, View } from "react-native";
 import { Asset } from "expo-asset";
 import { useNetworkState } from "expo-network";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
   WebView,
   type WebViewHandle,
@@ -21,6 +22,7 @@ import { THEME_VARS } from "@/constants/theme";
 import { useTheme, useUiColors } from "@/contexts/ThemeContext";
 import type { AccountClient } from "@/core/api/AccountClient";
 import { fitMessage } from "@/core/plugins/compat";
+import { frameFold, sameFold, type FrameRect } from "@/core/plugins/frame-fold";
 import { FrameBridge } from "@/core/plugins/frame-bridge";
 import { loadFrameBundle, type FrameBundle } from "@/core/plugins/frame-bundle";
 import { buildFramePage, frameThemeCss } from "@/core/plugins/frame-page";
@@ -28,6 +30,7 @@ import {
   PAGE_RECEIVER,
   parsePageMessage,
   type AppMessage,
+  type FrameFold,
   type FrameTheme,
   type FrameViewTarget,
   type ShellCall,
@@ -36,10 +39,18 @@ import type { FramePlugin } from "@/core/plugins/webview";
 import { systemLogger } from "@/core/log/logger";
 import { Button, EmptyState, Text, useConfirm } from "@/ui";
 import { readLocalText } from "@/utils/localFile";
+import { useWindowInfo } from "@/utils/window-class";
 import { PluginIcon } from "./PluginIcon";
 import { useForeignParts, type PartWebView } from "./ForeignParts";
 import type { ForeignKind } from "@/core/plugins/foreign";
 import { t } from "@/i18n";
+
+/**
+ * How often a page on a folding screen is measured again. A view above it can
+ * move it without resizing it (a split pane changing sides), and no layout
+ * event says so.
+ */
+export const FOLD_REMEASURE_MS = 500;
 
 let hostScript: Promise<string> | null = null;
 
@@ -119,6 +130,12 @@ export const PluginWebView = forwardRef<
     const [attempt, setAttempt] = useState(0);
     const offline = network.isConnected === false;
     const { origin, basePath } = useMemo(() => serverParts(client), [client]);
+    const win = useWindowInfo();
+    const insets = useSafeAreaInsets();
+    // Only a plugin's own screen lays out around a fold, not a probe or a part.
+    const fold = mode === "view" ? win.fold : null;
+    const box = useRef<View>(null);
+    const [rect, setRect] = useState<FrameRect | null>(null);
 
     const theme: FrameTheme = useMemo(
       () => ({ id: resolvedTheme, mode: isDark ? "dark" : "light" }),
@@ -210,6 +227,60 @@ export const PluginWebView = forwardRef<
     useEffect(() => {
       if (state.kind === "ready") send({ t: "theme", theme, css: themeCss });
     }, [theme, themeCss, state.kind, send]);
+
+    // Where the fold crosses the page. Only measured on screens that fold.
+    const hasFold = fold !== null;
+    const measure = useCallback(() => {
+      if (!hasFold) return;
+      box.current?.measureInWindow((x, y, w, h) =>
+        setRect((prev) =>
+          prev &&
+          prev.x === x &&
+          prev.y === y &&
+          prev.width === w &&
+          prev.height === h
+            ? prev
+            : { x, y, width: w, height: h },
+        ),
+      );
+    }, [hasFold]);
+    // A turn, a moved crease or a safe area changing sides can shift the page
+    // without resizing it.
+    useEffect(() => {
+      if (!hasFold) return;
+      const frame = requestAnimationFrame(measure);
+      return () => cancelAnimationFrame(frame);
+    }, [
+      measure,
+      hasFold,
+      fold?.axis,
+      fold?.start,
+      fold?.end,
+      win.width,
+      win.height,
+      insets.top,
+      insets.left,
+      insets.right,
+    ]);
+    // Anything else that moves it is caught here. Same place, no new render.
+    const shown = state.kind === "ready";
+    useEffect(() => {
+      if (!hasFold || !shown) return;
+      const timer = setInterval(measure, FOLD_REMEASURE_MS);
+      return () => clearInterval(timer);
+    }, [measure, hasFold, shown]);
+    const pageFold = useMemo(() => frameFold(fold, rect), [fold, rect]);
+    const sentFold = useRef<FrameFold | null>(null);
+    useEffect(() => {
+      // A new page starts without a fold.
+      if (state.kind !== "ready") {
+        sentFold.current = null;
+        return;
+      }
+      if (sameFold(sentFold.current, pageFold)) return;
+      sentFold.current = pageFold;
+      send({ t: "fold", fold: pageFold });
+    }, [pageFold, state.kind, send]);
 
     // A part's props live in the view's data, so they go along too.
     const partData = mode === "part" ? JSON.stringify(view.data ?? null) : "";
@@ -425,7 +496,11 @@ export const PluginWebView = forwardRef<
 
     return (
       <View
+        ref={box}
+        testID="plugin-box"
         className="flex-1 bg-background"
+        collapsable={false}
+        onLayout={measure}
         // A real touch on the view, which the page can't fake: a few core
         // requests (revoking API keys) only go through right after one.
         onTouchStart={() => bridge.current?.noteTouch()}
